@@ -1,0 +1,32 @@
+import '@shared/env'; // ← ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ
+import auth from '@shared/auth';
+import helpers from '../helpers.js';
+import cron from 'node-cron';
+import db from '@shared/db';
+
+cron.schedule("46 21 * * *", async () => {
+    try {
+        await db.chat.clearTableChats();
+        const credentials = await db.credential.getCredentials();
+
+        const chatPromises = credentials.map(async (dist) => {
+            const client = await auth.start2(dist);
+            try {
+                return await helpers.chatsFromClient(client);
+            }  finally { 
+                await client.disconnect(); 
+            }
+        });
+
+        const allChats = (await Promise.all(chatPromises)).flat();
+        const uniqueChatList = helpers.createUniqueList(allChats);
+        await db.chat.insertChats(uniqueChatList);
+    } catch (err) {
+        console.error('Критическая ошибка при запуске парсера чатов', err);
+        process.exit(1);
+    }
+    process.exit(0);
+},
+{
+    timezone: "Europe/Moscow"
+});

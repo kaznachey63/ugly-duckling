@@ -1,0 +1,151 @@
+[
+  {
+    "id": 1,
+    "caption": "💥 Шанс всем заработать! 💥 \n\n1️⃣ Коммерческое здание (готовый бизнес) 1000 кв.м. в Золотом треугольнике на первой береговой линии с ремонтом.\n       💰 Цена: 400 млн.₽. \n\n2️⃣ Коттеджный поселок на Леселидзе \n        300 м², 5 соток\n       💰 Цена: 55 млн.₽ \n\n3️⃣ Дом хай-тек на Политехнической 300 кв.м., 4 сотки, вид на море. \n        💰 Цена: 69 млн.₽. \n\n4️⃣ Здание 1325 м² на Бытхе, участок 7 соток, вид на море!\n        💰 Цена: 178 млн.₽. \n\n5️⃣ Более 20 предложений в ЖК \"Меркато\" \n\n6️⃣ Дом 160 м² в с. Высокое на 11 сотках за 17 500 000 руб. \n\nУ меня много интересных объектов (элитка, дома, участки, закрытые продажи, от инвесторов и т.д.)😉\n📲 Марина 8928 455 50 52\n💢 Мой ТГ-канал: @real_estate_sochi2020 \n\n#срочно #элит #дом #акция #скидка #бытха #апарт #инвестиции #элитка #коммерция #Дом #коттедж #санпик #поляна #адлер #гостиница #жп #готовыйбизнес #горизонт",
+    "media": [
+      "c122c06c-dca2-450f-a1a9-4a9d7c7b32b2.jpg"
+    ],
+    "entities": [
+      {
+        "type": "bold",
+        "length": 21,
+        "offset": 3
+      },
+      {
+        "type": "underline",
+        "length": 70,
+        "offset": 34
+      },
+      {
+        "type": "underline",
+        "length": 32,
+        "offset": 176
+      },
+      {
+        "type": "underline",
+        "length": 30,
+        "offset": 264
+      },
+      {
+        "type": "underline",
+        "length": 23,
+        "offset": 362
+      },
+      {
+        "type": "underline",
+        "length": 37,
+        "offset": 451
+      },
+      {
+        "type": "italic",
+        "length": 33,
+        "offset": 517
+      },
+      {
+        "type": "underline",
+        "length": 32,
+        "offset": 517
+      },
+      {
+        "type": "mention",
+        "length": 22,
+        "offset": 692
+      },
+      {
+        "type": "hashtag",
+        "length": 7,
+        "offset": 717
+      },
+      {
+        "type": "hashtag",
+        "length": 5,
+        "offset": 725
+      },
+      {
+        "type": "hashtag",
+        "length": 4,
+        "offset": 731
+      },
+      {
+        "type": "hashtag",
+        "length": 6,
+        "offset": 736
+      },
+      {
+        "type": "hashtag",
+        "length": 7,
+        "offset": 743
+      },
+      {
+        "type": "hashtag",
+        "length": 6,
+        "offset": 751
+      },
+      {
+        "type": "hashtag",
+        "length": 6,
+        "offset": 758
+      },
+      {
+        "type": "hashtag",
+        "length": 11,
+        "offset": 765
+      },
+      {
+        "type": "hashtag",
+        "length": 7,
+        "offset": 777
+      },
+      {
+        "type": "hashtag",
+        "length": 10,
+        "offset": 785
+      },
+      {
+        "type": "hashtag",
+        "length": 4,
+        "offset": 796
+      },
+      {
+        "type": "hashtag",
+        "length": 8,
+        "offset": 801
+      },
+      {
+        "type": "hashtag",
+        "length": 7,
+        "offset": 810
+      },
+      {
+        "type": "hashtag",
+        "length": 7,
+        "offset": 818
+      },
+      {
+        "type": "hashtag",
+        "length": 6,
+        "offset": 826
+      },
+      {
+        "type": "hashtag",
+        "length": 10,
+        "offset": 833
+      },
+      {
+        "type": "hashtag",
+        "length": 3,
+        "offset": 844
+      },
+      {
+        "type": "hashtag",
+        "length": 14,
+        "offset": 848
+      },
+      {
+        "type": "hashtag",
+        "length": 9,
+        "offset": 863
+      }
+    ]
+  }
+]

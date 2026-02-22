@@ -1,0 +1,18 @@
+{
+  "name": "bot_rass",
+  "version": "1.0.0",
+  "main": "src/core/index.ts",
+  "scripts": {
+    "dev": "tsx --watch src/core/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update:dependencies": "npm update && npm audit fix"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@grammyjs/i18n": "^1.1.2"
+  }
+}
