@@ -19,12 +19,12 @@
     "baseUrl": ".",
     "paths": {
       "@shared/*": ["../../src/shared/*"],
-      "@utils": ["./src/utils/index"],
-      "@utils/*": ["./src/utils/*"],
-      "@constants": ["./src/constants/index"],
-      "@i18n": ["./src/i18n/config"],
-      "@menus/*": ["./src/menus/*"],
-      "@menus": ["./src/menus/index"],
+      "@utils": ["src/common/utils/index"],
+      "@utils/*": ["src/common/utils/*"],
+      "@constants": ["src/common/constants/index"],
+      "@i18n": ["src/ui/i18n/index"],
+      "@menus/*": ["src/ui/menus/*"],
+      "@menus": ["src/ui/menus/index"],
     }
   },
   "include": [

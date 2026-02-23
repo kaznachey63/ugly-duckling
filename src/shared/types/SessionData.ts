@@ -31,7 +31,7 @@ export interface SessionData {
         };
         time: {
             addingTime: boolean;
-            editingTime: boolean;
+            updatingTime: boolean;
         };
         busy: boolean;
         skipProcessingToast: boolean;
