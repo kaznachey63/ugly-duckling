@@ -1,5 +1,8 @@
-import type { MyContext, SessionData } from '@shared/types/SessionData';
+import type { MyContext } from '@shared/types/SessionData';
 
+/**
+ * Объявление о параметрах графика
+ */
 export default async function parametrsTime(ctx: MyContext) {
-    await ctx.answerCbQuery("Параметры Графика - кнопки ниже", { show_alert: true });
+    await ctx.answerCallbackQuery({ text: ctx.t("distribution.section.shedule.parameters.alert"), show_alert: true });
 };

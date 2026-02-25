@@ -20,7 +20,7 @@ export default async function document(ctx: MyContext) {
             }
             else {
                 try { await ctx.deleteMessage(); } catch (e) {};
-                await ctx.reply("Я не умею обрабатывать документы, не содержащие медиа");
+                await ctx.reply(ctx.t('handlers.document.error'));
                 break;
             }
         }

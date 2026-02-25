@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/core/index.ts",
   "scripts": {
-    "dev": "tsx --watch src/core/index.ts",
+    "dev": "tsx --watch src/app/core/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "update:dependencies": "npm update && npm audit fix"
   },

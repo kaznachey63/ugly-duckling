@@ -1,32 +1,34 @@
-import db from '@shared/db/index.js';
-import utils from "src/common/utils";
-import type { MyContext, SessionData } from '@shared/types/SessionData';
+import db from '@shared/db/index';
+import type { MyContext } from '@shared/types/SessionData';
+import menuSchedule from '@menus/distribution/sections/schedule';
+import { ServerManager } from '@utils/ServerManager';
 
+/**
+ * Очистка графика времён
+ */
 export default async function removeAllTime(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name!;
-    let textMessage = "";
+    let text = [];
 
     if (!String(nameDistribution)) {
-        textMessage = "❌ График не очищен!\nОбратитесь к администратору";
+        text.push("distribution.section.schedule.clearAll.error");
     }
     else {
         await db.time.clearTableTimes(ctx.session.distribution.schema);
-
-        if (await utils.server.reloadService(nameDistribution)) {
-            textMessage = "✅ График очищен!";
+        const server = new ServerManager();
+        if (await server.restartProcessOrNot(nameDistribution)) {
+            text.push("distribution.section.schedule.clearAll.success");
         }
         else {
-            textMessage = "❌ График не очищен!\nОбратитесь к администратору";
+            text.push("distribution.section.schedule.clearAll.error");
         }
     }
+    text.push("distribution.section.schedule.clearAll.path");
+    const menu = menuSchedule.clearAll(ctx, text);
 
-    textMessage += `\n\n[📍 Путь: Кабинет → Меню «${ctx.session.distribution.call}» → График → *Очистка графика*]`
-    const menuRemoveAllTime = Markup.inlineKeyboard(
-        [Markup.button.callback("🔙 Назад", `mainTime${nameDistribution}`)]
-    );
-
-    await ctx.editMessageText(utils.formatting.escapeMarkdown(textMessage), {
+    await ctx.editMessageText(menu.text,
+    {
         parse_mode: "MarkdownV2", 
-        reply_markup: menuRemoveAllTime.reply_markup
+        reply_markup: menu.keyboard
     });
 }

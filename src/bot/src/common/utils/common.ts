@@ -21,15 +21,15 @@ function sessionReset(session: any) {
  * @param ctx Контекст
  */
 async function loadMenu(ctx: MyContext) {
-    const halfPath = path.join("src", "partitions", "menu");
+    const halfPath = path.join("src", "app", "cabinet")
     const switchQueryPath = await fs.realpath(halfPath);
-    const handlerPath = path.join(switchQueryPath, "mainMenu.ts");
+    const handlerPath = path.join(switchQueryPath, "cabinet.ts");
     const handlerUrl = pathToFileURL(handlerPath).href;
     try {
         const handlerModule = await import(handlerUrl);
         await handlerModule.default(ctx);
     } catch (error) {
-        console.error("Ошибка в подгрузке Меню:", error);
+        console.error("Ошибка в подгрузке кабинета:", error);
     }
 }
 

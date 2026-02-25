@@ -37,7 +37,7 @@ function createDefaultSession(): SessionData {
             },
             time: {
                 addingTime: false,
-                editingTime: false
+                updatingTime: false
             },
             busy: false,
             skipProcessingToast: false

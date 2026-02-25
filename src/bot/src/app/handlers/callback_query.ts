@@ -15,7 +15,7 @@ const dirCache = new Map<string, string[]>();
  * @param ctx Контекст
  * @param calendar Календарь
  */
-export default async function callback_query(ctx: MyContext, calendar: Calendar) {
+export default async function callback_query(ctx: MyContext) { //, calendar: Calendar) {
     let queryData = "";
     if ("data" in ctx.callbackQuery!) {
         queryData = ctx.callbackQuery.data;
@@ -103,11 +103,14 @@ export default async function callback_query(ctx: MyContext, calendar: Calendar)
             }
         }
     }
-    else if (queryData.toLowerCase().includes("service")) {
-        halfPath = path.join("src", "partitions", "service");
+    else if (queryData.toLowerCase().includes("condition") || queryData.toLowerCase().includes("startdistribution") || queryData.toLowerCase().includes("stopdistribution")) {
+        halfPath = path.join("src", "app", "distribution", "sections", "condition");
     }
-    else if (queryData.toLowerCase().includes("menu")) {
-        halfPath = path.join("src", "partitions", "menu");
+    else if (queryData.toLowerCase().includes("maindistribution")) {
+        halfPath = path.join("src", "app", "distribution");
+    }
+    else if (queryData.toLowerCase().includes("cabinet")) {
+        halfPath = path.join("src", "app", "cabinet");
     }
 
     const switchQueryPath = await fs.realpath(halfPath);

@@ -1,11 +1,15 @@
 import db from "@shared/db";
 import utils from "src/common/utils";
-import cabinet from "src/ui/menus/cabinet";
+import menuCabinet from "src/ui/menus/cabinet";
 import type { MyContext } from '@shared/types/SessionData';
+import type { InlineKeyboard } from "grammy";
 
-export default async function mainMenu(ctx: MyContext) {
+/**
+ * Отображение кабинета пользователя
+ */
+export default async function cabinet(ctx: MyContext) {
     try {
-        // 1. ЛОГИКА: получаем данные
+        // Получение рассылок
         const allCreds = await db.credential.getCred();
         if (!allCreds?.length) {
             return ctx.reply(ctx.t('cabinet.noCreds'));
@@ -13,9 +17,13 @@ export default async function mainMenu(ctx: MyContext) {
 
         let filtered: typeof allCreds = [];
 
+        // Проверка на админа
         if (await db.user.userIsAdmin(ctx.from!.id)) {
+            ctx.session.role = "admin";
             filtered = allCreds;
-        } else {
+        } 
+        // Получение рассылок по номеру телефона из гугл таблов 
+        else {  
             const phone = await db.user.getPhoneNumber(ctx.from!.id);
             if (!phone) return ctx.reply(ctx.t('cabinet.noPhone'));
 
@@ -28,9 +36,10 @@ export default async function mainMenu(ctx: MyContext) {
             filtered = allCreds.filter(c => labels.includes(c.label));
         }
 
-        if (!filtered.length) return ctx.reply(ctx.t('cabinet.noMailings'));
+        // Нет рассылок (не заказчик) - отправляем уведомление
+        if (!filtered.length) return ctx.reply(ctx.t('cabinet.noSendouts'));
 
-        // 2. Сортировка (твоя логика, без изменений)
+        // Сортировка
         const sorted = filtered.sort((a, b) => {
             const displayA = a.call || a.label || a.name;
             const displayB = b.call || b.label || b.name;
@@ -62,22 +71,16 @@ export default async function mainMenu(ctx: MyContext) {
             return displayA.localeCompare(displayB, 'ru', { sensitivity: 'base' });
         });
 
-        // 3. UI: генерируем меню
-        const menu = cabinet.cabinetMenu(ctx, sorted);
-
-        // 4. Отправка (с fallback)
-        const replyOptions = {
-            ...(menu.reply_markup && { reply_markup: menu.reply_markup })
-        };
-
+        const menu = menuCabinet(ctx, sorted);
+        
+        // Отправка результата
         try {
-            await ctx.editMessageText(menu.text, replyOptions);
+            await ctx.editMessageText(menu.text, { reply_markup: menu.keyboard as InlineKeyboard });
         } catch {
-            await ctx.reply(menu.text, replyOptions);
+            await ctx.reply(menu.text, { reply_markup: menu.keyboard as InlineKeyboard });
         }
 
     } catch (e) {
         console.error(e);
-        await ctx.reply(ctx.t('cabinet.error'));
     }
 }

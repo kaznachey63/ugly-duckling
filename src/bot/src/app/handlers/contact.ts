@@ -1,6 +1,7 @@
-import type { MyContext, SessionData } from '@shared/types/SessionData';
+import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import utils from 'src/common/utils';
+import { Keyboard } from 'grammy';
 
 /**
  * Обработчик контакта
@@ -15,7 +16,7 @@ export default async function contact(ctx: MyContext) {
         await utils.common.deleteTwoMessages(ctx, "contact")
         
         // Сообщение "Обработка..."
-        await ctx.reply("Обработка...", Markup.removeKeyboard());
+        await ctx.reply("Обработка...");
 
         // Достаём номер телефона
         const phoneNumber = ctx.message?.contact.phone_number.replace('+', '');
@@ -40,7 +41,7 @@ export default async function contact(ctx: MyContext) {
             await utils.common.loadMenu(ctx);
         }
         else { // Если номер не найден
-            await ctx.reply("Отказано в доступе.\nЧтобы оставить заявку на продукт, воспользуйтесь командной '/form'");
+            await ctx.reply(ctx.t('handlers.contact.accessDenied'));
         }
     } catch (error) {
         console.error("Ошибка в обработке контакта:", error);

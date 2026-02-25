@@ -1,6 +1,6 @@
 import { getPool } from '../pool';
 const pool = getPool();
-import type { Chat } from '@shared/types/Chat.js';
+import type { Chat } from '@shared/types/Chat';
 
 async function insertChats(list: Chat[]) {
     const chatIds = list.map(chat => chat.id);
@@ -36,7 +36,7 @@ async function getChats(): Promise<Chat[] | undefined> {
     }
 }
 
-async function getChatsInfo(chats: string[]) {
+async function getChatsInfo(chats: string[]): Promise<Chat[] | undefined> {
     try {
         const res = await pool.query(
             "SELECT public.get_chats_info($1) AS chats",
@@ -46,6 +46,7 @@ async function getChatsInfo(chats: string[]) {
         return res.rows[0].chats;
     } catch (error) {
         console.error(error);
+        return undefined;
     }
 }
 

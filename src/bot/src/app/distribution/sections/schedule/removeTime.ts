@@ -1,32 +1,32 @@
-import db from '@shared/db/index.js';
-import utils from "src/common/utils";
-import type { MyContext, SessionData } from '@shared/types/SessionData';
+import db from '@shared/db/index';
+import type { MyContext } from '@shared/types/SessionData';
+import menuSchedule from '@menus/distribution/sections/schedule';
+import { ServerManager } from '@utils/ServerManager';
 
+/**
+ * Удаление времени из графика
+ */
 export default async function removeTime(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name!;
-    let textMessage = "";
+    let text = [];
 
     if (!String(nameDistribution)) {
-        textMessage = "❌ Текст не удален!\nОбратитесь к администратору";
+        text.push("distribution.section.schedule.remove.error");
     }
     else {
         await db.time.removeTime(ctx.session.distribution.schema, ctx.session.typePartition.time.id);
-
-        if (await utils.server.reloadService(nameDistribution)) {
-            textMessage = "✅ Время удалено!";
+        const server = new ServerManager();
+        if (await server.restartProcessOrNot(nameDistribution)) {
+            text.push("distribution.section.schedule.remove.success");
         }
         else {
-            textMessage = "❌ Время не удалено!\nОбратитесь к администратору";
+            text.push("distribution.section.schedule.remove.error");
         }
     }
-
-    textMessage += `\n\n[📍 Путь: Кабинет → Меню «${ctx.session.distribution.call}» → График → Выбор действия → *Удаление времени*]`
-    const menuRemoveTime = Markup.inlineKeyboard(
-        [Markup.button.callback("🔙 Назад", `mainTime${nameDistribution}`)]
-    );
-
-    await ctx.editMessageText(utils.formatting.escapeMarkdown(textMessage), {
+    text.push("distribution.section.schedule.path");
+    const menu = menuSchedule.remove(ctx, text);
+    await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2", 
-        reply_markup: menuRemoveTime.reply_markup
+        reply_markup: menu.keyboard
     });
 }

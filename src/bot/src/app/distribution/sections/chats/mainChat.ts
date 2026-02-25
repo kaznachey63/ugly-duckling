@@ -1,34 +1,30 @@
 import db from "@shared/db";
 import utils from "src/common/utils";
 import type { MyContext } from '@shared/types/SessionData';
+import menuChat from "@menus/distribution/sections/chats";
 
+/**
+ * Главная страница раздела чаты
+ */
 export default async function mainChat(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name!;
     const logsBaza = await db.result.getResults(nameDistribution);
     if (!logsBaza) return;
 
     const lastLog = logsBaza.at(-1)!;
-    const infoChat = await db.chat.getChatsInfo(lastLog?.chats);
-    console.log(infoChat);
+    const infoChats = await db.chat.getChatsInfo(lastLog?.chats);
     
     if (logsBaza.length === 0 || !lastLog?.chats) {
-        // ✅ Показываем alert, если рассылки нет
-        await ctx.answerCbQuery(`Рассылка у -${ctx.session.distribution.call}- еще не произошла!`, { show_alert: true });
+        // Если рассылки нет
+        await ctx.answerCallbackQuery({ text: ctx.t("distribution.sections.chats.noSendout", { call: ctx.session.distribution.call }), show_alert: true });
         return;
     }
 
-    // Создаем клавиатуру
-    const menuChat = Markup.inlineKeyboard([
-        ...infoChat.map((c: any) => [Markup.button.url(c.title, c.link)]),
-        [Markup.button.callback("🔙 Назад", "menuDistribution" + nameDistribution)]
-    ]);
-
-    await ctx.editMessageText(utils.formatting.escapeMarkdown(
-        `Количество: ${lastLog.success}` +
-        `\n\n[📍 Путь: Кабинет → Меню «${ctx.session.distribution.call}» → *Чаты*]`), 
+    const menu = menuChat(ctx, lastLog.success, infoChats!)
+    await ctx.editMessageText(utils.formatting.escapeMarkdown(menu.text),
         {
             parse_mode: "MarkdownV2",
-            reply_markup: menuChat.reply_markup
+            reply_markup: menu.keyboard
         }
     );
 }

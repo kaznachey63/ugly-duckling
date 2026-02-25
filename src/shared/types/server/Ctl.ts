@@ -1,0 +1,1 @@
+export type Ctl = "journalctl -u" | "systemctl";

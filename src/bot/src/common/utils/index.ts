@@ -1,4 +1,4 @@
-import server from './server.js';
+import {ServerManager} from './ServerManager';
 import common from './common.js';
 import file from './file.js';
 import formatting from './formatting.js';
@@ -7,7 +7,7 @@ import local from './localization.js';
 import init from './initialize.js';
 
 export default {
-    server,
+    ServerManager,
     common,
     file,
     formatting,

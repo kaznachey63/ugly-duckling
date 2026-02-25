@@ -10,12 +10,7 @@ export default async function start(ctx: MyContext) {
     try {
         // Удаление сообщений перед данными обработчика
         await utils.common.deleteTwoMessages(ctx, "start");
-
-        await ctx.reply(
-            "Приветствую! Я - Телеграмм-бот, помощник для рассылки.\n\n" +
-            "Настоятельно рекомендую ознакомиться со всем реестром моих команд по нажатию овальной кнопки 'Меню' в левом нижнем углу экрана.\n" +
-            "Предварительно прочитав руководство по использованию, вызываемое командой '/about'"
-        );
+        await ctx.reply(ctx.t('handlers.commands.start.message'));
     } catch (error) {
         console.error("Ошибка в обработке команды start:", error);
     }

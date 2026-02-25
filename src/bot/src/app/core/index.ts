@@ -83,7 +83,7 @@ bot.on('callback_query', async (ctx) => {
     // }
 
     // await ctx.answerCallbackQuery();
-
+    await handler.callback_query(ctx);
 });
 
 bot.on('message:contact', async (ctx: MyContext) => {

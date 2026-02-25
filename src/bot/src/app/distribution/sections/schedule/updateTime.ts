@@ -1,21 +1,21 @@
 import utils from "src/common/utils";
-import type { MyContext, SessionData } from '@shared/types/SessionData';
+import type { MyContext } from '@shared/types/SessionData';
+import menuSchedule from '@menus/distribution/sections/schedule';
 
+/**
+ * Уведомление об изменении времени. Ожидание "времени".
+ */
 export default async function updateTime(ctx: MyContext) {
     ctx.session.state.time.updatingTime = true;
+    const menu = menuSchedule.update(ctx);
 
-    const menuAddTime = Markup.inlineKeyboard(
-        [Markup.button.callback("🔙 Назад", "mainTime" + ctx.session.distribution.name!)]
-    );
-
-    // Сохранение айди для последующего редактирования этого же сообщения
-    const msg = await ctx.editMessageText(utils.formatting.escapeMarkdown
-        (`Изменяем время!\n\n[📍 Путь: Кабинет → Меню «${ctx.session.distribution.call}» → График → *Изменение времени*]`),
+    const msg = await ctx.editMessageText(menu.text,
         {
-            parse_mode: "MarkdownV2",
-            ...menuAddTime
+            reply_markup: menu.keyboard,
+            parse_mode: "MarkdownV2"
         }
     );
+    
     if (typeof msg !== "boolean" && "message_id" in msg) {
         ctx.session.messageIds.forTime = msg.message_id;
     }

@@ -1,30 +1,23 @@
 import { InlineKeyboard } from 'grammy';
-import type { MyContext } from '@shared/types/SessionData';
 import type { Cred } from '@shared/types/Cred';
+import type { Menu } from '@shared/types/Menu';
+import type { MyContext } from '@shared/types/SessionData';
 
-export function cabinetMenu(ctx: MyContext, sendouts: Cred[]) {
-    // Заголовок
-    const title = [
-        ctx.t('cabinet.title'),
+/**
+ * Меню кабинета
+ */
+export default function cabinet(ctx: MyContext, sendouts: Cred[]): Menu<InlineKeyboard> {
+    const text = [
+        ctx.t('nav.cabinet'),
         ctx.t('cabinet.subtitle', { count: sendouts.length })
     ].join('\n');
 
-    // Пустое состояние
-    if (!sendouts.length) {
-        return { text: ctx.t('cabinet.noSendouts') };
-    }
-
-    // Кнопки
     const keyboard = new InlineKeyboard();
     sendouts.forEach((cred) => {
         keyboard.text(
             cred.call,
-            `menuDistribution${cred.name}`
+            `mainDistribution${cred.name}`
         ).row();
-    });
-    console.log(keyboard.inline_keyboard);
-    
-    return { text: title, reply_markup: keyboard };
+    });    
+    return { text, keyboard };
 }
-
-export default { cabinetMenu };
