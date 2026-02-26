@@ -5,13 +5,13 @@ import { TelegramClient } from "telegram";
  * Класс для рассылки по чатам
  */
 export class Distribution {
-    private readonly sheduler: Scheduler;
+    private readonly scheduler: Scheduler;
 
     constructor(client: TelegramClient) {
-        this.sheduler = new Scheduler(client);
+        this.scheduler = new Scheduler(client);
     }
 
     async initialize() {
-        this.sheduler.start();
+        this.scheduler.start();
     }
 }

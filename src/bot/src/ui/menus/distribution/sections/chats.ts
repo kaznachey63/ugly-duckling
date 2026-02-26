@@ -6,7 +6,7 @@ import type { Menu } from "@shared/types/Menu";
 /**
  * Меню раздела чаты
  */
-export default function mainChat(ctx: MyContext, success: number, chats: Chat[]): Menu<InlineKeyboard> {
+export default function chat(ctx: MyContext, success: number, chats: Chat[]): Menu<InlineKeyboard> {
     const text = [
         ctx.t('distribution.sections.chats.amount', { success: success }),
         ctx.t('distribution.sections.chats.path', { call: ctx.session.distribution.call })

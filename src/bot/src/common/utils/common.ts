@@ -50,8 +50,13 @@ async function deleteTwoMessages(ctx: MyContext, nameHandler: string) {
     } catch (error) {}
 }
 
+function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, 250));
+}
+
 export default {
     sessionReset,
     loadMenu,
-    deleteTwoMessages
+    deleteTwoMessages,
+    sleep
 };

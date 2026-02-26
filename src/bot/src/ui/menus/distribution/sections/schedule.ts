@@ -30,7 +30,7 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
             keyboard.text(ctx.t("distribution.section.schedule.main.buttons.addTime"), `addTime${nameDistribution}`)
         }
         if (!times?.length) {
-            keyboard.text(ctx.t("distribution.section.schedule.main.buttons.clearAll"), `removeAllTime${nameDistribution}`)
+            keyboard.text(ctx.t("distribution.section.schedule.main.buttons.clearSchedule"), `clearSchedule${nameDistribution}`)
         }
     }
     keyboard.text("nav.back", "mainDistribution");
@@ -99,7 +99,7 @@ function updating(ctx: MyContext): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function clearAll(ctx: MyContext, listText: string[]): Menu<InlineKeyboard> {
+function clearSchedule(ctx: MyContext, listText: string[]): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard().text(ctx.t('nav.back'), 'mainDistribution');
     const text = listText.map(t => {
         return t.includes('path') ? ctx.t(t, { call: ctx.session.distribution.call }) : ctx.t(t);
@@ -114,5 +114,5 @@ export default {
     update,
     remove,
     updateOrRemove,
-    clearAll    
+    clearSchedule    
 };

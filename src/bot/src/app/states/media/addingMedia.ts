@@ -2,178 +2,179 @@ import db from '@shared/db';
 import fs from 'fs/promises';
 import path from 'path';
 import fetch from 'node-fetch';
-import type { MyContext, SessionData } from '@shared/types/SessionData';
+import type { MyContext } from '@shared/types/SessionData';
 import { randomUUID } from "crypto";
 import consts from 'src/common/constants';
 import utils from 'src/common/utils';
+import type { Message } from 'grammy/types';
+import menuMedia from '@menus/states/media';
+import { ServerManager } from '@utils/ServerManager';
+import type { Status } from '@shared/types/server/Status';
+
+type MediaType = 'photo' | 'video' | 'animation' | 'document' | 'unknown';
+interface MediaValidationData {
+    fileSize?: number | undefined;
+    mimeType?: string | undefined;
+    file_id?: string;
+    fileName?: string;
+}
 
 export default async function addingMedia(ctx: MyContext) {
     const msg = ctx.message;
+    if (!ctx?.session?.distribution?.name || !msg) return;
 
-    if (!ctx || !msg || !('photo' in msg || 'video' in msg || 'animation' in msg || 'document' in msg)) return;
+    const mediaType = determineMediaType(msg);
 
-    const nameDistribution = ctx.session.distribution.name!;
-    const positionIndex = ctx.session.typePartition.media.id!;
-    const pathMedia = path.join("..", "sendout", "resources");
-    const result = await getTypeMedia(ctx);
-    if (!result) return; // ошибка уже показана
+    switch (mediaType) {
+        case 'document': {
+            if (!isDocumentAllowed(msg)) {
+                await ctx.reply(ctx.t("states.media.add.documentsWTMedia"));
+                return;
+            }
+            break;
+        }
+        case 'unknown': {
+            await ctx.reply(ctx.t("states.media.add.invalidType"));
+            return;
+        }
+    }
 
-    const [nameFile, whichMedia] = result;
-    
+    // Валидация (размер + mime)
+    const mediaData = extractMediaData(msg, mediaType);
+    if (!mediaData || !validateMedia(mediaData)) {
+        await ctx.reply(ctx.t("states.media.add.bigSize", { size: consts.maxSizeFile }));
+        return;
+    }
+
+    const { file_id, fileName } = mediaData;
+    const pathMedia = path.resolve("..", "sendout", "resources");
+    const nameFile = generateFileName(fileName!, mediaType);
+
     try {
-        const fileLink = await ctx.telegram.getFileLink(whichMedia.file_id);
+        const fileLink = await ctx.tele.getFileLink(file_id);
         const response = await fetch(fileLink.href);
 
-        if (!await validateMedia(ctx, response)) return;
-
         const arrayBuffer = await response.arrayBuffer();
-        await fs.mkdir(pathMedia!, { recursive: true });
-        await utils.file.saveFile(Buffer.from(arrayBuffer), nameFile)
-        
-        // Обновляем JSON
-        // ✅ НОВЫЙ КОД
-        const messages = await db.message.getMessagesForBot(nameDistribution);
+        await fs.mkdir(pathMedia, { recursive: true });
+
+        const fullPath = path.join(pathMedia, nameFile);
+        await fs.writeFile(fullPath, Buffer.from(arrayBuffer));
+
+        // Обновляем JSON в БД
+        const messages = await db.message.getMessagesForBot(ctx.session.distribution.name);
         if (!messages) return;
 
-        const message = messages[positionIndex];
+        const message = messages[ctx.session.typePartition.media.id!];
         if (!message) {
-            await ctx.reply("Ошибка при сохранении медиа");
+            await ctx.reply(ctx.t("states.media.add.error"));
             return;
         }
 
         const existingMedia = message.media || [];
-        console.log(existingMedia);
         const newMedia = [...existingMedia, nameFile];
-        console.log(newMedia);
 
-        await db.message.updateMessage(nameDistribution, message.id, { media: newMedia });
+        await db.message.updateMessage(ctx.session.distribution.name, message.id, { media: newMedia });
+        utils.common.sleep(250);
+        const server = new ServerManager();
+        const menu = menuMedia.add(ctx, await server.execute("status", ctx.session.distribution.name) as Status);
+        
+        // await ctx.deleteMessage(ctx.message.message_id);
 
-        // ✅ Отправляем уведомление ТОЛЬКО ОДИН РАЗ для группы
-        if (msg.media_group_id) {
-            isMediaGroup(ctx);
-        }
-        await sendConfirmation(ctx);
+        try {
+            await ctx.editMessageText(menu.text, {
+                reply_markup: menu.keyboard,
+                parse_mode: "MarkdownV2"
+            });
+        } catch {
+            await ctx.reply(menu.text, {
+                reply_markup: menu.keyboard,
+                parse_mode: "MarkdownV2"
+            });
+        }    
     } catch (error) {
         console.error("Ошибка при сохранении медиа:", error);
-        await ctx.reply("Ошибка при сохранении медиа.");
+        await ctx.reply(ctx.t("states.media.add.error"));
     }
 }
 
-async function getTypeMedia(ctx: MyContext): Promise<[string, any] | void> {
-    const msg = ctx.message!;
-
-    let whichMedia: any;
-    let nameFile = randomUUID().toString();
-
-    if ('photo' in msg && msg.photo) {
-        whichMedia = msg.photo.pop();
-        nameFile += '.jpg';
-
-    } else if ('video' in msg && msg.video) {
-        whichMedia = msg.video;
-        const mimeType = msg.video.mime_type;
-        const ext = msg.video.file_name?.split('.').pop();
-        nameFile += utils.local.getMediaFormat(mimeType ?? 'video/mp4', ext ?? '');
-
-    } else if ('animation' in msg && msg.animation) {
-        whichMedia = msg.animation;
-        const mimeType = msg.animation.mime_type;
-        const ext = msg.animation.file_name?.split('.').pop();
-        nameFile += utils.local.getMediaFormat(mimeType ?? 'video/mp4', ext ?? '');
-
-    } else if ('document' in msg && msg.document) {
-        const mimeType = msg.document.mime_type;
-        if (!mimeType || !utils.local.isSupportedMediaType(mimeType)) {
-            await ctx.reply("Я не умею обрабатывать документы, не содержащие медиа");
-            return; // ← выход без возврата
-        }
-        whichMedia = msg.document;
-        const ext = msg.document.file_name?.split('.').pop();
-        nameFile += utils.local.getMediaFormat(mimeType, ext ?? '');
-
-    } else {
-        await ctx.reply("Тип медиа не опознан! Попробуйте снова");
-        return;
-    }
-
-    return [nameFile, whichMedia];
+function determineMediaType(msg: Message): MediaType {
+    if ('photo' in msg && msg.photo?.length) return 'photo';
+    else if ('video' in msg && msg.video) return 'video';
+    else if ('animation' in msg && msg.animation) return 'animation';
+    else if ('document' in msg && msg.document) return 'document';
+    else return 'unknown';
 }
 
-async function validateMedia(ctx: MyContext, response: any): Promise<boolean> {
-    const contentType = response.headers.get('content-type');
+// Документы содержат: фото/видео/гиф
+function isDocumentAllowed(msg: Message): boolean {
+    const mimeType = msg.document?.mime_type;
+    if (!mimeType) return false;
+    return utils.local.isSupportedMediaType(mimeType);
+}
 
-    if (!contentType || utils.local.isSupportedMediaType(contentType)) {
-        await ctx.reply("Некорректный тип медиа. Попробуйте снова");
+// Валидация: размер + mime
+function validateMedia(mediaData: MediaValidationData): boolean {
+    // Проверка размера
+    if (mediaData.fileSize && mediaData.fileSize > consts.maxSizeFile) {
         return false;
     }
 
-    const contentLength = Number(response.headers.get('content-length'));
-    if (contentLength && contentLength > consts.maxSizeFile) {
-        await ctx.reply("Файл слишком большой. Максимальный размер 3 МБ.");
-        return false;
-    }
+    // Чек mime
+    if (mediaData.mimeType && !utils.local.isSupportedMediaType(mediaData.mimeType)) return false;
 
     return true;
 }
 
-function isMediaGroup(ctx: MyContext) {
-    ctx.session.mediaBuffer.items++;
-
-    if (ctx.session.mediaBuffer.timer) {
-        clearTimeout(ctx.session.mediaBuffer.timer);
-    }
-
-    ctx.session.mediaBuffer.timer = setTimeout(async () => {
-        try {
-            await sendConfirmation(ctx);
-            ctx.session.mediaBuffer.timer = null;
-            ctx.session.mediaBuffer.items = 0;
-        } catch (error) {
-            console.error("Ошибка при отправке подтверждения:", error);
-            // Опционально: сбросить состояние
-            ctx.session.mediaBuffer.timer = null;
-            ctx.session.mediaBuffer.items = 0;
+// Получение данных о медиа
+function extractMediaData(msg: Message, type: MediaType): MediaValidationData | null{
+    switch (type) {
+        case 'photo': {
+            const photo = msg.photo![msg.photo!.length - 1]!;
+            return {
+                file_id: photo.file_id,
+                fileSize: photo.file_size,
+                fileName: `photo_${photo.file_id}.jpg`
+            };
         }
-    }, 500);
-    return;
+        case 'video': {
+            return {
+                file_id: msg.video!.file_id,
+                fileSize: msg.video!.file_size,
+                fileName: msg.video!.file_name || `video_${msg.video!.file_id}.mp4`,
+                mimeType: msg.video!.mime_type
+            };
+        }
+        case 'animation': {
+            return {
+                file_id: msg.animation!.file_id,
+                fileSize: msg.animation!.file_size,
+                fileName: msg.animation!.file_name || `anim_${msg.animation!.file_id}.gif`,
+                mimeType: msg.animation!.mime_type
+            };
+        }
+        case 'document': {
+            return {
+                file_id: msg.document!.file_id,
+                fileSize: msg.document!.file_size,
+                fileName: msg.document!.file_name || `doc_${msg.document!.file_id}`,
+                mimeType: msg.document!.mime_type
+            };
+        }
+        default: {
+            return null;
+        }
+    }
 }
 
-async function sendConfirmation(ctx: MyContext) {
-    if (!ctx.message) return;
-    const menuAddingMedia = Markup.inlineKeyboard([
-        Markup.button.callback("🔙 Назад", "mainMessage" + ctx.session.distribution.name!)
-    ]);
-
-    try {
-        const success = await utils.server.reloadService(ctx.session.distribution.name);
-        let textMessage = success
-            ? "✅ Медиа сохранено!"
-            : "❌ Медиа не сохранено!\nОбратитесь к администратору"
-        ;
-        textMessage += `\n\n[📍 Путь: Кабинет → Меню «${ctx.session.distribution.call}» → Сообщения → *Добавление медиа*]`;
-
-        if (ctx?.message.message_id - 1) {
-            try {
-                await ctx.deleteMessage(ctx?.message.message_id - 1);
-            } catch (error) {
-                console.warn(error);
-            }
-        }
-
-        try {
-            await ctx.telegram.editMessageText(
-                ctx.chat?.id!,
-                ctx.session.messageIds.forTextOrMedia,
-                undefined,
-                utils.formatting.escapeMarkdown(textMessage),
-                { parse_mode: "MarkdownV2", reply_markup: menuAddingMedia.reply_markup }
-            );
-        } catch {
-            await ctx.reply(utils.formatting.escapeMarkdown(textMessage), {
-                parse_mode: "MarkdownV2",
-                ...menuAddingMedia
-            });        }
-    } catch (error) {
-        console.error("sendConfirmation failed:", error);
-    }
+// Построение имени файла
+function generateFileName(originalName: string, type: MediaType): string {
+    const prefix = randomUUID().substring(0, 9);
+    const ext = path.extname(originalName) ||
+        utils.local.getMediaFormat(
+            type === 'photo' ? 'image/jpeg' :
+                type === 'video' ? 'video/mp4' :
+                    type === 'animation' ? 'video/gif' : 'application/octet-stream',
+            path.extname(originalName)
+        );
+    return `${prefix}${ext.startsWith('.') ? ext : '.' + ext}`;
 }

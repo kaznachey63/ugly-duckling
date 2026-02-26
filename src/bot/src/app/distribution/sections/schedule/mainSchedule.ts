@@ -5,7 +5,7 @@ import menuSchedule from '@menus/distribution/sections/schedule';
 /**
  * Главная странца графика. Отображение графика
  */
-export default async function mainTime(ctx: MyContext) {
+export default async function mainSchedule(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name!;
     const times = await db.time.getTimesForBot(nameDistribution);
     const menu = menuSchedule.main(ctx, times!);

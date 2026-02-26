@@ -1,4 +1,4 @@
-import type { Context, SessionFlavor } from "grammy";
+import { Context, type SessionFlavor } from "grammy";
 
 export interface SessionData {
     busy: boolean;
@@ -49,10 +49,8 @@ export interface SessionData {
     };
 }
 
-// 👇 Добавляем интерфейс для i18n
 export interface I18nFlavor {
     t: (key: string, options?: Record<string, any>) => string;
 }
 
-// 👇 Включаем его в MyContext
 export type MyContext = Context & SessionFlavor<SessionData> & I18nFlavor;

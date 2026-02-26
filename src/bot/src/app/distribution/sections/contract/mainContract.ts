@@ -3,7 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuContract from '@menus/distribution/sections/contract';
 
 /**
- * Обработчик контакта
+ * Обработчик договора
  */
 export default async function mainContract(ctx: MyContext) {
     const dataFromSheets = await utils.google.getRowsFromGS("Заказчики!A2:G");

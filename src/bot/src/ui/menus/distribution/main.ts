@@ -19,7 +19,7 @@ export default async function main(ctx: MyContext): Promise<Menu<InlineKeyboard>
     }
     
     keyboard
-        .text(ctx.t('distribution.main.buttons.schedule'), `mainShedule${nameDistribution}`).row()
+        .text(ctx.t('distribution.main.buttons.schedule'), `mainschedule${nameDistribution}`).row()
         .text(ctx.t('distribution.main.buttons.messages'), `mainMessages${nameDistribution}`).row()
         .text(ctx.t('distribution.main.buttons.statistics'), `mainStatistics${nameDistribution}`).row()
     ;

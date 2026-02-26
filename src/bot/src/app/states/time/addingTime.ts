@@ -1,5 +1,5 @@
-import utils from "src/common/utils";
-import type { MyContext, SessionData } from '@shared/types/SessionData';
+import utils from "@utils";
+import type { MyContext } from '@shared/types/SessionData';
 
 export default async function addingTime(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name!;
@@ -31,4 +31,13 @@ export default async function addingTime(ctx: MyContext) {
         textMessage,
         { reply_markup: menuAddingText.reply_markup }
     );
+}
+
+function validateTime(msg: string): boolean {
+    if (msg.match(/^([01][0-9]|2[0-3]):[0-5][0-9]$/)) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
