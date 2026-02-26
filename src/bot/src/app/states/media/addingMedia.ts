@@ -19,9 +19,12 @@ interface MediaValidationData {
     fileName?: string;
 }
 
+/**
+ * Состояние пользователя: добавление медиа
+ */
 export default async function addingMedia(ctx: MyContext) {
     const msg = ctx.message;
-    if (!ctx?.session?.distribution?.name || !msg) return;
+    if (!msg) return;
 
     const mediaType = determineMediaType(msg);
 
@@ -47,20 +50,20 @@ export default async function addingMedia(ctx: MyContext) {
     }
 
     const { file_id, fileName } = mediaData;
+    if (!fileName || !file_id) return;
+
     const pathMedia = path.resolve("..", "sendout", "resources");
     const nameFile = generateFileName(fileName!, mediaType);
 
     try {
-        const fileLink = await ctx.tele.getFileLink(file_id);
-        const response = await fetch(fileLink.href);
-
-        const arrayBuffer = await response.arrayBuffer();
+        const file = await ctx.api.getFile(file_id);
+        const url = `https://api.telegram.org/file/bot${process.env.BOT_TOKEN}/${file.file_path}`;
+        const response = await fetch(url);
+        const buffer = Buffer.from(await response.arrayBuffer());
         await fs.mkdir(pathMedia, { recursive: true });
+        await fs.writeFile(path.join(pathMedia, nameFile), buffer);
 
-        const fullPath = path.join(pathMedia, nameFile);
-        await fs.writeFile(fullPath, Buffer.from(arrayBuffer));
-
-        // Обновляем JSON в БД
+        // Получение сообщений
         const messages = await db.message.getMessagesForBot(ctx.session.distribution.name);
         if (!messages) return;
 
@@ -73,6 +76,7 @@ export default async function addingMedia(ctx: MyContext) {
         const existingMedia = message.media || [];
         const newMedia = [...existingMedia, nameFile];
 
+        // Обновление медиа
         await db.message.updateMessage(ctx.session.distribution.name, message.id, { media: newMedia });
         utils.common.sleep(250);
         const server = new ServerManager();
@@ -97,6 +101,7 @@ export default async function addingMedia(ctx: MyContext) {
     }
 }
 
+// Определение типа медиа
 function determineMediaType(msg: Message): MediaType {
     if ('photo' in msg && msg.photo?.length) return 'photo';
     else if ('video' in msg && msg.video) return 'video';
@@ -126,7 +131,7 @@ function validateMedia(mediaData: MediaValidationData): boolean {
 }
 
 // Получение данных о медиа
-function extractMediaData(msg: Message, type: MediaType): MediaValidationData | null{
+function extractMediaData(msg: Message, type: MediaType): MediaValidationData | null {
     switch (type) {
         case 'photo': {
             const photo = msg.photo![msg.photo!.length - 1]!;

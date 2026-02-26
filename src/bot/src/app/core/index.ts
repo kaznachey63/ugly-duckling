@@ -74,7 +74,7 @@ bot.command('form', async (ctx: MyContext) => {
 });
 // -------------------------------
 
-bot.on('callback_query', async (ctx) => {
+bot.on('callback_query', async (ctx: MyContext) => {
     // const result = calendar.clickButtonCalendar(ctx);
 
     // if (result !== -1) {
