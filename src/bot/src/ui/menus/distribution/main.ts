@@ -19,8 +19,8 @@ export default async function main(ctx: MyContext): Promise<Menu<InlineKeyboard>
     }
     
     keyboard
-        .text(ctx.t('distribution.main.buttons.schedule'), `mainschedule${nameDistribution}`).row()
-        .text(ctx.t('distribution.main.buttons.messages'), `mainMessages${nameDistribution}`).row()
+        .text(ctx.t('distribution.main.buttons.schedule'), `mainSchedule${nameDistribution}`).row()
+        .text(ctx.t('distribution.main.buttons.messages'), `mainMessage${nameDistribution}`).row()
         .text(ctx.t('distribution.main.buttons.statistics'), `mainStatistics${nameDistribution}`).row()
     ;
     
@@ -28,6 +28,6 @@ export default async function main(ctx: MyContext): Promise<Menu<InlineKeyboard>
         keyboard.text(ctx.t('distribution.main.buttons.condition'), `mainCondition${nameDistribution}`).row();
     // }
         
-    keyboard.text(ctx.t('nav.back'), 'mainDistribution');
+    keyboard.text(ctx.t('nav.back'), `mainDistribution${ctx.session.distribution.name}`);
     return { text, keyboard };
 }

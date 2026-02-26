@@ -10,8 +10,9 @@ import chats from './distribution/sections/chats';
 import contract from './distribution/sections/contract';
 import condition from './distribution/sections/condition';
 import schedule from './distribution/sections/schedule';
-
-
+import message from  './distribution/sections/message/main';
+import text from './distribution/sections/message/text';
+import media from './distribution/sections/message/media';
 
 
 export default {
@@ -26,5 +27,8 @@ export default {
     chats,
     contract,
     condition,
-    schedule
+    schedule,
+    message,
+    text,
+    media
 };

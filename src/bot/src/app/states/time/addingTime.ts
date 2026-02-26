@@ -4,7 +4,7 @@ import type { MyContext } from '@shared/types/SessionData';
 export default async function addingTime(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name!;
     const menuAddingText = Markup.inlineKeyboard(
-        [Markup.button.callback("Назад в Время", "mainTime" + nameDistribution)]
+        [Markup.button.callback("Назад в Время", "mainSchedule" + nameDistribution)]
     );
 
     if (typeof utils.formatting.checkMD(ctx.message) == 'string') {

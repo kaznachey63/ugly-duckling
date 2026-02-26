@@ -7,7 +7,7 @@ import { google } from 'googleapis';
  * @returns Массив ячеек если есть, что брать, иначе - выход
  */
 async function getRowsFromGS(range: string): Promise<string[][] | undefined> {
-    const pathToCredentials = path.join("src", "config", "credentials.json");
+    const pathToCredentials = path.join("src", "common", "config", "credentials.json");
     const auth = new google.auth.GoogleAuth({
         keyFile: pathToCredentials,
         scopes: ["https://www.googleapis.com/auth/spreadsheets"]

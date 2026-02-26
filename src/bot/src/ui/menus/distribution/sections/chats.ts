@@ -11,7 +11,7 @@ export default function chat(ctx: MyContext, success: number, chats: Chat[]): Me
         ctx.t('distribution.sections.chats.amount', { success: success }),
         ctx.t('distribution.sections.chats.path', { call: ctx.session.distribution.call })
     ].join('\n\n');
-
+    
     const keyboard = new InlineKeyboard();
     chats.forEach((chat: Chat) => {
         keyboard.url(

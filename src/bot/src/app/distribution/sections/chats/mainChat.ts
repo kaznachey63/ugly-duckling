@@ -14,12 +14,12 @@ export default async function mainChat(ctx: MyContext) {
     const lastLog = logsBaza.at(-1)!;
     const infoChats = await db.chat.getChatsInfo(lastLog?.chats);
     
-    if (logsBaza.length === 0 || !lastLog?.chats) {
-        // Если рассылки нет
+    if (logsBaza.length === 0 || !lastLog?.chats || !infoChats) {
+        // Если рассылки нет        
         await ctx.answerCallbackQuery({ text: ctx.t("distribution.sections.chats.noSendout", { call: ctx.session.distribution.call }), show_alert: true });
         return;
     }
-
+    
     const menu = menuChat(ctx, lastLog.success, infoChats!)
     await ctx.editMessageText(utils.formatting.escapeMarkdown(menu.text),
         {

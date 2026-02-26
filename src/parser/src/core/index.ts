@@ -4,7 +4,7 @@ import helpers from '../helpers.js';
 import cron from 'node-cron';
 import db from '@shared/db';
 
-cron.schedule("46 21 * * *", async () => {
+cron.schedule("57 20 * * *", async () => {
     try {
         await db.chat.clearTableChats();
         const credentials = await db.credential.getCredentials();

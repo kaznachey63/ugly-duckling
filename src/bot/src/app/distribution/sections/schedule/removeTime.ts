@@ -11,19 +11,19 @@ export default async function removeTime(ctx: MyContext) {
     let text = [];
 
     if (!String(nameDistribution)) {
-        text.push("distribution.section.schedule.remove.error");
+        text.push("distribution.sections.schedule.remove.error");
     }
     else {
         await db.time.removeTime(ctx.session.distribution.schema, ctx.session.typePartition.time.id);
         const server = new ServerManager();
         if (await server.restartProcessOrNot(nameDistribution)) {
-            text.push("distribution.section.schedule.remove.success");
+            text.push("distribution.sections.schedule.remove.success");
         }
         else {
-            text.push("distribution.section.schedule.remove.error");
+            text.push("distribution.sections.schedule.remove.error");
         }
     }
-    text.push("distribution.section.schedule.path");
+    text.push("distribution.sections.schedule.path");
     const menu = menuSchedule.remove(ctx, text);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2", 

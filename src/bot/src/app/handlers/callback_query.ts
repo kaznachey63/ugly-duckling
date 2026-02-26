@@ -32,7 +32,7 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
     
     const skipToastCallbacks = [
         "mainChat",
-        "parametrsMessage",
+        "parametresMessage",
         "addMedia",
         "deleteMedia",
         "editMedia",
@@ -49,40 +49,40 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
         queryData.startsWith(prefix)
     );
 
-    if (!startsWithSkip) {
-        await ctx.answerCallbackQuery('⏳ Обработка...');
-    }
+    // if (!startsWithSkip) {
+    //     await ctx.answerCallbackQuery('⏳ Обработка...');
+    // }
 
-    let halfPath = path.join("src", "partitions");
+    let halfPath = path.join("src", "app", "distribution", "sections");
 
-    if (queryData.toLowerCase().includes("general")) {
-        halfPath = path.join("src", "partitions", "general");
+    if (queryData.toLowerCase().includes("contract")) {
+        halfPath = path.join("src", "app", "distribution", "sections", "contract");
     }
     else if (queryData.toLowerCase().includes("chat")) {
-        halfPath = path.join("src", "partitions", "chat");
+        halfPath = path.join("src", "app", "distribution", "sections", "chats");
     }
-    else if (queryData.toLowerCase().includes("time")) {
-        halfPath = path.join("src", "partitions", "time");
+    else if (queryData.toLowerCase().includes("time") || queryData.toLowerCase().includes("schedule")) {
+        halfPath = path.join("src", "app", "distribution", "sections", "schedule");
     }
     else if (queryData.toLowerCase().includes("message")) {
-        halfPath = path.join("src", "partitions", "message");
+        halfPath = path.join("src", "app", "distribution", "sections", "messages");
     }
     else if (queryData.toLowerCase().includes("text")) {
-        halfPath = path.join("src", "partitions", "message", "text");
+        halfPath = path.join("src", "app", "distribution", "sections", "messages", "text");
     }
     else if (queryData.toLowerCase().includes("media")) {
-        halfPath = path.join("src", "partitions", "message", "media");
+        halfPath = path.join("src", "app", "distribution", "sections", "messages", "media");
     }
     else if (queryData.toLowerCase().includes("statistika")) {
-        halfPath = path.join("src", "partitions", "statistika");
+        halfPath = path.join("src", "app", "distribution", "sections", "statistika");
 
         if (queryData.toLowerCase().includes("selective")) {
-            halfPath = path.join("src", "partitions", "statistika", "format");
+            halfPath = path.join("src", "app", "distribution", "sections", "statistika", "format");
         }
         else if (queryData.toLowerCase().includes("comparative")) {
             halfPath = path.join(
                 "src",
-                "partitions",
+                "app", "distribution", "sections",
                 "statistika",
                 "format",
                 "comparative"
@@ -94,7 +94,7 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
             ) {
                 halfPath = path.join(
                     "src",
-                    "partitions",
+                    "app", "distribution", "sections",
                     "statistika",
                     "format",
                     "comparative",

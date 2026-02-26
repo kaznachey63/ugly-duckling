@@ -23,7 +23,7 @@ export default function contract(ctx: MyContext, contractInfo: ContractInfo): Me
     const text = utils.formatting.escapeMarkdown(textLines);
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t('nav.back'), 'mainDistribution')
+        .text(ctx.t('nav.back'), `mainDistribution${ctx.session.distribution.name}`)
     ;
 
     return { text, keyboard };
