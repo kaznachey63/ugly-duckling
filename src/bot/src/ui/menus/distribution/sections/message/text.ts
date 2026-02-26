@@ -63,7 +63,6 @@ function clearAll(ctx: MyContext, listText: string[]): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-
 export default {
     add,
     update,

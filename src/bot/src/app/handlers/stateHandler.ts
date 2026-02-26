@@ -17,8 +17,8 @@ export async function dispatchState(ctx: MyContext, type: StateType) {
 
         await ctx.deleteMessage();
 
-        const fileName = `${state}.js`;
-        const handlerPath = path.join("src", "states", type, fileName);
+        const fileName = `${state}.ts`;
+        const handlerPath = path.join("src", "app", "states", type, fileName);
         const handlerUrl = pathToFileURL(handlerPath).href;
 
         try {

@@ -1,10 +1,7 @@
 import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
-import type { Time } from '@shared/types/Time';
-import utils from '@utils';
 import format from '@utils/formatting';
-import type { Message } from '@shared/types/Message';
 import type { IMessage } from '@shared/types/IMessage';
 
 export default function main(ctx: MyContext, messages: IMessage[], paginationIndex: number): Menu<InlineKeyboard> {
@@ -30,7 +27,6 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
             ctx.t("distribution.sections.messages.main.messageNumb", { number: paginationIndex + 1 }),
             ctx.t("distribution.sections.messages.main.amountMedia", { amount: message!.media?.length! || 0 }),
             `\n\`\`\`\n${message?.caption!}\n\`\`\``,
-            ctx.t("distribution.sections.messages.main.path", { call: callDistribution }),
         );
 
         keyboard
@@ -85,6 +81,6 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
     }
     keyboard.row();
     keyboard.text(ctx.t("nav.back"), `mainDistribution${ctx.session.distribution.name}`);
-
+    text.push(ctx.t("distribution.sections.messages.main.path", { call: callDistribution }));
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
 }

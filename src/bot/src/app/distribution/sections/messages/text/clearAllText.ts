@@ -22,7 +22,7 @@ export default async function deleteText(ctx: MyContext) {
             text.push("distribution.sections.messages.text.clearAll.error");
         }
     }
-    text.push(ctx.t("distribution.sections.messages.text.clearAll.path", { call: ctx.session.distribution.call }));
+    text.push("distribution.sections.messages.text.clearAll.path");
     const menu = menuText.clearAll(ctx, text);
 
     try {
