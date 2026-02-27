@@ -9,7 +9,8 @@ import menuStatistic from "@menus/distribution/sections/statistic";
  * Обработка типа сравнитальной статистики (неделя/месяц)
  */
 export default async function HandlerComparativeStatistika(ctx: MyContext, typeStat: StatisticType) {
-    // ctx.sendChatAction("upload_photo");
+    ctx.api.sendChatAction(ctx.chat?.id!, "upload_photo");
+    
     const nameDistribution = ctx.session.distribution.name;
     const myChart = utils.chart.createChart(ctx, await getDataForDiagram(nameDistribution, typeStat));
     const menu = menuStatistic.handlerComparative(ctx, typeStat);

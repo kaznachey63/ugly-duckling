@@ -2,8 +2,6 @@ import db from '@shared/db';
 import fs from 'fs/promises';
 import path from 'path';
 import { pathToFileURL } from 'url';
-import { Context } from 'grammy';
-import {Calendar} from 'telegram-inline-calendar';
 import type { MyContext } from '@shared/types/SessionData';
 
 // 🔴 КЭШИ НА УРОВНЕ МОДУЛЯ
@@ -41,7 +39,7 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
         "parametrsText",
         "startService",
         "stopService",
-        "mainStatistika",
+        "mainStatistic",
         "parametrsTime"
     ];
 
@@ -73,17 +71,17 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
     else if (queryData.toLowerCase().includes("media")) {
         halfPath = path.join("src", "app", "distribution", "sections", "messages", "media");
     }
-    else if (queryData.toLowerCase().includes("statistika")) {
-        halfPath = path.join("src", "app", "distribution", "sections", "statistika");
+    else if (queryData.toLowerCase().includes("statistic")) {
+        halfPath = path.join("src", "app", "distribution", "sections", "statistic");
 
         if (queryData.toLowerCase().includes("selective")) {
-            halfPath = path.join("src", "app", "distribution", "sections", "statistika", "format");
+            halfPath = path.join("src", "app", "distribution", "sections", "statistic", "format");
         }
         else if (queryData.toLowerCase().includes("comparative")) {
             halfPath = path.join(
                 "src",
                 "app", "distribution", "sections",
-                "statistika",
+                "statistic",
                 "format",
                 "comparative"
             );
@@ -95,7 +93,7 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
                 halfPath = path.join(
                     "src",
                     "app", "distribution", "sections",
-                    "statistika",
+                    "statistic",
                     "format",
                     "comparative",
                     "type"
@@ -158,7 +156,7 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
                 }
             }
 
-            if (nameFile.toLowerCase().includes("selectivestatistika")) {
+            if (nameFile.toLowerCase().includes("selectivestatistic")) {
                 await handlerModule.default({ ctx, calendar });
             } else {
                 await handlerModule.default(ctx);
