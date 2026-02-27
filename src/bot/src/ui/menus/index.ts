@@ -13,7 +13,7 @@ import schedule from './distribution/sections/schedule';
 import message from  './distribution/sections/message/main';
 import text from './distribution/sections/message/text';
 import media from './distribution/sections/message/media';
-
+import statistic from './distribution/sections/statistic';
 
 export default {
     cabinet,
@@ -30,5 +30,6 @@ export default {
     schedule,
     message,
     text,
-    media
+    media,
+    statistic
 };

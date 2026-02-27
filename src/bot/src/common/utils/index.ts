@@ -5,6 +5,7 @@ import formatting from './formatting.js';
 import google from './google.js';
 import local from './localization.js';
 import init from './initialize.js';
+import chart from './chart';
 
 export default {
     ServerManager,
@@ -14,4 +15,5 @@ export default {
     google,
     local,
     init,
+    chart
 };

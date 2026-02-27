@@ -1,37 +1,28 @@
 import db from "@shared/db";
 import utils from "src/common/utils";
-import type { MyContext, SessionData } from '@shared/types/SessionData';
-import QuickChart from 'quickchart-js';
+import type { MyContext } from '@shared/types/SessionData';
 import type { IData } from '@shared/types/IData';
+import type { StatisticType } from '@shared/types/StatisticType';
+import menuStatistic from "@menus/distribution/sections/statistic";
 
-type TypeStatistika = "week" | "month";
-
-export default async function HandlerComparativeStatistika(ctx: MyContext, typeStat: TypeStatistika) {
-    ctx.sendChatAction("upload_photo");
-    
+/**
+ * Обработка типа сравнитальной статистики (неделя/месяц)
+ */
+export default async function HandlerComparativeStatistika(ctx: MyContext, typeStat: StatisticType) {
+    // ctx.sendChatAction("upload_photo");
     const nameDistribution = ctx.session.distribution.name;
+    const myChart = utils.chart.createChart(await getDataForDiagram(nameDistribution, typeStat));
+    const menu = menuStatistic.handlerComparative(ctx, typeStat);
 
-    const myChart = createChart(await getDataForDiagram(nameDistribution, typeStat));
-
-    const keyboard = Markup.inlineKeyboard([
-        [Markup.button.callback("🔙 Назад", `comparativeStatistika${nameDistribution}`)]
-    ]);
-
-    await ctx.replyWithPhoto(
-        { url: await myChart.getShortUrl() },
-        {
-            caption: utils.formatting.escapeMarkdown(
-                `Сравнительная статистика. (${utils.local.getTypeCompStatRu(typeStat)})
-                \n[📍 Путь: Кабинет → Меню «${ctx.session.distribution.call}» → Статистика → Сравнительная → *${utils.local.getTypeCompStatRu(typeStat)}*]`
-            ),
-            parse_mode: "MarkdownV2",
-            ...keyboard
-        }
-    );
-    try { await ctx.deleteMessage(); } catch (e) { }
+    await ctx.replyWithPhoto(await myChart.getShortUrl(), {
+        caption: menu.text,
+        reply_markup: menu.keyboard,
+        parse_mode: "MarkdownV2"
+    });
+    try { await ctx.deleteMessage(); } catch { }
 }
 
-function getType(type: TypeStatistika): string[] {
+function getType(type: StatisticType): string[] {
     switch (type) {
         case 'week': {
             // return getWeek(new Date('2025-12-19'));
@@ -43,7 +34,7 @@ function getType(type: TypeStatistika): string[] {
     }
 }
 
-async function getGroups(nameDistribution: string, typeStat: TypeStatistika): Promise<number[]> {
+async function getGroups(nameDistribution: string, typeStat: StatisticType): Promise<number[]> {
     const logs = await db.result.getResults(nameDistribution);
     if (!logs) return [];
     const dates = getType(typeStat);
@@ -60,7 +51,7 @@ function formatDate(date: Date): string {
     return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`;
 }
 
-function getLabels(typeStat: TypeStatistika): string[] {
+function getLabels(typeStat: StatisticType): string[] {
     const labels = getType(typeStat);
     const labelsRu = labels.map(l => {
         const dayOfWeek = l.split(' ')[0]!;
@@ -104,8 +95,8 @@ function getMonth(date: Date): string[] {
     return withoutSundays;
 }
 
-async function getDataForDiagram(nameRasssilka: string, typeStat: TypeStatistika): Promise<IData> {
-    const groups = await getGroups(nameRasssilka, typeStat);
+async function getDataForDiagram(nameDistribution: string, typeStat: StatisticType): Promise<IData> {
+    const groups = await getGroups(nameDistribution, typeStat);
     const labels = getLabels(typeStat);
     return {
         labels: labels,
@@ -113,71 +104,4 @@ async function getDataForDiagram(nameRasssilka: string, typeStat: TypeStatistika
         type: typeStat,
         typeRu: utils.local.getTypeCompStatRu(typeStat)
     };
-}
-
-function createChart(data: IData): QuickChart {
-    const qc = new QuickChart();
-
-    const config: any = {
-        type: data.type === 'week' ? 'bar' : 'line',
-        data: {
-            labels: data.labels,
-            datasets: [{
-                label: 'Количество групп, получивших рассылку',
-                data: data.groups,
-                borderWidth: 2,
-                tension: data.type === 'month' ? 0.35 : 0,
-                pointRadius: data.type === 'month' ? 2 : 0,
-                backgroundColor: data.type === 'week' ? 'rgba(54, 162, 235, 0.7)' : undefined,
-                borderColor: data.type === 'month' ? 'rgba(54, 162, 235, 1)' : undefined,
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: `Статистика отправленных сообщений (${data.typeRu})`
-            },
-            scales: {
-                xAxes: [{ scaleLabel: { display: true } }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        min: 0,
-                        max: 40,
-                        stepSize: 10
-                    },
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Количество сообщений',
-                        fontSize: 14
-                    }
-                }]
-            },
-            plugins: {
-                datalabels: {
-                    anchor: 'end',
-                    align: 'top',
-                    color: '#fff',
-                    backgroundColor: 'rgba(34, 139, 34, 0.6)',
-                    borderColor: 'rgba(34, 139, 34, 1.0)',
-                    borderWidth: 1,
-                    borderRadius: 5,
-                    display: true,
-                    formatter: (value: number) => {
-                        return value === 0 ? null : value;
-                    }
-                }
-            },
-            legend: { display: false }
-        }
-    };
-
-    qc.setConfig(config);
-
-    // размеры
-    qc.setWidth(data.type === 'week' ? 900 : 1200);
-    qc.setHeight(data.type === 'week' ? 450 : 600);
-    qc.setBackgroundColor('white');
-
-    return qc;
 }
