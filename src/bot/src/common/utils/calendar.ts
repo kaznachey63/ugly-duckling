@@ -1,5 +1,4 @@
 import type { MyContext } from "@shared/types/SessionData";
-import { Calendar } from 'telegram-inline-calendar';
 
 function getCalendar(ctx: MyContext) {
     const calendar = new Calendar(ctx as any, {

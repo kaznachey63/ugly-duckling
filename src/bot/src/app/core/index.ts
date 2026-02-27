@@ -1,9 +1,10 @@
 import '@shared/env'; // ← ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ
 import { Bot, session } from 'grammy';
-import handler from '../handlers';
+import handler from './handlers';
 import type { MyContext } from '@shared/types/SessionData';
 import { i18nMiddleware } from 'src/ui/i18n';
 import utils from '@utils';
+import command from '@commands/index';
 
 const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
 
@@ -36,31 +37,33 @@ bot.use(i18nMiddleware);
 //     await next();
 // });
 
-/**
- * Инициализация календаря
- */
-
+// --------- Команды -------------------------
 bot.command('start', async (ctx: MyContext) => {
-    await handler.start(ctx);
+    await command.start(ctx);
 });
 
 bot.command('help', async (ctx: MyContext) => {
-    await handler.help(ctx);
+    await command.help(ctx);
 });
 
 bot.command('about', async (ctx: MyContext) => {
-    await handler.about(ctx);
+    await command.about(ctx);
 });
 
 bot.command('cabinet', async (ctx: MyContext) => {
-    await handler.cabinet(ctx);
+    await command.cabinet(ctx);
 });
 
 bot.command('form', async (ctx: MyContext) => {
-    await handler.form(ctx);
+    await command.form(ctx);
+});
+
+bot.command('settings', async (ctx: MyContext) => {
+    await command.settings(ctx);
 });
 // -------------------------------
 
+// ------------- Обработчики
 bot.on('callback_query', async (ctx: MyContext) => {
     // const result = calendar.clickButtonCalendar(ctx);
 
@@ -96,6 +99,7 @@ bot.on('message:animation', async (ctx: MyContext) => {
 bot.on('message:document', async (ctx: MyContext) => {
     await handler.document(ctx);
 });
+// -------------------------------
 
 // bot.catch(async (err, ctx) => {
 //     console.error(`Ошибка в обработчике:`, err);
