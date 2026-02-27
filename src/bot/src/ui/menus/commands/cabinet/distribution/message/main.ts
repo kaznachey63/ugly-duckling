@@ -12,47 +12,47 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
     let keyboard = new InlineKeyboard();
 
     keyboard
-        .text(ctx.t(commands.cabinet.distribution.messages.main.buttons.paramsMessages"), "parametresMessage").row()
-        .text(ctx.t(commands.cabinet.distribution.messages.main.buttons.add"), `addText${nameDistribution}`)
+        .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMessages"), "parametresMessage").row()
+        .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.add"), `addText${nameDistribution}`)
     ;
 
     // Нет сообщений
     if (!messages?.length) {
-        text.push(ctx.t(commands.cabinet.distribution.messages.main.noMessages", { call: callDistribution }));
+        text.push(ctx.t("commands.cabinet.distribution.messages.main.noMessages", { call: callDistribution }));
     }
     else {
         const message = messages[paginationIndex];
 
         text.push(
-            ctx.t(commands.cabinet.distribution.messages.main.messageNumb", { number: paginationIndex + 1 }),
-            ctx.t(commands.cabinet.distribution.messages.main.amountMedia", { amount: message!.media?.length! || 0 }),
+            ctx.t("commands.cabinet.distribution.messages.main.messageNumb", { number: paginationIndex + 1 }),
+            ctx.t("commands.cabinet.distribution.messages.main.amountMedia", { amount: message!.media?.length! || 0 }),
             `\n\`\`\`\n${message?.caption!}\n\`\`\``,
         );
 
         keyboard
-            .text(ctx.t(commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllText${nameDistribution}`).row()
-            .text(ctx.t(commands.cabinet.distribution.messages.main.buttons.paramsText"), "parametrsText").row()
-            .text(ctx.t(commands.cabinet.distribution.messages.main.buttons.update"), `updateText${nameDistribution}:${paginationIndex}`)
-            .text(ctx.t(commands.cabinet.distribution.messages.main.buttons.remove"), `removeText${nameDistribution}:${paginationIndex}`).row()
-            .text(ctx.t(commands.cabinet.distribution.messages.main.buttons.paramsMedia"), "parametrsMedia").row()
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllText${nameDistribution}`).row()
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsText"), "parametrsText").row()
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.update"), `updateText${nameDistribution}:${paginationIndex}`)
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.remove"), `removeText${nameDistribution}:${paginationIndex}`).row()
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMedia"), "parametrsMedia").row()
         ;
 
         // Медиа > 0 и != 4
         if (message?.media!.length! > 0 && message?.media!.length! != 4) {
             keyboard
-                .text(ctx.t(commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia${nameDistribution}:${paginationIndex}`)
-                .text(ctx.t(commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia${nameDistribution}:${paginationIndex}`).row()
+                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia${nameDistribution}:${paginationIndex}`)
+                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia${nameDistribution}:${paginationIndex}`).row()
             ;
         }
         
         // Медиа == 0
         if (message?.media!.length! == 0) {
-            keyboard.text(ctx.t(commands.cabinet.distribution.messages.main.buttons.add"), `addMedia${nameDistribution}:${paginationIndex}`).row();
+            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.add"), `addMedia${nameDistribution}:${paginationIndex}`).row();
         }
 
         // Медиа == 4
         if (message?.media!.length! == 4) {
-            keyboard.text(ctx.t(commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia${nameDistribution}:${paginationIndex}`).row();
+            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia${nameDistribution}:${paginationIndex}`).row();
         }
 
         // Навигация по сообщениям
@@ -81,6 +81,6 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
     }
     keyboard.row();
     keyboard.text(ctx.t("utils.shared.back"), `mainDistribution${ctx.session.distribution.name}`);
-    text.push(ctx.t(commands.cabinet.distribution.messages.main.path", { call: callDistribution }));
+    text.push(ctx.t("commands.cabinet.distribution.messages.main.path", { call: callDistribution }));
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
 }

@@ -71,8 +71,6 @@ bot.on('callback_query', async (ctx: MyContext) => {
     //     // Пользователь выбрал дату
     //     await ctx.reply(`Вы выбрали: ${result}`);
     // }
-
-    // await ctx.answerCallbackQuery();
     await handler.callback_query(ctx);
 });
 

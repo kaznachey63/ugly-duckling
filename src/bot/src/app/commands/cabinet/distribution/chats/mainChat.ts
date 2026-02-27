@@ -16,7 +16,7 @@ export default async function mainChat(ctx: MyContext) {
     
     if (logsBaza.length === 0 || !lastLog?.chats || !infoChats) {
         // Если рассылки нет        
-        await ctx.answerCallbackQuery({ text: ctx.t(commands.cabinet.distribution.chats.noSendout", { call: ctx.session.distribution.call }), show_alert: true });
+        await ctx.answerCallbackQuery({ text: ctx.t("commands.cabinet.distribution.chats.noSendout", { call: ctx.session.distribution.call }), show_alert: true });
         return;
     }
     

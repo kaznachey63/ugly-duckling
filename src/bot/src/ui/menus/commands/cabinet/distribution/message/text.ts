@@ -9,8 +9,8 @@ import type { IMessage } from '@shared/types/IMessage';
 
 function add(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t(commands.cabinet.distribution.messages.text.add.title"),
-        ctx.t(commands.cabinet.distribution.messages.text.add.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.text.add.title"),
+        ctx.t("commands.cabinet.distribution.messages.text.add.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
@@ -21,8 +21,8 @@ function add(ctx: MyContext): Menu<InlineKeyboard> {
 
 function update(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t(commands.cabinet.distribution.messages.text.update.title"),
-        ctx.t(commands.cabinet.distribution.messages.text.update.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.text.update.title"),
+        ctx.t("commands.cabinet.distribution.messages.text.update.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
@@ -34,10 +34,10 @@ function update(ctx: MyContext): Menu<InlineKeyboard> {
 function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [
         result ? 
-            ctx.t(commands.cabinet.distribution.messages.text.remove.success") :
-            ctx.t(commands.cabinet.distribution.messages.text.remove.error")
+            ctx.t("commands.cabinet.distribution.messages.text.remove.success") :
+            ctx.t("commands.cabinet.distribution.messages.text.remove.error")
         ,
-        ctx.t(commands.cabinet.distribution.messages.text.remove.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.text.remove.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
@@ -49,10 +49,10 @@ function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [
         result ?
-            ctx.t(commands.cabinet.distribution.messages.text.clearAll.success") :
-            ctx.t(commands.cabinet.distribution.messages.text.clearAll.error")
+            ctx.t("commands.cabinet.distribution.messages.text.clearAll.success") :
+            ctx.t("commands.cabinet.distribution.messages.text.clearAll.error")
         ,
-        ctx.t(commands.cabinet.distribution.messages.text.clearAll.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.text.clearAll.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
@@ -64,10 +64,10 @@ function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 function adding(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [
         result ?
-            ctx.t(commands.cabinet.distribution.messages.text.adding.success") :
-            ctx.t(commands.cabinet.distribution.messages.text.adding.error")
+            ctx.t("commands.cabinet.distribution.messages.text.adding.success") :
+            ctx.t("commands.cabinet.distribution.messages.text.adding.error")
         ,
-        ctx.t(commands.cabinet.distribution.messages.text.adding.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.text.adding.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
@@ -79,10 +79,10 @@ function adding(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 function updating(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [
         result ?
-            ctx.t(commands.cabinet.distribution.messages.text.updating.success") :
-            ctx.t(commands.cabinet.distribution.messages.text.updating.error")
+            ctx.t("commands.cabinet.distribution.messages.text.updating.success") :
+            ctx.t("commands.cabinet.distribution.messages.text.updating.error")
         ,
-        ctx.t(commands.cabinet.distribution.messages.text.updating.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.text.updating.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()

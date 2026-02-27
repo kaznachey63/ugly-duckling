@@ -22,7 +22,7 @@ export default async function settings(ctx: MyContext) {
                 parse_mode: 'MarkdownV2'
             });
         }
-        await ctx.answerCallbackQuery();
+       
     } catch (error) {
         console.error("Ошибка в обработке команды settings:", error);
     }

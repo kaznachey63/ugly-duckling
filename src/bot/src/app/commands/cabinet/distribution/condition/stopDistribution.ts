@@ -5,7 +5,7 @@ import menuCondition from "@menus/commands/cabinet/distribution/condition";
 import common from '@utils/common';
 
 export default async function stopDistribution(ctx: MyContext) {
-    await ctx.editMessageText(ctx.t("nav.processing"));
+    await ctx.editMessageText(ctx.t("utils.shared.processing"));
     const server = new ServerManager();
     await server.execute("stop", ctx.session.distribution.name);
     common.sleep(250);

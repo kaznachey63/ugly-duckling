@@ -12,7 +12,7 @@ export default async function mainContract(ctx: MyContext) {
 
     // Твоя проверка
     if (!row || row.length < 4) {
-        await ctx.reply(commands.cabinet.distribution.contract.error");
+        await ctx.reply(ctx.t("commands.cabinet.distribution.contract.error"));
         return;
     }
 

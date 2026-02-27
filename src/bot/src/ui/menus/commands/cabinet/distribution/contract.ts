@@ -14,10 +14,10 @@ type ContractInfo = {
  */
 export default function contract(ctx: MyContext, contractInfo: ContractInfo): Menu<InlineKeyboard> {
     const textLines = [
-        ctx.t(commands.cabinet.distribution.contract.title', { customer: contractInfo.customer }),
-        ctx.t(commands.cabinet.distribution.contract.dateStart', { dateStart: contractInfo.dateStart }),
-        ctx.t(commands.cabinet.distribution.contract.dateStop', { dateStop: contractInfo.dateStop }),
-        ctx.t(commands.cabinet.distribution.contract.path', { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.contract.title", { customer: contractInfo.customer }),
+        ctx.t("commands.cabinet.distribution.contract.dateStart", { dateStart: contractInfo.dateStart }),
+        ctx.t("commands.cabinet.distribution.contract.dateStop", { dateStop: contractInfo.dateStop }),
+        ctx.t("commands.cabinet.distribution.contract.path", { call: ctx.session.distribution.call })
     ].join('\n');
 
     const text = utils.formatting.escapeMarkdown(textLines);

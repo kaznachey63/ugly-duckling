@@ -10,5 +10,4 @@ export default async function mainLanguage(ctx: MyContext) {
         reply_markup: menu.keyboard,
         parse_mode: 'MarkdownV2'
     });
-    await ctx.answerCallbackQuery();
 }

@@ -4,7 +4,7 @@ import menuText from "@menus/commands/cabinet/distribution/message/text";
 export default async function updateText(ctx: MyContext) {
     const queryData = ctx.callbackQuery?.data;
 
-    ctx.session.state.text.editingText = true;
+    ctx.session.state.text.updatingText = true;
     ctx.session.typePartition.text.id = Number(queryData!.split(/:/)[1]) || 0;
     const menu = menuText.update(ctx);
 

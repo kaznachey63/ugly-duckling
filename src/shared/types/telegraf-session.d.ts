@@ -28,7 +28,7 @@ export interface MySession extends Session {
     state: {
         text: { 
             addingText: boolean; 
-            editingText: boolean 
+            updatingText: boolean 
         };
         media: { 
             addingMedia: boolean; 

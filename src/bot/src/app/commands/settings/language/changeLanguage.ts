@@ -7,7 +7,7 @@ import menuLanguage from "@menus/commands/settings/language";
 export default async function changeLanguage(ctx: MyContext) {
     const languageCode = ctx.callbackQuery?.data?.split(/:/)[1]!;
     if (ctx.session.languageCode == languageCode) {
-        await ctx.answerCallbackQuery({ text: ctx.t(commands.settings.language.change.error"), show_alert: true });
+        await ctx.answerCallbackQuery({ text: ctx.t("commands.settings.language.change.error"), show_alert: true });
     }
     else {
         ctx.session.languageCode = languageCode;
@@ -17,6 +17,6 @@ export default async function changeLanguage(ctx: MyContext) {
             parse_mode: 'MarkdownV2'
         });
 
-        await ctx.answerCallbackQuery(ctx.t(commands.settings.language.change.good"));
+        await ctx.answerCallbackQuery(ctx.t("commands.settings.language.change.good"));
     }
 }

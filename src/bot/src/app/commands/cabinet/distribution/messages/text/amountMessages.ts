@@ -6,7 +6,7 @@ export default async function amountText(ctx: MyContext) {
     const [ nowPage , allPage ] = (dataPages?.split('/'))?.map(Number) || [];
     
     await ctx.answerCallbackQuery({ 
-        text: ctx.t(commands.cabinet.distribution.messages.text.amount.page", { nowPage: nowPage, allPage: allPage }), 
+        text: ctx.t("commands.cabinet.distribution.messages.text.amount.page", { nowPage: nowPage, allPage: allPage }), 
         show_alert: true 
     });
 };

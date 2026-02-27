@@ -8,8 +8,8 @@ import type { Menu } from "@shared/types/Menu";
  */
 export default function chat(ctx: MyContext, success: number, chats: Chat[]): Menu<InlineKeyboard> {
     const text = [
-        ctx.t(commands.cabinet.distribution.chats.amount', { success: success }),
-        ctx.t(commands.cabinet.distribution.chats.path', { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.chats.amount", { success: success }),
+        ctx.t("commands.cabinet.distribution.chats.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard();

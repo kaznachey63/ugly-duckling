@@ -29,11 +29,10 @@ function createDefaultSession(): SessionData {
         state: {
             text: {
                 addingText: false,
-                editingText: false
+                updatingText: false
             },
             media: {
-                addingMedia: false,
-                editingMedia: false
+                addingMedia: false
             },
             time: {
                 addingTime: false,

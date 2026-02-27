@@ -15,14 +15,14 @@ export default function condition(ctx: MyContext, status: Status): Menu<InlineKe
     switch (status) {
         case "active": {
             keyboard.text(
-                ctx.t(commands.cabinet.distribution.condition.buttons.stop"),
+                ctx.t("commands.cabinet.distribution.condition.buttons.stop"),
                 `stopDistribution${nameDistribution}`
             );
             break;
         }
         case "inactive": {
             keyboard.text(
-                ctx.t(commands.cabinet.distribution.condition.buttons.start"),
+                ctx.t("commands.cabinet.distribution.condition.buttons.start"),
                 `startDistribution${nameDistribution}`
             );
             break;
@@ -32,7 +32,7 @@ export default function condition(ctx: MyContext, status: Status): Menu<InlineKe
 
     const text = [
         ctx.t(`distribution.condition.status.${status}`),
-        ctx.t(commands.cabinet.distribution.condition.path", { call: ctx.session.distribution.call }),
+        ctx.t("commands.cabinet.distribution.condition.path", { call: ctx.session.distribution.call }),
     ].join('\n\n');
 
     keyboard.text(ctx.t('utils.shared.back'), `mainDistribution${ctx.session.distribution.name}`);

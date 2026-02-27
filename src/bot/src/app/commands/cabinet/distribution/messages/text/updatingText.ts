@@ -2,6 +2,7 @@ import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
 import menuText from '@menus/commands/cabinet/distribution/message/text';
 import { ServerManager } from "@utils/ServerManager";
+import common from '@utils/common';
 
 export default async function editingText(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name!;
@@ -17,7 +18,7 @@ export default async function editingText(ctx: MyContext) {
 
     const server = new ServerManager();
     const menu = menuText.updating(ctx, await server.restartProcessOrNot(nameDistribution));
-
+    common.sessionReset(ctx.session);
     try {
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,

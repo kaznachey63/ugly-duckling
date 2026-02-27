@@ -8,21 +8,21 @@ import { InlineKeyboard } from 'grammy';
  */
 export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t(commands.settings.language.main.title"),
-        ctx.t(commands.settings.language.main.path"),
+        ctx.t("commands.settings.language.main.title"),
+        ctx.t("commands.settings.language.main.path"),
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
         .text(
             ctx.session.languageCode == 'ru' ?
-                ctx.t(commands.settings.language.main.buttons.ru") + ' ☑️' :
-                ctx.t(commands.settings.language.main.buttons.ru"), 
+                ctx.t("commands.settings.language.main.buttons.ru") + ' ☑️' :
+                ctx.t("commands.settings.language.main.buttons.ru"), 
             "changeLanguage:ru"
         )
         .text(
             ctx.session.languageCode == 'en' ?
-                ctx.t(commands.settings.language.main.buttons.en") + ' ☑️' :
-                ctx.t(commands.settings.language.main.buttons.en"), 
+                ctx.t("commands.settings.language.main.buttons.en") + ' ☑️' :
+                ctx.t("commands.settings.language.main.buttons.en"), 
             "changeLanguage:en"
         ).row()
         .text(ctx.t("utils.shared.back"), "mainSettings")

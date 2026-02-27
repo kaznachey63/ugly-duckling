@@ -1,8 +1,8 @@
-import type { MyContext, SessionData } from '@shared/types/SessionData';
+import type { MyContext } from '@shared/types/SessionData';
 import { pathToFileURL } from 'url';
 import path from 'path';
 
-type StateType = "text" | "media";
+type StateType = "text" | "media" | "time";
 
 /**
  * Обработчик ввода даннных (текст / медиа)
@@ -18,7 +18,22 @@ export async function dispatchState(ctx: MyContext, type: StateType) {
         await ctx.deleteMessage();
 
         const fileName = `${state}.ts`;
-        const handlerPath = path.join("src", "app", "states", type, fileName);
+
+        let handlerPath = "";
+        switch (type) {
+            case 'text': {
+                path.join("src", "app", "commands", "cabinet", "distribution", "messages", type, fileName);
+                break;
+            }
+            case 'media': {
+                path.join("src", "app", "commands", "cabinet", "distribution", "messages", type, fileName);
+                break;
+            }
+            case 'time': {
+                path.join("src", "app", "commands", "cabinet", "distribution", type, fileName);
+                break;
+            }
+        }
         const handlerUrl = pathToFileURL(handlerPath).href;
 
         try {

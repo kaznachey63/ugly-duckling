@@ -1,16 +1,13 @@
 import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
-import type { Time } from '@shared/types/Time';
-import utils from '@utils';
 import format from '@utils/formatting';
-import type { Message } from '@shared/types/Message';
 import type { Status } from '@shared/types/server/Status';
 
 function add(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t(commands.cabinet.distribution.messages.media.add.title"),
-        ctx.t(commands.cabinet.distribution.messages.media.add.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.media.add.title"),
+        ctx.t("commands.cabinet.distribution.messages.media.add.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()

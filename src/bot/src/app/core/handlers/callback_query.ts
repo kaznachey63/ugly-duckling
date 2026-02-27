@@ -51,36 +51,36 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
     //     await ctx.answerCallbackQuery('⏳ Обработка...');
     // }
 
-    let halfPath = path.join("src", "app", "features", "commands", "cabinet", "features", "commands", "cabinet", "distribution");
+    let halfPath = path.join("src", "app", "commands", "cabinet", "distribution");
 
     if (queryData.toLowerCase().includes("contract")) {
-        halfPath = path.join("src", "app", "features", "commands", "cabinet", "distribution", "contract");
+        halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "contract");
     }
     else if (queryData.toLowerCase().includes("chat")) {
-        halfPath = path.join("src", "app", "features", "commands", "cabinet", "distribution", "chats");
+        halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "chats");
     }
     else if (queryData.toLowerCase().includes("time") || queryData.toLowerCase().includes("schedule")) {
-        halfPath = path.join("src", "app", "features", "commands", "cabinet", "distribution", "schedule");
+        halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "schedule");
     }
     else if (queryData.toLowerCase().includes("message")) {
-        halfPath = path.join("src", "app", "features", "commands", "cabinet", "distribution", "messages");
+        halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "messages");
     }
     else if (queryData.toLowerCase().includes("text")) {
-        halfPath = path.join("src", "app", "features", "commands", "cabinet", "distribution", "messages", "text");
+        halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "messages", "text");
     }
     else if (queryData.toLowerCase().includes("media")) {
-        halfPath = path.join("src", "app", "features", "commands", "cabinet", "distribution", "messages", "media");
+        halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "messages", "media");
     }
     else if (queryData.toLowerCase().includes("statistic")) {
-        halfPath = path.join("src", "app", "features", "commands", "cabinet", "distribution", "statistics");
+        halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "statistics");
 
         if (queryData.toLowerCase().includes("selective")) {
-            halfPath = path.join("src", "app", "features", "commands", "cabinet", "distribution", "statistics", "format");
+            halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "statistics", "format");
         }
         else if (queryData.toLowerCase().includes("comparative")) {
             halfPath = path.join(
                 "src",
-                "app", "features", "commands", "cabinet", "distribution",
+                "app", "commands", "cabinet", "distribution",
                 "statistics",
                 "format",
                 "comparative"
@@ -92,7 +92,7 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
             ) {
                 halfPath = path.join(
                     "src",
-                    "app", "features", "commands", "cabinet", "distribution",
+                    "app", "commands", "cabinet", "distribution",
                     "statistics",
                     "format",
                     "comparative",
@@ -102,19 +102,19 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
         }
     }
     else if (queryData.toLowerCase().includes("condition") || queryData.toLowerCase().includes("startdistribution") || queryData.toLowerCase().includes("stopdistribution")) {
-        halfPath = path.join("src", "app", "features", "commands", "cabinet", "distribution", "condition");
+        halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "condition");
     }
     else if (queryData.toLowerCase().includes("maindistribution")) {
-        halfPath = path.join("src", "app", "features", "commands", "cabinet", "distribution");
+        halfPath = path.join("src", "app", "commands", "cabinet", "distribution");
     }
     else if (queryData.toLowerCase().includes("cabinet")) {
-        halfPath = path.join("src", "app", "features", "commands", "cabinet");
+        halfPath = path.join("src", "app", "commands", "cabinet");
     }
     else if (queryData.toLowerCase().includes("settings")) {
-        halfPath = path.join("src", "app", "features", "commands", "settings");
+        halfPath = path.join("src", "app", "commands", "settings");
     }
     else if (queryData.toLowerCase().includes("language")) {
-        halfPath = path.join("src", "app", "features", "commands", "settings", "language");
+        halfPath = path.join("src", "app", "commands", "settings", "language");
     }
 
     const switchQueryPath = await fs.realpath(halfPath);
@@ -167,12 +167,14 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
             } else {
                 await handlerModule.default(ctx);
             }
+            await ctx.answerCallbackQuery();
         } catch (error) {
             console.error(
                 `Ошибка в вызове файла ${targetFile} внтури обработчика callback_query:`,
                 error
             );
         } finally {
+            try { await ctx.answerCallbackQuery(); } catch {}
             ctx.session.busy = false;
         }
     }

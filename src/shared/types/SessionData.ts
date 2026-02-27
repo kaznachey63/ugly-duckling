@@ -23,11 +23,10 @@ export interface SessionData {
     state: {
         text: {
             addingText: boolean;
-            editingText: boolean;
+            updatingText: boolean;
         };
         media: {
             addingMedia: boolean;
-            editingMedia: boolean;
         };
         time: {
             addingTime: boolean;

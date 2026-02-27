@@ -15,7 +15,7 @@ export default async function contact(ctx: MyContext) {
         await utils.common.deleteTwoMessages(ctx, "contact")
         
         // Сообщение "Обработка..."
-        await ctx.reply("Обработка...");
+        await ctx.reply(ctx.t("utils.shared.processing"), { reply_markup: { remove_keyboard: true }});
 
         // Достаём номер телефона
         const phoneNumber = ctx.message?.contact.phone_number.replace('+', '');
@@ -33,11 +33,11 @@ export default async function contact(ctx: MyContext) {
 
             // Удаляем обработку
             try {
-                await ctx.deleteMessage(ctx.message?.message_id! + 1);
+                await ctx.deleteMessage();
             } catch (error) { }
 
             // Подгружаем меню
-            await utils.common.loadMenu(ctx);
+            await utils.common.loadCabinet(ctx);
         }
         else { // Если номер не найден
             await ctx.reply(ctx.t('handlers.contact.accessDenied'));
