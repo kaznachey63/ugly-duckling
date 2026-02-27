@@ -41,7 +41,7 @@ declare module 'telegram-inline-calendar' {
         // ✅ МЕТОДЫ
         startNavCalendar(ctx: any): Promise<void>;
         clickButtonCalendar(ctx: any): any; // Возвращает дату или -1
-
+        getCalendarMarkup(): any;
         chats: Map<any, any>;
     }
 

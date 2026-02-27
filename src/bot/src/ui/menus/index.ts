@@ -4,6 +4,7 @@ import about from './handlers/commands/about';
 import help from './handlers/commands/help';
 import commandCabinet from './handlers/commands/cabinet';
 import form from './handlers/commands/form';
+import settings from './handlers/commands/settings';
 
 import main from './distribution/main';
 import chats from './distribution/sections/chats';
@@ -22,6 +23,7 @@ export default {
     about,
     commandCabinet,
     form,
+    settings,
 
     main,
     chats,

@@ -1,4 +1,4 @@
-import type { MyContext, SessionData } from '@shared/types/SessionData';
+import type { MyContext } from '@shared/types/SessionData';
 import utils from 'src/common/utils';
 import handler from '.';
 

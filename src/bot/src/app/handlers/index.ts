@@ -1,15 +1,17 @@
-import callback_query from './callback_query.js';
-import setDateListener from './setDateListener.js';
-import contact from './contact.js';
-import start from './commands/start.js';
-import help from './commands/help.js';
-import about from './commands/about.js';
-import cabinet from './commands/cabinet.js';
-import form from './commands/form.js';
-import { dispatchState } from './stateHandler.js';
-import document from './document.js';
+import callback_query from './callback_query';
+import setDateListener from './setDateListener';
+import contact from './contact';
+import { dispatchState } from './stateHandler';
+import document from './document';
 
-    export default {
+import start from './commands/start';
+import help from './commands/help';
+import about from './commands/about';
+import cabinet from './commands/cabinet';
+import form from './commands/form';
+import settings from './commands/settings';
+
+export default {
     callback_query,
     setDateListener,
     contact,
@@ -19,5 +21,6 @@ import document from './document.js';
     cabinet,
     form,
     dispatchState,
-    document
+    document,
+    settings
 };

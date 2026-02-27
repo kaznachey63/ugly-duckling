@@ -1,7 +1,6 @@
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import utils from 'src/common/utils';
-import { Keyboard } from 'grammy';
 
 /**
  * Обработчик контакта

@@ -1,16 +1,16 @@
 import type { MyContext } from '@shared/types/SessionData';
 import utils from 'src/common/utils';
 import db from '@shared/db';
+import menuCabinet from "@menus/handlers/commands/cabinet";
 
 /**
  * Обработка команды cabinet
- * @param ctx Контекст
  */
 export default async function cabinet(ctx: MyContext) {
     if (!ctx) return;
     try {
         // Удаление сообщений перед данными обработчика
-        await utils.common.deleteTwoMessages(ctx, "cabinet")
+        await utils.common.deleteTwoMessages(ctx, "cabinet");
 
         // Пользователь есть в БД
         if (await db.user.userExistsInDB(ctx.from?.id!)) {
@@ -18,18 +18,11 @@ export default async function cabinet(ctx: MyContext) {
             await utils.common.loadMenu(ctx);
         }
         else { // Пользователя нет в БД, запрашиваем номер телефона
-            await ctx.reply(
-                "Чтобы войти в панель рассылки, необходимо поделиться со мной номером телефона\n\n" +
-                "Кнопка должна появиться рядом с клавиатурой, с надписью 'ЖМИ-ЖМИ-ЖМИ'", { 
-                    reply_markup: {
-                        keyboard: [
-                            [{ text: "ЖМИ-ЖМИ-ЖМИ", request_contact: true }]
-                        ],
-                        resize_keyboard: true,
-                        one_time_keyboard: true
-                    }
-                }
-            );
+            const menu = menuCabinet(ctx);
+            await ctx.reply(menu.text, {
+                reply_markup: menu.keyboard,
+                parse_mode: 'MarkdownV2'
+            });
         }
     } catch (error) {
         console.error("Ошибка в обработке команды cabinet: ", error);

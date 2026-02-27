@@ -6,6 +6,7 @@ import google from './google.js';
 import local from './localization.js';
 import init from './initialize.js';
 import chart from './chart';
+import calendar from './calendar';
 
 export default {
     ServerManager,
@@ -15,5 +16,6 @@ export default {
     google,
     local,
     init,
-    chart
+    chart,
+    calendar
 };

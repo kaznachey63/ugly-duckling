@@ -1,5 +1,5 @@
 import type { MyContext } from '@shared/types/SessionData';
-import { InlineKeyboard, Keyboard } from 'grammy';
+import { Keyboard } from 'grammy';
 import type { Menu } from '@shared/types/Menu';
 
 /**

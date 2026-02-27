@@ -1,12 +1,11 @@
 import '@shared/env'; // ← ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ
 import { Bot, session } from 'grammy';
 import handler from '../handlers';
-import utils from '../../common/utils';
 import type { MyContext } from '@shared/types/SessionData';
-import { Calendar } from 'telegram-inline-calendar';
-import { i18nMiddleware } from 'src/ui/i18n'; // путь к файлу
+import { i18nMiddleware } from 'src/ui/i18n';
+import utils from '@utils';
 
-const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);  // ← объявлен позже
+const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
 
 /**
  * Ограничение использования бота вне переписки с ботом
@@ -40,21 +39,9 @@ bot.use(i18nMiddleware);
 /**
  * Инициализация календаря
  */
-const calendar = new Calendar(bot as any, {
-    bot_api: 'grammy',        // ✅ Обязательно для Grammy
-    language: "ru",
-    date_format: "DD-MM-YYYY",
-    start_week_day: 1,        // ✅ ПРАВИЛЬНО: 1 = Понедельник
-    time_selector_mod: false, // ✅ ПРАВИЛЬНО: отключает выбор времени
-    start_date: '2025-12-01', // ✅ Верно
-    stop_date: '2026-12-31',  // ✅ Верно
-    close_calendar: true,     // ✅ Верно
-    custom_start_msg: "fimoz"
-});
 
-bot.command('start', async (ctx) => {
-    // await handler.start(ctx);
-    // await calendar.startNavCalendar(ctx);
+bot.command('start', async (ctx: MyContext) => {
+    await handler.start(ctx);
 });
 
 bot.command('help', async (ctx: MyContext) => {

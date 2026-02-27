@@ -3,10 +3,8 @@ import type { MyContext } from '@shared/types/SessionData';
 
 /**
  * Обработка команды start
- * @param ctx Контекст
  */
 export default async function start(ctx: MyContext) {
-    if (!ctx) return;
     try {
         // Удаление сообщений перед данными обработчика
         await utils.common.deleteTwoMessages(ctx, "start");
