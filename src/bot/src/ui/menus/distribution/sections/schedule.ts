@@ -3,7 +3,6 @@ import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import type { Time } from '@shared/types/Time';
 import utils from '@utils';
-import format from '@utils/formatting';
 
 function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
     const nameDistribution = ctx.session.distribution.name;
@@ -37,7 +36,7 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
     keyboard.text(ctx.t("nav.back"), `mainDistribution${ctx.session.distribution.name}`);
     text.push(ctx.t("distribution.sections.schedule.main.path", { call: callDistribution }));
     
-    return { text: format.escapeMarkdown(text.join('\n')), keyboard }
+    return { text: utils.formatting.escapeMarkdown(text.join('\n')), keyboard }
 }
 
 function add(ctx: MyContext): Menu<InlineKeyboard> {
@@ -46,7 +45,7 @@ function add(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("distribution.sections.schedule.add.path", { call: ctx.session.distribution.call }),
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("nav.back"), `mainSchedule${ctx.session.distribution.name}`);
-    return { text: format.escapeMarkdown(text), keyboard }
+    return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 
 function update(ctx: MyContext): Menu<InlineKeyboard> {
@@ -55,7 +54,7 @@ function update(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("distribution.sections.schedule.main.update.path", { call: ctx.session.distribution.call }),
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("nav.back"), `mainSchedule${ctx.session.distribution.name}`);
-    return { text: format.escapeMarkdown(text), keyboard }
+    return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 
 function remove(ctx: MyContext, listText: string[]): Menu<InlineKeyboard> {
@@ -64,7 +63,7 @@ function remove(ctx: MyContext, listText: string[]): Menu<InlineKeyboard> {
         return t.includes('path') ? ctx.t(t, { call: ctx.session.distribution.call }) : ctx.t(t);
     }).join('\n');
 
-    return { text: format.escapeMarkdown(text), keyboard }
+    return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 
 function updateOrRemove(ctx: MyContext, targetTime: string): Menu<InlineKeyboard> {
@@ -79,7 +78,7 @@ function updateOrRemove(ctx: MyContext, targetTime: string): Menu<InlineKeyboard
         .text(ctx.t("distribution.sections.schedule.updateOrRemove.buttons.remove"))
         .text(ctx.t('nav.back'), `mainSchedule${ctx.session.distribution.name}`);
     ;
-    return { text: format.escapeMarkdown(text), keyboard}
+    return { text: utils.formatting.escapeMarkdown(text), keyboard}
 }
 
 function adding(ctx: MyContext): Menu<InlineKeyboard> {
@@ -88,7 +87,7 @@ function adding(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("distribution.sections.schedule.main.add.path", { call: ctx.session.distribution.call }),
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("nav.back"), `mainSchedule${ctx.session.distribution.name}`);
-    return { text: format.escapeMarkdown(text), keyboard }
+    return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 
 function updating(ctx: MyContext): Menu<InlineKeyboard> {
@@ -97,7 +96,7 @@ function updating(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("distribution.sections.schedule.main.update.path", { call: ctx.session.distribution.call }),
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("nav.back"), `mainSchedule${ctx.session.distribution.name}`);
-    return { text: format.escapeMarkdown(text), keyboard }
+    return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 
 function clearSchedule(ctx: MyContext, listText: string[]): Menu<InlineKeyboard> {
@@ -106,7 +105,7 @@ function clearSchedule(ctx: MyContext, listText: string[]): Menu<InlineKeyboard>
         return t.includes('path') ? ctx.t(t, { call: ctx.session.distribution.call }) : ctx.t(t);
     }).join('\n');
 
-    return { text: format.escapeMarkdown(text), keyboard }
+    return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 
 export default {

@@ -1,7 +1,7 @@
 import db from "@shared/db";
 import utils from "src/common/utils";
 import type { MyContext } from '@shared/types/SessionData';
-import type { IData } from '@shared/types/IData';
+import type { ChartData } from '@shared/types/ChartData';
 import type { StatisticType } from '@shared/types/StatisticType';
 import menuStatistic from "@menus/distribution/sections/statistic";
 
@@ -11,7 +11,7 @@ import menuStatistic from "@menus/distribution/sections/statistic";
 export default async function HandlerComparativeStatistika(ctx: MyContext, typeStat: StatisticType) {
     // ctx.sendChatAction("upload_photo");
     const nameDistribution = ctx.session.distribution.name;
-    const myChart = utils.chart.createChart(await getDataForDiagram(nameDistribution, typeStat));
+    const myChart = utils.chart.createChart(ctx, await getDataForDiagram(nameDistribution, typeStat));
     const menu = menuStatistic.handlerComparative(ctx, typeStat);
 
     await ctx.replyWithPhoto(await myChart.getShortUrl(), {
@@ -95,7 +95,7 @@ function getMonth(date: Date): string[] {
     return withoutSundays;
 }
 
-async function getDataForDiagram(nameDistribution: string, typeStat: StatisticType): Promise<IData> {
+async function getDataForDiagram(nameDistribution: string, typeStat: StatisticType): Promise<ChartData> {
     const groups = await getGroups(nameDistribution, typeStat);
     const labels = getLabels(typeStat);
     return {
