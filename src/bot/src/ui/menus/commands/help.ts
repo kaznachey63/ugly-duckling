@@ -8,7 +8,7 @@ import { InlineKeyboard } from 'grammy';
 export default function help(ctx: MyContext): Menu<InlineKeyboard> {
     const text = ctx.t('handlers.commands.help.question');
     const keyboard = new InlineKeyboard().url(
-        ctx.t('handlers.commands.help.contactAdmin'), 
+        ctx.t(commands.help.contactAdmin'), 
         "https://t.me/master_cuni"
     );
     return { text, keyboard }

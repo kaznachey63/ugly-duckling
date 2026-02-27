@@ -1,13 +1,289 @@
 {
-    "cabinet": {
-        "title": "🪴 Personal Account",
-        "subtitle": "All current sendouts ({{count}})",
-        "noSendouts": "Access denied. Use /form command to submit a request",
-        "error": "❌ Error loading menu. Contact administrator."
+    "utils": {
+        "shared": {
+            "back": "🔙 Back",
+            "processing": "Processing...",
+            "cabinet": "🪴 Personal Cabinet",
+            "menu": "Menu {{call}}"
+        },
+        "chart": {
+            "label": "Number of groups that received the sendout",
+            "title": "Statistics of sent messages ({{type}})",
+            "amountSms": "Number of messages"
+        },
+        "calendar": {}
     },
-    "nav": {
-        "back": "🔙 Back",
-        "cabinet": "🪴 Personal Account",
-        "menu": "Menu {}"
+    "handlers": {
+        "contact": {
+            "accessDenied": "Access denied.\nTo submit a product request, use the '/form' command"
+        },
+        "document": {
+            "error": "I cannot process documents that don't contain media"
+        },
+        "setDateListener": {
+            "result": "Result for time: {{time}} ({{date}})\nDelivered to: {{success}}\n\n[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Selective*]",
+            "noData": "No sendouts have occurred for this date yet",
+            "error": "An error occurred while processing the request"
+        }
+    },
+    "features": {
+        "commands": {
+            "cabinet": {
+                "main": {
+                    "authed": {
+                        "title": "All active sendouts at the moment ({{count}})",
+                        "noSendouts": "Access denied. Use the /form command to submit a request"
+                    },
+                    "notAuthed": {
+                        "title": "To access the sendout panel, you need to share your phone number with me\n\nA button should appear next to the keyboard with the text 'PRESS-PRESS-PRESS'",
+                        "button": "PRESS-PRESS-PRESS"
+                    }
+                },
+                "distribution": {
+                    "main": {
+                        "title": "📣 Sendout Menu «{{call}}»",
+                        "path": "[📍 Path: Cabinet → *Menu «{{call}}»*]",
+                        "buttons": {
+                            "contract": "📜 Contract",
+                            "chats": "👥 Chats",
+                            "schedule": "🕰️ Schedule",
+                            "messages": "💬 Messages",
+                            "statistics": "📈 Statistics",
+                            "condition": "🩻 Status"
+                        }
+                    },
+                    "chats": {
+                        "noSendout": "Sendout for «{{call}}» hasn't occurred yet!",
+                        "amount": "Amount: {{success}}",
+                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → *Chats*]"
+                    },
+                    "condition": {
+                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → *Status*]",
+                        "status": {
+                            "active": "✅ Process is active.\nTo stop, press the button below",
+                            "inactive": "❌ Process is inactive.\nTo start, press the button below",
+                            "failed": "💀 Process has died.\nContact the developer.",
+                            "error": "Process issue. Contact the developer."
+                        },
+                        "buttons": {
+                            "stop": "🛑 Stop",
+                            "start": "▶️ Start"
+                        }
+                    },
+                    "contract": {
+                        "title": "General Information.",
+                        "customer": "Customer: {{customer}}",
+                        "dateStart": "Start date: {{dateStart}}",
+                        "dateStop": "End date: {{dateStop}}",
+                        "error": "Error retrieving contract. Contact administrator",
+                        "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Contract*]"
+                    },
+                    "messages": {
+                        "main": {
+                            "noMessages": "No messages!\nTo add text, press the button below",
+                            "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Messages*]",
+                            "buttons": {
+                                "paramsMessages": "⬇ Message Parameters ⬇",
+                                "add": "📄 Add",
+                                "clearAll": "🗑 Clear All",
+                                "paramsText": "⬇ Text Parameters ⬇",
+                                "update": "✍️ Edit",
+                                "remove": "🗑 Delete",
+                                "paramsMedia": "⬇ Media Parameters ⬇",
+                                "addMedia": "🖼 Add",
+                                "messageNumb": "Message #{{number}}.",
+                                "amountMedia": "Media count: {{amount}} / 4."
+                            }
+                        },
+                        "text": {
+                            "add": {
+                                "title": "Adding text!\nSend the text or forward it here. No text batches allowed.",
+                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Text*]"
+                            },
+                            "update": {
+                                "title": "Editing text!\nSend the text or forward it here. No text batches allowed.",
+                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Edit Text*]"
+                            },
+                            "remove": {
+                                "success": "✅ Text deleted!",
+                                "error": "❌ Text not deleted!\nContact administrator",
+                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Delete Text*]"
+                            },
+                            "clearAll": {
+                                "success": "✅ All texts deleted!",
+                                "error": "❌ Texts not deleted!\nContact administrator"
+                            },
+                            "amount": {
+                                "page": "Page (messages) {{nowPage}} of {{allPage}}"
+                            },
+                            "parameteres": {
+                                "alert": "Text Parameters - button(s) below"
+                            }
+                        },
+                        "media": {
+                            "add": {
+                                "title": "Adding media! (allowed to store: 4 items)",
+                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Media*]"
+                            },
+                            "clearAll": {
+                                "success": "✅ Media deleted!",
+                                "error": "❌ Media not deleted!\nContact administrator",
+                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Delete Media*]"
+                            },
+                            "parameteres": {
+                                "alert": "Media Parameters - button(s) below"
+                            }
+                        },
+                        "parameteres": {
+                            "alert": "Message Parameters - button(s) below"
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "noSchedule": "No schedule for {{call}}!",
+                            "title": "Sendout schedule is shown below as buttons.",
+                            "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Time*]",
+                            "buttons": {
+                                "parameteres": "⬇ Schedule Parameters ⬇",
+                                "addTime": "⏰ Add Time",
+                                "clearSchedule": "🗑 Clear"
+                            }
+                        },
+                        "add": {
+                            "title": "Adding time!",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Add Time*]"
+                        },
+                        "update": {
+                            "title": "Editing time!",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Edit Time*]"
+                        },
+                        "remove": {
+                            "success": "✅ Time deleted!",
+                            "error": "❌ Time not deleted!\nContact administrator",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → Select Action → *Delete Time*]"
+                        },
+                        "clearSchedule": {
+                            "success": "✅ Schedule cleared!",
+                            "error": "❌ Schedule not cleared!\nContact administrator",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Clear Schedule*]"
+                        },
+                        "updateOrRemove": {
+                            "title": "Selected time: *{{targetTime}}*.",
+                            "instruction": "Press the button to perform the corresponding action.",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Select Action*]",
+                            "buttons": {
+                                "update": "✍️ Edit",
+                                "delete": "🗑 Delete"
+                            }
+                        },
+                        "parameteres": {
+                            "alert": "Schedule Parameters - button(s) below"
+                        }
+                    },
+                    "statistics": {
+                        "main": {
+                            "title": "Select the desired statistics format.",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → *Statistics*]",
+                            "buttons": {
+                                "selective": "📅 Selective",
+                                "comparative": "📊 Comparative"
+                            }
+                        },
+                        "selective": {
+                            "notDone": "Technical work is currently in progress on this section.",
+                            "title": "Selective Statistics.\nBelow is a calendar with dates. To view sendout results for a specific day - just click on it!\n\nIf sendout:\n*didn't happen,\n*wasn't scheduled,\n*is not planned,\n*or something else\n- a message with corresponding context will be shown, don't panic.",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Selective*]"
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Select Comparative Statistics type.",
+                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Comparative*]",
+                                "buttons": {
+                                    "week": "Week",
+                                    "month": "Month"
+                                }
+                            },
+                            "week": {
+                                "title": "Comparative Statistics. (Week)",
+                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → Comparative → *Week*]"
+                            },
+                            "month": {
+                                "title": "Comparative Statistics. (Month)",
+                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → Comparative → *Month*]"
+                            }
+                        }
+                    }
+                }
+            },
+            "settings": {
+                "main": {
+                    "title": "Settings",
+                    "buttons": {
+                        "language": "🌐 Interface Language"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Select language.",
+                        "path": "[📍 Path: Settings → *Language Selection*]",
+                        "buttons": {
+                            "ru": "🇷🇺 Русский",
+                            "en": "🏴󠁧󠁢󠁥󠁮󠁧󠁿|🇺🇸 English"
+                        }
+                    },
+                    "change": {
+                        "good": "Language changed!",
+                        "error": "This language is already selected!"
+                    }
+                }
+            },
+            "about": {
+                "description": "The service is designed to automate advertising (posts, sendouts) of your products (offers) within groups / chats / channels\n\nBot usage instructions - via the button below!",
+                "instruction": "Instructions"
+            },
+            "form": {
+                "interest": "Interested in the product?\nFill out the form below and we'll contact you!",
+                "form": "Form"
+            },
+            "help": {
+                "question": "Encountered a problem?\nHave questions?\nWant to praise the service?\nHave ideas for improvement?",
+                "contactAdmin": "Contact Administrator"
+            },
+            "start": {
+                "message": "Greetings! I'm a Telegram bot, assistant for sendouts.\n\nI strongly recommend familiarizing yourself with my full command list by pressing the oval 'Menu' button in the bottom left corner of the screen.\nAfter reading the usage guide, callable via the '/about' command"
+            }
+        },
+        "states": {
+            "media": {
+                "add": {
+                    "error": "💀 Error saving media!\nContact administrator",
+                    "invalidType": "Media type not recognized! Try again",
+                    "bigSize": "File is too large. Maximum size {{size}} MB.",
+                    "documentsWTMedia": "I cannot process documents that don't contain: photo / video / gif",
+                    "success": "✅ Media saved!",
+                    "error2": "❌ Media not saved!\nContact administrator",
+                    "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Media*]"
+                }
+            },
+            "text": {
+                "add": {
+                    "success": "✅ Text saved!",
+                    "error": "❌ Text not saved!\nContact administrator",
+                    "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Text*]"
+                },
+                "update": {
+                    "success": "✅ Text updated!",
+                    "error": "❌ Text not updated!\nContact administrator",
+                    "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Edit Text*]"
+                }
+            },
+            "time": {
+                "add": {
+                    "success": "Time saved!",
+                    "error": "Time not saved!\nContact administrator",
+                    "backButton": "Back to Time"
+                }
+            }
+        }
     }
 }

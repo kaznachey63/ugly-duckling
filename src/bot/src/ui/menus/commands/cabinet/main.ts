@@ -9,7 +9,7 @@ import type { MyContext } from '@shared/types/SessionData';
 function authed(ctx: MyContext, sendouts: Cred[]): Menu<InlineKeyboard> {
     const text = [
         ctx.t('nav.cabinet'),
-        ctx.t('cabinet.subtitle', { count: sendouts.length })
+        ctx.t(commands.cabinet.main.authed.title', { count: sendouts.length })
     ].join('\n');
 
     const keyboard = new InlineKeyboard();
@@ -26,9 +26,9 @@ function authed(ctx: MyContext, sendouts: Cred[]): Menu<InlineKeyboard> {
  * Меню команды cabinet (неавторизованнй пользователь)
  */
 function notAuthed(ctx: MyContext): Menu<Keyboard> {
-    const text = ctx.t('handlers.commands.cabinet.message')
+    const text = ctx.t(commands.cabinet.main.notAuthed.title')
     const keyboard = new Keyboard().requestContact(
-        ctx.t('handlers.commands.cabinet.button')
+        ctx.t(commands.cabinet.main.notAuthed.button')
     ).resized().oneTime();
     return { text, keyboard }
 }

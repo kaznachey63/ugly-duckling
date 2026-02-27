@@ -4,7 +4,7 @@ import handler from './handlers';
 import type { MyContext } from '@shared/types/SessionData';
 import { i18nMiddleware } from 'src/ui/i18n';
 import utils from '@utils';
-import command from '@commands/index';
+import command from 'src/app/commands/index';
 
 const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
 

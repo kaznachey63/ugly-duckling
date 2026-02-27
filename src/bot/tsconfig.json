@@ -25,8 +25,8 @@
       "@i18n": ["src/ui/i18n/index"],
       "@menus/*": ["src/ui/menus/*"],
       "@menus": ["src/ui/menus/index"],
-      "@commands*": ["src/app/features/commands/*"],
-      "@commands": ["src/app/features/commands/index"]
+      "@commands*": ["src/app/commands/*"],
+      "@commands": ["src/app/commands/index"]
     }
   },
   "include": [

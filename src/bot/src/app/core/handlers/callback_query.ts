@@ -110,9 +110,15 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
     else if (queryData.toLowerCase().includes("cabinet")) {
         halfPath = path.join("src", "app", "features", "commands", "cabinet");
     }
+    else if (queryData.toLowerCase().includes("settings")) {
+        halfPath = path.join("src", "app", "features", "commands", "settings");
+    }
+    else if (queryData.toLowerCase().includes("language")) {
+        halfPath = path.join("src", "app", "features", "commands", "settings", "language");
+    }
 
     const switchQueryPath = await fs.realpath(halfPath);
-
+    
     // 🔴 КЭШ fs.readdir
     let files = dirCache.get(switchQueryPath);
     if (!files) {
