@@ -6,7 +6,7 @@ import common from '@utils/common';
 
 export default async function editingText(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name!;
-    const positionIndex = ctx.session.typePartition.text.id!;
+    const positionIndex = ctx.session.state.text.paginationId!;
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;
     const messageId = messages[positionIndex]?.id!;
@@ -19,15 +19,9 @@ export default async function editingText(ctx: MyContext) {
     const server = new ServerManager();
     const menu = menuText.updating(ctx, await server.restartProcessOrNot(nameDistribution));
     common.sessionReset(ctx.session);
-    try {
-        await ctx.editMessageText(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
-        });
-    } catch (error) {
-        await ctx.reply(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
-        });
-    }
+    
+    await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: "MarkdownV2"
+    });
 }

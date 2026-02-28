@@ -1,50 +1,37 @@
 import { Context, type SessionFlavor } from "grammy";
+type LanguageCode =  "ru" | "en";
+type Role = "admin" | "customer" | "unkown";
 
 export interface SessionData {
-    busy: boolean;
-    languageCode: string;
-    role: string;
-    phoneNumber: string;
-    nameRas: string;
-    nameRus: string;
-    messageIds: {
-        start: number;
-        welcomeText: number;
-        sendNumber: number;
-        processText: number;
-        forTextOrMedia: number;
-        forTime: number;
+    settings: {
+        languageCode: LanguageCode;
     };
-    typePartition: {
-        text: { id: number };
-        media: { id: number };
-        time: { id: number };
+    user: {
+        role: Role;
+        phoneNumber: string;
     };
-    state: {
-        text: {
-            addingText: boolean;
-            updatingText: boolean;
-        };
-        media: {
-            addingMedia: boolean;
-        };
-        time: {
-            addingTime: boolean;
-            updatingTime: boolean;
-        };
-        busy: boolean;
-        skipProcessingToast: boolean;
-    };
-    mediaBuffer: {
-        timer: NodeJS.Timeout | undefined;
-        items: number;
-    };
-    messages: string[];
     distribution: {
         call: string;
         label: string;
         name: string;
         schema: string;
+    };
+    state: {
+        idForUpdateMessageFromState: number;
+        text: {
+            adding: boolean;
+            updating: boolean;
+            paginationId: number;
+        };
+        media: {
+            adding: boolean;
+            paginationId: number;
+        };
+        time: {
+            adding: boolean;
+            updating: boolean;
+            paginationId: number;
+        };
     };
 }
 

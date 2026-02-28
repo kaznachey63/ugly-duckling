@@ -6,7 +6,7 @@ import menuSchedule from '@menus/commands/cabinet/distribution/schedule';
  * Уведомление об изменении времени. Ожидание "времени".
  */
 export default async function updateTime(ctx: MyContext) {
-    ctx.session.state.time.updatingTime = true;
+    ctx.session.state.time.updating = true;
     const menu = menuSchedule.update(ctx);
 
     const msg = await ctx.editMessageText(menu.text,
@@ -17,6 +17,6 @@ export default async function updateTime(ctx: MyContext) {
     );
     
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.messageIds.forTime = msg.message_id;
+        ctx.session.state.idForUpdateMessageFromStateOrTime = msg.message_id;
     }
 };

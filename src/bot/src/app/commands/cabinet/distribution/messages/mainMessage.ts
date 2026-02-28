@@ -20,6 +20,6 @@ export default async function mainMessage(ctx: MyContext) {
 
     // Сохранение айди для последующего редактирования этого же сообщения
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.messageIds.forTextOrMedia = msg.message_id;
+        ctx.session.state.idForUpdateMessageFromState = msg.message_id;
     }
 }

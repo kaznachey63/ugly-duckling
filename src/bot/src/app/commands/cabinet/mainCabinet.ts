@@ -7,9 +7,6 @@ import common from "@utils/common";
  */
 export default async function cabinet(ctx: MyContext) {
     try {
-        // Удаление сообщений перед данными обработчика
-        // await utils.common.deleteTwoMessages(ctx, "cabinet");
-
         // Пользователь есть в БД
         if (await db.user.userExistsInDB(ctx.from?.id!)) {
             // Подгружаем меню

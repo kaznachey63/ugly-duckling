@@ -17,17 +17,10 @@ export default async function addingText(ctx: MyContext) {
     const menu = menuText.adding(ctx, await server.restartProcessOrNot(nameDistribution));
     common.sessionReset(ctx.session);
 
-    try {
-        await ctx.editMessageText(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
-        });
-    } catch (error) {
-        await ctx.reply(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
-        });
-    }
+    await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: "MarkdownV2"
+    });
 }
 
 // function validateText(params: type) {

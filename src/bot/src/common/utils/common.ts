@@ -8,12 +8,12 @@ import utils from "src/common/utils";
  * @param session Сессия
  */
 function sessionReset(session: SessionData) {
-    session.state.text.addingText = false;
-    session.state.text.updatingText = false;
-    session.state.media.addingMedia = false;
-    session.state.time.addingTime = false;
-    session.typePartition.text.id = 0;
-    session.typePartition.media.id = 0;
+    session.state.text.adding = false;
+    session.state.text.updating = false;
+    session.state.media.adding = false;
+    session.state.time.adding = false;
+    session.state.text.paginationId = 0;
+    session.state.media.paginationId = 0;
 }
 
 /**
@@ -30,7 +30,7 @@ async function loadCabinet(ctx: MyContext) {
 
     // Проверка на админа
     if (await db.user.userIsAdmin(ctx.from!.id)) {
-        ctx.session.role = "admin";
+        ctx.session.user.role = "admin";
         filtered = allCreds;
     }
     // Получение рассылок по номеру телефона из гугл таблов 
@@ -93,29 +93,24 @@ async function loadCabinet(ctx: MyContext) {
 }
 
 /**
- * Удаление двух сообщений (для обработчиков)
- * @param ctx Контекст
- * @param nameHandler Название обработчика
+ * Задержка
  */
-async function deleteTwoMessages(ctx: MyContext, nameHandler: string) {
-    try {
-        if (nameHandler === "contact2") {
-            await ctx.deleteMessage(ctx.message?.message_id! + 1);
-        }
-        else {
-            await ctx.deleteMessage();
-            await ctx.deleteMessage(ctx.message?.message_id! - 1);
-        }
-    } catch (error) {}
-}
-
 function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * Удаление двух сообщений (для обработчиков)
+ */
+// async function deleteTwoMessages(ctx: MyContext) {
+//     try {
+//         await ctx.deleteMessage();
+//         // await ctx.deleteMessage(id - 1);
+//     } catch {}
+// }
+
 export default {
     sessionReset,
     loadCabinet,
-    deleteTwoMessages,
     sleep
 };

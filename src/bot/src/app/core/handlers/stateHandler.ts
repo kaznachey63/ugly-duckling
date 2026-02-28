@@ -5,7 +5,7 @@ import path from 'path';
 type StateType = "text" | "media" | "time";
 
 /**
- * Обработчик ввода даннных (текст / медиа)
+ * Обработчик ввода данных (текст / медиа)
  * @param ctx Контекст
  * @param type Тип обработчика
  */
@@ -14,26 +14,30 @@ export async function dispatchState(ctx: MyContext, type: StateType) {
 
     for (const [state, bool] of Object.entries(states)) {
         if (!bool) continue;
-
         await ctx.deleteMessage();
+        await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, ctx.t("utils.shared.processing"));
 
         const fileName = `${state}.ts`;
 
         let handlerPath = "";
         switch (type) {
             case 'text': {
-                path.join("src", "app", "commands", "cabinet", "distribution", "messages", type, fileName);
+                // 🔥 Присваиваем результат!
+                handlerPath = path.join("src", "app", "commands", "cabinet", "distribution", "messages", type, fileName);
                 break;
             }
             case 'media': {
-                path.join("src", "app", "commands", "cabinet", "distribution", "messages", type, fileName);
+                // 🔥 Присваиваем результат!
+                handlerPath = path.join("src", "app", "commands", "cabinet", "distribution", "messages", type, fileName);
                 break;
             }
             case 'time': {
-                path.join("src", "app", "commands", "cabinet", "distribution", type, fileName);
+                // 🔥 Присваиваем результат!
+                handlerPath = path.join("src", "app", "commands", "cabinet", "distribution", type, fileName);
                 break;
             }
         }
+
         const handlerUrl = pathToFileURL(handlerPath).href;
 
         try {

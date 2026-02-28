@@ -11,16 +11,8 @@ export default async function clearAll(ctx: MyContext) {
     await db.message.removeAllMessage(nameDistribution);
     const server = new ServerManager();
     const menu = menuText.clearAll(ctx, await server.restartProcessOrNot(nameDistribution));
-
-    try {
-        await ctx.editMessageText(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
-        });
-    } catch (error) {
-        await ctx.reply(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
-        });
-    }
+    await ctx.editMessageText(menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: "MarkdownV2"
+    });
 };

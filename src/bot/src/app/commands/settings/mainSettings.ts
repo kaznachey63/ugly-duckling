@@ -7,9 +7,6 @@ import menuSettings from "@menus/commands/settings/main";
  */
 export default async function settings(ctx: MyContext) {
     try {
-        // Удаление сообщений перед данными обработчика
-        // await utils.common.deleteTwoMessages(ctx, "settings");
-
         const menu = menuSettings(ctx);
         try {
             await ctx.editMessageText(menu.text, {

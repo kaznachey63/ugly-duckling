@@ -14,13 +14,13 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
 
     const keyboard = new InlineKeyboard()
         .text(
-            ctx.session.languageCode == 'ru' ?
+            ctx.session.settings.languageCode == 'ru' ?
                 ctx.t("commands.settings.language.main.buttons.ru") + ' ☑️' :
                 ctx.t("commands.settings.language.main.buttons.ru"), 
             "changeLanguage:ru"
         )
         .text(
-            ctx.session.languageCode == 'en' ?
+            ctx.session.settings.languageCode == 'en' ?
                 ctx.t("commands.settings.language.main.buttons.en") + ' ☑️' :
                 ctx.t("commands.settings.language.main.buttons.en"), 
             "changeLanguage:en"

@@ -4,8 +4,8 @@ import menuText from "@menus/commands/cabinet/distribution/message/text";
 export default async function updateText(ctx: MyContext) {
     const queryData = ctx.callbackQuery?.data;
 
-    ctx.session.state.text.updatingText = true;
-    ctx.session.typePartition.text.id = Number(queryData!.split(/:/)[1]) || 0;
+    ctx.session.state.text.updating = true;
+    ctx.session.state.text.paginationId = Number(queryData!.split(/:/)[1]) || 0;
     const menu = menuText.update(ctx);
 
     // Сохранение айди для последующего редактирования этого же сообщения
@@ -15,6 +15,6 @@ export default async function updateText(ctx: MyContext) {
     });
 
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.messageIds.forTextOrMedia = msg.message_id;
+        ctx.session.state.idForUpdateMessageFromState = msg.message_id;
     }
 };

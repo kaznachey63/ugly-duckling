@@ -3,6 +3,7 @@ import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 import type { IMessage } from '@shared/types/IMessage';
+import constants from '@constants';
 
 export default function main(ctx: MyContext, messages: IMessage[], paginationIndex: number): Menu<InlineKeyboard> {
     const nameDistribution = ctx.session.distribution.name;
@@ -12,7 +13,7 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
     let keyboard = new InlineKeyboard();
 
     keyboard
-        .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMessages"), "parametresMessage").row()
+        .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMessages"), "parametersMessage").row()
         .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.add"), `addText${nameDistribution}`)
     ;
 
@@ -24,17 +25,17 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
         const message = messages[paginationIndex];
 
         text.push(
-            ctx.t("commands.cabinet.distribution.messages.main.messageNumb", { number: paginationIndex + 1 }),
-            ctx.t("commands.cabinet.distribution.messages.main.amountMedia", { amount: message!.media?.length! || 0 }),
-            `\n\`\`\`\n${message?.caption!}\n\`\`\``,
+            ctx.t("commands.cabinet.distribution.messages.main.messageNumb", { number: paginationIndex + 1 }) + ' ' +
+            ctx.t("commands.cabinet.distribution.messages.main.amountMedia", { amount: message!.media?.length! || 0, maxMedia: constants.maxMedia }),
+            `\`\`\`\n${message?.caption!}\n\`\`\``,
         );
 
         keyboard
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllText${nameDistribution}`).row()
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsText"), "parametrsText").row()
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsText"), "parametersText").row()
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.update"), `updateText${nameDistribution}:${paginationIndex}`)
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.remove"), `removeText${nameDistribution}:${paginationIndex}`).row()
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMedia"), "parametrsMedia").row()
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMedia"), "parametersMedia").row()
         ;
 
         // Медиа > 0 и != 4
@@ -47,7 +48,7 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
         
         // Медиа == 0
         if (message?.media!.length! == 0) {
-            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.add"), `addMedia${nameDistribution}:${paginationIndex}`).row();
+            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia${nameDistribution}:${paginationIndex}`).row();
         }
 
         // Медиа == 4
@@ -57,24 +58,24 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
 
         // Навигация по сообщениям
         if (messages.length === 1) {
-            keyboard.text(`${paginationIndex + 1} / ${messages.length}`, `amountText${nameDistribution}:${paginationIndex + 1}/${messages.length}`).row();
+            keyboard.text(`${paginationIndex + 1} / ${messages.length}`, `amountMessages${nameDistribution}:${paginationIndex + 1}/${messages.length}`).row();
         } 
         else if (paginationIndex === 0) {
             keyboard
-                .text(`${paginationIndex + 1} / ${messages.length}`, `amountText${nameDistribution}:${paginationIndex + 1}/${messages.length}`)
+                .text(`${paginationIndex + 1} / ${messages.length}`, `amountMessages${nameDistribution}:${paginationIndex + 1}/${messages.length}`)
                 .text("➡", `mainMessage${nameDistribution}:${paginationIndex + 1}`).row()
             ;
         } 
         else if (paginationIndex + 1 === messages.length) {
             keyboard
                 .text("⬅", `mainMessage${nameDistribution}:${paginationIndex - 1}`)
-                .text(`${paginationIndex + 1} / ${messages.length}`, `amountText${nameDistribution}:${paginationIndex + 1}/${messages.length}`).row()
+                .text(`${paginationIndex + 1} / ${messages.length}`, `amountMessages${nameDistribution}:${paginationIndex + 1}/${messages.length}`).row()
             ;
         } 
         else {
             keyboard
                 .text("⬅", `mainMessage${nameDistribution}:${paginationIndex - 1}`)
-                .text(`${paginationIndex + 1} / ${messages.length}`, `amountText${nameDistribution}:${paginationIndex + 1}/${messages.length}`)
+                .text(`${paginationIndex + 1} / ${messages.length}`, `amountMessages${nameDistribution}:${paginationIndex + 1}/${messages.length}`)
                 .text("➡", `mainMessage${nameDistribution}:${paginationIndex + 1}`).row()
             ;
         }

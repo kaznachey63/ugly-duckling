@@ -22,8 +22,8 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
         }
     }
 
-    if (ctx.session.role == 'admin') {
-        keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.parameteres"), "parameteresSchedule").row();
+    if (ctx.session.user.role == 'admin') {
+        keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.parameters"), "parametersSchedule").row();
 
         if (times?.length! >= 6) {
             keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.clearSchedule"), `clearSchedule${nameDistribution}`)

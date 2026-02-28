@@ -11,8 +11,8 @@ export default async function contact(ctx: MyContext) {
     if (!ctx.message || !('contact' in ctx.message)) return;
 
     try {
-        // Удаление сообщений перед данными обработчика
-        await utils.common.deleteTwoMessages(ctx, "contact")
+        // Удаляем контакт пользователя
+        try { await ctx.deleteMessage(); } catch { }        
         
         // Сообщение "Обработка..."
         await ctx.reply(ctx.t("utils.shared.processing"), { reply_markup: { remove_keyboard: true }});
@@ -26,15 +26,13 @@ export default async function contact(ctx: MyContext) {
 
         // Если номер найден в реестре заказчиков (гугл-таблице)
         if (phoneExists || phoneNumber === process.env.ADMIN_NUMBER) {
-            ctx.session.phoneNumber = phoneNumber;
+            ctx.session.user.phoneNumber = phoneNumber;
 
             // Добавляем пользователя в БД
             await db.user.insertUserToDB(ctx);
 
             // Удаляем обработку
-            try {
-                await ctx.deleteMessage();
-            } catch (error) { }
+            try { await ctx.deleteMessage(); } catch{ }
 
             // Подгружаем меню
             await utils.common.loadCabinet(ctx);

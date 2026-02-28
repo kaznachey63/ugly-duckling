@@ -18,7 +18,7 @@ i18next.use(Backend).init({
 // Middleware для grammy
 export const i18nMiddleware = async (ctx: MyContext, next: NextFunction) => {
     ctx.t = (key, options = {}) => {
-        const lng = ctx.session?.languageCode || 'ru';
+        const lng = ctx.session?.settings.languageCode || 'ru';
         return i18next.t(key, { lng, ...options });
     };
     await next();

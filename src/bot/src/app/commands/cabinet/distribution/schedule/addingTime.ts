@@ -26,7 +26,7 @@ export default async function addingTime(ctx: MyContext) {
 
     await ctx.telegram.editMessageText(
         ctx?.chat?.id, // chat_id
-        ctx.session.messageIds.forTextOrMedia, // message_id
+        ctx.session.state.idForUpdateMessageFromState, // message_id
         undefined, // inline_message_id
         textMessage,
         { reply_markup: menuAddingText.reply_markup }

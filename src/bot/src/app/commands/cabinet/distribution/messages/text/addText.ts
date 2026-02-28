@@ -2,7 +2,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuText from "@menus/commands/cabinet/distribution/message/text";
 
 export default async function addText(ctx: MyContext) {
-    ctx.session.state.text.addingText = true;
+    ctx.session.state.text.adding = true;
     const menu = menuText.add(ctx);
 
     // Сохранение айди для последующего редактирования этого же сообщения
@@ -12,6 +12,6 @@ export default async function addText(ctx: MyContext) {
     });
 
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.messageIds.forTextOrMedia = msg.message_id;
+        ctx.session.state.idForUpdateMessageFromState = msg.message_id;
     }
 };

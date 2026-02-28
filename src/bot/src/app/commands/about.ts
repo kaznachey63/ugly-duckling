@@ -7,9 +7,6 @@ import menuAbout from "@menus/commands/about";
  */
 export default async function about(ctx: MyContext) {
     try {
-        // Удаление сообщений перед данными обработчика
-        await utils.common.deleteTwoMessages(ctx, "about");
-        
         const menu = menuAbout(ctx);
         await ctx.reply(menu.text, {
             reply_markup: menu.keyboard,

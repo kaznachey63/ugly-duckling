@@ -6,11 +6,11 @@ import menuLanguage from "@menus/commands/settings/language";
  */
 export default async function changeLanguage(ctx: MyContext) {
     const languageCode = ctx.callbackQuery?.data?.split(/:/)[1]!;
-    if (ctx.session.languageCode == languageCode) {
+    if (ctx.session.settings.languageCode == languageCode) {
         await ctx.answerCallbackQuery({ text: ctx.t("commands.settings.language.change.error"), show_alert: true });
     }
     else {
-        ctx.session.languageCode = languageCode;
+        ctx.session.settings.languageCode = languageCode;
         const menu = menuLanguage(ctx);
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,

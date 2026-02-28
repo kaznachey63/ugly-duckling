@@ -1,6 +1,6 @@
 import type { MyContext } from '@shared/types/SessionData';
 
-export default async function amountText(ctx: MyContext) {
+export default async function amountMessages(ctx: MyContext) {    
     const queryData = ctx.callbackQuery?.data;
     const dataPages =  queryData!.split(/:/)[1];
     const [ nowPage , allPage ] = (dataPages?.split('/'))?.map(Number) || [];

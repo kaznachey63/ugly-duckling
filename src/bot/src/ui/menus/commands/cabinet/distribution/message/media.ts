@@ -16,15 +16,14 @@ function add(ctx: MyContext): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function clearAll(ctx: MyContext, listText: string[]): Menu<InlineKeyboard> {
-    const text = listText.map((t, i) => {
-        if (i == listText.length - 1) {
-            return ctx.t(t, { call: ctx.session.distribution.call });
-        }
-        else {
-            return ctx.t(t);
-        }
-    }).join('\n\n');
+function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
+    const text = [
+        result ? 
+            ctx.t("commands.cabinet.distribution.messages.media.clearAll.success") :
+            ctx.t("commands.cabinet.distribution.messages.media.clearAll.error")
+        ,
+        ctx.t("commands.cabinet.distribution.messages.media.clearAll.path", { call: ctx.session.distribution.call })
+    ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
         .text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}`)
@@ -33,14 +32,14 @@ function clearAll(ctx: MyContext, listText: string[]): Menu<InlineKeyboard> {
 }
 
 function adding(ctx: MyContext, status: Status): Menu<InlineKeyboard> {
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainMessage");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}:0`);
 
     const text = [
         status === 'active'
-            ? ctx.t('states.media.add.success')
-            : ctx.t('states.media.add.error2'),
+            ? ctx.t("commands.cabinet.distribution.messages.media.adding.success")
+            : ctx.t("commands.cabinet.distribution.messages.media.adding.error2"),
 
-        ctx.t('states.media.add.path', {
+        ctx.t("commands.cabinet.distribution.messages.media.adding.path", {
             call: ctx.session.distribution.call
         })
     ].join('\n\n');

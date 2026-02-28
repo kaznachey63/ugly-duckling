@@ -81,6 +81,8 @@
                     "main": {
                         "noMessages": "No messages!\nTo add text, press the button below",
                         "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Messages*]",
+                        "messageNumb": "Message #{{number}}.",
+                        "amountMedia": "Media count: {{amount}} / {{maxMedia}}.",
                         "buttons": {
                             "paramsMessages": "⬇ Message Parameters ⬇",
                             "add": "📄 Add",
@@ -89,9 +91,7 @@
                             "update": "✍️ Edit",
                             "remove": "🗑 Delete",
                             "paramsMedia": "⬇ Media Parameters ⬇",
-                            "addMedia": "🖼 Add",
-                            "messageNumb": "Message #{{number}}.",
-                            "amountMedia": "Media count: {{amount}} / 4."
+                            "addMedia": "🖼 Add"
                         }
                     },
                     "text": {
@@ -115,7 +115,7 @@
                         "amount": {
                             "page": "Page (messages) {{nowPage}} of {{allPage}}"
                         },
-                        "parameteres": {
+                        "parameters": {
                             "alert": "Text Parameters below"
                         },
                         "adding": {
@@ -139,7 +139,7 @@
                             "error": "❌ Media not deleted!\nContact administrator",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Delete Media*]"
                         },
-                        "parameteres": {
+                        "parameters": {
                             "alert": "Media Parameters below"
                         },
                         "adding": {
@@ -152,7 +152,7 @@
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Media*]"
                         }
                     },
-                    "parameteres": {
+                    "parameters": {
                         "alert": "Message Parameters below"
                     }
                 },
@@ -162,7 +162,7 @@
                         "title": "Sendout schedule is shown below as buttons.",
                         "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Time*]",
                         "buttons": {
-                            "parameteres": "⬇ Schedule Parameters ⬇",
+                            "parameters": "⬇ Schedule Parameters ⬇",
                             "addTime": "⏰ Add Time",
                             "clearSchedule": "🗑 Clear"
                         }
@@ -194,7 +194,7 @@
                             "delete": "🗑 Delete"
                         }
                     },
-                    "parameteres": {
+                    "parameters": {
                         "alert": "Schedule Parameters below"
                     }
                 },

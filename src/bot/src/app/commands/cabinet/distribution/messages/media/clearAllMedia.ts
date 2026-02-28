@@ -14,46 +14,26 @@ export default async function clearAllMedia(ctx: MyContext) {
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;
     const message = messages[positionIndex];
-    let text = [];
-    
-    try {
-        // 🔥 УДАЛЯЕМ ФАЙЛЫ ИЗ ФАЙЛОВОЙ СИСТЕМЫ
-        for (const file of message?.media!) {
-            if (file && file !== 'null' && typeof file === 'string') {
-                try {
-                    await utils.file.deleteFile(file);
-                    console.log(`🗑️ Удалён файл: ${file}`);
-                } catch (err) {
-                    console.warn(`Файл не найден: ${file}`);
-                }
+    const server = new ServerManager();
+
+    // 🔥 УДАЛЯЕМ ФАЙЛЫ ИЗ ФАЙЛОВОЙ СИСТЕМЫ
+    for (const file of message?.media!) {
+        if (file && file !== 'null' && typeof file === 'string') {
+            try {
+                await utils.file.deleteFile(file);
+                console.log(`🗑️ Удалён файл: ${file}`);
+            } catch (err) {
+                console.warn(`Файл не найден: ${file}`);
             }
         }
-
-        // 🔥 ОБНУЛЯЕМ МЕДИА В БД
-        await db.message.updateMessage(nameDistribution, message?.id!, { media: null });
-
-        const server = new ServerManager();
-        if (await server.restartProcessOrNot(nameDistribution)) {
-            text.push(commands.cabinet.distribution.messages.media.clearAll.success");
-        } 
-        else {
-            text.push(commands.cabinet.distribution.messages.media.clearAll.error");
-        }
-    } catch (error) {
-        console.error("Ошибка удаления медиа:", error);
-        text.push(commands.cabinet.distribution.messages.media.clearAll.error");
     }
-
-    const menu = menuMedia.clearAll(ctx, text);
-    try {
-        await ctx.editMessageText(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
-        });
-    } catch {
-        await ctx.reply(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
-        });
-    }
+    
+    // 🔥 ОБНУЛЯЕМ МЕДИА В БД
+    await db.message.updateMessage(nameDistribution, message?.id!, { media: null });
+    
+    const menu = menuMedia.clearAll(ctx, await server.restartProcessOrNot(nameDistribution));
+    await ctx.editMessageText(menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: "MarkdownV2"
+    });
 };

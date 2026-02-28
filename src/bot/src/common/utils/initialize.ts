@@ -1,63 +1,41 @@
-import type { MyContext, SessionData } from '@shared/types/SessionData';
-import type { Bot, Context, SessionFlavor } from 'grammy';
+import type { SessionData } from '@shared/types/SessionData';
 import { Calendar } from 'telegram-inline-calendar';
 
 function createDefaultSession(): SessionData {
     return {
-        busy: false,
-        languageCode: "ru",
-        role: "",
-        phoneNumber: "",
-        nameRas: "",
-        nameRus: "",
-
-        messageIds: {
-            start: 0,
-            welcomeText: 0,
-            sendNumber: 0,
-            processText: 0,
-            forTextOrMedia: 0,
-            forTime: 0
+        settings: {
+            languageCode: 'ru',
         },
-
-        typePartition: {
-            text: { id: 0 },
-            media: { id: 0 },
-            time: { id: 0 }
+        user: {
+            role: 'unkown',
+            phoneNumber: "",
         },
-
-        state: {
-            text: {
-                addingText: false,
-                updatingText: false
-            },
-            media: {
-                addingMedia: false
-            },
-            time: {
-                addingTime: false,
-                updatingTime: false
-            },
-            busy: false,
-            skipProcessingToast: false
-        },
-
-        mediaBuffer: {
-            timer: undefined,
-            items: 0
-        },
-
-        messages: [],
         distribution: {
             call: "",
             label: "",
             name: "",
-            schema: ""
-        }
-    };
+            schema: "",
+        },
+        state: {
+            idForUpdateMessageFromState: 0,
+            text: {
+                adding: false,
+                updating: false,
+                paginationId: 0,
+            },
+            media: {
+                adding: false,
+                paginationId: 0,
+            },
+            time: {
+                adding: false,
+                updating: false,
+                paginationId: 0,
+            },
+        },
+    }
 };
 
-// type MyMyContext = MyContext & SessionFlavor<SessionData>;
 function initCalendar(bot: any): Calendar {
     return new Calendar(bot, {
         language: "ru",

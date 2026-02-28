@@ -9,7 +9,7 @@ import menuSchedule from '@menus/commands/cabinet/distribution/schedule';
 export default async function updateOrRemoveTime(ctx: MyContext) {
     const queryData = ctx.callbackQuery?.data;
     const timeId = Number(queryData!.split(/:/)[1]);
-    ctx.session.typePartition.time.id = timeId;
+    ctx.session.state.time.paginationId = timeId;
     const targetTime = utils.local.formatTimeToRu(await db.time.getTime(ctx.session.distribution.schema, timeId));
     const menu = menuSchedule.updateOrRemove(ctx, targetTime!);
 

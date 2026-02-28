@@ -8,8 +8,8 @@ export default async function addMedia(ctx: MyContext) {
     const queryData = ctx.callbackQuery?.data;
     const positionIndex = Number(queryData!.split(/:/)[1]) || 0;
 
-    ctx.session.state.media.addingMedia = true;
-    ctx.session.typePartition.media.id = positionIndex;
+    ctx.session.state.media.adding = true;
+    ctx.session.state.media.paginationId = positionIndex;
 
     const menu = menuMedia.add(ctx);
 
@@ -20,6 +20,6 @@ export default async function addMedia(ctx: MyContext) {
     });
 
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.messageIds.forTextOrMedia = msg.message_id;
+        ctx.session.state.idForUpdateMessageFromState = msg.message_id;
     }
 };

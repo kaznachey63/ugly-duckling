@@ -14,7 +14,7 @@ export default async function removeTime(ctx: MyContext) {
         text.push(commands.cabinet.distribution.schedule.remove.error");
     }
     else {
-        await db.time.removeTime(ctx.session.distribution.schema, ctx.session.typePartition.time.id);
+        await db.time.removeTime(ctx.session.distribution.schema, ctx.session.state.time.paginationId);
         const server = new ServerManager();
         if (await server.restartProcessOrNot(nameDistribution)) {
             text.push(commands.cabinet.distribution.schedule.remove.success");

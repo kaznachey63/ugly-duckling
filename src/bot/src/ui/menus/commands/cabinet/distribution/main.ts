@@ -15,7 +15,7 @@ export default async function main(ctx: MyContext): Promise<Menu<InlineKeyboard>
         .text(ctx.t("commands.cabinet.distribution.main.buttons.contract"), `mainContract${nameDistribution}`).row()
     ;
     
-    if (ctx.session.role == 'admin' || await db.user.userIsFather(ctx.from?.id!)) {
+    if (ctx.session.user.role == 'admin' || await db.user.userIsFather(ctx.from?.id!)) {
         keyboard.text(ctx.t("commands.cabinet.distribution.main.buttons.chats"), `mainChats${nameDistribution}`).row()
     }
     
@@ -25,7 +25,7 @@ export default async function main(ctx: MyContext): Promise<Menu<InlineKeyboard>
         .text(ctx.t("commands.cabinet.distribution.main.buttons.statistics"), `mainStatistics${nameDistribution}`).row()
     ;
     
-    if (ctx.session.role == 'admin') {
+    if (ctx.session.user.role == 'admin') {
         keyboard.text(ctx.t("commands.cabinet.distribution.main.buttons.condition"), `mainCondition${nameDistribution}`).row();
     }
         

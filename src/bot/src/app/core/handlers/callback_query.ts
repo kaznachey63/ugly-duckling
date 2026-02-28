@@ -21,36 +21,6 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
     }
     if (queryData.includes("calendar")) return;
 
-    // 🔒 защита от повторных кликов
-    if (ctx.session.busy) {
-        // тут НЕЛЬЗЯ toast, он может быть уже подтверждён
-        return;
-    }
-    ctx.session.busy = true;
-    
-    const skipToastCallbacks = [
-        "mainChat",
-        "parametresMessage",
-        "addMedia",
-        "deleteMedia",
-        "editMedia",
-        "parametrsMedia",
-        "amountText",
-        "parametrsText",
-        "startService",
-        "stopService",
-        "mainStatistic",
-        "parametrsTime"
-    ];
-
-    const startsWithSkip = skipToastCallbacks.some(prefix =>
-        queryData.startsWith(prefix)
-    );
-
-    // if (!startsWithSkip) {
-    //     await ctx.answerCallbackQuery('⏳ Обработка...');
-    // }
-
     let halfPath = path.join("src", "app", "commands", "cabinet", "distribution");
 
     if (queryData.toLowerCase().includes("contract")) {
@@ -167,7 +137,6 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
             } else {
                 await handlerModule.default(ctx);
             }
-            await ctx.answerCallbackQuery();
         } catch (error) {
             console.error(
                 `Ошибка в вызове файла ${targetFile} внтури обработчика callback_query:`,
@@ -175,7 +144,6 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
             );
         } finally {
             try { await ctx.answerCallbackQuery(); } catch {}
-            ctx.session.busy = false;
         }
     }
 }
