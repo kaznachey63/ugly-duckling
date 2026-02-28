@@ -8,7 +8,7 @@ import path from 'path';
 const localesPath = path.join('src', 'ui', 'i18n', 'locales');
 const DEFAULT_LOCALE: LanguageCode = 'ru';
 
-// 🔽 Функция маппинга прямо здесь (вместо отдельного файла)
+// 🔽 Функция маппинга прямо здесь
 function getLocaleFromTelegram(tgLang: string | undefined): LanguageCode {
     if (!tgLang) return DEFAULT_LOCALE;
 
@@ -17,16 +17,15 @@ function getLocaleFromTelegram(tgLang: string | undefined): LanguageCode {
 
     if (base === 'ru') return 'ru';
     if (base === 'en') return 'en';
-    if (base === 'zh') return 'zh-CN'; // Китайский (любой вариант) -> zh-CN
+    if (base === 'zh') return 'zh'; // Китайский -> zh
 
-    // Всё остальное -> дефолт
     return DEFAULT_LOCALE;
 }
 
 i18next.use(Backend).init({
     lng: DEFAULT_LOCALE,
     fallbackLng: DEFAULT_LOCALE,
-    preload: ['ru', 'en', 'zh-CN'], // ✅ Коды совпадают с типом и именами файлов
+    preload: ['ru', 'en', 'zh'], // ✅ Коды совпадают с типом и файлами
     backend: {
         loadPath: path.join(localesPath, '{{lng}}.json'),
     },
@@ -34,13 +33,9 @@ i18next.use(Backend).init({
 });
 
 export const i18nMiddleware = async (ctx: MyContext, next: NextFunction) => {
-    // 1) Ручной выбор пользователя
     const manualLang = ctx.session?.settings?.languageCode;
-
-    // 2) Автоопределение по Telegram (через локальную функцию)
     const autoLang = ctx.from?.language_code ? getLocaleFromTelegram(ctx.from.language_code) : DEFAULT_LOCALE;
 
-    // Итоговый язык
     const lng = manualLang || autoLang;
 
     // Сохраняем авто-язык в сессию при первом запуске

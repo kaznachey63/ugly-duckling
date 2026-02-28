@@ -24,6 +24,12 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
                 ctx.t("commands.settings.language.main.buttons.en") + ' ☑️' :
                 ctx.t("commands.settings.language.main.buttons.en"), 
             "changeLanguage:en"
+        )
+        .text(
+            ctx.session.settings.languageCode == 'en' ?
+                ctx.t("commands.settings.language.main.buttons.zh") + ' ☑️' :
+                ctx.t("commands.settings.language.main.buttons.zh"), 
+            "changeLanguage:zh"
         ).row()
         .text(ctx.t("utils.shared.back"), "mainSettings")
     ;

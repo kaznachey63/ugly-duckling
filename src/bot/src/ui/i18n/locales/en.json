@@ -1,235 +1,235 @@
 {
     "utils": {
         "shared": {
-            "back": "🔙 Назад",
-            "processing": "Обработка...",
-            "cabinet": "🪴 Личный кабинет",
-            "menu": "Меню {{call}}"
+            "back": "🔙 Back",
+            "processing": "Processing...",
+            "cabinet": "🪴 Personal Account",
+            "menu": "Menu {{call}}"
         },
         "chart": {
-            "label": "Количество групп, получивших рассылку",
-            "title": "Статистика отправленных сообщений ({{type}})",
-            "amountSms": "Количество сообщений"
+            "label": "Number of groups that received the mailing",
+            "title": "Statistics of sent messages ({{type}})",
+            "amountSms": "Number of messages"
         },
         "calendar": {}
     },
     "handlers": {
         "contact": {
-            "accessDenied": "Отказано в доступе.\nЧтобы оставить заявку на продукт, воспользуйтесь командной '/form'"
+            "accessDenied": "Access denied.\nTo submit a product request, use the '/form' command"
         },
         "document": {
-            "error": "Я не умею обрабатывать документы, не содержащие медиа"
+            "error": "I can't process documents that don't contain media"
         },
         "setDateListener": {
-            "result": "Итог на время: {{time}} ({{date}})\nДошло в: {{success}}\n\n[📍 Путь: Кабинет → Меню «{{call}}» → Статистика → *Выборочная*]",
-            "noData": "Ещё не произошло ни одной рассылки за эту дату",
-            "error": "Произошла ошибка при обработке запроса"
+            "result": "Result for time: {{time}} ({{date}})\nDelivered to: {{success}}\n\n[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Selective*]",
+            "noData": "No mailings have occurred yet for this date",
+            "error": "An error occurred while processing your request"
         }
     },
     "commands": {
         "cabinet": {
             "main": {
-                "noSendouts": "Отказано в доступе. Воспользуйтесь командой /cabinet, чтобы заново авторизоваться или /form, чтобы оставить заявку",
+                "noSendouts": "Access denied. Use the /cabinet command to re-authorize or /form to submit a request",
                 "authed": {
-                    "title": "Все действующие рассылки на данный момент ({{count}})",
-                    "noSendouts": "Доступ воспрещен. Воспользуйтесь командой /form и оставьте заявку"
+                    "title": "All active mailings at the moment ({{count}})",
+                    "noSendouts": "Access denied. Use the /form command to submit a request"
                 },
                 "notAuthed": {
-                    "title": "Чтобы войти в панель рассылки, необходимо поделиться со мной номером телефона\n\nКнопка должна появиться рядом с клавиатурой, с надписью 'ЖМИ-ЖМИ-ЖМИ'",
-                    "button": "ЖМИ-ЖМИ-ЖМИ"
+                    "title": "To access the mailing panel, you need to share your phone number with me\n\nA button labeled 'TAP-TAP-TAP' should appear next to the keyboard",
+                    "button": "TAP-TAP-TAP"
                 }
             },
             "distribution": {
                 "main": {
-                    "title": "📣 Меню рассылки «{{call}}»",
-                    "path": "[📍 Путь: Кабинет → *Меню «{{call}}»*]",
+                    "title": "📣 Mailing Menu «{{call}}»",
+                    "path": "[📍 Path: Cabinet → *Menu «{{call}}»*]",
                     "buttons": {
-                        "contract": "📜 Договор",
-                        "chats": "👥 Чаты",
-                        "schedule": "🕰️ График",
-                        "messages": "💬 Сообщения",
-                        "statistics": "📈 Статистика",
-                        "condition": "🩻 Состояние"
+                        "contract": "📜 Contract",
+                        "chats": "👥 Chats",
+                        "schedule": "🕰️ Schedule",
+                        "messages": "💬 Messages",
+                        "statistics": "📈 Statistics",
+                        "condition": "🩻 Status"
                     }
                 },
                 "chats": {
-                    "noSendout": "Рассылка у «{{call}}» еще не произошла!",
-                    "amount": "Количество: {{success}}",
-                    "path": "[📍 Путь: Кабинет → Меню «{{call}}» → *Чаты*]"
+                    "noSendout": "Mailing for «{{call}}» hasn't occurred yet!",
+                    "amount": "Quantity: {{success}}",
+                    "path": "[📍 Path: Cabinet → Menu «{{call}}» → *Chats*]"
                 },
                 "condition": {
-                    "path": "[📍 Путь: Кабинет → Меню «{{call}}» → *Состояние*]",
+                    "path": "[📍 Path: Cabinet → Menu «{{call}}» → *Status*]",
                     "status": {
-                        "active": "✅ Процесс активен.\nЧтобы остановить, нажмите на кнопку ниже",
-                        "inactive": "❌ Процесс неактивен.\nЧтобы запустить, нажмите на кнопку ниже",
-                        "failed": "💀 Процесс умер.\nОбратитесь к программисту.",
-                        "error": "Проблема с процессом. Обратитесь к программисту."
+                        "active": "✅ Process is active.\nTo stop, press the button below",
+                        "inactive": "❌ Process is inactive.\nTo start, press the button below",
+                        "failed": "💀 Process has crashed.\nContact the developer.",
+                        "error": "Process issue. Contact the developer."
                     },
                     "buttons": {
-                        "stop": "🛑 Стоп",
-                        "start": "▶️ Запуск"
+                        "stop": "🛑 Stop",
+                        "start": "▶️ Start"
                     }
                 },
                 "contract": {
-                    "title": "Общие сведения.",
-                    "customer": "Заказчик: {{customer}}",
-                    "dateStart": "Дата начала: {{dateStart}}",
-                    "dateStop": "Дата окончания: {{dateStop}}",
-                    "error": "Ошибка при получении договора. Обратитесь к администратору",
-                    "path": "\n[📍 Путь: Кабинет → Меню «{{call}}» → *Договор*]"
+                    "title": "General information.",
+                    "customer": "Customer: {{customer}}",
+                    "dateStart": "Start date: {{dateStart}}",
+                    "dateStop": "End date: {{dateStop}}",
+                    "error": "Error retrieving contract. Contact the administrator",
+                    "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Contract*]"
                 },
                 "messages": {
                     "main": {
-                        "noMessages": "Сообщений нет!\nЧтобы добавить текст, нажми на кнопку ниже",
-                        "path": "\n[📍 Путь: Кабинет → Меню «{{call}}» → *Сообщения*]",
-                        "messageNumb": "Сообщение №{{number}}.",
-                        "amountMedia": "Кол-во медиа: {{amount}} / {{maxMedia}}.",
+                        "noMessages": "No messages!\nTo add text, press the button below",
+                        "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Messages*]",
+                        "messageNumb": "Message №{{number}}.",
+                        "amountMedia": "Media count: {{amount}} / {{maxMedia}}.",
                         "buttons": {
-                            "paramsMessages": "⬇ Параметры сообщений ⬇",
-                            "add": "📄 Добавить",
-                            "clearAll": "🗑 Очистить все",
-                            "paramsText": "⬇ Параметры текста ⬇",
-                            "update": "✍️ Изменить",
-                            "remove": "🗑 Удалить",
-                            "paramsMedia": "⬇ Параметры медиа ⬇",
-                            "addMedia": "🖼 Добавить"
+                            "paramsMessages": "⬇ Message Parameters ⬇",
+                            "add": "📄 Add",
+                            "clearAll": "🗑 Clear All",
+                            "paramsText": "⬇ Text Parameters ⬇",
+                            "update": "✍️ Edit",
+                            "remove": "🗑 Delete",
+                            "paramsMedia": "⬇ Media Parameters ⬇",
+                            "addMedia": "🖼 Add"
                         }
                     },
                     "text": {
                         "add": {
-                            "title": "Добавляем текст!\nПрисылай текст или перешли его сюда. Пачкой текстов нельзя.",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Сообщения → *Добавление текста*]"
+                            "title": "Adding text!\nSend or forward the text here. One message at a time.",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Text*]"
                         },
                         "update": {
-                            "title": "Изменяем текст!\nПрисылай текст или перешли его сюда. Пачкой текстов нельзя.",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Сообщения → *Изменение текста*]"
+                            "title": "Editing text!\nSend or forward the text here. One message at a time.",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Edit Text*]"
                         },
                         "remove": {
-                            "success": "✅ Текст удален!",
-                            "error": "❌ Текст не удален!\nОбратитесь к администратору",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Сообщения → *Удаление текста*]"
+                            "success": "✅ Text deleted!",
+                            "error": "❌ Text not deleted!\nContact the administrator",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Delete Text*]"
                         },
                         "clearAll": {
-                            "success": "✅ Все сообщения очищены!",
-                            "error": "❌ Сообщения не очищены!\nОбратитесь к администратору",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Сообщения → *Очистка сообщений*]"
+                            "success": "✅ All messages cleared!",
+                            "error": "❌ Messages not cleared!\nContact the administrator",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Clear Messages*]"
                         },
                         "amount": {
-                            "page": "Страница (сообщ.) {{nowPage}} из {{allPage}}"
+                            "page": "Page (messages) {{nowPage}} of {{allPage}}"
                         },
                         "parameters": {
-                            "alert": "Параметры Текста ниже"
+                            "alert": "Text Parameters below"
                         },
                         "adding": {
-                            "success": "✅ Текст сохранен!",
-                            "error": "❌ Текст не сохранен!\nОбратитесь к администратору",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Сообщения → *Добавление текста*]"
+                            "success": "✅ Text saved!",
+                            "error": "❌ Text not saved!\nContact the administrator",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Text*]"
                         },
                         "updating": {
-                            "success": "✅ Текст изменен!",
-                            "error": "❌ Текст не изменен!\nОбратитесь к администратору",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Сообщения → *Изменение текста*]"
+                            "success": "✅ Text updated!",
+                            "error": "❌ Text not updated!\nContact the administrator",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Edit Text*]"
                         }
                     },
                     "media": {
                         "add": {
-                            "title": "Добавляем медиа!\nПрисылайте медиа в количестве 1шт.",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Сообщения → *Добавление медиа*]"
+                            "title": "Adding media!\nSend media files one at a time.",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Media*]"
                         },
                         "clearAll": {
-                            "success": "✅ Медиа очищено!",
-                            "error": "❌ Медиа не очищено!\nОбратитесь к администратору",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Сообщения → *Очистка медиа*]"
+                            "success": "✅ Media cleared!",
+                            "error": "❌ Media not cleared!\nContact the administrator",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Clear Media*]"
                         },
                         "parameters": {
-                            "alert": "Параметры Медиа ниже"
+                            "alert": "Media Parameters below"
                         },
                         "adding": {
-                            "error": "💀 Ошибка при сохранении медиа!\nОбратитесь к администратору",
-                            "invalidType": "Тип медиа не опознан! Попробуйте снова",
-                            "bigSize": "Файл слишком большой. Максимальный размер {{size}} МБ.",
-                            "documentsWTMedia": "Я не умею обрабатывать документы, не содержащие: фото / видео / гиф",
-                            "success": "✅ Медиа сохранено!",
-                            "error2": "❌ Медиа не сохранено!\nОбратитесь к администратору",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Сообщения → *Добавление медиа*]"
+                            "error": "💀 Error saving media!\nContact the administrator",
+                            "invalidType": "Media type not recognized! Try again",
+                            "bigSize": "File too large. Maximum size {{size}} MB.",
+                            "documentsWTMedia": "I can't process documents without: photo / video / gif",
+                            "success": "✅ Media saved!",
+                            "error2": "❌ Media not saved!\nContact the administrator",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Media*]"
                         }
                     },
                     "parameters": {
-                        "alert": "Параметры Сообщений ниже"
+                        "alert": "Message Parameters below"
                     }
                 },
                 "schedule": {
                     "main": {
-                        "noSchedule": "Графика у {{call}} нет!",
-                        "title": "График рассылки представлен ниже в виде кнопок.",
-                        "path": "\n[📍 Путь: Кабинет → Меню «{{call}}» → *Время*]",
+                        "noSchedule": "No schedule for {{call}}!",
+                        "title": "Mailing schedule is shown below as buttons.",
+                        "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Schedule*]",
                         "buttons": {
-                            "parameters": "⬇ Параметры графика ⬇",
-                            "addTime": "⏰ Добавить время",
-                            "clearSchedule": "🗑 Очистить"
+                            "parameters": "⬇ Schedule Parameters ⬇",
+                            "addTime": "⏰ Add Time",
+                            "clearSchedule": "🗑 Clear"
                         }
                     },
                     "add": {
-                        "title": "Добавляем время!",
-                        "path": "[📍 Путь: Кабинет → Меню «{{call}}» → График → *Добавление времени*]"
+                        "title": "Adding time!",
+                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Add Time*]"
                     },
                     "update": {
-                        "title": "Изменяем время!",
-                        "path": "[📍 Путь: Кабинет → Меню «{{call}}» → График → *Изменение времени*]"
+                        "title": "Editing time!",
+                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Edit Time*]"
                     },
                     "remove": {
-                        "success": "✅ Время удалено!",
-                        "error": "❌ Время не удалено!\nОбратитесь к администратору",
-                        "path": "[📍 Путь: Кабинет → Меню «{{call}}» → График → Выбор действия → *Удаление времени*]"
+                        "success": "✅ Time deleted!",
+                        "error": "❌ Time not deleted!\nContact the administrator",
+                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → Select Action → *Delete Time*]"
                     },
                     "clearSchedule": {
-                        "success": "✅ График очищен!",
-                        "error": "❌ График не очищен!\nОбратитесь к администратору",
-                        "path": "[📍 Путь: Кабинет → Меню «{{call}}» → График → *Очистка графика*]"
+                        "success": "✅ Schedule cleared!",
+                        "error": "❌ Schedule not cleared!\nContact the administrator",
+                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Clear Schedule*]"
                     },
                     "updateOrRemove": {
-                        "title": "Выбранное время: *{{targetTime}}*.",
-                        "instruction": "Нажми на кнопку, чтобы произвести соответствующее действие.",
-                        "path": "[📍 Путь: Кабинет → Меню «{{call}}» → График → *Выбор действия*]",
+                        "title": "Selected time: *{{targetTime}}*.",
+                        "instruction": "Press a button to perform the corresponding action.",
+                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Select Action*]",
                         "buttons": {
-                            "update": "✍ Изменить",
-                            "delete": "🗑 Удалить"
+                            "update": "✍ Edit",
+                            "delete": "🗑 Delete"
                         }
                     },
                     "parameters": {
-                        "alert": "Параметры Графика ниже"
+                        "alert": "Schedule Parameters below"
                     }
                 },
                 "statistics": {
                     "main": {
-                        "title": "Выберите формат желаемой статистики.",
-                        "path": "[📍 Путь: Кабинет → Меню «{{call}}» → *Статистика*]",
+                        "title": "Select the desired statistics format.",
+                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → *Statistics*]",
                         "buttons": {
-                            "selective": "📅 Выборочная",
-                            "comparative": "📊 Сравнительная"
+                            "selective": "📅 Selective",
+                            "comparative": "📊 Comparative"
                         }
                     },
                     "selective": {
-                        "notDone": "В настоящее время над разделом ведутся технические работы.",
-                        "title": "Выборочная статистика.\nНиже - календарь с датами. Чтобы просмотреть результат рассылки за какой-то день - просто кликните на него!\n\nЕсли рассылки: \n*не произошло, \n*не было, \n*не запланировано, \n*или другое \n- будет отображено сообщение с соответсвующим контекстом, не пугайтесь.",
-                        "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Статистика → *Выборочная*]"
+                        "notDone": "This section is currently under technical maintenance.",
+                        "title": "Selective Statistics.\nBelow is a calendar with dates. To view mailing results for a specific day, simply click on it!\n\nIf the mailing:\n*didn't happen,\n*wasn't scheduled,\n*isn't planned,\n*or something else\n- a message with the corresponding context will be displayed, don't worry.",
+                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Selective*]"
                     },
                     "comparative": {
                         "main": {
-                            "title": "Выберите тип Сравнительной статистики.",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Статистика → *Сравнительная*]",
+                            "title": "Select the type of Comparative Statistics.",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Comparative*]",
                             "buttons": {
-                                "week": "Неделя",
-                                "month": "Месяц"
+                                "week": "Week",
+                                "month": "Month"
                             }
                         },
                         "week": {
-                            "title": "Сравнительная статистика. (Неделя)",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Статистика → Сравнительная → *Неделя*]"
+                            "title": "Comparative Statistics (Week)",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → Comparative → *Week*]"
                         },
                         "month": {
-                            "title": "Сравнительная статистика. (Месяц)",
-                            "path": "[📍 Путь: Кабинет → Меню «{{call}}» → Статистика → Сравнительная → *Месяц*]"
+                            "title": "Comparative Statistics (Month)",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → Comparative → *Month*]"
                         }
                     }
                 }
@@ -237,40 +237,41 @@
         },
         "settings": {
             "main": {
-                "title": "Настройки",
+                "title": "Settings",
                 "buttons": {
-                    "language": "🌐 Язык интерфейса"
+                    "language": "🌐 Interface Language"
                 }
             },
             "language": {
                 "main": {
-                    "title": "Выберите язык.",
-                    "path": "[📍 Путь: Настройки → *Выбор языка*]",
+                    "title": "Select a language.",
+                    "path": "[📍 Path: Settings → *Language Selection*]",
                     "buttons": {
-                        "ru": "🇷🇺 Русский",
-                        "en": "🏴󠁧󠁢󠁥󠁮󠁧󠁿|🇺🇸 English"
+                        "ru": "🇷🇺 Russian",
+                        "en": "🏴󠁧󠁢󠁥󠁮󠁧󠁿|🇺🇸 English",
+                        "zh": "🇨🇳 Chinese"
                     }
                 },
                 "change": {
-                    "good": "Язык изменен!",
-                    "error": "Данный язык уже выбран!"
+                    "good": "Language changed!",
+                    "error": "This language is already selected!"
                 }
             }
         },
         "about": {
-            "description": "Сервис разработан для автоматизации рекламы (постов, рассылок) своих продуктов (предложений) внутри групп / чатов / каналов\n\nИнструкция по использованию Бота - по кнопке ниже!",
-            "instruction": "Инструкция"
+            "description": "This service is designed to automate advertising (posts, mailings) of your products (offers) within groups/chats/channels\n\nInstructions for using the Bot - via the button below!",
+            "instruction": "Instructions"
         },
         "form": {
-            "interest": "Заинтересованы в продукте?\nЗаполните анкету ниже и мы с вами свяжемся!",
-            "form": "Анкета"
+            "interest": "Interested in the product?\nFill out the form below and we'll contact you!",
+            "form": "Form"
         },
         "help": {
-            "question": "Столкнулись с проблемой?\nПоявились вопросы?\nЖелаете похвалить работу сервиса?\nЕсть мысли по улучшению сервиса?",
-            "contactAdmin": "Обратиться к администратору"
+            "question": "Encountered a problem?\nHave questions?\nWant to praise the service?\nHave ideas for improvement?",
+            "contactAdmin": "Contact Administrator"
         },
         "start": {
-            "message": "Приветствую! Я - Телеграмм-бот, помощник для рассылки.\n\nНастоятельно рекомендую ознакомиться со всем реестром моих команд по нажатию овальной кнопки 'Меню' в левом нижнем углу экрана.\nПредварительно прочитав руководство по использованию, вызываемое командой '/about'"
+            "message": "Welcome! I'm a Telegram bot, your mailing assistant.\n\nI highly recommend reviewing my full command list by pressing the oval 'Menu' button in the bottom left corner of the screen.\nPlease read the usage guide first, accessible via the '/about' command"
         }
     }
 }
