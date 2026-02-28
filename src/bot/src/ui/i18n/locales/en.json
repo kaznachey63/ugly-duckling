@@ -247,9 +247,9 @@
                     "title": "Select a language.",
                     "path": "[📍 Path: Settings → *Language Selection*]",
                     "buttons": {
-                        "ru": "🇷🇺 Russian",
-                        "en": "🏴󠁧󠁢󠁥󠁮󠁧󠁿|🇺🇸 English",
-                        "zh": "🇨🇳 Chinese"
+                        "ru": "🇷🇺",
+                        "en": "🏴󠁧󠁢󠁥󠁮󠁧󠁿|🇺🇸",
+                        "zh": "🇨🇳"
                     }
                 },
                 "change": {
