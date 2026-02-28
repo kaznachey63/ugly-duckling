@@ -83,13 +83,14 @@ async function insertUserToDB(ctx: MyContext) {
     const phoneNumber = ctx.session?.user.phoneNumber || null;
     const name = last_name ? `${first_name} ${last_name}` : first_name;
     const isAdmin = ctx.session.user.role === "admin";
-
+    if (!phoneNumber) return false;
     try {
         await pool.query(
             `INSERT INTO users (telegram_id, name, username, phone_number, is_admin)
             VALUES ($1, $2, $3, $4, $5)`,
             [id, name, username, phoneNumber, isAdmin]
         );
+        return true;
     } catch (error) {
         console.error("Ошибка вставки пользователя:", error);
     }

@@ -28,10 +28,13 @@ export default async function contact(ctx: MyContext) {
             ctx.session.user.phoneNumber = phoneNumber;
             ctx.session.user.role = utils.common.isAdmin(ctx.from!.id) ? "admin" : "customer";
 
-            await db.user.insertUserToDB(ctx);
-
             // 3. Удаляем, передавая ID сообщения обработки
             await deleteMessageProcessing(ctx, processingMsgId);
+
+            if (!await db.user.insertUserToDB(ctx)) {
+                await ctx.reply(ctx.t("handlers.contact.numberIsNull"));
+                return;
+            }
 
             await utils.common.loadCabinet(ctx);
         }

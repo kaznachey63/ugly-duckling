@@ -15,6 +15,7 @@
     },
     "handlers": {
         "contact": {
+            "numberIsNull": "处理电话号码时出错！\n请重试！",
             "accessDenied": "访问被拒绝。\n如需提交产品申请，请使用 '/form' 命令"
         },
         "document": {

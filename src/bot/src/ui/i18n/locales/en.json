@@ -15,7 +15,8 @@
     },
     "handlers": {
         "contact": {
-            "accessDenied": "Access denied.\nTo submit a product request, use the '/form' command"
+            "accessDenied": "Access denied.\nTo submit a product request, use the '/form' command",
+            "numberIsNull": "Error processing phone number!\nTry again!"
         },
         "document": {
             "error": "I can't process documents that don't contain media"
