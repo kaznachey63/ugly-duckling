@@ -22,9 +22,6 @@ function sessionReset(session: SessionData) {
 async function loadCabinet(ctx: MyContext) {
     // Получение рассылок
     const allCreds = await db.credential.getCred();
-    if (!allCreds?.length) {
-        return ctx.reply(ctx.t('cabinet.noCreds'));
-    }
 
     let filtered: typeof allCreds = [];
 
@@ -36,7 +33,7 @@ async function loadCabinet(ctx: MyContext) {
     // Получение рассылок по номеру телефона из гугл таблов 
     else {
         const phone = await db.user.getPhoneNumber(ctx.from!.id);
-        if (!phone) return ctx.reply(ctx.t('commands.cabinet.noPhone'));
+        if (!phone) return ctx.reply(ctx.t('commands.cabinet.main.noSendouts'));
 
         const rows = await utils.google.getRowsFromGS("Заказчики!A2:I");
         const labels = rows
@@ -99,18 +96,26 @@ function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function isAdmin(id: number): boolean {
+    return id === Number(process.env.ID_ADMIN);
+}
+
 /**
  * Удаление двух сообщений (для обработчиков)
  */
-// async function deleteTwoMessages(ctx: MyContext) {
-//     try {
-//         await ctx.deleteMessage();
-//         // await ctx.deleteMessage(id - 1);
-//     } catch {}
-// }
+async function deleteTwoMessages(ctx: MyContext, idForSeconDelete: number) {
+    try {
+        await ctx.deleteMessage();
+        console.log();
+        
+        await ctx.api.deleteMessage(ctx.chat?.id!, idForSeconDelete - 1);
+    } catch {}
+}
 
 export default {
     sessionReset,
     loadCabinet,
-    sleep
+    sleep,
+    isAdmin,
+    deleteTwoMessages
 };

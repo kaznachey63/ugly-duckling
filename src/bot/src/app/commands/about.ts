@@ -1,5 +1,4 @@
 import type { MyContext } from '@shared/types/SessionData';
-import utils from 'src/common/utils';
 import menuAbout from "@menus/commands/about";
 
 /**

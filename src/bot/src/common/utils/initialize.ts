@@ -7,6 +7,7 @@ function createDefaultSession(): SessionData {
             languageCode: 'ru',
         },
         user: {
+            id: 0,
             role: 'unkown',
             phoneNumber: "",
         },
@@ -18,6 +19,7 @@ function createDefaultSession(): SessionData {
         },
         state: {
             idForUpdateMessageFromState: 0,
+            commandId: 0,
             text: {
                 adding: false,
                 updating: false,

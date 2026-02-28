@@ -1,6 +1,6 @@
 import { getPool } from '../pool';
 const pool = getPool();
-import type { MyContext, SessionData } from '@shared/types/SessionData';
+import type { MyContext } from '@shared/types/SessionData';
 
 /**
  * Проверка на существование пользователя в БД
@@ -80,9 +80,9 @@ async function userIsFather(userId: number): Promise<boolean> {
  */
 async function insertUserToDB(ctx: MyContext) {
     const { id, username, first_name, last_name } = ctx.from!;
-    const phoneNumber = ctx.session?.phoneNumber || null;
+    const phoneNumber = ctx.session?.user.phoneNumber || null;
     const name = last_name ? `${first_name} ${last_name}` : first_name;
-    const isAdmin = phoneNumber === process.env.ADMIN_NUMBER;
+    const isAdmin = ctx.session.user.role === "admin";
 
     try {
         await pool.query(

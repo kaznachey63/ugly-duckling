@@ -1,6 +1,7 @@
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import utils from 'src/common/utils';
+import common from '@utils/common';
 
 /**
  * Обработчик контакта
@@ -11,36 +12,63 @@ export default async function contact(ctx: MyContext) {
     if (!ctx.message || !('contact' in ctx.message)) return;
 
     try {
-        // Удаляем контакт пользователя
-        try { await ctx.deleteMessage(); } catch { }        
-        
-        // Сообщение "Обработка..."
-        await ctx.reply(ctx.t("utils.shared.processing"), { reply_markup: { remove_keyboard: true }});
-
-        // Достаём номер телефона
-        const phoneNumber = ctx.message?.contact.phone_number.replace('+', '');
+        const phoneNumber = ctx.message?.contact.phone_number?.replace('+', '');
+        if (!phoneNumber) return;
 
         // Проверяем номер в Google Sheets
         const dataFromSheets = await utils.google.getRowsFromGS("Заказчики!I2:I");
         const phoneExists = dataFromSheets?.some(row => row[0]?.trim() === phoneNumber);
 
-        // Если номер найден в реестре заказчиков (гугл-таблице)
-        if (phoneExists || phoneNumber === process.env.ADMIN_NUMBER) {
-            ctx.session.user.phoneNumber = phoneNumber;
+        // 1. Сначала отправляем "Обработка..." и ПОЛУЧАЕМ ID этого сообщения
+        const processingMsg = await ctx.reply(ctx.t("utils.shared.processing"), { reply_markup: { remove_keyboard: true } });
+        const processingMsgId = processingMsg?.message_id;
 
-            // Добавляем пользователя в БД
+        // 2. Логика проверки
+        if (phoneExists || common.isAdmin(ctx.from?.id!)) {
+            ctx.session.user.phoneNumber = phoneNumber;
+            ctx.session.user.role = utils.common.isAdmin(ctx.from!.id) ? "admin" : "customer";
+
             await db.user.insertUserToDB(ctx);
 
-            // Удаляем обработку
-            try { await ctx.deleteMessage(); } catch{ }
+            // 3. Удаляем, передавая ID сообщения обработки
+            await deleteMessageProcessing(ctx, processingMsgId);
 
-            // Подгружаем меню
             await utils.common.loadCabinet(ctx);
         }
-        else { // Если номер не найден
+        else {
+            // 4. Если доступ запрещен — тоже удаляем
+            await deleteMessageProcessing(ctx, processingMsgId);
+
+            ctx.session.user.role = "unkown";
             await ctx.reply(ctx.t('handlers.contact.accessDenied'));
         }
     } catch (error) {
         console.error("Ошибка в обработке контакта:", error);
     }
+}
+
+async function deleteMessageProcessing(ctx: MyContext, endMsgId?: number) {
+    try {
+        const commandId = ctx.session.state.commandId;
+        const targetEndId = endMsgId || ctx.msgId;
+
+        // Проверки: если нет данных — выходим
+        if (!commandId || !targetEndId || !ctx.chat?.id) return;
+
+        let count = 0;
+        const maxIterations = 100;
+
+        while (commandId < targetEndId - count) {
+            if (count > maxIterations) break;
+
+            const targetId = targetEndId - count;
+            if (!targetId) break;
+
+            try {
+                await ctx.api.deleteMessage(ctx.chat.id, targetId);
+            } catch { }
+
+            count += 1;
+        }
+    } catch { }
 }

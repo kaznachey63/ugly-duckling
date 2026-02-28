@@ -7,6 +7,7 @@ export interface SessionData {
         languageCode: LanguageCode;
     };
     user: {
+        id: number;
         role: Role;
         phoneNumber: string;
     };
@@ -18,6 +19,7 @@ export interface SessionData {
     };
     state: {
         idForUpdateMessageFromState: number;
+        commandId: number;
         text: {
             adding: boolean;
             updating: boolean;

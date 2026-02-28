@@ -51,6 +51,9 @@ bot.command('about', async (ctx: MyContext) => {
 });
 
 bot.command('cabinet', async (ctx: MyContext) => {
+    if (ctx.message?.text?.startsWith('/')) {
+        ctx.session.state.commandId = ctx.msgId!;
+    }
     await command.cabinet(ctx);
 });
 
