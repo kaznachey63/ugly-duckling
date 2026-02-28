@@ -1,6 +1,6 @@
 import { Context, type SessionFlavor } from "grammy";
-type LanguageCode =  "ru" | "en";
-type Role = "admin" | "customer" | "unkown";
+import type { Role } from '@shared/types/Role';
+import type { LanguageCode } from '@shared/types/LanguageCode';
 
 export interface SessionData {
     settings: {

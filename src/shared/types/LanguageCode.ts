@@ -1,0 +1,1 @@
+export type LanguageCode = "ru" | "en" | "zh-CN";
