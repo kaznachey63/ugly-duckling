@@ -1,5 +1,4 @@
 import type { SessionData } from '@shared/types/SessionData';
-import { Calendar } from 'telegram-inline-calendar';
 
 function createDefaultSession(): SessionData {
     return {
@@ -38,14 +37,6 @@ function createDefaultSession(): SessionData {
     }
 };
 
-function initCalendar(bot: any): Calendar {
-    return new Calendar(bot, {
-        language: "ru",
-        date_format: "DD-MM-YYYY"
-    });
-}
-
 export default {
     createDefaultSession,
-    initCalendar
 }
