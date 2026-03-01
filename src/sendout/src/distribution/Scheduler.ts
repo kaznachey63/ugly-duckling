@@ -35,12 +35,11 @@ export class Scheduler {
             return;
         }
         this.getSendingStats(chats);
-        times.forEach((time, index) => {
-            cron.schedule(time, async () => {
-                await this.execute(time, index, messages, chats);
-            }, {
-                timezone: "Europe/Moscow"
-            });
+        times.forEach((time) => {
+            cron.schedule(time.cron, async () => {
+                // 👇 Передаём time.id вместо index
+                await this.execute(time.cron, time.id, messages, chats);
+            }, { timezone: "Europe/Moscow" });
         });
     }
 
@@ -128,7 +127,7 @@ export class Scheduler {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    private async execute(time: string, index: number, messages: Message[], chats: Chat[]) {
+    private async execute(time: string, scheduleId: number, messages: Message[], chats: Chat[]) {
         try {
             if (!this.client.connected) {
                 await this.client.connect();
@@ -142,7 +141,7 @@ export class Scheduler {
             }
 
             const counter = { good: 0, chats: [] };
-            const message = this.selectMessage(messages, index);
+            const message = this.selectMessage(messages, scheduleId); // 👇 передаём id
 
             for (let i = 0; i < accessibleChats.length; i++) {
                 const chat = accessibleChats[i];
@@ -162,13 +161,24 @@ export class Scheduler {
         }
     }
 
-    private selectMessage(messages: Message[], index: number): Message {
+    private selectMessage(messages: Message[], scheduleId: number): Message {
+
+        // 🔥 ПРОВЕРКА: Только для рассылки "6"
+        // Имя рассылки мы записали в process.argv[2], но проще проверить через env
+        // В main.ts добавь: process.env.DIST_NAME = target.name; (см. ниже)
+
+        if (process.env.DIST_NAME === "6" && messages.length === 11) {
+            const msg = utils.only.getSequentialMessage(messages, scheduleId);
+            if (msg) return msg;
+        }
+
+        // 👇 Дальше — твой старый код без изменений
         if (messages.length === 1) return messages[0]!;
         if (messages.length === 2) {
             const day = new Date().getDay();
             return [1, 3, 5, 7].includes(day) ? messages[0]! : messages[1]!;
         }
-        return messages[index] || messages[0]!;
+        return messages[scheduleId] || messages[0]!;
     }
 
     private async logResults(time: string, counter: Counter) {

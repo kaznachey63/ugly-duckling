@@ -20,7 +20,8 @@ async function main() {
 
     // ✅ УСТАНАВЛИВАЕМ СХЕМУ ОДИН РАЗ ДЛЯ ЭТОГО ПРОЦЕССА
     process.env.SCHEMA = target.schema;
-
+    process.env.DIST_NAME = target.name; 
+    
     const stringSession = new StringSession(target.stringSession || '');
     client = new TelegramClient(stringSession, target.apiId, target.apiHash, {
         connectionRetries: 5,      

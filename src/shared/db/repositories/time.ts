@@ -3,13 +3,21 @@ import { getPool } from '../pool';
 const pool = getPool();
 import distribution from './distribution';
 
-async function getTimes(): Promise<string[] | undefined> {
+// Файл: где-то в db/time.ts
+
+// Меняем тип возврата:
+async function getTimes(): Promise<{ id: number; cron: string }[] | undefined> {
     const client = await pool.connect();
     try {
         const { rows } = await client.query(
-            `SELECT minute, hour, day, month, week_day FROM ${distribution.getSchema()}.cron_times`
+            // 👇 Добавляем id в SELECT
+            `SELECT id, minute, hour, day, month, week_day FROM ${distribution.getSchema()}.cron_times`
         );
-        return rows.map(r => `${r.minute} ${r.hour} ${r.day} ${r.month} ${r.week_day}`);
+        // 👇 Возвращаем объект { id, cron }
+        return rows.map(r => ({
+            id: r.id,
+            cron: `${r.minute} ${r.hour} ${r.day} ${r.month} ${r.week_day}`
+        }));
     } catch (error) {
         console.error(error);
     } finally {
