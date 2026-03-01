@@ -15,12 +15,8 @@ export default async function mainDistribution(ctx: MyContext) {
     } catch (error) {
         // 🎯 Перехватываем именно эту ошибку Telegram
         if (error instanceof GrammyError && error.description?.includes("message is not modified")) {
-            // Это не баг, а фича: контент не изменился, редактировать нечего.
-            // Просто выходим из функции, не пробрасывая ошибку дальше.
             return;
         }
-        // ❗ Если ошибка ДРУГАЯ (например, "message to edit not found" или сеть) — 
-        // тогда пробрасываем её в глобальный catch для логирования
         throw error;
     }
 }

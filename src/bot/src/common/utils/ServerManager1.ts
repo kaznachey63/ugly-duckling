@@ -9,7 +9,7 @@ import type { Result } from "@shared/types/server/Result";
 export class ServerManager {
     /**
      * Подключение к серверу
-     * @returns Объект сервера  
+     * @returns Объект сервера      
      */
     private async connectSsh(): Promise<NodeSSH> {
         const ssh = new NodeSSH();

@@ -31,13 +31,12 @@ function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function adding(ctx: MyContext, status: Status): Menu<InlineKeyboard> {
+function adding(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}:0`);
 
     const text = [
-        status === 'active'
-            ? ctx.t("commands.cabinet.distribution.messages.media.adding.success")
-            : ctx.t("commands.cabinet.distribution.messages.media.adding.x`"),
+            result ? ctx.t("commands.cabinet.distribution.messages.media.adding.success")
+            : ctx.t("commands.cabinet.distribution.messages.media.adding.error2"),
 
         ctx.t("commands.cabinet.distribution.messages.media.adding.path", {
             call: ctx.session.distribution.call

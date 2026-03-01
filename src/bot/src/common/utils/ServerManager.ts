@@ -16,20 +16,39 @@ export class ServerManager {
         try {
             const command = this.getCommand(action, nameDistribution);
 
-            // Выполняем команду в shell
-            const { stdout, stderr } = await execAsync(command, {
-                timeout: 10000, // 10 секунд таймаут
-                shell: '/bin/bash'
-            });
+            // 🔴 Для 'status' и 'log' разрешаем ненулевой exit code
+            // Они информационные, а не управляющие команды
+            const isInfoCommand = ['status', 'log'].includes(action);
 
+            let stdout: string, stderr: string;
+
+            try {
+                const result = await execAsync(command, {
+                    timeout: 10000,
+                    shell: '/bin/bash'
+                });
+                stdout = result.stdout;
+                stderr = result.stderr;
+            } catch (err: any) {
+                // Если команда информационная — берем вывод из ошибки
+                if (isInfoCommand) {
+                    stdout = err.stdout || '';
+                    stderr = err.stderr || '';
+                    // ❗ Не выбрасываем ошибку, продолжаем парсить stdout
+                } else {
+                    // Для управляющих команд (start/stop/restart) ошибка — это действительно ошибка
+                    console.error(`❌ Команда '${command}' не выполнена:`, err.message);
+                    throw err;
+                }
+            }
+
+            // Логируем предупреждения, если есть
             if (stderr && !stderr.trim().startsWith('Warning:')) {
-                console.warn(`Command warning: ${stderr}`);
+                console.warn(`⚠️ ${command}: ${stderr.trim()}`);
             }
 
             const isSetAction = this.isSetAction(action);
-            if (isSetAction) {
-                return undefined;
-            }
+            if (isSetAction) return undefined;
 
             switch (action) {
                 case 'status': return this.getValueOfStatus(stdout);
@@ -39,8 +58,7 @@ export class ServerManager {
             return undefined;
         } catch (error: any) {
             console.error("❌ Ошибка при выполнении команды:", error.message);
-            // Можно вернуть stderr как результат, если нужно
-            return error.stderr || undefined;
+            return undefined;
         }
     }
 

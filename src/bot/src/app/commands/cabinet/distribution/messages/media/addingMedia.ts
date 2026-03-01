@@ -9,7 +9,6 @@ import utils from 'src/common/utils';
 import type { Message } from 'grammy/types';
 import menuMedia from '@menus/commands/cabinet/distribution/message/media';
 import { ServerManager } from '@utils/ServerManager';
-import type { Status } from '@shared/types/server/Status';
 import { InlineKeyboard } from 'grammy';
 
 type MediaType = 'photo' | 'video' | 'animation' | 'document' | 'unknown';
@@ -35,7 +34,7 @@ export default async function addingMedia(ctx: MyContext) {
             if (!isDocumentAllowed(msg)) {
                 utils.common.sessionReset(ctx.session);
                 await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
-                    ctx.t("commands.cabinet.distribution.messages.media.adding.documentsWTMedia"), {
+                    utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.documentsWTMedia")), {
                     reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
                     parse_mode: "MarkdownV2"
                 });
@@ -46,7 +45,7 @@ export default async function addingMedia(ctx: MyContext) {
         case 'unknown': {
             utils.common.sessionReset(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
-                ctx.t("commands.cabinet.distribution.messages.media.adding.invalidType"), {
+                utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.invalidType")), {
                 reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
                 parse_mode: "MarkdownV2"
             });
@@ -59,7 +58,7 @@ export default async function addingMedia(ctx: MyContext) {
     if (!mediaData || !validateMedia(mediaData)) {
         utils.common.sessionReset(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
-            ctx.t("commands.cabinet.distribution.messages.media.adding.bigSize"), {
+            utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.bigSize")), {
             reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
             parse_mode: "MarkdownV2"
         });
@@ -88,8 +87,8 @@ export default async function addingMedia(ctx: MyContext) {
         if (!message) {
             utils.common.sessionReset(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, 
-                ctx.t("commands.cabinet.distribution.messages.media.adding.error"), {
-                    reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
+                utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.error")), {
+                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
                 parse_mode: "MarkdownV2"
             });
             return;
@@ -102,7 +101,7 @@ export default async function addingMedia(ctx: MyContext) {
         await db.message.updateMessage(nameDistribution, message.id, { media: newMedia });
         utils.common.sleep(250);
         const server = new ServerManager();
-        const menu = menuMedia.adding(ctx, await server.execute("status", nameDistribution) as Status);
+        const menu = menuMedia.adding(ctx, await server.restartProcessOrNot(nameDistribution));
         
         utils.common.sessionReset(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, menu.text, {
@@ -113,7 +112,7 @@ export default async function addingMedia(ctx: MyContext) {
         console.error("Ошибка при сохранении медиа:", error);
         utils.common.sessionReset(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
-            ctx.t("commands.cabinet.distribution.messages.media.adding.error"), {
+            utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.error")), {
             reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
             parse_mode: "MarkdownV2"
         });
