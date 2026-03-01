@@ -37,7 +37,7 @@ function adding(ctx: MyContext, status: Status): Menu<InlineKeyboard> {
     const text = [
         status === 'active'
             ? ctx.t("commands.cabinet.distribution.messages.media.adding.success")
-            : ctx.t("commands.cabinet.distribution.messages.media.adding.error2"),
+            : ctx.t("commands.cabinet.distribution.messages.media.adding.x`"),
 
         ctx.t("commands.cabinet.distribution.messages.media.adding.path", {
             call: ctx.session.distribution.call

@@ -11,14 +11,16 @@ type StateType = "text" | "media" | "time";
  */
 export async function dispatchState(ctx: MyContext, type: StateType) {
     const states = ctx.session.state[type];
-
+    console.log(states);
+    
     for (const [state, bool] of Object.entries(states)) {
         if (!bool) continue;
         await ctx.deleteMessage();
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, ctx.t("utils.shared.processing"));
 
-        const fileName = `${state}.ts`;
-
+        const fileName = `${state}${type.charAt(0).toUpperCase() + type.slice(1)}.ts`;
+        console.log(fileName);
+        
         let handlerPath = "";
         switch (type) {
             case 'text': {

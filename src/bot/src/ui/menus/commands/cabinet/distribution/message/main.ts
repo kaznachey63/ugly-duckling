@@ -14,7 +14,7 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
 
     keyboard
         .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMessages"), "parametersMessage").row()
-        .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.add"), `addText${nameDistribution}`)
+        .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.add"), `addText${nameDistribution}`).style("success")
     ;
 
     // Нет сообщений
@@ -23,7 +23,6 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
     }
     else {
         const message = messages[paginationIndex];
-
         text.push(
             ctx.t("commands.cabinet.distribution.messages.main.messageNumb", { number: paginationIndex + 1 }) + ' ' +
             ctx.t("commands.cabinet.distribution.messages.main.amountMedia", { amount: message!.media?.length! || 0, maxMedia: constants.maxMedia }),
@@ -31,29 +30,29 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
         );
 
         keyboard
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllText${nameDistribution}`).row()
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllText${nameDistribution}`).style("danger").row()
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsText"), "parametersText").row()
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.update"), `updateText${nameDistribution}:${paginationIndex}`)
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.remove"), `removeText${nameDistribution}:${paginationIndex}`).row()
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.update"), `updateText${nameDistribution}:${paginationIndex}`).style("primary")
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.remove"), `removeText${nameDistribution}:${paginationIndex}`).style("danger").row()
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMedia"), "parametersMedia").row()
         ;
 
         // Медиа > 0 и != 4
         if (message?.media!.length! > 0 && message?.media!.length! != 4) {
             keyboard
-                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia${nameDistribution}:${paginationIndex}`)
-                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia${nameDistribution}:${paginationIndex}`).row()
+                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia${nameDistribution}:${paginationIndex}`).style("success")
+                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia${nameDistribution}:${paginationIndex}`).style("danger").row()
             ;
         }
         
         // Медиа == 0
         if (message?.media!.length! == 0) {
-            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia${nameDistribution}:${paginationIndex}`).row();
+            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia${nameDistribution}:${paginationIndex}`).style("success").row();
         }
 
         // Медиа == 4
         if (message?.media!.length! == 4) {
-            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia${nameDistribution}:${paginationIndex}`).row();
+            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia${nameDistribution}:${paginationIndex}`).style("danger").row();
         }
 
         // Навигация по сообщениям
