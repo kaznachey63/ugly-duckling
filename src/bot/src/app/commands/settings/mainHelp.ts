@@ -1,14 +1,13 @@
 import type { MyContext } from '@shared/types/SessionData';
-import utils from 'src/common/utils';
-import menuHelp from "@menus/commands/help";
+import menuHelp from "@menus/commands/settings/help";
 
 /**
  * Обработка команды help
  */
-export default async function help(ctx: MyContext) {
+export default async function mainHelp(ctx: MyContext) {
     try {
         const menu = menuHelp(ctx);
-        await ctx.reply(menu.text, {
+        await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'
         });

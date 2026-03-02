@@ -20,7 +20,7 @@ export class Sender {
             let result;
             if (message.media?.length) {
                 // Передаём entity, а не строку
-                result = await this.sendMedia(entity, message, htmlCaption);
+                result = await this.sendMedia(entity, message, htmlCaption);                
             } else {
                 result = await this.client.sendMessage(entity, {
                     message: htmlCaption,
@@ -55,6 +55,14 @@ export class Sender {
                 console.log(`⚠️  Нет подтверждения: "${chatName}" (${chatId}) — ${details} | Счётчик: ${counter.good}`);
             }
         } catch (error: any) {
+            // 👇 ВРЕМЕННЫЙ ДЕБАГ-ЛОГ
+            console.error(`[DEBUG ERROR] Chat: ${chatId}`, {
+                message: error.message,
+                code: error.code,
+                errorMessage: error.errorMessage,
+                stack: error.stack?.substring(0, 300)
+            });
+
             const reason = utils.error.errorSmsHandler(error);
             console.log(`❌ Неудачно: "${chatName}" (${chatId}) — ${reason} | Счётчик: ${counter.good}`);
         }

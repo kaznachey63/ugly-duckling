@@ -240,12 +240,14 @@
             "main": {
                 "title": "Settings",
                 "buttons": {
-                    "language": "🌐 Interface Language"
+                    "language": "🌐 Interface Language",
+                    "about": "ℹ About Bot",
+                    "help": "❓ Help"
                 }
             },
             "language": {
                 "main": {
-                    "title": "Select a language.",
+                    "title": "Select language.",
                     "path": "[📍 Path: Settings → *Language Selection*]",
                     "buttons": {
                         "ru": "🇷🇺",
@@ -257,19 +259,21 @@
                     "good": "Language changed!",
                     "error": "This language is already selected!"
                 }
+            },
+            "help": {
+                "question": "Encountered a problem?\nHave questions?\nWant to praise the service?\nHave ideas for improving the service?",
+                "contactAdmin": "Contact Administrator",
+                "path": "[📍 Path: Settings → *Help*]"
+            },
+            "about": {
+                "description": "The service is designed to automate advertising (posts, broadcasts) of your products (offers) within groups / chats / channels\n\nBot usage instructions - via the button below!",
+                "instruction": "Instructions",
+                "path": "[📍 Path: Settings → *About Service*]"
             }
-        },
-        "about": {
-            "description": "This service is designed to automate advertising (posts, mailings) of your products (offers) within groups/chats/channels\n\nInstructions for using the Bot - via the button below!",
-            "instruction": "Instructions"
         },
         "form": {
             "interest": "Interested in the product?\nFill out the form below and we'll contact you!",
             "form": "Form"
-        },
-        "help": {
-            "question": "Encountered a problem?\nHave questions?\nWant to praise the service?\nHave ideas for improvement?",
-            "contactAdmin": "Contact Administrator"
         },
         "start": {
             "message": "Welcome! I'm a Telegram bot, your mailing assistant.\n\nI highly recommend reviewing my full command list by pressing the oval 'Menu' button in the bottom left corner of the screen.\nPlease read the usage guide first, accessible via the '/about' command"

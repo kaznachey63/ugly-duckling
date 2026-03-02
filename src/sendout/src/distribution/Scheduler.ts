@@ -152,7 +152,7 @@ export class Scheduler {
 
                 await this.sender.send(chat, message, counter);
             }
-
+            
             await this.logResults(time, counter);
             console.log(`!!!!!!!!!!!!!!!!!!!! Рассылка завершена! Успешно: ${counter.good} из ${accessibleChats.length}\n`);
 

@@ -80,7 +80,7 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
     else if (queryData.toLowerCase().includes("cabinet")) {
         halfPath = path.join("src", "app", "commands", "cabinet");
     }
-    else if (queryData.toLowerCase().includes("settings")) {
+    else if (queryData.toLowerCase().includes("settings") || queryData.toLowerCase().includes("about") || queryData.toLowerCase().includes("help")) {
         halfPath = path.join("src", "app", "commands", "settings");
     }
     else if (queryData.toLowerCase().includes("language")) {

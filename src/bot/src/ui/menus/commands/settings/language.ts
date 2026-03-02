@@ -6,7 +6,7 @@ import { InlineKeyboard } from 'grammy';
 /**
  * Меню смены языка
  */
-export default function main(ctx: MyContext): Menu<InlineKeyboard> {
+export default function language(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.settings.language.main.title"),
         ctx.t("commands.settings.language.main.path"),
@@ -26,7 +26,7 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
             "changeLanguage:en"
         )
         .text(
-            ctx.session.settings.languageCode == 'en' ?
+            ctx.session.settings.languageCode == 'zh' ?
                 ctx.t("commands.settings.language.main.buttons.zh") + ' ☑️' :
                 ctx.t("commands.settings.language.main.buttons.zh"), 
             "changeLanguage:zh"
