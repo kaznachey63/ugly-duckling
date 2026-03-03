@@ -60,6 +60,12 @@ bot.command('settings', async (ctx: MyContext) => {
 
 // ------------- Обработчики
 bot.on('callback_query', async (ctx: MyContext) => {
+    // const result = calendar.clickButtonCalendar(ctx);
+
+    // if (result !== -1) {
+    //     // Пользователь выбрал дату
+    //     await ctx.reply(`Вы выбрали: ${result}`);
+    // }
     await handler.callback_query(ctx);
 });
 
@@ -71,21 +77,10 @@ bot.on('message:text', async (ctx: MyContext) => {
     await handler.dispatchState(ctx, "text");
 });
 
-bot.on('message:photo', async (ctx: MyContext) => {
+bot.on([':media', ':animation', ':document'], async (ctx: MyContext) => {
     await handler.dispatchState(ctx, "media");
 });
 
-bot.on('message:video', async (ctx: MyContext) => {
-    await handler.dispatchState(ctx, "media");
-});
-
-bot.on('message:animation', async (ctx: MyContext) => {
-    await handler.dispatchState(ctx, "media");
-});
-
-bot.on('message:document', async (ctx: MyContext) => {
-    await handler.document(ctx);
-});
 // -------------------------------
 
 // bot.catch(async (err, ctx) => {
