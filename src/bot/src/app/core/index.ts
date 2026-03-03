@@ -1,5 +1,5 @@
 import '@shared/env'; // ← ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ
-import { Bot, session } from 'grammy';
+import { Bot, session, type NextFunction } from 'grammy';
 import handler from './handlers';
 import type { MyContext } from '@shared/types/SessionData';
 import { i18nMiddleware } from 'src/ui/i18n';
@@ -11,7 +11,7 @@ const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
 /**
  * Ограничение использования бота вне переписки с ботом
  */
-bot.use(async (ctx, next) => {
+bot.use(async (ctx: MyContext, next: NextFunction) => {
     if (ctx.chat && ctx.chat.type !== 'private') return;
     return next();
 });
@@ -25,6 +25,11 @@ bot.use(session({ initial: utils.init.createDefaultSession }));
  * Инициалицация многоязычности
  */
 bot.use(i18nMiddleware);
+
+/**
+ * Установка команд в меню бота
+ */
+await utils.init.setupBotCommands(bot);
 
 /**
  * 👇 Инициализация якобы, что бот печатает
