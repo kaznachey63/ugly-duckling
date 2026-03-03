@@ -42,14 +42,6 @@ bot.command('start', async (ctx: MyContext) => {
     await command.start(ctx);
 });
 
-bot.command('help', async (ctx: MyContext) => {
-    await command.help(ctx);
-});
-
-bot.command('about', async (ctx: MyContext) => {
-    await command.about(ctx);
-});
-
 bot.command('cabinet', async (ctx: MyContext) => {
     if (ctx.message?.text?.startsWith('/')) {
         ctx.session.state.commandId = ctx.msgId!;
@@ -68,12 +60,6 @@ bot.command('settings', async (ctx: MyContext) => {
 
 // ------------- Обработчики
 bot.on('callback_query', async (ctx: MyContext) => {
-    // const result = calendar.clickButtonCalendar(ctx);
-
-    // if (result !== -1) {
-    //     // Пользователь выбрал дату
-    //     await ctx.reply(`Вы выбрали: ${result}`);
-    // }
     await handler.callback_query(ctx);
 });
 
