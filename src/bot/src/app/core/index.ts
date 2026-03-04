@@ -13,7 +13,7 @@ const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
  */
 bot.use(async (ctx: MyContext, next: NextFunction) => {
     if (ctx.chat && ctx.chat.type !== 'private') return;
-    return next();
+    next();
 });
 
 /**
@@ -32,15 +32,14 @@ bot.use(i18nMiddleware);
 await utils.init.setupBotCommands(bot);
 
 /**
- * 👇 Инициализация якобы, что бот печатает
+ * 👇 Инициализация якобы, что бот печатает после получения команд
  */
-// bot.use(async (ctx, next) => {
-//     if (ctx.message) {
-//         bot.api.sendChatAction(1, "typing");
-//     }
-
-//     await next();
-// });
+bot.on('message', async (ctx: MyContext, next: NextFunction) => {
+    if (ctx.message?.text?.startsWith('/')) {
+        await ctx.api.sendChatAction(ctx.chat?.id!, "typing");
+    }
+    next();
+})
 
 // --------- Команды -------------------------
 bot.command('start', async (ctx: MyContext) => {
@@ -48,9 +47,7 @@ bot.command('start', async (ctx: MyContext) => {
 });
 
 bot.command('cabinet', async (ctx: MyContext) => {
-    if (ctx.message?.text?.startsWith('/')) {
-        ctx.session.state.commandId = ctx.msgId!;
-    }
+    ctx.session.state.commandId = ctx.msgId!;
     await command.cabinet(ctx);
 });
 
@@ -85,7 +82,6 @@ bot.on('message:text', async (ctx: MyContext) => {
 bot.on([':media', ':animation', ':document'], async (ctx: MyContext) => {
     await handler.dispatchState(ctx, "media");
 });
-
 // -------------------------------
 
 // bot.catch(async (err, ctx) => {

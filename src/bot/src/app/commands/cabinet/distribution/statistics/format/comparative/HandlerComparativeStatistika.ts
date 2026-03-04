@@ -16,7 +16,7 @@ export default async function HandlerComparativeStatistika(ctx: MyContext, typeS
         return;
     }
 
-    ctx.api.sendChatAction(ctx.chat?.id!, "upload_photo");
+        await ctx.api.sendChatAction(ctx.chat?.id!, "upload_photo");
     const myChart = utils.chart.createChart(ctx, data);
     const menu = menuStatistic.handlerComparative(ctx, typeStat);
 

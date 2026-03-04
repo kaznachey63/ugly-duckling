@@ -9,24 +9,11 @@ import path from 'path';
 const localesPath = path.join('src', 'ui', 'i18n', 'locales');
 const defaultLocale: LanguageCode = 'ru';
 
-// 🔽 Функция маппинга прямо здесь
-function getLocaleFromTelegram(tgLang: string | undefined): LanguageCode {
-    if (!tgLang) return defaultLocale;
-
-    // Нормализуем: 'zh-hans' -> 'zh', 'en-US' -> 'en'
-    const base = tgLang.split('-')[0]!.toLowerCase();
-
-    if (base === 'ru') return 'ru';
-    if (base === 'en') return 'en';
-    if (base === 'zh') return 'zh'; // Китайский -> zh
-
-    return defaultLocale;
-}
-
+// Инициализация i18next
 i18next.use(Backend).init({
     lng: defaultLocale,
     fallbackLng: defaultLocale,
-    preload: ['ru', 'en', 'zh'], // ✅ Коды совпадают с типом и файлами
+    preload: ['ru', 'en', 'zh'],
     backend: {
         loadPath: path.join(localesPath, '{{lng}}.json'),
     },
