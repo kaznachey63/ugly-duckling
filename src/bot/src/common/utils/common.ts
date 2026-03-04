@@ -7,7 +7,7 @@ import utils from "src/common/utils";
  * Сброс сессии
  * @param session Сессия
  */
-function sessionReset(session: SessionData) {
+function resetSessionStates(session: SessionData) {
     session.state.text.adding = false;
     session.state.text.updating = false;
     session.state.media.adding = false;
@@ -116,7 +116,7 @@ async function deleteTwoMessages(ctx: MyContext, idForSeconDelete: number) {
 }
 
 export default {
-    sessionReset,
+    resetSessionStates,
     loadCabinet,
     sleep,
     isAdmin,

@@ -7,7 +7,7 @@ import common from '@utils/common';
  * Главная странца графика. Отображение графика
  */
 export default async function mainSchedule(ctx: MyContext) {
-    common.sessionReset(ctx.session);
+    common.resetSessionStates(ctx.session);
     const nameDistribution = ctx.session.distribution.name!;
     const times = await db.time.getTimesForBot(nameDistribution);
     const menu = menuSchedule.main(ctx, times!);

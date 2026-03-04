@@ -32,7 +32,7 @@ export default async function addingMedia(ctx: MyContext) {
     switch (mediaType) {
         case 'document': {
             if (!isDocumentAllowed(msg)) {
-                utils.common.sessionReset(ctx.session);
+                utils.common.resetSessionStates(ctx.session);
                 await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
                     utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.documentsWTMedia")), {
                     reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
@@ -43,7 +43,7 @@ export default async function addingMedia(ctx: MyContext) {
             break;
         }
         case 'unknown': {
-            utils.common.sessionReset(ctx.session);
+            utils.common.resetSessionStates(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
                 utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.invalidType")), {
                 reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
@@ -56,7 +56,7 @@ export default async function addingMedia(ctx: MyContext) {
     // Валидация (размер + mime)
     const mediaData = extractMediaData(msg, mediaType);
     if (!mediaData || !validateMedia(mediaData)) {
-        utils.common.sessionReset(ctx.session);
+        utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
             utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.bigSize")), {
             reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
@@ -85,7 +85,7 @@ export default async function addingMedia(ctx: MyContext) {
 
         const message = messages[ctx.session.state.media.paginationId!];
         if (!message) {
-            utils.common.sessionReset(ctx.session);
+            utils.common.resetSessionStates(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, 
                 utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.error")), {
                 reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
@@ -103,14 +103,14 @@ export default async function addingMedia(ctx: MyContext) {
         const server = new ServerManager();
         const menu = menuMedia.adding(ctx, await server.restartProcessOrNot(nameDistribution));
         
-        utils.common.sessionReset(ctx.session);
+        utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: "MarkdownV2"
         });
     } catch (error) {
         console.error("Ошибка при сохранении медиа:", error);
-        utils.common.sessionReset(ctx.session);
+        utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
             utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.error")), {
             reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
