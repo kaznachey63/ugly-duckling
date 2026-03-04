@@ -9,13 +9,15 @@ import menuStatistic from "@menus/commands/cabinet/distribution/statistic";
  * Обработка типа сравнитальной статистики (неделя/месяц)
  */
 export default async function HandlerComparativeStatistika(ctx: MyContext, typeStat: StatisticType) {    
-    if (await getDataForDiagram(ctx, typeStat) === false) {        
+    const data = await getDataForDiagram(ctx, typeStat);
+
+    if (data === false) {
         await ctx.answerCallbackQuery({ text: ctx.t("utils.chart.noLogs"), show_alert: true });
         return;
     }
 
     ctx.api.sendChatAction(ctx.chat?.id!, "upload_photo");
-    const myChart = utils.chart.createChart(ctx, await getDataForDiagram(ctx, typeStat) as ChartData);
+    const myChart = utils.chart.createChart(ctx, data);
     const menu = menuStatistic.handlerComparative(ctx, typeStat);
 
     await ctx.replyWithPhoto(await myChart.getShortUrl(), {
@@ -41,13 +43,19 @@ function getType(type: StatisticType): string[] {
 async function getGroups(nameDistribution: string, typeStat: StatisticType): Promise<number[]> {
     const logs = await db.result.getResults(nameDistribution);
     if (!logs) return [];
-    const dates = getType(typeStat);
 
+    const dates = getType(typeStat);
     const formattedDates = dates.map(d => formatDate(new Date(d)));
 
     return formattedDates.map(date => {
-        const log = logs.find(l => l.date === date);
-        return log ? log.success : 0;
+        const logsForDate = logs.filter(l => l.date === date);
+
+        if (logsForDate.length === 0) return 0;
+        const bestLog = logsForDate.reduce((max, current) =>
+            current.success > max.success ? current : max
+        );
+
+        return bestLog.success;
     });
 }
 
@@ -105,7 +113,6 @@ function getMonth(date: Date): string[] {
 
 async function getDataForDiagram(ctx: MyContext, typeStat: StatisticType): Promise<ChartData | false> {
     const groups = await getGroups(ctx.session.distribution.name, typeStat);
-    console.log(groups);
     
     if (Number(groups.join('')) <= 0) {   
         return false;
