@@ -2,10 +2,14 @@ import db from "@shared/db";
 import menuCabinet from "@menus/commands/cabinet/main";
 import type { MyContext } from '@shared/types/SessionData';
 import common from "@utils/common";
+import init from "@utils/initialize";
+
 /**
  * Обработка команды кабинет
  */
 export default async function cabinet(ctx: MyContext) {
+    // Сброс сессии
+    ctx.session = init.createDefaultSession();
     try {
         // Пользователь есть в БД
         if (await db.user.userExistsInDB(ctx.from?.id!)) {

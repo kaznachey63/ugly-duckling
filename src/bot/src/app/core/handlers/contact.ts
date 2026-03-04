@@ -42,7 +42,7 @@ export default async function contact(ctx: MyContext) {
             // 4. Если доступ запрещен — тоже удаляем
             await deleteMessageProcessing(ctx, processingMsgId);
 
-            ctx.session.user.role = "unkown";
+            ctx.session.user.role = "unknown";
             await ctx.reply(ctx.t('handlers.contact.accessDenied'));
         }
     } catch (error) {

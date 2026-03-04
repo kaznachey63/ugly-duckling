@@ -1,6 +1,6 @@
 import type { MyContext } from '@shared/types/SessionData';
 import menuLanguage from "@menus/commands/settings/language";
-import type { LanguageCode } from '@shared/types/LanguageCode';
+import type { LanguageCode } from "grammy/types";
 import i18next from 'i18next'; // <-- Добавь этот импорт
 
 export default async function changeLanguage(ctx: MyContext) {

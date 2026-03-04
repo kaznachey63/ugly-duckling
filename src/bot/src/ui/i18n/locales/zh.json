@@ -6,6 +6,11 @@
             "cabinet": "🪴 个人中心",
             "menu": "菜单 {{call}}"
         },
+        "commands": {
+            "cabinet": "个人中心",
+            "settings": "设置",
+            "form": "问卷"
+        },
         "chart": {
             "label": "已接收群发的群组数量",
             "title": "已发送消息统计 ({{type}})",

@@ -1,10 +1,10 @@
 import { Context, type SessionFlavor } from "grammy";
 import type { Role } from '@shared/types/Role';
-import type { LanguageCode } from '@shared/types/LanguageCode';
+import type { LanguageCode } from "grammy/types";
 
 export interface SessionData {
     settings: {
-        languageCode: LanguageCode;
+        languageCode: LanguageCode | 'auto';
     };
     user: {
         id: number;

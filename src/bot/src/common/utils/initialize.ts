@@ -1,15 +1,15 @@
-import type { MyContext, SessionData } from '@shared/types/SessionData';
-import type { Bot } from 'grammy';
-import type { BotCommand, LanguageCode } from 'grammy/types';
+import type { SessionData } from '@shared/types/SessionData';
+import { type BotCommand, type LanguageCode } from 'grammy/types';
+import i18next from 'i18next';
 
 function createDefaultSession(): SessionData {
     return {
         settings: {
-            languageCode: 'ru',
+            languageCode: 'auto',
         },
         user: {
             id: 0,
-            role: 'unkown',
+            role: 'unknown',
             phoneNumber: "",
         },
         distribution: {
@@ -37,32 +37,24 @@ function createDefaultSession(): SessionData {
             },
         },
     }
-};
+}
 
 async function setupBotCommands(bot: any) {
     await bot.api.deleteMyCommands({ scope: { type: 'all_private_chats' } });
+    const languages: LanguageCode[] = ['ru', 'en', 'zh'];
 
-    const map: Record<string, BotCommand[]> = {
-        ru: [
-            { command: 'cabinet', description: 'Личный кабинет' },
-            { command: 'settings', description: 'Настройки' },
-            { command: 'form', description: 'Анкета' },
-        ],
-        en: [
-            { command: 'cabinet', description: 'Personal account' },
-            { command: 'settings', description: 'Settings' },
-            { command: 'form', description: 'Form' },
-        ],
+    for (const lang of languages) {
+        const commands = getCommandsForLanguage(lang);
+        await bot.api.setMyCommands(commands, { language_code: lang });
     }
+}
 
-    for (const [lang, commands] of Object.entries(map)) {
-        try {
-            await bot.api.setMyCommands(commands, { language_code: lang as LanguageCode});
-            console.log(`✅ Commands set for ${lang}`);
-        } catch (error) {
-            console.error(`❌ Failed to set commands for ${lang}:`, error);
-        }
-    }
+function getCommandsForLanguage(lang: LanguageCode): BotCommand[] {
+    return [
+        { command: 'cabinet', description: i18next.t('utils.commands.cabinet', { lng: lang }) },
+        { command: 'settings', description: i18next.t('utils.commands.settings', { lng: lang }) },
+        { command: 'form', description: i18next.t('utils.commands.form', { lng: lang }) },
+    ];
 }
 
 export default {

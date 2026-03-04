@@ -6,6 +6,11 @@
             "cabinet": "🪴 Personal Account",
             "menu": "Menu {{call}}"
         },
+        "commands": {
+            "cabinet": "Dashboard",
+            "settings": "Settings",
+            "form": "Questionnaire"
+        },
         "chart": {
             "label": "Number of groups that received the mailing",
             "title": "Statistics of sent messages ({{type}})",

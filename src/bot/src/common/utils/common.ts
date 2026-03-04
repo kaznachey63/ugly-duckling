@@ -20,6 +20,9 @@ function sessionReset(session: SessionData) {
  * Подгрузка кабиента
  */
 async function loadCabinet(ctx: MyContext) {
+    // Удаление контакта на всякий случай
+    // await ctx.reply(ctx.t("utils.shared.processing"), { reply_markup: { remove_keyboard: true } });        
+    
     // Получение рассылок
     const allCreds = await db.credential.getCred();
 
@@ -83,9 +86,11 @@ async function loadCabinet(ctx: MyContext) {
 
     // Отправка результата
     try {
+        // await ctx.api.editMessageText(ctx.chatId!, p.message_id, menu.text, { reply_markup: menu.keyboard, parse_mode: "MarkdownV2" });
         await ctx.editMessageText(menu.text, { reply_markup: menu.keyboard, parse_mode: "MarkdownV2" });
     } catch {
-        await ctx.reply(menu.text, { reply_markup: menu.keyboard, parse_mode: "MarkdownV2" });
+        // await ctx.api.deleteMessage(ctx.chatId!, ctx.message?.message_id! - 1);
+        await ctx.reply(menu.text, { reply_markup: menu.keyboard, parse_mode: "MarkdownV2" });        
     }
 }
 
