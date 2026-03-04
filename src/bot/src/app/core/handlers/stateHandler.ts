@@ -18,9 +18,7 @@ export async function dispatchState(ctx: MyContext, type: StateType) {
         await ctx.deleteMessage();
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, ctx.t("utils.shared.processing"));
 
-        const fileName = `${state}${type.charAt(0).toUpperCase() + type.slice(1)}.ts`;
-        console.log(fileName);
-        
+        const fileName = `${state}${type.charAt(0).toUpperCase() + type.slice(1)}.ts`;        
         let handlerPath = "";
         switch (type) {
             case 'text': {

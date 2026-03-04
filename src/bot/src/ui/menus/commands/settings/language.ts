@@ -11,7 +11,6 @@ export default function language(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.settings.language.main.title"),
         ctx.t("commands.settings.language.main.path"),
     ].join('\n\n');
-    console.log(ctx.session.settings.languageCode);
     
     const keyboard = new InlineKeyboard()
         .text(

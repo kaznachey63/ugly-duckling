@@ -110,9 +110,7 @@ function isAdmin(id: number): boolean {
  */
 async function deleteTwoMessages(ctx: MyContext, idForSeconDelete: number) {
     try {
-        await ctx.deleteMessage();
-        console.log();
-        
+        await ctx.deleteMessage();        
         await ctx.api.deleteMessage(ctx.chat?.id!, idForSeconDelete - 1);
     } catch {}
 }
