@@ -73,7 +73,8 @@
                     },
                     "buttons": {
                         "stop": "🛑 Stop",
-                        "start": "▶️ Start"
+                        "start": "▶️ Start",
+                        "restart": "🔁 Restart"
                     }
                 },
                 "contract": {

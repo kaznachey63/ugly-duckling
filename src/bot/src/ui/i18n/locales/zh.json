@@ -73,7 +73,8 @@
                     },
                     "buttons": {
                         "stop": "🛑 停止",
-                        "start": "▶️ 启动"
+                        "start": "▶️ 启动",
+                        "restart": "🔁 重启"
                     }
                 },
                 "contract": {

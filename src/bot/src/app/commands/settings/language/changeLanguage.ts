@@ -15,7 +15,7 @@ export default async function changeLanguage(ctx: MyContext) {
     else {
         ctx.session.settings.languageCode = languageCode as LanguageCode;
 
-        // 2. 🔥 ПЕРЕБИНДИМ ctx.t с новым языком
+        // Перебинд новым языком
         ctx.t = (key: string, options = {}) => {
             return i18next.t(key, { lng: languageCode, ...options });
         };
