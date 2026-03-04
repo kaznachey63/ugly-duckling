@@ -1,3 +1,4 @@
+import type { LanguageCode } from 'grammy/types';
 import { getPool } from '../pool';
 const pool = getPool();
 import type { MyContext } from '@shared/types/SessionData';
@@ -83,12 +84,14 @@ async function insertUserToDB(ctx: MyContext) {
     const phoneNumber = ctx.session?.user.phoneNumber || null;
     const name = last_name ? `${first_name} ${last_name}` : first_name;
     const isAdmin = ctx.session.user.role === "admin";
+    const language = ctx.from?.language_code;
+
     if (!phoneNumber) return false;
     try {
         await pool.query(
-            `INSERT INTO users (telegram_id, name, username, phone_number, is_admin)
+            `INSERT INTO users (telegram_id, name, username, phone_number, is_admin, language)
             VALUES ($1, $2, $3, $4, $5)`,
-            [id, name, username, phoneNumber, isAdmin]
+            [id, name, username, phoneNumber, isAdmin, language]
         );
         return true;
     } catch (error) {
@@ -96,11 +99,46 @@ async function insertUserToDB(ctx: MyContext) {
     }
 }
 
+/**
+ * Обновляет язык пользователя в БД по telegram_id
+ */
+async function updateLangUser(id: number, languageCode: LanguageCode) {
+    try {
+        await pool.query(
+            `UPDATE users 
+             SET language = $1 
+             WHERE telegram_id = $2`,
+            [languageCode, id]
+        );
+        return true;
+    } catch (error) {
+        console.error("Ошибка обновления языка пользователя:", error);
+        return false;
+    }
+}
+
+
+async function getUserLang(telegramId: number): Promise<LanguageCode> {
+    try {
+        const result = await pool.query(
+            `SELECT language FROM users WHERE telegram_id = $1`,
+            [telegramId]
+        );
+
+        // Если юзер есть и язык задан — возвращаем, иначе дефолт
+        return result.rows[0]?.language;
+    } catch (error) {
+        console.error("Ошибка получения языка:", error);
+        return 'ru';
+    }
+}
 
 export default {
     userExistsInDB,
     userIsAdmin,
     userIsFather,
     getPhoneNumber,
-    insertUserToDB
+    insertUserToDB,
+    updateLangUser,
+    getUserLang
 }

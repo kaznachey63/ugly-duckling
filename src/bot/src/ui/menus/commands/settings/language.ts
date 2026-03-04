@@ -2,11 +2,12 @@ import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import utils from '@utils';
 import { InlineKeyboard } from 'grammy';
+import type { LanguageCode } from 'grammy/types';
 
 /**
  * Меню смены языка
  */
-export default function language(ctx: MyContext): Menu<InlineKeyboard> {
+export default function language(ctx: MyContext, languageCode: LanguageCode): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.settings.language.main.title"),
         ctx.t("commands.settings.language.main.path"),
@@ -14,19 +15,19 @@ export default function language(ctx: MyContext): Menu<InlineKeyboard> {
     
     const keyboard = new InlineKeyboard()
         .text(
-            ctx.session.settings.languageCode == 'ru' ?
+            languageCode == 'ru' ?
                 ctx.t("commands.settings.language.main.buttons.ru") + ' ☑️' :
                 ctx.t("commands.settings.language.main.buttons.ru"), 
             "changeLanguage:ru"
         )
         .text(
-            ctx.session.settings.languageCode == 'en' ?
+            languageCode == 'en' ?
                 ctx.t("commands.settings.language.main.buttons.en") + ' ☑️' :
                 ctx.t("commands.settings.language.main.buttons.en"), 
             "changeLanguage:en"
         )
         .text(
-            ctx.session.settings.languageCode == 'zh' ?
+            languageCode == 'zh' ?
                 ctx.t("commands.settings.language.main.buttons.zh") + ' ☑️' :
                 ctx.t("commands.settings.language.main.buttons.zh"), 
             "changeLanguage:zh"

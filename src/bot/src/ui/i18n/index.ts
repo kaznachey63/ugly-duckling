@@ -1,3 +1,4 @@
+import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
 import type { NextFunction } from 'grammy';
 import type { LanguageCode } from "grammy/types";
@@ -33,24 +34,12 @@ i18next.use(Backend).init({
 });
 
 export const i18nMiddleware = async (ctx: MyContext, next: NextFunction) => {
-    const manualLang = ctx.session?.settings?.languageCode;
-    const autoLang = ctx.from?.language_code ? getLocaleFromTelegram(ctx.from.language_code) : defaultLocale;
+    const telegramId = ctx.from?.id;
+    if (!telegramId) return await next();
 
-    let lng: string;
+    // Просто берем из БД
+    const lng = await db.user.getUserLang(telegramId);
 
-    // Присвоение языка пользователя из телеграм
-    if (!manualLang || manualLang === 'auto') {
-        lng = autoLang;
-        if (ctx.session?.settings) {
-            ctx.session.settings.languageCode = lng as LanguageCode;
-        }
-    } else {
-        lng = manualLang;
-    }
-
-    ctx.t = (key: string, options = {}) => {
-        return i18next.t(key, { lng, ...options });
-    };
-
+    ctx.t = (key: string, options = {}) => i18next.t(key, { lng, ...options });
     await next();
 };
