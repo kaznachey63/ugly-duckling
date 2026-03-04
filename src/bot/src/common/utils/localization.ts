@@ -84,9 +84,6 @@ function getTypeCompStatRu(typeStatistika: string ) {
     return map.typeComparativeStatistika[typeStatistika]!;
 }
 
-function getDayOfWeekRu(day: string): string {
-    return map.daysOfWeek[day]!;
-}
 
 function getMonthRu(month: string): string {
     return map.months[month]!;
@@ -103,7 +100,6 @@ export default {
     getMediaFormat,
     isSupportedMediaType,
     getTypeCompStatRu,
-    getDayOfWeekRu,
     getMonthRu,
     getMonthNumber
 };

@@ -26,7 +26,7 @@ export default async function contact(ctx: MyContext) {
         // 2. Логика проверки
         if (phoneExists || common.isAdmin(ctx.from?.id!)) {
             ctx.session.user.phoneNumber = phoneNumber;
-            ctx.session.user.role = utils.common.isAdmin(ctx.from!.id) ? "admin" : "customer";
+            ctx.session.user.role = await utils.common.getRole(ctx.from?.id!);
 
             // 3. Удаляем, передавая ID сообщения обработки
             await deleteMessageProcessing(ctx, processingMsgId);

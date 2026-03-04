@@ -3,6 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { pathToFileURL } from 'url';
 import type { MyContext } from '@shared/types/SessionData';
+import common from '@utils/common';
 
 // 🔴 КЭШИ НА УРОВНЕ МОДУЛЯ
 const handlersCache = new Map<string, any>();
@@ -121,6 +122,8 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
                 nameDistribution = nameDistribution.split(/:/)[0]!;
             }
 
+            // Присваивание инфо о рассылке и пользователе
+            ctx.session.user.role = await common.getRole(ctx.from?.id!);
             nameDistribution = nameDistribution.replace(/week|month/ig, "");
             const infoDist = await db.distribution.getDistributionInfo(nameDistribution);
             if (infoDist) {

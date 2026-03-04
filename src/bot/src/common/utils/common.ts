@@ -2,6 +2,7 @@ import type { MyContext, SessionData } from '@shared/types/SessionData';
 import menuCabinet from "@menus/commands/cabinet/main";
 import db from "@shared/db";
 import utils from "src/common/utils";
+import type { Role } from '@shared/types/Role';
 
 /**
  * Сброс сессии
@@ -101,8 +102,20 @@ function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * Проверка на админа по айди
+ */
 function isAdmin(id: number): boolean {
     return id === Number(process.env.ID_ADMIN);
+}
+
+/**
+ * Получение роли пользователя по айди
+ */
+async function getRole(id: number): Promise<Role> {
+    if (isAdmin(id)) return "admin";
+    else if (await db.user.userExistsInDB(id)) return "customer";
+    else return "unknown";
 }
 
 /**
@@ -120,5 +133,6 @@ export default {
     loadCabinet,
     sleep,
     isAdmin,
+    getRole,
     deleteTwoMessages
 };

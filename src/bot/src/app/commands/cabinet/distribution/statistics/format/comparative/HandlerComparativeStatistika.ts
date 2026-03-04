@@ -8,11 +8,14 @@ import menuStatistic from "@menus/commands/cabinet/distribution/statistic";
 /**
  * Обработка типа сравнитальной статистики (неделя/месяц)
  */
-export default async function HandlerComparativeStatistika(ctx: MyContext, typeStat: StatisticType) {
+export default async function HandlerComparativeStatistika(ctx: MyContext, typeStat: StatisticType) {    
+    if (await getDataForDiagram(ctx, typeStat) === false) {        
+        await ctx.answerCallbackQuery({ text: ctx.t("utils.chart.noLogs"), show_alert: true });
+        return;
+    }
+
     ctx.api.sendChatAction(ctx.chat?.id!, "upload_photo");
-    
-    const nameDistribution = ctx.session.distribution.name;
-    const myChart = utils.chart.createChart(ctx, await getDataForDiagram(nameDistribution, typeStat));
+    const myChart = utils.chart.createChart(ctx, await getDataForDiagram(ctx, typeStat) as ChartData);
     const menu = menuStatistic.handlerComparative(ctx, typeStat);
 
     await ctx.replyWithPhoto(await myChart.getShortUrl(), {
@@ -52,15 +55,19 @@ function formatDate(date: Date): string {
     return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`;
 }
 
-function getLabels(typeStat: StatisticType): string[] {
+function getLabels(ctx: MyContext, typeStat: StatisticType): string[] {
     const labels = getType(typeStat);
-    const labelsRu = labels.map(l => {
+
+    const labelsTranslated = labels.map(l => {
         const dayOfWeek = l.split(' ')[0]!;
         const dateObj = new Date(l);
-        return `${String(dateObj.getDate()).padStart(2, '0')}.${String(dateObj.getMonth() + 1).padStart(2, '0')}\n${utils.local.getDayOfWeekRu(dayOfWeek!)}`;
+        const dayKey = dayOfWeek.slice(0, 3);
+        const dayTranslated = ctx.t(`utils.chart.daysOfWeek.${dayKey}`);
+
+        return `${String(dateObj.getDate()).padStart(2, '0')}.${String(dateObj.getMonth() + 1).padStart(2, '0')}\n${dayTranslated}`;
     });
 
-    return labelsRu;
+    return labelsTranslated;
 }
 
 function getWeek(date: Date): string[] {
@@ -96,13 +103,20 @@ function getMonth(date: Date): string[] {
     return withoutSundays;
 }
 
-async function getDataForDiagram(nameDistribution: string, typeStat: StatisticType): Promise<ChartData> {
-    const groups = await getGroups(nameDistribution, typeStat);
-    const labels = getLabels(typeStat);
-    return {
-        labels: labels,
-        groups: groups,
-        type: typeStat,
-        typeRu: utils.local.getTypeCompStatRu(typeStat)
-    };
+async function getDataForDiagram(ctx: MyContext, typeStat: StatisticType): Promise<ChartData | false> {
+    const groups = await getGroups(ctx.session.distribution.name, typeStat);
+    console.log(groups);
+    
+    if (Number(groups.join('')) <= 0) {   
+        return false;
+    }
+    else {
+        const labels = getLabels(ctx, typeStat);
+        return {
+            labels: labels,
+            groups: groups,
+            type: typeStat,
+            typeRu: utils.local.getTypeCompStatRu(typeStat)
+        };
+    }
 }

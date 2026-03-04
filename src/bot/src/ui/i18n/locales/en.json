@@ -14,7 +14,16 @@
         "chart": {
             "label": "Number of groups that received the mailing",
             "title": "Statistics of sent messages ({{type}})",
-            "amountSms": "Number of messages"
+            "amountSms": "Number of messages",
+            "daysOfWeek": {
+                "Mon": "Mon",
+                "Tue": "Tue",
+                "Wed": "Wed",
+                "Thu": "Thu",
+                "Fri": "Fri",
+                "Sat": "Sat",
+                "Sun": "Sun"
+            }
         },
         "calendar": {}
     },

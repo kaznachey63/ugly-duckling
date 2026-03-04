@@ -14,7 +14,16 @@
         "chart": {
             "label": "已接收群发的群组数量",
             "title": "已发送消息统计 ({{type}})",
-            "amountSms": "消息数量"
+            "amountSms": "消息数量",
+            "daysOfWeek": {
+                "Mon": "周一",
+                "Tue": "周二",
+                "Wed": "周三",
+                "Thu": "周四",
+                "Fri": "周五",
+                "Sat": "周六",
+                "Sun": "周日"
+            }
         },
         "calendar": {}
     },

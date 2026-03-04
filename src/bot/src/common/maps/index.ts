@@ -4,21 +4,11 @@ type MapConstants = {
     fileFormat: Record<string, string[]>;
     mimeType: Record<string, string[]>;
     typeComparativeStatistika: Record<string, string>;
-    daysOfWeek: Record<string, string>;
     months: Record<string, string>;
     monthNumbers: Record<string, string>;
 };
 
 const maps: MapConstants = {
-    daysOfWeek: {
-        "Mon": "Пон",
-        "Tue": "Вт",
-        "Wed": "Ср",
-        "Thu": "Чет",
-        "Fri": "Пят",
-        "Sat": "Суб",
-        "Sun": "Вос"
-    },
     months: {
         "Jan": "Янв",
         "Feb": "Фев",

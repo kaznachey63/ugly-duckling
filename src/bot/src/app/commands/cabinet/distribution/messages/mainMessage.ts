@@ -4,7 +4,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuMessage from '@menus/commands/cabinet/distribution/message/main';
 
 export default async function mainMessage(ctx: MyContext) {
-    utils.common.resetSessionStates(ctx.session);
+    // utils.common.resetSessionStates(ctx.session);
     const queryData = ctx.callbackQuery?.data;
     const nameDistribution = ctx.session.distribution.name!;
     const paginationIndex = Number(queryData!.split(/:/)[1]) || 0;
