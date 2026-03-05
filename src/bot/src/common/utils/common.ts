@@ -118,21 +118,10 @@ async function getRole(id: number): Promise<Role> {
     else return "unknown";
 }
 
-/**
- * Удаление двух сообщений (для обработчиков)
- */
-async function deleteTwoMessages(ctx: MyContext, idForSeconDelete: number) {
-    try {
-        await ctx.deleteMessage();        
-        await ctx.api.deleteMessage(ctx.chat?.id!, idForSeconDelete - 1);
-    } catch {}
-}
-
 export default {
     resetSessionStates,
     loadCabinet,
     sleep,
     isAdmin,
     getRole,
-    deleteTwoMessages
 };

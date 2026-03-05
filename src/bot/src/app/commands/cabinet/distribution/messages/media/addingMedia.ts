@@ -110,7 +110,7 @@ export default async function addingMedia(ctx: MyContext) {
         });
     } catch (error) {
         console.error("Ошибка при сохранении медиа:", error);
-        // utils.common.resetSessionStates(ctx.session);
+        utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
             utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.error")), {
             reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),

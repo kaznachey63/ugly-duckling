@@ -31,8 +31,11 @@ function formatTimeToRu(time: Time, index?: number): string | null {
  * @param nameDistribution Прог. имя рассылки
  * @returns Имя процесса
  */
-function getNameProcess(nameDistribution: string): string {
-    return `sendout@${nameDistribution.toLowerCase()}.service`;
+function getNameProcess(nameService: string, isNameDistribution?: true): string {
+    return isNameDistribution ?
+        `sendout@${nameService.toLowerCase()}.service` :
+        nameService == "parser" ? `ugluduckling-${nameService}.service` : `${nameService}.service`
+    ;
 }
 
 /**

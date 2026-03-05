@@ -1,1 +1,1 @@
-export type Status = "active" | "inactive" | "failed" | "";
+export type Status = "active" | "inactive" | "failed" | "maintenance" | "deactivating" | "activating" | "";

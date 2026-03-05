@@ -1,1 +1,1 @@
-export type GetAction = "status" | "log";
+export type GetAction = "status" | "log" | "is-active" | "exit-code";

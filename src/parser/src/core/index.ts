@@ -23,9 +23,9 @@ import db from '@shared/db';
         await db.chat.insertChats(uniqueChatList);
     } catch (err) {
         console.error('Критическая ошибка при запуске парсера чатов', err);
-        // process.exit(1);
+        process.exit(1);
     }
-    // process.exit(0);
+    process.exit(0);
 // },
 // {
 //     timezone: "Europe/Moscow"
