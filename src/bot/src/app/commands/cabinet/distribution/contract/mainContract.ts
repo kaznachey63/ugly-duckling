@@ -1,4 +1,4 @@
-import utils from "@utils";
+import google from "@utils/google";
 import type { MyContext } from '@shared/types/SessionData';
 import menuContract from '@menus/commands/cabinet/distribution/contract';
 
@@ -6,7 +6,7 @@ import menuContract from '@menus/commands/cabinet/distribution/contract';
  * Обработчик договора
  */
 export default async function mainContract(ctx: MyContext) {
-    const dataFromSheets = await utils.google.getRowsFromGS("Заказчики!A2:G");
+    const dataFromSheets = await google.getRowsFromGS("Заказчики!A2:G");
 
     const row = dataFromSheets?.find(r => r?.[0] === ctx.session.distribution.label);
 

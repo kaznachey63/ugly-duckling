@@ -1,4 +1,4 @@
-import utils from "src/common/utils";
+import fileImport from "@utils/file";
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import menuMedia from "@menus/commands/cabinet/distribution/message/media";
@@ -20,7 +20,7 @@ export default async function clearAllMedia(ctx: MyContext) {
     for (const file of message?.media!) {
         if (file && file !== 'null' && typeof file === 'string') {
             try {
-                await utils.file.deleteFile(file);
+                await fileImport.deleteFile(file);
                 console.log(`🗑️ Удалён файл: ${file}`);
             } catch (err) {
                 console.warn(`Файл не найден: ${file}`);

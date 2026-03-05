@@ -1,8 +1,8 @@
-import error from './error.js';
-import auth from './auth.js';
-import time from './time.js';
-import log from './log.js';
-import only from './only.js';
+import error from './error';
+import auth from './auth';
+import time from './time';
+import log from './log';
+import only from './only';
 
 export default {
     error,

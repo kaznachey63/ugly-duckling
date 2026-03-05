@@ -1,10 +1,10 @@
 import {ServerManager} from './ServerManager';
-import common from './common.js';
-import file from './file.js';
-import formatting from './formatting.js';
-import google from './google.js';
-import local from './localization.js';
-import init from './initialize.js';
+import common from './common';
+import file from './file';
+import formatting from './formatting';
+import google from './google';
+import local from './localization';
+import init from './initialize';
 import chart from './chart';
 import calendar from './calendar';
 

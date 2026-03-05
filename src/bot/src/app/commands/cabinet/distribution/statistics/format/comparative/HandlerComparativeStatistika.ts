@@ -1,5 +1,5 @@
 import db from "@shared/db";
-import utils from "src/common/utils";
+import utils from "@utils";
 import type { MyContext } from '@shared/types/SessionData';
 import type { ChartData } from '@shared/types/ChartData';
 import type { StatisticType } from '@shared/types/StatisticType';

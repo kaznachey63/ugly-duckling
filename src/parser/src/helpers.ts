@@ -1,5 +1,5 @@
 import { TelegramClient } from "telegram";
-import maps from "./maps.js";
+import maps from "./maps";
 import type { Chat } from '@shared/types/Chat'
 
 function getChatLink(id: any, username: any): string {

@@ -1,7 +1,7 @@
 import type { MyContext, SessionData } from '@shared/types/SessionData';
 import menuCabinet from "@menus/commands/cabinet/main";
 import db from "@shared/db";
-import utils from "src/common/utils";
+import google from "@utils/google";
 import type { Role } from '@shared/types/Role';
 
 /**
@@ -39,7 +39,7 @@ async function loadCabinet(ctx: MyContext) {
         const phone = await db.user.getPhoneNumber(ctx.from!.id);
         if (!phone) return ctx.reply(ctx.t('commands.cabinet.main.noSendouts'));
 
-        const rows = await utils.google.getRowsFromGS("Заказчики!A2:I");
+        const rows = await google.getRowsFromGS("Заказчики!A2:I");
         const labels = rows
             ?.filter(r => r[8] === phone)
             .map(r => r[0])

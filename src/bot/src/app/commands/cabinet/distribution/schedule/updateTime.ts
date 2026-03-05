@@ -1,4 +1,3 @@
-import utils from "src/common/utils";
 import type { MyContext } from '@shared/types/SessionData';
 import menuSchedule from '@menus/commands/cabinet/distribution/schedule';
 
@@ -17,6 +16,6 @@ export default async function updateTime(ctx: MyContext) {
     );
     
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.state.idForUpdateMessageFromStateOrTime = msg.message_id;
+        ctx.session.state.idForUpdateMessageFromState = msg.message_id;
     }
 };

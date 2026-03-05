@@ -1,10 +1,10 @@
 import '@shared/env'; // ← ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ
 import auth from '@shared/auth';
-import helpers from '../helpers.js';
+import helpers from '../helpers';
 import cron from 'node-cron';
 import db from '@shared/db';
 
-cron.schedule("57 20 * * *", async () => {
+// cron.schedule("49 10 * * *", async () => {
     try {
         await db.chat.clearTableChats();
         const credentials = await db.credential.getCredentials();
@@ -23,10 +23,10 @@ cron.schedule("57 20 * * *", async () => {
         await db.chat.insertChats(uniqueChatList);
     } catch (err) {
         console.error('Критическая ошибка при запуске парсера чатов', err);
-        process.exit(1);
+        // process.exit(1);
     }
-    process.exit(0);
-},
-{
-    timezone: "Europe/Moscow"
-});
+    // process.exit(0);
+// },
+// {
+//     timezone: "Europe/Moscow"
+// });

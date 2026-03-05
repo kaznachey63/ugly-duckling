@@ -8,7 +8,7 @@ export default async function restartDistribution(ctx: MyContext) {
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
     const server = new ServerManager();
     await server.execute("restart", ctx.session.distribution.name);
-    common.sleep(250);
+    await common.sleep(250);
     const menu = menuCondition(ctx, await server.execute("status", ctx.session.distribution.name) as Status);
 
     await ctx.editMessageText(menu.text, {

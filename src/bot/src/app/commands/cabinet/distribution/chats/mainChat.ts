@@ -1,5 +1,5 @@
 import db from "@shared/db";
-import utils from "src/common/utils";
+import format from "@utils/formatting";
 import type { MyContext } from '@shared/types/SessionData';
 import menuChat from "@menus/commands/cabinet/distribution/chats";
 
@@ -21,7 +21,7 @@ export default async function mainChat(ctx: MyContext) {
     }
     
     const menu = menuChat(ctx, lastLog.success, infoChats!)
-    await ctx.editMessageText(utils.formatting.escapeMarkdown(menu.text),
+    await ctx.editMessageText(format.escapeMarkdown(menu.text),
         {
             parse_mode: "MarkdownV2",
             reply_markup: menu.keyboard

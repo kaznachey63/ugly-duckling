@@ -1,7 +1,7 @@
 import type { MyContext } from '@shared/types/SessionData';
 import type { Menu } from "@shared/types/Menu";
 import { InlineKeyboard } from "grammy";
-import utils from "@utils";
+import format from "@utils/formatting";
 
 type ContractInfo = {
     customer: string;
@@ -20,7 +20,7 @@ export default function contract(ctx: MyContext, contractInfo: ContractInfo): Me
         ctx.t("commands.cabinet.distribution.contract.path", { call: ctx.session.distribution.call })
     ].join('\n');
 
-    const text = utils.formatting.escapeMarkdown(textLines);
+    const text = format.escapeMarkdown(textLines);
 
     const keyboard = new InlineKeyboard()
         .text(ctx.t('utils.shared.back'), `mainDistribution${ctx.session.distribution.name}`)
