@@ -44,6 +44,8 @@ bot.on('message', async (ctx: MyContext, next: NextFunction) => {
 
 bot.on('callback_query', async (ctx: MyContext, next: NextFunction) => {
     try {
+        console.log(ctx?.callbackQuery?.data);
+        
         await utils.common.setPrimaryValuesSession(ctx);
         await next();
     } finally {
@@ -55,7 +57,7 @@ bot.use(modulesComposer);
 
 bot.use(handlersComposer);
 
-// -------------------------------
+bot.start();
 
 // bot.catch(async (err, ctx) => {
 //     console.error(`Ошибка в обработчике:`, err);
@@ -105,5 +107,3 @@ bot.use(handlersComposer);
 
 //     return; // ⛔ стоп всё
 // });
-
-bot.start();

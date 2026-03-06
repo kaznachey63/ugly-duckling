@@ -8,7 +8,7 @@ const contractComposer = new Composer<MyContext>();
 // ============================================================================
 // КНОПКА mainContract
 // ============================================================================
-contractComposer.callbackQuery('mainContract', async (ctx: MyContext) => {
+contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
     try {
         const dataFromSheets = await google.getRowsFromGS("Заказчики!A2:G");
         const row = dataFromSheets?.find(r => r?.[0] === ctx.session.distribution.label);

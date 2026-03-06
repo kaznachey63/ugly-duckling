@@ -15,7 +15,7 @@ const statisticsComposer = new Composer<MyContext>();
 // 🔸 РЕГУЛЯРКА: mainStatistic (с параметром)
 // ============================================================================
 statisticsComposer.callbackQuery(/^mainStatistic:/, async (ctx: MyContext) => {
-    try {
+    try {        
         const menu = menuStatistic.main(ctx);
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
@@ -39,40 +39,6 @@ statisticsComposer.callbackQuery(/^selectiveStatistic:/, async (ctx: MyContext) 
         });
     } catch (error) {
         console.error('Ошибка в selectiveStatistic:', error);
-    }
-});
-
-// ============================================================================
-// 🔸 РЕГУЛЯРКА: chatsForStatistics (с параметром)
-// ============================================================================
-statisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: MyContext) => {
-    try {
-        const nameDistribution = ctx.session.distribution.name!;
-        const logsBaza = await db.result.getResults(nameDistribution);
-        if (!logsBaza) return;
-
-        const lastLog = logsBaza.at(-1)!;
-        const infoChats = await db.chat.getChatsInfo(lastLog?.chats);
-
-        if (logsBaza.length === 0 || !lastLog?.chats || !infoChats) {
-            await ctx.answerCallbackQuery({
-                text: ctx.t('commands.cabinet.distribution.chats.noSendout', {
-                    call: ctx.session.distribution.call
-                }),
-                show_alert: true
-            });
-            return;
-        }
-
-        const menu = chat(ctx, lastLog.success, infoChats!);
-        await ctx.editMessageText(format.escapeMarkdown(menu.text), {
-            parse_mode: 'MarkdownV2',
-            reply_markup: menu.keyboard
-        });
-    } catch (error) {
-        console.error('Ошибка в chatsForStatistics:', error);
-    } finally {
-        
     }
 });
 
@@ -127,6 +93,39 @@ statisticsComposer.callbackQuery(/^comparativeStatisticMonth:/, async (ctx: MyCo
     }
 });
 
+// ============================================================================
+// 🔸 РЕГУЛЯРКА: chatsForStatistics (с параметром)
+// ============================================================================
+statisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: MyContext) => {
+    try {
+        const nameDistribution = ctx.session.distribution.name!;
+        const logsBaza = await db.result.getResults(nameDistribution);
+        if (!logsBaza) return;
+
+        const lastLog = logsBaza.at(-1)!;
+        const infoChats = await db.chat.getChatsInfo(lastLog?.chats);
+
+        if (logsBaza.length === 0 || !lastLog?.chats || !infoChats) {
+            await ctx.answerCallbackQuery({
+                text: ctx.t('commands.cabinet.distribution.chats.noSendout', {
+                    call: ctx.session.distribution.call
+                }),
+                show_alert: true
+            });
+            return;
+        }
+
+        const menu = chat(ctx, lastLog.success, infoChats!);
+        await ctx.editMessageText(format.escapeMarkdown(menu.text), {
+            parse_mode: 'MarkdownV2',
+            reply_markup: menu.keyboard
+        });
+    } catch (error) {
+        console.error('Ошибка в chatsForStatistics:', error);
+    } finally {
+
+    }
+});
 // ============================================================================
 // 📦 ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (внутри файла)
 // ============================================================================

@@ -10,7 +10,7 @@ const conditionComposer = new Composer<MyContext>();
 // ============================================================================
 // КНОПКА mainCondition
 // ============================================================================
-conditionComposer.callbackQuery('mainCondition', async (ctx: MyContext) => {
+conditionComposer.callbackQuery(/^mainCondition:/, async (ctx: MyContext) => {
     try {
         const server = new ServerManager();
         const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.distribution.name, true) as Status);

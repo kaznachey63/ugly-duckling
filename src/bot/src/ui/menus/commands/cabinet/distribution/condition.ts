@@ -16,18 +16,18 @@ export default function condition(ctx: MyContext, status: Status): Menu<InlineKe
             keyboard
             .text(
                 ctx.t("commands.cabinet.distribution.condition.buttons.stop"),
-                `stopDistribution${nameDistribution}`
+                `stopDistribution:${nameDistribution}`
             )
             .text(
                 ctx.t("commands.cabinet.distribution.condition.buttons.restart"),
-                `restartDistribution${nameDistribution}`
+                `restartDistribution:${nameDistribution}`
             );
             break;
         }
         case "inactive": {
             keyboard.text(
                 ctx.t("commands.cabinet.distribution.condition.buttons.start"),
-                `startDistribution${nameDistribution}`
+                `startDistribution:${nameDistribution}`
             );
             break;
         }
@@ -40,7 +40,7 @@ export default function condition(ctx: MyContext, status: Status): Menu<InlineKe
         ctx.t("commands.cabinet.distribution.condition.path", { call: ctx.session.distribution.call }),
     ].join('\n\n');
 
-    keyboard.text(ctx.t('utils.shared.back'), `mainDistribution${ctx.session.distribution.name}`);
+    keyboard.text(ctx.t('utils.shared.back'), `mainDistribution:${ctx.session.distribution.name}`);
     
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }

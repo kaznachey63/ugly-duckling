@@ -11,17 +11,17 @@ export default async function main(ctx: MyContext): Promise<Menu<InlineKeyboard>
     ].join('\n\n');
 
     let keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.cabinet.distribution.main.buttons.contract"), `mainContract${nameDistribution}`).row()
+        .text(ctx.t("commands.cabinet.distribution.main.buttons.contract"), `mainContract:${nameDistribution}`).row()
     ;
     
     keyboard
-        .text(ctx.t("commands.cabinet.distribution.main.buttons.schedule"), `mainSchedule${nameDistribution}`).row()
-        .text(ctx.t("commands.cabinet.distribution.main.buttons.messages"), `mainMessage${nameDistribution}`).row()
-        .text(ctx.t("commands.cabinet.distribution.main.buttons.statistics"), `mainStatistics${nameDistribution}`).row()
+        .text(ctx.t("commands.cabinet.distribution.main.buttons.schedule"), `mainSchedule:${nameDistribution}`).row()
+        .text(ctx.t("commands.cabinet.distribution.main.buttons.messages"), `mainMessage:${nameDistribution}`).row()
+        .text(ctx.t("commands.cabinet.distribution.main.buttons.statistics"), `mainStatistic:${nameDistribution}`).row()
     ;
     
     if (ctx.session.user.role == 'admin') {
-        keyboard.text(ctx.t("commands.cabinet.distribution.main.buttons.condition"), `mainCondition${nameDistribution}`).row();
+        keyboard.text(ctx.t("commands.cabinet.distribution.main.buttons.condition"), `mainCondition:${nameDistribution}`).row();
     }
         
     keyboard.text(ctx.t('utils.shared.back'), "mainCabinet");

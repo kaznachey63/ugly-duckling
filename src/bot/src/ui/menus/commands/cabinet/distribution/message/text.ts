@@ -14,7 +14,7 @@ function add(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}`)
+        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`)
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -26,7 +26,7 @@ function update(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}`)
+        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`)
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -41,7 +41,7 @@ function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}`)
+        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`)
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -56,7 +56,7 @@ function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}`)
+        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`)
         ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -71,7 +71,7 @@ function adding(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}`)
+        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`)
         ;
     return { text: format.escapeMarkdown(text), keyboard };
 }
@@ -86,7 +86,7 @@ function updating(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}`)
+        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`)
         ;
     return { text: format.escapeMarkdown(text), keyboard };
 }

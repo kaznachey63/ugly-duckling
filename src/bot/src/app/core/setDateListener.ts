@@ -34,7 +34,7 @@ export default async function setDateListener(ctx: MyContext) {
                 reply_markup: {
                     inline_keyboard: [[{
                         text: "🔙 Назад",
-                        callback_data: `selectiveStatistika${nameDistribution}`
+                        callback_data: `selectiveStatistika:${nameDistribution}`
                     }]]
                 }
             };

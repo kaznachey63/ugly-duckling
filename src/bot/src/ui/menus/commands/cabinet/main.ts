@@ -17,7 +17,7 @@ function authed(ctx: MyContext, sendouts: Cred[]): Menu<InlineKeyboard> {
     sendouts.forEach((cred) => {
         keyboard.text(
             cred.call,
-            `mainDistribution${cred.name}`
+            `mainDistribution:${cred.name}`
         ).row();
     });    
     return { text: format.escapeMarkdown(text), keyboard };

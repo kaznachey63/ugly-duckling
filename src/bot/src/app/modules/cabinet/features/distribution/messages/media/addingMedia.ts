@@ -35,7 +35,7 @@ export default async function addingMedia(ctx: MyContext) {
                 utils.common.resetSessionStates(ctx.session);
                 await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
                     utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.documentsWTMedia")), {
-                    reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
+                    reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${nameDistribution}`),
                     parse_mode: "MarkdownV2"
                 });
                 return;
@@ -46,7 +46,7 @@ export default async function addingMedia(ctx: MyContext) {
             utils.common.resetSessionStates(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
                 utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.invalidType")), {
-                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
+                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${nameDistribution}`),
                 parse_mode: "MarkdownV2"
             });
             return;
@@ -59,7 +59,7 @@ export default async function addingMedia(ctx: MyContext) {
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
             utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.bigSize")), {
-            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
+            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${nameDistribution}`),
             parse_mode: "MarkdownV2"
         });
         return;
@@ -88,7 +88,7 @@ export default async function addingMedia(ctx: MyContext) {
             utils.common.resetSessionStates(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, 
                 utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.error")), {
-                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
+                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${nameDistribution}`),
                 parse_mode: "MarkdownV2"
             });
             return;
@@ -113,7 +113,7 @@ export default async function addingMedia(ctx: MyContext) {
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState,
             utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.error")), {
-            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${nameDistribution}`),
+            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${nameDistribution}`),
             parse_mode: "MarkdownV2"
         });
     }

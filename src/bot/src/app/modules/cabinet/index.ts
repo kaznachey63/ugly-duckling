@@ -12,6 +12,14 @@ const cabinetComposer = new Composer<MyContext>();
 // КОМАНДА /cabinet
 // ============================================================================
 cabinetComposer.command('cabinet', async (ctx: MyContext) => {
+    await processCabinet(ctx);
+});
+
+cabinetComposer.callbackQuery("mainCabinet", async (ctx: MyContext) => {
+    await processCabinet(ctx);
+});
+
+async function processCabinet(ctx: MyContext) {
     try {
         // Сброс сессии
         ctx.session = init.createDefaultSession();
@@ -30,7 +38,7 @@ cabinetComposer.command('cabinet', async (ctx: MyContext) => {
     } catch (error) {
         console.error('Ошибка в команде cabinet:', error);
     }
-});
+}
 
 // ============================================================================
 // ПОД-РАЗДЕЛЫ: подключение через .use()

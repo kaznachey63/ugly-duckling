@@ -11,7 +11,7 @@ function add(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}`)
+        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`)
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -26,13 +26,13 @@ function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}`)
+        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`)
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 function adding(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage${ctx.session.distribution.name}:0`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}:0`);
 
     const text = [
             result ? ctx.t("commands.cabinet.distribution.messages.media.adding.success")
