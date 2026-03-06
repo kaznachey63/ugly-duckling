@@ -5,9 +5,6 @@ import menuContract from '@menus/commands/cabinet/distribution/contract';
 
 const contractComposer = new Composer<MyContext>();
 
-// ============================================================================
-// КНОПКА mainContract
-// ============================================================================
 contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
     try {
         const dataFromSheets = await google.getRowsFromGS("Заказчики!A2:G");
@@ -32,7 +29,4 @@ contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
     }
 });
 
-// ============================================================================
-// ЭКСПОРТ
-// ============================================================================
 export default contractComposer;

@@ -8,9 +8,6 @@ import distributionComposer from './features/distribution'
 
 const cabinetComposer = new Composer<MyContext>();
 
-// ============================================================================
-// КОМАНДА /cabinet
-// ============================================================================
 cabinetComposer.command('cabinet', async (ctx: MyContext) => {
     await processCabinet(ctx);
 });
@@ -40,12 +37,6 @@ async function processCabinet(ctx: MyContext) {
     }
 }
 
-// ============================================================================
-// ПОД-РАЗДЕЛЫ: подключение через .use()
-// ============================================================================
 cabinetComposer.use(distributionComposer);
 
-// ============================================================================
-// ЭКСПОРТ
-// ============================================================================
 export default cabinetComposer;

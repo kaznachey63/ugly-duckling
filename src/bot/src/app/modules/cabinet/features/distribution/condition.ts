@@ -7,9 +7,6 @@ import common from '@utils/common';
 
 const conditionComposer = new Composer<MyContext>();
 
-// ============================================================================
-// КНОПКА mainCondition
-// ============================================================================
 conditionComposer.callbackQuery(/^mainCondition:/, async (ctx: MyContext) => {
     try {
         const server = new ServerManager();
@@ -25,9 +22,6 @@ conditionComposer.callbackQuery(/^mainCondition:/, async (ctx: MyContext) => {
     }
 });
 
-// ============================================================================
-// КНОПКА startDistribution (с параметром)
-// ============================================================================
 conditionComposer.callbackQuery(/^startDistribution:/, async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t('utils.shared.processing'));
@@ -47,9 +41,6 @@ conditionComposer.callbackQuery(/^startDistribution:/, async (ctx: MyContext) =>
     }
 });
 
-// ============================================================================
-// КНОПКА stopDistribution (с параметром)
-// ============================================================================
 conditionComposer.callbackQuery(/^stopDistribution:/, async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t('utils.shared.processing'));
@@ -69,9 +60,6 @@ conditionComposer.callbackQuery(/^stopDistribution:/, async (ctx: MyContext) => 
     }
 });
 
-// ============================================================================
-// КНОПКА restartDistribution (с параметром)
-// ============================================================================
 conditionComposer.callbackQuery(/^restartDistribution:/, async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t('utils.shared.processing'));
@@ -91,7 +79,4 @@ conditionComposer.callbackQuery(/^restartDistribution:/, async (ctx: MyContext) 
     }
 });
 
-// ============================================================================
-// ЭКСПОРТ
-// ============================================================================
 export default conditionComposer;

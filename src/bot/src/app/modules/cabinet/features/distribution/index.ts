@@ -1,19 +1,14 @@
 import { Composer, GrammyError } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import menuDistribution from '@menus/commands/cabinet/distribution/main';
-
-// Импорт разделов
 import conditionComposer from './condition';
 import contractComposer from './contract';
 import scheduleComposer from './schedule';
 import statisticsComposer from './statistics';
+import messageComposer from './messages';
 
 const distributionComposer = new Composer<MyContext>();
 
-// ============================================================================
-// 🔸 РЕГУЛЯРКА: mainDistribution (с параметром :name)
-//    Пример: mainDistribution:dist_123
-// ============================================================================
 distributionComposer.callbackQuery(/^mainDistribution:/, async (ctx: MyContext) => {
     try {
         // Сохраняем выбранную рассылку в сессию
@@ -38,15 +33,10 @@ distributionComposer.callbackQuery(/^mainDistribution:/, async (ctx: MyContext) 
     }
 });
 
-// ============================================================================
-// ПОД-РАЗДЕЛЫ: подключение через .use()
-// ============================================================================
+distributionComposer.use(messageComposer);
 distributionComposer.use(conditionComposer);
 distributionComposer.use(contractComposer);
 distributionComposer.use(scheduleComposer);
 distributionComposer.use(statisticsComposer);
 
-// ============================================================================
-// ЭКСПОРТ
-// ============================================================================
 export default distributionComposer;

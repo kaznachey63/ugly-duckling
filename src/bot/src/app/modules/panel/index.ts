@@ -6,7 +6,6 @@ import chatsComposer from "./features/chats";
 
 const panelComposer = new Composer<MyContext>();
 
-// ✅ Команда внутри композера
 panelComposer.command('panel', async (ctx: MyContext) => {
     if (common.isAdmin(ctx.from?.id!)) {
         const menu = menuPanel(ctx);
@@ -17,7 +16,6 @@ panelComposer.command('panel', async (ctx: MyContext) => {
     }
 });
 
-// ✅ Колбэки внутри композера
 panelComposer.callbackQuery("mainPanel", async (ctx: MyContext) => {
     try {
         const menu = menuPanel(ctx);

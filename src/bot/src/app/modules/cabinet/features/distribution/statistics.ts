@@ -11,9 +11,6 @@ import menuStatistic from '@menus/commands/cabinet/distribution/statistic';
 
 const statisticsComposer = new Composer<MyContext>();
 
-// ============================================================================
-// 🔸 РЕГУЛЯРКА: mainStatistic (с параметром)
-// ============================================================================
 statisticsComposer.callbackQuery(/^mainStatistic:/, async (ctx: MyContext) => {
     try {        
         const menu = menuStatistic.main(ctx);
@@ -28,9 +25,6 @@ statisticsComposer.callbackQuery(/^mainStatistic:/, async (ctx: MyContext) => {
     }
 });
 
-// ============================================================================
-// 🔸 РЕГУЛЯРКА: selectiveStatistic (с параметром)
-// ============================================================================
 statisticsComposer.callbackQuery(/^selectiveStatistic:/, async (ctx: MyContext) => {
     try {
         await ctx.answerCallbackQuery({
@@ -42,9 +36,6 @@ statisticsComposer.callbackQuery(/^selectiveStatistic:/, async (ctx: MyContext) 
     }
 });
 
-// ============================================================================
-// 🔸 РЕГУЛЯРКА: comparativeStatistic (с параметром)
-// ============================================================================
 statisticsComposer.callbackQuery(/^comparativeStatistic:/, async (ctx: MyContext) => {
     try {
         const menu = menuStatistic.comparative(ctx);
@@ -67,9 +58,6 @@ statisticsComposer.callbackQuery(/^comparativeStatistic:/, async (ctx: MyContext
     }
 });
 
-// ============================================================================
-// 🔸 РЕГУЛЯРКА: comparativeStatisticWeek (с параметром)
-// ============================================================================
 statisticsComposer.callbackQuery(/^comparativeStatisticWeek:/, async (ctx: MyContext) => {
     try {
         await handlerComparativeStatistika(ctx, 'week');
@@ -80,9 +68,6 @@ statisticsComposer.callbackQuery(/^comparativeStatisticWeek:/, async (ctx: MyCon
     }
 });
 
-// ============================================================================
-// 🔸 РЕГУЛЯРКА: comparativeStatisticMonth (с параметром)
-// ============================================================================
 statisticsComposer.callbackQuery(/^comparativeStatisticMonth:/, async (ctx: MyContext) => {
     try {
         await handlerComparativeStatistika(ctx, 'month');
@@ -93,9 +78,6 @@ statisticsComposer.callbackQuery(/^comparativeStatisticMonth:/, async (ctx: MyCo
     }
 });
 
-// ============================================================================
-// 🔸 РЕГУЛЯРКА: chatsForStatistics (с параметром)
-// ============================================================================
 statisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: MyContext) => {
     try {
         const nameDistribution = ctx.session.distribution.name!;
@@ -126,9 +108,6 @@ statisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: MyContext) 
 
     }
 });
-// ============================================================================
-// 📦 ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (внутри файла)
-// ============================================================================
 
 /**
  * Меню раздела чаты
@@ -250,7 +229,4 @@ async function getDataForDiagram(ctx: MyContext, typeStat: StatisticType): Promi
     };
 }
 
-// ============================================================================
-// ЭКСПОРТ
-// ============================================================================
 export default statisticsComposer;

@@ -57,24 +57,24 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
 
         // Навигация по сообщениям
         if (messages.length === 1) {
-            keyboard.text(`${paginationIndex + 1} / ${messages.length}`, `amountMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`).row();
+            keyboard.text(`${paginationIndex + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`).row();
         } 
         else if (paginationIndex === 0) {
             keyboard
-                .text(`${paginationIndex + 1} / ${messages.length}`, `amountMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`)
+                .text(`${paginationIndex + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`)
                 .text("➡", `mainMessage:${nameDistribution}:${paginationIndex + 1}`).row()
             ;
         } 
         else if (paginationIndex + 1 === messages.length) {
             keyboard
                 .text("⬅", `mainMessage:${nameDistribution}:${paginationIndex - 1}`)
-                .text(`${paginationIndex + 1} / ${messages.length}`, `amountMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`).row()
+                .text(`${paginationIndex + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`).row()
             ;
         } 
         else {
             keyboard
                 .text("⬅", `mainMessage:${nameDistribution}:${paginationIndex - 1}`)
-                .text(`${paginationIndex + 1} / ${messages.length}`, `amountMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`)
+                .text(`${paginationIndex + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`)
                 .text("➡", `mainMessage:${nameDistribution}:${paginationIndex + 1}`).row()
             ;
         }

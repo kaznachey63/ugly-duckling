@@ -8,9 +8,6 @@ import menuSchedule from '@menus/commands/cabinet/distribution/schedule';
 
 const scheduleComposer = new Composer<MyContext>();
 
-// ============================================================================
-// 🔹 ТОЧНЫЙ МАТЧ: mainSchedule (без параметров)
-// ============================================================================
 scheduleComposer.callbackQuery(/^mainSchedule:/, async (ctx: MyContext) => {
     try {
         common.resetSessionStates(ctx.session);
@@ -29,9 +26,6 @@ scheduleComposer.callbackQuery(/^mainSchedule:/, async (ctx: MyContext) => {
     }
 });
 
-// ============================================================================
-// 🔹 ТОЧНЫЙ МАТЧ: addTime (без параметров)
-// ============================================================================
 scheduleComposer.callbackQuery(/^addTime:/, async (ctx: MyContext) => {
     try {
         ctx.session.state.time.adding = true;
@@ -52,9 +46,6 @@ scheduleComposer.callbackQuery(/^addTime:/, async (ctx: MyContext) => {
     }
 });
 
-// ============================================================================
-// 🔹 ТОЧНЫЙ МАТЧ: updateTime (без параметров)
-// ============================================================================
 scheduleComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
     try {
         ctx.session.state.time.updating = true;
@@ -75,9 +66,6 @@ scheduleComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
     }
 });
 
-// ============================================================================
-// 🔹 ТОЧНЫЙ МАТЧ: clearSchedule (без параметров)
-// ============================================================================
 scheduleComposer.callbackQuery(/^clearSchedule:/, async (ctx: MyContext) => {
     try {
         const nameDistribution = ctx.session.distribution.name!;
@@ -108,9 +96,7 @@ scheduleComposer.callbackQuery(/^clearSchedule:/, async (ctx: MyContext) => {
     }
 });
 
-// ============================================================================
-// 🔹 ТОЧНЫЙ МАТЧ: parametersTime (без параметров)
-// ============================================================================
+
 scheduleComposer.callbackQuery('parametersSchedule', async (ctx: MyContext) => {
     try {
         await ctx.answerCallbackQuery({
@@ -122,9 +108,6 @@ scheduleComposer.callbackQuery('parametersSchedule', async (ctx: MyContext) => {
     }
 });
 
-// ============================================================================
-// 🔹 ТОЧНЫЙ МАТЧ: removeTime (без параметров)
-// ============================================================================
 scheduleComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
     try {
         const nameDistribution = ctx.session.distribution.name!;
@@ -155,10 +138,6 @@ scheduleComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
     }
 });
 
-// ============================================================================
-// 🔸 РЕГУЛЯРКА: updateOrRemoveTime (с параметром :timeId)
-//    Пример callback_data: updateOrRemoveTime:123
-// ============================================================================
 scheduleComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) => {
     try {
         const queryData = ctx.callbackQuery?.data;
@@ -178,7 +157,4 @@ scheduleComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) =>
     }
 });
 
-// ============================================================================
-// ЭКСПОРТ
-// ============================================================================
 export default scheduleComposer;
