@@ -1,6 +1,6 @@
 import type { MyContext } from '@shared/types/SessionData';
-import menuChat from "@menus/commands/cabinet/distribution/chats";
-import { ServerManager } from "@utils/ServerManager1";
+import menuChat from "@menus/commands/panel/chats";
+import { ServerManager } from "@utils/ServerManager";
 import utils from "@utils";
 
 /**

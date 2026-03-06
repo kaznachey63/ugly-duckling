@@ -11,19 +11,19 @@ export default async function clearSchedule(ctx: MyContext) {
     let text = [];
 
     if (!String(nameDistribution)) {
-        text.push(commands.cabinet.distribution.schedule.clearSchedule.error");
+        text.push("commands.cabinet.distribution.schedule.clearSchedule.error");
     }
     else {
         await db.time.clearTableTimes(ctx.session.distribution.schema);
         const server = new ServerManager();
         if (await server.restartProcessOrNot(nameDistribution)) {
-            text.push(commands.cabinet.distribution.schedule.clearSchedule.success");
+            text.push("commands.cabinet.distribution.schedule.clearSchedule.success");
         }
         else {
-            text.push(commands.cabinet.distribution.schedule.clearSchedule.error");
+            text.push("commands.cabinet.distribution.schedule.clearSchedule.error");
         }
     }
-    text.push(commands.cabinet.distribution.schedule.clearSchedule.path");
+    text.push("commands.cabinet.distribution.schedule.clearSchedule.path");
     const menu = menuSchedule.clearSchedule(ctx, text);
 
     await ctx.editMessageText(menu.text,

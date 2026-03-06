@@ -5,7 +5,7 @@ import type { Status } from '@shared/types/server/Status';
 
 export default async function mainCondition(ctx: MyContext) {
     const server = new ServerManager();
-    const menu = menuCondition(ctx, await server.execute("status", ctx.session.distribution.name) as Status);
+    const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.distribution.name, true) as Status);
     await ctx.editMessageText(menu.text,
         {
             parse_mode: "MarkdownV2",

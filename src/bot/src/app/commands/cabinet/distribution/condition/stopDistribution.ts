@@ -7,9 +7,9 @@ import common from '@utils/common';
 export default async function stopDistribution(ctx: MyContext) {
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
     const server = new ServerManager();
-    await server.execute("stop", ctx.session.distribution.name);
+    await server.stopService(ctx.session.distribution.name, true);
     common.sleep(250);
-    const menu = menuCondition(ctx, await server.execute("status", ctx.session.distribution.name) as Status);
+    const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.distribution.name, true) as Status);
 
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",

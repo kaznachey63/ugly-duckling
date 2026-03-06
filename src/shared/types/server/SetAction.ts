@@ -1,1 +1,0 @@
-export type SetAction = "start" | "stop" | "restart";

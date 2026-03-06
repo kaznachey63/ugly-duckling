@@ -28,7 +28,7 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
         halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "contract");
     }
     else if (queryData.toLowerCase().includes("chat")) {
-        halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "chats");
+        halfPath = path.join("src", "app", "commands", "panel", "chats");
     }
     else if (queryData.toLowerCase().includes("time") || queryData.toLowerCase().includes("schedule")) {
         halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "schedule");
@@ -46,7 +46,7 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
         halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "statistics");
 
         if (queryData.toLowerCase().includes("selective")) {
-            halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "statistics", "format");
+            halfPath = path.join("src", "app", "commands", "cabinet", "distribution", "statistics", "format", "selective");
         }
         else if (queryData.toLowerCase().includes("comparative")) {
             halfPath = path.join(
@@ -87,7 +87,9 @@ export default async function callback_query(ctx: MyContext) { //, calendar: Cal
     else if (queryData.toLowerCase().includes("language")) {
         halfPath = path.join("src", "app", "commands", "settings", "language");
     }
-
+    else if (queryData.toLowerCase().includes("panel")) {
+        halfPath = path.join("src", "app", "commands", "panel");
+    }
     const switchQueryPath = await fs.realpath(halfPath);
     
     // 🔴 КЭШ fs.readdir

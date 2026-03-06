@@ -51,12 +51,18 @@ bot.command('cabinet', async (ctx: MyContext) => {
     await command.cabinet(ctx);
 });
 
-bot.command('form', async (ctx: MyContext) => {
-    await command.form(ctx);
-});
-
 bot.command('settings', async (ctx: MyContext) => {
     await command.settings(ctx);
+});
+
+bot.command('panel', async (ctx: MyContext) => {
+    if (utils.common.isAdmin(ctx.from?.id!)) {
+        await command.panel(ctx);
+    }
+});
+
+bot.command('form', async (ctx: MyContext) => {
+    await command.form(ctx);
 });
 // -------------------------------
 

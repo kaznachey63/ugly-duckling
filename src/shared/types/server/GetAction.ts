@@ -1,1 +1,0 @@
-export type GetAction = "status" | "log" | "is-active" | "exit-code";
