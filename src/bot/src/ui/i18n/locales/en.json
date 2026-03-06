@@ -3,18 +3,19 @@
         "shared": {
             "back": "🔙 Back",
             "processing": "Processing...",
-            "cabinet": "🪴 Personal Account",
+            "cabinet": "🪴 Personal Cabinet",
             "menu": "Menu {{call}}"
         },
         "commands": {
-            "cabinet": "Dashboard",
+            "cabinet": "Cabinet",
             "settings": "Settings",
-            "form": "Questionnaire"
+            "form": "Form"
         },
         "chart": {
-            "label": "Number of groups that received the mailing",
+            "label": "Number of groups that received the broadcast",
             "title": "Statistics of sent messages ({{type}})",
             "amountSms": "Number of messages",
+            "noLogs": "No broadcasts occurred in the selected period!",
             "daysOfWeek": {
                 "Mon": "Mon",
                 "Tue": "Tue",
@@ -29,56 +30,50 @@
     },
     "handlers": {
         "contact": {
-            "accessDenied": "Access denied.\nTo submit a product request, use the '/form' command",
-            "numberIsNull": "Error processing phone number!\nTry again!"
+            "numberIsNull": "Error processing phone number!\nTry again!",
+            "accessDenied": "Access denied.\nTo submit a product request, use the '/form' command"
         },
         "document": {
-            "error": "I can't process documents that don't contain media"
+            "error": "I cannot process documents containing no media"
         },
         "setDateListener": {
             "result": "Result for time: {{time}} ({{date}})\nDelivered to: {{success}}\n\n[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Selective*]",
-            "noData": "No mailings have occurred yet for this date",
-            "error": "An error occurred while processing your request"
+            "noData": "No broadcasts have occurred for this date yet",
+            "error": "An error occurred while processing the request"
         }
     },
     "commands": {
         "cabinet": {
             "main": {
-                "noSendouts": "Access denied. Use the /cabinet command to re-authorize or /form to submit a request",
+                "noSendouts": "Access denied. Use /cabinet to re-authorize or /form to submit a request",
                 "authed": {
-                    "title": "All active mailings at the moment ({{count}})",
-                    "noSendouts": "Access denied. Use the /form command to submit a request"
+                    "title": "All active broadcasts at the moment ({{count}})",
+                    "noSendouts": "Access forbidden. Use the /form command and submit a request"
                 },
                 "notAuthed": {
-                    "title": "To access the mailing panel, you need to share your phone number with me\n\nA button labeled 'TAP-TAP-TAP' should appear next to the keyboard",
-                    "button": "TAP-TAP-TAP"
+                    "title": "To enter the broadcast panel, you need to share your phone number with me\n\nThe button should appear next to the keyboard, labeled 'SHARE CONTACT'",
+                    "button": "SHARE CONTACT"
                 }
             },
             "distribution": {
                 "main": {
-                    "title": "📣 Mailing Menu «{{call}}»",
+                    "title": "📣 Broadcast Menu «{{call}}»",
                     "path": "[📍 Path: Cabinet → *Menu «{{call}}»*]",
                     "buttons": {
                         "contract": "📜 Contract",
-                        "chats": "👥 Chats",
                         "schedule": "🕰️ Schedule",
                         "messages": "💬 Messages",
                         "statistics": "📈 Statistics",
                         "condition": "🩻 Status"
                     }
                 },
-                "chats": {
-                    "noSendout": "Mailing for «{{call}}» hasn't occurred yet!",
-                    "amount": "Quantity: {{success}}",
-                    "path": "[📍 Path: Cabinet → Menu «{{call}}» → *Chats*]"
-                },
                 "condition": {
                     "path": "[📍 Path: Cabinet → Menu «{{call}}» → *Status*]",
                     "status": {
                         "active": "✅ Process is active.\nTo stop, press the button below",
                         "inactive": "❌ Process is inactive.\nTo start, press the button below",
-                        "failed": "💀 Process has crashed.\nContact the developer.",
-                        "error": "Process issue. Contact the developer."
+                        "failed": "💀 Process is dead.\nContact the programmer.",
+                        "error": "Process issue. Contact the programmer."
                     },
                     "buttons": {
                         "stop": "🛑 Stop",
@@ -98,7 +93,7 @@
                     "main": {
                         "noMessages": "No messages!\nTo add text, press the button below",
                         "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Messages*]",
-                        "messageNumb": "Message №{{number}}.",
+                        "messageNumb": "Message No.{{number}}.",
                         "amountMedia": "Media count: {{amount}} / {{maxMedia}}.",
                         "buttons": {
                             "paramsMessages": "⬇ Message Parameters ⬇",
@@ -113,11 +108,11 @@
                     },
                     "text": {
                         "add": {
-                            "title": "Adding text!\nSend or forward the text here. One message at a time.",
+                            "title": "Adding text!\nSend the text or forward it here. Text batches are not allowed.",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Text*]"
                         },
                         "update": {
-                            "title": "Editing text!\nSend or forward the text here. One message at a time.",
+                            "title": "Editing text!\nSend the text or forward it here. Text batches are not allowed.",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Edit Text*]"
                         },
                         "remove": {
@@ -149,7 +144,7 @@
                     },
                     "media": {
                         "add": {
-                            "title": "Adding media!\nSend media files one at a time.",
+                            "title": "Adding media!\nSend media in quantity of 1pc.",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Media*]"
                         },
                         "clearAll": {
@@ -163,10 +158,11 @@
                         "adding": {
                             "error": "💀 Error saving media!\nContact the administrator",
                             "invalidType": "Media type not recognized! Try again",
-                            "bigSize": "File too large. Maximum size {{size}} MB.",
-                            "documentsWTMedia": "I can't process documents without: photo / video / gif",
+                            "bigSize": "File is too large. Maximum size {{size}} MB.",
+                            "documentsWTMedia": "I cannot process documents containing no: photo / video / gif",
                             "success": "✅ Media saved!",
                             "error2": "❌ Media not saved!\nContact the administrator",
+                            "error3": "MEDIA NOT SAVED BECAUSE YOU DON'T WANT TO MAKE A BROADCAST FOR ILYA!!!",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Media*]"
                         }
                     },
@@ -177,8 +173,8 @@
                 "schedule": {
                     "main": {
                         "noSchedule": "No schedule for {{call}}!",
-                        "title": "Mailing schedule is shown below as buttons.",
-                        "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Schedule*]",
+                        "title": "Broadcast schedule is presented below as buttons.",
+                        "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Time*]",
                         "buttons": {
                             "parameters": "⬇ Schedule Parameters ⬇",
                             "addTime": "⏰ Add Time",
@@ -205,7 +201,7 @@
                     },
                     "updateOrRemove": {
                         "title": "Selected time: *{{targetTime}}*.",
-                        "instruction": "Press a button to perform the corresponding action.",
+                        "instruction": "Press the button to perform the corresponding action.",
                         "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Select Action*]",
                         "buttons": {
                             "update": "✍ Edit",
@@ -218,7 +214,7 @@
                 },
                 "statistics": {
                     "main": {
-                        "title": "Select the desired statistics format.",
+                        "title": "Select the format of the desired statistics.",
                         "path": "[📍 Path: Cabinet → Menu «{{call}}» → *Statistics*]",
                         "buttons": {
                             "selective": "📅 Selective",
@@ -226,13 +222,13 @@
                         }
                     },
                     "selective": {
-                        "notDone": "This section is currently under technical maintenance.",
-                        "title": "Selective Statistics.\nBelow is a calendar with dates. To view mailing results for a specific day, simply click on it!\n\nIf the mailing:\n*didn't happen,\n*wasn't scheduled,\n*isn't planned,\n*or something else\n- a message with the corresponding context will be displayed, don't worry.",
+                        "notDone": "Technical work is currently underway on this section.",
+                        "title": "Selective statistics.\nBelow is a calendar with dates. To view the broadcast result for a specific day - just click on it!\n\nIf the broadcast: \n*did not occur, \n*was not, \n*was not scheduled, \n*or other \n- a message with the corresponding context will be displayed, do not be afraid.",
                         "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Selective*]"
                     },
                     "comparative": {
                         "main": {
-                            "title": "Select the type of Comparative Statistics.",
+                            "title": "Select the type of Comparative statistics.",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Comparative*]",
                             "buttons": {
                                 "week": "Week",
@@ -240,14 +236,44 @@
                             }
                         },
                         "week": {
-                            "title": "Comparative Statistics (Week)",
+                            "title": "Comparative statistics. (Week)",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → Comparative → *Week*]"
                         },
                         "month": {
-                            "title": "Comparative Statistics (Month)",
+                            "title": "Comparative statistics. (Month)",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → Comparative → *Month*]"
                         }
                     }
+                }
+            }
+        },
+        "panel": {
+            "main": {
+                "title": "Administrator Panel.",
+                "buttons": {
+                    "chats": "👥 Chats"
+                }
+            },
+            "chats": {
+                "main": {
+                    "title": "Chat management.",
+                    "amount": "Quantity: {{amount}}",
+                    "path": "[📍 Path: Panel → *Chats*]",
+                    "buttons": {
+                        "reupload": "🔁 Reformat",
+                        "clear": "🗑 Clear"
+                    },
+                    "noSendout": "Broadcast for «{{call}}» has not occurred yet!"
+                },
+                "reupload": {
+                    "success": "✅ Chats reformatted!",
+                    "error": "❌ Error reformatting chats\nContact the administrator",
+                    "path": "[📍 Path: Panel → Chats → *Reformat*]"
+                },
+                "clear": {
+                    "success": "✅ Chats cleared!",
+                    "error": "❌ Error clearing chats\nContact the administrator",
+                    "path": "[📍 Path: Panel → Chats → *Clear*]"
                 }
             }
         },
@@ -263,7 +289,7 @@
             "language": {
                 "main": {
                     "title": "Select language.",
-                    "path": "[📍 Path: Settings → *Language Selection*]",
+                    "path": "[📍 Path: Settings → *Select Language*]",
                     "buttons": {
                         "ru": "🇷🇺",
                         "en": "🏴󠁧󠁢󠁥󠁮󠁧󠁿|🇺🇸",
@@ -276,22 +302,22 @@
                 }
             },
             "help": {
-                "question": "Encountered a problem?\nHave questions?\nWant to praise the service?\nHave ideas for improving the service?",
-                "contactAdmin": "Contact Administrator",
+                "question": "Encountered a problem?\nHave questions?\nWant to praise the service?\nHave ideas to improve the service?",
+                "contactAdmin": "Contact administrator",
                 "path": "[📍 Path: Settings → *Help*]"
             },
             "about": {
-                "description": "The service is designed to automate advertising (posts, broadcasts) of your products (offers) within groups / chats / channels\n\nBot usage instructions - via the button below!",
-                "instruction": "Instructions",
+                "description": "The service is designed to automate advertising (posts, broadcasts) of your products (offers) within groups / chats / channels\n\nInstructions for using the Bot - via the button below!",
+                "instruction": "Instruction",
                 "path": "[📍 Path: Settings → *About Service*]"
             }
         },
         "form": {
-            "interest": "Interested in the product?\nFill out the form below and we'll contact you!",
+            "interest": "Interested in the product?\nFill out the form below and we will contact you!",
             "form": "Form"
         },
         "start": {
-            "message": "Welcome! I'm a Telegram bot, your mailing assistant.\n\nI highly recommend reviewing my full command list by pressing the oval 'Menu' button in the bottom left corner of the screen.\nPlease read the usage guide first, accessible via the '/about' command"
+            "message": "Greetings! I am a Telegram bot, a broadcast assistant.\n\nI highly recommend familiarizing yourself with all my commands by pressing the oval 'Menu' button in the bottom left corner of the screen.\nPlease read the usage guide first, accessible via the '/settings' command in the 'About Bot' section"
         }
     }
 }
