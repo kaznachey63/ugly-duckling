@@ -1,0 +1,15 @@
+import { Composer } from 'grammy';
+import type { MyContext } from '@shared/types/SessionData';
+
+const startComposer = new Composer<MyContext>();
+
+// Команда /start
+startComposer.command('start', async (ctx: MyContext) => {
+    try {
+        await ctx.reply(ctx.t("commands.start.message"));
+    } catch (error) {
+        console.error("Ошибка в команде start:", error);
+    }
+});
+
+export default startComposer;

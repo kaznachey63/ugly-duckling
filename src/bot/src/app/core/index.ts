@@ -1,10 +1,10 @@
 import '@shared/env'; // ← ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ
 import { Bot, session, type NextFunction } from 'grammy';
-import handler from './handlers';
 import type { MyContext } from '@shared/types/SessionData';
-import { i18nMiddleware } from 'src/ui/i18n';
+import { i18nMiddleware } from '@i18n';
 import utils from '@utils';
-import command from 'src/app/commands/index';
+import modulesComposer from '@modules';
+import handlersComposer from '@handlers';
 
 const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
 
@@ -32,62 +32,29 @@ bot.use(i18nMiddleware);
 await utils.init.setupBotCommands(bot);
 
 /**
- * 👇 Инициализация якобы, что бот печатает после получения команд
+ * Инициализация якобы, что бот печатает после получения команд
  */
 bot.on('message', async (ctx: MyContext, next: NextFunction) => {
+    await utils.common.setPrimaryValuesSession(ctx);
     if (ctx.message?.text?.startsWith('/')) {
         await ctx.api.sendChatAction(ctx.chat?.id!, "typing");
     }
     next();
-})
-
-// --------- Команды -------------------------
-bot.command('start', async (ctx: MyContext) => {
-    await command.start(ctx);
 });
 
-bot.command('cabinet', async (ctx: MyContext) => {
-    ctx.session.state.commandId = ctx.msgId!;
-    await command.cabinet(ctx);
-});
-
-bot.command('settings', async (ctx: MyContext) => {
-    await command.settings(ctx);
-});
-
-bot.command('panel', async (ctx: MyContext) => {
-    if (utils.common.isAdmin(ctx.from?.id!)) {
-        await command.panel(ctx);
+bot.on('callback_query', async (ctx: MyContext, next: NextFunction) => {
+    try {
+        await utils.common.setPrimaryValuesSession(ctx);
+        await next();
+    } finally {
+        await ctx.answerCallbackQuery().catch(() => { });        
     }
 });
 
-bot.command('form', async (ctx: MyContext) => {
-    await command.form(ctx);
-});
-// -------------------------------
+bot.use(modulesComposer);
 
-// ------------- Обработчики
-bot.on('callback_query', async (ctx: MyContext) => {
-    // const result = calendar.clickButtonCalendar(ctx);
+bot.use(handlersComposer);
 
-    // if (result !== -1) {
-    //     // Пользователь выбрал дату
-    //     await ctx.reply(`Вы выбрали: ${result}`);
-    // }
-    await handler.callback_query(ctx);
-});
-
-bot.on('message:contact', async (ctx: MyContext) => {
-    await handler.contact(ctx);
-});
-
-bot.on('message:text', async (ctx: MyContext) => {
-    await handler.dispatchState(ctx, "text");
-});
-
-bot.on([':media', ':animation', ':document'], async (ctx: MyContext) => {
-    await handler.dispatchState(ctx, "media");
-});
 // -------------------------------
 
 // bot.catch(async (err, ctx) => {

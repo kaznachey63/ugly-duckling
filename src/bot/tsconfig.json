@@ -24,9 +24,8 @@
       "@constants": ["src/common/constants/index"],
       "@i18n": ["src/ui/i18n/index"],
       "@menus/*": ["src/ui/menus/*"],
-      "@menus": ["src/ui/menus/index"],
-      "@commands*": ["src/app/commands/*"],
-      "@commands": ["src/app/commands/index"]
+      "@modules": ["src/app/modules/index"],
+      "@handlers": ["src/app/handlers/index"]
     }
   },
   "include": [

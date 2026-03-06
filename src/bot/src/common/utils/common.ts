@@ -118,10 +118,77 @@ async function getRole(id: number): Promise<Role> {
     else return "unknown";
 }
 
+import { pathToFileURL } from 'url';
+import path from 'path';
+
+type StateType = "text" | "media" | "time";
+
+/**
+ * Обработчик ввода данных (текст / медиа)
+ * @param ctx Контекст
+ * @param type Тип обработчика
+ */
+export async function dispatchState(ctx: MyContext, type: StateType) {
+    const states = ctx.session.state[type];
+    console.log(states);
+    
+    for (const [state, bool] of Object.entries(states)) {
+        if (!bool) continue;
+        await ctx.deleteMessage();
+        await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, ctx.t("utils.shared.processing"));
+
+        const fileName = `${state}${type.charAt(0).toUpperCase() + type.slice(1)}.ts`;        
+        let handlerPath = "";
+        switch (type) {
+            case 'text': {
+                // 🔥 Присваиваем результат!
+                handlerPath = path.join("src", "app", "commands", "cabinet", "distribution", "messages", type, fileName);
+                break;
+            }
+            case 'media': {
+                // 🔥 Присваиваем результат!
+                handlerPath = path.join("src", "app", "commands", "cabinet", "distribution", "messages", type, fileName);
+                break;
+            }
+            case 'time': {
+                // 🔥 Присваиваем результат!
+                handlerPath = path.join("src", "app", "commands", "cabinet", "distribution", type, fileName);
+                break;
+            }
+        }
+
+        const handlerUrl = pathToFileURL(handlerPath).href;
+
+        try {
+            const handlerModule = await import(handlerUrl);
+            await handlerModule.default(ctx);
+        } catch (error) {
+            console.error(`Ошибка в обработчике stateHandler при вызове файла ${fileName}:`, error);
+        }
+    }
+}
+
+async function setPrimaryValuesSession(ctx: MyContext) {
+    // Присваивание инфо о рассылке и пользователе
+    ctx.session.user.role = await getRole(ctx.from?.id!);
+    const nameDistribution = ctx?.callbackQuery?.data?.split(/:/)[1]!;
+    const infoDist = await db.distribution.getDistributionInfo(nameDistribution);
+    if (infoDist) {
+        ctx.session.distribution = {
+            name: nameDistribution,
+            call: infoDist.call_ru,
+            label: infoDist.label, 
+            schema: infoDist.schema
+        }
+    }
+}
+
 export default {
     resetSessionStates,
     loadCabinet,
     sleep,
     isAdmin,
     getRole,
+    dispatchState,
+    setPrimaryValuesSession
 };
