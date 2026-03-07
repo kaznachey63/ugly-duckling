@@ -25,7 +25,7 @@
       "@i18n": ["src/ui/i18n/index"],
       "@menus/*": ["src/ui/menus/*"],
       "@modules": ["src/app/modules/index"],
-      "@state": ["src/app/handlers/states/dispatcher"],
+      "@state": ["src/app/handlers/states/index"],
       "@events": ["src/app/handlers/events/index"],
     }
   },

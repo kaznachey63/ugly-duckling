@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import dispatcher from '@state';
+import dispatcher from 'src/app/handlers/states';
 
 const mediaComposer = new Composer<MyContext>();
 
