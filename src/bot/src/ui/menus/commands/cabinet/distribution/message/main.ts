@@ -5,14 +5,16 @@ import format from '@utils/formatting';
 import type { IMessage } from '@shared/types/IMessage';
 import constants from '@constants';
 
-export default function main(ctx: MyContext, messages: IMessage[], positionId: number): Menu<InlineKeyboard> {
+export default function main(ctx: MyContext, messages: IMessage[]): Menu<InlineKeyboard> {
     const nameDistribution = ctx.session.distribution.name;
     const callDistribution = ctx.session.distribution.call;
-
+    let positionId = ctx.session.state.text.positionId;
+    console.log(positionId);
+    
     let text = [];
     const keyboard = new InlineKeyboard()
         .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMessages"), "parametersMessage").row()
-        .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.add"), `addText:${nameDistribution}`).style("success")
+        .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.add"), `addText:${nameDistribution}#${positionId + 1}`).style("success")
     ;
 
     // Нет сообщений

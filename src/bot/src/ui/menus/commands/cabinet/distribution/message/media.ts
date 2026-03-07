@@ -9,9 +9,7 @@ function add(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.messages.media.add.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#0`)
-    ;
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -24,23 +22,21 @@ function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.messages.media.clearAll.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
     
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#0`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 function adding(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
-    const keyboard = new InlineKeyboard();
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);;
     const text = [
         ctx.t("commands.cabinet.distribution.messages.media.adding.path", { call: ctx.session.distribution.call })
     ];
 
     if (result) {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.media.adding.success"));
-        keyboard.text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
     }
     else {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.media.adding.error2"));
-        keyboard.text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
     }
 
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };

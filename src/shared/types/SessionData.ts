@@ -18,8 +18,10 @@ export interface SessionData {
         schema: string;
     };
     state: {
-        idForUpdateMessageFromState: number;
-        commandId: number;
+        ids: {
+            idForUpdateMessageFromState: number;
+            commandId: number;
+        };
         text: {
             adding: boolean;
             updating: boolean;

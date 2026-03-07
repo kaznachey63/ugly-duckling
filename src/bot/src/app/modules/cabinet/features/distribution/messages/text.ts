@@ -1,13 +1,17 @@
 import db from '@shared/db';
-import common from "@utils/common";
 import { Composer } from 'grammy';
 import menuText from '@menus/commands/cabinet/distribution/message/text';
 import { ServerManager } from "@utils/ServerManager";
+import type { MyContext } from '@shared/types/SessionData';
 
 const textComposer = new Composer<MyContext>();
 
-textComposer.callbackQuery(/^addText/, async (ctx: MyContext) => {
+textComposer.callbackQuery(/^addText:/, async (ctx: MyContext) => {
     ctx.session.state.text.adding = true;
+    const amounMessages = (await db.message.getMessagesForBot(ctx.session.distribution.name))?.length!;
+    console.log(amounMessages);
+    
+    ctx.session.state.text.positionId = amounMessages;
     const menu = menuText.add(ctx);
 
     // Сохранение айди для последующего редактирования этого же сообщения
@@ -17,7 +21,7 @@ textComposer.callbackQuery(/^addText/, async (ctx: MyContext) => {
     });
 
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.state.idForUpdateMessageFromState = msg.message_id;
+        ctx.session.state.ids.idForUpdateMessageFromState = msg.message_id;
     }
 });
 
@@ -34,7 +38,7 @@ textComposer.callbackQuery(/^updateText:/, async (ctx: MyContext) => {
     });
 
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.state.idForUpdateMessageFromState = msg.message_id;
+        ctx.session.state.ids.idForUpdateMessageFromState = msg.message_id;
     }
 });
 
@@ -64,7 +68,7 @@ textComposer.callbackQuery(/^removeText:/, async (ctx: MyContext) => {
     }
 });
 
-textComposer.callbackQuery(/^clearAll/, async (ctx: MyContext) => {
+textComposer.callbackQuery(/^clearAll:/, async (ctx: MyContext) => {
     const nameDistribution = ctx.session.distribution.name!;
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;

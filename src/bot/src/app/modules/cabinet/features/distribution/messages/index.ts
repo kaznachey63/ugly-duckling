@@ -12,13 +12,15 @@ messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
     const queryData = ctx.callbackQuery?.data;
     const nameDistribution = ctx.session.distribution.name!;
-    const positionId = Number(queryData!.split(/#/)[1]);
-    ctx.session.state.text.positionId = positionId;
     
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;
 
-    const menu = menuMessage(ctx, messages, positionId)
+    const positionId = messages.length!;
+    ctx.session.state.text.positionId = Number(queryData!.split(/#/)[1]) ?? positionId;
+
+
+    const menu = menuMessage(ctx, messages)
     const msg = await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"
@@ -26,7 +28,7 @@ messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
 
     // Сохранение айди для последующего редактирования этого же сообщения
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.state.idForUpdateMessageFromState = msg.message_id;
+        ctx.session.state.ids.idForUpdateMessageFromState = msg.message_id;
     }
 });
 

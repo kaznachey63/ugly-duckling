@@ -121,7 +121,7 @@ async function getRole(id: number): Promise<Role> {
 async function setPrimaryValuesSession(ctx: MyContext) {
     // Присваивание инфо о рассылке и пользователе
     ctx.session.user.role = await getRole(ctx.from?.id!);
-    const nameDistribution = ctx?.callbackQuery?.data?.split(/:/)[1]!;
+    const nameDistribution = ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!;
     const infoDist = await db.distribution.getDistributionInfo(nameDistribution);
     if (infoDist) {
         ctx.session.distribution = {

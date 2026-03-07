@@ -3,7 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import utils from '@utils';
 import menuMedia from '@menus/commands/cabinet/distribution/message/media';
 import { ServerManager } from '@utils/ServerManager';
-import { Composer, GrammyError, InlineKeyboard } from 'grammy';
+import { Composer, GrammyError } from 'grammy';
 
 const mediaComposer = new Composer<MyContext>();
 
@@ -34,17 +34,18 @@ mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
     }
 
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.state.idForUpdateMessageFromState = msg.message_id;
+        ctx.session.state.ids.idForUpdateMessageFromState = msg.message_id;
     }
 });
 
 /**
  * Оповещение пользователя об удалении всех медиа
  */
-mediaComposer.callbackQuery(/^clearAllMedia/, async (ctx: MyContext) => {    
+mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {    
     const queryData = ctx.callbackQuery?.data;
     const nameDistribution = ctx.session.distribution.name!;
     const positionId = Number(queryData!.split(/#/)[1]);
+    ctx.session.state.media.positionId = positionId;
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;
     const message = messages[positionId];

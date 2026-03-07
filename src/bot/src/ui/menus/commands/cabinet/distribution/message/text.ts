@@ -9,7 +9,7 @@ function add(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.messages.text.add.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage#${ctx.session.distribution.name}:0`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -19,7 +19,7 @@ function update(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.messages.text.update.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage#${ctx.session.distribution.name}:${ctx.session.state.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -50,7 +50,7 @@ function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.messages.text.clearAll.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage#${ctx.session.distribution.name}:0`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#0`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -62,7 +62,7 @@ function adding(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
     if (result) {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.text.adding.success"));
-        keyboard.text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId + 1}`);
+        keyboard.text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
     }
     else {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.text.adding.error"));
@@ -75,15 +75,13 @@ function updating(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.messages.text.updating.path", { call: ctx.session.distribution.call })
     ];
-    const keyboard = new InlineKeyboard();
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);;
 
     if (result) {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.text.updating.success"));
-        keyboard.text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
     }
     else {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.text.updating.error"));
-        keyboard.text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
 }

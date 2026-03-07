@@ -19,8 +19,10 @@ function createDefaultSession(): SessionData {
             schema: "",
         },
         state: {
-            idForUpdateMessageFromState: 0,
-            commandId: 0,
+            ids: {
+                idForUpdateMessageFromState: 0,
+                commandId: 0,
+            },
             text: {
                 adding: false,
                 updating: false,
