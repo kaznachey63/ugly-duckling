@@ -8,9 +8,7 @@ import constants from '@constants';
 export default function main(ctx: MyContext, messages: IMessage[]): Menu<InlineKeyboard> {
     const nameDistribution = ctx.session.distribution.name;
     const callDistribution = ctx.session.distribution.call;
-    let positionId = ctx.session.state.text.positionId;
-    console.log(positionId);
-    
+    let positionId = ctx.session.state.text.positionId;    
     let text = [];
     const keyboard = new InlineKeyboard()
         .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMessages"), "parametersMessage").row()

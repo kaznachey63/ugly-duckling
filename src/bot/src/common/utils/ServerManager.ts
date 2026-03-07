@@ -81,10 +81,14 @@ export class ServerManager {
 
     async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
         const status = await this.getServiceStatus(serviceName, isDistribution);
+
         if (status === "active") {
+            // Был запущен → делаем рестарт
             await this.restartService(serviceName, isDistribution);
             return await this.getServiceStatus(serviceName, isDistribution) === "active";
         }
+
+        // Не был запущен → ничего не делаем
         return true;
     }
 

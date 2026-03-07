@@ -17,7 +17,7 @@ export default async function setDateListener(ctx: MyContext) {
 
         // Извлечение даты из формата "calendar-YYYY-MM-DD"
         const dateMatch = queryData.match(/calendar-telegram-date-(\d{4})-(\d{2})-(\d{2})/)!;
-                console.log(queryData);
+                // console.log(queryData);
         
         const [, year, month, day] = dateMatch;
         const targetDate = `${day}.${month}.${year}`;

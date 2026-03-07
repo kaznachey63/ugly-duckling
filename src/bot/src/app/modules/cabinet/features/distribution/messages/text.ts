@@ -9,7 +9,6 @@ const textComposer = new Composer<MyContext>();
 textComposer.callbackQuery(/^addText:/, async (ctx: MyContext) => {
     ctx.session.state.text.adding = true;
     const amounMessages = (await db.message.getMessagesForBot(ctx.session.distribution.name))?.length!;
-    console.log(amounMessages);
     
     ctx.session.state.text.positionId = amounMessages;
     const menu = menuText.add(ctx);
@@ -53,7 +52,7 @@ textComposer.callbackQuery(/^removeText:/, async (ctx: MyContext) => {
 
     await db.message.removeMessage(nameDistribution, messageId);
     const server = new ServerManager();
-    const menu = menuText.remove(ctx, await server.restartProcessOrNot(nameDistribution));
+    const menu = menuText.remove(ctx, await server.restartProcessOrNot(nameDistribution, true));
 
     try {
         await ctx.editMessageText(menu.text, {
@@ -75,7 +74,7 @@ textComposer.callbackQuery(/^clearAll:/, async (ctx: MyContext) => {
 
     await db.message.removeAllMessage(nameDistribution);
     const server = new ServerManager();
-    const menu = menuText.clearAll(ctx, await server.restartProcessOrNot(nameDistribution));
+    const menu = menuText.clearAll(ctx, await server.restartProcessOrNot(nameDistribution, true));
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"

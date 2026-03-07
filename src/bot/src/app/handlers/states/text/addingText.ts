@@ -14,7 +14,7 @@ export default async function addingText(ctx: MyContext) {
         media: null
     });
     const server = new ServerManager();
-    const menu = menuText.adding(ctx, await server.restartProcessOrNot(nameDistribution));
+    const menu = menuText.adding(ctx, await server.restartProcessOrNot(nameDistribution, true));
     common.resetSessionStates(ctx.session);
 
     await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState, menu.text, {

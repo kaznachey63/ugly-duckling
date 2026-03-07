@@ -33,7 +33,6 @@ export default function condition(ctx: MyContext, status: Status): Menu<InlineKe
         }
     }
     keyboard.row();
-    console.log("status" + status + ";");
     
     const text = [
         ctx.t(`commands.cabinet.distribution.condition.status.${status}`),

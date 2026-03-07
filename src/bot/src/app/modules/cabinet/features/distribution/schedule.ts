@@ -76,7 +76,7 @@ scheduleComposer.callbackQuery(/^clearSchedule:/, async (ctx: MyContext) => {
         } else {
             await db.time.clearTableTimes(ctx.session.distribution.schema);
             const server = new ServerManager();
-            if (await server.restartProcessOrNot(nameDistribution)) {
+            if (await server.restartProcessOrNot(nameDistribution, true)) {
                 text.push('commands.cabinet.distribution.schedule.clearSchedule.success');
             } else {
                 text.push('commands.cabinet.distribution.schedule.clearSchedule.error');
@@ -118,7 +118,7 @@ scheduleComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
         } else {
             await db.time.removeTime(ctx.session.distribution.schema, ctx.session.state.time.positionId);
             const server = new ServerManager();
-            if (await server.restartProcessOrNot(nameDistribution)) {
+            if (await server.restartProcessOrNot(nameDistribution, true)) {
                 text.push('commands.cabinet.distribution.schedule.remove.success');
             } else {
                 text.push('commands.cabinet.distribution.schedule.remove.error');

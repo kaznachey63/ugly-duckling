@@ -101,7 +101,7 @@ export default async function addingMedia(ctx: MyContext) {
         await db.message.updateMessage(nameDistribution, message.id, { media: newMedia });
         await utils.common.sleep(250);
         const server = new ServerManager();
-        const menu = menuMedia.adding(ctx, await server.restartProcessOrNot(nameDistribution));
+        const menu = menuMedia.adding(ctx, await server.restartProcessOrNot(nameDistribution, true));
 
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState, menu.text, {
