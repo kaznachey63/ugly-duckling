@@ -23,16 +23,16 @@ export interface SessionData {
         text: {
             adding: boolean;
             updating: boolean;
-            paginationId: number;
+            positionId: number;
         };
         media: {
             adding: boolean;
-            paginationId: number;
+            positionId: number;
         };
         time: {
             adding: boolean;
             updating: boolean;
-            paginationId: number;
+            positionId: number;
         };
     };
 }

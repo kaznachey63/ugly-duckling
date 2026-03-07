@@ -116,7 +116,7 @@ scheduleComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
         if (!String(nameDistribution)) {
             text.push('commands.cabinet.distribution.schedule.remove.error');
         } else {
-            await db.time.removeTime(ctx.session.distribution.schema, ctx.session.state.time.paginationId);
+            await db.time.removeTime(ctx.session.distribution.schema, ctx.session.state.time.positionId);
             const server = new ServerManager();
             if (await server.restartProcessOrNot(nameDistribution)) {
                 text.push('commands.cabinet.distribution.schedule.remove.success');
@@ -142,7 +142,7 @@ scheduleComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) =>
     try {
         const queryData = ctx.callbackQuery?.data;
         const timeId = Number(queryData!.split(/:/)[1]);
-        ctx.session.state.time.paginationId = timeId;
+        ctx.session.state.time.positionId = timeId;
         const targetTime = local.formatTimeToRu(await db.time.getTime(ctx.session.distribution.schema, timeId));
         const menu = menuSchedule.updateOrRemove(ctx, targetTime!);
 

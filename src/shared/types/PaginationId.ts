@@ -1,4 +1,4 @@
-export interface PaginationId {
+export interface positionId {
     messageId: number;
-    paginationId: number;
+    positionId: number;
 }

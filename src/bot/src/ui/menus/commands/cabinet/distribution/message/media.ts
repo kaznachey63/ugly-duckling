@@ -2,7 +2,6 @@ import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
-import type { Status } from '@shared/types/server/Status';
 
 function add(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
@@ -11,7 +10,7 @@ function add(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`)
+        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#0`)
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -25,25 +24,26 @@ function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.messages.media.clearAll.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
     
-    const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`)
-    ;
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#0`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 function adding(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}:0`);
-
+    const keyboard = new InlineKeyboard();
     const text = [
-            result ? ctx.t("commands.cabinet.distribution.messages.media.adding.success")
-            : ctx.t("commands.cabinet.distribution.messages.media.adding.error2"),
+        ctx.t("commands.cabinet.distribution.messages.media.adding.path", { call: ctx.session.distribution.call })
+    ];
 
-        ctx.t("commands.cabinet.distribution.messages.media.adding.path", {
-            call: ctx.session.distribution.call
-        })
-    ].join('\n\n');
+    if (result) {
+        text.unshift(ctx.t("commands.cabinet.distribution.messages.media.adding.success"));
+        keyboard.text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
+    }
+    else {
+        text.unshift(ctx.t("commands.cabinet.distribution.messages.media.adding.error2"));
+        keyboard.text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
+    }
 
-    return { text: format.escapeMarkdown(text), keyboard };
+    return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
 }
 export default {
     add,

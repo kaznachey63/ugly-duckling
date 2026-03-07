@@ -13,8 +13,8 @@ function resetSessionStates(session: SessionData) {
     session.state.text.updating = false;
     session.state.media.adding = false;
     session.state.time.adding = false;
-    session.state.text.paginationId = 0;
-    session.state.media.paginationId = 0;
+    session.state.text.positionId = 0;
+    session.state.media.positionId = 0;
 }
 
 /**

@@ -18,10 +18,10 @@ const mediaComposer = new Composer<MyContext>();
  */
 mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
     const queryData = ctx.callbackQuery?.data;
-    const positionIndex = Number(queryData!.split(/:/)[1]) || 0;
+    const positionId = Number(queryData!.split(/#/)[1]);
 
     ctx.session.state.media.adding = true;
-    ctx.session.state.media.paginationId = positionIndex;
+    ctx.session.state.media.positionId = positionId;
 
     const menu = menuMedia.add(ctx);
     let msg: any;
@@ -50,10 +50,10 @@ mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
 mediaComposer.callbackQuery(/^clearAllMedia/, async (ctx: MyContext) => {    
     const queryData = ctx.callbackQuery?.data;
     const nameDistribution = ctx.session.distribution.name!;
-    const positionIndex = Number(queryData!.split(/:/)[1]) || 0;
+    const positionId = Number(queryData!.split(/#/)[1]);
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;
-    const message = messages[positionIndex];
+    const message = messages[positionId];
     const server = new ServerManager();
 
     // 🔥 УДАЛЯЕМ ФАЙЛЫ ИЗ ФАЙЛОВОЙ СИСТЕМЫ
@@ -154,7 +154,7 @@ mediaComposer.callbackQuery(/^addingMedia/, async (ctx: MyContext) => {
         const messages = await db.message.getMessagesForBot(nameDistribution);
         if (!messages) return;
 
-        const message = messages[ctx.session.state.media.paginationId!];
+        const message = messages[ctx.session.state.media.positionId!];
         if (!message) {
             utils.common.resetSessionStates(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, 

@@ -24,16 +24,16 @@ function createDefaultSession(): SessionData {
             text: {
                 adding: false,
                 updating: false,
-                paginationId: 0,
+                positionId: 0,
             },
             media: {
                 adding: false,
-                paginationId: 0,
+                positionId: 0,
             },
             time: {
                 adding: false,
                 updating: false,
-                paginationId: 0,
+                positionId: 0,
             },
         },
     }

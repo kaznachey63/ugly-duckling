@@ -5,7 +5,7 @@ import format from '@utils/formatting';
 import type { IMessage } from '@shared/types/IMessage';
 import constants from '@constants';
 
-export default function main(ctx: MyContext, messages: IMessage[], paginationIndex: number): Menu<InlineKeyboard> {
+export default function main(ctx: MyContext, messages: IMessage[], positionId: number): Menu<InlineKeyboard> {
     const nameDistribution = ctx.session.distribution.name;
     const callDistribution = ctx.session.distribution.call;
 
@@ -22,9 +22,9 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
         text.push(ctx.t("commands.cabinet.distribution.messages.main.noMessages", { call: callDistribution }));
     }
     else {
-        const message = messages[paginationIndex];
+        const message = messages[positionId];
         text.push(
-            ctx.t("commands.cabinet.distribution.messages.main.messageNumb", { number: paginationIndex + 1 }) + ' ' +
+            ctx.t("commands.cabinet.distribution.messages.main.messageNumb", { number: positionId + 1 }) + ' ' +
             ctx.t("commands.cabinet.distribution.messages.main.amountMedia", { amount: message!.media?.length! || 0, maxMedia: constants.maxMedia }),
             `\`\`\`\n${message?.caption!}\n\`\`\``,
         );
@@ -32,50 +32,50 @@ export default function main(ctx: MyContext, messages: IMessage[], paginationInd
         keyboard
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllText:${nameDistribution}`).style("danger").row()
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsText"), "parametersText").row()
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.update"), `updateText:${nameDistribution}:${paginationIndex}`).style("primary")
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.remove"), `removeText:${nameDistribution}:${paginationIndex}`).style("danger").row()
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.update"), `updateText:${nameDistribution}:${positionId}`).style("primary")
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.remove"), `removeText:${nameDistribution}:${positionId}`).style("danger").row()
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMedia"), "parametersMedia").row()
         ;
 
         // Медиа > 0 и != 4
         if (message?.media!.length! > 0 && message?.media!.length! != 4) {
             keyboard
-                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia:${nameDistribution}:${paginationIndex}`).style("success")
-                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia:${nameDistribution}:${paginationIndex}`).style("danger").row()
+                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia:${nameDistribution}:${positionId}`).style("success")
+                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia:${nameDistribution}:${positionId}`).style("danger").row()
             ;
         }
         
         // Медиа == 0
         if (message?.media!.length! == 0) {
-            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia:${nameDistribution}:${paginationIndex}`).style("success").row();
+            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia:${nameDistribution}:${positionId}`).style("success").row();
         }
 
         // Медиа == 4
         if (message?.media!.length! == 4) {
-            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia:${nameDistribution}:${paginationIndex}`).style("danger").row();
+            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia:${nameDistribution}:${positionId}`).style("danger").row();
         }
 
         // Навигация по сообщениям
         if (messages.length === 1) {
-            keyboard.text(`${paginationIndex + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`).row();
+            keyboard.text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${positionId + 1}/${messages.length}`).row();
         } 
-        else if (paginationIndex === 0) {
+        else if (positionId === 0) {
             keyboard
-                .text(`${paginationIndex + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`)
-                .text("➡", `mainMessage:${nameDistribution}:${paginationIndex + 1}`).row()
+                .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${positionId + 1}/${messages.length}`)
+                .text("➡", `mainMessage:${nameDistribution}:${positionId + 1}`).row()
             ;
         } 
-        else if (paginationIndex + 1 === messages.length) {
+        else if (positionId + 1 === messages.length) {
             keyboard
-                .text("⬅", `mainMessage:${nameDistribution}:${paginationIndex - 1}`)
-                .text(`${paginationIndex + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`).row()
+                .text("⬅", `mainMessage:${nameDistribution}:${positionId - 1}`)
+                .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${positionId + 1}/${messages.length}`).row()
             ;
         } 
         else {
             keyboard
-                .text("⬅", `mainMessage:${nameDistribution}:${paginationIndex - 1}`)
-                .text(`${paginationIndex + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${paginationIndex + 1}/${messages.length}`)
-                .text("➡", `mainMessage:${nameDistribution}:${paginationIndex + 1}`).row()
+                .text("⬅", `mainMessage:${nameDistribution}:${positionId - 1}`)
+                .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${positionId + 1}/${messages.length}`)
+                .text("➡", `mainMessage:${nameDistribution}:${positionId + 1}`).row()
             ;
         }
     }
