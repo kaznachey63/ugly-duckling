@@ -4,7 +4,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import { i18nMiddleware } from '@i18n';
 import utils from '@utils';
 import modulesComposer from '@modules';
-import handlersComposer from '@handlers';
+import eventsComposer from '@events';
 
 const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
 
@@ -55,7 +55,7 @@ bot.on('callback_query', async (ctx: MyContext, next: NextFunction) => {
 
 bot.use(modulesComposer);
 
-bot.use(handlersComposer);
+bot.use(eventsComposer);
 
 bot.start();
 

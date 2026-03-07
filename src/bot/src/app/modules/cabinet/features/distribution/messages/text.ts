@@ -1,6 +1,5 @@
 import db from '@shared/db';
 import common from "@utils/common";
-import type { MyContext } from '@shared/types/SessionData';
 import { Composer } from 'grammy';
 import menuText from '@menus/commands/cabinet/distribution/message/text';
 import { ServerManager } from "@utils/ServerManager";
@@ -22,26 +21,7 @@ textComposer.callbackQuery(/^addText/, async (ctx: MyContext) => {
     }
 });
 
-textComposer.callbackQuery(/^addingText/, async (ctx: MyContext) => {
-    const nameDistribution = ctx.session.distribution.name!;
-
-    await db.message.addMessage(nameDistribution, {
-        id: 0,
-        caption: ctx.message?.text?.trim()!,
-        entities: ctx.message?.entities!,
-        media: null
-    });
-    const server = new ServerManager();
-    const menu = menuText.adding(ctx, await server.restartProcessOrNot(nameDistribution));
-    common.resetSessionStates(ctx.session);
-
-    await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, menu.text, {
-        reply_markup: menu.keyboard,
-        parse_mode: "MarkdownV2"
-    });
-});
-
-textComposer.callbackQuery(/^updateText/, async (ctx: MyContext) => {
+textComposer.callbackQuery(/^updateText:/, async (ctx: MyContext) => {
     const queryData = ctx.callbackQuery?.data;
     ctx.session.state.text.updating = true;
     ctx.session.state.text.positionId = Number(queryData!.split(/#/)[1]);
@@ -58,29 +38,7 @@ textComposer.callbackQuery(/^updateText/, async (ctx: MyContext) => {
     }
 });
 
-textComposer.callbackQuery(/^updatingText/, async (ctx: MyContext) => {
-    const nameDistribution = ctx.session.distribution.name!;
-    const positionId = ctx.session.state.text.positionId!;
-    const messages = await db.message.getMessagesForBot(nameDistribution);
-    if (!messages) return;
-    const messageId = messages[positionId]?.id!;
-
-    await db.message.updateMessage(nameDistribution, messageId, {
-        caption: ctx.message?.text?.trim()!,
-        entities: ctx.message?.entities!,
-    });
-
-    const server = new ServerManager();
-    const menu = menuText.updating(ctx, await server.restartProcessOrNot(nameDistribution));
-    common.resetSessionStates(ctx.session);
-    
-    await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.idForUpdateMessageFromState, menu.text, {
-        reply_markup: menu.keyboard,
-        parse_mode: "MarkdownV2"
-    });
-});
-
-textComposer.callbackQuery(/^removeText/, async (ctx: MyContext) => {
+textComposer.callbackQuery(/^removeText:/, async (ctx: MyContext) => {
     const queryData = ctx.callbackQuery?.data;
     const nameDistribution = ctx.session.distribution.name!;
     const positionId = Number(queryData!.split(/#/)[1]);

@@ -12,8 +12,9 @@ messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
     const queryData = ctx.callbackQuery?.data;
     const nameDistribution = ctx.session.distribution.name!;
-    const positionId = Number(queryData!.split(/:/)[1]) || 0;
-
+    const positionId = Number(queryData!.split(/#/)[1]);
+    ctx.session.state.text.positionId = positionId;
+    
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;
 
@@ -31,7 +32,7 @@ messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
 
 messageComposer.callbackQuery(/^paginationMessages:/, async (ctx: MyContext) => {
     const queryData = ctx.callbackQuery?.data;
-    const dataPages = queryData!.split(/:/)[1];
+    const dataPages = queryData!.split(/#/)[1];
     const [nowPage, allPage] = (dataPages?.split('/'))?.map(Number) || [];
 
     await ctx.answerCallbackQuery({ text: ctx.t("commands.cabinet.distribution.messages.text.amount.page", { nowPage: nowPage, allPage: allPage }), show_alert: true });

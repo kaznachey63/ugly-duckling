@@ -10,9 +10,7 @@ export default function main(ctx: MyContext, messages: IMessage[], positionId: n
     const callDistribution = ctx.session.distribution.call;
 
     let text = [];
-    let keyboard = new InlineKeyboard();
-
-    keyboard
+    const keyboard = new InlineKeyboard()
         .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMessages"), "parametersMessage").row()
         .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.add"), `addText:${nameDistribution}`).style("success")
     ;
@@ -25,57 +23,57 @@ export default function main(ctx: MyContext, messages: IMessage[], positionId: n
         const message = messages[positionId];
         text.push(
             ctx.t("commands.cabinet.distribution.messages.main.messageNumb", { number: positionId + 1 }) + ' ' +
-            ctx.t("commands.cabinet.distribution.messages.main.amountMedia", { amount: message!.media?.length! || 0, maxMedia: constants.maxMedia }),
+            ctx.t("commands.cabinet.distribution.messages.main.amountMedia", { amount: message!.media?.length!,  maxMedia: constants.maxMedia }),
             `\`\`\`\n${message?.caption!}\n\`\`\``,
         );
 
         keyboard
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllText:${nameDistribution}`).style("danger").row()
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsText"), "parametersText").row()
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.update"), `updateText:${nameDistribution}:${positionId}`).style("primary")
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.remove"), `removeText:${nameDistribution}:${positionId}`).style("danger").row()
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.update"), `updateText:${nameDistribution}#${positionId}`).style("primary")
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.remove"), `removeText:${nameDistribution}#${positionId}`).style("danger").row()
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.paramsMedia"), "parametersMedia").row()
         ;
 
         // Медиа > 0 и != 4
         if (message?.media!.length! > 0 && message?.media!.length! != 4) {
             keyboard
-                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia:${nameDistribution}:${positionId}`).style("success")
-                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia:${nameDistribution}:${positionId}`).style("danger").row()
+                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia:${nameDistribution}#${positionId}`).style("success")
+                .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia:${nameDistribution}#${positionId}`).style("danger").row()
             ;
         }
         
         // Медиа == 0
         if (message?.media!.length! == 0) {
-            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia:${nameDistribution}:${positionId}`).style("success").row();
+            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.addMedia"), `addMedia:${nameDistribution}#${positionId}`).style("success").row();
         }
 
         // Медиа == 4
         if (message?.media!.length! == 4) {
-            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia:${nameDistribution}:${positionId}`).style("danger").row();
+            keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clearAll"), `clearAllMedia:${nameDistribution}#${positionId}`).style("danger").row();
         }
 
         // Навигация по сообщениям
         if (messages.length === 1) {
-            keyboard.text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${positionId + 1}/${messages.length}`).row();
+            keyboard.text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}#${positionId + 1}/${messages.length}`).row();
         } 
         else if (positionId === 0) {
             keyboard
-                .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${positionId + 1}/${messages.length}`)
-                .text("➡", `mainMessage:${nameDistribution}:${positionId + 1}`).row()
+                .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}#${positionId + 1}/${messages.length}`)
+                .text("➡", `mainMessage:${nameDistribution}#${positionId + 1}`).row()
             ;
         } 
         else if (positionId + 1 === messages.length) {
             keyboard
-                .text("⬅", `mainMessage:${nameDistribution}:${positionId - 1}`)
-                .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${positionId + 1}/${messages.length}`).row()
+                .text("⬅", `mainMessage:${nameDistribution}#${positionId - 1}`)
+                .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}#${positionId + 1}/${messages.length}`).row()
             ;
         } 
         else {
             keyboard
-                .text("⬅", `mainMessage:${nameDistribution}:${positionId - 1}`)
-                .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}:${positionId + 1}/${messages.length}`)
-                .text("➡", `mainMessage:${nameDistribution}:${positionId + 1}`).row()
+                .text("⬅", `mainMessage:${nameDistribution}#${positionId - 1}`)
+                .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${nameDistribution}#${positionId + 1}/${messages.length}`)
+                .text("➡", `mainMessage:${nameDistribution}#${positionId + 1}`).row()
             ;
         }
     }

@@ -1,6 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import utils from '@utils';
+import dispatcher from '@state';
 
 const documentComposer = new Composer<MyContext>();
 
@@ -12,7 +13,7 @@ documentComposer.on(':document', async (ctx: MyContext) => {
 
         // 🔹 Только если это медиа-документ — передаём в медиа-стейт
         if (utils.local.checkMediaInDocument(mime!)) {
-            await utils.common.dispatchState(ctx, "media");
+            await dispatcher(ctx, "media");
             return;
         }
 
