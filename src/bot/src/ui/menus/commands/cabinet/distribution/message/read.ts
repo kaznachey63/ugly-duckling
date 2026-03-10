@@ -63,6 +63,20 @@ function updatingText(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
 }
 
+function generatingText(ctx: MyContext, result: string) {
+    const text = [
+        ctx.t("commands.cabinet.distribution.messages.add.generate.result") + '\n',
+        result,
+        '\n' + ctx.t("commands.cabinet.distribution.messages.add.generate.pathChoose", { call: ctx.session.distribution.call }),
+    ].join('\n');
+    const keyboard = new InlineKeyboard()
+        .text(ctx.t("commands.cabinet.distribution.messages.add.generate.buttons.ok"), `generatingText:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}-true`).style("success")
+        .text(ctx.t("commands.cabinet.distribution.messages.add.generate.buttons.cancel"), `generatingText:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}-false`).style("danger").row()
+        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`);
+    ;
+    return { text: format.escapeMarkdown(text), keyboard }
+}
+
 // медиа
 function addMedia(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
@@ -108,6 +122,7 @@ export default {
     updateText,
     addingText,
     updatingText,
+    generatingText,
     addMedia,
     clearAllMedia,
     addingMedia,

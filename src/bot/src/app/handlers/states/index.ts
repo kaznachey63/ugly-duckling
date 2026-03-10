@@ -1,5 +1,5 @@
 import type { MyContext } from '@shared/types/SessionData';
-import { addingText, updatingText } from './text/index';
+import { addingText, updatingText, generatingText } from './text/index';
 import { addingMedia } from './media/index';
 
 type TypeState = 'text' | 'media' | 'time';
@@ -7,6 +7,7 @@ type TypeState = 'text' | 'media' | 'time';
 const stateHandlers = {
     addingText,
     updatingText,
+    generatingText,
     addingMedia,
 };
 
