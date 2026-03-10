@@ -11,6 +11,7 @@ import type { Role } from '@shared/types/Role';
 function resetSessionStates(session: SessionData) {
     session.state.text.adding = false;
     session.state.text.updating = false;
+    session.state.text.generating = false;
     session.state.media.adding = false;
     session.state.time.adding = false;
     session.state.text.positionId = 0;

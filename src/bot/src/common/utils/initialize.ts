@@ -26,6 +26,7 @@ function createDefaultSession(): SessionData {
             text: {
                 adding: false,
                 updating: false,
+                generating: false,
                 positionId: 0,
             },
             media: {

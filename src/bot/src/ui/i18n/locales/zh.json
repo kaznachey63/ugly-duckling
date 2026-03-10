@@ -9,21 +9,21 @@
         "commands": {
             "cabinet": "个人中心",
             "settings": "设置",
-            "form": "表单"
+            "form": "申请表"
         },
         "chart": {
-            "label": "收到广播的群组数量",
+            "label": "收到群发的群组数量",
             "title": "已发送消息统计 ({{type}})",
             "amountSms": "消息数量",
-            "noLogs": "选定期间内尚未发生广播！",
+            "noLogs": "所选时间段内尚未进行群发！",
             "daysOfWeek": {
-                "Mon": "一",
-                "Tue": "二",
-                "Wed": "三",
-                "Thu": "四",
-                "Fri": "五",
-                "Sat": "六",
-                "Sun": "日"
+                "Mon": "周一",
+                "Tue": "周二",
+                "Wed": "周三",
+                "Thu": "周四",
+                "Fri": "周五",
+                "Sat": "周六",
+                "Sun": "周日"
             }
         },
         "calendar": {}
@@ -31,49 +31,49 @@
     "handlers": {
         "contact": {
             "numberIsNull": "处理电话号码时出错！\n请重试！",
-            "accessDenied": "访问被拒绝。\n要提交产品申请，请使用 '/form' 命令"
+            "accessDenied": "访问被拒绝。\n如需提交产品申请，请使用 '/form' 命令"
         },
         "document": {
-            "error": "我无法处理不包含媒体的文档"
+            "error": "我无法处理不包含媒体内容的文档"
         },
         "setDateListener": {
-            "result": "时间结果：{{time}} ({{date}})\n送达：{{success}}\n\n[📍 路径：个人中心 → 菜单 «{{call}}» → 统计 → *选择性*]",
-            "noData": "此日期尚未发生任何广播",
+            "result": "时间结果：{{time}} ({{date}})\n送达：{{success}}\n\n[📍 路径：个人中心 → 菜单「{{call}}」→ 统计 → *筛选*]",
+            "noData": "该日期暂无群发记录",
             "error": "处理请求时发生错误"
         }
     },
     "commands": {
         "cabinet": {
             "main": {
-                "noSendouts": "访问被拒绝。使用 /cabinet 重新授权或使用 /form 提交申请",
+                "noSendouts": "访问被拒绝。请使用 /cabinet 命令重新授权，或使用 /form 提交申请",
                 "authed": {
-                    "title": "当前所有有效广播 ({{count}})",
-                    "noSendouts": "访问禁止。请使用 /form 命令并提交申请"
+                    "title": "当前所有有效群发 ({{count}})",
+                    "noSendouts": "访问禁止。请使用 /form 命令提交申请"
                 },
                 "notAuthed": {
-                    "title": "要进入广播面板，您需要与我共享电话号码\n\n按钮应出现在键盘旁边，标有 '分享联系方式'",
-                    "button": "分享联系方式"
+                    "title": "如需进入群发面板，请与我分享您的电话号码\n\n键盘旁应出现标有 '点击-点击-点击' 的按钮",
+                    "button": "点击-点击-点击"
                 }
             },
             "distribution": {
                 "main": {
-                    "title": "📣 广播菜单 «{{call}}»",
-                    "path": "[📍 路径：个人中心 → *菜单 «{{call}}»*]",
+                    "title": "📣 群发菜单「{{call}}」",
+                    "path": "[📍 路径：个人中心 → *菜单「{{call}}»*]",
                     "buttons": {
                         "contract": "📜 合同",
-                        "schedule": "🕰️ 时间表",
+                        "schedule": "🕰️ 计划",
                         "messages": "💬 消息",
                         "statistics": "📈 统计",
                         "condition": "🩻 状态"
                     }
                 },
                 "condition": {
-                    "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → *状态*]",
+                    "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ *状态*]",
                     "status": {
-                        "active": "✅ 进程活跃。\n要停止，请点击下方按钮",
-                        "inactive": "❌ 进程不活跃。\n要启动，请点击下方按钮",
-                        "failed": "💀 进程已死。\n请联系程序员。",
-                        "error": "进程问题。请联系程序员。"
+                        "active": "✅ 进程运行中。\n如需停止，请点击下方按钮",
+                        "inactive": "❌ 进程未运行。\n如需启动，请点击下方按钮",
+                        "failed": "💀 进程已崩溃。\n请联系开发人员。",
+                        "error": "进程异常。请联系开发人员。"
                     },
                     "buttons": {
                         "stop": "🛑 停止",
@@ -87,161 +87,173 @@
                     "dateStart": "开始日期：{{dateStart}}",
                     "dateStop": "结束日期：{{dateStop}}",
                     "error": "获取合同出错。请联系管理员",
-                    "path": "\n[📍 路径：个人中心 → 菜单 «{{call}}» → *合同*]"
+                    "path": "\n[📍 路径：个人中心 → 菜单「{{call}}」→ *合同*]"
                 },
                 "messages": {
                     "main": {
-                        "noMessages": "没有消息！\n要添加文本，请点击下方按钮",
-                        "path": "\n[📍 路径：个人中心 → 菜单 «{{call}}» → *消息*]",
-                        "messageNumb": "消息编号{{number}}。",
-                        "amountMedia": "媒体数量：{{amount}} / {{maxMedia}}。",
+                        "noMessages": "暂无消息！\n如需添加文本，请点击下方按钮",
+                        "title": "消息栏目菜单。数量：{{amount}}",
+                        "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ *消息*]",
                         "buttons": {
-                            "paramsMessages": "⬇ 消息参数 ⬇",
                             "add": "📄 添加",
                             "clearAll": "🗑 清空全部",
-                            "paramsText": "⬇ 文本参数 ⬇",
-                            "update": "✍️ 编辑",
-                            "remove": "🗑 删除",
-                            "paramsMedia": "⬇ 媒体参数 ⬇",
-                            "addMedia": "🖼 添加"
+                            "read": "👁 查看"
                         }
                     },
-                    "text": {
-                        "add": {
-                            "title": "添加文本！\n发送文本或转发到这里。不允许文本包。",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 消息 → *添加文本*]"
+                    "add": {
+                        "main": {
+                            "title": "选择文本添加方式。",
+                            "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *选择文本添加模式（消息）*]",
+                            "buttons": {
+                                "generate": "🔮 生成",
+                                "hand": "✍ 手动输入"
+                            }
                         },
-                        "update": {
-                            "title": "编辑文本！\n发送文本或转发到这里。不允许文本包。",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 消息 → *编辑文本*]"
+                        "generate": {
+                            "title": "生成文本中！\n请发送或转发文本至此。不支持批量文本。",
+                            "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *文本生成*]"
                         },
-                        "remove": {
-                            "success": "✅ 文本已删除！",
-                            "error": "❌ 文本未删除！\n请联系管理员",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 消息 → *删除文本*]"
-                        },
-                        "clearAll": {
-                            "success": "✅ 所有消息已清空！",
-                            "error": "❌ 消息未清空！\n请联系管理员",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 消息 → *清空消息*]"
-                        },
-                        "amount": {
-                            "page": "页 (消息) {{nowPage}} / {{allPage}}"
-                        },
-                        "parameters": {
-                            "alert": "下方为文本参数"
-                        },
-                        "adding": {
-                            "success": "✅ 文本已保存！",
-                            "error": "❌ 文本未保存！\n请联系管理员",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 消息 → *添加文本*]"
-                        },
-                        "updating": {
-                            "success": "✅ 文本已更新！",
-                            "error": "❌ 文本未更新！\n请联系管理员",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 消息 → *编辑文本*]"
+                        "hand": {
+                            "title": "添加文本！\n请发送或转发文本至此。不支持批量文本。",
+                            "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *文本添加*]"
                         }
                     },
-                    "media": {
-                        "add": {
-                            "title": "添加媒体！\n请发送 1 个媒体文件。",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 消息 → *添加媒体*]"
-                        },
-                        "clearAll": {
-                            "success": "✅ 媒体已清空！",
-                            "error": "❌ 媒体未清空！\n请联系管理员",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 消息 → *清空媒体*]"
-                        },
-                        "parameters": {
-                            "alert": "下方为媒体参数"
-                        },
-                        "adding": {
-                            "error": "💀 保存媒体时出错！\n请联系管理员",
-                            "invalidType": "媒体类型未识别！请重试",
-                            "bigSize": "文件太大。最大大小 {{size}} MB。",
-                            "documentsWTMedia": "我无法处理不包含以下内容的文档：照片 / 视频 / gif",
-                            "success": "✅ 媒体已保存！",
-                            "error2": "❌ 媒体未保存！\n请联系管理员",
-                            "error3": "媒体未保存，因为你不想为 ILYA 做广播！！！",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 消息 → *添加媒体*]"
-                        }
+                    "clearAll": {
+                        "success": "✅ 所有消息已清空！",
+                        "error": "❌ 消息未清空！\n请联系管理员",
+                        "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *清空消息*]"
                     },
-                    "parameters": {
-                        "alert": "下方为消息参数"
+                    "read": {
+                        "main": {
+                            "messageNumb": "消息 #{{number}}。",
+                            "amountMedia": "媒体数量：{{amount}} / {{maxMedia}}。",
+                            "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *查看*]",
+                            "buttons": {
+                                "paramsMessage": "⬇ 消息参数 ⬇",
+                                "paramsText": "⬇ 文本参数 ⬇",
+                                "paramsMedia": "⬇ 媒体参数 ⬇",
+                                "updateText": "✍️ 编辑文本",
+                                "removeMessage": "🗑 删除消息",
+                                "addMedia": "🖼 添加媒体",
+                                "clearAllMedia": "🗑 清空媒体"
+                            }
+                        },
+                        "text": {
+                            "update": {
+                                "title": "编辑文本！\n请发送或转发文本至此。不支持批量文本。",
+                                "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *编辑文本*]"
+                            },
+                            "remove": {
+                                "success": "✅ 消息已删除！",
+                                "error": "❌ 文本未删除！\n请联系管理员",
+                                "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *删除文本*]"
+                            },
+                            "adding": {
+                                "success": "✅ 文本已保存！",
+                                "error": "❌ 文本未保存！\n请联系管理员",
+                                "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *添加文本*]"
+                            },
+                            "updating": {
+                                "success": "✅ 文本已更新！",
+                                "error": "❌ 文本未更新！\n请联系管理员",
+                                "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *编辑文本*]"
+                            }
+                        },
+                        "media": {
+                            "add": {
+                                "title": "添加媒体！\n请逐条发送媒体文件。",
+                                "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *添加媒体*]"
+                            },
+                            "clearAll": {
+                                "success": "✅ 所有媒体已清空！",
+                                "error": "❌ 媒体未清空！\n请联系管理员",
+                                "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *清空媒体*]"
+                            },
+                            "adding": {
+                                "error": "💀 保存媒体时出错！\n请联系管理员",
+                                "invalidType": "无法识别媒体类型！请重试",
+                                "bigSize": "文件过大。最大限制 {{size}} MB。",
+                                "documentsWTMedia": "我无法处理不包含以下内容的文档：图片 / 视频 / 动图",
+                                "success": "✅ 媒体已保存！",
+                                "error2": "❌ 媒体未保存！\n请联系管理员",
+                                "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 消息 → *添加媒体*]"
+                            }
+                        },
+                        "pagination": "第 {{nowPage}} 页 / 共 {{allPage}} 页（消息）"
                     }
                 },
                 "schedule": {
                     "main": {
-                        "noSchedule": "{{call}} 没有时间表！",
-                        "title": "广播时间表如下所示为按钮。",
-                        "path": "\n[📍 路径：个人中心 → 菜单 «{{call}}» → *时间*]",
+                        "noSchedule": "{{call}} 暂无计划！",
+                        "title": "群发计划如下，以按钮形式展示。",
+                        "path": "\n[📍 路径：个人中心 → 菜单「{{call}}」→ *时间*]",
                         "buttons": {
-                            "parameters": "⬇ 时间表参数 ⬇",
+                            "parameters": "⬇ 计划参数 ⬇",
                             "addTime": "⏰ 添加时间",
                             "clearSchedule": "🗑 清空"
                         }
                     },
                     "add": {
                         "title": "添加时间！",
-                        "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *添加时间*]"
+                        "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 计划 → *添加时间*]"
                     },
                     "update": {
                         "title": "编辑时间！",
-                        "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *编辑时间*]"
+                        "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 计划 → *编辑时间*]"
                     },
                     "remove": {
                         "success": "✅ 时间已删除！",
                         "error": "❌ 时间未删除！\n请联系管理员",
-                        "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → 选择操作 → *删除时间*]"
+                        "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 计划 → 选择操作 → *删除时间*]"
                     },
                     "clearSchedule": {
-                        "success": "✅ 时间表已清空！",
-                        "error": "❌ 时间表未清空！\n请联系管理员",
-                        "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *清空时间表*]"
+                        "success": "✅ 计划已清空！",
+                        "error": "❌ 计划未清空！\n请联系管理员",
+                        "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 计划 → *清空计划*]"
                     },
                     "updateOrRemove": {
-                        "title": "选定时间：*{{targetTime}}*。",
-                        "instruction": "点击按钮以执行相应操作。",
-                        "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *选择操作*]",
+                        "title": "已选时间：*{{targetTime}}*。",
+                        "instruction": "点击按钮执行相应操作。",
+                        "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 计划 → *选择操作*]",
                         "buttons": {
                             "update": "✍ 编辑",
                             "delete": "🗑 删除"
                         }
                     },
                     "parameters": {
-                        "alert": "下方为时间表参数"
+                        "alert": "下方为计划参数"
                     }
                 },
                 "statistics": {
                     "main": {
                         "title": "选择所需的统计格式。",
-                        "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → *统计*]",
+                        "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ *统计*]",
                         "buttons": {
-                            "selective": "📅 选择性",
-                            "comparative": "📊 对比性"
+                            "selective": "📅 筛选统计",
+                            "comparative": "📊 对比统计"
                         }
                     },
                     "selective": {
-                        "notDone": "目前该部分正在进行技术维护。",
-                        "title": "选择性统计。\n下方是日期日历。要查看某一天的广播结果 - 只需点击它！\n\n如果广播：\n*未发生，\n*没有，\n*未计划，\n*或其他\n- 将显示带有相应上下文的消息，不要害怕。",
-                        "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 统计 → *选择性*]"
+                        "notDone": "本栏目正在进行技术维护。",
+                        "title": "筛选统计。\n下方为日期日历。如需查看某日的群发结果，直接点击该日期即可！\n\n若群发：\n*未发生，\n*未发送，\n*未计划，\n*或其他情况，\n将显示相应提示，请勿担心。",
+                        "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 统计 → *筛选*]"
                     },
                     "comparative": {
                         "main": {
-                            "title": "选择对比统计的类型。",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 统计 → *对比性*]",
+                            "title": "选择对比统计类型。",
+                            "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 统计 → *对比*]",
                             "buttons": {
                                 "week": "周",
                                 "month": "月"
                             }
                         },
                         "week": {
-                            "title": "对比统计。（周）",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 统计 → 对比性 → *周*]"
+                            "title": "对比统计（周）",
+                            "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 统计 → 对比 → *周*]"
                         },
                         "month": {
-                            "title": "对比统计。（月）",
-                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 统计 → 对比性 → *月*]"
+                            "title": "对比统计（月）",
+                            "path": "[📍 路径：个人中心 → 菜单「{{call}}」→ 统计 → 对比 → *月*]"
                         }
                     }
                 }
@@ -251,29 +263,29 @@
             "main": {
                 "title": "管理员面板。",
                 "buttons": {
-                    "chats": "👥 聊天"
+                    "chats": "👥 群组"
                 }
             },
             "chats": {
                 "main": {
-                    "title": "聊天管理。",
+                    "title": "群组管理。",
                     "amount": "数量：{{amount}}",
-                    "path": "[📍 路径：面板 → *聊天*]",
+                    "path": "[📍 路径：面板 → *群组*]",
                     "buttons": {
-                        "reupload": "🔁 重新格式化",
+                        "reupload": "🔁 重新构建",
                         "clear": "🗑 清空"
                     },
-                    "noSendout": "「{{call}}」的广播尚未发生！"
+                    "noSendout": "「{{call}}」尚未进行群发！"
                 },
                 "reupload": {
-                    "success": "✅ 聊天已重新格式化！",
-                    "error": "❌ 重新格式化聊天时出错\n请联系管理员",
-                    "path": "[📍 路径：面板 → 聊天 → *重新格式化*]"
+                    "success": "✅ 群组已重新构建！",
+                    "error": "❌ 重新构建群组时出错\n请联系管理员",
+                    "path": "[📍 路径：面板 → 群组 → *重新构建*]"
                 },
                 "clear": {
-                    "success": "✅ 聊天已清空！",
-                    "error": "❌ 清空聊天时出错\n请联系管理员",
-                    "path": "[📍 路径：面板 → 聊天 → *清空*]"
+                    "success": "✅ 群组已清空！",
+                    "error": "❌ 清空群组时出错\n请联系管理员",
+                    "path": "[📍 路径：面板 → 群组 → *清空*]"
                 }
             }
         },
@@ -297,27 +309,27 @@
                     }
                 },
                 "change": {
-                    "good": "语言已更改！",
-                    "error": "此语言已被选择！"
+                    "good": "语言已切换！",
+                    "error": "当前已选择此语言！"
                 }
             },
             "help": {
-                "question": "遇到问题？\n有疑问？\n想表扬服务？\n有改进服务的想法？",
+                "question": "遇到问题？\n有疑问？\n想表扬服务？\n有改进建议？",
                 "contactAdmin": "联系管理员",
                 "path": "[📍 路径：设置 → *帮助*]"
             },
             "about": {
-                "description": "该服务旨在自动化群组/聊天/频道内您的产品（优惠）的广告（帖子、广播）\n\n机器人使用说明 - 点击下方按钮！",
-                "instruction": "说明",
+                "description": "本服务旨在自动化推广您的产品（优惠）至群组 / 聊天 / 频道（帖子、群发）\n\n机器人使用说明 — 点击下方按钮！",
+                "instruction": "使用说明",
                 "path": "[📍 路径：设置 → *关于服务*]"
             }
         },
         "form": {
             "interest": "对产品感兴趣？\n填写下方表单，我们将与您联系！",
-            "form": "表单"
+            "form": "申请表"
         },
         "start": {
-            "message": "您好！我是一个 Telegram 机器人，广播助手。\n\n我强烈建议您通过点击屏幕左下角的椭圆形“菜单”按钮来熟悉我的所有命令。\n请先阅读使用说明，可通过 '/settings' 命令在“关于机器人”部分访问"
+            "message": "您好！我是 Telegram 机器人，群发助手。\n\n强烈建议您点击屏幕左下角的椭圆形 '菜单' 按钮，查看我的完整命令列表。\n请先阅读使用指南，可通过 '/settings' 命令，在 '关于机器人' 栏目中访问"
         }
     }
 }

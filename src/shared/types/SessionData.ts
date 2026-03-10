@@ -25,6 +25,7 @@ export interface SessionData {
         text: {
             adding: boolean;
             updating: boolean;
+            generating: boolean;
             positionId: number;
         };
         media: {

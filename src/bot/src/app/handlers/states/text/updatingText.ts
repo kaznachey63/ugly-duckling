@@ -1,6 +1,6 @@
 import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
-import menuText from '@menus/commands/cabinet/distribution/message/text';
+import menuText from '@menus/commands/cabinet/distribution/message/read';
 import { ServerManager } from "@utils/ServerManager";
 import common from '@utils/common';
 
@@ -17,7 +17,7 @@ export default async function editingText(ctx: MyContext) {
     });
 
     const server = new ServerManager();
-    const menu = menuText.updating(ctx, await server.restartProcessOrNot(nameDistribution, true));
+    const menu = menuText.updatingText(ctx, await server.restartProcessOrNot(nameDistribution, true));
     common.resetSessionStates(ctx.session);
     
     await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState, menu.text, {

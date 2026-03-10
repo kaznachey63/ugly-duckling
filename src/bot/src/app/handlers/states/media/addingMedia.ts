@@ -7,7 +7,7 @@ import { randomUUID } from "crypto";
 import consts from 'src/common/constants';
 import utils from 'src/common/utils';
 import type { Message } from 'grammy/types';
-import menuMedia from '@menus/commands/cabinet/distribution/message/media';
+import menuMedia from '@menus/commands/cabinet/distribution/message/read';
 import { ServerManager } from '@utils/ServerManager';
 import { InlineKeyboard } from 'grammy';
 
@@ -101,7 +101,7 @@ export default async function addingMedia(ctx: MyContext) {
         await db.message.updateMessage(nameDistribution, message.id, { media: newMedia });
         await utils.common.sleep(250);
         const server = new ServerManager();
-        const menu = menuMedia.adding(ctx, await server.restartProcessOrNot(nameDistribution, true));
+        const menu = menuMedia.addingMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));
 
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState, menu.text, {
