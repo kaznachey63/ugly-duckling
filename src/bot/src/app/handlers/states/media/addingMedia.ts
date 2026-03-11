@@ -7,7 +7,7 @@ import { randomUUID } from "crypto";
 import consts from 'src/common/constants';
 import utils from 'src/common/utils';
 import type { Message } from 'grammy/types';
-import menuMedia from '@menus/modules/cabinet/distribution/message/read';
+import menuState from '@menus/handlers/states';
 import { ServerManager } from '@utils/ServerManager';
 import { InlineKeyboard } from 'grammy';
 
@@ -26,7 +26,7 @@ export default async function addingMedia(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name;
     const msg = ctx.message;
     if (!msg) return;
-
+    const positionId = ctx.session.state.media.positionId!;
     const mediaType = determineMediaType(msg);
 
     switch (mediaType) {
@@ -34,8 +34,8 @@ export default async function addingMedia(ctx: MyContext) {
             if (!isDocumentAllowed(msg)) {
                 utils.common.resetSessionStates(ctx.session);
                 await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState,
-                    utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.documentsWTMedia")), {
-                    reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${nameDistribution}#${ctx.session.state.media.positionId}`),
+                    utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.documentsWTMedia")), {
+                    reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
                     parse_mode: "MarkdownV2"
                 });
                 return;
@@ -45,8 +45,8 @@ export default async function addingMedia(ctx: MyContext) {
         case 'unknown': {
             utils.common.resetSessionStates(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState,
-                utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.invalidType")), {
-                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${nameDistribution}#${ctx.session.state.media.positionId}`),
+                utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.invalidType")), {
+                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
                 parse_mode: "MarkdownV2"
             });
             return;
@@ -58,8 +58,8 @@ export default async function addingMedia(ctx: MyContext) {
     if (!mediaData || !validateMedia(mediaData)) {
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState,
-            utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.bigSize")), {
-            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${nameDistribution}#${ctx.session.state.media.positionId}`),
+            utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.bigSize")), {
+            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
             parse_mode: "MarkdownV2"
         });
         return;
@@ -83,12 +83,12 @@ export default async function addingMedia(ctx: MyContext) {
         const messages = await db.message.getMessagesForBot(nameDistribution);
         if (!messages) return;
 
-        const message = messages[ctx.session.state.media.positionId!];
+        const message = messages[positionId!];
         if (!message) {
             utils.common.resetSessionStates(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState,
-                utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.error")), {
-                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${nameDistribution}#${ctx.session.state.media.positionId}`),
+                utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.error")), {
+                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
                 parse_mode: "MarkdownV2"
             });
             return;
@@ -101,7 +101,7 @@ export default async function addingMedia(ctx: MyContext) {
         await db.message.updateMessage(nameDistribution, message.id, { media: newMedia });
         await utils.common.sleep(250);
         const server = new ServerManager();
-        const menu = menuMedia.addingMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));
+        const menu = menuState.addingMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));
 
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState, menu.text, {
@@ -112,8 +112,8 @@ export default async function addingMedia(ctx: MyContext) {
         console.error("Ошибка при сохранении медиа:", error);
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState,
-            utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.media.adding.error")), {
-            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${nameDistribution}#${ctx.session.state.media.positionId}`),
+            utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.error")), {
+            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
             parse_mode: "MarkdownV2"
         });
     }

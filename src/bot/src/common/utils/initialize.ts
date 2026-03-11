@@ -27,6 +27,8 @@ function createDefaultSession(): SessionData {
                 adding: false,
                 updating: false,
                 generating: false,
+                generateText: "",
+                generateEntities: [],
                 positionId: 0,
             },
             media: {
