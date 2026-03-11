@@ -110,8 +110,18 @@
                             }
                         },
                         "generate": {
-                            "title": "Generating text!\nSend or forward text here. Batch texts are not allowed.",
-                            "path": "[📍 Path: Dashboard → Menu «{{call}}» → Messages → *Text Generation*]"
+                            "title": "I will generate a sales text!\nSend the source material here. Batch texts are not allowed.",
+                            "result": "The generated message is shown below.\nUse the buttons under the message to decide the fate of the text.",
+                            "path": "[📍 Path: Dashboard → Menu «{{call}}» → Messages → *Text Generation*]",
+                            "pathChoose": "[📍 Path: Dashboard → Menu «{{call}}» → Messages → Text Generation → *Text Fate*]",
+                            "pathSave": "[📍 Path: Dashboard → Menu «{{call}}» → Messages → Text Generation → *Save Text*]",
+                            "pathCancel": "[📍 Path: Dashboard → Menu «{{call}}» → Messages → Text Generation → *Cancel Text*]",
+                            "save": "✅ Text saved!",
+                            "cancel": "❌ Text not saved!",
+                            "buttons": {
+                                "save": "✔ Save",
+                                "cancel": "❌ Do not save"
+                            }
                         },
                         "hand": {
                             "title": "Adding text!\nSend or forward text here. Batch texts are not allowed.",
