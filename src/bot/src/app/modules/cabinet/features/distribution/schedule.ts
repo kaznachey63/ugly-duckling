@@ -4,7 +4,7 @@ import db from '@shared/db/index';
 import local from '@utils/localization';
 import common from '@utils/common';
 import { ServerManager } from '@utils/ServerManager';
-import menuSchedule from '@menus/commands/cabinet/distribution/schedule';
+import menuSchedule from '@menus/modules/cabinet/distribution/schedule';
 
 const scheduleComposer = new Composer<MyContext>();
 

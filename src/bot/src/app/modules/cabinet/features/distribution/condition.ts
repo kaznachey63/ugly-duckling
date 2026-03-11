@@ -2,7 +2,7 @@ import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import type { Status } from '@shared/types/server/Status';
 import { ServerManager } from '@utils/ServerManager';
-import menuCondition from '@menus/commands/cabinet/distribution/condition';
+import menuCondition from '@menus/modules/cabinet/distribution/condition';
 import common from '@utils/common';
 
 const conditionComposer = new Composer<MyContext>();

@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuAbout from '@menus/commands/settings/about';
+import menuAbout from '@menus/modules/settings/about';
 
 const aboutComposer = new Composer<MyContext>();
 

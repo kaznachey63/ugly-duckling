@@ -1,6 +1,6 @@
 import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
-import menuChat from "@menus/commands/panel/chats";
+import menuChat from "@menus/modules/panel/chats";
 import { ServerManager } from "@utils/ServerManager";
 import common from "@utils/common";
 import { Composer } from "grammy";

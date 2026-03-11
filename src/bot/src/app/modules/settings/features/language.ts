@@ -1,7 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import type { LanguageCode } from 'grammy/types';
-import menuLanguage from '@menus/commands/settings/language';
+import menuLanguage from '@menus/modules/settings/language';
 import i18next from 'i18next';
 import db from '@shared/db';
 

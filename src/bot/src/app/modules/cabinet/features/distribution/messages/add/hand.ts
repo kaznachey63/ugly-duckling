@@ -1,0 +1,24 @@
+import type { MyContext } from '@shared/types/SessionData';
+import menuAddMessage from '@menus/modules/cabinet/distribution/message/add';
+import { Composer } from 'grammy';
+
+const handComposer = new Composer<MyContext>();
+
+handComposer.callbackQuery(/^handInputText:/, async (ctx: MyContext) => {
+    ctx.session.state.text.adding = true;
+    ctx.session.state.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+    const menu = menuAddMessage.hand(ctx);
+
+    const msg = await ctx.editMessageText(menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: "MarkdownV2"
+    });
+
+    // Сохранение айди для последующего редактирования этого же сообщения
+    if (typeof msg !== "boolean" && "message_id" in msg) {
+        ctx.session.state.ids.idForUpdateMessageFromState = msg.message_id;
+    }
+});
+
+
+export default handComposer;

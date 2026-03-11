@@ -1,0 +1,62 @@
+import type { MyContext } from '@shared/types/SessionData';
+import menuAdd from '@menus/modules/cabinet/distribution/message/add';
+import { Composer } from 'grammy';
+import { ServerManager } from "@utils/ServerManager";
+import db from "@shared/db";
+import common from '@utils/common';
+
+const genereteComposer = new Composer<MyContext>();
+
+// этот обработчик превее нинего т.к. соответсвие на последние значения
+genereteComposer.callbackQuery(/^generateText:.+#\d+-(true|false)$/, async (ctx: MyContext) => {
+    ctx.session.state.text.adding = true;
+    await ctx.editMessageText(ctx.t('utils.shared.processing'));
+
+    ctx.session.state.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]?.split(/-/)[0]);
+    const action = ctx.callbackQuery?.data!.split(/-/)[1] === 'true';    let menu: any = {};
+    
+    if (action) {        
+        const nameDistribution = ctx.session.distribution.name!;
+
+        await db.message.addMessage(nameDistribution, {
+            id: 0,
+            caption: ctx.session.state.text.generateText.trim()!,
+            entities: ctx.session.state.text.generateEntities,
+            media: null
+        });
+        const server = new ServerManager();
+        menu = menuAdd.saveOrCancelGenerateText(ctx, action, await server.restartProcessOrNot(nameDistribution, true));
+        common.resetSessionStates(ctx.session);
+    }
+    else {
+        menu = menuAdd.saveOrCancelGenerateText(ctx, action);
+    }
+
+    const msg = await ctx.editMessageText(menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: "MarkdownV2"
+    });
+
+    // Сохранение айди для последующего редактирования этого же сообщения
+    if (typeof msg !== "boolean" && "message_id" in msg) {
+        ctx.session.state.ids.idForUpdateMessageFromState = msg.message_id;
+    }
+});
+
+genereteComposer.callbackQuery(/^generateText:/, async (ctx: MyContext) => {
+    ctx.session.state.text.generating = true;
+    ctx.session.state.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+    const menu = menuAdd.generate(ctx);
+    
+    const msg = await ctx.editMessageText(menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: "MarkdownV2"
+    });
+
+    // Сохранение айди для последующего редактирования этого же сообщения
+    if (typeof msg !== "boolean" && "message_id" in msg) {
+        ctx.session.state.ids.idForUpdateMessageFromState = msg.message_id;
+    }
+});
+
+export default genereteComposer;

@@ -7,7 +7,7 @@ import { randomUUID } from "crypto";
 import consts from 'src/common/constants';
 import utils from 'src/common/utils';
 import type { Message } from 'grammy/types';
-import menuMedia from '@menus/commands/cabinet/distribution/message/read';
+import menuMedia from '@menus/modules/cabinet/distribution/message/read';
 import { ServerManager } from '@utils/ServerManager';
 import { InlineKeyboard } from 'grammy';
 

@@ -1,7 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
-import menuCabinet from '@menus/commands/cabinet/main';
+import menuCabinet from '@menus/modules/cabinet/main';
 import common from '@utils/common';
 import init from '@utils/initialize';
 import distributionComposer from './features/distribution'

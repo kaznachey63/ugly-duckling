@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuHelp from '@menus/commands/settings/help';
+import menuHelp from '@menus/modules/settings/help';
 
 const helpComposer = new Composer<MyContext>();
 

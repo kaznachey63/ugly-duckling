@@ -1,0 +1,23 @@
+import db from '@shared/db';
+import type { MyContext } from '@shared/types/SessionData';
+import menuClear from '@menus/modules/cabinet/distribution/message/clear';
+import { ServerManager } from "@utils/ServerManager";
+import { Composer } from 'grammy';
+
+const clearComposer = new Composer<MyContext>();
+
+clearComposer.callbackQuery(/^clearAllMessages:/, async (ctx: MyContext) => {
+    const nameDistribution = ctx.session.distribution.name!;
+    const messages = await db.message.getMessagesForBot(nameDistribution);
+    if (!messages) return;
+
+    await db.message.removeAllMessage(nameDistribution);
+    const server = new ServerManager();
+    const menu = menuClear.clearAll(ctx, await server.restartProcessOrNot(nameDistribution, true));
+    await ctx.editMessageText(menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: "MarkdownV2"
+    });
+});
+
+export default clearComposer;

@@ -1,5 +1,5 @@
 import type { MyContext, SessionData } from '@shared/types/SessionData';
-import menuCabinet from "@menus/commands/cabinet/main";
+import menuCabinet from "@menus/modules/cabinet/main";
 import db from "@shared/db";
 import google from "@utils/google";
 import type { Role } from '@shared/types/Role';

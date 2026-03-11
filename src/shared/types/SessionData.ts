@@ -26,6 +26,8 @@ export interface SessionData {
             adding: boolean;
             updating: boolean;
             generating: boolean;
+            generateText: string;
+            generateEntities: any[];
             positionId: number;
         };
         media: {

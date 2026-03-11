@@ -1,6 +1,6 @@
 import { Composer, GrammyError } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuDistribution from '@menus/commands/cabinet/distribution/main';
+import menuDistribution from '@menus/modules/cabinet/distribution/main';
 import conditionComposer from './condition';
 import contractComposer from './contract';
 import scheduleComposer from './schedule';

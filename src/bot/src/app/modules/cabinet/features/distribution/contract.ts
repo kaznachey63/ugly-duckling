@@ -1,7 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import google from '@utils/google';
-import menuContract from '@menus/commands/cabinet/distribution/contract';
+import menuContract from '@menus/modules/cabinet/distribution/contract';
 
 const contractComposer = new Composer<MyContext>();
 

@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuForm from "@menus/commands/form";
+import menuForm from "@menus/modules/form";
 
 const formComposer = new Composer<MyContext>();
 

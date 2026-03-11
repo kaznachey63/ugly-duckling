@@ -7,7 +7,7 @@ import type { StatisticType } from '@shared/types/StatisticType';
 import db from '@shared/db';
 import utils from '@utils';
 import format from '@utils/formatting';
-import menuStatistic from '@menus/commands/cabinet/distribution/statistic';
+import menuStatistic from '@menus/modules/cabinet/distribution/statistic';
 
 const statisticsComposer = new Composer<MyContext>();
 

@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuSettings from '@menus/commands/settings/main';
+import menuSettings from '@menus/modules/settings/main';
 import helpComposer from './features/help';
 import aboutComposer from './features/about';
 import languageComposer from './features/language';
