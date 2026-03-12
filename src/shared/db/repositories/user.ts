@@ -90,7 +90,7 @@ async function insertUserToDB(ctx: MyContext) {
     try {
         await pool.query(
             `INSERT INTO users (telegram_id, name, username, phone_number, is_admin, language)
-            VALUES ($1, $2, $3, $4, $5)`,
+            VALUES ($1, $2, $3, $4, $5, $6)`,
             [id, name, username, phoneNumber, isAdmin, language]
         );
         return true;

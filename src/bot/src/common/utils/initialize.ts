@@ -21,7 +21,7 @@ function createDefaultSession(): SessionData {
         state: {
             ids: {
                 idForUpdateMessageFromState: 0,
-                commandId: 0,
+                commandCabinetId: 0,
             },
             text: {
                 adding: false,

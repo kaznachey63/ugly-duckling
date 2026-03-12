@@ -20,7 +20,7 @@ export interface SessionData {
     state: {
         ids: {
             idForUpdateMessageFromState: number;
-            commandId: number;
+            commandCabinetId: number;
         };
         text: {
             adding: boolean;

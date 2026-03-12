@@ -50,7 +50,7 @@ async function loadCabinet(ctx: MyContext) {
     }
 
     // Нет рассылок (не заказчик) - отправляем уведомление
-    if (!filtered.length) return ctx.reply(ctx.t('commands.cabinet.noSendouts'));
+    if (!filtered.length) return ctx.reply(ctx.t('commands.cabinet.main.noSendouts'));
 
     // Сортировка
     const sorted = filtered.sort((a, b) => {
