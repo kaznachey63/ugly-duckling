@@ -1,6 +1,7 @@
 import { NodeSSH, type SSHExecCommandResponse } from 'node-ssh';
 import utils from './index';
 import type { Status } from '@shared/types/server/Status';
+import fs from 'fs/promises';
 
 export class ServerManager {
     private async connectSsh(): Promise<NodeSSH> {
@@ -8,7 +9,7 @@ export class ServerManager {
         await ssh.connect({
             host: process.env.SERVER_HOST,
             username: process.env.SERVER_USERNAME,
-            password: process.env.SERVER_PASSWORD
+            privateKey: await fs.readFile(process.env.SERVER_SSH_KEY_PATH!, 'utf8')
         });
         return ssh;
     }
