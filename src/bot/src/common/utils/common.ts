@@ -42,7 +42,7 @@ async function loadCabinet(ctx: MyContext) {
 
         const rows = await google.getRowsFromGS("Заказчики!A2:I");
         const labels = rows
-            ?.filter(r => r[8] === phone)
+            ?.filter(r => r[7] === phone)
             .map(r => r[0])
             .filter((v): v is string => !!v) || [];
 
