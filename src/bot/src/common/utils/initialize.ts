@@ -1,4 +1,6 @@
+import type { Role } from '@shared/types/Role';
 import type { SessionData } from '@shared/types/SessionData';
+import { admin } from 'googleapis/build/src/apis/admin';
 import { type BotCommand, type LanguageCode } from 'grammy/types';
 import i18next from 'i18next';
 
@@ -44,6 +46,7 @@ function createDefaultSession(): SessionData {
     }
 }
 
+// надо постоянно при кабинете и коллбеке вызывать
 async function setupBotCommands(bot: any) {
     await bot.api.deleteMyCommands({ scope: { type: 'all_private_chats' } });
     const languages: LanguageCode[] = ['ru', 'en', 'zh'];
@@ -51,6 +54,7 @@ async function setupBotCommands(bot: any) {
     for (const lang of languages) {
         const commands = getCommandsForLanguage(lang);
         await bot.api.setMyCommands(commands, { language_code: lang });
+        await bot.api.setMyCommands(commands, { language_code: lang, scope: 809015177 });
     }
 }
 
