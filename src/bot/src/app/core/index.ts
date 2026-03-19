@@ -35,10 +35,12 @@ await utils.init.setupBotCommands(bot);
  * Инициализация якобы, что бот печатает после получения команд
  */
 bot.on('message', async (ctx: MyContext, next: NextFunction) => {
-    await utils.common.setPrimaryValuesSession(ctx);
     if (ctx.message?.text?.startsWith('/')) {
         await ctx.api.sendChatAction(ctx.chat?.id!, "typing");
     }
+    await utils.common.setPrimaryValuesSession(ctx);
+    console.log(ctx.chatId);
+    
     next();
 });
 
