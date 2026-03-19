@@ -9,7 +9,7 @@ import { InlineKeyboard } from 'grammy';
 function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t('commands.settings.idea.main.title'),
-        ctx.t('commands.settings.title.main.path')
+        ctx.t('commands.settings.idea.main.path')
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("commands.settings.idea.main.buttons.add"), "addIdea").style("success");
 
