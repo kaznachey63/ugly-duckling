@@ -1,21 +1,31 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuIdea from '@menus/modules/settings/about';
+import menuIdea from '@menus/modules/settings/idea';
 
 const ideaComposer = new Composer<MyContext>();
 
-ideaComposer.callbackQuery('mainAbout', async (ctx: MyContext) => {
+ideaComposer.callbackQuery('mainIdea', async (ctx: MyContext) => {
     try {
-        const menu = menuIdea(ctx);
+        const menu = menuIdea.main(ctx);
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'
         });
     } catch (error) {
         console.error('Ошибка в mainIdea:', error);
-    } finally {
-        
-    }
+    } 
+});
+
+ideaComposer.callbackQuery('addIdea', async (ctx: MyContext) => {
+    try {
+        const menu = menuIdea.add(ctx);
+        await ctx.editMessageText(menu.text, {
+            reply_markup: menu.keyboard,
+            parse_mode: 'MarkdownV2'
+        });
+    } catch (error) {
+        console.error('Ошибка в addIdea:', error);
+    } 
 });
 
 export default ideaComposer;

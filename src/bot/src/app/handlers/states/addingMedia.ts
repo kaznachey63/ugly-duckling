@@ -34,7 +34,7 @@ export default async function addingMedia(ctx: MyContext) {
         case 'document': {
             if (!isDocumentAllowed(msg)) {
                 utils.common.resetSessionStates(ctx.session);
-                await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState,
+                await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
                     utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.documentsWTMedia")), {
                     reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
                     parse_mode: "MarkdownV2"
@@ -45,7 +45,7 @@ export default async function addingMedia(ctx: MyContext) {
         }
         case 'unknown': {
             utils.common.resetSessionStates(ctx.session);
-            await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState,
+            await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
                 utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.invalidType")), {
                 reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
                 parse_mode: "MarkdownV2"
@@ -58,7 +58,7 @@ export default async function addingMedia(ctx: MyContext) {
     const mediaData = extractMediaData(msg, mediaType);
     if (!mediaData || !validateMedia(mediaData)) {
         utils.common.resetSessionStates(ctx.session);
-        await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState,
+        await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
             utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.bigSize")), {
             reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
             parse_mode: "MarkdownV2"
@@ -87,7 +87,7 @@ export default async function addingMedia(ctx: MyContext) {
         const message = messages[positionId!];
         if (!message) {
             utils.common.resetSessionStates(ctx.session);
-            await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState,
+            await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
                 utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.error")), {
                 reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
                 parse_mode: "MarkdownV2"
@@ -105,14 +105,14 @@ export default async function addingMedia(ctx: MyContext) {
         const menu = menuState.addingMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));
 
         utils.common.resetSessionStates(ctx.session);
-        await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState, menu.text, {
+        await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: "MarkdownV2"
         });
     } catch (error) {
         console.error("Ошибка при сохранении медиа:", error);
         utils.common.resetSessionStates(ctx.session);
-        await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState,
+        await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
             utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.error")), {
             reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
             parse_mode: "MarkdownV2"

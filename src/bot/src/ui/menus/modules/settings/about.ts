@@ -8,7 +8,7 @@ import { InlineKeyboard } from 'grammy';
  */
 export default function about(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t('commands.settings.about.description'),
+        ctx.t('commands.settings.about.title'),
         ctx.t('commands.settings.about.path')
     ].join('\n\n');
     const keyboard = new InlineKeyboard()

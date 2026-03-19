@@ -8,7 +8,7 @@ import format from '@utils/formatting';
  */
 export default function help(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t('commands.settings.help.question'),
+        ctx.t('commands.settings.help.title'),
         ctx.t('commands.settings.help.path')
     ].join('\n\n');
     const keyboard = new InlineKeyboard()

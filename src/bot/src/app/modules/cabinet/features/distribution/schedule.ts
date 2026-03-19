@@ -37,7 +37,7 @@ scheduleComposer.callbackQuery(/^addTime:/, async (ctx: MyContext) => {
         });
 
         if (typeof msg !== 'boolean' && 'message_id' in msg) {
-            ctx.session.state.ids.idForUpdateMessageFromState = msg.message_id;
+            ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
         }
     } catch (error) {
         console.error('Ошибка в addTime:', error);
@@ -57,7 +57,7 @@ scheduleComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
         });
 
         if (typeof msg !== 'boolean' && 'message_id' in msg) {
-            ctx.session.state.ids.idForUpdateMessageFromState = msg.message_id;
+            ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
         }
     } catch (error) {
         console.error('Ошибка в updateTime:', error);

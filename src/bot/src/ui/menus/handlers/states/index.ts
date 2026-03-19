@@ -65,9 +65,23 @@ function addingMedia(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
 }
 
+function addingIdea(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
+    const text = [
+        result ?
+            ctx.t('commands.settings.idea.add.success') :
+            ctx.t('commands.settings.idea.add.error')
+        ,
+        ctx.t('commands.settings.title.add.path')
+    ].join('\n\n');
+
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainIdea");
+    return { text: format.escapeMarkdown(text), keyboard }
+}
+
 export default {
     addingText,
     updatingText,
     generatingText,
-    addingMedia
+    addingMedia,
+    addingIdea
 }

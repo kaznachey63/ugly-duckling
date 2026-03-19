@@ -6,7 +6,7 @@ const textComposer = new Composer<MyContext>();
 
 textComposer.on(':text', async (ctx: MyContext) => {
     try {
-        await dispatcher(ctx, "text");
+        await dispatcher(ctx);
     } catch (error) {
         console.error("Ошибка в text handler:", error);
     }

@@ -25,7 +25,7 @@ messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
 
     // Сохранение айди для последующего редактирования этого же сообщения
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.state.ids.idForUpdateMessageFromState = msg.message_id;
+        ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
     }
 });
 

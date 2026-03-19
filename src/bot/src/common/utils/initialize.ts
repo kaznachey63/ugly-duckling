@@ -21,28 +21,35 @@ function createDefaultSession(): SessionData {
             schema: "",
         },
         state: {
+            addingText: false,
+            updatingText: false,
+            generatingText: false,
+            addingMedia: false,
+            addingTime: false,
+            updatingTime: false,
+            addingIdea: false,
+        },
+        other: {
             ids: {
                 idForUpdateMessageFromState: 0,
                 commandCabinetId: 0,
             },
             text: {
-                adding: false,
-                updating: false,
-                generating: false,
+
                 generateText: "",
                 generateEntities: [],
                 positionId: 0,
             },
             media: {
-                adding: false,
                 positionId: 0,
             },
             time: {
-                adding: false,
-                updating: false,
                 positionId: 0,
             },
-        },
+            message: {
+                positionId: 0
+            }
+        }
     }
 }
 

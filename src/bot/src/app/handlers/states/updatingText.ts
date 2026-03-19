@@ -20,7 +20,7 @@ export default async function editingText(ctx: MyContext) {
     const menu = menuState.updatingText(ctx, await server.restartProcessOrNot(nameDistribution, true));
     common.resetSessionStates(ctx.session);
     
-    await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState, menu.text, {
+    await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"
     });

@@ -16,6 +16,7 @@ function resetSessionStates(session: SessionData) {
     session.state.time.adding = false;
     session.state.text.positionId = 0;
     session.state.media.positionId = 0;
+    session.state.idea.adding = false;
 }
 
 /**

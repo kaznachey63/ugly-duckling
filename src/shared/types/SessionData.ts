@@ -18,28 +18,34 @@ export interface SessionData {
         schema: string;
     };
     state: {
+        addingText: boolean;
+        updatingText: boolean;
+        generatingText: boolean;
+        addingMedia: boolean;
+        addingTime: boolean;
+        updatingTime: boolean;
+        addingIdea: boolean;
+    };
+    other: {
         ids: {
             idForUpdateMessageFromState: number;
             commandCabinetId: number;
         };
         text: {
-            adding: boolean;
-            updating: boolean;
-            generating: boolean;
             generateText: string;
             generateEntities: any[];
             positionId: number;
         };
         media: {
-            adding: boolean;
             positionId: number;
         };
         time: {
-            adding: boolean;
-            updating: boolean;
             positionId: number;
         };
-    };
+        message: {
+            positionId: number;
+        }
+    }
 }
 
 export interface I18nFlavor {

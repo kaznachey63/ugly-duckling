@@ -6,7 +6,7 @@ const mediaComposer = new Composer<MyContext>();
 
 mediaComposer.on([':media', ':animation'], async (ctx: MyContext) => {
     try {
-        await dispatcher(ctx, "media");
+        await dispatcher(ctx);
     } catch (error) {
         console.error("Ошибка в media handler:", error);
     }

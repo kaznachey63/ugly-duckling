@@ -18,7 +18,7 @@ export default async function generatingText(ctx: MyContext) {
     const menu = menuState.generatingText(ctx, result);
     common.resetSessionStates(ctx.session);
 
-    await ctx.api.editMessageText(ctx.chatId!, ctx.session.state.ids.idForUpdateMessageFromState, menu.text, {
+    await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"
     });

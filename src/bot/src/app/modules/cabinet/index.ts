@@ -22,7 +22,7 @@ async function processCabinet(ctx: MyContext) {
         ctx.session = init.createDefaultSession();
 
         // Присваивание айди команыд кабинета чтобы удалить мусор
-        if (ctx.message?.text?.startsWith('/')) ctx.session.state.ids.commandCabinetId = ctx.msgId!;
+        if (ctx.message?.text?.startsWith('/')) ctx.session.other.ids.commandCabinetId = ctx.msgId!;
 
         // Пользователь есть в БД
         if (await db.user.userExistsInDB(ctx.from?.id!)) {

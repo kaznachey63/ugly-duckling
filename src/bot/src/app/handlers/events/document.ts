@@ -13,7 +13,7 @@ documentComposer.on(':document', async (ctx: MyContext) => {
 
         // 🔹 Только если это медиа-документ — передаём в медиа-стейт
         if (utils.local.checkMediaInDocument(mime!)) {
-            await dispatcher(ctx, "media");
+            await dispatcher(ctx);
             return;
         }
 

@@ -58,7 +58,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
 // ============================================================================
 async function deleteMessageProcessing(ctx: MyContext, endMsgId?: number) {
     try {
-        const commandId = ctx.session.state.ids.commandCabinetId;
+        const commandId = ctx.session.other.ids.commandCabinetId;
         const targetEndId = endMsgId || ctx.msgId;
         
         // Проверки: если нет данных — выходим

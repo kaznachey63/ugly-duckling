@@ -34,7 +34,7 @@ mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
     }
 
     if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.state.ids.idForUpdateMessageFromState = msg.message_id;
+        ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
     }
 });
 
