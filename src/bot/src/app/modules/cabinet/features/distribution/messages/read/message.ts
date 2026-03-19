@@ -9,7 +9,7 @@ const messageComposer = new Composer<MyContext>();
 messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
     const nameDistribution = ctx.session.distribution.name!;
     const positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
-    ctx.session.state.text.positionId = positionId;
+    ctx.session.other.text.positionId = positionId;
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;
     const messageId = messages[positionId]?.id!;

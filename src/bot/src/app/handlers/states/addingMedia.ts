@@ -27,7 +27,7 @@ export default async function addingMedia(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name;
     const msg = ctx.message;
     if (!msg) return;
-    const positionId = ctx.session.state.media.positionId!;
+    const positionId = ctx.session.other.media.positionId!;
     const mediaType = determineMediaType(msg);
 
     switch (mediaType) {

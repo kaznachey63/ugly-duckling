@@ -16,7 +16,7 @@ messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;
     
-    ctx.session.state.text.positionId = messages.length;
+    ctx.session.other.text.positionId = messages.length;
     const menu = menuMessage.main(ctx, messages);
     const msg = await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,

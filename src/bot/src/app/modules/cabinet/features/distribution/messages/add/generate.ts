@@ -9,10 +9,10 @@ const genereteComposer = new Composer<MyContext>();
 
 // этот обработчик превее нинего т.к. соответсвие на последние значения
 genereteComposer.callbackQuery(/^generateText:.+#\d+-(true|false)$/, async (ctx: MyContext) => {
-    ctx.session.state.text.adding = true;
+    ctx.session.state.addingText = true;
     await ctx.editMessageText(ctx.t('utils.shared.processing'));
 
-    ctx.session.state.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]?.split(/-/)[0]);
+    ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]?.split(/-/)[0]);
     const action = ctx.callbackQuery?.data!.split(/-/)[1] === 'true';    let menu: any = {};
     
     if (action) {        
@@ -20,8 +20,8 @@ genereteComposer.callbackQuery(/^generateText:.+#\d+-(true|false)$/, async (ctx:
 
         await db.message.addMessage(nameDistribution, {
             id: 0,
-            caption: ctx.session.state.text.generateText.trim()!,
-            entities: ctx.session.state.text.generateEntities,
+            caption: ctx.session.other.text.generateText.trim()!,
+            entities: ctx.session.other.text.generateEntities,
             media: null
         });
         const server = new ServerManager();
@@ -44,8 +44,8 @@ genereteComposer.callbackQuery(/^generateText:.+#\d+-(true|false)$/, async (ctx:
 });
 
 genereteComposer.callbackQuery(/^generateText:/, async (ctx: MyContext) => {
-    ctx.session.state.text.generating = true;
-    ctx.session.state.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+    ctx.session.state.generatingText = true;
+    ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
     const menu = menuAdd.generate(ctx);
     
     const msg = await ctx.editMessageText(menu.text, {

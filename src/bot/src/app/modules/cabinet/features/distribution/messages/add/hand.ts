@@ -5,8 +5,8 @@ import { Composer } from 'grammy';
 const handComposer = new Composer<MyContext>();
 
 handComposer.callbackQuery(/^handInputText:/, async (ctx: MyContext) => {
-    ctx.session.state.text.adding = true;
-    ctx.session.state.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+    ctx.session.state.addingText = true;
+    ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
     const menu = menuAddMessage.hand(ctx);
 
     const msg = await ctx.editMessageText(menu.text, {

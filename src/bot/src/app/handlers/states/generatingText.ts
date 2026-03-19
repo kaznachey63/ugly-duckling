@@ -12,8 +12,8 @@ export default async function generatingText(ctx: MyContext) {
 
     const result = await gigaChat.ask(constants.systemPrompt + ctx.message?.text);
     
-    ctx.session.state.text.generateText = result;
-    ctx.session.state.text.generateEntities = [];
+    ctx.session.other.text.generateText = result;
+    ctx.session.other.text.generateEntities = [];
 
     const menu = menuState.generatingText(ctx, result);
     common.resetSessionStates(ctx.session);

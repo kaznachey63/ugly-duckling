@@ -28,7 +28,7 @@ scheduleComposer.callbackQuery(/^mainSchedule:/, async (ctx: MyContext) => {
 
 scheduleComposer.callbackQuery(/^addTime:/, async (ctx: MyContext) => {
     try {
-        ctx.session.state.time.adding = true;
+        ctx.session.state.addingTime = true;
         const menu = menuSchedule.add(ctx);
 
         const msg = await ctx.editMessageText(menu.text, {
@@ -48,7 +48,7 @@ scheduleComposer.callbackQuery(/^addTime:/, async (ctx: MyContext) => {
 
 scheduleComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
     try {
-        ctx.session.state.time.updating = true;
+        ctx.session.state.updatingTime = true;
         const menu = menuSchedule.update(ctx);
 
         const msg = await ctx.editMessageText(menu.text, {
@@ -116,7 +116,7 @@ scheduleComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
         if (!String(nameDistribution)) {
             text.push('commands.cabinet.distribution.schedule.remove.error');
         } else {
-            await db.time.removeTime(ctx.session.distribution.schema, ctx.session.state.time.positionId);
+            await db.time.removeTime(ctx.session.distribution.schema, ctx.session.other.time.positionId);
             const server = new ServerManager();
             if (await server.restartProcessOrNot(nameDistribution, true)) {
                 text.push('commands.cabinet.distribution.schedule.remove.success');
@@ -142,7 +142,7 @@ scheduleComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) =>
     try {
         const queryData = ctx.callbackQuery?.data;
         const timeId = Number(queryData!.split(/:/)[1]);
-        ctx.session.state.time.positionId = timeId;
+        ctx.session.other.time.positionId = timeId;
         const targetTime = local.formatTimeToRu(await db.time.getTime(ctx.session.distribution.schema, timeId));
         const menu = menuSchedule.updateOrRemove(ctx, targetTime!);
 

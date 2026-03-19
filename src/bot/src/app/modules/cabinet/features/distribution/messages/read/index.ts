@@ -10,7 +10,7 @@ const readComposer = new Composer<MyContext>();
 
 readComposer.callbackQuery(/^readMessage:/, async (ctx: MyContext) => {
     const nameDistribution = ctx.session.distribution.name!;
-    ctx.session.state.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+    ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
 
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;

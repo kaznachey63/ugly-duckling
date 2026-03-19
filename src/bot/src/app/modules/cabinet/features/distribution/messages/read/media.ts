@@ -14,8 +14,8 @@ mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
     const queryData = ctx.callbackQuery?.data;
     const positionId = Number(queryData!.split(/#/)[1]);
 
-    ctx.session.state.media.adding = true;
-    ctx.session.state.media.positionId = positionId;
+    ctx.session.state.addingMedia = true;
+    ctx.session.other.media.positionId = positionId;
 
     const menu = menuRead.addMedia(ctx);
     let msg: any;
@@ -45,7 +45,7 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     const queryData = ctx.callbackQuery?.data;
     const nameDistribution = ctx.session.distribution.name!;
     const positionId = Number(queryData!.split(/#/)[1]);
-    ctx.session.state.media.positionId = positionId;
+    ctx.session.other.media.positionId = positionId;
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;
     const message = messages[positionId];
