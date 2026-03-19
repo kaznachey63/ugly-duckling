@@ -10,7 +10,10 @@ export default async function dispatchState(ctx: MyContext) {
         const handler = mod.default;
 
         if (handler) {
-            await ctx.deleteMessage();
+            setTimeout(async() => {
+                await ctx.deleteMessage();
+            }, 1500);
+            
             if (ctx.session.other.ids.idForUpdateMessageFromState) {
                 await ctx.api.editMessageText(
                     ctx.chatId!,

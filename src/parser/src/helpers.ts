@@ -8,7 +8,7 @@ function getChatLink(id: any, username: any): string {
     }
     // Гарантированно супергруппа (идёт с -100)
     const cleanId = id.toString().slice(4); // убираем "-100"
-    return `https://t.me/c/${cleanId}/`;
+    return `https://t.me/c/${cleanId}/1`;
 }
 
 async function chatsFromClient(client: TelegramClient): Promise<Chat[]> {
