@@ -17,7 +17,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         if (!phoneNumber) return;
 
         // Проверяем номер в Google Sheets
-        const dataFromSheets = await utils.google.getRowsFromGS("Заказчики!I2:I");
+        const dataFromSheets = await utils.google.getRowsFromGS("Заказчики!H2:H");
         const phoneExists = dataFromSheets?.some(row => row[0]?.trim() === phoneNumber);
 
         // 1. Сначала отправляем "Обработка..." и ПОЛУЧАЕМ ID этого сообщения

@@ -7,7 +7,7 @@ const contractComposer = new Composer<MyContext>();
 
 contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
     try {
-        const dataFromSheets = await google.getRowsFromGS("Заказчики!A2:G");
+        const dataFromSheets = await google.getRowsFromGS("Заказчики!A2:I");
         const row = dataFromSheets?.find(r => r?.[0] === ctx.session.distribution.label);
 
         if (!row || row.length < 4) {
