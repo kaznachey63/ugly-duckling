@@ -54,7 +54,8 @@ async function setupBotCommands(bot: any) {
     for (const lang of languages) {
         const commands = getCommandsForLanguage(lang);
         await bot.api.setMyCommands(commands, { language_code: lang });
-        await bot.api.setMyCommands(commands.push({ command: 'panel', description: i18next.t('utils.commands.panel', { lng: lang }) }), { language_code: lang, scope: {
+        commands.push({ command: 'panel', description: i18next.t('utils.commands.panel', { lng: lang }) });
+        await bot.api.setMyCommands(commands, { language_code: lang, scope: {
             type: "chat", chat_id: 809015177
         }});
     }
