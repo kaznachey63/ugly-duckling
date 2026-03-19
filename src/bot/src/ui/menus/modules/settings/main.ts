@@ -12,6 +12,7 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
         .text(ctx.t("commands.settings.main.buttons.language"), "mainLanguage").row()
         .text(ctx.t("commands.settings.main.buttons.help"), "mainHelp").row()
         .text(ctx.t("commands.settings.main.buttons.about"), "mainAbout").row()
+        .text(ctx.t("commands.settings.main.buttons.idea"), "mainIdea").row()
     ;
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
