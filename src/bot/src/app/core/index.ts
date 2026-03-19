@@ -30,7 +30,12 @@ bot.use(i18nMiddleware);
  * Установка команд в меню бота
  */
 await utils.init.setupBotCommands(bot);
-
+await bot.api.setMyCommands([], {
+    scope: {
+        type: "chat",
+        chat_id: 
+    }
+})
 /**
  * Инициализация якобы, что бот печатает после получения команд
  */
