@@ -27,20 +27,6 @@ function formatTimeToRu(time: Time, index?: number): string | null {
 }
 
 /**
- * Получение имени процесса на сервере
- * @param nameDistribution Прог. имя рассылки
- * @returns Имя процесса
- */
-function getNameProcess(nameService: string, isNameDistribution?: true): string {
-    return isNameDistribution ?
-        `hawk-sendout@${nameService.toLowerCase()}.service` :
-        nameService == "hawk-parser" ? 
-            `hawk-${nameService}.service` : 
-                `${nameService}.service`
-    ;
-}
-
-/**
  * Проверка на соответсвие MimeType == медиа
  * @param mimeType MimeType
  * @returns True - если тип соответсвует медиа, false - нет
@@ -100,7 +86,6 @@ function getMonthNumber(month: string): string {
 
 export default {
     formatTimeToRu,
-    getNameProcess,
     checkMediaInDocument,
     getMediaFormat,
     isSupportedMediaType,
