@@ -55,7 +55,7 @@ async function setupBotCommands(bot: any) {
         const commands = getCommandsForLanguage(lang);
         await bot.api.setMyCommands(commands, { language_code: lang });
         await bot.api.setMyCommands(commands, { language_code: lang, scope: {
-            type: "chat", chat_id: "809015177"
+            type: "chat", chat_id: 809015177
         }});
     }
 }
