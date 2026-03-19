@@ -11,10 +11,12 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t('commands.settings.idea.main.title'),
         ctx.t('commands.settings.idea.main.path')
     ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("commands.settings.idea.main.buttons.add"), "addIdea").style("success");
+    const keyboard = new InlineKeyboard().text(ctx.t("commands.settings.idea.main.buttons.add"), "addIdea").style("success").row();
 
     if (ctx.session.user.role == "admin") {
-        keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), "tg://openmessage?chat_id=-1003760118458");
+        keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), "tg://openmessage?chat_id=-1003760118458").row();
+        keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), "https://t.me/c/3760118458").row();
+        keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), "https://web.telegram.org/k/#-1003760118458").row();
     }
 
     keyboard.row().text(ctx.t("utils.shared.back"), "mainSettings");
