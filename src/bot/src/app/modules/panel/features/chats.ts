@@ -39,7 +39,7 @@ chatsComposer.callbackQuery("reuploadChats", async (ctx: MyContext) => {
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
 
     const server = new ServerManager();
-    const nameService = "uglyduckling-parser";
+    const nameService = "hawk-parser";
 
     await server.startService(nameService);
 

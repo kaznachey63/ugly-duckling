@@ -33,8 +33,8 @@ function formatTimeToRu(time: Time, index?: number): string | null {
  */
 function getNameProcess(nameService: string, isNameDistribution?: true): string {
     return isNameDistribution ?
-        `sendout@${nameService.toLowerCase()}.service` :
-        nameService == "parser" ? `ugluduckling-${nameService}.service` : `${nameService}.service`
+        `hawk-sendout@${nameService.toLowerCase()}.service` :
+        nameService == "parser" ? `hawk-${nameService}.service` : `${nameService}.service`
     ;
 }
 
