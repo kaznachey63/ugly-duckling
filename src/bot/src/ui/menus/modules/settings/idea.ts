@@ -24,7 +24,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
 function add(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t('commands.settings.idea.add.title'),
-        ctx.t('commands.settings.title.add.path')
+        ctx.t('commands.settings.idea.add.path')
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainIdea");

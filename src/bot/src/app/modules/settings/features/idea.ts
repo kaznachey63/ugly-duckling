@@ -17,6 +17,7 @@ ideaComposer.callbackQuery('mainIdea', async (ctx: MyContext) => {
 });
 
 ideaComposer.callbackQuery('addIdea', async (ctx: MyContext) => {
+    ctx.session.state.addingIdea = true;
     try {
         const menu = menuIdea.add(ctx);
         await ctx.editMessageText(menu.text, {
