@@ -71,7 +71,7 @@ function addingIdea(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
             ctx.t('commands.settings.idea.adding.success') :
             ctx.t('commands.settings.idea.adding.error')
         ,
-        ctx.t('commands.settings.title.adding.path')
+        ctx.t('commands.settings.idea.adding.path')
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainIdea");
