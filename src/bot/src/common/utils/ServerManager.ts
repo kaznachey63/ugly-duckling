@@ -93,6 +93,9 @@ export class ServerManager {
     }
 
     private resolveServiceName(name: string, isDistribution: boolean): string {
-        return isDistribution ? utils.local.getNameProcess(name, true) : name;
+        return isDistribution
+            ? `hawk-sendout@${name}.service`
+            : name
+        ;                                 
     }
 }
