@@ -12,7 +12,7 @@ export default async function dispatchState(ctx: MyContext) {
         if (handler) {
             setTimeout(async() => {
                 await ctx.deleteMessage();
-            }, 1000);
+            }, 300);
             
             if (ctx.session.other.ids.idForUpdateMessageFromState) {
                 await ctx.api.editMessageText(
