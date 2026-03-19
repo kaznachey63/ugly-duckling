@@ -14,7 +14,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard().text(ctx.t("commands.settings.idea.main.buttons.add"), "addIdea").style("success");
 
     if (ctx.session.user.role == "admin") {
-        keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), "tg://openmessage?chat_id=-1001003760118458");
+        keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), "tg://openmessage?chat_id=-1003760118458");
     }
 
     keyboard.row().text(ctx.t("utils.shared.back"), "mainSettings");
