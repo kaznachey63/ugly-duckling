@@ -75,21 +75,10 @@ function getTypeCompStatRu(typeStatistika: string ) {
     return map.typeComparativeStatistika[typeStatistika]!;
 }
 
-
-function getMonthRu(month: string): string {
-    return map.months[month]!;
-}
-
-function getMonthNumber(month: string): string {
-    return map.monthNumbers[month.toLowerCase()]!;
-}
-
 export default {
     formatTimeToRu,
     checkMediaInDocument,
     getMediaFormat,
     isSupportedMediaType,
     getTypeCompStatRu,
-    getMonthRu,
-    getMonthNumber
 };

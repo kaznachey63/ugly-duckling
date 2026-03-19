@@ -10,7 +10,7 @@ export default async function generatingText(ctx: MyContext) {
         insecure: true
     });
 
-    const result = await gigaChat.ask(constants.systemPrompt + ctx.message?.text);
+    const result = await gigaChat.ask(constants.gigaChat.systemPrompt + ctx.message?.text);
     
     ctx.session.other.text.generateText = result;
     ctx.session.other.text.generateEntities = [];

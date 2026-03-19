@@ -2,12 +2,10 @@ import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import utils from '@utils';
+import constants from '@constants';
 
 const contactComposer = new Composer<MyContext>();
 
-// ============================================================================
-// ОБРАБОТЧИК: контакт (сообщение с контактом)
-// ============================================================================
 contactComposer.on('message:contact', async (ctx: MyContext) => {
     if (!ctx) return;
     if (!ctx.message || !('contact' in ctx.message)) return;
@@ -17,7 +15,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         if (!phoneNumber) return;
 
         // Проверяем номер в Google Sheets
-        const dataFromSheets = await utils.google.getRowsFromGS("Заказчики!H2:H");
+        const dataFromSheets = await utils.google.getRowsFromGS(constants.google.rangeTable);
         const phoneExists = dataFromSheets?.some(row => row[0]?.trim() === phoneNumber);
 
         // 1. Сначала отправляем "Обработка..." и ПОЛУЧАЕМ ID этого сообщения
@@ -53,9 +51,6 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
     // ⚠️ Для message-хендлеров answerCallbackQuery не нужен
 });
 
-// ============================================================================
-// 📦 ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ (внутри файла)
-// ============================================================================
 async function deleteMessageProcessing(ctx: MyContext, endMsgId?: number) {
     try {
         const commandId = ctx.session.other.ids.commandCabinetId;
@@ -82,7 +77,4 @@ async function deleteMessageProcessing(ctx: MyContext, endMsgId?: number) {
     } catch { }
 }
 
-// ============================================================================
-// ЭКСПОРТ
-// ============================================================================
 export default contactComposer;

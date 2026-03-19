@@ -1,7 +1,26 @@
-export default {
-    maxSizeFile: 20 * 1024 * 1024, // 20 МБ
-    maxMedia: 4,
-    systemPrompt: 
+const link = {
+    form: "https://forms.gle/i91r3EaCeigbuo479",
+    instructionAboutCommands: "https://telegra.ph/Komandy-Rassylka-bot-11-29-2",
+    tgAdmin: "https://t.me/master_cuni",
+    chatIdeas: "https://t.me/c/3760118458/1"
+}
+
+const date = {
+    minDate: '1970-01-01',
+    maxDate: '2100-12-31'
+}
+
+const time = {
+    msInMinute: 60_000
+}
+
+const google = {
+    rangeTable: "Заказчики!A2:I",
+    scopeForAuth: "https://www.googleapis.com/auth/spreadsheets",
+}
+
+const gigaChat = {
+    systemPrompt:
         `Выдавай ТОЛЬКО текст. БЕЗ ПУСТЫХ СТРОК. БЕЗ ПРИВЕТСТВИЙ.
         АЛГОРИТМ:
         Первая строка: Напиши **📍 [ЖК и адрес]** (Жирным всю строку)
@@ -24,5 +43,18 @@ export default {
         ТЕКСТ:\n`.trim()
     ,
     maxTokens: 150,
-    msInMinute: 60_000
+}
+
+const media = {
+    maxSizeFile: 20 * 1024 * 1024, // 20 МБ
+    maxMedia: 4,
+}
+
+export default {
+    link,
+    date,
+    google,
+    gigaChat,
+    media,
+    time
 }

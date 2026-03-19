@@ -1,5 +1,4 @@
 import { NodeSSH, type SSHExecCommandResponse } from 'node-ssh';
-import utils from './index';
 import type { Status } from '@shared/types/server/Status';
 import fs from 'fs/promises';
 
@@ -52,7 +51,7 @@ export class ServerManager {
         return isNaN(code) ? null : code;
     }
 
-    async getServiceLogs(serviceName: string, lines = 20, isDistribution = false): Promise<string> {
+    async getServiceLogs(serviceName: string, lines = 0, isDistribution = false): Promise<string> {
         const name = this.resolveServiceName(serviceName, isDistribution);
         const { stdout } = await this.exec(
             `journalctl -u ${name} -n ${lines} --no-pager`

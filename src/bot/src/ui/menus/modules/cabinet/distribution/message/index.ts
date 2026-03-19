@@ -7,7 +7,7 @@ import type { IMessage } from '@shared/types/IMessage';
 function main(ctx: MyContext, messages: IMessage[]): Menu<InlineKeyboard> {
     const nameDistribution = ctx.session.distribution.name;
     const callDistribution = ctx.session.distribution.call;
-    const positionId = ctx.session.state.text.positionId;   
+    const positionId = ctx.session.other.text.positionId;   
      
     let text = [];
     const keyboard = new InlineKeyboard()

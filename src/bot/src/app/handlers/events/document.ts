@@ -11,7 +11,6 @@ documentComposer.on(':document', async (ctx: MyContext) => {
     try {
         const mime = ctx.message.document.mime_type;
 
-        // 🔹 Только если это медиа-документ — передаём в медиа-стейт
         if (utils.local.checkMediaInDocument(mime!)) {
             await dispatcher(ctx);
             return;

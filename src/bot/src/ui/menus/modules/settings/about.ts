@@ -1,3 +1,4 @@
+import constants from '@constants';
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
@@ -12,7 +13,7 @@ export default function about(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t('commands.settings.about.path')
     ].join('\n\n');
     const keyboard = new InlineKeyboard()
-        .url(ctx.t("commands.settings.about.instruction"), "https://telegra.ph/Komandy-Rassylka-bot-11-29-2").row()
+        .url(ctx.t("commands.settings.about.instruction"), constants.link.instructionAboutCommands).row()
         .text(ctx.t("utils.shared.back"), "mainSettings")
     ;
     return { text: format.escapeMarkdown(text), keyboard }

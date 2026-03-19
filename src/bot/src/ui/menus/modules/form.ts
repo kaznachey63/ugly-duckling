@@ -1,3 +1,4 @@
+import constants from '@constants';
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
@@ -10,7 +11,7 @@ export default function form(ctx: MyContext): Menu<InlineKeyboard> {
     const text = ctx.t("commands.form.interest");
     const keyboard = new InlineKeyboard().url(
         ctx.t('commands.form.form'), 
-        "https://forms.gle/i91r3EaCeigbuo479"
+        constants.link.form
     );
     return { text: format.escapeMarkdown(text), keyboard }
 }

@@ -11,7 +11,7 @@ function addingText(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
     if (result) {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.read.text.adding.success"));
-        keyboard.text(ctx.t("utils.shared.back"), `readMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
+        keyboard.text(ctx.t("utils.shared.back"), `readMessage:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
     }
     else {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.read.text.adding.error"));
@@ -24,7 +24,7 @@ function updatingText(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.messages.read.text.updating.path", { call: ctx.session.distribution.call })
     ];
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
 
     if (result) {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.read.text.updating.success"));
@@ -42,15 +42,15 @@ function generatingText(ctx: MyContext, result: string) {
         '\n' + ctx.t("commands.cabinet.distribution.messages.add.generate.pathChoose", { call: ctx.session.distribution.call }),
     ].join('\n');
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.cabinet.distribution.messages.add.generate.buttons.save"), `generateText:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}-true`).style("success")
-        .text(ctx.t("commands.cabinet.distribution.messages.add.generate.buttons.cancel"), `generateText:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}-false`).style("danger").row()
+        .text(ctx.t("commands.cabinet.distribution.messages.add.generate.buttons.save"), `generateText:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}-true`).style("success")
+        .text(ctx.t("commands.cabinet.distribution.messages.add.generate.buttons.cancel"), `generateText:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}-false`).style("danger").row()
         .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`);
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 function addingMedia(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${ctx.session.distribution.name}#${ctx.session.state.text.positionId}`);;
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);;
     const text = [
         ctx.t("commands.cabinet.distribution.messages.read.media.adding.path", { call: ctx.session.distribution.call })
     ];

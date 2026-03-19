@@ -2,8 +2,8 @@ import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
 import menuChat from "@menus/modules/panel/chats";
 import { ServerManager } from "@utils/ServerManager";
-import common from "@utils/common";
 import { Composer } from "grammy";
+import { sleep } from "telegram/Helpers";
 
 const chatsComposer = new Composer<MyContext>();
 
@@ -49,7 +49,7 @@ chatsComposer.callbackQuery("reuploadChats", async (ctx: MyContext) => {
     let success = false; 
 
     while (Date.now() - start < maxWait) {
-        await common.sleep(interval);
+        sleep(interval);
         if (!await server.isServiceActive(nameService)) {
             const exitCode = await server.getServiceExitCode(nameService);
             success = exitCode === 0; // true только если код 0

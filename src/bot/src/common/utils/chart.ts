@@ -22,7 +22,7 @@ function createChart(ctx: MyContext, data: ChartData): QuickChart {
         options: {
             title: {
                 display: true,
-                text: ctx.t("utils.chart.label", { type: data.typeRu })
+                text: ctx.t("utils.chart.label", { motnh: '', year: '' })
             },
             scales: {
                 xAxes: [{ scaleLabel: { display: true } }],

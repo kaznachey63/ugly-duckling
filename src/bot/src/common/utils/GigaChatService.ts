@@ -46,7 +46,7 @@ export class GigaChatService {
             {
                 model: 'GigaChat:latest',
                 messages,
-                max_tokens: constants.maxTokens
+                max_tokens: constants.gigaChat.maxTokens
             },
             {
                 headers: {
@@ -66,7 +66,7 @@ export class GigaChatService {
      */
     private async getValidToken(): Promise<string> {
         const now = Date.now();
-        if (this.accessToken && this.tokenExpiry > now + constants.msInMinute) {
+        if (this.accessToken && this.tokenExpiry > now + constants.time.msInMinute) {
             return this.accessToken;
         }
         return this.refreshToken();

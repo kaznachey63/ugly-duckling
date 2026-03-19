@@ -139,7 +139,7 @@ function isDocumentAllowed(msg: Message): boolean {
 // Валидация: размер + mime
 function validateMedia(mediaData: MediaValidationData): boolean {
     // Проверка размера
-    if (mediaData.fileSize && mediaData.fileSize > consts.maxSizeFile) {
+    if (mediaData.fileSize && mediaData.fileSize > consts.media.maxSizeFile) {
         return false;
     }
 

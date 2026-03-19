@@ -3,20 +3,21 @@ import menuCabinet from "@menus/modules/cabinet/main";
 import db from "@shared/db";
 import google from "@utils/google";
 import type { Role } from '@shared/types/Role';
+import constants from '@constants';
 
 /**
  * Сброс сессии
  * @param session Сессия
  */
 function resetSessionStates(session: SessionData) {
-    session.state.text.adding = false;
-    session.state.text.updating = false;
-    session.state.text.generating = false;
-    session.state.media.adding = false;
-    session.state.time.adding = false;
-    session.state.text.positionId = 0;
-    session.state.media.positionId = 0;
-    session.state.idea.adding = false;
+    session.state.addingText = false;
+    session.state.updatingText = false;
+    session.state.generatingText = false;
+    session.state.addingTime = false;
+    session.state.addingMedia = false;
+    session.other.text.positionId = 0;
+    session.other.media.positionId = 0;
+    session.state.addingIdea = false;
 }
 
 /**
@@ -41,7 +42,7 @@ async function loadCabinet(ctx: MyContext) {
         const phone = await db.user.getPhoneNumber(ctx.from!.id);
         if (!phone) return ctx.reply(ctx.t('commands.cabinet.main.noSendouts'));
 
-        const rows = await google.getRowsFromGS("Заказчики!A2:I");
+        const rows = await google.getRowsFromGS(constants.google.rangeTable);
         const labels = rows
             ?.filter(r => r[7] === phone)
             .map(r => r[0])

@@ -1,3 +1,4 @@
+import constants from '@constants';
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
@@ -14,7 +15,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard().text(ctx.t("commands.settings.idea.main.buttons.add"), "addIdea").style("success");
 
     if (ctx.session.user.role == "admin") {
-        keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), "https://t.me/c/3760118458/1");
+        keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), constants.link.chatIdeas);
     }
 
     keyboard.row().text(ctx.t("utils.shared.back"), "mainSettings");

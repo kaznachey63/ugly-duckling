@@ -1,6 +1,7 @@
 import { InlineKeyboard } from 'grammy';
 import i18next from 'i18next';
-import type { CalendarOptions, CalendarState, CalendarCallbackData } from './types';
+import type { CalendarOptions, CalendarState } from './types';
+import constants from '@constants';
 
 // Хранилище состояний: userId -> state
 const calendarStates = new Map<number, CalendarState>();
@@ -10,8 +11,8 @@ export class CalendarKeyboard {
 
     constructor(options: CalendarOptions = {}) {
         this.options = {
-            minDate: options.minDate ?? new Date('1970-01-01'),
-            maxDate: options.maxDate ?? new Date('2100-12-31'),
+            minDate: options.minDate ?? new Date(constants.date.minDate),
+            maxDate: options.maxDate ?? new Date(constants.date.maxDate),
             startWeekDay: options.startWeekDay ?? 1,
             locale: options.locale ?? 'ru',
         };

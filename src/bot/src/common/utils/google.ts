@@ -1,3 +1,4 @@
+import constants from '@constants';
 import { google } from 'googleapis';
 
 /**
@@ -22,9 +23,9 @@ async function getRowsFromGS(range: string): Promise<string[][] | undefined> {
 
     const auth = new google.auth.GoogleAuth({
         credentials,
-        scopes: ["https://www.googleapis.com/auth/spreadsheets"]
+        scopes: [constants.google.scopeForAuth]
     });
-    const sheets = google.sheets({ version: 'v4', auth });
+    const sheets = google.sheets({ version: "v4", auth });
     const spreadsheetId = process.env.SPEADSHEET_ID!;
     const res = await sheets.spreadsheets.values.get({
         spreadsheetId,
