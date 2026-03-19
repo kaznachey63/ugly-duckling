@@ -10,6 +10,7 @@ import type { Message } from 'grammy/types';
 import menuState from '@menus/handlers/states';
 import { ServerManager } from '@utils/ServerManager';
 import { InlineKeyboard } from 'grammy';
+import { sleep } from 'telegram/Helpers';
 
 type MediaType = 'photo' | 'video' | 'animation' | 'document' | 'unknown';
 interface MediaValidationData {
@@ -99,7 +100,7 @@ export default async function addingMedia(ctx: MyContext) {
 
         // Обновление медиа
         await db.message.updateMessage(nameDistribution, message.id, { media: newMedia });
-        await utils.common.sleep(250);
+        await sleep(250);
         const server = new ServerManager();
         const menu = menuState.addingMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));
 

@@ -38,9 +38,7 @@ bot.on('message', async (ctx: MyContext, next: NextFunction) => {
     if (ctx.message?.text?.startsWith('/')) {
         await ctx.api.sendChatAction(ctx.chat?.id!, "typing");
     }
-    await utils.common.setPrimaryValuesSession(ctx);
-    console.log(ctx.chatId);
-    
+    await utils.common.setPrimaryValuesSession(ctx);    
     next();
 });
 

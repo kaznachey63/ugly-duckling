@@ -3,7 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import type { Status } from '@shared/types/server/Status';
 import { ServerManager } from '@utils/ServerManager';
 import menuCondition from '@menus/modules/cabinet/distribution/condition';
-import common from '@utils/common';
+import { sleep } from 'telegram/Helpers';
 
 const conditionComposer = new Composer<MyContext>();
 
@@ -27,7 +27,7 @@ conditionComposer.callbackQuery(/^startDistribution:/, async (ctx: MyContext) =>
         await ctx.editMessageText(ctx.t('utils.shared.processing'));
         const server = new ServerManager();
         await server.startService(ctx.session.distribution.name, true);
-        await common.sleep(250);
+        await sleep(250);
         const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.distribution.name, true) as Status);
 
         await ctx.editMessageText(menu.text, {
@@ -46,7 +46,7 @@ conditionComposer.callbackQuery(/^stopDistribution:/, async (ctx: MyContext) => 
         await ctx.editMessageText(ctx.t('utils.shared.processing'));
         const server = new ServerManager();
         await server.stopService(ctx.session.distribution.name, true);
-        await common.sleep(250);
+        await sleep(250);
         const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.distribution.name, true) as Status);
 
         await ctx.editMessageText(menu.text, {
@@ -65,7 +65,7 @@ conditionComposer.callbackQuery(/^restartDistribution:/, async (ctx: MyContext) 
         await ctx.editMessageText(ctx.t('utils.shared.processing'));
         const server = new ServerManager();
         await server.restartService(ctx.session.distribution.name, true);
-        await common.sleep(250);
+        await sleep(250);
         const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.distribution.name, true) as Status);
 
         await ctx.editMessageText(menu.text, {

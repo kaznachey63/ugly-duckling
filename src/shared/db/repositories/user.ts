@@ -133,6 +133,21 @@ async function getUserLang(telegramId: number): Promise<LanguageCode> {
     }
 }
 
+async function getUsers(): Promise<{ customers: number[]; admins: number[] }> {
+    let customers = [], admins = [];
+    try {
+        const users = (await pool.query("SELECT telegram_id, is_admin FROM users")).rows;
+        for (const user of users) {
+            if (user.is_admin) admins.push(user.telegram_id);
+            else if (!user.is_admin && user.telegram_id != 0) customers.push(user.telegram_id);
+        }
+    } catch (error) {
+        console.log("Ошибка в получении пользователей");
+    } finally {
+        return { customers, admins }
+    }
+}
+
 export default {
     userExistsInDB,
     userIsAdmin,
@@ -140,5 +155,6 @@ export default {
     getPhoneNumber,
     insertUserToDB,
     updateLangUser,
-    getUserLang
+    getUserLang,
+    getUsers
 }

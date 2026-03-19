@@ -97,13 +97,6 @@ async function loadCabinet(ctx: MyContext) {
 }
 
 /**
- * Задержка
- */
-function sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-/**
  * Проверка на админа по айди
  */
 function isAdmin(id: number): boolean {
@@ -137,7 +130,6 @@ async function setPrimaryValuesSession(ctx: MyContext) {
 export default {
     resetSessionStates,
     loadCabinet,
-    sleep,
     isAdmin,
     getRole,
     setPrimaryValuesSession
