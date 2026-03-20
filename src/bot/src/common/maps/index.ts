@@ -1,19 +1,20 @@
-const typeComparativeStatistika = {
+const typeComparativeStatistika: Record<string, string> = {
     "week": "Неделя",
     "month": "Месяц"
 };
 
-const fileFormat = {
+// Ключи — string, потому что typeMedia приходит из runtime-данных
+const fileFormat: Record<string, string[]> = {
     "image": ["jpg", "jpeg", "png", "gif", "bmp", "webp", "svg", "tiff", "ico"],
     "video": ["mp4", "avi", "mov", "wmv", "flv", "mkv", "webm", "m4v", "3gp", "mpeg", "mpg"]
 };
 
-const mimeType = {
+const mimeType: Record<string, string[]> = {
     "image": ["jpeg", "png", "gif", "bmp", "webp", "svg+xml", "tiff", "x-icon"],
     "video": ["mp4", "x-msvideo", "quicktime", "x-ms-wmv", "x-flv", "x-matroska", "webm", "x-m4v", "3gpp", "mpeg"]
 };
 
-const dayWeekMap = {
+const dayWeekMap: Record<string, string> = {
     '1': 'Понедельник',
     '2': 'Вторник',
     '3': 'Среда',
