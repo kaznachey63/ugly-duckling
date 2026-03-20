@@ -1,9 +1,8 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
 const execAsync = promisify(exec);
-
-import utils from './index';
 import type { Status } from '@shared/types/server/Status';
+import constants from '@constants';
 
 export class ServerManager {
     /**
@@ -14,7 +13,7 @@ export class ServerManager {
     private async exec(cmd: string, allowNonZeroExit = false): Promise<{ stdout: string; stderr: string; code: number | null }> {
         try {
             const result = await execAsync(cmd, {
-                timeout: 30000, // 30 сек
+                timeout: constants.server.timeout, // 30 сек
                 shell: '/bin/bash'
             });
             return { stdout: result.stdout, stderr: result.stderr, code: 0 };
@@ -64,7 +63,7 @@ export class ServerManager {
         return isNaN(code) ? null : code;
     }
 
-    async getServiceLogs(serviceName: string, lines = 20, isDistribution = false): Promise<string> {
+    async getServiceLogs(serviceName: string, lines = 0, isDistribution = false): Promise<string> {
         const name = this.resolveServiceName(serviceName, isDistribution);
         const { stdout } = await this.exec(
             `journalctl -u ${name} -n ${lines} --no-pager`,

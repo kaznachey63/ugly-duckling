@@ -1,7 +1,7 @@
 import type { MyContext } from '@shared/types/SessionData';
 import menuState from '@menus/handlers/states';
 import common from '@utils/common';
-import { gigaChat } from "@utils/GigaChatInstance";
+import { gigaChat } from "src/common/services/GigaChatInstance";
 
 export default async function generatingText(ctx: MyContext) {
     const result = await gigaChat.ask(ctx.message?.text || "");

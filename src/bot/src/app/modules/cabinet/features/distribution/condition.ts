@@ -1,7 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import type { Status } from '@shared/types/server/Status';
-import { ServerManager } from '@utils/ServerManager';
+import { ServerManager } from 'src/common/services/ServerManager';
 import menuCondition from '@menus/modules/cabinet/distribution/condition';
 import { sleep } from 'telegram/Helpers';
 

@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import google from '@utils/google';
+import { GoogleService } from "src/common/services/GoogleService";
 import menuContract from '@menus/modules/cabinet/distribution/contract';
 import constants from '@constants';
 
@@ -8,6 +8,7 @@ const contractComposer = new Composer<MyContext>();
 
 contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
     try {
+        const google = new GoogleService();
         const dataFromSheets = await google.getRowsFromGS(constants.google.rangeTable);
         const row = dataFromSheets?.find(r => r?.[0] === ctx.session.distribution.label);
 

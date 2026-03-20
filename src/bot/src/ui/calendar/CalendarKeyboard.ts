@@ -11,8 +11,8 @@ export class CalendarKeyboard {
 
     constructor(options: CalendarOptions = {}) {
         this.options = {
-            minDate: options.minDate ?? new Date(constants.date.minDate),
-            maxDate: options.maxDate ?? new Date(constants.date.maxDate),
+            minDate: options.minDate ?? new Date(constants.calendar.minDate),
+            maxDate: options.maxDate ?? new Date(constants.calendar.maxDate),
             startWeekDay: options.startWeekDay ?? 1,
             locale: options.locale ?? 'ru',
         };

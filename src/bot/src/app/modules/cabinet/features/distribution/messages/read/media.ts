@@ -1,9 +1,9 @@
 import db from '@shared/db';
 import { Composer, GrammyError } from 'grammy';
 import menuRead from '@menus/modules/cabinet/distribution/message/read';
-import { ServerManager } from "@utils/ServerManager";
+import { ServerManager } from "src/common/services/ServerManager";
 import type { MyContext } from '@shared/types/SessionData';
-import utils from '@utils';
+import { FileService } from 'src/common/services/FileService';
 
 const mediaComposer = new Composer<MyContext>();
 
@@ -55,7 +55,8 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     for (const file of message?.media!) {
         if (file && file !== 'null' && typeof file === 'string') {
             try {
-                await utils.file.deleteFile(file);
+                const fileService = new FileService();
+                await fileService.deleteFile(file);
                 console.log(`🗑️ Удалён файл: ${file}`);
             } catch (err) {
                 console.warn(`Файл не найден: ${file}`);

@@ -8,6 +8,7 @@ import db from '@shared/db';
 import utils from '@utils';
 import format from '@utils/formatting';
 import menuStatistic from '@menus/modules/cabinet/distribution/statistic';
+import { QuickChartService } from "src/common/services/QuickChartService";
 
 const statisticsComposer = new Composer<MyContext>();
 
@@ -139,7 +140,8 @@ async function handlerComparativeStatistika(ctx: MyContext, typeStat: StatisticT
     }
 
     await ctx.api.sendChatAction(ctx.chat?.id!, 'upload_photo');
-    const myChart = utils.chart.createChart(ctx, data);
+    const chart = new QuickChartService()
+    const myChart = chart.createChart(ctx, data);
     const menu = menuStatistic.handlerComparative(ctx, typeStat);
 
     await ctx.replyWithPhoto(await myChart.getShortUrl(), {

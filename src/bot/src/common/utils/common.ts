@@ -1,7 +1,7 @@
 import type { MyContext, SessionData } from '@shared/types/SessionData';
 import menuCabinet from "@menus/modules/cabinet/main";
 import db from "@shared/db";
-import google from "@utils/google";
+import { GoogleService } from "src/common/services/GoogleService";
 import type { Role } from '@shared/types/Role';
 import constants from '@constants';
 
@@ -41,7 +41,7 @@ async function loadCabinet(ctx: MyContext) {
     else {
         const phone = await db.user.getPhoneNumber(ctx.from!.id);
         if (!phone) return ctx.reply(ctx.t('commands.cabinet.main.noSendouts'));
-
+        const google = new GoogleService();
         const rows = await google.getRowsFromGS(constants.google.rangeTable);
         const labels = rows
             ?.filter(r => r[7] === phone)

@@ -1,7 +1,7 @@
 import type { MyContext } from '@shared/types/SessionData';
 import menuAdd from '@menus/modules/cabinet/distribution/message/add';
 import { Composer } from 'grammy';
-import { ServerManager } from "@utils/ServerManager";
+import { ServerManager } from "src/common/services/ServerManager";
 import db from "@shared/db";
 import common from '@utils/common';
 

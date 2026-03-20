@@ -1,7 +1,7 @@
 import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
 import menuState from '@menus/handlers/states';
-import { ServerManager } from "@utils/ServerManager";
+import { ServerManager } from "src/common/services/ServerManager";
 import common from '@utils/common';
 
 export default async function addingText(ctx: MyContext) {

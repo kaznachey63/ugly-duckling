@@ -3,7 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db/index';
 import local from '@utils/localization';
 import common from '@utils/common';
-import { ServerManager } from '@utils/ServerManager';
+import { ServerManager } from 'src/common/services/ServerManager';
 import menuSchedule from '@menus/modules/cabinet/distribution/schedule';
 
 const scheduleComposer = new Composer<MyContext>();

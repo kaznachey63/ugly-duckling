@@ -5,7 +5,7 @@ const link = {
     chatIdeas: "https://t.me/c/3760118458/1"
 }
 
-const date = {
+const calendar = {
     minDate: '1970-01-01',
     maxDate: '2100-12-31'
 }
@@ -48,10 +48,46 @@ const media = {
     maxMedia: 4,
 }
 
+const server = {
+    timeout: 30
+}
+
+const chart = {
+    datalabels: {
+        color: '#fff',
+        backgroundColor: 'rgba(34, 139, 34, 0.6)',
+        borderColor: 'rgba(34, 139, 34, 1)',
+        borderWidth: 1,
+        borderRadius: 5,
+    },
+    dataset: {
+        borderWidth: 2,
+        tensionWeek: 0,
+        tensionMonth: 0.35,
+        pointRadiusMonth: 2,
+        backgroundColorBar: 'rgba(54, 162, 235, 0.7)',
+        borderColorLine: 'rgba(54, 162, 235, 1)',
+    },
+    axis: {
+        yMin: 0,
+        yMax: 45,
+        stepSize: 10,
+        fontSize: 14,
+    },
+    canvas: {
+        week: { width: 900, height: 450 },
+        month: { width: 1200, height: 600 },
+    },
+
+    backgroundColor: 'white',
+}
+
 export default {
     link,
-    date,
+    calendar,
     google,
     gigaChat,
     media,
+    chart,
+    server
 }

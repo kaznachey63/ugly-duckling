@@ -1,5 +1,4 @@
 import db from '@shared/db';
-import fs from 'fs/promises';
 import path from 'path';
 import fetch from 'node-fetch';
 import type { MyContext } from '@shared/types/SessionData';
@@ -8,9 +7,10 @@ import consts from 'src/common/constants';
 import utils from 'src/common/utils';
 import type { Message } from 'grammy/types';
 import menuState from '@menus/handlers/states';
-import { ServerManager } from '@utils/ServerManager';
+import { ServerManager } from 'src/common/services/ServerManager';
 import { InlineKeyboard } from 'grammy';
 import { sleep } from 'telegram/Helpers';
+import { FileService } from 'src/common/services/FileService';
 
 type MediaType = 'photo' | 'video' | 'animation' | 'document' | 'unknown';
 interface MediaValidationData {
@@ -77,9 +77,11 @@ export default async function addingMedia(ctx: MyContext) {
         const url = `https://api.telegram.org/file/bot${process.env.BOT_TOKEN}/${file.file_path}`;
         const response = await fetch(url);
         const buffer = Buffer.from(await response.arrayBuffer());
-        await fs.mkdir(pathMedia, { recursive: true });
-        await fs.writeFile(path.join(pathMedia, nameFile), buffer);
-
+        
+        const fileService = new FileService();
+        await fileService.createDir(pathMedia);
+        await fileService.writeBuffer(path.join(pathMedia, nameFile), buffer);
+        
         // Получение сообщений
         const messages = await db.message.getMessagesForBot(nameDistribution);
         if (!messages) return;

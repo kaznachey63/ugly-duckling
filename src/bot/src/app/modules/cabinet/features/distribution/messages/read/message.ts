@@ -1,7 +1,7 @@
 import db from '@shared/db';
 import { Composer } from 'grammy';
 import menuRead from '@menus/modules/cabinet/distribution/message/read';
-import { ServerManager } from "@utils/ServerManager";
+import { ServerManager } from "src/common/services/ServerManager";
 import type { MyContext } from '@shared/types/SessionData';
 
 const messageComposer = new Composer<MyContext>();

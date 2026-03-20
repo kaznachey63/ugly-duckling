@@ -1,7 +1,7 @@
 import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
 import menuClear from '@menus/modules/cabinet/distribution/message/clear';
-import { ServerManager } from "@utils/ServerManager";
+import { ServerManager } from "src/common/services/ServerManager";
 import { Composer } from 'grammy';
 
 const clearComposer = new Composer<MyContext>();

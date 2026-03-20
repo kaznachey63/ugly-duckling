@@ -3,6 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import utils from '@utils';
 import constants from '@constants';
+import { GoogleService } from "src/common/services/GoogleService";
 
 const contactComposer = new Composer<MyContext>();
 
@@ -15,7 +16,8 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         if (!phoneNumber) return;
 
         // Проверяем номер в Google Sheets
-        const dataFromSheets = await utils.google.getRowsFromGS(constants.google.rangeTable);
+        const google = new GoogleService();
+        const dataFromSheets = await google.getRowsFromGS(constants.google.rangeTable);
         const phoneExists = dataFromSheets?.some(row => row[0]?.trim() === phoneNumber);
 
         // 1. Сначала отправляем "Обработка..." и ПОЛУЧАЕМ ID этого сообщения

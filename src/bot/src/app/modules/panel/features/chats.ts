@@ -1,7 +1,7 @@
 import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
 import menuChat from "@menus/modules/panel/chats";
-import { ServerManager } from "@utils/ServerManager";
+import { ServerManager } from "src/common/services/ServerManager";
 import { Composer } from "grammy";
 import { sleep } from "telegram/Helpers";
 
