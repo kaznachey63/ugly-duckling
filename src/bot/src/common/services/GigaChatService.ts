@@ -1,18 +1,18 @@
 import GigaChat from "gigachat";
 import { Agent } from "https";
 import { readFileSync } from "fs";
-import { resolve } from "path";
+import path from "path";
 import constants from "@constants";
 
 export class GigaChatService {
     private client: GigaChat;
 
     constructor(credentials: string) {
-        const certsDir = resolve(process.cwd(), "certs");
+        const certsDir = path.resolve(path.join('..', '..', '..', '..', 'certs'));
 
         const caBundle = [
-            readFileSync(resolve(certsDir, "root.crt")),
-            readFileSync(resolve(certsDir, "sub.crt"))
+            readFileSync(path.resolve(certsDir, "root.crt")),
+            readFileSync(path.resolve(certsDir, "sub.crt"))
         ];
 
         const httpsAgent = new Agent({ ca: caBundle });
