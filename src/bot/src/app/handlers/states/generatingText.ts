@@ -1,17 +1,11 @@
 import type { MyContext } from '@shared/types/SessionData';
 import menuState from '@menus/handlers/states';
 import common from '@utils/common';
-import { GigaChatService } from "@utils/GigaChatService";
-import constants from "@constants";
+import { gigaChat } from "@utils/GigaChatInstance";
 
 export default async function generatingText(ctx: MyContext) {
-    const gigaChat = new GigaChatService({ 
-        authKey: process.env.GIGA_CHAT_API!,
-        insecure: true
-    });
+    const result = await gigaChat.ask(ctx.message?.text || "");
 
-    const result = await gigaChat.ask(constants.gigaChat.systemPrompt + ctx.message?.text);
-    
     ctx.session.other.text.generateText = result;
     ctx.session.other.text.generateEntities = [];
 

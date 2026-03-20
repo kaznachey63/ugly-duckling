@@ -10,10 +10,6 @@ const date = {
     maxDate: '2100-12-31'
 }
 
-const time = {
-    msInMinute: 60_000
-}
-
 const google = {
     rangeTable: "Заказчики!A2:I",
     scopeForAuth: "https://www.googleapis.com/auth/spreadsheets",
@@ -43,6 +39,8 @@ const gigaChat = {
         ТЕКСТ:\n`.trim()
     ,
     maxTokens: 150,
+    temperature: 0.15,
+    timeout: 60
 }
 
 const media = {
@@ -56,5 +54,4 @@ export default {
     google,
     gigaChat,
     media,
-    time
 }
