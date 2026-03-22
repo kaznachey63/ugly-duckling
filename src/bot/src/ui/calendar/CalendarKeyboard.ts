@@ -48,7 +48,7 @@ export class CalendarKeyboard {
 
     private addHeaderRow(keyboard: InlineKeyboard, date: Date): void {
         const t = i18next.getFixedT(this.options.locale);
-        const monthName = t(`calendar.months.${date.getMonth()}`) ?? this.getDefaultMonthName(date.getMonth());
+        const monthName = t(`utils.calendar.months.${date.getMonth()}`);
         const year = date.getFullYear();
 
         const prevDisabled = this.isBeforeMinMonth(date);
@@ -58,7 +58,7 @@ export class CalendarKeyboard {
         if (prevDisabled) {
             keyboard.text('·', 'calendar:ignore:prev');
         } else {
-            keyboard.text('‹', `calendar:prev:${CalendarKeyboard.toYyyymmdd(date)}`);
+            keyboard.text('‹', `calendar:prev:${CalendarKeyboard.toDdmmyyyy(date)}`);
         }
 
         // Название месяца
@@ -68,7 +68,7 @@ export class CalendarKeyboard {
         if (nextDisabled) {
             keyboard.text('·', 'calendar:ignore:next');
         } else {
-            keyboard.text('›', `calendar:next:${CalendarKeyboard.toYyyymmdd(date)}`);
+            keyboard.text('›', `calendar:next:${CalendarKeyboard.toDdmmyyyy(date)}`);
         }
 
         keyboard.row(); // завершаем строку хедера
@@ -111,7 +111,7 @@ export class CalendarKeyboard {
 
             const displayText = isToday ? `[${day}]` : day.toString();
             const callbackData = isInRange
-                ? `calendar:date:${CalendarKeyboard.toYyyymmdd(currentDate)}`
+                ? `calendar:date:${CalendarKeyboard.toDdmmyyyy(currentDate)}`
                 : `calendar:ignore:disabled-${day}`;
 
             keyboard.text(displayText, callbackData);
@@ -157,33 +157,15 @@ export class CalendarKeyboard {
 
     private getWeekDayNames(): string[] {
         const t = i18next.getFixedT(this.options.locale);
-        const defaultNames =
-            this.options.startWeekDay === 1
-                ? ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
-                : ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-
-        return defaultNames.map((name, i) =>
-            t(`calendar.days.${i}`) ?? name
-        );
+        // Просто маппим ключи, без хардкода названий
+        return Array.from({ length: 7 }, (_, i) => t(`utils.calendar.days.${i}`));
     }
 
-    private getDefaultMonthName(monthIndex: number): string {
-        const ru = [
-            'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-        ];
-        const en = [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
-        ];
-        return this.options.locale === 'en' ? en[monthIndex]! : ru[monthIndex]!;
-    }
-
-    static toYyyymmdd(date: Date): string {
+    static toDdmmyyyy(date: Date): string {
         const yyyy = date.getFullYear();
         const mm = String(date.getMonth() + 1).padStart(2, '0');
         const dd = String(date.getDate()).padStart(2, '0');
-        return `${yyyy}-${mm}-${dd}`;
+        return `${dd}-${mm}-${yyyy}`;
     }
 
     // === Управление состоянием ===

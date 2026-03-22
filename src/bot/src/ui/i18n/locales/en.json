@@ -2,7 +2,7 @@
     "utils": {
         "shared": {
             "back": "🔙 Back",
-            "processing": "Processing...",
+            "processing": "⏳ Processing...",
             "cabinet": "🪴 Personal Cabinet",
             "menu": "Menu {{call}}"
         },
@@ -245,9 +245,17 @@
                         }
                     },
                     "selective": {
-                        "notDone": "Technical work is currently underway on this section.",
-                        "title": "Selective statistics.\nBelow is a calendar with dates. To view the broadcast result for a specific day - just click on it!\n\nIf the broadcast: \n*did not occur, \n*was not, \n*was not scheduled, \n*or other \n- a message with the corresponding context will be displayed, do not be afraid.",
-                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Selective*]"
+                        "main": {
+                            "noData": "No broadcasts have occurred for the selected date yet!",
+                            "title": "Selective statistics.\nBelow is a calendar with dates. To view the broadcast result for a specific day - just click on it!\n\nIf the broadcast: \n*did not occur, \n*was not, \n*was not scheduled, \n*or other \n- a message with the corresponding context will be displayed, do not be afraid.",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Selective*]"
+                        },
+                        "targetDate": {
+                            "notDone": "Technical work is currently underway on this section.",
+                            "title": "Broadcast result for {{date}}. \n\nTime: {{time}} \nSuccessful sends: {{success}}",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → Selective → *{{date}}*]",
+                            "buttonChats": "👥 Groups"
+                        }
                     },
                     "comparative": {
                         "main": {

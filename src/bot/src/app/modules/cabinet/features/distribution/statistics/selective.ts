@@ -16,12 +16,71 @@ selectiveStatisticsComposer.callbackQuery(/^selectiveStatistic:/, async (ctx: My
         // });
         const menu = menuStatistic.selective(ctx);
         await ctx.editMessageText(menu.text, {
-            reply_markup: menu.keyboard
+            reply_markup: menu.keyboard,
+            parse_mode: "MarkdownV2"
         });
     } catch (error) {
         console.error('Ошибка в selectiveStatistic:', error);
     }
 });
+
+selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:/, async (ctx) => {
+    // Пусто
+});
+
+selectiveStatisticsComposer.callbackQuery(/^calendar:prev:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
+    // Пусто
+});
+
+selectiveStatisticsComposer.callbackQuery(/^calendar:next:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
+    // Пусто
+});
+
+selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
+    const results = await db.result.getResults(ctx.session.distribution.name);
+
+    for (const result of results!) {
+        if (result.chats.length == 0 || result.chats.length == 1) continue;
+        const targetDate = ctx.callbackQuery.data.split(/date:/)[1]?.replace(/-/g, ':');
+        if (targetDate == result.date) {
+            const menu = menuStatistic.targetDateOnCalendar(ctx, result);
+            await ctx.editMessageText(menu.text, {
+                reply_markup: menu.keyboard,
+                parse_mode: "MarkdownV2"
+            });
+            return;
+        }
+    }
+
+    await ctx.answerCallbackQuery({ text: ctx.t('commands.cabinet.dustrubution.statistics.selective.noData'), show_alert: true });
+});
+
+selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:weekday$/, async (ctx) => {
+    // Пусто
+});
+
+selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:empty$/, async (ctx) => {
+    // Пусто
+});
+
+selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:disabled-\d+$/, async (ctx) => {
+    // Пусто
+});
+
+selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:month$/, async (ctx) => {
+    // Пусто
+});
+
+
+
+
+
+
+
+
+
+
+
 
 selectiveStatisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: MyContext) => {
     try {

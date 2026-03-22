@@ -28,8 +28,8 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
 
 function selective(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("commands.cabinet.distribution.statistics.selective.title"),
-        ctx.t("commands.cabinet.distribution.statistics.selective.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.statistics.selective.main.title"),
+        ctx.t("commands.cabinet.distribution.statistics.selective.main.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
     // Создаем экземпляр с параметрами (все опционально)
@@ -39,11 +39,24 @@ function selective(ctx: MyContext): Menu<InlineKeyboard> {
         startWeekDay: 1,                      // 1 = Пн, 0 = Вс
         locale: ctx.from?.language_code!, // Динамический язык из контекста
     });
-    
+
     const keyboard = 
         calendar.generate(new Date(), ctx.from?.id!)
         .row().text(ctx.t('utils.shared.back'), `mainStatistic:${ctx.session.distribution.name}`)
     ;
+
+    return { text: utils.formatting.escapeMarkdown(text), keyboard }
+}
+
+function targetDateOnCalendar(ctx: MyContext, result: { time: string, date: string, success: number, chats: string[] }): Menu<InlineKeyboard> {
+    const text = [
+        ctx.t(`commands.cabinet.distribution.statistics.selective.targetDate.title`, { date: result.date, time: result.time, success: result.success }),
+        ctx.t(`commands.cabinet.distribution.statistics.selective.targetDate.path`, { call: ctx.session.distribution.call })
+    ].join('\n\n');
+
+    const keyboard = new InlineKeyboard();
+    if (ctx.session.user.role == 'admin') keyboard.text(ctx.t('commands.cabinet.distribution.statistics.selective.targetDate.buttonChats'), `readChats:${ctx.session.distribution.name}-${result.date}`);
+    keyboard.text(ctx.t('utils.shared.back'), `comparativeStatistic:${ctx.session.distribution.name}`);
 
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
@@ -78,5 +91,6 @@ export default {
     main,
     selective,
     comparative,
-    handlerComparative
+    handlerComparative,
+    targetDateOnCalendar
 }
