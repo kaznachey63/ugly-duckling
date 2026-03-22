@@ -14,7 +14,7 @@ export class QuickChartService {
             data: {
                 labels: data.labels,
                 datasets: [{
-                    label: ctx.t("utils.constants.chart.label"),
+                    label: ctx.t("utils.chart.label"),
                     data: data.groups,
                     borderWidth: constants.chart.dataset.borderWidth,
                     tension: isMonth ? constants.chart.dataset.tensionMonth : constants.chart.dataset.tensionWeek,
@@ -26,7 +26,7 @@ export class QuickChartService {
             options: {
                 title: {
                     display: true,
-                    text: ctx.t("utils.constants.chart.label", { motnh: '', year: '' })
+                    text: ctx.t("utils.chart.label", { motnh: '', year: '' })
                 },
                 scales: {
                     xAxes: [{ scaleLabel: { display: true } }],
@@ -39,7 +39,7 @@ export class QuickChartService {
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: ctx.t("utils.constants.chart.amountSms"),
+                            labelString: ctx.t("utils.chart.amountSms"),
                             fontSize: constants.chart.axis.fontSize
                         }
                     }]

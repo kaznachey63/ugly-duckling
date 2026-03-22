@@ -3,6 +3,8 @@ import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import type { StatisticType } from '@shared/types/StatisticType';
 import utils from '@utils';
+import { CalendarKeyboard } from 'src/ui/calendar';
+import constants from '@constants';
 
 /**
  * Меню раздела Статистика
@@ -30,12 +32,19 @@ function selective(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.statistics.selective.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
-    // const calendarKeyboard = utils.calendar.getCalendar(ctx);
-
-    const keyboard = new InlineKeyboard()
-        // calendarKeyboard.row()
-        .text(ctx.t('utils.shared.back'), `mainStatistic:${ctx.session.distribution.name}`)
+    // Создаем экземпляр с параметрами (все опционально)
+    const calendar = new CalendarKeyboard({
+        minDate: new Date(constants.calendar.minDate),      // Минимальная дата для выбора
+        maxDate: new Date(constants.calendar.minDate),      // Максимальная дата
+        startWeekDay: 1,                      // 1 = Пн, 0 = Вс
+        locale: ctx.from?.language_code!, // Динамический язык из контекста
+    });
+    
+    const keyboard = 
+        calendar.generate(new Date(), ctx.from?.id!)
+        .row().text(ctx.t('utils.shared.back'), `mainStatistic:${ctx.session.distribution.name}`)
     ;
+
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 

@@ -1,43 +1,15 @@
-import { Composer, InlineKeyboard } from 'grammy';
+import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import type { Chat } from '@shared/types/Chat';
-import type { Menu } from '@shared/types/Menu';
 import type { ChartData } from '@shared/types/ChartData';
 import type { StatisticType } from '@shared/types/StatisticType';
 import db from '@shared/db';
 import utils from '@utils';
-import format from '@utils/formatting';
 import menuStatistic from '@menus/modules/cabinet/distribution/statistic';
 import { QuickChartService } from "src/common/services/QuickChartService";
 
-const statisticsComposer = new Composer<MyContext>();
+const comparativeStatisticsComposer = new Composer<MyContext>();
 
-statisticsComposer.callbackQuery(/^mainStatistic:/, async (ctx: MyContext) => {
-    try {        
-        const menu = menuStatistic.main(ctx);
-        await ctx.editMessageText(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: 'MarkdownV2'
-        });
-    } catch (error) {
-        console.error('Ошибка в mainStatistic:', error);
-    } finally {
-        
-    }
-});
-
-statisticsComposer.callbackQuery(/^selectiveStatistic:/, async (ctx: MyContext) => {
-    try {
-        await ctx.answerCallbackQuery({
-            text: ctx.t('commands.cabinet.distribution.statistics.selective.notDone'),
-            show_alert: true
-        });
-    } catch (error) {
-        console.error('Ошибка в selectiveStatistic:', error);
-    }
-});
-
-statisticsComposer.callbackQuery(/^comparativeStatistic:/, async (ctx: MyContext) => {
+comparativeStatisticsComposer.callbackQuery(/^comparativeStatistic:/, async (ctx: MyContext) => {
     try {
         const menu = menuStatistic.comparative(ctx);
         try {
@@ -59,74 +31,16 @@ statisticsComposer.callbackQuery(/^comparativeStatistic:/, async (ctx: MyContext
     }
 });
 
-statisticsComposer.callbackQuery(/^comparativeStatisticWeek:/, async (ctx: MyContext) => {
+comparativeStatisticsComposer.callbackQuery(/^comparativeStatistic:/, async (ctx: MyContext) => {
+    const typeStatistic = ctx.callbackQuery?.data?.split(/-/)[1] as StatisticType;
     try {
-        await handlerComparativeStatistika(ctx, 'week');
+        await handlerComparativeStatistika(ctx, typeStatistic);
     } catch (error) {
         console.error('Ошибка в comparativeStatisticWeek:', error);
     } finally {
         
     }
 });
-
-statisticsComposer.callbackQuery(/^comparativeStatisticMonth:/, async (ctx: MyContext) => {
-    try {
-        await handlerComparativeStatistika(ctx, 'month');
-    } catch (error) {
-        console.error('Ошибка в comparativeStatisticMonth:', error);
-    } finally {
-        
-    }
-});
-
-statisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: MyContext) => {
-    try {
-        const nameDistribution = ctx.session.distribution.name!;
-        const logsBaza = await db.result.getResults(nameDistribution);
-        if (!logsBaza) return;
-
-        const lastLog = logsBaza.at(-1)!;
-        const infoChats = await db.chat.getChatsInfo(lastLog?.chats);
-
-        if (logsBaza.length === 0 || !lastLog?.chats || !infoChats) {
-            await ctx.answerCallbackQuery({
-                text: ctx.t('commands.cabinet.distribution.chats.noSendout', {
-                    call: ctx.session.distribution.call
-                }),
-                show_alert: true
-            });
-            return;
-        }
-
-        const menu = chat(ctx, lastLog.success, infoChats!);
-        await ctx.editMessageText(format.escapeMarkdown(menu.text), {
-            parse_mode: 'MarkdownV2',
-            reply_markup: menu.keyboard
-        });
-    } catch (error) {
-        console.error('Ошибка в chatsForStatistics:', error);
-    } finally {
-
-    }
-});
-
-/**
- * Меню раздела чаты
- */
-function chat(ctx: MyContext, success: number, chats: Chat[]): Menu<InlineKeyboard> {
-    const text = [
-        ctx.t('commands.cabinet.distribution.chats.amount', { success }),
-        ctx.t('commands.cabinet.distribution.chats.path', { call: ctx.session.distribution.call })
-    ].join('\n\n');
-
-    const keyboard = new InlineKeyboard();
-    chats.forEach((chat: Chat) => {
-        keyboard.url(chat.title, chat.link).row();
-    });
-    keyboard.text(ctx.t('utils.shared.back'), 'mainDistribution');
-
-    return { text: format.escapeMarkdown(text), keyboard };
-}
 
 /**
  * Обработка типа сравнительной статистики
@@ -231,4 +145,4 @@ async function getDataForDiagram(ctx: MyContext, typeStat: StatisticType): Promi
     };
 }
 
-export default statisticsComposer;
+export default comparativeStatisticsComposer;
