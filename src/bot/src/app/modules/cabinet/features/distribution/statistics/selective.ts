@@ -10,15 +10,15 @@ const selectiveStatisticsComposer = new Composer<MyContext>();
 
 selectiveStatisticsComposer.callbackQuery(/^selectiveStatistic:/, async (ctx: MyContext) => {
     try {
-        // await ctx.answerCallbackQuery({
-        //     text: ctx.t('commands.cabinet.distribution.statistics.selective.notDone'),
-        //     show_alert: true
-        // });
-        const menu = menuStatistic.selective(ctx);
-        await ctx.editMessageText(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
+        await ctx.answerCallbackQuery({
+            text: ctx.t('commands.cabinet.distribution.statistics.selective.notDone'),
+            show_alert: true
         });
+        // const menu = menuStatistic.selective(ctx);
+        // await ctx.editMessageText(menu.text, {
+        //     reply_markup: menu.keyboard,
+        //     parse_mode: "MarkdownV2"
+        // });
     } catch (error) {
         console.error('Ошибка в selectiveStatistic:', error);
     }

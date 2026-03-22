@@ -1,6 +1,5 @@
 import { InlineKeyboard } from 'grammy';
 import i18next from 'i18next';
-import type { CalendarOptions, CalendarState } from './types';
 import constants from '@constants';
 
 // Хранилище состояний: userId -> state
@@ -58,7 +57,7 @@ export class CalendarKeyboard {
         if (prevDisabled) {
             keyboard.text('·', 'calendar:ignore:prev');
         } else {
-            keyboard.text('‹', `calendar:prev:${CalendarKeyboard.toDdmmyyyy(date)}`);
+            keyboard.text('‹', `calendar:prev:${CalendarKeyboard.toIsoDate(date)}`);
         }
 
         // Название месяца
@@ -68,10 +67,10 @@ export class CalendarKeyboard {
         if (nextDisabled) {
             keyboard.text('·', 'calendar:ignore:next');
         } else {
-            keyboard.text('›', `calendar:next:${CalendarKeyboard.toDdmmyyyy(date)}`);
+            keyboard.text('›', `calendar:next:${CalendarKeyboard.toIsoDate(date)}`);
         }
 
-        keyboard.row(); // завершаем строку хедера
+        keyboard.row();
     }
 
     private addWeekDaysRow(keyboard: InlineKeyboard): void {
@@ -111,7 +110,7 @@ export class CalendarKeyboard {
 
             const displayText = isToday ? `[${day}]` : day.toString();
             const callbackData = isInRange
-                ? `calendar:date:${CalendarKeyboard.toDdmmyyyy(currentDate)}`
+                ? `calendar:date:${CalendarKeyboard.toIsoDate(currentDate)}`
                 : `calendar:ignore:disabled-${day}`;
 
             keyboard.text(displayText, callbackData);
@@ -157,15 +156,15 @@ export class CalendarKeyboard {
 
     private getWeekDayNames(): string[] {
         const t = i18next.getFixedT(this.options.locale);
-        // Просто маппим ключи, без хардкода названий
         return Array.from({ length: 7 }, (_, i) => t(`utils.calendar.days.${i}`));
     }
 
-    static toDdmmyyyy(date: Date): string {
+    // ✅ ISO формат: yyyy-MM-dd (нативно парсится в new Date())
+    static toIsoDate(date: Date): string {
         const yyyy = date.getFullYear();
         const mm = String(date.getMonth() + 1).padStart(2, '0');
         const dd = String(date.getDate()).padStart(2, '0');
-        return `${dd}-${mm}-${yyyy}`;
+        return `${yyyy}-${mm}-${dd}`;
     }
 
     // === Управление состоянием ===
@@ -185,10 +184,10 @@ export class CalendarKeyboard {
     static clearReturnPoint(userId: number): void {
         const state = calendarStates.get(userId);
         if (state) {
-            delete state.returnToMonth; // ✅ вместо undefined используем delete
+            delete state.returnToMonth;
         }
     }
-    
+
     static updateCurrentMonth(userId: number, date: Date): void {
         const state = calendarStates.get(userId);
         if (state) {
@@ -200,3 +199,18 @@ export class CalendarKeyboard {
         calendarStates.delete(userId);
     }
 }
+
+export interface CalendarOptions {
+    minDate?: Date;
+    maxDate?: Date;
+    startWeekDay?: 0 | 1;
+    locale?: string;
+}
+
+export interface CalendarState {
+    currentMonth: Date;
+    returnToMonth?: Date;
+}
+
+export type CalendarAction = 'date' | 'prev' | 'next' | 'ignore';
+export type CalendarCallbackData = `calendar:${CalendarAction}:${string}`;
