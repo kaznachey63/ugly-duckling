@@ -9,12 +9,17 @@ export class QuickChartService {
         const isWeek = data.type === 'week';
         const isMonth = data.type === 'month';
 
+        const now = new Date();
+        const monthKeys = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+        const monthName = ctx.t(`utils.date.${monthKeys[now.getMonth()]}`);
+        const year = now.getFullYear();
+        
         qc.setConfig({
             type: isWeek ? 'bar' : 'line',
             data: {
                 labels: data.labels,
                 datasets: [{
-                    label: ctx.t("utils.chart.label"),
+                    // label: ctx.t("utils.chart.label"),
                     data: data.groups,
                     borderWidth: constants.chart.dataset.borderWidth,
                     tension: isMonth ? constants.chart.dataset.tensionMonth : constants.chart.dataset.tensionWeek,
@@ -26,7 +31,7 @@ export class QuickChartService {
             options: {
                 title: {
                     display: true,
-                    text: ctx.t("utils.chart.label", { motnh: '', year: '' })
+                    text: ctx.t("utils.chart.label", { month: monthName, year: year.toString() })
                 },
                 scales: {
                     xAxes: [{ scaleLabel: { display: true } }],
@@ -47,6 +52,10 @@ export class QuickChartService {
                 plugins: {
                     datalabels: {
                         ...constants.chart.datalabels,
+                        anchor: 'end',      
+                        align: 'top',         
+                        offset: 4,            
+                        clip: false,          
                         formatter: (value: number) => value === 0 ? null : value
                     }
                 },

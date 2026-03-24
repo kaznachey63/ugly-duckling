@@ -13,8 +13,7 @@
             "panel": "Admin Panel"
         },
         "chart": {
-            "label": "Number of groups that received the broadcast",
-            "title": "Statistics of sent messages ({{type}})",
+            "label": "Statistics of groups that received the broadcast. {{month}}. {{year}}",
             "amountSms": "Number of messages",
             "noLogs": "No broadcasts occurred in the selected period!",
             "daysOfWeek": {
@@ -25,6 +24,20 @@
                 "Fri": "Fri",
                 "Sat": "Sat",
                 "Sun": "Sun"
+            },
+            "months": {
+                "january": "January",
+                "february": "February",
+                "march": "March",
+                "april": "April",
+                "may": "May",
+                "june": "June",
+                "july": "July",
+                "august": "August",
+                "september": "September",
+                "october": "October",
+                "november": "November",
+                "december": "December"
             }
         },
         "calendar": {}
