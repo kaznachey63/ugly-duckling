@@ -48,31 +48,6 @@ export class ServerManager {
         }
     }
 
-    async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
-        const name = this.resolveServiceName(serviceName, isDistribution);
-
-        const { stdout: statusOut } = await this.exec(`sudo systemctl is-active ${name}`, true);
-        const status = statusOut.trim();
-
-        console.log(`[SYSTEMCTL] Service ${name} status: ${status}`);
-
-        if (status === "active" || status === "activating") {
-            await this.restartService(serviceName, isDistribution);
-
-            // Ждем 1 сек и проверяем, что сервис действительно активен после рестарта
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            const { stdout: afterRestart } = await this.exec(`sudo systemctl is-active ${name}`, true);
-            const newStatus = afterRestart.trim();
-
-            console.log(`[SYSTEMCTL] Service ${name} after restart: ${newStatus}`);
-
-            return newStatus === "active";
-        }
-
-        return true;
-    }
-
     async startService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
         const { stderr, code } = await this.exec(`sudo systemctl start ${name}`, true);
@@ -98,8 +73,30 @@ export class ServerManager {
     }
     async isServiceActive(serviceName: string, isDistribution = false): Promise<boolean> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        const { stdout, code } = await this.exec(`sudo systemctl is-active ${name}`, true);
-        return code === 0 && stdout.trim() === "active";
+        const { stdout } = await this.exec(
+            `sudo systemctl show ${name} --property=ActiveState --value`,
+            true
+        );
+        return stdout.trim().toLowerCase() === "active";
+    }
+
+    async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
+        const name = this.resolveServiceName(serviceName, isDistribution);
+
+        // Надежная проверка: был ли сервис активен
+        const wasActive = await this.isServiceActive(serviceName, isDistribution);
+
+        console.log(`[SYSTEMCTL] ${name} was active: ${wasActive}`);
+
+        if (wasActive) {
+            await this.restartService(serviceName, isDistribution);
+            // Микро-пауза, чтобы systemd успел принять команду
+            await new Promise(resolve => setTimeout(resolve, 500));
+            return true;
+        }
+
+        // Не был активен — ничего не делаем
+        return true;
     }
 
     async getServiceExitCode(serviceName: string, isDistribution = false): Promise<number | null> {
