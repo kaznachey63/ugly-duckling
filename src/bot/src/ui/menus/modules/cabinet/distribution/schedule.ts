@@ -26,13 +26,11 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
         keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.parameters"), "parametersSchedule").row();
 
         const count = times?.length ?? 0;
-
-        if (count >= 6) {
-            keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.clearSchedule"), `clearSchedule:${nameDistribution}`)
-        }
+        
         if (count <= 6) {
             keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.addTime"), `addTime:${nameDistribution}`)
         }
+        keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.clearSchedule"), `clearSchedule:${nameDistribution}`)
         keyboard.row();
     }
     keyboard.text(ctx.t("utils.shared.back"), `mainDistribution:${ctx.session.distribution.name}`);
