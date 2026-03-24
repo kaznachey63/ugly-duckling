@@ -5,11 +5,6 @@ import type { Status } from '@shared/types/server/Status';
 import constants from '@constants';
 
 export class ServerManager {
-    /**
-     * Выполнение команды на сервере (напрямую, без SSH)
-     * @param cmd Команда
-     * @param allowNonZeroExit Разрешить ненулевой exit code (для info-команд)
-     */
     private async exec(cmd: string, allowNonZeroExit = false): Promise<{ stdout: string; stderr: string; code: number | null }> {
         try {
             const result = await execAsync(cmd, {
@@ -30,73 +25,58 @@ export class ServerManager {
         }
     }
 
-    async restartService(serviceName: string, isDistribution = false): Promise<void> {
-        const name = this.resolveServiceName(serviceName, isDistribution);
-        const cmd = `sudo systemctl restart ${name}`;
-
-        console.log(`[SYSTEMCTL] Executing: ${cmd}`);
-
-        const { stdout, stderr, code } = await this.exec(cmd, true);
-
-        console.log(`[SYSTEMCTL] Code: ${code}, Stdout: "${stdout.trim()}", Stderr: "${stderr.trim()}"`);
-
-        const realErrors = ['not found', 'failed', 'access denied', 'interactive authentication', 'invalid', 'no such'];
-        const hasRealError = realErrors.some(e => (stdout + stderr).toLowerCase().includes(e));
-
-        if (code !== 0 && hasRealError) {
-            throw new Error(`systemctl failed: ${stderr.trim() || stdout.trim()}`);
-        }
+    private resolveServiceName(name: string, isDistribution: boolean): string {
+        return isDistribution ? `hawk-sendout@${name}.service` : name;
     }
 
     async startService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
         const { stderr, code } = await this.exec(`sudo systemctl start ${name}`, true);
+        const output = (stderr + '').toLowerCase();
+        const realErrors = ['not found', 'failed to', 'access denied', 'interactive authentication', 'no such', 'invalid'];
+        if (code !== 0 && realErrors.some(e => output.includes(e))) {
+            throw new Error(stderr.trim() || 'Failed to start service');
+        }
+    }
 
-        const realErrors = ['not found', 'failed', 'access denied', 'interactive authentication'];
-        const hasRealError = realErrors.some(e => stderr.toLowerCase().includes(e));
-
-        if (code !== 0 && hasRealError) {
-            throw new Error(`systemctl failed: ${stderr.trim()}`);
+    async restartService(serviceName: string, isDistribution = false): Promise<void> {
+        const name = this.resolveServiceName(serviceName, isDistribution);
+        const { stderr, code } = await this.exec(`sudo systemctl restart ${name}`, true);
+        const output = (stderr + '').toLowerCase();
+        const realErrors = ['not found', 'failed to', 'access denied', 'interactive authentication', 'no such', 'invalid'];
+        if (code !== 0 && realErrors.some(e => output.includes(e))) {
+            throw new Error(stderr.trim() || 'Failed to restart service');
         }
     }
 
     async stopService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
         const { stderr, code } = await this.exec(`sudo systemctl stop ${name}`, true);
-
-        const realErrors = ['not found', 'failed', 'access denied', 'interactive authentication'];
-        const hasRealError = realErrors.some(e => stderr.toLowerCase().includes(e));
-
-        if (code !== 0 && hasRealError) {
-            throw new Error(`systemctl failed: ${stderr.trim()}`);
+        const output = (stderr + '').toLowerCase();
+        const realErrors = ['not found', 'failed to', 'access denied', 'interactive authentication', 'no such', 'invalid'];
+        if (code !== 0 && realErrors.some(e => output.includes(e))) {
+            throw new Error(stderr.trim() || 'Failed to stop service');
         }
     }
+
     async isServiceActive(serviceName: string, isDistribution = false): Promise<boolean> {
         const name = this.resolveServiceName(serviceName, isDistribution);
         const { stdout } = await this.exec(
             `sudo systemctl show ${name} --property=ActiveState --value`,
             true
         );
-        return stdout.trim().toLowerCase() === "active";
+        return stdout.trim().toLowerCase() === 'active';
     }
 
-    async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
+    async getServiceStatus(serviceName: string, isDistribution = false): Promise<Status> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-
-        // Надежная проверка: был ли сервис активен
-        const wasActive = await this.isServiceActive(serviceName, isDistribution);
-
-        console.log(`[SYSTEMCTL] ${name} was active: ${wasActive}`);
-
-        if (wasActive) {
-            await this.restartService(serviceName, isDistribution);
-            // Микро-пауза, чтобы systemd успел принять команду
-            await new Promise(resolve => setTimeout(resolve, 500));
-            return true;
-        }
-
-        // Не был активен — ничего не делаем
-        return true;
+        const { stdout } = await this.exec(
+            `sudo systemctl show ${name} --property=ActiveState --value`,
+            true
+        );
+        const state = stdout.trim().toLowerCase();
+        const validStates: Status[] = ['active', 'inactive', 'failed', 'activating', 'deactivating'];
+        return validStates.includes(state as Status) ? (state as Status) : '';
     }
 
     async getServiceExitCode(serviceName: string, isDistribution = false): Promise<number | null> {
@@ -118,16 +98,14 @@ export class ServerManager {
         return stdout;
     }
 
-    async getServiceStatus(serviceName: string, isDistribution = false): Promise<Status> {
+    async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        const { stdout } = await this.exec(`sudo systemctl is-active ${name}`, true);
-        return stdout.trim() as Status;
-    }
-
-    private resolveServiceName(name: string, isDistribution: boolean): string {
-        return isDistribution
-            ? `hawk-sendout@${name}.service`
-            : name
-        ;                                 
+        const wasActive = await this.isServiceActive(serviceName, isDistribution);
+        if (wasActive) {
+            await this.restartService(serviceName, isDistribution);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            return true;
+        }
+        return true;
     }
 }
