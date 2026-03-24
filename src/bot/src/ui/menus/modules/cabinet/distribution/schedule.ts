@@ -28,12 +28,11 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
         const count = times?.length ?? 0;
         
         if (count <= 6) {
-            keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.addTime"), `addTime:${nameDistribution}`)
+            keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.addTime"), `addTime:${nameDistribution}`).style("success");
         }
-        keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.clearSchedule"), `clearSchedule:${nameDistribution}`)
-        keyboard.row();
+        keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.clearSchedule"), `clearSchedule:${nameDistribution}`).style("danger");
     }
-    keyboard.text(ctx.t("utils.shared.back"), `mainDistribution:${ctx.session.distribution.name}`);
+    keyboard.row().text(ctx.t("utils.shared.back"), `mainDistribution:${ctx.session.distribution.name}`);
     text.push(ctx.t("commands.cabinet.distribution.schedule.main.path", { call: callDistribution }));
     
     return { text: utils.formatting.escapeMarkdown(text.join('\n')), keyboard }
