@@ -9,6 +9,17 @@ import { QuickChartService } from "src/common/services/QuickChartService";
 
 const comparativeStatisticsComposer = new Composer<MyContext>();
 
+comparativeStatisticsComposer.callbackQuery(/^comparativeStatistic:(.+)-([a-zA-Z]+)$/, async (ctx: MyContext) => {
+    const typeStatistic = ctx.callbackQuery?.data?.split(/-/)[1] as StatisticType;
+    try {
+        await handlerComparativeStatistika(ctx, typeStatistic);
+    } catch (error) {
+        console.error('Ошибка в comparativeStatisticWeek:', error);
+    } finally {
+
+    }
+});
+
 comparativeStatisticsComposer.callbackQuery(/^comparativeStatistic:/, async (ctx: MyContext) => {
     try {
         const menu = menuStatistic.comparative(ctx);
@@ -26,17 +37,6 @@ comparativeStatisticsComposer.callbackQuery(/^comparativeStatistic:/, async (ctx
         }
     } catch (error) {
         console.error('Ошибка в comparativeStatistic:', error);
-    } finally {
-        
-    }
-});
-
-comparativeStatisticsComposer.callbackQuery(/^comparativeStatistic:(.+)-([a-zA-Z]+)$/, async (ctx: MyContext) => {    
-    const typeStatistic = ctx.callbackQuery?.data?.split(/-/)[1] as StatisticType;
-    try {
-        await handlerComparativeStatistika(ctx, typeStatistic);
-    } catch (error) {
-        console.error('Ошибка в comparativeStatisticWeek:', error);
     } finally {
         
     }
