@@ -13,12 +13,11 @@ export class ServerManager {
     private async exec(cmd: string, allowNonZeroExit = false): Promise<{ stdout: string; stderr: string; code: number | null }> {
         try {
             const result = await execAsync(cmd, {
-                timeout: constants.server.timeout, // 30 сек
+                timeout: constants.server.timeout,
                 shell: '/bin/bash'
             });
             return { stdout: result.stdout, stderr: result.stderr, code: 0 };
         } catch (err: any) {
-            // Для информационных команд (статус, логи) — не кидаем ошибку, просто возвращаем вывод
             if (allowNonZeroExit) {
                 return {
                     stdout: err.stdout || '',
@@ -26,27 +25,46 @@ export class ServerManager {
                     code: err.code ?? null
                 };
             }
-            // Для управляющих команд (start/stop/restart) — ошибка это действительно ошибка
             console.error(`❌ Команда '${cmd}' не выполнена:`, err.message);
             throw err;
         }
     }
 
-    async startService(serviceName: string, isDistribution = false): Promise<void> {
-        const name = this.resolveServiceName(serviceName, isDistribution);
-        await this.exec(`sudo systemctl start ${name}`);
-    }
-
     async restartService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        await this.exec(`sudo systemctl restart ${name}`);
+        const { stderr, code } = await this.exec(`sudo systemctl restart ${name}`, true);
+
+        const realErrors = ['not found', 'failed', 'access denied', 'interactive authentication'];
+        const hasRealError = realErrors.some(e => stderr.toLowerCase().includes(e));
+
+        if (code !== 0 && hasRealError) {
+            throw new Error(`systemctl failed: ${stderr.trim()}`);
+        }
+    }
+
+    async startService(serviceName: string, isDistribution = false): Promise<void> {
+        const name = this.resolveServiceName(serviceName, isDistribution);
+        const { stderr, code } = await this.exec(`sudo systemctl start ${name}`, true);
+
+        const realErrors = ['not found', 'failed', 'access denied', 'interactive authentication'];
+        const hasRealError = realErrors.some(e => stderr.toLowerCase().includes(e));
+
+        if (code !== 0 && hasRealError) {
+            throw new Error(`systemctl failed: ${stderr.trim()}`);
+        }
     }
 
     async stopService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        await this.exec(`sudo systemctl stop ${name}`);
-    }
+        const { stderr, code } = await this.exec(`sudo systemctl stop ${name}`, true);
 
+        const realErrors = ['not found', 'failed', 'access denied', 'interactive authentication'];
+        const hasRealError = realErrors.some(e => stderr.toLowerCase().includes(e));
+
+        if (code !== 0 && hasRealError) {
+            throw new Error(`systemctl failed: ${stderr.trim()}`);
+        }
+    }
     async isServiceActive(serviceName: string, isDistribution = false): Promise<boolean> {
         const name = this.resolveServiceName(serviceName, isDistribution);
         const { stdout, code } = await this.exec(`sudo systemctl is-active ${name}`, true);
