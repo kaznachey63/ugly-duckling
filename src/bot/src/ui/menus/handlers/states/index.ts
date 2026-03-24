@@ -90,11 +90,9 @@ function addingTime(ctx: MyContext, resultRestart: boolean, validate: boolean): 
     else {
         if (resultRestart) {
             text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.adding.success"));
-            keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
         }
         else {
             text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.adding.error"));
-            keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}`);
         }
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };

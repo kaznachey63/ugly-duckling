@@ -25,10 +25,12 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
     if (ctx.session.user.role == 'admin') {
         keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.parameters"), "parametersSchedule").row();
 
-        if (times?.length! >= 6) {
+        const count = times?.length ?? 0;
+
+        if (count >= 6) {
             keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.clearSchedule"), `clearSchedule:${nameDistribution}`)
         }
-        if (!times?.length) {
+        if (count <= 6) {
             keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.addTime"), `addTime:${nameDistribution}`)
         }
         keyboard.row();
