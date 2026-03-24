@@ -31,7 +31,7 @@ comparativeStatisticsComposer.callbackQuery(/^comparativeStatistic:/, async (ctx
     }
 });
 
-comparativeStatisticsComposer.callbackQuery(/^comparativeStatistic:/, async (ctx: MyContext) => {
+comparativeStatisticsComposer.callbackQuery(/^comparativeStatistic:(.+)-([a-zA-Z]+)$/, async (ctx: MyContext) => {    
     const typeStatistic = ctx.callbackQuery?.data?.split(/-/)[1] as StatisticType;
     try {
         await handlerComparativeStatistika(ctx, typeStatistic);
