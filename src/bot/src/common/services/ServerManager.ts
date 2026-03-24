@@ -34,29 +34,29 @@ export class ServerManager {
 
     async startService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        await this.exec(`systemctl start ${name}`);
+        await this.exec(`sudo systemctl start ${name}`);
     }
 
     async restartService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        await this.exec(`systemctl restart ${name}`);
+        await this.exec(`sudo systemctl restart ${name}`);
     }
 
     async stopService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        await this.exec(`systemctl stop ${name}`);
+        await this.exec(`sudo systemctl stop ${name}`);
     }
 
     async isServiceActive(serviceName: string, isDistribution = false): Promise<boolean> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        const { stdout, code } = await this.exec(`systemctl is-active ${name}`, true);
+        const { stdout, code } = await this.exec(`sudo systemctl is-active ${name}`, true);
         return code === 0 && stdout.trim() === "active";
     }
 
     async getServiceExitCode(serviceName: string, isDistribution = false): Promise<number | null> {
         const name = this.resolveServiceName(serviceName, isDistribution);
         const { stdout } = await this.exec(
-            `systemctl show ${name} --property=ExecMainStatus --value`,
+            `sudo systemctl show ${name} --property=ExecMainStatus --value`,
             true
         );
         const code = parseInt(stdout.trim(), 10);
@@ -66,7 +66,7 @@ export class ServerManager {
     async getServiceLogs(serviceName: string, lines = 0, isDistribution = false): Promise<string> {
         const name = this.resolveServiceName(serviceName, isDistribution);
         const { stdout } = await this.exec(
-            `journalctl -u ${name} -n ${lines} --no-pager`,
+            `sudo journalctl -u ${name} -n ${lines} --no-pager`,
             true
         );
         return stdout;
@@ -74,7 +74,7 @@ export class ServerManager {
 
     async getServiceStatus(serviceName: string, isDistribution = false): Promise<Status> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        const { stdout } = await this.exec(`systemctl is-active ${name}`, true);
+        const { stdout } = await this.exec(`sudo systemctl is-active ${name}`, true);
         return stdout.trim() as Status;
     }
 

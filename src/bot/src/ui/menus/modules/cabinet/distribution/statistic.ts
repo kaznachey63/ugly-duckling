@@ -70,8 +70,8 @@ function comparative(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.cabinet.distribution.statistics.comparative.main.buttons.week"), `comparativeStatistic:${nameDistribution}-Week`)
-        .text(ctx.t("commands.cabinet.distribution.statistics.comparative.main.buttons.month"), `comparativeStatistic:${nameDistribution}-Month`).row()
+        .text(ctx.t("commands.cabinet.distribution.statistics.comparative.main.buttons.week"), `comparativeStatistic:${nameDistribution}-week`)
+        .text(ctx.t("commands.cabinet.distribution.statistics.comparative.main.buttons.month"), `comparativeStatistic:${nameDistribution}-month`).row()
         .text(ctx.t('utils.shared.back'), `mainStatistic:${ctx.session.distribution.name}`)
     ;
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
