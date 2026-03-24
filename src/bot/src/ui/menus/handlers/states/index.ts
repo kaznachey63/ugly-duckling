@@ -78,10 +78,33 @@ function addingIdea(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
+function addingTime(ctx: MyContext, resultRestart: boolean, validate: boolean): Menu<InlineKeyboard> {
+    const text = [
+        ctx.t("commands.cabinet.distribution.messages.read.text.adding.path", { call: ctx.session.distribution.call })
+    ];
+    const keyboard = new InlineKeyboard();
+
+    if (!validate) {
+        text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.text.adding.validate"));
+    }
+    else {
+        if (resultRestart) {
+            text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.text.adding.success"));
+            keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
+        }
+        else {
+            text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.text.adding.error"));
+            keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}`);
+        }
+    }
+    return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
+}
+
 export default {
     addingText,
     updatingText,
     generatingText,
     addingMedia,
-    addingIdea
+    addingIdea,
+    addingTime
 }

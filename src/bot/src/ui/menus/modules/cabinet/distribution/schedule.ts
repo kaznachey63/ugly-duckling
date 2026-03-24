@@ -41,8 +41,8 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
 
 function add(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("commands.cabinet.distribution.schedule.add.title"),
-        ctx.t("commands.cabinet.distribution.schedule.add.path", { call: ctx.session.distribution.call }),
+        ctx.t("commands.cabinet.distribution.schedule.time.add.title"),
+        ctx.t("commands.cabinet.distribution.schedule.time.add.path", { call: ctx.session.distribution.call }),
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}`);
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
@@ -50,8 +50,8 @@ function add(ctx: MyContext): Menu<InlineKeyboard> {
 
 function update(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("commands.cabinet.distribution.schedule.main.update.title"),
-        ctx.t("commands.cabinet.distribution.schedule.main.update.path", { call: ctx.session.distribution.call }),
+        ctx.t("commands.cabinet.distribution.schedule.main.time.update.title"),
+        ctx.t("commands.cabinet.distribution.schedule.main.time.update.path", { call: ctx.session.distribution.call }),
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}`);
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
@@ -68,35 +68,17 @@ function remove(ctx: MyContext, listText: string[]): Menu<InlineKeyboard> {
 
 function updateOrRemove(ctx: MyContext, targetTime: string): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("commands.cabinet.distribution.schedule.updateOrRemove.title", { targetTime: targetTime }),
-        ctx.t("commands.cabinet.distribution.schedule.updateOrRemove.instruction"),
-        ctx.t("commands.cabinet.distribution.schedule.updateOrRemove.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.schedule.time.updateOrRemove.title", { targetTime: targetTime }),
+        ctx.t("commands.cabinet.distribution.schedule.time.updateOrRemove.instruction"),
+        ctx.t("commands.cabinet.distribution.schedule.time.updateOrRemove.path", { call: ctx.session.distribution.call })
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.cabinet.distribution.schedule.updateOrRemove.buttons.update"))
-        .text(ctx.t("commands.cabinet.distribution.schedule.updateOrRemove.buttons.remove"))
+        .text(ctx.t("commands.cabinet.distribution.schedule.time.updateOrRemove.buttons.update"))
+        .text(ctx.t("commands.cabinet.distribution.schedule.time.updateOrRemove.buttons.remove"))
         .text(ctx.t('utils.shared.back'), `mainSchedule:${ctx.session.distribution.name}`);
     ;
     return { text: utils.formatting.escapeMarkdown(text), keyboard}
-}
-
-function adding(ctx: MyContext): Menu<InlineKeyboard> {
-    const text = [
-        ctx.t("commands.cabinet.distribution.schedule.main.add.title"),
-        ctx.t("commands.cabinet.distribution.schedule.main.add.path", { call: ctx.session.distribution.call }),
-    ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}`);
-    return { text: utils.formatting.escapeMarkdown(text), keyboard }
-}
-
-function updating(ctx: MyContext): Menu<InlineKeyboard> {
-    const text = [
-        ctx.t("commands.cabinet.distribution.schedule.main.update.title"),
-        ctx.t("commands.cabinet.distribution.schedule.main.update.path", { call: ctx.session.distribution.call }),
-    ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}`);
-    return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 
 function clearSchedule(ctx: MyContext, listText: string[]): Menu<InlineKeyboard> {

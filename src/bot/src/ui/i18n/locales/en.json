@@ -218,35 +218,43 @@
                             "clearSchedule": "🗑 Clear"
                         }
                     },
-                    "add": {
-                        "title": "Adding time!",
-                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Add Time*]"
-                    },
-                    "update": {
-                        "title": "Editing time!",
-                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Edit Time*]"
-                    },
-                    "remove": {
-                        "success": "✅ Time deleted!",
-                        "error": "❌ Time not deleted!\nContact the administrator",
-                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → Select Action → *Delete Time*]"
-                    },
                     "clearSchedule": {
                         "success": "✅ Schedule cleared!",
                         "error": "❌ Schedule not cleared!\nContact the administrator",
                         "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Clear Schedule*]"
                     },
-                    "updateOrRemove": {
-                        "title": "Selected time: *{{targetTime}}*.",
-                        "instruction": "Press the button to perform the corresponding action.",
-                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Select Action*]",
-                        "buttons": {
-                            "update": "✍ Edit",
-                            "delete": "🗑 Delete"
-                        }
-                    },
                     "parameters": {
                         "alert": "Schedule Parameters below"
+                    },
+                    "time": {
+                        "add": {
+                            "title": "Adding time!",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Add Time*]"
+                        },
+                        "update": {
+                            "title": "Editing time!",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Edit Time*]"
+                        },
+                        "remove": {
+                            "success": "✅ Time deleted!",
+                            "error": "❌ Time not deleted!\nContact the administrator",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → Select Action → *Delete Time*]"
+                        },
+                        "updateOrRemove": {
+                            "title": "Selected time: *{{targetTime}}*.",
+                            "instruction": "Press the button to perform the corresponding action.",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Select Action*]",
+                            "buttons": {
+                                "update": "✍ Edit",
+                                "delete": "🗑 Delete"
+                            }
+                        },
+                        "adding": {
+                            "validate": "⚠ Input data had incorrect format. Send again",
+                            "success": "✅ Time saved!",
+                            "error": "❌ Time not saved!\nContact the administrator",
+                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Add Time*]"
+                        }
                     }
                 },
                 "statistics": {

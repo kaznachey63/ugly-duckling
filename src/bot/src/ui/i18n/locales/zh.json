@@ -218,35 +218,43 @@
                             "clearSchedule": "🗑 清空"
                         }
                     },
-                    "add": {
-                        "title": "添加时间！",
-                        "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *添加时间*]"
-                    },
-                    "update": {
-                        "title": "编辑时间！",
-                        "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *编辑时间*]"
-                    },
-                    "remove": {
-                        "success": "✅ 时间已删除！",
-                        "error": "❌ 时间未删除！\n请联系管理员",
-                        "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → 选择操作 → *删除时间*]"
-                    },
                     "clearSchedule": {
                         "success": "✅ 时间表已清空！",
                         "error": "❌ 时间表未清空！\n请联系管理员",
                         "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *清空时间表*]"
                     },
-                    "updateOrRemove": {
-                        "title": "选定时间：*{{targetTime}}*。",
-                        "instruction": "点击按钮以执行相应操作。",
-                        "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *选择操作*]",
-                        "buttons": {
-                            "update": "✍ 编辑",
-                            "delete": "🗑 删除"
-                        }
-                    },
                     "parameters": {
                         "alert": "下方为时间表参数"
+                    },
+                    "time": {
+                        "add": {
+                            "title": "添加时间！",
+                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *添加时间*]"
+                        },
+                        "update": {
+                            "title": "编辑时间！",
+                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *编辑时间*]"
+                        },
+                        "remove": {
+                            "success": "✅ 时间已删除！",
+                            "error": "❌ 时间未删除！\n请联系管理员",
+                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → 选择操作 → *删除时间*]"
+                        },
+                        "updateOrRemove": {
+                            "title": "选定时间：*{{targetTime}}*。",
+                            "instruction": "点击按钮以执行相应操作。",
+                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *选择操作*]",
+                            "buttons": {
+                                "update": "✍ 编辑",
+                                "delete": "🗑 删除"
+                            }
+                        },
+                        "adding": {
+                            "validate": "⚠ 输入数据格式不正确。请重新发送",
+                            "success": "✅ 时间已保存！",
+                            "error": "❌ 时间未保存！\n请联系管理员",
+                            "path": "[📍 路径：个人中心 → 菜单 «{{call}}» → 时间表 → *添加时间*]"
+                        }
                     }
                 },
                 "statistics": {
