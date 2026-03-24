@@ -80,20 +80,20 @@ function addingIdea(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 
 function addingTime(ctx: MyContext, resultRestart: boolean, validate: boolean): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("commands.cabinet.distribution.messages.read.text.adding.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.schedule.time.adding.path", { call: ctx.session.distribution.call })
     ];
     const keyboard = new InlineKeyboard();
 
     if (!validate) {
-        text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.text.adding.validate"));
+        text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.adding.validate"));
     }
     else {
         if (resultRestart) {
-            text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.text.adding.success"));
+            text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.adding.success"));
             keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
         }
         else {
-            text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.text.adding.error"));
+            text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.adding.error"));
             keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}`);
         }
     }
