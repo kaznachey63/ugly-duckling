@@ -59,15 +59,6 @@ export class ServerManager {
         }
     }
 
-    async isServiceActive(serviceName: string, isDistribution = false): Promise<boolean> {
-        const name = this.resolveServiceName(serviceName, isDistribution);
-        const { stdout } = await this.exec(
-            `sudo systemctl show ${name} --property=ActiveState --value`,
-            true
-        );
-        return stdout.trim().toLowerCase() === 'active';
-    }
-
     async getServiceStatus(serviceName: string, isDistribution = false): Promise<Status> {
         const name = this.resolveServiceName(serviceName, isDistribution);
         const { stdout } = await this.exec(
@@ -75,8 +66,16 @@ export class ServerManager {
             true
         );
         const state = stdout.trim().toLowerCase();
-        const validStates: Status[] = ['active', 'inactive', 'failed', 'activating', 'deactivating'];
-        return validStates.includes(state as Status) ? (state as Status) : '';
+        if (state === 'active') return 'active';
+        if (state === 'failed') return 'failed';
+        if (state === 'activating') return 'activating';
+        if (state === 'deactivating') return 'deactivating';
+        if (state === 'maintenance') return 'maintenance';
+        return 'inactive';
+    }
+
+    async isServiceActive(serviceName: string, isDistribution = false): Promise<boolean> {
+        return (await this.getServiceStatus(serviceName, isDistribution)) === 'active';
     }
 
     async getServiceExitCode(serviceName: string, isDistribution = false): Promise<number | null> {
