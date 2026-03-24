@@ -9,14 +9,20 @@ export class ServerManager {
         try {
             const result = await execAsync(cmd, {
                 timeout: constants.server.timeout,
-                shell: '/bin/bash'
+                shell: '/bin/bash',
+                encoding: 'utf8',
+                env: { ...process.env, PATH: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' }
             });
-            return { stdout: result.stdout, stderr: result.stderr, code: 0 };
+            return {
+                stdout: (result.stdout || '').toString().trim(),
+                stderr: (result.stderr || '').toString().trim(),
+                code: 0
+            };
         } catch (err: any) {
             if (allowNonZeroExit) {
                 return {
-                    stdout: err.stdout || '',
-                    stderr: err.stderr || '',
+                    stdout: (err.stdout || '').toString().trim(),
+                    stderr: (err.stderr || '').toString().trim(),
                     code: err.code ?? null
                 };
             }
@@ -31,40 +37,23 @@ export class ServerManager {
 
     async startService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        const { stderr, code } = await this.exec(`sudo systemctl start ${name}`, true);
-        const output = (stderr + '').toLowerCase();
-        const realErrors = ['not found', 'failed to', 'access denied', 'interactive authentication', 'no such', 'invalid'];
-        if (code !== 0 && realErrors.some(e => output.includes(e))) {
-            throw new Error(stderr.trim() || 'Failed to start service');
-        }
+        await this.exec(`sudo systemctl start ${name}`);
     }
 
     async restartService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        const { stderr, code } = await this.exec(`sudo systemctl restart ${name}`, true);
-        const output = (stderr + '').toLowerCase();
-        const realErrors = ['not found', 'failed to', 'access denied', 'interactive authentication', 'no such', 'invalid'];
-        if (code !== 0 && realErrors.some(e => output.includes(e))) {
-            throw new Error(stderr.trim() || 'Failed to restart service');
-        }
+        await this.exec(`sudo systemctl restart ${name}`);
     }
 
     async stopService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        const { stderr, code } = await this.exec(`sudo systemctl stop ${name}`, true);
-        const output = (stderr + '').toLowerCase();
-        const realErrors = ['not found', 'failed to', 'access denied', 'interactive authentication', 'no such', 'invalid'];
-        if (code !== 0 && realErrors.some(e => output.includes(e))) {
-            throw new Error(stderr.trim() || 'Failed to stop service');
-        }
+        await this.exec(`sudo systemctl stop ${name}`);
     }
+
     async getServiceStatus(serviceName: string, isDistribution = false): Promise<Status> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        const { stdout, stderr } = await this.exec(
-            `sudo systemctl is-active ${name}`,
-            true
-        );
-        const state = (stdout || stderr || '').trim().toLowerCase();
+        const { stdout } = await this.exec(`sudo systemctl is-active ${name}`, true);
+        const state = stdout.toLowerCase();
 
         if (state === 'active') return 'active';
         if (state === 'failed') return 'failed';
@@ -73,26 +62,11 @@ export class ServerManager {
         if (state === 'maintenance') return 'maintenance';
         if (state === 'inactive') return 'inactive';
 
-        // Если systemd вернул ошибку в stdout (например, "Failed to get properties")
-        if (state.includes('failed') || state.includes('not-found') || state.includes('error')) {
-            return 'inactive';
-        }
-
         return 'inactive';
     }
 
     async isServiceActive(serviceName: string, isDistribution = false): Promise<boolean> {
         return (await this.getServiceStatus(serviceName, isDistribution)) === 'active';
-    }
-
-    async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
-        const wasActive = await this.isServiceActive(serviceName, isDistribution);
-        if (wasActive) {
-            await this.restartService(serviceName, isDistribution);
-            await new Promise(resolve => setTimeout(resolve, 500));
-            return true;
-        }
-        return true;
     }
 
     async getServiceExitCode(serviceName: string, isDistribution = false): Promise<number | null> {
@@ -101,7 +75,7 @@ export class ServerManager {
             `sudo systemctl show ${name} --property=ExecMainStatus --value`,
             true
         );
-        const code = parseInt(stdout.trim(), 10);
+        const code = parseInt(stdout, 10);
         return isNaN(code) ? null : code;
     }
 
@@ -112,5 +86,15 @@ export class ServerManager {
             true
         );
         return stdout;
+    }
+
+    async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
+        const wasActive = await this.isServiceActive(serviceName, isDistribution);
+        if (wasActive) {
+            await this.restartService(serviceName, isDistribution);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            return true;
+        }
+        return true;
     }
 }
