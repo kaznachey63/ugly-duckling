@@ -13,7 +13,8 @@
             "panel": "Admin Panel"
         },
         "chart": {
-            "label": "Statistics of groups that received the broadcast. {{month}}. {{year}}",
+            "labelMonth": "Statistics of groups that received the broadcast. {{month}}. {{year}}",
+            "labelWeek": "Statistics of groups that received the broadcast. Week",
             "amountSms": "Number of messages",
             "noLogs": "No broadcasts occurred in the selected period!",
             "daysOfWeek": {

@@ -11,9 +11,9 @@ export class QuickChartService {
 
         const now = new Date();
         const monthKeys = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-        const monthName = ctx.t(`utils.date.${monthKeys[now.getMonth()]}`);
+        const monthName = ctx.t(`utils.chart.months.${monthKeys[now.getMonth()]}`);
         const year = now.getFullYear();
-        
+
         qc.setConfig({
             type: isWeek ? 'bar' : 'line',
             data: {
@@ -31,7 +31,7 @@ export class QuickChartService {
             options: {
                 title: {
                     display: true,
-                    text: ctx.t("utils.chart.label", { month: monthName, year: year.toString() })
+                    text: data.type == "month" ? ctx.t("utils.chart.labelMonth", { month: monthName, year: year.toString() }) : ctx.t("utils.chart.labelWeek")
                 },
                 scales: {
                     xAxes: [{ scaleLabel: { display: true } }],

@@ -13,7 +13,8 @@
             "panel": "管理面板"
         },
         "chart": {
-            "label": "收到广播的群组统计。{{month}}. {{year}}",
+            "labelMonth": "收到广播的群组统计。{{month}}. {{year}}",
+            "labelWeek": "收到广播的群组统计。周",
             "amountSms": "消息数量",
             "noLogs": "选定期间内尚未发生广播！",
             "daysOfWeek": {
