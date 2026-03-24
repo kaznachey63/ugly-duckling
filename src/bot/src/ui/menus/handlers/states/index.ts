@@ -82,7 +82,7 @@ function addingTime(ctx: MyContext, resultRestart: boolean, validate: boolean): 
     const text = [
         ctx.t("commands.cabinet.distribution.schedule.time.adding.path", { call: ctx.session.distribution.call })
     ];
-    const keyboard = new InlineKeyboard();
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainSchedule");
 
     if (!validate) {
         text.unshift(ctx.t("commands.cabinet.distribution.schedule.time.adding.validate"));

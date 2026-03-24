@@ -16,8 +16,8 @@ export default async function addingTime(ctx: MyContext) {
     else {
         await db.time.addTime(ctx.session.distribution.schema, formatTime(ctx.message?.text!));
         menu = menuState.addingTime(ctx, await server.restartProcessOrNot(nameDistribution, true), true);
+        common.resetSessionStates(ctx.session);
     }
-    common.resetSessionStates(ctx.session);
 
     await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
         reply_markup: menu.keyboard,
