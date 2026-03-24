@@ -32,14 +32,45 @@ export class ServerManager {
 
     async restartService(serviceName: string, isDistribution = false): Promise<void> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        const { stderr, code } = await this.exec(`sudo systemctl restart ${name}`, true);
+        const cmd = `sudo systemctl restart ${name}`;
 
-        const realErrors = ['not found', 'failed', 'access denied', 'interactive authentication'];
-        const hasRealError = realErrors.some(e => stderr.toLowerCase().includes(e));
+        console.log(`[SYSTEMCTL] Executing: ${cmd}`);
+
+        const { stdout, stderr, code } = await this.exec(cmd, true);
+
+        console.log(`[SYSTEMCTL] Code: ${code}, Stdout: "${stdout.trim()}", Stderr: "${stderr.trim()}"`);
+
+        const realErrors = ['not found', 'failed', 'access denied', 'interactive authentication', 'invalid', 'no such'];
+        const hasRealError = realErrors.some(e => (stdout + stderr).toLowerCase().includes(e));
 
         if (code !== 0 && hasRealError) {
-            throw new Error(`systemctl failed: ${stderr.trim()}`);
+            throw new Error(`systemctl failed: ${stderr.trim() || stdout.trim()}`);
         }
+    }
+
+    async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
+        const name = this.resolveServiceName(serviceName, isDistribution);
+
+        const { stdout: statusOut } = await this.exec(`sudo systemctl is-active ${name}`, true);
+        const status = statusOut.trim();
+
+        console.log(`[SYSTEMCTL] Service ${name} status: ${status}`);
+
+        if (status === "active" || status === "activating") {
+            await this.restartService(serviceName, isDistribution);
+
+            // Ждем 1 сек и проверяем, что сервис действительно активен после рестарта
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            const { stdout: afterRestart } = await this.exec(`sudo systemctl is-active ${name}`, true);
+            const newStatus = afterRestart.trim();
+
+            console.log(`[SYSTEMCTL] Service ${name} after restart: ${newStatus}`);
+
+            return newStatus === "active";
+        }
+
+        return true;
     }
 
     async startService(serviceName: string, isDistribution = false): Promise<void> {
@@ -94,29 +125,6 @@ export class ServerManager {
         const name = this.resolveServiceName(serviceName, isDistribution);
         const { stdout } = await this.exec(`sudo systemctl is-active ${name}`, true);
         return stdout.trim() as Status;
-    }
-
-    async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
-        const name = this.resolveServiceName(serviceName, isDistribution);
-
-        // Проверяем, запущен ли вообще
-        const { stdout: statusOut } = await this.exec(`sudo systemctl is-active ${name}`, true);
-        const status = statusOut.trim();
-
-        if (status === "active" || status === "activating") {
-            // Перезапускаем
-            await this.restartService(serviceName, isDistribution);
-
-            // Ждем 500мс, чтобы systemd успел применить изменения
-            await new Promise(resolve => setTimeout(resolve, 500));
-
-            // Возвращаем true, т.к. команда рестарта отправлена успешно
-            // (проверка is-active сразу после restart ненадежна из-за задержки systemd)
-            return true;
-        }
-
-        // Если не был запущен — просто возвращаем true (ничего делать не надо)
-        return true;
     }
 
     private resolveServiceName(name: string, isDistribution: boolean): string {
