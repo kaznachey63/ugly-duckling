@@ -58,24 +58,41 @@ export class ServerManager {
             throw new Error(stderr.trim() || 'Failed to stop service');
         }
     }
-
     async getServiceStatus(serviceName: string, isDistribution = false): Promise<Status> {
         const name = this.resolveServiceName(serviceName, isDistribution);
-        const { stdout } = await this.exec(
-            `sudo systemctl show ${name} --property=ActiveState --value`,
+        const { stdout, stderr } = await this.exec(
+            `sudo systemctl is-active ${name}`,
             true
         );
-        const state = stdout.trim().toLowerCase();
+        const state = (stdout || stderr || '').trim().toLowerCase();
+
         if (state === 'active') return 'active';
         if (state === 'failed') return 'failed';
         if (state === 'activating') return 'activating';
         if (state === 'deactivating') return 'deactivating';
         if (state === 'maintenance') return 'maintenance';
+        if (state === 'inactive') return 'inactive';
+
+        // Если systemd вернул ошибку в stdout (например, "Failed to get properties")
+        if (state.includes('failed') || state.includes('not-found') || state.includes('error')) {
+            return 'inactive';
+        }
+
         return 'inactive';
     }
 
     async isServiceActive(serviceName: string, isDistribution = false): Promise<boolean> {
         return (await this.getServiceStatus(serviceName, isDistribution)) === 'active';
+    }
+
+    async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
+        const wasActive = await this.isServiceActive(serviceName, isDistribution);
+        if (wasActive) {
+            await this.restartService(serviceName, isDistribution);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            return true;
+        }
+        return true;
     }
 
     async getServiceExitCode(serviceName: string, isDistribution = false): Promise<number | null> {
@@ -95,16 +112,5 @@ export class ServerManager {
             true
         );
         return stdout;
-    }
-
-    async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
-        const name = this.resolveServiceName(serviceName, isDistribution);
-        const wasActive = await this.isServiceActive(serviceName, isDistribution);
-        if (wasActive) {
-            await this.restartService(serviceName, isDistribution);
-            await new Promise(resolve => setTimeout(resolve, 500));
-            return true;
-        }
-        return true;
     }
 }
