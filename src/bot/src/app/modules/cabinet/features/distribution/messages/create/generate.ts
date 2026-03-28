@@ -1,5 +1,5 @@
 import type { MyContext } from '@shared/types/SessionData';
-import menuAdd from '@menus/modules/cabinet/distribution/message/add';
+import menuCreate from '@menus/modules/cabinet/distribution/message/create';
 import { Composer } from 'grammy';
 import { ServerManager } from "src/common/services/ServerManager";
 import db from "@shared/db";
@@ -25,11 +25,11 @@ genereteComposer.callbackQuery(/^generateText:.+#\d+-(true|false)$/, async (ctx:
             media: null
         });
         const server = new ServerManager();
-        menu = menuAdd.saveOrCancelGenerateText(ctx, action, await server.restartProcessOrNot(nameDistribution, true));
+        menu = menuCreate.saveOrCancelGenerateText(ctx, action, await server.restartProcessOrNot(nameDistribution, true));
         common.resetSessionStates(ctx.session);
     }
     else {
-        menu = menuAdd.saveOrCancelGenerateText(ctx, action);
+        menu = menuCreate.saveOrCancelGenerateText(ctx, action);
     }
 
     const msg = await ctx.editMessageText(menu.text, {
@@ -46,7 +46,7 @@ genereteComposer.callbackQuery(/^generateText:.+#\d+-(true|false)$/, async (ctx:
 genereteComposer.callbackQuery(/^generateText:/, async (ctx: MyContext) => {
     ctx.session.state.generatingText = true;
     ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
-    const menu = menuAdd.generate(ctx);
+    const menu = menuCreate.generate(ctx);
     
     const msg = await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,

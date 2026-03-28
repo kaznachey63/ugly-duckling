@@ -1,14 +1,14 @@
 import { Composer } from 'grammy';
-import menuAdd from '@menus/modules/cabinet/distribution/message/add';
-import menuRead from '@menus/modules/cabinet/distribution/message/read';
+import menuCreate from '@menus/modules/cabinet/distribution/message/create';
+import menuView from '@menus/modules/cabinet/distribution/message/view';
 import type { MyContext } from '@shared/types/SessionData';
 
 const textComposer = new Composer<MyContext>();
 
-textComposer.callbackQuery(/^mainAddText:/, async (ctx: MyContext) => {
+textComposer.callbackQuery(/^mainCreateText:/, async (ctx: MyContext) => {
     ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
 
-    const menu = menuAdd.main(ctx);
+    const menu = menuCreate.main(ctx);
     const msg = await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"
@@ -23,7 +23,7 @@ textComposer.callbackQuery(/^mainAddText:/, async (ctx: MyContext) => {
 textComposer.callbackQuery(/^updateText:/, async (ctx: MyContext) => {
     ctx.session.state.updatingText = true;
     ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
-    const menu = menuRead.updateText(ctx);
+    const menu = menuView.updateText(ctx);
 
     // Сохранение айди для последующего редактирования этого же сообщения
     const msg = await ctx.editMessageText(menu.text, {

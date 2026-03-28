@@ -4,17 +4,17 @@ import mediaComposer from './media';
 import textComposer from './text';
 import messageComposer from './message';
 import db from '@shared/db';
-import menuRead from '@menus/modules/cabinet/distribution/message/read';
+import menuView from '@menus/modules/cabinet/distribution/message/view';
 
-const readComposer = new Composer<MyContext>();
+const viewComposer = new Composer<MyContext>();
 
-readComposer.callbackQuery(/^readMessage:/, async (ctx: MyContext) => {
+viewComposer.callbackQuery(/^viewMessage:/, async (ctx: MyContext) => {
     const nameDistribution = ctx.session.distribution.name!;
     ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
 
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;
-    const menu = menuRead.main(ctx, messages);
+    const menu = menuView.main(ctx, messages);
 
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
@@ -22,8 +22,8 @@ readComposer.callbackQuery(/^readMessage:/, async (ctx: MyContext) => {
     });
 });
 
-readComposer.use(messageComposer);
-readComposer.use(textComposer);
-readComposer.use(mediaComposer);
+viewComposer.use(messageComposer);
+viewComposer.use(textComposer);
+viewComposer.use(mediaComposer);
 
-export default readComposer;
+export default viewComposer;

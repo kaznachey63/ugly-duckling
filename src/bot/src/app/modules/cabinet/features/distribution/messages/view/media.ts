@@ -1,6 +1,6 @@
 import db from '@shared/db';
 import { Composer, GrammyError } from 'grammy';
-import menuRead from '@menus/modules/cabinet/distribution/message/read';
+import menuView from '@menus/modules/cabinet/distribution/message/view';
 import { ServerManager } from "src/common/services/ServerManager";
 import type { MyContext } from '@shared/types/SessionData';
 import { FileService } from 'src/common/services/FileService';
@@ -17,7 +17,7 @@ mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
     ctx.session.state.addingMedia = true;
     ctx.session.other.media.positionId = positionId;
 
-    const menu = menuRead.addMedia(ctx);
+    const menu = menuView.addMedia(ctx);
     let msg: any;
     try {
         // Сохранение айди для последующего редактирования этого же сообщения
@@ -67,7 +67,7 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     // 🔥 ОБНУЛЯЕМ МЕДИА В БД
     await db.message.updateMessage(nameDistribution, message?.id!, { media: null });
     
-    const menu = menuRead.clearAllMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));
+    const menu = menuView.clearAllMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"

@@ -13,7 +13,7 @@ clearComposer.callbackQuery(/^clearAllMessages:/, async (ctx: MyContext) => {
 
     await db.message.removeAllMessage(nameDistribution);
     const server = new ServerManager();
-    const menu = menuClear.clearAll(ctx, await server.restartProcessOrNot(nameDistribution, true));
+    const menu = menuClear(ctx, await server.restartProcessOrNot(nameDistribution, true));
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"

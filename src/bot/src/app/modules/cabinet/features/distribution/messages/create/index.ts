@@ -3,9 +3,9 @@ import { Composer } from 'grammy';
 import genereteComposer from './generate';
 import handComposer from './hand';
 
-const addComposer = new Composer<MyContext>();
+const createComposer = new Composer<MyContext>();
 
-addComposer.use(genereteComposer);
-addComposer.use(handComposer);
+createComposer.use(genereteComposer);
+createComposer.use(handComposer);
 
-export default addComposer;
+export default createComposer;

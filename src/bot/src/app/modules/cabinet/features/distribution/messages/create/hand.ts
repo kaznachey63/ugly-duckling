@@ -1,5 +1,5 @@
 import type { MyContext } from '@shared/types/SessionData';
-import menuAddMessage from '@menus/modules/cabinet/distribution/message/add';
+import menuCreate from '@menus/modules/cabinet/distribution/message/create';
 import { Composer } from 'grammy';
 
 const handComposer = new Composer<MyContext>();
@@ -7,7 +7,7 @@ const handComposer = new Composer<MyContext>();
 handComposer.callbackQuery(/^handInputText:/, async (ctx: MyContext) => {
     ctx.session.state.addingText = true;
     ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
-    const menu = menuAddMessage.hand(ctx);
+    const menu = menuCreate.hand(ctx);
 
     const msg = await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
@@ -19,6 +19,5 @@ handComposer.callbackQuery(/^handInputText:/, async (ctx: MyContext) => {
         ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
     }
 });
-
 
 export default handComposer;

@@ -3,7 +3,7 @@ import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 
-function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
+export default function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [
         result ?
             ctx.t("commands.cabinet.distribution.messages.clearAll.success") :
@@ -14,8 +14,4 @@ function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`);
     return { text: format.escapeMarkdown(text), keyboard }
-}
-
-export default {
-    clearAll
 }

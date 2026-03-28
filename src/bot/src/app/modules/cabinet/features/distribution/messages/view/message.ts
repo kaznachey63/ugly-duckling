@@ -1,6 +1,6 @@
 import db from '@shared/db';
 import { Composer } from 'grammy';
-import menuRead from '@menus/modules/cabinet/distribution/message/read';
+import menuView from '@menus/modules/cabinet/distribution/message/view';
 import { ServerManager } from "src/common/services/ServerManager";
 import type { MyContext } from '@shared/types/SessionData';
 
@@ -16,7 +16,7 @@ messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
 
     await db.message.removeMessage(nameDistribution, messageId);
     const server = new ServerManager();
-    const menu = menuRead.removeMessage(ctx, await server.restartProcessOrNot(nameDistribution, true));
+    const menu = menuView.removeMessage(ctx, await server.restartProcessOrNot(nameDistribution, true));
 
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
