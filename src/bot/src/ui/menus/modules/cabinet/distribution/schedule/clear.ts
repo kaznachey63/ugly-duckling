@@ -7,8 +7,8 @@ export default function clear(ctx: MyContext, resultRestart: boolean): Menu<Inli
     const keyboard = new InlineKeyboard().text(ctx.t('utils.shared.back'), `mainSchedule:${ctx.session.distribution.name}`);
     const text = [
         resultRestart ? 
-            ctx.t('commands.cabinet.distribution.schedule.clear.error') :
-            ctx.t('commands.cabinet.distribution.schedule.clear.success')
+            ctx.t('commands.cabinet.distribution.schedule.clear.success') :
+            ctx.t('commands.cabinet.distribution.schedule.clear.error')
         ,
         ctx.t('commands.cabinet.distribution.schedule.clear.path', { call: ctx.session.distribution.call }),
     ].join('\n\n');
