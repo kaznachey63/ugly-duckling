@@ -10,8 +10,8 @@ export default function clear(ctx: MyContext, resultRestart: boolean): Menu<Inli
             ctx.t('commands.cabinet.distribution.schedule.clear.error') :
             ctx.t('commands.cabinet.distribution.schedule.clear.success')
         ,
-        ctx.t('commands.cabinet.distribution.schedule.clear.path')
-    ].join('\n');
+        ctx.t('commands.cabinet.distribution.schedule.clear.path', { call: ctx.session.distribution.call }),
+    ].join('\n\n');
 
     return { text: format.escapeMarkdown(text), keyboard }
 }

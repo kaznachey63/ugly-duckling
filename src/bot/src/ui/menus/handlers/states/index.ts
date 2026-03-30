@@ -86,6 +86,7 @@ function addingTime(ctx: MyContext, resultRestart: boolean, validate: boolean): 
 
     if (!validate) {
         text.unshift(ctx.t("handlers.states.addingTime.validate"));
+        keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.call}`);            
     }
     else {
         if (resultRestart) {
