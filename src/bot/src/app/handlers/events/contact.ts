@@ -35,7 +35,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             await deleteMessageProcessing(ctx, processingMsgId);
 
             if (!await db.user.insertUserToDB(ctx)) {
-                await ctx.reply(ctx.t("handlers.contact.numberIsNull"));
+                await ctx.reply(ctx.t("handlers.events.contact.numberIsNull"));
                 return;
             }
 
@@ -45,7 +45,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             await deleteMessageProcessing(ctx, processingMsgId);
 
             ctx.session.user.role = "unknown";
-            await ctx.reply(ctx.t('handlers.contact.accessDenied'));
+            await ctx.reply(ctx.t('handlers.events.contact.accessDenied'));
         }
     } catch (error) {
         console.error("Ошибка в обработке контакта:", error);

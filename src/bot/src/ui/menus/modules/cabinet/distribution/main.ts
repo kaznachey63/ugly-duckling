@@ -10,11 +10,8 @@ export default async function main(ctx: MyContext): Promise<Menu<InlineKeyboard>
         ctx.t("commands.cabinet.distribution.main.path", { call: ctx.session.distribution.call })
     ].join('\n\n');
 
-    let keyboard = new InlineKeyboard()
+    const keyboard = new InlineKeyboard()
         .text(ctx.t("commands.cabinet.distribution.main.buttons.contract"), `mainContract:${nameDistribution}`).row()
-    ;
-    
-    keyboard
         .text(ctx.t("commands.cabinet.distribution.main.buttons.schedule"), `mainSchedule:${nameDistribution}`).row()
         .text(ctx.t("commands.cabinet.distribution.main.buttons.messages"), `mainMessage:${nameDistribution}`).row()
         .text(ctx.t("commands.cabinet.distribution.main.buttons.statistics"), `mainStatistic:${nameDistribution}`).row()
