@@ -12,7 +12,7 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.schedule.view.main.title"),
         ctx.t("commands.cabinet.distribution.schedule.view.main.path", { call: callDistribution })
-    ].join('\n\n');
+    ].join('\n');
 
     let keyboard = new InlineKeyboard();
 
@@ -34,11 +34,15 @@ function update(ctx: MyContext): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function remove(ctx: MyContext, times: string[]): Menu<InlineKeyboard> {
-    const keyboard = new InlineKeyboard().text(ctx.t('utils.shared.back'), `mainSchedule:${ctx.session.distribution.name}`);
-    const text = times.map(t => {
-        return t.includes('path') ? ctx.t(t, { call: ctx.session.distribution.call }) : ctx.t(t);
-    }).join('\n');
+function remove(ctx: MyContext, resultRestart: boolean): Menu<InlineKeyboard> {
+    const keyboard = new InlineKeyboard().text(ctx.t('utils.shared.back'), `viewSchedule:${ctx.session.distribution.name}`);
+    const text = [
+        resultRestart ? 
+            ctx.t('commands.cabinet.distribution.schedule.view.time.remove.error') :
+            ctx.t('commands.cabinet.distribution.schedule.view.time.remove.success')
+        ,
+        ctx.t('commands.cabinet.distribution.schedule.view.time.remove.path')
+    ].join('\n');
 
     return { text: format.escapeMarkdown(text), keyboard }
 }

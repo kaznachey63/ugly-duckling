@@ -12,20 +12,34 @@ type ContractInfo = {
 /**
  * Меню обработчика контакта
  */
-export default function contract(ctx: MyContext, contractInfo: ContractInfo): Menu<InlineKeyboard> {   
-    const textLines = [
-        ctx.t("commands.cabinet.distribution.contract.title"),
-        ctx.t("commands.cabinet.distribution.contract.customer", { customer: contractInfo.customer }),
-        ctx.t("commands.cabinet.distribution.contract.dateStart", { dateStart: contractInfo.dateStart }),
-        ctx.t("commands.cabinet.distribution.contract.dateStop", { dateStop: contractInfo.dateStop }),
-        ctx.t("commands.cabinet.distribution.contract.path", { call: ctx.session.distribution.call })
-    ].join('\n');
+export default function contract(ctx: MyContext, errorWithData: true): Menu<InlineKeyboard>
+export default function contract(ctx: MyContext, contractInfo: ContractInfo, errorWithData: false): Menu<InlineKeyboard>
+export default function contract(ctx: MyContext, contractInfoOrError: ContractInfo | boolean, errorWithData?: boolean): Menu<InlineKeyboard> {
 
-    const text = format.escapeMarkdown(textLines);
+    const is_error = typeof contractInfoOrError === 'boolean' ? contractInfoOrError : (errorWithData ?? false)
+    const info = typeof contractInfoOrError === 'boolean' ? undefined : contractInfoOrError
 
-    const keyboard = new InlineKeyboard()
-        .text(ctx.t('utils.shared.back'), `mainDistribution:${ctx.session.distribution.name}`)
-    ;
+    let textLines: string[] = []
 
-    return { text, keyboard };
+    if (is_error) {
+        textLines = [
+            ctx.t("commands.cabinet.distribution.contract.title"),
+            ctx.t("commands.cabinet.distribution.contract.error")
+        ]
+    }
+    else if (info) {
+        textLines = [
+            ctx.t("commands.cabinet.distribution.contract.title"),
+            ctx.t("commands.cabinet.distribution.contract.customer", { customer: info.customer }),
+            ctx.t("commands.cabinet.distribution.contract.dateStart", { dateStart: info.dateStart }),
+            ctx.t("commands.cabinet.distribution.contract.dateStop", { dateStop: info.dateStop }),
+            ctx.t("commands.cabinet.distribution.contract.path", { call: ctx.session.distribution.call })
+        ]
+    }
+
+    const text = format.escapeMarkdown(textLines.join('\n'))
+
+    const keyboard = new InlineKeyboard().text(ctx.t('utils.shared.back'), `mainDistribution:${ctx.session.distribution.name}`);
+
+    return { text, keyboard }
 }

@@ -46,31 +46,16 @@ viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
 
 viewComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
     try {
-        const nameDistribution = ctx.session.distribution.name!;
-        let text: string[] = [];
-
-        if (!String(nameDistribution)) {
-            text.push('commands.cabinet.distribution.schedule.remove.error');
-        } else {
-            await db.time.removeTime(ctx.session.distribution.schema, ctx.session.other.time.positionId);
-            const server = new ServerManager();
-            if (await server.restartProcessOrNot(nameDistribution, true)) {
-                text.push('commands.cabinet.distribution.schedule.remove.success');
-            } else {
-                text.push('commands.cabinet.distribution.schedule.remove.error');
-            }
-        }
-        text.push('commands.cabinet.distribution.schedule.path');
-        const menu = menuView.remove(ctx, text);
-
+        await db.time.removeTime(ctx.session.distribution.schema, ctx.session.other.time.positionId);
+        const server = new ServerManager();
+        const menu = menuView.remove(ctx, await server.restartProcessOrNot(ctx.session.distribution.name!, true));
+    
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
             reply_markup: menu.keyboard
         });
     } catch (error) {
         console.error('Ошибка в removeTime:', error);
-    } finally {
-        
     }
 });
 

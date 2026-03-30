@@ -41,20 +41,78 @@
                 "december": "December"
             }
         },
-        "calendar": {}
+        "calendar": {
+            "months": {
+                "0": "January",
+                "1": "February",
+                "2": "March",
+                "3": "April",
+                "4": "May",
+                "5": "June",
+                "6": "July",
+                "7": "August",
+                "8": "September",
+                "9": "October",
+                "10": "November",
+                "11": "December"
+            },
+            "days": {
+                "0": "Mon",
+                "1": "Tue",
+                "2": "Wed",
+                "3": "Thu",
+                "4": "Fri",
+                "5": "Sat",
+                "6": "Sun"
+            }
+        }
     },
     "handlers": {
-        "contact": {
-            "numberIsNull": "Error processing phone number!\nTry again!",
-            "accessDenied": "Access denied.\nTo submit a product request, use the '/form' command"
+        "events": {
+            "contact": {
+                "numberIsNull": "Error processing phone number!\nTry again!",
+                "accessDenied": "Access denied.\nTo submit a product request, use the '/form' command"
+            }
         },
-        "document": {
-            "error": "I cannot process documents containing no media"
-        },
-        "setDateListener": {
-            "result": "Result for time: {{time}} ({{date}})\nDelivered to: {{success}}\n\n[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Selective*]",
-            "noData": "No broadcasts have occurred for this date yet",
-            "error": "An error occurred while processing the request"
+        "states": {
+            "addingText": {
+                "success": "✅ Text saved!",
+                "error": "❌ Text not saved!\nContact the administrator",
+                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Text*]"
+            },
+            "generatingText": {
+                "result": "The generated message is presented below. \nUse the buttons under the messages to decide the text's fate.",
+                "pathChoose": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → Text Generation → *Text Decision*]",
+                "buttons": {
+                    "save": "✔ Save",
+                    "cancel": "❌ Do Not Save"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Text updated!",
+                "error": "❌ Text not updated!\nContact the administrator",
+                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Edit Text*]"
+            },
+            "addingMedia": {
+                "error": "💀 Error saving media!\nContact the administrator",
+                "invalidType": "Media type not recognized! Try again",
+                "bigSize": "File is too large. Maximum size {{size}} MB.",
+                "documentsWTMedia": "I cannot process documents containing no: photo / video / gif",
+                "success": "✅ Media saved!",
+                "error2": "❌ Media not saved!\nContact the administrator",
+                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Media*]"
+            },
+            "addingTime": {
+                "validate": "⚠ Input data had incorrect format. Send again",
+                "success": "✅ Time saved!",
+                "error": "❌ Time not saved!\nContact the administrator",
+                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Add Time*]"
+            },
+            "addingIdea": {
+                "success": "✅ Idea successfully added, thank you!",
+                "error": "❌ Idea not added!\nTry again or contact the administrator!",
+                "path": "[📍 Path: Settings → Ideas → *Add Idea*]"
+            }
         }
     },
     "commands": {
@@ -106,16 +164,16 @@
                 },
                 "messages": {
                     "main": {
-                        "noMessages": "No messages!\nTo add text, press the button below",
+                        "empty": "No messages!\nTo add text, press the button below",
                         "title": "Messages Section Menu. Quantity: {{amount}}",
                         "path": "[📍 Path: Cabinet → Menu «{{call}}» → *Messages*]",
                         "buttons": {
-                            "add": "📄 Add",
-                            "clearAll": "🗑 Clear All",
-                            "read": "👁 View"
+                            "create": "📄 Add",
+                            "clear": "🗑 Clear All",
+                            "view": "👁 View"
                         }
                     },
-                    "add": {
+                    "create": {
                         "main": {
                             "title": "Select text addition type.",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Select Text Addition Mode (Message)*]",
@@ -126,37 +184,28 @@
                         },
                         "generate": {
                             "title": "I will generate sales text! \nSend the source here. Text batches are not allowed.",
-                            "result": "The generated message is presented below. \nUse the buttons under the messages to decide the text's fate.",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Text Generation*]",
-                            "pathChoose": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → Text Generation → *Text Decision*]",
-                            "pathSave": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → Text Generation → *Save Text*]",
-                            "pathCancel": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → Text Generation → *Reject Text*]",
                             "save": "✅ Text saved!",
                             "cancel": "❌ Text not saved!",
-                            "buttons": {
-                                "save": "✔ Save",
-                                "cancel": "❌ Do Not Save"
-                            }
+                            "pathSave": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → Text Generation → *Save Text*]",
+                            "pathCancel": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → Text Generation → *Reject Text*]"
                         },
                         "hand": {
                             "title": "Adding text!\nSend the text or forward it here. Text batches are not allowed.",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Text*]"
                         }
                     },
-                    "clearAll": {
+                    "clear": {
                         "success": "✅ All messages cleared!",
                         "error": "❌ Messages not cleared!\nContact the administrator",
                         "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Clear Messages*]"
                     },
-                    "read": {
+                    "view": {
                         "main": {
-                            "messageNumb": "Message No.{{number}}.",
+                            "messageNumber": "Message No.{{number}}.",
                             "amountMedia": "Media count: {{amount}} / {{maxMedia}}.",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *View*]",
                             "buttons": {
-                                "paramsMessage": "⬇ Message Parameters ⬇",
-                                "paramsText": "⬇ Text Parameters ⬇",
-                                "paramsMedia": "⬇ Media Parameters ⬇",
                                 "updateText": "✍️ Edit Text",
                                 "removeMessage": "🗑 Delete Message",
                                 "addMedia": "🖼 Add Media",
@@ -172,16 +221,6 @@
                                 "success": "✅ Message deleted!",
                                 "error": "❌ Text not deleted!\nContact the administrator",
                                 "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Delete Text*]"
-                            },
-                            "adding": {
-                                "success": "✅ Text saved!",
-                                "error": "❌ Text not saved!\nContact the administrator",
-                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Text*]"
-                            },
-                            "updating": {
-                                "success": "✅ Text updated!",
-                                "error": "❌ Text not updated!\nContact the administrator",
-                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Edit Text*]"
                             }
                         },
                         "media": {
@@ -193,15 +232,6 @@
                                 "success": "✅ All media cleared!",
                                 "error": "❌ Media not cleared!\nContact the administrator",
                                 "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Clear Media*]"
-                            },
-                            "adding": {
-                                "error": "💀 Error saving media!\nContact the administrator",
-                                "invalidType": "Media type not recognized! Try again",
-                                "bigSize": "File is too large. Maximum size {{size}} MB.",
-                                "documentsWTMedia": "I cannot process documents containing no: photo / video / gif",
-                                "success": "✅ Media saved!",
-                                "error2": "❌ Media not saved!\nContact the administrator",
-                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Messages → *Add Media*]"
                             }
                         },
                         "pagination": "Page (messages) {{nowPage}} of {{allPage}}"
@@ -209,51 +239,48 @@
                 },
                 "schedule": {
                     "main": {
-                        "noSchedule": "No schedule for {{call}}!",
-                        "title": "Broadcast schedule is presented below as buttons.",
-                        "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Time*]",
+                        "empty": "No schedule for {{call}}!",
+                        "title": "Schedule Section Menu. Time count: {{amount}}",
+                        "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → *Schedule*]",
                         "buttons": {
-                            "parameters": "⬇ Schedule Parameters ⬇",
-                            "addTime": "⏰ Add Time",
-                            "clearSchedule": "🗑 Clear"
+                            "create": "⏰ Add",
+                            "clear": "🗑 Clear All",
+                            "view": "👁 View"
                         }
                     },
-                    "clearSchedule": {
+                    "create": {
+                        "title": "Adding time!",
+                        "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Add Time*]"
+                    },
+                    "clear": {
                         "success": "✅ Schedule cleared!",
                         "error": "❌ Schedule not cleared!\nContact the administrator",
                         "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Clear Schedule*]"
                     },
-                    "parameters": {
-                        "alert": "Schedule Parameters below"
-                    },
-                    "time": {
-                        "add": {
-                            "title": "Adding time!",
-                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Add Time*]"
+                    "view": {
+                        "main": {
+                            "title": "Broadcast schedule is presented below as buttons.",
+                            "path": "\n[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *View*]"
                         },
-                        "update": {
-                            "title": "Editing time!",
-                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Edit Time*]"
-                        },
-                        "remove": {
-                            "success": "✅ Time deleted!",
-                            "error": "❌ Time not deleted!\nContact the administrator",
-                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → Select Action → *Delete Time*]"
-                        },
-                        "updateOrRemove": {
-                            "title": "Selected time: *{{targetTime}}*.",
-                            "instruction": "Press the button to perform the corresponding action.",
-                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Select Action*]",
-                            "buttons": {
-                                "update": "✍ Edit",
-                                "delete": "🗑 Delete"
+                        "time": {
+                            "update": {
+                                "title": "Editing time!",
+                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → View → *Edit Time*]"
+                            },
+                            "remove": {
+                                "success": "✅ Time deleted!",
+                                "error": "❌ Time not deleted!\nContact the administrator",
+                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → View → *Delete Time*]"
+                            },
+                            "updateOrRemove": {
+                                "title": "Selected time: *{{targetTime}}*.",
+                                "instruction": "Press the button to perform the corresponding action.",
+                                "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → View → *Select Action*]",
+                                "buttons": {
+                                    "update": "✍ Edit",
+                                    "delete": "🗑 Delete"
+                                }
                             }
-                        },
-                        "adding": {
-                            "validate": "⚠ Input data had incorrect format. Send again",
-                            "success": "✅ Time saved!",
-                            "error": "❌ Time not saved!\nContact the administrator",
-                            "path": "[📍 Path: Cabinet → Menu «{{call}}» → Schedule → *Add Time*]"
                         }
                     }
                 },
@@ -268,12 +295,12 @@
                     },
                     "selective": {
                         "main": {
+                            "notDone": "Technical work is currently underway on this section.",
                             "noData": "No broadcasts have occurred for the selected date yet!",
                             "title": "Selective statistics.\nBelow is a calendar with dates. To view the broadcast result for a specific day - just click on it!\n\nIf the broadcast: \n*did not occur, \n*was not, \n*was not scheduled, \n*or other \n- a message with the corresponding context will be displayed, do not be afraid.",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → *Selective*]"
                         },
                         "targetDate": {
-                            "notDone": "Technical work is currently underway on this section.",
                             "title": "Broadcast result for {{date}}. \n\nTime: {{time}} \nSuccessful sends: {{success}}",
                             "path": "[📍 Path: Cabinet → Menu «{{call}}» → Statistics → Selective → *{{date}}*]",
                             "buttonChats": "👥 Groups"
@@ -376,11 +403,6 @@
                 },
                 "add": {
                     "title": "Send me media/audio/text etc. No limitations!",
-                    "path": "[📍 Path: Settings → Ideas → *Add Idea*]"
-                },
-                "adding": {
-                    "success": "✅ Idea successfully added, thank you!",
-                    "error": "❌ Idea not added!\nTry again or contact the administrator!",
                     "path": "[📍 Path: Settings → Ideas → *Add Idea*]"
                 }
             }

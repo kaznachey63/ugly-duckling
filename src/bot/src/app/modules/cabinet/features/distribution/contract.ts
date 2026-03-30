@@ -12,13 +12,14 @@ contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
         const dataFromSheets = await google.getRowsFromGS(constants.google.rangeTable);
         const row = dataFromSheets?.find(r => r?.[0] === ctx.session.distribution.label);
 
+        let menu;
         if (!row || row.length < 4) {
-            await ctx.reply(ctx.t("commands.cabinet.distribution.contract.error"));
-            return;
+            menu = menuContract(ctx, true);
         }
-
-        const [, customer, dateStart, dateStop] = row as [undefined, string, string, string];
-        const menu = menuContract(ctx, { customer, dateStart, dateStop });
+        else {
+            const [, customer, dateStart, dateStop] = row as [undefined, string, string, string];
+            menu = menuContract(ctx, { customer, dateStart, dateStop }, false);
+        }
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
@@ -26,8 +27,6 @@ contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
         });
     } catch (error) {
         console.error('Ошибка в mainContract:', error);
-    } finally {
-        
     }
 });
 

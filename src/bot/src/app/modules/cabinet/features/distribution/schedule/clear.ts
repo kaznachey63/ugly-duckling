@@ -8,22 +8,9 @@ const clearComposer = new Composer<MyContext>();
 
 clearComposer.callbackQuery(/^clearSchedule:/, async (ctx: MyContext) => {
     try {
-        const nameDistribution = ctx.session.distribution.name!;
-        let text: string[] = [];
-
-        if (!String(nameDistribution)) {
-            text.push('commands.cabinet.distribution.schedule.clearSchedule.error');
-        } else {
-            await db.time.clearTableTimes(ctx.session.distribution.schema);
-            const server = new ServerManager();
-            if (await server.restartProcessOrNot(nameDistribution, true)) {
-                text.push('commands.cabinet.distribution.schedule.clearSchedule.success');
-            } else {
-                text.push('commands.cabinet.distribution.schedule.clearSchedule.error');
-            }
-        }
-        text.push('commands.cabinet.distribution.schedule.clearSchedule.path');
-        const menu = menuClear(ctx, text);
+        await db.time.clearTableTimes(ctx.session.distribution.schema);
+        const server = new ServerManager();
+        const menu = menuClear(ctx, await server.restartProcessOrNot(ctx.session.distribution.name, true));
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
@@ -31,8 +18,6 @@ clearComposer.callbackQuery(/^clearSchedule:/, async (ctx: MyContext) => {
         });
     } catch (error) {
         console.error('Ошибка в clearSchedule:', error);
-    } finally {
-        
     }
 });
 

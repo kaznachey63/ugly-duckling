@@ -3,11 +3,15 @@ import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 
-export default function clear(ctx: MyContext, times: string[]): Menu<InlineKeyboard> {
+export default function clear(ctx: MyContext, resultRestart: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard().text(ctx.t('utils.shared.back'), `mainSchedule:${ctx.session.distribution.name}`);
-    const text = times.map(t => {
-        return t.includes('path') ? ctx.t(t, { call: ctx.session.distribution.call }) : ctx.t(t);
-    }).join('\n');
+    const text = [
+        resultRestart ? 
+            ctx.t('commands.cabinet.distribution.schedule.clear.error') :
+            ctx.t('commands.cabinet.distribution.schedule.clear.success')
+        ,
+        ctx.t('commands.cabinet.distribution.schedule.clear.path')
+    ].join('\n');
 
     return { text: format.escapeMarkdown(text), keyboard }
 }

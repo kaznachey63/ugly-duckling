@@ -10,7 +10,7 @@ export default function main(ctx: MyContext, messages: IMessage[]): Menu<InlineK
     const positionId = ctx.session.other.text.positionId;   
      
     let text = [];
-    const keyboard = new InlineKeyboard().text(ctx.t("commands.cabinet.distribution.messages.main.buttons.add"), `mainCreateText:${nameDistribution}#${positionId}`).style("success");
+    const keyboard = new InlineKeyboard().text(ctx.t("commands.cabinet.distribution.messages.main.buttons.create"), `mainCreateText:${nameDistribution}#${positionId}`).style("success");
 
     // Нет сообщений
     if (!messages?.length) {
