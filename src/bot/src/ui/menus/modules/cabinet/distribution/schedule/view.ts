@@ -54,7 +54,7 @@ function updateOrRemove(ctx: MyContext, targetTime: string): Menu<InlineKeyboard
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.buttons.update"), `updateTime:${ctx.session.distribution.name}`)
+        .text(ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.buttons.update"), `updateTime:${ctx.session.distribution.name}#${ctx.session.other.time.positionId}`)
         .text(ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.buttons.remove"), `removeTime:${ctx.session.distribution.name}`).style('danger')
         .row().text(ctx.t('utils.shared.back'), `mainSchedule:${ctx.session.distribution.name}`);
     ;
