@@ -22,10 +22,8 @@ async function getTimes(): Promise<{ id: number; cron: string }[] | undefined> {
     }
 }
 
-async function getTimesForBot(nameDistribution: string): Promise<Time[] | undefined> {
+async function getTimesForBot(schema: string): Promise<Time[] | undefined> {
     try {
-        const schema = (await distribution.getDistributionInfo(nameDistribution)).schema;
-
         const { rows } = await pool.query(
             `SELECT id, minute, hour, day, month, week_day FROM ${schema}.cron_times`
         );

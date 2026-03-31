@@ -12,8 +12,7 @@ const viewComposer = new Composer<MyContext>();
 viewComposer.callbackQuery(/^viewSchedule:/, async (ctx: MyContext) => {
     try {
         common.resetSessionStates(ctx.session);
-        const nameDistribution = ctx.session.distribution.name!;
-        const times = await db.time.getTimesForBot(nameDistribution);
+        const times = await db.time.getTimesForBot(ctx.session.distribution.schema);
         
         let menu;
         if (!times || times.length <= 0) menu = menuSchedule(ctx, times!);
@@ -51,6 +50,9 @@ viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
 viewComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
     try {
         await db.time.removeTime(ctx.session.distribution.schema, ctx.session.other.time.positionId);
+        if ((await db.time.getTimesForBot(ctx.session.distribution.schema))?.length == 0) {
+            await db.time.clearTableTimes(ctx.session.distribution.schema);
+        }
         const server = new ServerManager();
         const menu = menuView.remove(ctx, await server.restartProcessOrNot(ctx.session.distribution.name!, true));
     
