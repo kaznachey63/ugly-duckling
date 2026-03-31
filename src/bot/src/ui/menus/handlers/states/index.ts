@@ -86,16 +86,16 @@ function addingOrUpdateTime(ctx: MyContext, resultRestart: boolean, validate: bo
 
     if (!validate) {
         text.unshift(ctx.t("handlers.states.addingOrUpdateTime.validate"));
-        keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.call}`);            
+        keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}`);            
     }
     else {
         if (resultRestart) {
             text.unshift(ctx.t("handlers.states.addingOrUpdateTime.success"));
-            keyboard.text(ctx.t("utils.shared.back"), `viewSchedule:${ctx.session.distribution.call}`);
+            keyboard.text(ctx.t("utils.shared.back"), `viewSchedule:${ctx.session.distribution.name}`);
         }
         else {
             text.unshift(ctx.t("handlers.states.addingOrUpdateTime.error"));
-            keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.call}`);            
+            keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}`);            
         }
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
