@@ -41,7 +41,7 @@ function remove(ctx: MyContext, resultRestart: boolean): Menu<InlineKeyboard> {
             ctx.t('commands.cabinet.distribution.schedule.view.time.remove.error') :
             ctx.t('commands.cabinet.distribution.schedule.view.time.remove.success')
         ,
-        ctx.t('commands.cabinet.distribution.schedule.view.time.remove.path')
+        ctx.t('commands.cabinet.distribution.schedule.view.time.remove.path', { call: ctx.session.distribution.call })
     ].join('\n');
 
     return { text: format.escapeMarkdown(text), keyboard }
@@ -55,7 +55,7 @@ function updateOrRemove(ctx: MyContext, targetTime: string): Menu<InlineKeyboard
 
     const keyboard = new InlineKeyboard()
         .text(ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.buttons.update"), `updateTime:${ctx.session.distribution.name}`)
-        .text(ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.buttons.remove"), `removeTime:${ctx.session.distribution.name}`)
+        .text(ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.buttons.remove"), `removeTime:${ctx.session.distribution.name}`).style('danger')
         .row().text(ctx.t('utils.shared.back'), `mainSchedule:${ctx.session.distribution.name}`);
     ;
     return { text: format.escapeMarkdown(text), keyboard }
