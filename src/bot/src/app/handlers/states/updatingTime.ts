@@ -38,6 +38,8 @@ function validateTime(time: string): boolean {
 }
 
 function formatTime(time: string, timeId: number): Time {
+    console.log(timeId);
+    
     const trimmed = time.trim();
     const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5]?[0-9]$/;
 
