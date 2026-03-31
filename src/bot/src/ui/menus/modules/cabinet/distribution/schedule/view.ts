@@ -30,7 +30,7 @@ function update(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.schedule.view.time.update.title"),
         ctx.t("commands.cabinet.distribution.schedule.view.time.update.path", { call: ctx.session.distribution.call }),
     ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewSchedule:${ctx.session.distribution.name}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `updateOrRemoveTime:${ctx.session.distribution.name}#${ctx.session.other.time.positionId}`)
     return { text: format.escapeMarkdown(text), keyboard }
 }
 

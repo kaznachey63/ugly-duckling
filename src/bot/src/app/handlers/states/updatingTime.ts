@@ -14,7 +14,7 @@ export default async function updatingTime(ctx: MyContext) {
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), false);
     }
     else {
-        await db.time.addTime(ctx.session.distribution.schema, formatTime(ctx.message?.text!));
+        await db.time.updateTIme(ctx.session.distribution.schema, formatTime(ctx.message?.text!));
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), true);
         common.resetSessionStates(ctx.session);
     }

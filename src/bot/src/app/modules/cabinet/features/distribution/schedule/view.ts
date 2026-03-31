@@ -31,6 +31,8 @@ viewComposer.callbackQuery(/^viewSchedule:/, async (ctx: MyContext) => {
 viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
     try {
         ctx.session.state.updatingTime = true;
+        const timeId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+        ctx.session.other.time.positionId = timeId;
         const menu = menuView.update(ctx);
 
         const msg = await ctx.editMessageText(menu.text, {
@@ -75,8 +77,6 @@ viewComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) => {
         });
     } catch (error) {
         console.error('Ошибка в updateOrRemoveTime:', error);
-    } finally {
-        
     }
 });
 
