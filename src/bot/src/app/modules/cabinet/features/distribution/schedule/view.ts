@@ -61,6 +61,7 @@ viewComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
 
 viewComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) => {
     try {
+        
         const queryData = ctx.callbackQuery?.data;
         const timeId = Number(queryData!.split(/:/)[1]);
         ctx.session.other.time.positionId = timeId;

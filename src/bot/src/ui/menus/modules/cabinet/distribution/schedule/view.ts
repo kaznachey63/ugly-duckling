@@ -49,14 +49,14 @@ function remove(ctx: MyContext, resultRestart: boolean): Menu<InlineKeyboard> {
 
 function updateOrRemove(ctx: MyContext, targetTime: string): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("commands.cabinet.distribution.schedule.time.updateOrRemove.title", { targetTime: targetTime }),
-        ctx.t("commands.cabinet.distribution.schedule.time.updateOrRemove.instruction"),
-        ctx.t("commands.cabinet.distribution.schedule.time.updateOrRemove.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.title", { targetTime: targetTime }),
+        ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.instruction"),
+        ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.path", { call: ctx.session.distribution.call })
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.cabinet.distribution.schedule.time.updateOrRemove.buttons.update"))
-        .text(ctx.t("commands.cabinet.distribution.schedule.time.updateOrRemove.buttons.remove"))
+        .text(ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.buttons.update"))
+        .text(ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.buttons.remove"))
         .text(ctx.t('utils.shared.back'), `mainSchedule:${ctx.session.distribution.name}`);
     ;
     return { text: format.escapeMarkdown(text), keyboard }
