@@ -51,6 +51,7 @@ function formatTime(time: string, timeId: number): Time {
             day: '*',
             month: '*',
             week_day: '*',
+            id: timeId
         };
     }
 
