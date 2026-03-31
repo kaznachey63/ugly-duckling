@@ -27,7 +27,7 @@ export default async function updatingTime(ctx: MyContext) {
 
 function validateTime(time: string): boolean {
     const trimmed = time.trim();
-    const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5]?[0-9]$/;
 
     if (timeRegex.test(trimmed)) {
         return true;
@@ -39,13 +39,13 @@ function validateTime(time: string): boolean {
 
 function formatTime(time: string): Time {
     const trimmed = time.trim();
-    const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5]?[0-9]$/;
 
     if (timeRegex.test(trimmed)) {
         const [hour, minute] = trimmed.split(':');
         return {
-            minute: minute!,
-            hour: hour!,
+            minute: minute!.padStart(2, '0'),
+            hour: hour!.padStart(2, '0'),
             day: '*',
             month: '*',
             week_day: '*',

@@ -5,6 +5,7 @@ import local from '@utils/localization';
 import { ServerManager } from 'src/common/services/ServerManager';
 import menuView from '@menus/modules/cabinet/distribution/schedule/view';
 import common from '@utils/common';
+import menuSchedule from '@menus/modules/cabinet/distribution/schedule/main';
 
 const viewComposer = new Composer<MyContext>();
 
@@ -13,7 +14,10 @@ viewComposer.callbackQuery(/^viewSchedule:/, async (ctx: MyContext) => {
         common.resetSessionStates(ctx.session);
         const nameDistribution = ctx.session.distribution.name!;
         const times = await db.time.getTimesForBot(nameDistribution);
-        const menu = menuView.main(ctx, times!);
+        
+        let menu;
+        if (!times || times.length <= 0) menu = menuSchedule(ctx, times!);
+        else menu = menuView.main(ctx, times!);
 
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
