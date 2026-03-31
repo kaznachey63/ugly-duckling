@@ -9,9 +9,9 @@ async function getLastMessage() {
 async function updateLastMessageId(messageId: number) {
     await pool.query(
         `UPDATE public.bot 
-        SET last_idea_id = $1
-        WHERE id = $2`,
-        [messageId, (await getLastMessage())?.id ?? 1]
+         SET last_idea_id = $1
+         WHERE id = 1`,
+        [messageId]
     );
 }
 
