@@ -11,6 +11,7 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
 
     const text = [
         ctx.t("commands.cabinet.distribution.schedule.view.main.title"),
+        '\n',
         ctx.t("commands.cabinet.distribution.schedule.view.main.path", { call: callDistribution })
     ].join('\n');
 
@@ -38,9 +39,10 @@ function remove(ctx: MyContext, resultRestart: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard().text(ctx.t('utils.shared.back'), `viewSchedule:${ctx.session.distribution.name}`);
     const text = [
         resultRestart ? 
-            ctx.t('commands.cabinet.distribution.schedule.view.time.remove.error') :
-            ctx.t('commands.cabinet.distribution.schedule.view.time.remove.success')
+            ctx.t('commands.cabinet.distribution.schedule.view.time.remove.success') :
+            ctx.t('commands.cabinet.distribution.schedule.view.time.remove.remove')
         ,
+        '\n',
         ctx.t('commands.cabinet.distribution.schedule.view.time.remove.path', { call: ctx.session.distribution.call })
     ].join('\n');
 

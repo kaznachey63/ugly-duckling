@@ -6,7 +6,7 @@ import { Composer } from 'grammy';
 
 const clearComposer = new Composer<MyContext>();
 
-clearComposer.callbackQuery(/^clearAllMessages:/, async (ctx: MyContext) => {
+clearComposer.callbackQuery(/^clearMessages:/, async (ctx: MyContext) => {
     const nameDistribution = ctx.session.distribution.name!;
     const messages = await db.message.getMessagesForBot(nameDistribution);
     if (!messages) return;
