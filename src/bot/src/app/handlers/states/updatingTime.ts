@@ -8,22 +8,45 @@ import type { Time } from "@shared/types/Time";
 export default async function updatingTime(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name!;
     const server = new ServerManager();
+    const userInput = ctx.message?.text!;
+
+    console.log('[updatingTime] userInput:', userInput);
+    console.log('[updatingTime] chatId:', ctx.chatId);
+    console.log('[updatingTime] idForUpdateMessageFromState:', ctx.session.other.ids.idForUpdateMessageFromState);
 
     let menu;
-    if (!validateTime(ctx.message?.text!)) {
+    const isValid = validateTime(userInput);
+    console.log('[updatingTime] validateTime result:', isValid);
+
+    if (!isValid) {
+        console.log('[updatingTime] Validation failed');
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), false);
     }
     else {
-        await db.time.updateTIme(ctx.session.distribution.schema, formatTime(ctx.message?.text!));
+        const formattedTime = formatTime(userInput);
+        console.log('[updatingTime] formattedTime:', formattedTime);
+
+        await db.time.updateTIme(ctx.session.distribution.schema, formattedTime);
+        console.log('[updatingTime] DB update completed');
+
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), true);
         common.resetSessionStates(ctx.session);
     }
 
-    await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
-        reply_markup: menu.keyboard,
-        parse_mode: "MarkdownV2"
-    });
+    console.log('[updatingTime] menu.text:', menu.text);
+    console.log('[updatingTime] menu.keyboard:', menu.keyboard);
+
+    try {
+        await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
+            reply_markup: menu.keyboard,
+            parse_mode: "MarkdownV2"
+        });
+        console.log('[updatingTime] Message updated successfully');
+    } catch (error) {
+        console.error('[updatingTime] Error updating message:', error);
+    }
 }
+
 
 function validateTime(time: string): boolean {
     const trimmed = time.trim();
