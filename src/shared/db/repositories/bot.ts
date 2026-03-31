@@ -11,7 +11,7 @@ async function updateLastMessageId(messageId: number) {
         `UPDATE public.bot 
         SET last_idea_id = $1
         WHERE id = $2`,
-        [messageId, (await getLastMessage()).id]
+        [messageId, (await getLastMessage())?.id ?? 1]
     );
 }
 
