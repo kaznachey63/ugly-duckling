@@ -11,11 +11,11 @@ export default async function addingTime(ctx: MyContext) {
 
     let menu;
     if (!validateTime(ctx.message?.text!)) {
-        menu = menuState.addingTime(ctx, await server.restartProcessOrNot(nameDistribution, true), false);
+        menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), false);
     }
     else {
         await db.time.addTime(ctx.session.distribution.schema, formatTime(ctx.message?.text!));
-        menu = menuState.addingTime(ctx, await server.restartProcessOrNot(nameDistribution, true), true);
+        menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), true);
         common.resetSessionStates(ctx.session);
     }
 

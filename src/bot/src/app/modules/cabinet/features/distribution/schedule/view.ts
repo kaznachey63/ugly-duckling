@@ -39,8 +39,6 @@ viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
         }
     } catch (error) {
         console.error('Ошибка в updateTime:', error);
-    } finally {
-        
     }
 });
 
@@ -61,9 +59,8 @@ viewComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
 
 viewComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) => {
     try {
-        
         const queryData = ctx.callbackQuery?.data;
-        const timeId = Number(queryData!.split(/:/)[1]);
+        const timeId = Number(queryData!.split(/#/)[1]);
         ctx.session.other.time.positionId = timeId;
         const targetTime = local.formatTimeToRu(await db.time.getTime(ctx.session.distribution.schema, timeId));
         const menu = menuView.updateOrRemove(ctx, targetTime!);

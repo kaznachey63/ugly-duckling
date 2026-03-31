@@ -78,23 +78,23 @@ function addingIdea(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function addingTime(ctx: MyContext, resultRestart: boolean, validate: boolean): Menu<InlineKeyboard> {
+function addingOrUpdateTime(ctx: MyContext, resultRestart: boolean, validate: boolean): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("handlers.states.addingTime.path", { call: ctx.session.distribution.call })
+        ctx.t("handlers.states.addingOrUpdateTime.path", { call: ctx.session.distribution.call })
     ];
     const keyboard = new InlineKeyboard();
 
     if (!validate) {
-        text.unshift(ctx.t("handlers.states.addingTime.validate"));
+        text.unshift(ctx.t("handlers.states.addingOrUpdateTime.validate"));
         keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.call}`);            
     }
     else {
         if (resultRestart) {
-            text.unshift(ctx.t("handlers.states.addingTime.success"));
+            text.unshift(ctx.t("handlers.states.addingOrUpdateTime.success"));
             keyboard.text(ctx.t("utils.shared.back"), `viewSchedule:${ctx.session.distribution.call}`);
         }
         else {
-            text.unshift(ctx.t("handlers.states.addingTime.error"));
+            text.unshift(ctx.t("handlers.states.addingOrUpdateTime.error"));
             keyboard.text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.call}`);            
         }
     }
@@ -107,5 +107,5 @@ export default {
     generatingText,
     addingMedia,
     addingIdea,
-    addingTime
+    addingOrUpdateTime
 }

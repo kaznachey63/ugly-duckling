@@ -3,9 +3,6 @@ import { getPool } from '../pool';
 const pool = getPool();
 import distribution from './distribution';
 
-// Файл: где-то в db/time.ts
-
-// Меняем тип возврата:
 async function getTimes(): Promise<{ id: number; cron: string }[] | undefined> {
     const client = await pool.connect();
     try {
@@ -59,7 +56,7 @@ async function addTime(schema: string, time: Time) {
     }
 }
 
-async function editTime(schema: string, time: Time) {
+async function updateTIme(schema: string, time: Time) {
     try {
         await pool.query(
             `UPDATE ${schema}.cron_times 
@@ -109,6 +106,6 @@ export default {
     getTime,
     removeTime,
     addTime,
-    editTime,
+    updateTIme,
     clearTableTimes
 }

@@ -17,7 +17,7 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
     let keyboard = new InlineKeyboard();
 
     for (const time of times) {
-        keyboard.text(utils.local.formatTimeToRu(time)!, `updateOrRemoveTime:${nameDistribution}:${time.id}`).row();
+        keyboard.text(utils.local.formatTimeToRu(time)!, `updateOrRemoveTime:${nameDistribution}#${time.id}`).row();
     }
 
     keyboard.row().text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}`);
@@ -30,7 +30,7 @@ function update(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.schedule.view.time.update.title"),
         ctx.t("commands.cabinet.distribution.schedule.view.time.update.path", { call: ctx.session.distribution.call }),
     ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.distribution.name}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewSchedule:${ctx.session.distribution.name}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 

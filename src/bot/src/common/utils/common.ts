@@ -14,6 +14,7 @@ function resetSessionStates(session: SessionData) {
     session.state.updatingText = false;
     session.state.generatingText = false;
     session.state.addingTime = false;
+    session.state.updatingTime = false;
     session.state.addingMedia = false;
     session.other.text.positionId = 0;
     session.other.media.positionId = 0;
