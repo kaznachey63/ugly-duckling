@@ -3,8 +3,6 @@ const pool = getPool();
 
 async function getLastMessage() {
     const { rows } = await pool.query("SELECT last_idea_id FROM public.bot");
-    console.log(rows);
-    
     return rows[0];
 }
 

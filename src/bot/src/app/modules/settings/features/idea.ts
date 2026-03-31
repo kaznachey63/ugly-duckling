@@ -7,7 +7,7 @@ const ideaComposer = new Composer<MyContext>();
 
 ideaComposer.callbackQuery('mainIdea', async (ctx: MyContext) => {
     try {
-        const lastMessageId = String((await db.bot.getLastMessage()).lastMessageId);
+        const lastMessageId = String((await db.bot.getLastMessage()).last_idea_id);
         const menu = menuIdea.main(ctx, lastMessageId);
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
