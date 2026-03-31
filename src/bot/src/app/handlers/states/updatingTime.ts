@@ -8,45 +8,22 @@ import type { Time } from "@shared/types/Time";
 export default async function updatingTime(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name!;
     const server = new ServerManager();
-    const userInput = ctx.message?.text!;
-
-    console.log('[updatingTime] userInput:', userInput);
-    console.log('[updatingTime] chatId:', ctx.chatId);
-    console.log('[updatingTime] idForUpdateMessageFromState:', ctx.session.other.ids.idForUpdateMessageFromState);
 
     let menu;
-    const isValid = validateTime(userInput);
-    console.log('[updatingTime] validateTime result:', isValid);
-
-    if (!isValid) {
-        console.log('[updatingTime] Validation failed');
+    if (!validateTime(ctx.message?.text!)) {
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), false);
     }
     else {
-        const formattedTime = formatTime(userInput);
-        console.log('[updatingTime] formattedTime:', formattedTime);
-
-        await db.time.updateTIme(ctx.session.distribution.schema, formattedTime);
-        console.log('[updatingTime] DB update completed');
-
+        await db.time.updateTIme(ctx.session.distribution.schema, formatTime(ctx.message?.text!, ctx.session.other.time.positionId));
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), true);
         common.resetSessionStates(ctx.session);
     }
 
-    console.log('[updatingTime] menu.text:', menu.text);
-    console.log('[updatingTime] menu.keyboard:', menu.keyboard);
-
-    try {
-        await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
-        });
-        console.log('[updatingTime] Message updated successfully');
-    } catch (error) {
-        console.error('[updatingTime] Error updating message:', error);
-    }
+    await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: "MarkdownV2"
+    });
 }
-
 
 function validateTime(time: string): boolean {
     const trimmed = time.trim();
@@ -60,7 +37,7 @@ function validateTime(time: string): boolean {
     return parts.length === 5;
 }
 
-function formatTime(time: string): Time {
+function formatTime(time: string, timeId: number): Time {
     const trimmed = time.trim();
     const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5]?[0-9]$/;
 
@@ -83,5 +60,6 @@ function formatTime(time: string): Time {
         day: day!,
         month: month!,
         week_day: week_day!,
+        id: timeId
     };
 }
