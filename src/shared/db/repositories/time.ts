@@ -54,7 +54,7 @@ async function addTime(schema: string, time: Time) {
     }
 }
 
-async function updateTIme(schema: string, time: Time) {
+async function updateTime(schema: string, time: Time) {
     try {
         await pool.query(
             `UPDATE ${schema}.cron_times 
@@ -104,6 +104,6 @@ export default {
     getTime,
     removeTime,
     addTime,
-    updateTIme,
+    updateTime,
     clearTableTimes
 }

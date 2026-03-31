@@ -1,12 +1,14 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import menuIdea from '@menus/modules/settings/idea';
+import db from '@shared/db';
 
 const ideaComposer = new Composer<MyContext>();
 
 ideaComposer.callbackQuery('mainIdea', async (ctx: MyContext) => {
     try {
-        const menu = menuIdea.main(ctx);
+        const lastMessageId = String((await db.bot.getLastMessage()).id ?? 1);
+        const menu = menuIdea.main(ctx, lastMessageId);
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'

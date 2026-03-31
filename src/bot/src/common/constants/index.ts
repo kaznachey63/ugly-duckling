@@ -2,7 +2,7 @@ const link = {
     form: "https://forms.gle/i91r3EaCeigbuo479",
     instructionAboutCommands: "https://telegra.ph/Komandy-Rassylka-bot-11-29-2",
     tgAdmin: "https://t.me/master_cuni",
-    chatIdeas: "https://t.me/c/3760118458/1"
+    chatIdeas: "https://t.me/c/3760118458/"
 }
 
 const calendar = {

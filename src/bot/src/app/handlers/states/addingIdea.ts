@@ -1,6 +1,7 @@
 import type { MyContext } from '@shared/types/SessionData';
 import menuState from '@menus/handlers/states';
 import common from '@utils/common';
+import db from '@shared/db';
 
 export default async function addingIdea(ctx: MyContext) {
     let forwardResult = false;
@@ -8,6 +9,7 @@ export default async function addingIdea(ctx: MyContext) {
     try {
         const result = await ctx.forwardMessage("-1003760118458");
         forwardResult = !!result;
+        await db.bot.updateLastMessageId(result.message_id);
     } catch (error) {
         console.error('Не удалось добавить идею:', error);
     }

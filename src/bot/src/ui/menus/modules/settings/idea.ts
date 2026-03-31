@@ -7,7 +7,7 @@ import { InlineKeyboard } from 'grammy';
 /**
  * Меню команды idea
  */
-function main(ctx: MyContext): Menu<InlineKeyboard> {
+function main(ctx: MyContext, lastMessageId: string): Menu<InlineKeyboard> {
     const text = [
         ctx.t('commands.settings.idea.main.title'),
         ctx.t('commands.settings.idea.main.path')
@@ -15,7 +15,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard().text(ctx.t("commands.settings.idea.main.buttons.add"), "addIdea").style("success");
 
     if (ctx.session.user.role == "admin") {
-        keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), constants.link.chatIdeas);
+        keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), constants.link.chatIdeas + lastMessageId);
     }
 
     keyboard.row().text(ctx.t("utils.shared.back"), "mainSettings");

@@ -5,6 +5,7 @@ import message from './repositories/message';
 import result from './repositories/result';
 import time from './repositories/time';
 import user from './repositories/user';
+import bot from './repositories/bot'
 
 export default {
     chat,
@@ -13,5 +14,6 @@ export default {
     message,
     result,
     time,
-    user
+    user,
+    bot
 };
