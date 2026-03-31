@@ -51,7 +51,6 @@ function remove(ctx: MyContext, resultRestart: boolean): Menu<InlineKeyboard> {
 function updateOrRemove(ctx: MyContext, targetTime: string): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.title", { targetTime: targetTime }),
-        '\n',
         ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.path", { call: ctx.session.distribution.call })
     ].join('\n');
 
