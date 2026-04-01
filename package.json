@@ -27,6 +27,7 @@
     "node-cron": "^4.2.1",
     "node-fetch": "^3.3.2",
     "node-ssh": "^13.2.1",
+    "pdf-lib": "^1.17.1",
     "pg": "^8.18.0",
     "prompts": "^2.4.2",
     "quickchart-js": "^3.1.3",

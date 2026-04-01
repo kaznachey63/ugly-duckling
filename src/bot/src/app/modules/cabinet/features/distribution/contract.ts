@@ -3,6 +3,8 @@ import type { MyContext } from '@shared/types/SessionData';
 import { GoogleService } from "src/common/services/GoogleService";
 import menuContract from '@menus/modules/cabinet/distribution/contract';
 import constants from '@constants';
+import { PDFDocument } from 'pdf-lib';
+import { fileURLToPathBuffer, pathToFileURL } from 'node:url';
 
 const contractComposer = new Composer<MyContext>();
 
@@ -27,6 +29,24 @@ contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
         });
     } catch (error) {
         console.error('Ошибка в mainContract:', error);
+    }
+});
+
+contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
+    const exportType = ctx.callbackQuery?.data?.split(/-/)[1]!;
+    try {
+        switch (exportType) {
+            case 'pdf':
+                const pdfDoc = await PDFDocument.load(fileURLToPathBuffer(pathToFileURL('./dogovor.pdf')));
+                console.log(pdfDoc.getPageCount);
+                
+                break;
+        
+            default:
+                break;
+        }
+    } catch {
+        
     }
 });
 

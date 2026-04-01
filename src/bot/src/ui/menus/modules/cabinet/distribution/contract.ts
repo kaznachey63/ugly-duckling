@@ -39,7 +39,10 @@ export default function contract(ctx: MyContext, contractInfoOrError: ContractIn
 
     const text = format.escapeMarkdown(textLines.join('\n'))
 
-    const keyboard = new InlineKeyboard().text(ctx.t('utils.shared.back'), `mainDistribution:${ctx.session.distribution.name}`);
+    const keyboard = new InlineKeyboard()
+        .text(ctx.t('commands.cabinet.distribution.contract.exportPDF'), `exportContract:${ctx.session.distribution.name}-pdf`)
+        .row().text(ctx.t('utils.shared.back'), `mainDistribution:${ctx.session.distribution.name}`)
+    ;
 
     return { text, keyboard }
 }
