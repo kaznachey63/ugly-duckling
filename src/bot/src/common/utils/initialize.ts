@@ -67,22 +67,7 @@ async function setupBotCommands(bot: any) {
             scope: { type: "all_private_chats" }
         });
 
-        // отображение комманд для заказчиков (без заявки)
-        const customerCommands = baseCommands.filter((cmd) => cmd.command !== 'panel');
-        const customers = (await db.user.getUsers()).customers;
-
-        for (const customerId of customers) {
-            await bot.api.setMyCommands(customerCommands, {
-                language_code: lang,
-                scope: {
-                    type: "chat",
-                    chat_id: customerId
-                }
-            });
-            await sleep(50);
-        }
-
-        // отображение комманд для админов (с заявкой и панелью)
+        // отображение комманд для админов (с панелью)
         const adminCommands = [...baseCommands, {
             command: 'panel',
             description: i18next.t('utils.commands.panel', { lng: lang })
