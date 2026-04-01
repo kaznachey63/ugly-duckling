@@ -5,6 +5,7 @@ import menuContract from '@menus/modules/cabinet/distribution/contract';
 import constants from '@constants';
 import { PDFDocument } from 'pdf-lib';
 import { fileURLToPathBuffer, pathToFileURL } from 'node:url';
+import fetch from 'node-fetch';
 
 const contractComposer = new Composer<MyContext>();
 
@@ -37,7 +38,9 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
     try {
         switch (exportType) {
             case 'pdf':
-                const pdfDoc = await PDFDocument.load(fileURLToPathBuffer(pathToFileURL('./dogovor.pdf')));
+                const response = await fetch(pathToFileURL('./dogovor.pdf'));
+                const buffer = Buffer.from(await response.arrayBuffer());
+                const pdfDoc = await PDFDocument.load(buffer);
                 console.log(pdfDoc.getPageCount());
                 
                 break;
