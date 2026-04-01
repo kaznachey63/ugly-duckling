@@ -38,7 +38,7 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
         switch (exportType) {
             case 'pdf':
                 const pdfDoc = await PDFDocument.load(fileURLToPathBuffer(pathToFileURL('./dogovor.pdf')));
-                console.log(pdfDoc.getPageCount);
+                console.log(pdfDoc.getPageCount());
                 
                 break;
         
