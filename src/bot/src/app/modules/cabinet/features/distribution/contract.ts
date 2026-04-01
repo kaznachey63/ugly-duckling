@@ -34,7 +34,11 @@ contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
 });
 
 contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
+    console.log("мф здесь");
+    
     const exportType = ctx.callbackQuery?.data?.split(/-/)[1]!;
+    console.log(exportType);
+    
     try {
         switch (exportType) {
             case 'pdf': {
