@@ -45,8 +45,7 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
                 const filePath = path.resolve('src', 'app', 'modules', 'cabinet', 'features', 'distribution', 'dogovor.pdf');
 
                 try {
-                    const pdfBytes = await fs.readFile(filePath);
-                    const pdfDoc = await PDFDocument.load(pdfBytes);
+                    const pdfDoc = await PDFDocument.load(await fs.readFile(filePath));
                     const pages = pdfDoc.getPages();
 
                     if (pages.length > 0) {
@@ -61,7 +60,7 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
                     const modifiedPdf = await pdfDoc.save();
 
                     await ctx.replyWithDocument(
-                        new InputFile(Buffer.from(modifiedPdf), 'dogovor_modified.pdf')
+                        new InputFile(Buffer.from(modifiedPdf))
                     );
 
                     await ctx.answerCallbackQuery('Готово');
