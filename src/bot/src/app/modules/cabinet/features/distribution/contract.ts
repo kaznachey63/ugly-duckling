@@ -4,8 +4,8 @@ import { GoogleService } from "src/common/services/GoogleService";
 import menuContract from '@menus/modules/cabinet/distribution/contract';
 import constants from '@constants';
 import { PDFDocument } from 'pdf-lib';
-import { fileURLToPathBuffer, pathToFileURL } from 'node:url';
-import fetch from 'node-fetch';
+import path from 'node:path';
+import fs from 'fs/promises'
 
 const contractComposer = new Composer<MyContext>();
 
@@ -37,14 +37,11 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
     const exportType = ctx.callbackQuery?.data?.split(/-/)[1]!;
     try {
         switch (exportType) {
-            case 'pdf':
-                const response = await fetch(pathToFileURL('./dogovor.pdf'));
-                const buffer = Buffer.from(await response.arrayBuffer());
-                const pdfDoc = await PDFDocument.load(buffer);
-                console.log(pdfDoc.getPageCount());
-                
+            case 'pdf': {
+                const pdfDoc = await PDFDocument.load(await fs.readFile('./dogovor.pdf'));
+                await ctx.answerCallbackQuery('PDF готов ' + pdfDoc.getPageCount());
                 break;
-        
+            }
             default:
                 break;
         }
