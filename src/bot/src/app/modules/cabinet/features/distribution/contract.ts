@@ -42,11 +42,24 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
     try {
         switch (exportType) {
             case 'pdf': {
-                // await ctx.answerCallbackQuery(path.resolve('src', 'app', 'modules', 'cabinet', 'features', 'distribution', 'dogovor.pdf'));
+                const filePath = path.resolve('src', 'app', 'modules', 'cabinet', 'features', 'distribution', 'dogovor.pdf');
 
-                const pdfDoc = await PDFDocument.load(await fs.readFile(path.resolve('dogovor.pdf')));
-                await ctx.answerCallbackQuery('PDF готов ' + pdfDoc.getPageCount());
-                await ctx.answerCallbackQuery('PDF готов ' + pdfDoc.getPageCount());
+                console.log('Путь к файлу:', filePath);
+                console.log('CWD:', process.cwd());
+
+                try {
+                    await fs.access(filePath);
+                    console.log('✓ Файл найден');
+
+                    const pdfBytes = await fs.readFile(filePath);
+                    const pdfDoc = await PDFDocument.load(pdfBytes);
+                    await ctx.reply('✓ PDF загружен, страниц:' + pdfDoc.getPageCount());
+
+                    await ctx.answerCallbackQuery('PDF готов: ' + pdfDoc.getPageCount() + ' стр.');
+                } catch (err: any) {
+                    console.log('✗ Ошибка:', err.code, err.message);
+                    await ctx.answerCallbackQuery('Ошибка: ' + err.code);
+                }
                 break;
             }
             default:
