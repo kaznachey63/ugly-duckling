@@ -42,7 +42,7 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
     try {
         switch (exportType) {
             case 'pdf': {
-                await ctx.answerCallbackQuery(path.resolve('src', 'app', 'modules', 'cabinet', 'features', 'distribution', 'dogovor.pdf'));
+                // await ctx.answerCallbackQuery(path.resolve('src', 'app', 'modules', 'cabinet', 'features', 'distribution', 'dogovor.pdf'));
 
                 const pdfDoc = await PDFDocument.load(await fs.readFile(path.resolve('dogovor.pdf')));
                 await ctx.answerCallbackQuery('PDF готов ' + pdfDoc.getPageCount());
