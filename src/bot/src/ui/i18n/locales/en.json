@@ -384,6 +384,8 @@
             "help": {
                 "title": "Encountered a problem?\nHave questions?\nWant to praise the service?\nHave ideas to improve the service?",
                 "contactAdmin": "Contact administrator",
+                "interest": "Interested in the product?\nFill out the form below and we will contact you!",
+                "form": "Form",
                 "path": "[📍 Path: Settings → *Help*]"
             },
             "about": {
