@@ -1,9 +1,9 @@
-import { Composer } from 'grammy';
+import { Composer, InputFile } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import { GoogleService } from "src/common/services/GoogleService";
 import menuContract from '@menus/modules/cabinet/distribution/contract';
 import constants from '@constants';
-import { PDFDocument } from 'pdf-lib';
+import { PDFDocument, rgb } from 'pdf-lib';
 import path from 'node:path';
 import fs from 'fs/promises'
 
@@ -44,20 +44,29 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
             case 'pdf': {
                 const filePath = path.resolve('src', 'app', 'modules', 'cabinet', 'features', 'distribution', 'dogovor.pdf');
 
-                console.log('Путь к файлу:', filePath);
-                console.log('CWD:', process.cwd());
-
                 try {
-                    await fs.access(filePath);
-                    console.log('✓ Файл найден');
-
                     const pdfBytes = await fs.readFile(filePath);
                     const pdfDoc = await PDFDocument.load(pdfBytes);
-                    await ctx.reply('✓ PDF загружен, страниц:' + pdfDoc.getPageCount());
+                    const pages = pdfDoc.getPages();
 
-                    await ctx.answerCallbackQuery('PDF готов: ' + pdfDoc.getPageCount() + ' стр.');
+                    if (pages.length > 0) {
+                        pages[0]?.drawText('sdfgrhtuyjnhbgfdsadf', {
+                            x: 50,
+                            y: 100,
+                            color: rgb(0, 0.53, 0.71),
+                            size: 12,
+                        });
+                    }
+
+                    const modifiedPdf = await pdfDoc.save();
+
+                    await ctx.replyWithDocument(
+                        new InputFile(Buffer.from(modifiedPdf), 'dogovor_modified.pdf')
+                    );
+
+                    await ctx.answerCallbackQuery('Готово');
                 } catch (err: any) {
-                    console.log('✗ Ошибка:', err.code, err.message);
+                    console.log('Ошибка:', err.code, err.message);
                     await ctx.answerCallbackQuery('Ошибка: ' + err.code);
                 }
                 break;
