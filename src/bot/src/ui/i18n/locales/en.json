@@ -383,14 +383,16 @@
             },
             "help": {
                 "title": "Encountered a problem?\nHave questions?\nWant to praise the service?\nHave ideas to improve the service?",
-                "contactAdmin": "Contact administrator",
                 "interest": "Interested in the product?\nFill out the form below and we will contact you!",
-                "form": "Form",
-                "path": "[📍 Path: Settings → *Help*]"
+                "path": "[📍 Path: Settings → *Help*]",
+                "buttons": {
+                    "contactAdmin": "👨‍💻 Administrator",
+                    "form": "📝 Form"
+                }
             },
             "about": {
                 "title": "The service is designed to automate advertising (posts, broadcasts) of your products (offers) within groups / chats / channels\n\nInstructions for using the Bot - via the button below!",
-                "instruction": "Instruction",
+                "instruction": "📖 Instruction",
                 "path": "[📍 Path: Settings → *About Service*]"
             },
             "idea": {
