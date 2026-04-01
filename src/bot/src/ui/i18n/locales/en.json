@@ -9,7 +9,6 @@
         "commands": {
             "cabinet": "Cabinet",
             "settings": "Settings",
-            "form": "Form",
             "panel": "Admin Panel"
         },
         "chart": {
@@ -71,7 +70,7 @@
         "events": {
             "contact": {
                 "numberIsNull": "Error processing phone number!\nTry again!",
-                "accessDenied": "Access denied.\nTo submit a product request, use the '/form' command"
+                "accessDenied": "Access denied.\nTo submit a product request, use the '/settings' command, section 'Help'" 
             }
         },
         "states": {
@@ -118,10 +117,10 @@
     "commands": {
         "cabinet": {
             "main": {
-                "noSendouts": "Access denied. Use /cabinet to re-authorize or /form to submit a request",
+                "noSendouts": "Access denied. To submit a product request, use the '/settings' command, section 'Help'",
                 "authed": {
                     "title": "All active broadcasts at the moment ({{count}})",
-                    "noSendouts": "Access forbidden. Use the /form command and submit a request"
+                    "noSendouts": "Access forbidden. To submit a product request, use the '/settings' command, section 'Help'"
                 },
                 "notAuthed": {
                     "title": "To enter the broadcast panel, you need to share your phone number with me\n\nThe button should appear next to the keyboard, labeled 'SHARE CONTACT'",
@@ -406,10 +405,6 @@
                     "path": "[📍 Path: Settings → Ideas → *Add Idea*]"
                 }
             }
-        },
-        "form": {
-            "interest": "Interested in the product?\nFill out the form below and we will contact you!",
-            "form": "Form"
         },
         "start": {
             "message": "Greetings! I am a Telegram bot, a broadcast assistant.\n\nI highly recommend familiarizing yourself with all my commands by pressing the oval 'Menu' button in the bottom left corner of the screen.\nPlease read the usage guide first, accessible via the '/settings' command in the 'About Bot' section"

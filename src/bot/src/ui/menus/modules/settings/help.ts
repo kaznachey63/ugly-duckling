@@ -10,11 +10,14 @@ import constants from '@constants';
 export default function help(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t('commands.settings.help.title'),
+        ctx.t('commands.settings.help.interest'),
         ctx.t('commands.settings.help.path')
     ].join('\n\n');
+    
     const keyboard = new InlineKeyboard()
-        .url(ctx.t("commands.settings.help.contactAdmin"), constants.link.tgAdmin).row()
-        .text(ctx.t("utils.shared.back"), "mainSettings")
+        .url(ctx.t("commands.settings.help.contactAdmin"), constants.link.tgAdmin)
+        .url(ctx.t("commands.settings.help.form"), constants.link.form)
+        .row().text(ctx.t("utils.shared.back"), "mainSettings")
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }

@@ -9,7 +9,6 @@
         "commands": {
             "cabinet": "个人中心",
             "settings": "设置",
-            "form": "表单",
             "panel": "管理面板"
         },
         "chart": {
@@ -71,7 +70,7 @@
         "events": {
             "contact": {
                 "numberIsNull": "处理电话号码时出错！\n请重试！",
-                "accessDenied": "访问被拒绝。\n要提交产品申请，请使用 '/form' 命令"
+                "accessDenied": "访问被拒绝。\n要提交产品申请，请使用 '/settings' 命令，'帮助' 部分"            
             }
         },
         "states": {
@@ -118,10 +117,10 @@
     "commands": {
         "cabinet": {
             "main": {
-                "noSendouts": "访问被拒绝。使用 /cabinet 重新授权或使用 /form 提交申请",
+                "noSendouts": "访问被拒绝。要提交产品申请，请使用 '/settings' 命令，'帮助' 部分",
                 "authed": {
                     "title": "当前所有有效广播 ({{count}})",
-                    "noSendouts": "访问禁止。请使用 /form 命令并提交申请"
+                    "noSendouts": "访问禁止。要提交产品申请，请使用 '/settings' 命令，'帮助' 部分"
                 },
                 "notAuthed": {
                     "title": "要进入广播面板，您需要与我共享电话号码\n\n按钮应出现在键盘旁边，标有 '分享联系方式'",
@@ -406,10 +405,6 @@
                     "path": "[📍 路径：设置 → 想法 → *添加想法*]"
                 }
             }
-        },
-        "form": {
-            "interest": "对产品感兴趣？\n填写下方表单，我们将与您联系！",
-            "form": "表单"
         },
         "start": {
             "message": "您好！我是一个 Telegram 机器人，广播助手。\n\n我强烈建议您通过点击屏幕左下角的椭圆形\"菜单\"按钮来熟悉我的所有命令。\n请先阅读使用说明，可通过 '/settings' 命令在\"关于机器人\"部分访问"

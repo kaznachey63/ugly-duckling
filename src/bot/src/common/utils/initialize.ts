@@ -106,7 +106,6 @@ function getCommandsForLanguage(lang: LanguageCode): BotCommand[] {
     return [
         { command: 'cabinet', description: i18next.t('utils.commands.cabinet', { lng: lang }) },
         { command: 'settings', description: i18next.t('utils.commands.settings', { lng: lang }) },
-        { command: 'form', description: i18next.t('utils.commands.form', { lng: lang }) }
     ];
 }
 
