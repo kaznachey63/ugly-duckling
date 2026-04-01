@@ -31,6 +31,12 @@ export default function language(ctx: MyContext, languageCode: LanguageCode): Me
                 ctx.t("commands.settings.language.main.buttons.zh") + ' ☑️' :
                 ctx.t("commands.settings.language.main.buttons.zh"), 
             "changeLanguage:zh"
+        )
+        .text(
+            languageCode == 'sr' ?
+                ctx.t("commands.settings.language.main.buttons.sr") + ' ☑️' :
+                ctx.t("commands.settings.language.main.buttons.sr"), 
+            "changeLanguage:sr"
         ).row()
         .text(ctx.t("utils.shared.back"), "mainSettings")
     ;
