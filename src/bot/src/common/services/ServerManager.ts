@@ -1,6 +1,5 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
-const execAsync = promisify(exec);
 import type { Status } from '@shared/types/server/Status';
 
 export class ServerManager {
@@ -54,6 +53,14 @@ export class ServerManager {
         if (state === 'deactivating') return 'deactivating';
         if (state === 'maintenance') return 'maintenance';
         return 'inactive';
+    }
+
+    async getServiceExitCode(serviceName: string, isDistribution = false): Promise<number> {
+        const name = this.resolveServiceName(serviceName, isDistribution);
+        const { stdout } = await this.exec(`sudo systemctl show ${name} --property=ExecMainStatus`, 5000);
+        const value = stdout.split('=')[1]!;
+        const code = parseInt(value, 10);
+        return isNaN(code) ? 0 : code;
     }
 
     async isServiceActive(serviceName: string, isDistribution = false): Promise<boolean> {
