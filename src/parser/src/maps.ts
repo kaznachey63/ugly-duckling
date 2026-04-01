@@ -7,6 +7,9 @@ const INCLUDE_KEYWORDS = [
 ];
 
 const BLACKLIST_PHRASES = [
+    "ЛНР",
+    "ДНР",
+    "СТРИМ",
     "законная недвижимость сочи",
     "пхукет",
     "таиланд",
