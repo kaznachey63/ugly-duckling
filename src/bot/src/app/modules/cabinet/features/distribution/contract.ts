@@ -46,22 +46,32 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
 
                 try {
                     const pdfDoc = await PDFDocument.load(await fs.readFile(filePath));
-                    const pages = pdfDoc.getPages();
+                    // const pages = pdfDoc.getPages();
 
-                    if (pages.length > 0) {
-                        pages[0]?.drawText('sdfgrhtuyjnhbgfdsadf', {
-                            x: 50,
-                            y: 100,
-                            color: rgb(0, 0.53, 0.71),
-                            size: 12,
-                        });
-                    }
+                    // if (pages.length > 0) {
+                    //     pages[0]?.drawText('sdfgrhtuyjnhbgfdsadf', {
+                    //         x: 50,
+                    //         y: 100,
+                    //         color: rgb(0, 0.53, 0.71),
+                    //         size: 12,
+                    //     });
+                    // }
 
-                    const modifiedPdf = await pdfDoc.save();
+                    // const modifiedPdf = await pdfDoc.save();
 
-                    await ctx.replyWithDocument(
-                        new InputFile(Buffer.from(modifiedPdf))
-                    );
+                    const form = pdfDoc.getForm()
+                    const fields = form.getFields()
+
+                    console.log(`Found ${fields.length} fields:`)
+                    fields.forEach(field => {
+                        const name = field.getName()
+                        const type = field.constructor.name
+                        console.log(`- ${name} (${type})`)
+                    })
+
+                    // await ctx.replyWithDocument(
+                    //     new InputFile(Buffer.from(modifiedPdf))
+                    // );
 
                     await ctx.answerCallbackQuery('Готово');
                 } catch (err: any) {
