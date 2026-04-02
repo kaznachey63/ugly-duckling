@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
     "dotenv": "^17.2.4",
     "gigachat": "^0.0.18",
     "googleapis": "^171.1.0",
