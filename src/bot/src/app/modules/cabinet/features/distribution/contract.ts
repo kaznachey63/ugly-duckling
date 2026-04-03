@@ -24,10 +24,22 @@ contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
             menu = menuContract.main(ctx, { customer, dateStart, dateStop }, false);
         }
 
-        await ctx.editMessageText(menu.text, {
-            parse_mode: 'MarkdownV2',
-            reply_markup: menu.keyboard
-        });
+        try {
+            const msg = await ctx.editMessageText(menu.text, {
+                parse_mode: 'MarkdownV2',
+                reply_markup: menu.keyboard
+            });
+
+            // Сохранение айди для последующего редактирования этого же сообщения
+            if (typeof msg !== "boolean" && "message_id" in msg) {
+                ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+            }
+        } catch {
+            await ctx.reply(menu.text, {
+                parse_mode: 'MarkdownV2',
+                reply_markup: menu.keyboard
+            });
+        }
     } catch (error) {
         console.error('Ошибка в mainContract:', error);
     }
@@ -64,14 +76,17 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
             }
         }
         menu = menuContract.exportContract(ctx, exportType, true);
-        await ctx.replyWithDocument(
-            new InputFile(Buffer.from(buffer)),
-            { caption: menu.text, reply_markup: menu.keyboard }
-        );
+        await ctx.api.deleteMessage(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState);
+        await ctx.replyWithDocument(new InputFile(Buffer.from(buffer)), { 
+            caption: menu.text, 
+            parse_mode: 'MarkdownV2',
+            reply_markup: menu.keyboard 
+        });
     } catch(error) {
         console.error("Ошибка при экспорте: ", error);
         menu = menuContract.exportContract(ctx, exportType, false);
-        await ctx.reply(menu.text, { 
+        await ctx.editMessageText(menu.text, { 
+            parse_mode: 'MarkdownV2',
             reply_markup: menu.keyboard 
         });
     }
