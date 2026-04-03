@@ -3,9 +3,9 @@ import type { MyContext } from '@shared/types/SessionData';
 import { GoogleService } from "src/common/services/GoogleService";
 import menuContract from '@menus/modules/cabinet/distribution/contract';
 import constants from '@constants';
-import { PDFDocument, rgb } from 'pdf-lib';
-import path from 'node:path';
-import fs from 'fs/promises'
+import { PdfService } from 'src/common/services/render/PdfService';
+import { WordService } from 'src/common/services/render/WordService';
+import type { ExportType } from '@shared/types/ExportType';
 
 const contractComposer = new Composer<MyContext>();
 
@@ -17,11 +17,11 @@ contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
 
         let menu;
         if (!row || row.length < 4) {
-            menu = menuContract(ctx, true);
+            menu = menuContract.main(ctx, true);
         }
         else {
             const [, customer, dateStart, dateStop] = row as [undefined, string, string, string];
-            menu = menuContract(ctx, { customer, dateStart, dateStop }, false);
+            menu = menuContract.main(ctx, { customer, dateStart, dateStop }, false);
         }
 
         await ctx.editMessageText(menu.text, {
@@ -33,58 +33,47 @@ contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
     }
 });
 
-contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
-    console.log("мф здесь");
+contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {   
+    const exportType = ctx.callbackQuery?.data?.split(/-/)[1]! as ExportType;
+    let buffer!: Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike>;
+
+    const contractData = {
+        startDay: "03",
+        startMonth: "04",
+        startYear: "26",
+        customerName: "Заказчик 3.3",
+        endDay: "33",
+        endMonth: "04",
+        endYear: "26",
+        priceNumber: "2000",
+        priceString: "две тысячи",
+    };
     
-    const exportType = ctx.callbackQuery?.data?.split(/-/)[1]!;
-    console.log(exportType);
-    
+    let menu;
     try {
         switch (exportType) {
             case 'pdf': {
-                const filePath = path.resolve('src', 'app', 'modules', 'cabinet', 'features', 'distribution', 'dogovor.pdf');
-
-                try {
-                    const pdfDoc = await PDFDocument.load(await fs.readFile(filePath));
-                    // const pages = pdfDoc.getPages();
-
-                    // if (pages.length > 0) {
-                    //     pages[0]?.drawText('sdfgrhtuyjnhbgfdsadf', {
-                    //         x: 50,
-                    //         y: 100,
-                    //         color: rgb(0, 0.53, 0.71),
-                    //         size: 12,
-                    //     });
-                    // }
-
-                    // const modifiedPdf = await pdfDoc.save();
-
-                    const form = pdfDoc.getForm()
-                    const fields = form.getFields()
-
-                    console.log(`Found ${fields.length} fields:`)
-                    fields.forEach(field => {
-                        const name = field.getName()
-                        const type = field.constructor.name
-                        console.log(`- ${name} (${type})`)
-                    })
-
-                    // await ctx.replyWithDocument(
-                    //     new InputFile(Buffer.from(modifiedPdf))
-                    // );
-
-                    await ctx.answerCallbackQuery('Готово');
-                } catch (err: any) {
-                    console.log('Ошибка:', err.code, err.message);
-                    await ctx.answerCallbackQuery('Ошибка: ' + err.code);
-                }
+                const pdf = new PdfService();
+                buffer = await pdf.execRender(contractData);
                 break;
             }
-            default:
+            case 'word': {
+                const word = new WordService();
+                buffer = await word.execRender(contractData);
                 break;
+            }
         }
-    } catch {
-        
+        menu = menuContract.exportContract(ctx, exportType, true);
+        await ctx.replyWithDocument(
+            new InputFile(Buffer.from(buffer)),
+            { caption: menu.text, reply_markup: menu.keyboard }
+        );
+    } catch(error) {
+        console.error("Ошибка при экспорте: ", error);
+        menu = menuContract.exportContract(ctx, exportType, false);
+        await ctx.reply(menu.text, { 
+            reply_markup: menu.keyboard 
+        });
     }
 });
 

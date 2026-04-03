@@ -5,6 +5,7 @@
     "module": "esnext",
     "types": ["node"],
     "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,

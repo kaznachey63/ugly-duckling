@@ -1,7 +1,8 @@
 import type { MyContext } from '@shared/types/SessionData';
 import type { Menu } from "@shared/types/Menu";
-import { InlineKeyboard } from "grammy";
+import { InlineKeyboard, InputFile } from "grammy";
 import format from "@utils/formatting";
+import type { ExportType } from '@shared/types/ExportType';
 
 type ContractInfo = {
     customer: string;
@@ -12,9 +13,9 @@ type ContractInfo = {
 /**
  * Меню обработчика контакта
  */
-export default function contract(ctx: MyContext, errorWithData: true): Menu<InlineKeyboard>
-export default function contract(ctx: MyContext, contractInfo: ContractInfo, errorWithData: false): Menu<InlineKeyboard>
-export default function contract(ctx: MyContext, contractInfoOrError: ContractInfo | boolean, errorWithData?: boolean): Menu<InlineKeyboard> {
+function main(ctx: MyContext, errorWithData: true): Menu<InlineKeyboard>
+function main(ctx: MyContext, contractInfo: ContractInfo, errorWithData: false): Menu<InlineKeyboard>
+function main(ctx: MyContext, contractInfoOrError: ContractInfo | boolean, errorWithData?: boolean): Menu<InlineKeyboard> {
 
     const is_error = typeof contractInfoOrError === 'boolean' ? contractInfoOrError : (errorWithData ?? false)
     const info = typeof contractInfoOrError === 'boolean' ? undefined : contractInfoOrError
@@ -23,26 +24,46 @@ export default function contract(ctx: MyContext, contractInfoOrError: ContractIn
 
     if (is_error) {
         textLines = [
-            ctx.t("commands.cabinet.distribution.contract.title"),
-            ctx.t("commands.cabinet.distribution.contract.error")
+            ctx.t("commands.cabinet.distribution.contract.main.title"),
+            ctx.t("commands.cabinet.distribution.contract.main.error")
         ]
     }
     else if (info) {
         textLines = [
-            ctx.t("commands.cabinet.distribution.contract.title"),
-            ctx.t("commands.cabinet.distribution.contract.customer", { customer: info.customer }),
-            ctx.t("commands.cabinet.distribution.contract.dateStart", { dateStart: info.dateStart }),
-            ctx.t("commands.cabinet.distribution.contract.dateStop", { dateStop: info.dateStop }),
-            ctx.t("commands.cabinet.distribution.contract.path", { call: ctx.session.distribution.call })
+            ctx.t("commands.cabinet.distribution.contract.main.title"),
+            ctx.t("commands.cabinet.distribution.contract.main.customer", { customer: info.customer }),
+            ctx.t("commands.cabinet.distribution.contract.main.dateStart", { dateStart: info.dateStart }),
+            ctx.t("commands.cabinet.distribution.contract.main.dateStop", { dateStop: info.dateStop }),
+            ctx.t("commands.cabinet.distribution.contract.main.path", { call: ctx.session.distribution.call })
         ]
     }
 
     const text = format.escapeMarkdown(textLines.join('\n'))
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t('commands.cabinet.distribution.contract.exportPDF'), `exportContract:${ctx.session.distribution.name}-pdf`)
+        .text(ctx.t('commands.cabinet.distribution.contract.main.buttons.exportPDF'), `exportContract:${ctx.session.distribution.name}-pdf`)
+        .text(ctx.t('commands.cabinet.distribution.contract.main.buttons.exportWord'), `exportContract:${ctx.session.distribution.name}-word`)
         .row().text(ctx.t('utils.shared.back'), `mainDistribution:${ctx.session.distribution.name}`)
     ;
 
     return { text, keyboard }
+}
+
+function exportContract (ctx: MyContext, exportType: ExportType, result: boolean): Menu<InlineKeyboard> {
+    const text = [
+        result ? 
+            ctx.t('commands.cabinet.distribution.contract.export.caption', { exportType: exportType }) :
+            ctx.t('commands.cabinet.distribution.contract.export.error')
+        ,
+        ctx.t('commands.cabinet.distribution.contract.export.path', { call: ctx.session.distribution.call, exportType: exportType }),
+    ].join('\n\n');
+
+    const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`);
+    
+    return { text, keyboard }
+}
+
+export default {
+    main,
+    exportContract
 }

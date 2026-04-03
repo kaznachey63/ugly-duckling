@@ -1,0 +1,1 @@
+export type ExportType = 'pdf' | 'word';
