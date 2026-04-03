@@ -56,7 +56,7 @@ function exportContract (ctx: MyContext, exportType: ExportType, result: boolean
             ctx.t('commands.cabinet.distribution.contract.export.error')
         ,
         ctx.t('commands.cabinet.distribution.contract.export.path', { call: ctx.session.distribution.call, exportType: exportType }),
-    ].join('\n\n');
+    ].join('\n');
 
     const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`);
     
