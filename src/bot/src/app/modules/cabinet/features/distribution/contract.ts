@@ -103,6 +103,8 @@ async function dataFromGSForExport(distributionLabel: string): Promise<ContractD
     const google = new GoogleService();
     const dataFromSheets = await google.getRowsFromGS(constants.google.rangeTable);
     const row = dataFromSheets?.find(r => r?.[0] === distributionLabel);
+    console.log(row, '\n', distributionLabel);
+    
     const [ startDay, startMonth, startYear ] = row![2]!.split(/./);
     const [ endDay, endMonth, endYear ] = row![3]!.split(/./);
     
