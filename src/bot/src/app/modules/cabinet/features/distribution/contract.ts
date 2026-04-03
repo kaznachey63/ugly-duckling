@@ -57,6 +57,7 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
     let buffer!: Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike>;
 
     const contractData = await dataFromGSForExport(ctx.session.distribution.label);
+    console.log(contractData);
     
     let menu;
     let fileName;
