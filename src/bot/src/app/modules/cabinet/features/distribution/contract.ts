@@ -6,6 +6,7 @@ import constants from '@constants';
 import { PdfService } from 'src/common/services/render/PdfService';
 import { WordService } from 'src/common/services/render/WordService';
 import type { ExportType } from '@shared/types/ExportType';
+import type { ContractData } from '@shared/types/ContractData';
 
 const contractComposer = new Composer<MyContext>();
 
@@ -55,17 +56,7 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
     const exportType = ctx.callbackQuery?.data?.split(/-/)[1]! as ExportType;
     let buffer!: Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike>;
 
-    const contractData = {
-        startDay: "03",
-        startMonth: "04",
-        startYear: "26",
-        customerName: "Заказчик 3.3",
-        endDay: "33",
-        endMonth: "04",
-        endYear: "26",
-        priceNumber: "2000",
-        priceString: "две тысячи",
-    };
+    const contractData = await dataFromGSForExport(ctx.session.distribution.label);
     
     let menu;
     let fileName;
@@ -106,5 +97,25 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
         });
     }
 });
+
+async function dataFromGSForExport(distributionLabel: string): Promise<ContractData> {
+    const google = new GoogleService();
+    const dataFromSheets = await google.getRowsFromGS(constants.google.rangeTable);
+    const row = dataFromSheets?.find(r => r?.[0] === distributionLabel);
+    const [ startDay, startMonth, startYear ] = row![2]!.split(/./);
+    const [ endDay, endMonth, endYear ] = row![3]!.split(/./);
+    
+    return {
+        startDay: startDay!,
+        startMonth: startMonth!,
+        startYear: startYear!,
+        customerName: row![1]!,
+        endDay: endDay!,
+        endMonth: endMonth!,
+        endYear: endYear!,
+        priceNumber: row![6]!,
+        priceString: "две тысячи",
+    };
+}
 
 export default contractComposer;
