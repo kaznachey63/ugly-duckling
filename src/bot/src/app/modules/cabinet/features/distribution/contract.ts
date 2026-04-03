@@ -35,10 +35,16 @@ contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
                 ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
             }
         } catch {
-            await ctx.reply(menu.text, {
+            await ctx.api.deleteMessage(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState);
+            const msg = await ctx.reply(menu.text, {
                 parse_mode: 'MarkdownV2',
                 reply_markup: menu.keyboard
             });
+
+            // Сохранение айди для последующего редактирования этого же сообщения
+            if (typeof msg !== "boolean" && "message_id" in msg) {
+                ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+            }
         }
     } catch (error) {
         console.error('Ошибка в mainContract:', error);
@@ -62,16 +68,20 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
     };
     
     let menu;
+    let fileName;
+
     try {
         switch (exportType) {
             case 'pdf': {
                 const pdf = new PdfService();
                 buffer = await pdf.execRender(contractData);
+                fileName = "contract.pdf";
                 break;
             }
             case 'word': {
                 const word = new WordService();
                 buffer = await word.execRender(contractData);
+                fileName = "contract.docx";
                 break;
             }
         }
