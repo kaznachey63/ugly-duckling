@@ -57,7 +57,6 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
     let buffer!: Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike>;
 
     const contractData = await dataFromGSForExport(ctx.session.distribution.label);
-    console.log(contractData);
     
     let menu;
     let fileName;
@@ -103,10 +102,9 @@ async function dataFromGSForExport(distributionLabel: string): Promise<ContractD
     const google = new GoogleService();
     const dataFromSheets = await google.getRowsFromGS(constants.google.rangeTable);
     const row = dataFromSheets?.find(r => r?.[0] === distributionLabel);
-    console.log(row, '\n', distributionLabel);
     
-    const [ startDay, startMonth, startYear ] = row![2]!.split(/./);
-    const [ endDay, endMonth, endYear ] = row![3]!.split(/./);
+    const [ startDay, startMonth, startYear ] = row![2]!.split('.');
+    const [ endDay, endMonth, endYear ] = row![3]!.split('.');
     
     return {
         startDay: startDay!,
