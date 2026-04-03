@@ -6,7 +6,7 @@ import type { ContractData } from '@shared/types/ContractData';
 
 export class WordService {
     async execRender(data: ContractData): Promise<Buffer<ArrayBufferLike>> {
-        const contract = await fs.readFile(path.resolve('common', 'services', 'render', 'contracts', 'contract.docx'));
+        const contract = await fs.readFile(path.resolve('src', 'common', 'services', 'render', 'contracts', 'contract.docx'));
         const zip = new Pizzip(contract);
 
         const docx = new DocxTemplater(zip, {

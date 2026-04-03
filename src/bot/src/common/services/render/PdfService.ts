@@ -11,9 +11,9 @@ export class PdfService {
 
     async execRender(data: ContractData): Promise<Uint8Array<ArrayBufferLike>> {
         try {
-            const pdfDoc = await PDFDocument.load(await fs.readFile(path.resolve('common', 'services', 'render', 'contracts', 'contract.pdf')));
+            const pdfDoc = await PDFDocument.load(await fs.readFile(path.resolve('src', 'common', 'services', 'render', 'contracts', 'contract.pdf')));
             pdfDoc.registerFontkit(fontkit);
-            this.customFont = await pdfDoc.embedFont(await fs.readFile(path.resolve('common', 'services', 'render', 'fonts', 'Roboto-Regular.ttf')));
+            this.customFont = await pdfDoc.embedFont(await fs.readFile(path.resolve('src', 'common', 'services', 'render', 'fonts', 'Roboto-Regular.ttf')));
             this.data = data;
             this.pages = pdfDoc.getPages();
 
