@@ -60,7 +60,7 @@ function exportContract (ctx: MyContext, exportType: ExportType, result: boolean
 
     const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`);
     
-    return { text, keyboard }
+    return { text: format.escapeMarkdown(text), keyboard }
 }
 
 export default {
