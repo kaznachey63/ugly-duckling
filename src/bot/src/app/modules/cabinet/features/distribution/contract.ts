@@ -87,11 +87,16 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
         }
         menu = menuContract.exportContract(ctx, exportType, true);
         await ctx.api.deleteMessage(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState);
-        await ctx.replyWithDocument(new InputFile(Buffer.from(buffer)), { 
+        const msg = await ctx.replyWithDocument(new InputFile(Buffer.from(buffer), fileName), { 
             caption: menu.text, 
             parse_mode: 'MarkdownV2',
             reply_markup: menu.keyboard 
         });
+
+        // Сохранение айди для последующего редактирования этого же сообщения
+        if (typeof msg !== "boolean" && "message_id" in msg) {
+            ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+        }
     } catch(error) {
         console.error("Ошибка при экспорте: ", error);
         menu = menuContract.exportContract(ctx, exportType, false);
