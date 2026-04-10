@@ -34,7 +34,7 @@ exportComposer.callbackQuery(/^mainExportMessages:/, async (ctx: MyContext) => {
     }
 });
 
-exportComposer.callbackQuery(/^mainExportMessages:/, async (ctx: MyContext) => {
+exportComposer.callbackQuery(/^exportMessages:/, async (ctx: MyContext) => {
     const exportType = ctx.callbackQuery?.data?.split(/-/)[1]! as ExportType;
     let buffer!: Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike>;
     let menu;
