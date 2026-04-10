@@ -122,10 +122,28 @@ function clearAllMedia(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
+function pagination(ctx: MyContext, messagesLength: number) {
+    const text = [
+        ctx.t("commands.cabinet.distribution.messages.view.pagination.title"),
+        ctx.t("commands.cabinet.distribution.messages.view.pagination.path", { call: ctx.session.distribution.call })
+    ].join('\n\n');
+
+    const keyboard = new InlineKeyboard();
+    
+    for (let i = 0; i < messagesLength; i++) {
+        if (i % 5 == 0) keyboard.row();
+        keyboard.text((i + 1).toString(), `viewMessage:${ctx.session.distribution.name}#${i}`);
+    }
+
+    keyboard.row().text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
+    return { text: format.escapeMarkdown(text), keyboard }    
+}
+
 export default {
     main,
     removeMessage,
     updateText,
     addMedia,
     clearAllMedia,
+    pagination
 }

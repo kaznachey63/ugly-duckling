@@ -11,6 +11,11 @@ import type { ContractData } from '@shared/types/ContractData';
 const contractComposer = new Composer<MyContext>();
 
 contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
+    if (ctx.session.distribution.call == "Пусто") {
+        await ctx.answerCallbackQuery({ text: ctx.t("commands.cabinet.distribution.contract.main.notSuccess"), show_alert: true });
+        return;
+    }
+    
     try {
         const google = new GoogleService();
         const dataFromSheets = await google.getRowsFromGS(constants.google.rangeTable);
