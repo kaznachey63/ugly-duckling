@@ -2,9 +2,9 @@ import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
-import type { IMessage } from '@shared/types/IMessage';
+import type { Message } from '@shared/types/Message';
 
-export default function main(ctx: MyContext, messages: IMessage[]): Menu<InlineKeyboard> {
+export default function main(ctx: MyContext, messages: Message[]): Menu<InlineKeyboard> {
     const nameDistribution = ctx.session.distribution.name;
     const callDistribution = ctx.session.distribution.call;
     const positionId = ctx.session.other.text.positionId;   

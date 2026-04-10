@@ -13,8 +13,8 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard()
         .text(ctx.t('utils.shared.pdf'), `exportMessages${ctx.session.distribution.name}-pdf`)
         .text(ctx.t('utils.shared.word'), `exportMessages:${ctx.session.distribution.name}-word`)   
-        .text(ctx.t('utils.shared.word'), `exportMessages:${ctx.session.distribution.name}-txt`)   
-        .row().text(ctx.t('utils.shared.back'), `mainMessages:${ctx.session.distribution.name}`)
+        .text(ctx.t('utils.shared.txt'), `exportMessages:${ctx.session.distribution.name}-txt`)   
+        .row().text(ctx.t('utils.shared.back'), `mainMessage:${ctx.session.distribution.name}`)
     ;
     
     return { text: format.escapeMarkdown(text), keyboard }
@@ -29,7 +29,7 @@ function result(ctx: MyContext, exportType: ExportType, result: boolean): Menu<I
         ctx.t('commands.cabinet.distribution.messages.export.result.path', { call: ctx.session.distribution.call, exportType: exportType }),
     ].join('\n');
 
-    const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.back'), `mainMessages:${ctx.session.distribution.name}`);
+    const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.back'), `mainMessage:${ctx.session.distribution.name}`);
     
     return { text: format.escapeMarkdown(text), keyboard }
 }
