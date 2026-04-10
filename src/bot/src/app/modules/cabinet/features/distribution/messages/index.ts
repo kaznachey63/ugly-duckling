@@ -18,14 +18,28 @@ messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
     
     ctx.session.other.text.positionId = messages.length;
     const menu = menuMessage(ctx, messages);
-    const msg = await ctx.editMessageText(menu.text, {
-        reply_markup: menu.keyboard,
-        parse_mode: "MarkdownV2"
-    });
 
-    // Сохранение айди для последующего редактирования этого же сообщения
-    if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+    try {
+        const msg = await ctx.editMessageText(menu.text, {
+            parse_mode: 'MarkdownV2',
+            reply_markup: menu.keyboard
+        });
+
+        // Сохранение айди для последующего редактирования этого же сообщения
+        if (typeof msg !== "boolean" && "message_id" in msg) {
+            ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+        }
+    } catch {
+        await ctx.api.deleteMessage(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState);
+        const msg = await ctx.reply(menu.text, {
+            parse_mode: 'MarkdownV2',
+            reply_markup: menu.keyboard
+        });
+
+        // Сохранение айди для последующего редактирования этого же сообщения
+        if (typeof msg !== "boolean" && "message_id" in msg) {
+            ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+        }
     }
 });
 

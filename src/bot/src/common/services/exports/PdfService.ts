@@ -172,21 +172,51 @@ export class PdfService {
         });
     }
     
-    async write(data: string) {
+    async write(data: string): Promise<Uint8Array> {
         const pdfDoc = await PDFDocument.create();
         await this.loadFonts(pdfDoc);
-        const page = pdfDoc.addPage([600, 400]);
-        page.drawText(data, {
-            x: 50,
-            y: 350,
-            size: 14,
-            font: this.customFont,
-            color: rgb(0, 0, 0)
-        });
+
+        const pageWidth = 600;
+        const marginX = 50;
+        const marginY = 40;
+        const fontSize = 14;
+        const lineHeight = 18;
+        const maxWidth = pageWidth - marginX * 2;
+
+        // Разбиваем на логические строки (по \n)
+        const logicalLines = data.split('\n');
+
+        // Для каждой строки считаем, сколько физических строк она займёт (перенос по ширине)
+        const physicalLines: string[] = [];
+        for (const line of logicalLines) {
+            if (line.trim() === '') {
+                physicalLines.push('');
+                continue;
+            }
+            // Грубый расчёт: ~0.6px на символ при 14pt шрифте
+            const charsPerLine = Math.floor(maxWidth / (fontSize * 0.6));
+            if (line.length <= charsPerLine) {
+                physicalLines.push(line);
+            } else {
+                // Переносим длинные строки
+                for (let i = 0; i < line.length; i += charsPerLine) {
+                    physicalLines.push(line.slice(i, i + charsPerLine));
+                }
+            }
+        }
+
+        const contentHeight = physicalLines.length * lineHeight + marginY * 2;
+        const page = pdfDoc.addPage([pageWidth, contentHeight]);
+
+        let y = contentHeight - marginY;
+        for (const line of physicalLines) {
+            page.drawText(line, { x: marginX, y, size: fontSize, font: this.customFont, color: rgb(0, 0, 0) });
+            y -= lineHeight;
+        }
+
         return await pdfDoc.save();
     }
-
-
+    
     private async loadFonts(pdfDoc: PDFDocument) {
         pdfDoc!.registerFontkit(fontkit);
         this.customFont = await pdfDoc!.embedFont(await fs.readFile(path.resolve('src', 'common', 'services', 'exports', 'fonts', 'Roboto-Regular.ttf')));
