@@ -20,8 +20,8 @@ export default function main(ctx: MyContext, messages: Message[]): Menu<InlineKe
         text.push(ctx.t("commands.cabinet.distribution.messages.main.title", { amount: positionId }));
         keyboard
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clear"), `clearMessages:${nameDistribution}`).style("danger").row()
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.view"), `viewMessage:${nameDistribution}#0`).style("primary").row()
             .text(ctx.t('utils.shared.export'), `mainExportMessages:${ctx.session.distribution.name}`)
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.view"), `viewMessage:${nameDistribution}#0`).style("primary")
         ;
     }
     keyboard.row().text(ctx.t("utils.shared.back"), `mainDistribution:${ctx.session.distribution.name}`);
