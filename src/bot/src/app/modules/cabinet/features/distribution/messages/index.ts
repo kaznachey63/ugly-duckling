@@ -6,6 +6,7 @@ import { Composer } from 'grammy';
 import viewComposer from './view';
 import addComposer from './create';
 import clearComposer from './clear';
+import exportComposer from './export';
 
 const messageComposer = new Composer<MyContext>();
 
@@ -31,5 +32,6 @@ messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
 messageComposer.use(viewComposer);
 messageComposer.use(addComposer);
 messageComposer.use(clearComposer);
+messageComposer.use(exportComposer);
 
 export default messageComposer;
