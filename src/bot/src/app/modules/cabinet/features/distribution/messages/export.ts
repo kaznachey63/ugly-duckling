@@ -41,7 +41,7 @@ exportComposer.callbackQuery(/^exportMessages:/, async (ctx: MyContext) => {
     let fileName;
     try {
         const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
-        const data = messages!.map((m, i) => `Сообщение №${i + 1}\n${m}`).join('\n\n');
+        const data = messages!.map((m, i) => `Сообщение №${i + 1}\n${m.caption}`).join('\n\n');
 
         switch (exportType) {
             case 'pdf': {

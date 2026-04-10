@@ -19,7 +19,8 @@ export class WordService {
     }
 
     async write(data: string) {
-        const zip = new PizZip(data)
+        const messages_file = await fs.readFile(path.resolve('src', 'common', 'services', 'exports', 'docs', 'messages.docx'));
+        const zip = new PizZip(messages_file);
         const doc = new DocxTemplater(zip, { paragraphLoop: true, linebreaks: true })
         doc.render({ messages: data })
         return doc.getZip().generate({ type: 'nodebuffer' })

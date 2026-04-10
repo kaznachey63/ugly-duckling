@@ -176,7 +176,13 @@ export class PdfService {
         const pdfDoc = await PDFDocument.create();
         await this.loadFonts(pdfDoc);
         const page = pdfDoc.addPage([600, 400]);
-        page.drawText(data, { x: 50, y: 350, size: 20, color: rgb(0, 0, 0) });
+        page.drawText(data, {
+            x: 50,
+            y: 350,
+            size: 14,
+            font: this.customFont,
+            color: rgb(0, 0, 0)
+        });
         return await pdfDoc.save();
     }
 
