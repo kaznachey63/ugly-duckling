@@ -41,7 +41,7 @@ function main(ctx: MyContext, contractInfoOrError: ContractInfo | boolean, error
     const text = format.escapeMarkdown(textLines.join('\n'))
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t('commands.cabinet.distribution.contract.main.buttons.export'), `mainExportContract:${ctx.session.distribution.name}`)
+        .text(ctx.t('utils.shared.export'), `mainExportContract:${ctx.session.distribution.name}`)
         .row().text(ctx.t('utils.shared.back'), `mainDistribution:${ctx.session.distribution.name}`)
     ;
 
@@ -55,8 +55,8 @@ function mainExportContract (ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text(ctx.t('commands.cabinet.distribution.contract.export.main.buttons.pdf'), `exportContract:${ctx.session.distribution.name}-pdf`)
-        .text(ctx.t('commands.cabinet.distribution.contract.export.main.buttons.word'), `exportContract:${ctx.session.distribution.name}-word`)   
+        .text(ctx.t('utils.shared.pdf'), `exportContract:${ctx.session.distribution.name}-pdf`)
+        .text(ctx.t('utils.shared.word'), `exportContract:${ctx.session.distribution.name}-word`)   
         .row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`)
     ;
     

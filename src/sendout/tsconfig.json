@@ -18,6 +18,7 @@
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
+    "rootDir": "..",
     "outDir": "dist"
   },
   "include": ["**/*.ts", "**/*.tsx"]

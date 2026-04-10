@@ -89,7 +89,7 @@ contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {
                 break;
             }
         }
-    menu = menuContract.exportContract(ctx, exportType, true);
+        menu = menuContract.exportContract(ctx, exportType, true);
         await ctx.api.deleteMessage(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState);
         const msg = await ctx.replyWithDocument(new InputFile(Buffer.from(buffer), fileName), { 
             caption: menu.text, 

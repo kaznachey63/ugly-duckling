@@ -18,8 +18,11 @@ export default function main(ctx: MyContext, messages: IMessage[]): Menu<InlineK
     }
     else {
         text.push(ctx.t("commands.cabinet.distribution.messages.main.title", { amount: positionId }));
-        keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clear"), `clearMessages:${nameDistribution}`).style("danger").row()
-        keyboard.text(ctx.t("commands.cabinet.distribution.messages.main.buttons.view"), `viewMessage:${nameDistribution}#0`).style("primary")
+        keyboard
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clear"), `clearMessages:${nameDistribution}`).style("danger").row()
+            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.view"), `viewMessage:${nameDistribution}#0`).style("primary").row()
+            .text(ctx.t('utils.shared.export'), `mainExportMessages:${ctx.session.distribution.name}`)
+        ;
     }
     keyboard.row().text(ctx.t("utils.shared.back"), `mainDistribution:${ctx.session.distribution.name}`);
     text.push(ctx.t("commands.cabinet.distribution.messages.main.path", { call: callDistribution }));

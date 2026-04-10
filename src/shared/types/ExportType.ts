@@ -1,1 +1,1 @@
-export type ExportType = 'pdf' | 'word';
+export type ExportType = 'pdf' | 'word' | 'txt';
