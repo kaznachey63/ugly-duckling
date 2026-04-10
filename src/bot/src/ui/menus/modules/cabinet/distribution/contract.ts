@@ -51,13 +51,13 @@ function main(ctx: MyContext, contractInfoOrError: ContractInfo | boolean, error
 function mainExportContract (ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t('commands.cabinet.distribution.contract.export.main.title'),
-        ctx.t('commands.cabinet.distribution.contract.export.path', { call: ctx.session.distribution.call }),
+        ctx.t('commands.cabinet.distribution.contract.export.main.path', { call: ctx.session.distribution.call }),
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
         .text(ctx.t('commands.cabinet.distribution.contract.export.main.buttons.pdf'), `exportContract:${ctx.session.distribution.name}-pdf`)
         .text(ctx.t('commands.cabinet.distribution.contract.export.main.buttons.word'), `exportContract:${ctx.session.distribution.name}-word`)   
-        .text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`)
+        .row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`)
     ;
     
     return { text: format.escapeMarkdown(text), keyboard }
@@ -66,10 +66,10 @@ function mainExportContract (ctx: MyContext): Menu<InlineKeyboard> {
 function exportContract (ctx: MyContext, exportType: ExportType, result: boolean): Menu<InlineKeyboard> {
     const text = [
         result ? 
-            ctx.t('commands.cabinet.distribution.contract.export.caption', { exportType: exportType }) :
-            ctx.t('commands.cabinet.distribution.contract.export.error')
+            ctx.t('commands.cabinet.distribution.contract.export.result.caption', { exportType: exportType }) :
+            ctx.t('commands.cabinet.distribution.contract.export.result.error')
         ,
-        ctx.t('commands.cabinet.distribution.contract.export.path', { call: ctx.session.distribution.call, exportType: exportType }),
+        ctx.t('commands.cabinet.distribution.contract.export.result.path', { call: ctx.session.distribution.call, exportType: exportType }),
     ].join('\n');
 
     const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`);
