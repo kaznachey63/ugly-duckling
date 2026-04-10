@@ -10,7 +10,7 @@ messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
     const nameDistribution = ctx.session.distribution.name!;
     const positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
     ctx.session.other.text.positionId = positionId;
-    const messages = await db.message.getMessagesForBot(nameDistribution);
+    const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
     if (!messages) return;
     const messageId = messages[positionId]?.id!;
 
@@ -25,18 +25,13 @@ messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
 });
 
 messageComposer.callbackQuery(/^paginationMessages:/, async (ctx: MyContext) => {
-    const messages = await db.message.getMessagesForBot(ctx.session.distribution.name);
+    const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
     const menu = menuView.pagination(ctx, messages?.length!);
 
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"
     });
-    // const queryData = ctx.callbackQuery?.data;
-    // const dataPages = queryData!.split(/#/)[1];
-    // const [nowPage, allPage] = (dataPages?.split('/'))?.map(Number)!;
-
-    // await ctx.answerCallbackQuery({ text: ctx.t("commands.cabinet.distribution.messages.pagination", { nowPage: nowPage, allPage: allPage }), show_alert: true });
 });
 
 export default messageComposer;

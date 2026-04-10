@@ -2,7 +2,6 @@ import { getPool } from '../pool';
 const pool = getPool();
 import distribution from './distribution';
 import type { Message } from '@shared/types/Message'
-import type { IMessage } from '@shared/types/IMessage'
 
 async function getMessages(): Promise<Message[] | undefined> {
     const client = await pool.connect();
@@ -79,7 +78,7 @@ async function updateMessage(
     }
 }
 
-async function addMessage(nameDistribution: string, message: IMessage) {
+async function addMessage(nameDistribution: string, message: Message) {
     const client = await pool.connect();
     try {
         await client.query('BEGIN');
@@ -106,10 +105,10 @@ async function addMessage(nameDistribution: string, message: IMessage) {
     }
 }
 
-async function getMessagesForBot(nameDistribution: string): Promise<IMessage[] | undefined> {
+async function getMessagesForBot(schema: string): Promise<Message[] | undefined> {
     const client = await pool.connect();    
     try {
-        const { rows } = await client.query(`SELECT id, caption, media, entities FROM ${(await distribution.getDistributionInfo(nameDistribution)).schema}.messages ORDER BY POSITION ASC`);
+        const { rows } = await client.query(`SELECT id, caption, media, entities FROM ${schema}.messages ORDER BY POSITION ASC`);
         return rows.map(r => ({
             id: r.id,
             caption: r.caption,

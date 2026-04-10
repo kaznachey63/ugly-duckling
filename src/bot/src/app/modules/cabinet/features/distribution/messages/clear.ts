@@ -8,7 +8,7 @@ const clearComposer = new Composer<MyContext>();
 
 clearComposer.callbackQuery(/^clearMessages:/, async (ctx: MyContext) => {
     const nameDistribution = ctx.session.distribution.name!;
-    const messages = await db.message.getMessagesForBot(nameDistribution);
+    const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
     if (!messages) return;
 
     await db.message.removeAllMessage(nameDistribution);

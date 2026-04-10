@@ -83,7 +83,7 @@ export default async function addingMedia(ctx: MyContext) {
         await fileService.writeBuffer(path.join(pathMedia, nameFile), buffer);
         
         // Получение сообщений
-        const messages = await db.message.getMessagesForBot(nameDistribution);
+        const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
         if (!messages) return;
 
         const message = messages[positionId!];

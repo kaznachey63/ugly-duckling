@@ -46,7 +46,7 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     const nameDistribution = ctx.session.distribution.name!;
     const positionId = Number(queryData!.split(/#/)[1]);
     ctx.session.other.media.positionId = positionId;
-    const messages = await db.message.getMessagesForBot(nameDistribution);
+    const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
     if (!messages) return;
     const message = messages[positionId];
     const server = new ServerManager();

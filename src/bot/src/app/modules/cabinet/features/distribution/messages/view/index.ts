@@ -9,10 +9,9 @@ import menuView from '@menus/modules/cabinet/distribution/message/view';
 const viewComposer = new Composer<MyContext>();
 
 viewComposer.callbackQuery(/^viewMessage:/, async (ctx: MyContext) => {
-    const nameDistribution = ctx.session.distribution.name!;
     ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
-
-    const messages = await db.message.getMessagesForBot(nameDistribution);
+    
+    const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
     if (!messages) return;
     const menu = menuView.main(ctx, messages);
 

@@ -7,7 +7,7 @@ import common from '@utils/common';
 export default async function editingText(ctx: MyContext) {
     const nameDistribution = ctx.session.distribution.name!;
     const positionId = ctx.session.other.text.positionId!;
-    const messages = await db.message.getMessagesForBot(nameDistribution);
+    const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
     if (!messages) return;
     const messageId = messages[positionId]?.id!;
 

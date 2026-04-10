@@ -21,6 +21,16 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
 }
 
 function result(ctx: MyContext, exportType: ExportType, result: boolean): Menu<InlineKeyboard> {
+    const text = [
+        result ? 
+            ctx.t('commands.cabinet.distribution.messages.export.result.caption', { exportType: exportType }) :
+            ctx.t('commands.cabinet.distribution.messages.export.result.error')
+        ,
+        ctx.t('commands.cabinet.distribution.messages.export.result.path', { call: ctx.session.distribution.call, exportType: exportType }),
+    ].join('\n');
+
+    const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.back'), `mainMessages:${ctx.session.distribution.name}`);
+    
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
