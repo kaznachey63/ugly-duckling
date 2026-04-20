@@ -61,7 +61,6 @@ async function fillData(ctx: MyContext) {
     const name = last_name ? `${first_name} ${last_name}` : first_name;
     const roleId = phoneNumber == "79371807522" ? 1 : 2;
 
-    if (!phoneNumber) return false;
     try {
         await pool.query(
             `UPDATE users 
