@@ -65,14 +65,14 @@ async function fillData(ctx: MyContext) {
         await pool.query(
             `UPDATE users 
             SET 
-                telegram_id = $2,
-                name = $3, 
-                username = $4,
-                phone = $5,
-                language = $6,
-                role_id = $7
-            WHERE phone = $1`,
-            [phoneNumber, id, name, username, language_code, roleId]
+                telegram_id = $1,
+                name = $2, 
+                username = $3,
+                phone = $4,
+                language = $5,
+                role_id = $6
+            WHERE phone = $4`,
+            [id, name, username, phoneNumber, language_code, roleId]
         );
     } catch (error) {
         console.error("Ошибка при вставке пользователя", error);
@@ -156,13 +156,13 @@ async function getUserLang(telegramId: number): Promise<LanguageCode> {
 async function getUsers(): Promise<{ customers: number[]; admins: number[] }> {
     let customers = [], admins = [];
     try {
-        const users = (await pool.query("SELECT telegram_id, is_admin FROM users")).rows;
+        const users = (await pool.query("SELECT telegram_id, role_id FROM users")).rows;
         for (const user of users) {
-            if (user.is_admin) admins.push(user.telegram_id);
-            else if (!user.is_admin && user.telegram_id != 0) customers.push(user.telegram_id);
+            if (user.role_id == 1) admins.push(user.telegram_id);
+            else if (user.role_id == 2 && user.telegram_id != 0) customers.push(user.telegram_id);
         }
     } catch (error) {
-        console.log("Ошибка в получении пользователей");
+        console.log("Ошибка в получении пользователей", error);
     } finally {
         return { customers, admins }
     }
