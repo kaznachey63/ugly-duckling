@@ -26,7 +26,8 @@ function mainSendout(ctx: MyContext): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard };
 }
 
-function mainSendouts (ctx: MyContext, sendouts: Cred[]): Menu<InlineKeyboard> {
+// сендацис заменить на тип кред[]
+function mainSendouts (ctx: MyContext, sendouts: any[]): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.main.sendouts.title")
     ].join('\n');
@@ -35,7 +36,7 @@ function mainSendouts (ctx: MyContext, sendouts: Cred[]): Menu<InlineKeyboard> {
 
     sendouts.forEach((cred) => {
         keyboard.text(
-            cred.call,
+            cred.call_ru,
             `mainDistribution:${cred.name}`
         ).row();
     });    
