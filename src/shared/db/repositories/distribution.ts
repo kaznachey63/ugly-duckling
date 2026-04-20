@@ -7,7 +7,7 @@ import type { InfoDist } from '@shared/types/InfoDist';
  */
 async function getSendoutInfo(name: string): Promise<InfoDist> {
     const { rows } = await pool.query(
-        'SELECT schema, name, label, call_ru FROM public.register_dists WHERE name = $1',
+        'SELECT schema, name, label, call_ru FROM public.accounts WHERE name = $1',
         [name]
     );
     return rows[0];
