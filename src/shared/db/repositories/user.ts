@@ -71,7 +71,7 @@ async function fillData(ctx: MyContext) {
                 phone = $5,
                 language = $6,
                 role_id = $7
-            WHERE phone_number = $1`,
+            WHERE phone = $1`,
             [phoneNumber, id, name, username, language_code, roleId]
         );
     } catch (error) {
