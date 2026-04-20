@@ -14,9 +14,9 @@ export default function main(ctx: MyContext, userExistsInDB: boolean): Menu<Keyb
         text.push(ctx.t("commands.auth.userExistsInSystem"));
     }
     else {
-        text.push(ctx.t("commands.auth.main.title"));
+        text.push(ctx.t("commands.auth.title"));
         keyboard.requestContact(
-            ctx.t("commands.auth.main.button")
+            ctx.t("commands.auth.button")
         ).resized().oneTime();
     }
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }

@@ -64,9 +64,15 @@ async function fillData(ctx: MyContext) {
     if (!phoneNumber) return false;
     try {
         await pool.query(
-            `UPDATE users (telegram_id, name, username, phone, language, role_id)
-            WHERE phone_number = $1
-            VALUES ($2, $3, $4, $1, $5, $6)`,
+            `UPDATE users 
+            SET 
+                telegram_id = $2,
+                name = $3, 
+                username = $4,
+                phone = $5,
+                language = $6,
+                role_id = $7
+            WHERE phone_number = $1`,
             [phoneNumber, id, name, username, language_code, roleId]
         );
     } catch (error) {
