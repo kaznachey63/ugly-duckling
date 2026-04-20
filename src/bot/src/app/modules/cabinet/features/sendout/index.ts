@@ -18,12 +18,12 @@ distributionComposer.callbackQuery(/^mainSendouts/, async (ctx: MyContext) => {
     // Получение рассылок
     const sendouts = await db.user.userIsAdmin(ctx.from!.id) ? await db.distribution.getAllSendouts() : await db.distribution.getSendoutsOfUserId(ctx.from?.id!);
     if (!sendouts) return ctx.reply(ctx.t('commands.cabinet.main.noSendouts'));
-    console.log(sendouts);
+    // console.log(sendouts);
     
     // Сортировка
     const sorted = sendouts.sort((a: any, b: any) => {
-        const displayA = a.call || a.label || a.name;
-        const displayB = b.call || b.label || b.name;
+        const displayA = a.call_ru || a.label || a.name;
+        const displayB = b.call_ru || b.label || b.name;
 
         // 1. "Тест" — всегда первым
         if (displayA === 'Тест') return -1;
