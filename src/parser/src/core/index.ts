@@ -6,8 +6,8 @@ import db from '@shared/db';
 
 // cron.schedule("49 10 * * *", async () => {
     try {
-        await db.chat.clearTableChats();
-        const credentials = await db.credential.getCredentials();
+        await db.chat.clearTable();
+        const credentials = await db.credential.getCredentialsentials();
 
         const chatPromises = credentials.map(async (dist) => {
             const client = await auth.start2(dist);

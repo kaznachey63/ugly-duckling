@@ -3,10 +3,30 @@ const pool = getPool();
 import distribution from './distribution';
 import type { Message } from '@shared/types/Message'
 
+/**
+ * Получение сообщений (для рассылки)
+ */
 async function getMessages(): Promise<Message[] | undefined> {
-    const client = await pool.connect();
     try {
-        const { rows } = await client.query(`SELECT id, caption, media, entities FROM ${distribution.getSchema()}.messages ORDER BY POSITION ASC`);
+        const { rows } = await pool.query(`SELECT id, caption, media, entities FROM ${distribution.getSchema()}.messages ORDER BY POSITION ASC`);
+        return rows.map(r => ({
+            id: r.id,
+            caption: r.caption,
+            media: r.media || [],
+            entities: r.entities
+        }));
+    } catch (error) {
+        console.error("Ошибка при получении сообщений", error);
+    }
+}
+
+/**
+ * Получение сообщений (для бота)
+ */
+async function getMessagesForBot(schema: string): Promise<Message[] | undefined> {
+    const client = await pool.connect();    
+    try {
+        const { rows } = await client.query(`SELECT id, caption, media, entities FROM ${schema}.messages ORDER BY POSITION ASC`);
         return rows.map(r => ({
             id: r.id,
             caption: r.caption,
@@ -20,28 +40,37 @@ async function getMessages(): Promise<Message[] | undefined> {
     }
 }
 
-async function removeAllMessage(nameDistribution: string) {
+/**
+ * Очистка сообщений
+ */
+async function clearTable(schema: string) {
     try {
-        await pool.query(`TRUNCATE TABLE ${(await distribution.getDistributionInfo(nameDistribution)).schema}.messages RESTART IDENTITY`);
+        await pool.query(`TRUNCATE TABLE ${schema}.messages RESTART IDENTITY`);
     } catch (error) {
-        console.error("Ошибка удаления сообщений:", error);
+        console.error("Ошибка при очистке сообщений", error);
     }
 }
 
-async function removeMessage(nameDistribution: string, messageId: number) {
+/**
+ * Удаление сообщения по айди
+ */
+async function removeMessage(schema: string, messageId: number) {
     try {
         await pool.query(
-            `DELETE FROM ${(await distribution.getDistributionInfo(nameDistribution)).schema}.messages 
+            `DELETE FROM ${schema}.messages 
              WHERE id = $1`,
             [messageId]
         );
     } catch (error) {
-        console.error("Ошибка удаления сообщения:", error);
+        console.error("Ошибка при удалении сообщения", error);
     }
 }
 
+/**
+ * Обновление сообщения по айди
+ */
 async function updateMessage(
-    nameDistribution: string,
+    schema: string,
     messageId: number,
     updates: { caption?: string; entities?: any[] | null; media?: string[] | null }
 ) {
@@ -68,30 +97,31 @@ async function updateMessage(
         values.push(messageId); // для WHERE id = $N
 
         await pool.query(
-            `UPDATE ${(await distribution.getDistributionInfo(nameDistribution)).schema}.messages 
+            `UPDATE ${schema}.messages 
              SET ${fields.join(', ')} 
              WHERE id = $${paramIndex}`,
             values
         );
     } catch (error) {
-        console.error("Ошибка обновления сообщения:", error);
+        console.error("Ошибка при обновлении сообщения", error);
     }
 }
 
-async function addMessage(nameDistribution: string, message: Message) {
+/**
+ * Добавление сообщения
+ */
+async function addMessage(schema: string, message: Message) {
     const client = await pool.connect();
     try {
         await client.query('BEGIN');
 
         // 1. Получаем текущее количество записей (чтобы знать позицию)
-        const { rows: countRows } = await client.query(
-            `SELECT COUNT(*) as cnt FROM ${(await distribution.getDistributionInfo(nameDistribution)).schema}.messages`
-        );
-        const position = parseInt(countRows[0].cnt);
+        const { rows } = await client.query(`SELECT COUNT(*) as cnt FROM ${schema}.messages`);
+        const position = parseInt(rows[0].cnt);
 
         // 2. Добавляем сообщение с позицией
         await client.query(
-            `INSERT INTO ${(await distribution.getDistributionInfo(nameDistribution)).schema}.messages (caption, media, position, entities) 
+            `INSERT INTO ${schema}.messages (caption, media, position, entities) 
              VALUES ($1, $2, $3, $4)`,
             [message.caption, message.media, position, JSON.stringify(message.entities)]
         );
@@ -105,28 +135,11 @@ async function addMessage(nameDistribution: string, message: Message) {
     }
 }
 
-async function getMessagesForBot(schema: string): Promise<Message[] | undefined> {
-    const client = await pool.connect();    
-    try {
-        const { rows } = await client.query(`SELECT id, caption, media, entities FROM ${schema}.messages ORDER BY POSITION ASC`);
-        return rows.map(r => ({
-            id: r.id,
-            caption: r.caption,
-            media: r.media || [],
-            entities: r.entities
-        }));
-    } catch (error) {
-        console.error('Ошибка получения сообщений:', error);
-    } finally {
-        client.release();
-    }
-}
-
 export default {
     getMessages,
     addMessage,
     updateMessage,
     removeMessage,
     getMessagesForBot,
-    removeAllMessage
+    clearTable
 }

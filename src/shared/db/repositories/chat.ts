@@ -2,6 +2,9 @@ import { getPool } from '../pool';
 const pool = getPool();
 import type { Chat } from '@shared/types/Chat';
 
+/**
+ * Вставка чатов
+ */
 async function insertChats(list: Chat[]) {
     const chatIds = list.map(chat => chat.id);
     const titles = list.map(chat => chat.title);
@@ -13,14 +16,16 @@ async function insertChats(list: Chat[]) {
             [chatIds, titles, links]
         );
     } catch (error) {
-        console.error('Ошибка при массовой вставке чатов:', error);
+        console.error("Ошибка при вставке чатов", error);
     }
 }
 
+/**
+ * Получение чатов
+ */
 async function getChats(): Promise<Chat[] | undefined> {
-    const client = await pool.connect();
     try {
-        const rows = (await client.query(`SELECT chat_id, title, link FROM public.register_chats`)).rows;
+        const { rows } = await pool.query(`SELECT chat_id, title, link FROM public.chats`);
         return rows.map(r => {
             return {
                 id: r.chat_id,
@@ -29,10 +34,18 @@ async function getChats(): Promise<Chat[] | undefined> {
             }
         });
     } catch (error) {
-        console.error(error);
+        console.error("Ошибка при получении чатов", error);
     }
-    finally {
-        client.release();
+}
+
+/**
+ * Очистка списка чатов
+ */
+async function clearTable() {
+    try {
+        await pool.query(`TRUNCATE TABLE public.chats RESTART IDENTITY`);
+    } catch (error) {
+        console.error("Ошибка при очистке чатов", error);
     }
 }
 
@@ -50,17 +63,9 @@ async function getChatsInfo(chats: string[]): Promise<Chat[] | undefined> {
     }
 }
 
-async function clearTableChats() {
-    try {
-        await pool.query(`TRUNCATE TABLE public.REGISTER_CHATS RESTART IDENTITY`);
-    } catch (err) {
-        console.error('Ошибка при очистке таблицы чатов:', err);
-    }
-}
-
 export default {
     insertChats,
     getChats,
     getChatsInfo,
-    clearTableChats
+    clearTable
 }

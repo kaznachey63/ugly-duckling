@@ -65,7 +65,7 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     }
     
     // 🔥 ОБНУЛЯЕМ МЕДИА В БД
-    await db.message.updateMessage(nameDistribution, message?.id!, { media: null });
+    await db.message.updateMessage(ctx.session.distribution.schema, message!.id!, { media: null });
     
     const menu = menuView.clearAllMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));
     await ctx.editMessageText(menu.text, {

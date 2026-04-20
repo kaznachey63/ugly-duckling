@@ -9,7 +9,7 @@ export default async function addingIdea(ctx: MyContext) {
     try {
         const result = await ctx.forwardMessage("-1003760118458");
         forwardResult = !!result;
-        await db.bot.updateLastMessageId(result.message_id);
+        await db.bot.updateIdeaLastMessageId(result.message_id);
     } catch (error) {
         console.error('Не удалось добавить идею:', error);
     }

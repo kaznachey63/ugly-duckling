@@ -1,12 +1,18 @@
 import { getPool } from '../pool';
 const pool = getPool();
 
-async function getLastMessage() {
+/**
+ * Получение айди последнего сообщения в списке идей
+ */
+async function getIdeaLastMessageId(): Promise<string> {
     const { rows } = await pool.query("SELECT last_idea_id FROM public.bot");
-    return rows[0];
+    return String(rows[0]?.last_idea_id);
 }
 
-async function updateLastMessageId(messageId: number) {
+/**
+ * Обновление айди последнего сообщения в списке идей
+ */
+async function updateIdeaLastMessageId(messageId: number) {
     await pool.query(
         `UPDATE public.bot 
          SET last_idea_id = $1
@@ -16,6 +22,6 @@ async function updateLastMessageId(messageId: number) {
 }
 
 export default {
-    getLastMessage,
-    updateLastMessageId
+    getIdeaLastMessageId,
+    updateIdeaLastMessageId
 }

@@ -3,7 +3,10 @@ const pool = getPool();
 import distribution from './distribution';
 import type { LogData } from '@shared/types/LogData';
 
-async function insertToResults(data: LogData) {
+/**
+ * Вставка результатов рассылки
+ */
+async function insertResult(data: LogData) {
     const client = await pool.connect();
     try {
         await client.query(
@@ -18,9 +21,12 @@ async function insertToResults(data: LogData) {
     }
 }
 
-async function getResults(label: string) {
+/**
+ * Получение результатов рассылки
+ */
+async function getResults(schema: string) {
     try {
-        const { rows } = await pool.query(`SELECT time, date, success, chats FROM ${(await distribution.getDistributionInfo(label)).schema}.results`);
+        const { rows } = await pool.query(`SELECT time, date, success, chats FROM ${schema}.results`);
         return rows.map(r => {
             return {
                 time: r.time,
@@ -36,5 +42,5 @@ async function getResults(label: string) {
 
 export default {
     getResults,
-    insertToResults
+    insertResult
 }

@@ -9,7 +9,7 @@ import db from '@shared/db';
 let client: TelegramClient | null = null;
 
 async function main() {
-    const listDist = await db.credential.getCred();
+    const listDist = await db.credential.getCredentials();
     const name = process.argv[2]!;
 
     const target = listDist.find(d => d.name === name);

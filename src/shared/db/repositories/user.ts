@@ -5,7 +5,6 @@ import type { MyContext } from '@shared/types/SessionData';
 
 /**
  * Проверка на существование пользователя в БД
- * @param userId Айди пользователя
  * @returns true - если существует, иначе false
  */
 async function userExistsInDB(userId: number): Promise<boolean> {
@@ -16,15 +15,13 @@ async function userExistsInDB(userId: number): Promise<boolean> {
         );
         return rows.length > 0;
     } catch (error) {
-        console.error("Ошибка проверки пользователя:", error);
+        console.error("Ошибка при проверке пользователя", error);
         return false;
     }
 }
 
 /**
- * Получение номера телефона пользователя из БД
- * @param userId Айди пользователя
- * @returns Номер телефона или пустая строка
+ * Получение номера телефона пользователя
  */
 async function getPhoneNumber(userId: number): Promise<string> {
     try {
@@ -34,15 +31,13 @@ async function getPhoneNumber(userId: number): Promise<string> {
         );
         return rows[0]?.phone_number || "";
     } catch (error) {
-        console.error("Ошибка получения номера из БД:", error);
+        console.error("Ошибка при получении номера", error);
         return "";
     }
 }
 
 /**
  * Проверка на администратора
- * @param userId Айди пользователя
- * @returns true если админ, иначе false
  */
 async function userIsAdmin(userId: number): Promise<boolean> {
     try {
@@ -52,32 +47,13 @@ async function userIsAdmin(userId: number): Promise<boolean> {
         );
         return rows[0]?.is_admin ?? false;
     } catch (error) {
-        console.error("Ошибка проверки администратора:", error);
+        console.error("Ошибка при проверке на администратора", error);
         return false;
     }
 }
 
 /**
- * Проверка на батю
- * @param userId Айди пользователя
- * @returns true если номер совпадает с FATHER_NUMBER, иначе false
- */
-async function userIsFather(userId: number): Promise<boolean> {
-    try {
-        const { rows } = await pool.query(
-            "SELECT phone_number FROM users WHERE telegram_id = $1",
-            [userId]
-        );
-        return rows[0]?.phone_number === process.env.FATHER_NUMBER;
-    } catch (error) {
-        console.error("Ошибка проверки батя:", error);
-        return false;
-    }
-}
-
-/**
- * Вставка пользователя в БД
- * @param ctx Контекст
+ * Вставка пользователя
  */
 async function insertUserToDB(ctx: MyContext) {
     const { id, username, first_name, last_name } = ctx.from!;
@@ -95,12 +71,12 @@ async function insertUserToDB(ctx: MyContext) {
         );
         return true;
     } catch (error) {
-        console.error("Ошибка вставки пользователя:", error);
+        console.error("Ошибка при вставке пользователя", error);
     }
 }
 
 /**
- * Обновляет язык пользователя в БД по telegram_id
+ * Обновление языка пользователя
  */
 async function updateLangUser(id: number, languageCode: LanguageCode) {
     try {
@@ -112,12 +88,14 @@ async function updateLangUser(id: number, languageCode: LanguageCode) {
         );
         return true;
     } catch (error) {
-        console.error("Ошибка обновления языка пользователя:", error);
+        console.error("Ошибка при обновлении языка пользователя", error);
         return false;
     }
 }
 
-
+/**
+ * Получение кода языка пользователя
+ */
 async function getUserLang(telegramId: number): Promise<LanguageCode> {
     try {
         const result = await pool.query(
@@ -128,7 +106,7 @@ async function getUserLang(telegramId: number): Promise<LanguageCode> {
         // Если юзер есть и язык задан — возвращаем, иначе дефолт
         return result.rows[0]?.language;
     } catch (error) {
-        console.error("Ошибка получения языка:", error);
+        console.error("Ошибка при получении языка.", error);
         return 'ru';
     }
 }
@@ -151,7 +129,6 @@ async function getUsers(): Promise<{ customers: number[]; admins: number[] }> {
 export default {
     userExistsInDB,
     userIsAdmin,
-    userIsFather,
     getPhoneNumber,
     insertUserToDB,
     updateLangUser,

@@ -8,7 +8,7 @@ const clearComposer = new Composer<MyContext>();
 
 clearComposer.callbackQuery(/^clearSchedule:/, async (ctx: MyContext) => {
     try {
-        await db.time.clearTableTimes(ctx.session.distribution.schema);
+        await db.time.clearTable(ctx.session.distribution.schema);
         const server = new ServerManager();
         const menu = menuClear(ctx, await server.restartProcessOrNot(ctx.session.distribution.name, true));
 

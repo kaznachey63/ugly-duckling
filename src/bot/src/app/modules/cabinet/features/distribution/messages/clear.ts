@@ -7,13 +7,12 @@ import { Composer } from 'grammy';
 const clearComposer = new Composer<MyContext>();
 
 clearComposer.callbackQuery(/^clearMessages:/, async (ctx: MyContext) => {
-    const nameDistribution = ctx.session.distribution.name!;
     const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
     if (!messages) return;
 
-    await db.message.removeAllMessage(nameDistribution);
+    await db.message.clearTable(ctx.session.distribution.schema);
     const server = new ServerManager();
-    const menu = menuClear(ctx, await server.restartProcessOrNot(nameDistribution, true));
+    const menu = menuClear(ctx, await server.restartProcessOrNot(ctx.session.distribution.name, true));
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"

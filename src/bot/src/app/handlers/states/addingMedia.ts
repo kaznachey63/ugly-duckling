@@ -101,7 +101,7 @@ export default async function addingMedia(ctx: MyContext) {
         const newMedia = [...existingMedia, nameFile];
 
         // Обновление медиа
-        await db.message.updateMessage(nameDistribution, message.id, { media: newMedia });
+        await db.message.updateMessage(ctx.session.distribution.schema, message.id!, { media: newMedia });
         await sleep(250);
         const server = new ServerManager();
         const menu = menuState.addingMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));

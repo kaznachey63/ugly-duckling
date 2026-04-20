@@ -16,7 +16,7 @@ export class Scheduler {
     }
 
     async start() {
-        const times = await db.time.getTimes();
+        const times = await db.time.getSchedule();
         const messages = await db.message.getMessages();
         const chats = await db.chat.getChats();
         

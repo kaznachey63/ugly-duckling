@@ -7,16 +7,15 @@ import type { MyContext } from '@shared/types/SessionData';
 const messageComposer = new Composer<MyContext>();
 
 messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
-    const nameDistribution = ctx.session.distribution.name!;
     const positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
     ctx.session.other.text.positionId = positionId;
     const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
     if (!messages) return;
     const messageId = messages[positionId]?.id!;
 
-    await db.message.removeMessage(nameDistribution, messageId);
+    await db.message.removeMessage(ctx.session.distribution.schema, messageId);
     const server = new ServerManager();
-    const menu = menuView.removeMessage(ctx, await server.restartProcessOrNot(nameDistribution, true));
+    const menu = menuView.removeMessage(ctx, await server.restartProcessOrNot(ctx.session.distribution.name, true));
 
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,

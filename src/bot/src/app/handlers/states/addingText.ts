@@ -5,16 +5,14 @@ import { ServerManager } from "src/common/services/ServerManager";
 import common from '@utils/common';
 
 export default async function addingText(ctx: MyContext) {
-    const nameDistribution = ctx.session.distribution.name!;
-
-    await db.message.addMessage(nameDistribution, {
+    await db.message.addMessage(ctx.session.distribution.schema, {
         id: 0,
         caption: ctx.message?.text?.trim()!,
         entities: ctx.message?.entities!,
         media: null
     });
     const server = new ServerManager();
-    const menu = menuState.addingText(ctx, await server.restartProcessOrNot(nameDistribution, true));
+    const menu = menuState.addingText(ctx, await server.restartProcessOrNot(ctx.session.distribution.name, true));
     common.resetSessionStates(ctx.session);
 
     await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {

@@ -73,8 +73,8 @@ function getType(type: StatisticType): string[] {
     }
 }
 
-async function getGroups(nameDistribution: string, typeStat: StatisticType): Promise<number[]> {
-    const logs = await db.result.getResults(nameDistribution);
+async function getGroups(schema: string, typeStat: StatisticType): Promise<number[]> {
+    const logs = await db.result.getResults(schema);
     if (!logs) return [];
 
     const dates = getType(typeStat);
@@ -134,7 +134,7 @@ function getMonth(date: Date): string[] {
 }
 
 async function getDataForDiagram(ctx: MyContext, typeStat: StatisticType): Promise<ChartData | false> {
-    const groups = await getGroups(ctx.session.distribution.name, typeStat);
+    const groups = await getGroups(ctx.session.distribution.schema, typeStat);
     if (Number(groups.join('')) <= 0) return false;
 
     return {

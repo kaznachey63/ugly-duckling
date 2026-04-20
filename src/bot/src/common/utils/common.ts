@@ -29,7 +29,7 @@ async function loadCabinet(ctx: MyContext) {
     // await ctx.reply(ctx.t("utils.shared.processing"), { reply_markup: { remove_keyboard: true } });        
     
     // Получение рассылок
-    const allCreds = await db.credential.getCred();
+    const allCreds = await db.credential.getCredentials();
 
     let filtered: typeof allCreds = [];
 
@@ -119,7 +119,7 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     // Присваивание инфо о рассылке и пользователе
     ctx.session.user.role = await getRole(ctx.from?.id!);
     const nameDistribution = ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!;
-    const infoDist = await db.distribution.getDistributionInfo(nameDistribution);
+    const infoDist = await db.distribution.getSendoutInfo(nameDistribution);
     if (infoDist) {
         ctx.session.distribution = {
             name: nameDistribution,

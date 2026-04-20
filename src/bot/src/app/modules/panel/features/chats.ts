@@ -23,7 +23,7 @@ chatsComposer.callbackQuery("mainChats", async (ctx: MyContext) => {
  */
 chatsComposer.callbackQuery("clearChats", async (ctx: MyContext) => {
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
-    await db.chat.clearTableChats();
+    await db.chat.clearTable();
     
     const menu = menuChat.clear(ctx, (await db.chat.getChats())?.length!);
     await ctx.editMessageText(menu.text, {
