@@ -6,7 +6,7 @@ const startComposer = new Composer<MyContext>();
 // Команда /start
 startComposer.command('start', async (ctx: MyContext) => {
     try {
-        await ctx.reply(ctx.t("commands.start.message"));
+        await ctx.reply(ctx.t("commands.start.title"));
     } catch (error) {
         console.error("Ошибка в команде start:", error);
     }

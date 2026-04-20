@@ -22,19 +22,21 @@ async function processCabinet(ctx: MyContext) {
         ctx.session = init.createDefaultSession();
 
         // Присваивание айди команыд кабинета чтобы удалить мусор
-        if (ctx.message?.text?.startsWith('/')) ctx.session.other.ids.commandCabinetId = ctx.msgId!;
+        // if (ctx.message?.text?.startsWith('/')) ctx.session.other.ids.commandCabinetId = ctx.msgId!;
 
         // Пользователь есть в БД
-        if (await db.user.userExistsInDB(ctx.from?.id!)) {
-            await common.loadCabinet(ctx);
-        } else {
-            // Пользователя нет в БД — запрашиваем номер телефона
-            const menu = menuCabinet.notAuthed(ctx);
-            await ctx.reply(menu.text, {
-                reply_markup: menu.keyboard,
-                parse_mode: 'MarkdownV2'
-            });
-        }
+        // if (await db.user.userExistsInDB(ctx.from?.id!)) {
+        //     await common.loadCabinet(ctx);
+        // } 
+        // else {
+        //     // Пользователя нет в БД — запрашиваем номер телефона
+        //     const menu = menuCabinet(ctx);
+        //     await ctx.reply(menu.text, {
+        //         reply_markup: menu.keyboard,
+        //         parse_mode: 'MarkdownV2'
+        //     });
+        // }
+        await common.loadCabinet(ctx);
     } catch (error) {
         console.error('Ошибка в команде cabinet:', error);
     }

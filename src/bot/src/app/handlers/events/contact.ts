@@ -1,56 +1,41 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
-import utils from '@utils';
-import constants from '@constants';
-import { GoogleService } from "src/common/services/GoogleService";
 
 const contactComposer = new Composer<MyContext>();
 
 contactComposer.on('message:contact', async (ctx: MyContext) => {
-    if (!ctx) return;
-    if (!ctx.message || !('contact' in ctx.message)) return;
-
     try {
-        const phoneNumber = ctx.message.contact.phone_number?.replace('+', '');
+        const phoneNumber = ctx.message!.contact?.phone_number?.replace('+', '');
         if (!phoneNumber) return;
-
-        // Проверяем номер в Google Sheets
-        const google = new GoogleService();
-        const dataFromSheets = await google.getRowsFromGS(constants.google.rangeTable);
-        const phoneExists = dataFromSheets?.some(row => row[0]?.trim() === phoneNumber);
-
+    
         // 1. Сначала отправляем "Обработка..." и ПОЛУЧАЕМ ID этого сообщения
         const processingMsg = await ctx.reply(ctx.t("utils.shared.processing"), {
             reply_markup: { remove_keyboard: true }
         });
+        
         const processingMsgId = processingMsg?.message_id;
 
-        // 2. Логика проверки
-        if (phoneExists || utils.common.isAdmin(ctx.from?.id!)) {
+        if (await db.user.matchPhoneNumber(phoneNumber)) {
             ctx.session.user.phoneNumber = phoneNumber;
-            ctx.session.user.role = await utils.common.getRole(ctx.from?.id!);
-
+            
             // 3. Удаляем, передавая ID сообщения обработки
             await deleteMessageProcessing(ctx, processingMsgId);
-
-            if (!await db.user.insertUserToDB(ctx)) {
+            try {
+                await db.user.fillData(ctx);
+                await ctx.reply(ctx.t("handlers.events.contact.accessGood"));
+            } catch {
                 await ctx.reply(ctx.t("handlers.events.contact.numberIsNull"));
-                return;
             }
-
-            await utils.common.loadCabinet(ctx);
-        } else {
+        }
+        else {
             // 4. Если доступ запрещен — тоже удаляем
             await deleteMessageProcessing(ctx, processingMsgId);
-
-            ctx.session.user.role = "unknown";
             await ctx.reply(ctx.t('handlers.events.contact.accessDenied'));
         }
     } catch (error) {
         console.error("Ошибка в обработке контакта:", error);
     }
-    // ⚠️ Для message-хендлеров answerCallbackQuery не нужен
 });
 
 async function deleteMessageProcessing(ctx: MyContext, endMsgId?: number) {

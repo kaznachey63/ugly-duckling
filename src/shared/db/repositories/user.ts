@@ -2,12 +2,13 @@ import type { LanguageCode } from 'grammy/types';
 import { getPool } from '../pool';
 const pool = getPool();
 import type { MyContext } from '@shared/types/SessionData';
+import constants from 'src/bot/src/common/constants';
 
 /**
  * Проверка на существование пользователя в БД
  * @returns true - если существует, иначе false
  */
-async function userExistsInDB(userId: number): Promise<boolean> {
+async function existsInDB(userId: number): Promise<boolean> {
     try {
         const { rows } = await pool.query(
             "SELECT telegram_id FROM users WHERE telegram_id = $1",
@@ -36,6 +37,43 @@ async function getPhoneNumber(userId: number): Promise<string> {
     }
 }
 
+/**
+ * Проверка номера телефона на существование в БД
+ */
+async function matchPhoneNumber(phoneNumber: string): Promise<boolean> {
+    try {
+        const { rows } = await pool.query(
+            "SELECT id FROM users WHERE phone = $1",
+            [phoneNumber]
+        );
+        return rows.length > 0;
+    } catch (error) {
+        console.error("Ошибка при проверке номера", error);
+        return false;
+    }
+}
+
+/**
+ * Заполнение данными пользователя, прошедшего авторизацию
+ */
+async function fillData(ctx: MyContext) {
+    const { id, username, first_name, last_name, language_code } = ctx.from!;
+    const phoneNumber = ctx.session?.user.phoneNumber;
+    const name = last_name ? `${first_name} ${last_name}` : first_name;
+    const roleId = phoneNumber == constants.adminData.phone ? 1 : 2;
+
+    if (!phoneNumber) return false;
+    try {
+        await pool.query(
+            `UPDATE users (telegram_id, name, username, phone, language, role_id)
+            WHERE phone_number = $1
+            VALUES ($2, $3, $4, $1, $5, $6)`,
+            [phoneNumber, id, name, username, language_code, roleId]
+        );
+    } catch (error) {
+        console.error("Ошибка при вставке пользователя", error);
+    }
+}
 /**
  * Проверка на администратора
  */
@@ -127,11 +165,13 @@ async function getUsers(): Promise<{ customers: number[]; admins: number[] }> {
 }
 
 export default {
-    userExistsInDB,
+    existsInDB,
     userIsAdmin,
     getPhoneNumber,
     insertUserToDB,
     updateLangUser,
     getUserLang,
-    getUsers
+    getUsers,
+    matchPhoneNumber,
+    fillData
 }

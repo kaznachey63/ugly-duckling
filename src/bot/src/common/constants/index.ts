@@ -82,6 +82,10 @@ const chart = {
     backgroundColor: 'white',
 }
 
+const adminData = {
+    phone: "79371807522"
+}
+
 export default {
     link,
     calendar,
@@ -89,5 +93,6 @@ export default {
     gigaChat,
     media,
     chart,
-    server
+    server,
+    adminData
 }

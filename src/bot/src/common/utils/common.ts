@@ -87,7 +87,7 @@ async function loadCabinet(ctx: MyContext) {
         return displayA.localeCompare(displayB, 'ru', { sensitivity: 'base' });
     });
 
-    const menu = menuCabinet.authed(ctx, sorted);
+    const menu = menuCabinet(ctx, sorted);
 
     // Отправка результата
     try {
@@ -111,7 +111,7 @@ function isAdmin(id: number): boolean {
  */
 async function getRole(id: number): Promise<Role> {
     if (isAdmin(id)) return "admin";
-    else if (await db.user.userExistsInDB(id)) return "customer";
+    else if (await db.user.existsInDB(id)) return "customer";
     else return "unknown";
 }
 
