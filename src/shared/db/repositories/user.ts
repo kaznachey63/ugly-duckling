@@ -2,7 +2,6 @@ import type { LanguageCode } from 'grammy/types';
 import { getPool } from '../pool';
 const pool = getPool();
 import type { MyContext } from '@shared/types/SessionData';
-import constants from 'src/bot/src/common/constants';
 
 /**
  * Проверка на существование пользователя в БД
@@ -60,7 +59,7 @@ async function fillData(ctx: MyContext) {
     const { id, username, first_name, last_name, language_code } = ctx.from!;
     const phoneNumber = ctx.session?.user.phoneNumber;
     const name = last_name ? `${first_name} ${last_name}` : first_name;
-    const roleId = phoneNumber == constants.adminData.phone ? 1 : 2;
+    const roleId = phoneNumber == "79371807522" ? 1 : 2;
 
     if (!phoneNumber) return false;
     try {
