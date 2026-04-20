@@ -1,5 +1,4 @@
 import { InlineKeyboard, Keyboard } from 'grammy';
-import type { Cred } from '@shared/types/Cred';
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
@@ -7,18 +6,14 @@ import format from '@utils/formatting';
 /**
  * Меню команды cabinet
  */
-export default function main(ctx: MyContext, sendouts: Cred[]): Menu<InlineKeyboard> {
+export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t('utils.shared.cabinet'),
-        ctx.t("commands.cabinet.main.authed.title", { count: sendouts.length })
+        ctx.t('utils.shared.cabinet')
     ].join('\n');
 
-    const keyboard = new InlineKeyboard();
-    sendouts.forEach((cred) => {
-        keyboard.text(
-            cred.call,
-            `mainDistribution:${cred.name}`
-        ).row();
-    });    
+    const keyboard = new InlineKeyboard()
+        .text(ctx.t("commands.cabinet.main.buttons.sendout"), "mainSendouts")
+        .text(ctx.t("commands.cabinet.main.buttons.profile"), "mainProfile")
+    ;
     return { text: format.escapeMarkdown(text), keyboard };
 }

@@ -4,7 +4,7 @@ import type { Chat } from '@shared/types/Chat';
 import type { Menu } from '@shared/types/Menu';
 import db from '@shared/db';
 import format from '@utils/formatting';
-import menuStatistic from '@menus/modules/cabinet/distribution/statistic';
+import menuStatistic from '@menus/modules/cabinet/sendout/statistic';
 
 const selectiveStatisticsComposer = new Composer<MyContext>();
 

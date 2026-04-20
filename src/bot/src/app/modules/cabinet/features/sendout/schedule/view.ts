@@ -3,9 +3,9 @@ import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db/index';
 import local from '@utils/localization';
 import { ServerManager } from 'src/common/services/ServerManager';
-import menuView from '@menus/modules/cabinet/distribution/schedule/view';
+import menuView from '@menus/modules/cabinet/sendout/schedule/view';
 import common from '@utils/common';
-import menuSchedule from '@menus/modules/cabinet/distribution/schedule/main';
+import menuSchedule from '@menus/modules/cabinet/sendout/schedule/main';
 
 const viewComposer = new Composer<MyContext>();
 

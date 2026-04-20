@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuStatistic from '@menus/modules/cabinet/distribution/statistic';
+import menuStatistic from '@menus/modules/cabinet/sendout/statistic';
 import selectiveStatisticsComposer from './selective';
 import comparativeStatisticsComposer from './comparative';
 

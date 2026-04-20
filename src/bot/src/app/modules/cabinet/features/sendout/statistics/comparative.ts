@@ -4,7 +4,7 @@ import type { ChartData } from '@shared/types/ChartData';
 import type { StatisticType } from '@shared/types/StatisticType';
 import db from '@shared/db';
 import utils from '@utils';
-import menuStatistic from '@menus/modules/cabinet/distribution/statistic';
+import menuStatistic from '@menus/modules/cabinet/sendout/statistic';
 import { QuickChartService } from "src/common/services/QuickChartService";
 
 const comparativeStatisticsComposer = new Composer<MyContext>();

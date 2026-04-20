@@ -1,6 +1,6 @@
 import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
-import menuClear from '@menus/modules/cabinet/distribution/message/clear';
+import menuClear from '@menus/modules/cabinet/sendout/message/clear';
 import { ServerManager } from "src/common/services/ServerManager";
 import { Composer } from 'grammy';
 

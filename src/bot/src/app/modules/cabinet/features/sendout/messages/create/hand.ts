@@ -1,5 +1,5 @@
 import type { MyContext } from '@shared/types/SessionData';
-import menuCreate from '@menus/modules/cabinet/distribution/message/create';
+import menuCreate from '@menus/modules/cabinet/sendout/message/create';
 import { Composer } from 'grammy';
 
 const handComposer = new Composer<MyContext>();

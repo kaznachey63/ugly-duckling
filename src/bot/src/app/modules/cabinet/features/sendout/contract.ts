@@ -1,7 +1,7 @@
 import { Composer, InputFile } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import { GoogleService } from "src/common/services/GoogleService";
-import menuContract from '@menus/modules/cabinet/distribution/contract';
+import menuContract from '@menus/modules/cabinet/sendout/contract';
 import constants from '@constants';
 import { PdfService } from 'src/common/services/exports/PdfService';
 import { WordService } from 'src/common/services/exports/WordService';

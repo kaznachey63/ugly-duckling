@@ -26,10 +26,10 @@ async function existsInDB(userId: number): Promise<boolean> {
 async function getPhoneNumber(userId: number): Promise<string> {
     try {
         const { rows } = await pool.query(
-            "SELECT phone_number FROM users WHERE telegram_id = $1",
+            "SELECT phone FROM users WHERE telegram_id = $1",
             [userId]
         );
-        return rows[0]?.phone_number || "";
+        return rows[0]?.phone || "";
     } catch (error) {
         console.error("Ошибка при получении номера", error);
         return "";
@@ -84,10 +84,10 @@ async function fillData(ctx: MyContext) {
 async function userIsAdmin(userId: number): Promise<boolean> {
     try {
         const { rows } = await pool.query(
-            "SELECT is_admin FROM users WHERE telegram_id = $1",
+            "SELECT role_id FROM users WHERE telegram_id = $1",
             [userId]
         );
-        return rows[0]?.is_admin ?? false;
+        return rows[0]?.role_id == 1;
     } catch (error) {
         console.error("Ошибка при проверке на администратора", error);
         return false;
