@@ -36,7 +36,7 @@ async function processCabinet(ctx: MyContext) {
         //         parse_mode: 'MarkdownV2'
         //     });
         // }
-        await common.loadCabinet(ctx);
+        // await common.loadCabinet(ctx);
     } catch (error) {
         console.error('Ошибка в команде cabinet:', error);
     }
