@@ -25,7 +25,7 @@ export const i18nMiddleware = async (ctx: MyContext, next: NextFunction) => {
     if (!telegramId) return await next();
 
     // Просто берем из БД
-    const lng = await db.user.getUserLang(telegramId);
+    const lng = await db.user.getLang(telegramId);
 
     ctx.t = (key: string, options = {}) => i18next.t(key, { lng, ...options });
     await next();
