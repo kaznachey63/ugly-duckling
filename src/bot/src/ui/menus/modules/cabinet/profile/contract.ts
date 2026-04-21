@@ -24,17 +24,18 @@ function main(ctx: MyContext, contractInfoOrError: ContractInfo | boolean, error
 
     if (is_error) {
         textLines = [
-            ctx.t("commands.cabinet.distribution.contract.main.title"),
-            ctx.t("commands.cabinet.distribution.contract.main.error")
+            
+            ctx.t("commands.cabinet.profile.contract.main.title"),
+            ctx.t("commands.cabinet.profile.contract.main.error")
         ]
     }
     else if (info) {
         textLines = [
-            ctx.t("commands.cabinet.distribution.contract.main.title"),
-            ctx.t("commands.cabinet.distribution.contract.main.customer", { customer: info.customer }),
-            ctx.t("commands.cabinet.distribution.contract.main.dateStart", { dateStart: info.dateStart }),
-            ctx.t("commands.cabinet.distribution.contract.main.dateStop", { dateStop: info.dateStop }),
-            ctx.t("commands.cabinet.distribution.contract.main.path", { call: ctx.session.distribution.call })
+            ctx.t("commands.cabinet.profile.contract.main.title"),
+            ctx.t("commands.cabinet.profile.contract.main.customer", { customer: info.customer }),
+            ctx.t("commands.cabinet.profile.contract.main.dateStart", { dateStart: info.dateStart }),
+            ctx.t("commands.cabinet.profile.contract.main.dateStop", { dateStop: info.dateStop }),
+            ctx.t("commands.cabinet.profile.contract.main.path", { call: ctx.session.distribution.call })
         ]
     }
 
@@ -48,10 +49,10 @@ function main(ctx: MyContext, contractInfoOrError: ContractInfo | boolean, error
     return { text, keyboard }
 }
 
-function mainExportContract (ctx: MyContext): Menu<InlineKeyboard> {
+function mainExportContract(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t('commands.cabinet.distribution.contract.export.main.title'),
-        ctx.t('commands.cabinet.distribution.contract.export.main.path', { call: ctx.session.distribution.call }),
+        ctx.t('commands.cabinet.profile.contract.export.main.title'),
+        ctx.t('commands.cabinet.profile.contract.export.main.path', { call: ctx.session.distribution.call }),
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
@@ -63,13 +64,13 @@ function mainExportContract (ctx: MyContext): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function exportContract (ctx: MyContext, exportType: ExportType, result: boolean): Menu<InlineKeyboard> {
+function exportContract(ctx: MyContext, exportType: ExportType, result: boolean): Menu<InlineKeyboard> {
     const text = [
         result ? 
-            ctx.t('commands.cabinet.distribution.contract.export.result.caption', { exportType: exportType }) :
-            ctx.t('commands.cabinet.distribution.contract.export.result.error')
+            ctx.t('commands.cabinet.profile.contract.export.result.caption', { exportType: exportType }) :
+            ctx.t('commands.cabinet.profile.contract.export.result.error')
         ,
-        ctx.t('commands.cabinet.distribution.contract.export.result.path', { call: ctx.session.distribution.call, exportType: exportType }),
+        ctx.t('commands.cabinet.profile.contract.export.result.path', { call: ctx.session.distribution.call, exportType: exportType }),
     ].join('\n');
 
     const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`);

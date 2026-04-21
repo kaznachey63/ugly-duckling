@@ -88,7 +88,7 @@ bot.start();
 // bot.use(async (ctx, next) => {
 //     if (!MAINTENANCE) return next();
 
-//     if (await db.user.userIsAdmin(ctx.from?.id!)) {
+//     if (await db.user.isAdmin(ctx.from?.id!)) {
 //         return next(); // админ проходит
 //     }
 

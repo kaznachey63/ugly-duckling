@@ -12,7 +12,6 @@ function mainSendout(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.contract"), `mainContract:${nameDistribution}`).row()
         .text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.schedule"), `mainSchedule:${nameDistribution}`).row()
         .text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.messages"), `mainMessage:${nameDistribution}`).row()
         .text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.statistics"), `mainStatistic:${nameDistribution}`).row()
@@ -26,7 +25,6 @@ function mainSendout(ctx: MyContext): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard };
 }
 
-// сендацис заменить на тип кред[]
 function mainSendouts (ctx: MyContext, sendouts: SendoutInfo[]): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.main.sendouts.title", { count: sendouts.length })

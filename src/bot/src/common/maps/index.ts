@@ -1,3 +1,5 @@
+import type { LanguageCode } from "grammy/types";
+
 const typeComparativeStatistika: Record<string, string> = {
     "week": "Неделя",
     "month": "Месяц"
@@ -25,9 +27,14 @@ const dayWeekMap: Record<string, string> = {
     '*': 'Каждый день'
 };
 
+const allowLanguages: LanguageCode[] = [
+    'ru', 'en', 'zh', 'sr'
+];
+
 export default {
     typeComparativeStatistika,
     fileFormat,
     mimeType,
     dayWeekMap,
+    allowLanguages,
 };

@@ -81,7 +81,7 @@ async function fillData(ctx: MyContext) {
 /**
  * Проверка на администратора
  */
-async function userIsAdmin(userId: number): Promise<boolean> {
+async function isAdmin(userId: number): Promise<boolean> {
     try {
         const { rows } = await pool.query(
             "SELECT role_id FROM users WHERE telegram_id = $1",
@@ -95,32 +95,9 @@ async function userIsAdmin(userId: number): Promise<boolean> {
 }
 
 /**
- * Вставка пользователя
- */
-async function insertUserToDB(ctx: MyContext) {
-    const { id, username, first_name, last_name } = ctx.from!;
-    const phoneNumber = ctx.session?.user.phoneNumber || null;
-    const name = last_name ? `${first_name} ${last_name}` : first_name;
-    const isAdmin = ctx.session.user.role === "admin";
-    const language = ctx.from?.language_code;
-
-    if (!phoneNumber) return false;
-    try {
-        await pool.query(
-            `INSERT INTO users (telegram_id, name, username, phone_number, is_admin, language)
-            VALUES ($1, $2, $3, $4, $5, $6)`,
-            [id, name, username, phoneNumber, isAdmin, language]
-        );
-        return true;
-    } catch (error) {
-        console.error("Ошибка при вставке пользователя", error);
-    }
-}
-
-/**
  * Обновление языка пользователя
  */
-async function updateLangUser(id: number, languageCode: LanguageCode) {
+async function updateLang(id: number, languageCode: LanguageCode) {
     try {
         await pool.query(
             `UPDATE users 
@@ -138,7 +115,7 @@ async function updateLangUser(id: number, languageCode: LanguageCode) {
 /**
  * Получение кода языка пользователя
  */
-async function getUserLang(telegramId: number): Promise<LanguageCode> {
+async function getLang(telegramId: number): Promise<LanguageCode> {
     try {
         const result = await pool.query(
             `SELECT language FROM users WHERE telegram_id = $1`,
@@ -170,12 +147,35 @@ async function getUsers(): Promise<{ customers: number[]; admins: number[] }> {
 
 export default {
     existsInDB,
-    userIsAdmin,
+    isAdmin,
     getPhoneNumber,
-    insertUserToDB,
-    updateLangUser,
-    getUserLang,
+    updateLang,
+    getLang,
     getUsers,
     matchPhoneNumber,
     fillData
+    // insertToDB,
 }
+
+/**
+ * Вставка пользователя
+ */
+// async function insertToDB(ctx: MyContext) {
+//     const { id, username, first_name, last_name } = ctx.from!;
+//     const phoneNumber = ctx.session?.user.phoneNumber || null;
+//     const name = last_name ? `${first_name} ${last_name}` : first_name;
+//     const isAdmin = ctx.session.user.role === "admin";
+//     const language = ctx.from?.language_code;
+
+//     if (!phoneNumber) return false;
+//     try {
+//         await pool.query(
+//             `INSERT INTO users (telegram_id, name, username, phone_number, is_admin, language)
+//             VALUES ($1, $2, $3, $4, $5, $6)`,
+//             [id, name, username, phoneNumber, isAdmin, language]
+//         );
+//         return true;
+//     } catch (error) {
+//         console.error("Ошибка при вставке пользователя", error);
+//     }
+// }

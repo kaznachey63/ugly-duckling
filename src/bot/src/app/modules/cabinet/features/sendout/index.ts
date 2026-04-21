@@ -2,7 +2,6 @@ import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import menuSendout from '@menus/modules/cabinet/sendout/main';
 import conditionComposer from './condition';
-import contractComposer from './contract';
 import scheduleComposer from './schedule';
 import statisticsComposer from './statistics';
 import messageComposer from './messages';
@@ -17,7 +16,7 @@ distributionComposer.callbackQuery(/^mainSendouts/, async (ctx: MyContext) => {
     // await ctx.reply(ctx.t("utils.shared.processing"), { reply_markup: { remove_keyboard: true } });        
 
     // Получение рассылок
-    const sendouts = await db.user.userIsAdmin(ctx.from!.id) ? await db.distribution.getAllSendouts() : await db.distribution.getSendoutsOfUserId(ctx.from?.id!);
+    const sendouts = await db.user.isAdmin(ctx.from!.id) ? await db.distribution.getAllSendouts() : await db.distribution.getSendoutsOfUserId(ctx.from?.id!);
     if (!sendouts.length) return ctx.answerCallbackQuery({ text: ctx.t('commands.cabinet.distribution.main.sendouts.noSendouts'), show_alert: true });
     
     // Сортировка
@@ -60,7 +59,6 @@ distributionComposer.callbackQuery(/^mainSendouts/, async (ctx: MyContext) => {
 distributionComposer.use(mainComposer);
 distributionComposer.use(messageComposer);
 distributionComposer.use(conditionComposer);
-distributionComposer.use(contractComposer);
 distributionComposer.use(scheduleComposer);
 distributionComposer.use(statisticsComposer);
 

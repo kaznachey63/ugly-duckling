@@ -1,7 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import type { LanguageCode } from 'grammy/types';
-import menuLanguage from '@menus/modules/settings/language';
+import menuLanguage from '@menus/modules/cabinet/profile/language';
 import i18next from 'i18next';
 import db from '@shared/db';
 
@@ -10,39 +10,37 @@ const languageComposer = new Composer<MyContext>();
 // Главная страница языка
 languageComposer.callbackQuery('mainLanguage', async (ctx: MyContext) => {
     try {
-        const userLang = await db.user.getUserLang(ctx.from?.id!);
+        const userLang = await db.user.getLang(ctx.from?.id!);
         const menu = menuLanguage(ctx, userLang);
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'
         });
     } catch (error) {
-        console.error('Ошибка в mainLanguage:', error);
-    } finally {
-        
-    }
+        console.error('Ошибка в mainLanguage', error);
+    } 
 });
 
 // Смена языка (с параметром)
 languageComposer.callbackQuery(/^changeLanguage:/, async (ctx: MyContext) => {
     try {
         const languageCode = ctx.callbackQuery?.data?.split(':')[1] as LanguageCode;
-        const currentLang = await db.user.getUserLang(ctx.from?.id!);
+        const currentLang = await db.user.getLang(ctx.from?.id!);
 
         if (languageCode === currentLang) {
             return await ctx.answerCallbackQuery({
-                text: ctx.t('commands.settings.language.change.error'),
+                text: ctx.t('commands.cabinet.profile.language.change.error'),
                 show_alert: true
             });
         }
 
-        await db.user.updateLangUser(ctx.from?.id!, languageCode);
+        await db.user.updateLang(ctx.from?.id!, languageCode);
 
         ctx.t = (key: string, options = {}) => {
             return i18next.t(key, { lng: languageCode, ...options });
         };
 
-        await ctx.answerCallbackQuery(ctx.t('commands.settings.language.change.good'));
+        await ctx.answerCallbackQuery(ctx.t('commands.cabinet.profile.language.change.good'));
 
         const menu = menuLanguage(ctx, languageCode);
         await ctx.editMessageText(menu.text, {
@@ -50,10 +48,8 @@ languageComposer.callbackQuery(/^changeLanguage:/, async (ctx: MyContext) => {
             parse_mode: 'MarkdownV2'
         });
     } catch (error) {
-        console.error('Ошибка в changeLanguage:', error);
-    } finally {
-        
-    }
+        console.error('Ошибка в changeLanguage', error);
+    } 
 });
 
 export default languageComposer;

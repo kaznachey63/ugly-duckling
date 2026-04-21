@@ -1,20 +1,25 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuSendout from '@menus/modules/cabinet/sendout/main';
+import menuProfile from '@menus/modules/cabinet/profile/main';
+import contractComposer from './contract';
+import languageComposer from './language';
 
 const profileComposer = new Composer<MyContext>();
 
-profileComposer.callbackQuery(/^mainDistribution:/, async (ctx: MyContext) => {
-    // try {
-    //     const menu = menuSendout.mainSendout(ctx);
-    //     await ctx.editMessageText(menu.text, {
-    //         reply_markup: menu.keyboard,
-    //         parse_mode: 'MarkdownV2'
-    //     });
-    // } catch (error) {
-    //     console.error('Ошибка в mainDistribution:', error);
-    //     throw error;
-    // } 
+profileComposer.callbackQuery(/^mainProfile/, async (ctx: MyContext) => {
+    try {
+        const menu = menuProfile(ctx);
+        await ctx.editMessageText(menu.text, {
+            reply_markup: menu.keyboard,
+            parse_mode: 'MarkdownV2'
+        });
+    } catch (error) {
+        console.error('Ошибка в mainProfile:', error);
+        throw error;
+    } 
 });
+
+profileComposer.use(contractComposer);
+profileComposer.use(languageComposer);
 
 export default profileComposer;
