@@ -9,9 +9,9 @@ import mainComposer from './main';
 import db from '@shared/db';
 import type { SendoutInfo } from '@shared/types/SendoutInfo';
 
-const distributionComposer = new Composer<MyContext>();
+const sendoutComposer = new Composer<MyContext>();
 
-distributionComposer.callbackQuery(/^mainSendouts/, async (ctx: MyContext) => {
+sendoutComposer.callbackQuery(/^mainSendouts/, async (ctx: MyContext) => {
     // Удаление контакта на всякий случай
     // await ctx.reply(ctx.t("utils.shared.processing"), { reply_markup: { remove_keyboard: true } });        
 
@@ -56,10 +56,10 @@ distributionComposer.callbackQuery(/^mainSendouts/, async (ctx: MyContext) => {
     await ctx.editMessageText(menu.text, { reply_markup: menu.keyboard, parse_mode: "MarkdownV2" });
 });
 
-distributionComposer.use(mainComposer);
-distributionComposer.use(messageComposer);
-distributionComposer.use(conditionComposer);
-distributionComposer.use(scheduleComposer);
-distributionComposer.use(statisticsComposer);
+sendoutComposer.use(mainComposer);
+sendoutComposer.use(messageComposer);
+sendoutComposer.use(conditionComposer);
+sendoutComposer.use(scheduleComposer);
+sendoutComposer.use(statisticsComposer);
 
-export default distributionComposer;
+export default sendoutComposer;

@@ -1,7 +1,8 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import menuCabinet from '@menus/modules/cabinet/main';
-import distributionComposer from './features/sendout'
+import sendoutComposer from './features/sendout'
+import profileComposer from './features/profile';
 
 const cabinetComposer = new Composer<MyContext>();
 
@@ -21,6 +22,7 @@ cabinetComposer.callbackQuery("mainCabinet", async (ctx: MyContext) => {
     });    
 });
 
-cabinetComposer.use(distributionComposer);
+cabinetComposer.use(sendoutComposer);
+cabinetComposer.use(profileComposer);
 
 export default cabinetComposer;
