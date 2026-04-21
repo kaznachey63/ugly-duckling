@@ -2,7 +2,7 @@ import { InlineKeyboard } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import type { Menu } from '@shared/types/Menu';
 import format from '@utils/formatting';
-import type { Cred } from '@shared/types/Cred';
+import type { SendoutInfo } from '@shared/types/SendoutInfo';
 
 function mainSendout(ctx: MyContext): Menu<InlineKeyboard> {
     const nameDistribution = ctx.session.distribution.name;
@@ -27,16 +27,16 @@ function mainSendout(ctx: MyContext): Menu<InlineKeyboard> {
 }
 
 // сендацис заменить на тип кред[]
-function mainSendouts (ctx: MyContext, sendouts: any[]): Menu<InlineKeyboard> {
+function mainSendouts (ctx: MyContext, sendouts: SendoutInfo[]): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("commands.cabinet.distribution.main.sendouts.title")
+        ctx.t("commands.cabinet.distribution.main.sendouts.title", { count: sendouts.length })
     ].join('\n');
 
     const keyboard = new InlineKeyboard();
 
     sendouts.forEach((cred) => {
         keyboard.text(
-            cred.call_ru,
+            cred.call,
             `mainDistribution:${cred.name}`
         ).row();
     });    

@@ -9,10 +9,10 @@ import db from '@shared/db';
 let client: TelegramClient | null = null;
 
 async function main() {
-    const listDist = await db.credential.getCredentials();
+    const listDist = await db.distribution.getSendoutsInfoWithCredentials();
     const name = process.argv[2]!;
 
-    const target = listDist.find(d => d.name === name);
+    const target = listDist?.find(d => d.name === name);
     if (!target) {
         console.error('Рассылка не найдена:', name);
         process.exit(1);

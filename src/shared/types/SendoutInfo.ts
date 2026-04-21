@@ -1,6 +1,6 @@
-export interface InfoDist {
+export interface SendoutInfo {
     schema: string;
     name: string;
     label: string;
-    call_ru: string;
+    call: string;
 }

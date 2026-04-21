@@ -45,7 +45,7 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     if (infoDist) {
         ctx.session.distribution = {
             name: nameDistribution,
-            call: infoDist.call_ru,
+            call: infoDist.call,
             label: infoDist.label, 
             schema: infoDist.schema
         }
