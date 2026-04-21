@@ -19,7 +19,7 @@ distributionComposer.callbackQuery(/^mainSendouts/, async (ctx: MyContext) => {
     // Получение рассылок
     const sendouts = await db.distribution.getSendoutsOfUserId(ctx.from?.id!);
     // const sendouts = await db.user.userIsAdmin(ctx.from!.id) ? await db.distribution.getAllSendouts() : await db.distribution.getSendoutsOfUserId(ctx.from?.id!);
-    if (!sendouts) return ctx.answerCallbackQuery({ text: ctx.t('commands.cabinet.main.noSendouts'), show_alert: true });
+    if (!sendouts.length) return ctx.answerCallbackQuery({ text: ctx.t('commands.cabinet.main.noSendouts'), show_alert: true });
     
     // Сортировка
     const sorted = sendouts.sort((a: SendoutInfo, b: SendoutInfo) => {
