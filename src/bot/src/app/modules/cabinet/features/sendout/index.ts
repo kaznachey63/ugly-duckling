@@ -17,8 +17,7 @@ distributionComposer.callbackQuery(/^mainSendouts/, async (ctx: MyContext) => {
     // await ctx.reply(ctx.t("utils.shared.processing"), { reply_markup: { remove_keyboard: true } });        
 
     // Получение рассылок
-    const sendouts = await db.distribution.getSendoutsOfUserId(ctx.from?.id!);
-    // const sendouts = await db.user.userIsAdmin(ctx.from!.id) ? await db.distribution.getAllSendouts() : await db.distribution.getSendoutsOfUserId(ctx.from?.id!);
+    const sendouts = await db.user.userIsAdmin(ctx.from!.id) ? await db.distribution.getAllSendouts() : await db.distribution.getSendoutsOfUserId(ctx.from?.id!);
     if (!sendouts.length) return ctx.answerCallbackQuery({ text: ctx.t('commands.cabinet.distribution.main.sendouts.noSendouts'), show_alert: true });
     
     // Сортировка

@@ -127,6 +127,9 @@
                     "profile": "👤 Профиль"
                 }
             },
+            "profile": {
+
+            },
             "distribution": {
                 "main": {
                     "sendout": {
