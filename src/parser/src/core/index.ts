@@ -7,9 +7,9 @@ import db from '@shared/db';
 // cron.schedule("49 10 * * *", async () => {
     try {
         await db.chat.clearTable();
-        const credentials = await db.credential.getCredentialsentials();
+        const credentials = await db.distribution.getSendoutsInfoWithCredentials();
 
-        const chatPromises = credentials.map(async (dist) => {
+        const chatPromises = credentials?.map(async (dist) => {
             const client = await auth.start2(dist);
             try {
                 return await helpers.chatsFromClient(client);
@@ -18,7 +18,7 @@ import db from '@shared/db';
             }
         });
 
-        const allChats = (await Promise.all(chatPromises)).flat();
+        const allChats = (await Promise.all(chatPromises!)).flat();
         const uniqueChatList = helpers.createUniqueList(allChats);
         await db.chat.insertChats(uniqueChatList);
     } catch (err) {
