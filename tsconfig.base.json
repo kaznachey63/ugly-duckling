@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "target": "ES2022",
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "ignoreDeprecations": "6.0",
     "types": ["node"],
     "esModuleInterop": true,

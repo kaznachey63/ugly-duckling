@@ -5,6 +5,7 @@ import { i18nMiddleware } from '@i18n';
 import utils from '@utils';
 import modulesComposer from '@modules';
 import eventsComposer from '@events';
+import { DB } from "@shared/db/data-source";
 
 const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
 
@@ -56,6 +57,8 @@ bot.on('callback_query', async (ctx: MyContext, next: NextFunction) => {
 bot.use(modulesComposer);
 
 bot.use(eventsComposer);
+
+await DB.initialize();
 
 bot.start();
 
