@@ -14,6 +14,8 @@ authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
         parse_mode: 'MarkdownV2'
     });
     ctx.session.other.ids.commandCabinetId = msg?.message_id!;
+    console.log("delete do: ", ctx.session.other.ids.commandCabinetId);
+    
 });
 
 authComposer.callbackQuery("logoutAuth", async (ctx: MyContext) => {
