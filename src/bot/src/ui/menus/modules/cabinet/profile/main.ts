@@ -8,7 +8,8 @@ import format from '@utils/formatting';
  */
 export default function main(ctx: MyContext, userExistsInDB: boolean): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("commands.cabinet.profile.title")
+        ctx.t("commands.cabinet.profile.title"),
+        ctx.t("commands.cabinet.profile.path")
     ].join('\n');
 
     // .text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.contract"), `mainContract:${nameDistribution}`).row()

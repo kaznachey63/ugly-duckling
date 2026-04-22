@@ -32,7 +32,7 @@ function logout(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
         ,
         ctx.t("commands.cabinet.profile.auth.logout.path")
     ];
-    const keyboard = new Keyboard().text(ctx.t("utils.shared.back"), "mainProfile");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainProfile");
     // .row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`)
 
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
