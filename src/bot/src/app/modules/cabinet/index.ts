@@ -16,7 +16,7 @@ cabinetComposer.command('cabinet', async (ctx: MyContext) => {
 
 cabinetComposer.callbackQuery("mainCabinet", async (ctx: MyContext) => {
     const menu = menuCabinet(ctx);
-        await ctx.editMessageText(menu.text, { 
+    await ctx.editMessageText(menu.text, { 
         reply_markup: menu.keyboard, 
         parse_mode: "MarkdownV2" 
     });    

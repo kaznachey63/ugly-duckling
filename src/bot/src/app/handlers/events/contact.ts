@@ -2,6 +2,8 @@ import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import constants from '@constants';
+import menuContact from "@menus/handlers/events/contact";
+import menuAuth from '@menus/modules/cabinet/profile/auth';
 
 const contactComposer = new Composer<MyContext>();
 
@@ -17,34 +19,37 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         
         const processingMsgId = processingMsg?.message_id;
 
-        if (await db.user.matchPhoneNumber(phoneNumber)) {
+        if (await db.user.matchPhoneNumber(phoneNumber) || phoneNumber == constants.adminData.phone) {
             ctx.session.user.phoneNumber = phoneNumber;
             
             // 3. Удаляем, передавая ID сообщения обработки
             await deleteMessageProcessing(ctx, processingMsgId);
+
+            let menu;
             try {
-                await db.user.fillData(ctx);
-                await ctx.reply(ctx.t("handlers.events.contact.accessGood"));
+                phoneNumber == constants.adminData.phone ? await db.user.insertToDB(ctx) : await db.user.fillData(ctx);
+
+                menu = menuAuth.processLogin(ctx, true);
+                await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.commandCabinetId, menu.text, { 
+                    reply_markup: menu.keyboard, 
+                    parse_mode: "MarkdownV2" 
+                });             
             } catch {
-                await ctx.reply(ctx.t("handlers.events.contact.numberIsNull"));
-            }
-        }
-        else if (phoneNumber == constants.adminData.phone) {
-            ctx.session.user.phoneNumber = phoneNumber;
-            
-            // 3. Удаляем, передавая ID сообщения обработки
-            await deleteMessageProcessing(ctx, processingMsgId);
-             try {
-            await db.user.insertToDB(ctx);
-                await ctx.reply(ctx.t("handlers.events.contact.accessGood"));
-            } catch {
-                await ctx.reply(ctx.t("handlers.events.contact.numberIsNull"));
+                menu = menuAuth.processLogin(ctx, false);
+                await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.commandCabinetId, menu.text, { 
+                    reply_markup: menu.keyboard, 
+                    parse_mode: "MarkdownV2" 
+                });  
             }
         }
         else {
             // 4. Если доступ запрещен — тоже удаляем
             await deleteMessageProcessing(ctx, processingMsgId);
-            await ctx.reply(ctx.t('handlers.events.contact.accessDenied'));
+            const menu = menuContact(ctx);
+            await ctx.reply(menu.text, {
+                reply_markup: menu.keyboard,
+                parse_mode: 'MarkdownV2'
+            });
         }
     } catch (error) {
         console.error("Ошибка в обработке контакта:", error);

@@ -4,9 +4,9 @@ import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
 
 /**
- * Меню кнопки войти
+ * Отправка кнопки войти
  */
-function login(ctx: MyContext): Menu<Keyboard> {
+function sendLogin(ctx: MyContext): Menu<Keyboard> {
     const text = [ 
         ctx.t("commands.cabinet.profile.auth.login.title"),
         ctx.t("commands.cabinet.profile.auth.login.path")
@@ -22,6 +22,22 @@ function login(ctx: MyContext): Menu<Keyboard> {
 }
 
 /**
+ * Обработка кнопки войти
+ */
+function processLogin(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
+    const text = [ 
+        result ? 
+            ctx.t("commands.cabinet.profile.auth.login.good") :
+            ctx.t("commands.cabinet.profile.auth.login.bad")
+        ,
+        ctx.t("commands.cabinet.profile.auth.login.path")
+    ].join('\n\n');
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainProfile");
+
+    return { text: format.escapeMarkdown(text), keyboard }
+}
+
+/**
  * Меню кнопки выйти
  */
 function logout(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
@@ -33,12 +49,12 @@ function logout(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.profile.auth.logout.path")
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainProfile");
-    // .row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`)
 
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 export default {
-    login,
+    processLogin,
+    sendLogin,
     logout
 }
