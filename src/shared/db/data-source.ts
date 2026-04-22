@@ -4,6 +4,6 @@ import { DataSource } from "typeorm";
 export const DB = new DataSource({
   type: "postgres",
   url: process.env.DATABASE_URL!,
-  entities: ["src/shared/db/entity/*.ts"],
+  entities: ["src/shared/db/entity/entities/*.ts"],
   synchronize: false,
 });
