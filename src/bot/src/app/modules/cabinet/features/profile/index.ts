@@ -3,6 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuProfile from '@menus/modules/cabinet/profile/main';
 import contractComposer from './contract';
 import db from '@shared/db';
+import authComposer from './auth';
 
 const profileComposer = new Composer<MyContext>();
 
@@ -20,5 +21,6 @@ profileComposer.callbackQuery(/^mainProfile/, async (ctx: MyContext) => {
 });
 
 profileComposer.use(contractComposer);
+profileComposer.use(authComposer);
 
 export default profileComposer;
