@@ -30,13 +30,13 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
                 phoneNumber == constants.adminData.phone ? await db.user.insertToDB(ctx) : await db.user.fillData(ctx);
 
                 menu = menuAuth.processLogin(ctx, true);
-                await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.commandCabinetId, menu.text, { 
+                await ctx.reply(menu.text, { 
                     reply_markup: menu.keyboard, 
                     parse_mode: "MarkdownV2" 
                 });             
             } catch {
                 menu = menuAuth.processLogin(ctx, false);
-                await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.commandCabinetId, menu.text, { 
+                await ctx.reply(menu.text, { 
                     reply_markup: menu.keyboard, 
                     parse_mode: "MarkdownV2" 
                 });  
@@ -67,7 +67,7 @@ async function deleteMessageProcessing(ctx: MyContext, endMsgId?: number) {
         let count = 0;
         const maxIterations = 100;
 
-        while (commandId < targetEndId - count) {
+        while (commandId <= targetEndId - count) {
             if (count > maxIterations) break;
 
             const targetId = targetEndId - count;
