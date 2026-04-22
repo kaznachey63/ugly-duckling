@@ -1,9 +1,6 @@
 import type { MyContext, SessionData } from '@shared/types/SessionData';
-import menuCabinet from "@menus/modules/cabinet/main";
 import db from "@shared/db";
-import { GoogleService } from "src/common/services/GoogleService";
 import type { Role } from '@shared/types/Role';
-import constants from '@constants';
 
 /**
  * Сброс сессии

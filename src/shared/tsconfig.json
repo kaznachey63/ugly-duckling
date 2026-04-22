@@ -9,7 +9,7 @@
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "ignoreDeprecations": "6.0",
     "target": "esnext",
     "types": [],
@@ -43,5 +43,9 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+      "paths": {
+        "@shared/*": ["./src/shared/*"],
+        "@generated/*": ["./src/generated/*"]
+    }
   }
 }

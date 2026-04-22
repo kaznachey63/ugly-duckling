@@ -11,50 +11,52 @@ import type { ContractData } from '@shared/types/ContractData';
 const contractComposer = new Composer<MyContext>();
 
 contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
-    if (ctx.session.distribution.call == "Пусто") {
-        await ctx.answerCallbackQuery({ text: ctx.t("commands.cabinet.distribution.contract.main.notSuccess"), show_alert: true });
-        return;
-    }
+    return ctx.answerCallbackQuery({ text: "Над разделом ведутся технические работы, попробуйте позже.", show_alert: true });
+
+    // if (ctx.session.distribution.call == "Пусто") {
+    //     await ctx.answerCallbackQuery({ text: ctx.t("commands.cabinet.distribution.contract.main.notSuccess"), show_alert: true });
+    //     return;
+    // }
     
-    try {
-        const google = new GoogleService();
-        const dataFromSheets = await google.getRowsFromGS(constants.google.rangeTable);
-        const row = dataFromSheets?.find(r => r?.[0] === ctx.session.distribution.label);
+    // try {
+    //     const google = new GoogleService();
+    //     const dataFromSheets = await google.getRowsFromGS(constants.google.rangeTable);
+    //     const row = dataFromSheets?.find(r => r?.[0] === ctx.session.distribution.label);
 
-        let menu;
-        if (!row || row.length < 4) {
-            menu = menuContract.main(ctx, true);
-        }
-        else {
-            const [, customer, dateStart, dateStop] = row as [undefined, string, string, string];
-            menu = menuContract.main(ctx, { customer, dateStart, dateStop }, false);
-        }
+    //     let menu;
+    //     if (!row || row.length < 4) {
+    //         menu = menuContract.main(ctx, true);
+    //     }
+    //     else {
+    //         const [, customer, dateStart, dateStop] = row as [undefined, string, string, string];
+    //         menu = menuContract.main(ctx, { customer, dateStart, dateStop }, false);
+    //     }
 
-        try {
-            const msg = await ctx.editMessageText(menu.text, {
-                parse_mode: 'MarkdownV2',
-                reply_markup: menu.keyboard
-            });
+    //     try {
+    //         const msg = await ctx.editMessageText(menu.text, {
+    //             parse_mode: 'MarkdownV2',
+    //             reply_markup: menu.keyboard
+    //         });
 
-            // Сохранение айди для последующего редактирования этого же сообщения
-            if (typeof msg !== "boolean" && "message_id" in msg) {
-                ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
-            }
-        } catch {
-            await ctx.api.deleteMessage(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState);
-            const msg = await ctx.reply(menu.text, {
-                parse_mode: 'MarkdownV2',
-                reply_markup: menu.keyboard
-            });
+    //         // Сохранение айди для последующего редактирования этого же сообщения
+    //         if (typeof msg !== "boolean" && "message_id" in msg) {
+    //             ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+    //         }
+    //     } catch {
+    //         await ctx.api.deleteMessage(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState);
+    //         const msg = await ctx.reply(menu.text, {
+    //             parse_mode: 'MarkdownV2',
+    //             reply_markup: menu.keyboard
+    //         });
 
-            // Сохранение айди для последующего редактирования этого же сообщения
-            if (typeof msg !== "boolean" && "message_id" in msg) {
-                ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
-            }
-        }
-    } catch (error) {
-        console.error('Ошибка в mainContract:', error);
-    }
+    //         // Сохранение айди для последующего редактирования этого же сообщения
+    //         if (typeof msg !== "boolean" && "message_id" in msg) {
+    //             ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+    //         }
+    //     }
+    // } catch (error) {
+    //     console.error('Ошибка в mainContract:', error);
+    // }
 });
 
 contractComposer.callbackQuery(/^mainExportContract:/, async (ctx: MyContext) => {
