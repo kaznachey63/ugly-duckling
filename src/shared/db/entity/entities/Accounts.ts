@@ -37,10 +37,8 @@ export class Accounts {
   @Column("integer", { name: "user_id", nullable: true })
   userId: number | null;
 
-  @OneToOne(() => Credentials, (credentials) => credentials.accounts, {
-    onDelete: "CASCADE",
-  })
-  @JoinColumn([{ name: "credential_id", referencedColumnName: "id" }])
+  @OneToOne(() => Credentials, (c) => c.accounts)
+  @JoinColumn()
   credential: Credentials;
 
   @ManyToOne(() => Users, (users) => users.accounts, { onDelete: "CASCADE" })

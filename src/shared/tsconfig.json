@@ -10,8 +10,8 @@
     // See also https://aka.ms/tsconfig/module
     "module": "esnext",
     "moduleResolution": "node",
-    "ignoreDeprecations": "6.0",
     "target": "esnext",
+    "ignoreDeprecations": "6.0",
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
