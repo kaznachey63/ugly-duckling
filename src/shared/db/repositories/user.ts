@@ -27,10 +27,10 @@ async function existsInDB(userId: number): Promise<boolean> {
 async function removeFromSystem(userId: number): Promise<boolean> {
     try {
         const { rowCount }  = await pool.query(
-            "DELETE CASCADE * FROM users WHERE telegram_id = $1",
+            "DELETE FROM users WHERE telegram_id = $1",
             [userId]
         );
-        return rowCount == 0;
+        return rowCount! > 0;
     } catch (error) {
         console.error("Ошибка при удалении пользователя", error);
         return false;
