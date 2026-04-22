@@ -23,7 +23,19 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             // 3. Удаляем, передавая ID сообщения обработки
             await deleteMessageProcessing(ctx, processingMsgId);
             try {
-                phoneNumber == constants.adminData.phone ? await db.user.fillData(ctx) : await db.user.insertToDB(ctx);
+                await db.user.fillData(ctx);
+                await ctx.reply(ctx.t("handlers.events.contact.accessGood"));
+            } catch {
+                await ctx.reply(ctx.t("handlers.events.contact.numberIsNull"));
+            }
+        }
+        else if (phoneNumber == constants.adminData.phone) {
+            ctx.session.user.phoneNumber = phoneNumber;
+            
+            // 3. Удаляем, передавая ID сообщения обработки
+            await deleteMessageProcessing(ctx, processingMsgId);
+             try {
+            await db.user.insertToDB(ctx);
                 await ctx.reply(ctx.t("handlers.events.contact.accessGood"));
             } catch {
                 await ctx.reply(ctx.t("handlers.events.contact.numberIsNull"));
