@@ -1,9 +1,21 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 
+import { Users } from "./entity/entities/Users";
+import { Accounts } from "./entity/entities/Accounts.js";
+import { Credentials } from "./entity/entities/Credentials.js";
+import { Contracts } from "./entity/entities/Contracts.js";
+import { Role } from "./entity/entities/Role.js";
+
 export const DB = new DataSource({
   type: "postgres",
   url: process.env.DATABASE_URL!,
-  entities: ["src/shared/db/entity/entities/*.ts"],
+  entities: [
+    Users,
+    Accounts,
+    Credentials,
+    Contracts,
+    Role,
+  ],
   synchronize: false,
 });
