@@ -4,6 +4,33 @@ const pool = getPool();
 import type { MyContext } from '@shared/types/SessionData';
 
 /**
+ * Заполнение данными пользователя, прошедшего авторизацию
+ */
+async function updateData(ctx: MyContext) {
+    const { id, username, first_name, last_name, language_code } = ctx.from!;
+    const phoneNumber = ctx.session?.user.phoneNumber;
+    const name = last_name ? `${first_name} ${last_name}` : first_name;
+    const roleId = phoneNumber == "79371807522" ? 1 : 2;
+
+    try {
+        await pool.query(
+            `UPDATE users 
+            SET 
+                telegram_id = $1,
+                name = $2, 
+                username = $3,
+                phone = $4,
+                language = $5,
+                role_id = $6
+            WHERE phone = $4`,
+            [id, name, username, phoneNumber, language_code, roleId]
+        );
+    } catch (error) {
+        console.error("Ошибка при вставке пользователя", error);
+    }
+}
+
+/**
  * Вставка пользователя
  */
 async function insertToDB(ctx: MyContext) {
@@ -42,8 +69,7 @@ async function existsInDB(userId: number): Promise<boolean> {
 }
 
 /**
- * Проверка на существование пользователя в БД
- * @returns true - если существует, иначе false
+ * Удаление пользователя из системы
  */
 async function removeFromSystem(userId: number): Promise<boolean> {
     try {
@@ -90,32 +116,6 @@ async function matchPhoneNumber(phoneNumber: string): Promise<boolean> {
     }
 }
 
-/**
- * Заполнение данными пользователя, прошедшего авторизацию
- */
-async function fillData(ctx: MyContext) {
-    const { id, username, first_name, last_name, language_code } = ctx.from!;
-    const phoneNumber = ctx.session?.user.phoneNumber;
-    const name = last_name ? `${first_name} ${last_name}` : first_name;
-    const roleId = phoneNumber == "79371807522" ? 1 : 2;
-
-    try {
-        await pool.query(
-            `UPDATE users 
-            SET 
-                telegram_id = $1,
-                name = $2, 
-                username = $3,
-                phone = $4,
-                language = $5,
-                role_id = $6
-            WHERE phone = $4`,
-            [id, name, username, phoneNumber, language_code, roleId]
-        );
-    } catch (error) {
-        console.error("Ошибка при вставке пользователя", error);
-    }
-}
 /**
  * Проверка на администратора
  */
@@ -191,7 +191,7 @@ export default {
     getLang,
     getUsers,
     matchPhoneNumber,
-    fillData,
+    updateData,
     removeFromSystem,
     insertToDB,
 }

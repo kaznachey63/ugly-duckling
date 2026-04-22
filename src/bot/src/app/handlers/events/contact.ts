@@ -27,7 +27,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
 
             let menu;
             try {
-                phoneNumber == constants.adminData.phone ? await db.user.insertToDB(ctx) : await db.user.fillData(ctx);
+                phoneNumber == constants.adminData.phone ? await db.user.insertToDB(ctx) : await db.user.updateData(ctx);
 
                 menu = menuAuth.processLogin(ctx, true);
                 await ctx.reply(menu.text, { 
