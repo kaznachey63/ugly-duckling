@@ -2,8 +2,6 @@ import type { LanguageCode } from 'grammy/types';
 import { getPool } from '../pool';
 const pool = getPool();
 import type { MyContext } from '@shared/types/SessionData';
-import { DB } from '../data-source';
-import { Users } from '../entity/entities/Users';
 
 /**
  * Проверка на существование пользователя в БД
@@ -85,15 +83,11 @@ async function fillData(ctx: MyContext) {
  */
 async function isAdmin(userId: number): Promise<boolean> {
     try {
-        const user = await DB.getRepository(Users).findOne({
-            where: {
-                telegramId: String(userId),
-                role: {
-                    name: "Администратор"
-                }
-            }
-        });
-        return user ? true : false;
+        const { rows } = await pool.query(
+            "SELECT role_id FROM users WHERE telegram_id = $1",
+            [userId]
+        );
+        return rows[0]?.role_id == 1;
     } catch (error) {
         console.error("Ошибка при проверке на администратора", error);
         return false;
