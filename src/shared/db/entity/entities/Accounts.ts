@@ -7,8 +7,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Credentials } from "./Credentials";
-import { Users } from "./Users";
+import type { Credentials } from "./Credentials";
+import type { Users } from "./Users";
 
 @Index("accounts_credential_id", ["credentialId"], { unique: true })
 @Index("fki_accounts_credential_fk", ["credentialId"], {})
@@ -37,8 +37,10 @@ export class Accounts {
   @Column("integer", { name: "user_id", nullable: true })
   userId: number | null;
 
-  @OneToOne(() => Credentials, (c) => c.accounts)
-  @JoinColumn()
+  @OneToOne(() => Credentials, (credentials) => credentials.accounts, {
+    onDelete: "CASCADE",
+  })
+  @JoinColumn([{ name: "credential_id", referencedColumnName: "id" }])
   credential: Credentials;
 
   @ManyToOne(() => Users, (users) => users.accounts, { onDelete: "CASCADE" })

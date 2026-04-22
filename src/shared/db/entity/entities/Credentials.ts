@@ -5,7 +5,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Accounts } from "./Accounts";
+import type { Accounts } from "./Accounts";
 
 @Index("credentials_pkey", ["id"], { unique: true })
 @Entity("credentials", { schema: "public" })
