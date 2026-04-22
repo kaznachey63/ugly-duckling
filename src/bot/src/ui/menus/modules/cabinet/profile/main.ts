@@ -6,15 +6,15 @@ import format from '@utils/formatting';
 /**
  * Меню профиль
  */
-export default function main(ctx: MyContext, userExistsInDB: boolean): Menu<InlineKeyboard> {
+export default function main(ctx: MyContext, userExistsInDB: boolean, userIsAdmin: boolean): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.profile.title"),
         ctx.t("commands.cabinet.profile.path")
     ].join('\n\n');
 
-    // .text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.contract"), `mainContract:${nameDistribution}`).row()
-
-    const keyboard = new InlineKeyboard().text(ctx.t("commands.cabinet.profile.buttons.contract"), "mainContract").row();
+    const keyboard = new InlineKeyboard();
+    
+    if (userIsAdmin && !userExistsInDB) keyboard.text(ctx.t("commands.cabinet.profile.buttons.contract"), "mainContract").row();
 
     if (userExistsInDB) keyboard.text(ctx.t("commands.cabinet.profile.buttons.logout"), "logoutAuth").row()
     else keyboard.text(ctx.t("commands.cabinet.profile.buttons.login"), "loginAuth").row()
