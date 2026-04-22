@@ -7,9 +7,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Accounts } from "./Accounts";
-import { Contracts } from "./Contracts";
-import { Role } from "./Role";
+import type { Accounts } from "./Accounts";
+import type { Contracts } from "./Contracts";
+import type { Role } from "./Role";
 
 @Index("users_pkey", ["id"], { unique: true })
 @Index("fki_users_role_fk", ["roleId"], {})
