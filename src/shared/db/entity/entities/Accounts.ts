@@ -7,8 +7,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import type { Credentials } from "./Credentials";
-import type { Users } from "./Users";
+import type { Credentials } from "./Credentials.js";
+import type { Users } from "./Users.js";
 
 @Index("accounts_credential_id", ["credentialId"], { unique: true })
 @Index("fki_accounts_credential_fk", ["credentialId"], {})

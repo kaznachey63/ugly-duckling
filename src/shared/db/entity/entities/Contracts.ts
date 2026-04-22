@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import type { Users } from "./Users";
+import type { Users } from "./Users.js";
 
 @Index("contracts_pkey", ["id"], { unique: true })
 @Index("fki_contracts_users_fk", ["userId"], {})
