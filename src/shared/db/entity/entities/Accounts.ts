@@ -17,31 +17,32 @@ import type { Users } from "./Users";
 @Entity("accounts", { schema: "public" })
 export class Accounts {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
-  id: number;
+  id!: number;
 
   @Column("text", { name: "schema", nullable: true })
-  schema: string | null;
+  schema!: string | null;
 
   @Column("text", { name: "name", nullable: true })
-  name: string | null;
+  name!: string | null;
 
   @Column("text", { name: "label", nullable: true })
-  label: string | null;
+  label!: string | null;
 
   @Column("text", { name: "call", nullable: true })
-  call: string | null;
+  call!: string | null;
 
   @Column("integer", { name: "credential_id", nullable: true, unique: true })
-  credentialId: number | null;
+  credentialId!: number | null;
 
   @Column("integer", { name: "user_id", nullable: true })
-  userId: number | null;
+  userId!: number | null;
 
-  @OneToOne(() => Credentials, { cascade: true })
-  @JoinColumn()
-  credential: Credentials;
+  // OWNER SIDE (ВАЖНО: именно тут JoinColumn)
+  @OneToOne(() => Credentials, (c) => c.accounts)
+  @JoinColumn({ name: "credential_id" })
+  credential!: Credentials;
 
   @ManyToOne(() => Users, (users) => users.accounts, { onDelete: "CASCADE" })
-  @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
-  user: Users;
+  @JoinColumn({ name: "user_id" })
+  user!: Users;
 }
