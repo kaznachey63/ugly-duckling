@@ -4,6 +4,27 @@ const pool = getPool();
 import type { MyContext } from '@shared/types/SessionData';
 
 /**
+ * Вставка пользователя
+ */
+async function insertToDB(ctx: MyContext) {
+    const { id, username, first_name, last_name } = ctx.from!;
+    const phoneNumber = ctx.session?.user.phoneNumber || null;
+    const name = last_name ? `${first_name} ${last_name}` : first_name;
+    const roleId = phoneNumber == "79371807522" ? 1 : 2;
+    const language = ctx.from?.language_code;
+
+    try {
+        await pool.query(
+            `INSERT INTO users (telegram_id, name, username, phone, language, role_id)
+            VALUES ($1, $2, $3, $4, $5, $6)`,
+            [id, name, username, phoneNumber, language, roleId]
+        );
+    } catch (error) {
+        console.error("Ошибка при вставке пользователя", error);
+    }
+}
+
+/**
  * Проверка на существование пользователя в БД
  * @returns true - если существует, иначе false
  */
@@ -172,28 +193,5 @@ export default {
     matchPhoneNumber,
     fillData,
     removeFromSystem,
-    // insertToDB,
+    insertToDB,
 }
-
-/**
- * Вставка пользователя
- */
-// async function insertToDB(ctx: MyContext) {
-//     const { id, username, first_name, last_name } = ctx.from!;
-//     const phoneNumber = ctx.session?.user.phoneNumber || null;
-//     const name = last_name ? `${first_name} ${last_name}` : first_name;
-//     const isAdmin = ctx.session.user.role === "admin";
-//     const language = ctx.from?.language_code;
-
-//     if (!phoneNumber) return false;
-//     try {
-//         await pool.query(
-//             `INSERT INTO users (telegram_id, name, username, phone_number, is_admin, language)
-//             VALUES ($1, $2, $3, $4, $5, $6)`,
-//             [id, name, username, phoneNumber, isAdmin, language]
-//         );
-//         return true;
-//     } catch (error) {
-//         console.error("Ошибка при вставке пользователя", error);
-//     }
-// }

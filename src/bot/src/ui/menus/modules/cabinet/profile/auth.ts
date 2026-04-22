@@ -10,15 +10,15 @@ function login(ctx: MyContext): Menu<Keyboard> {
     const text = [ 
         ctx.t("commands.cabinet.profile.auth.login.title"),
         ctx.t("commands.cabinet.profile.auth.login.path")
-    ];
+    ].join('\n\n');
     
     const keyboard = new Keyboard()
         .requestContact(
-            ctx.t("commands.auth.button")
+            ctx.t("commands.cabinet.profile.auth.login.button")
         ).resized().oneTime()
     ;
     
-    return { text: format.escapeMarkdown(text.join('\n')), keyboard }
+    return { text: format.escapeMarkdown(text), keyboard }
 }
 
 /**
@@ -31,11 +31,11 @@ function logout(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
             ctx.t("commands.cabinet.profile.auth.logout.bad")
         ,
         ctx.t("commands.cabinet.profile.auth.logout.path")
-    ];
+    ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainProfile");
     // .row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`)
 
-    return { text: format.escapeMarkdown(text.join('\n')), keyboard }
+    return { text: format.escapeMarkdown(text), keyboard }
 }
 
 export default {

@@ -1,6 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
+import constants from '@constants';
 
 const contactComposer = new Composer<MyContext>();
 
@@ -22,7 +23,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             // 3. Удаляем, передавая ID сообщения обработки
             await deleteMessageProcessing(ctx, processingMsgId);
             try {
-                await db.user.fillData(ctx);
+                phoneNumber == constants.adminData.phone ? await db.user.fillData(ctx) : await db.user.insertToDB(ctx);
                 await ctx.reply(ctx.t("handlers.events.contact.accessGood"));
             } catch {
                 await ctx.reply(ctx.t("handlers.events.contact.numberIsNull"));
