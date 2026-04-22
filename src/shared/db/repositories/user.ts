@@ -21,6 +21,23 @@ async function existsInDB(userId: number): Promise<boolean> {
 }
 
 /**
+ * Проверка на существование пользователя в БД
+ * @returns true - если существует, иначе false
+ */
+async function removeFromSystem(userId: number): Promise<boolean> {
+    try {
+        const { rowCount }  = await pool.query(
+            "DELETE CASCADE * FROM users WHERE telegram_id = $1",
+            [userId]
+        );
+        return rowCount == 0;
+    } catch (error) {
+        console.error("Ошибка при удалении пользователя", error);
+        return false;
+    }
+}
+
+/**
  * Получение номера телефона пользователя
  */
 async function getPhoneNumber(userId: number): Promise<string> {
@@ -153,7 +170,8 @@ export default {
     getLang,
     getUsers,
     matchPhoneNumber,
-    fillData
+    fillData,
+    removeFromSystem,
     // insertToDB,
 }
 

@@ -6,7 +6,7 @@ import format from '@utils/formatting';
 /**
  * Меню профиль
  */
-export default function main(ctx: MyContext): Menu<InlineKeyboard> {
+export default function main(ctx: MyContext, userExistsInDB: boolean): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.profile.title")
     ].join('\n');
@@ -16,7 +16,11 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard()
         .text(ctx.t("commands.cabinet.profile.buttons.contract"), "mainContract").row()
         .text(ctx.t("commands.cabinet.profile.buttons.language"), "mainLanguage").row()
-        .text(ctx.t("utils.shared.back"), "mainCabinet")
     ;
+
+    if (userExistsInDB) keyboard.text(ctx.t("commands.cabinet.profile.buttons.logout"), "logoutAuth").row()
+    else keyboard.text(ctx.t("commands.cabinet.profile.buttons.login"), "loginAuth").row()
+
+    keyboard.text(ctx.t("utils.shared.back"), "mainCabinet")
     return { text: format.escapeMarkdown(text), keyboard };
 }

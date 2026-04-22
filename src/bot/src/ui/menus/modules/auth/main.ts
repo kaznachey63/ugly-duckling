@@ -1,23 +1,44 @@
-import { Keyboard } from 'grammy';
+import { InlineKeyboard, Keyboard } from 'grammy';
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
 
 /**
- * Меню команды auth
+ * Меню кнопки войти
  */
-export default function main(ctx: MyContext, userExistsInDB: boolean): Menu<Keyboard> {
-    let text: string[] = [];
-    const keyboard = new Keyboard();
-
-    if (userExistsInDB) {
-        text.push(ctx.t("commands.auth.userExistsInSystem"));
-    }
-    else {
-        text.push(ctx.t("commands.auth.title"));
-        keyboard.requestContact(
+function login(ctx: MyContext): Menu<Keyboard> {
+    const text = [ 
+        ctx.t("commands.cabinet.profile.auth.login.title"),
+        ctx.t("commands.cabinet.profile.auth.login.path")
+    ];
+    
+    const keyboard = new Keyboard()
+        .requestContact(
             ctx.t("commands.auth.button")
-        ).resized().oneTime();
-    }
+        ).resized().oneTime()
+    ;
+    
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
+}
+
+/**
+ * Меню кнопки выйти
+ */
+function logout(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
+    const text = [ 
+        result ? 
+            ctx.t("commands.cabinet.profile.auth.logout.good") :
+            ctx.t("commands.cabinet.profile.auth.logout.bad")
+        ,
+        ctx.t("commands.cabinet.profile.auth.logout.path")
+    ];
+    const keyboard = new Keyboard().text(ctx.t("utils.shared.back"), "mainProfile");
+    // .row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.distribution.name}`)
+
+    return { text: format.escapeMarkdown(text.join('\n')), keyboard }
+}
+
+export default {
+    login,
+    logout
 }

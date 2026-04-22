@@ -4,6 +4,7 @@ import menuSettings from '@menus/modules/settings/main';
 import helpComposer from './features/help';
 import aboutComposer from './features/about';
 import ideaComposer from './features/idea';
+import languageComposer from './features/language';
 
 const settingsComposer = new Composer<MyContext>();
 
@@ -50,5 +51,6 @@ settingsComposer.callbackQuery('mainSettings', async (ctx: MyContext) => {
 settingsComposer.use(helpComposer);
 settingsComposer.use(aboutComposer);
 settingsComposer.use(ideaComposer);
+settingsComposer.use(languageComposer);
 
 export default settingsComposer;

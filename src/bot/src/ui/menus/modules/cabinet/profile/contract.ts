@@ -24,7 +24,6 @@ function main(ctx: MyContext, contractInfoOrError: ContractInfo | boolean, error
 
     if (is_error) {
         textLines = [
-            
             ctx.t("commands.cabinet.profile.contract.main.title"),
             ctx.t("commands.cabinet.profile.contract.main.error")
         ]
