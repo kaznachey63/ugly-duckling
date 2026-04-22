@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 
-import { Users } from "./entity/entities/Users";
+import { Users } from "./entity/entities/Users.js";
 import { Accounts } from "./entity/entities/Accounts.js";
 import { Credentials } from "./entity/entities/Credentials.js";
 import { Contracts } from "./entity/entities/Contracts.js";
