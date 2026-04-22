@@ -13,7 +13,7 @@ import type { Users } from "./Users";
 @Entity("contracts", { schema: "public" })
 export class Contracts {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
-  id: number;
+  id!: number;
 
   @Column("integer", { name: "user_id", nullable: true })
   userId: number | null;

@@ -11,7 +11,7 @@ import type { Users } from "./Users";
 @Entity("role", { schema: "public" })
 export class Role {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
-  id: number;
+  id!: number;
 
   @Column("text", { name: "name", nullable: true })
   name: string | null;
