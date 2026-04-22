@@ -13,10 +13,7 @@ export default function main(ctx: MyContext, userExistsInDB: boolean): Menu<Inli
 
     // .text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.contract"), `mainContract:${nameDistribution}`).row()
 
-    const keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.cabinet.profile.buttons.contract"), "mainContract").row()
-        .text(ctx.t("commands.cabinet.profile.buttons.language"), "mainLanguage").row()
-    ;
+    const keyboard = new InlineKeyboard().text(ctx.t("commands.cabinet.profile.buttons.contract"), "mainContract").row();
 
     if (userExistsInDB) keyboard.text(ctx.t("commands.cabinet.profile.buttons.logout"), "logoutAuth").row()
     else keyboard.text(ctx.t("commands.cabinet.profile.buttons.login"), "loginAuth").row()
