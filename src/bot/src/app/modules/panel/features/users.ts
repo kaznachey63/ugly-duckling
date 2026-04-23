@@ -9,7 +9,7 @@ const usersComposer = new Composer<MyContext>();
  * Главное меню раздела пользователи
  */
 usersComposer.callbackQuery("mainUsers", async (ctx: MyContext) => {
-    const menu = menuUsers.main(ctx, (await db.chat.getChats())?.length!);
+    const menu = menuUsers.main(ctx, (await db.user.getUsers())?.length!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard

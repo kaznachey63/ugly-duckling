@@ -200,7 +200,7 @@ async function getGroupsOfUsers(): Promise<{ customers: number[]; admins: number
 
 async function getUsers(): Promise<User[]> {
     try {
-        const { rows } = await pool.query("SELECT * FROM public.users");
+        const { rows } = await pool.query("SELECT telegram_id as telegramId, name, username, phone, language, role_id FROM public.users");
         return rows;
     } catch (error) {
         console.log("Ошибка при получении пользователей", error);

@@ -20,7 +20,7 @@ function main(ctx: MyContext, amountOfUsers: number): Menu<InlineKeyboard> {
     if (amountOfUsers > 0) {
         keyboard
             .text(ctx.t("commands.panel.users.main.buttons.clear"), "clearUsers").style("danger").row()
-            .text(ctx.t("commands.panel.users.main.buttons.view"), "viewUsers").style("success")
+            .text(ctx.t("commands.panel.users.main.buttons.view"), "viewUsers").style("primary")
         ;
     }
 
