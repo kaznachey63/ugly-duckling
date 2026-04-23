@@ -38,7 +38,7 @@ export class Scheduler {
         times.forEach((time) => {
             cron.schedule(time.cron, async () => {
                 // 👇 Передаём time.id вместо index
-                await this.execute(time.cron, time.id, messages, chats);
+                await this.execute(time.cron, time.id!, messages, chats);
             }, { timezone: "Europe/Moscow" });
         });
     }

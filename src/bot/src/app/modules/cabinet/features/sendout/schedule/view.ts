@@ -12,10 +12,10 @@ const viewComposer = new Composer<MyContext>();
 viewComposer.callbackQuery(/^viewSchedule:/, async (ctx: MyContext) => {
     try {
         common.resetSessionStates(ctx.session);
-        const times = await db.schedule.getScheduleForBot(ctx.session.sendout.schema);
+        const times = await db.schedule.getSchedule(ctx.session.sendout.schema);
         
         let menu;
-        if (!times || times.length <= 0) menu = menuSchedule(ctx, times!);
+        if (!times || times.length <= 0) menu = menuSchedule(ctx, times?.length!);
         else menu = menuView.main(ctx, times!);
 
         await ctx.editMessageText(menu.text, {
@@ -50,7 +50,7 @@ viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
 viewComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
     try {
         await db.schedule.removeTime(ctx.session.sendout.schema, ctx.session.other.time.positionId);
-        if ((await db.schedule.getScheduleForBot(ctx.session.sendout.schema))?.length == 0) {
+        if ((await db.schedule.getSchedule(ctx.session.sendout.schema))?.length == 0) {
             await db.schedule.clearTable(ctx.session.sendout.schema);
         }
         const server = new ServerManager();
@@ -70,7 +70,7 @@ viewComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) => {
         const queryData = ctx.callbackQuery?.data;
         const timeId = Number(queryData!.split(/#/)[1]);
         ctx.session.other.time.positionId = timeId;
-        const targetTime = local.formatTimeToRu((await db.schedule.getTime(ctx.session.sendout.schema, timeId))!);
+        const { label: targetTime } = (await db.schedule.getTime(ctx.session.sendout.schema, timeId))!;
         const menu = menuView.updateOrRemove(ctx, targetTime!);
 
         await ctx.editMessageText(menu.text, {

@@ -4,6 +4,7 @@ import menuState from '@menus/handlers/states';
 import { ServerManager } from "src/common/services/ServerManager";
 import common from '@utils/common';
 import type { Time } from "@shared/types/Time";
+import utils from "@utils";
 
 export default async function updatingTime(ctx: MyContext) {
     const nameDistribution = ctx.session.sendout.name!;
@@ -14,7 +15,14 @@ export default async function updatingTime(ctx: MyContext) {
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), false);
     }
     else {
-        await db.schedule.updateTime(ctx.session.sendout.schema, formatTime(ctx.message?.text!, ctx.session.other.time.positionId));
+        const formattedCronTime = formatCronTime(ctx.message?.text!);
+        const formattedTime: Time = {
+            cron: formatCronTime(ctx.message?.text!),
+            label: utils.local.formatTimeToRu(formattedCronTime)!,
+            id: ctx.session.other.time.positionId
+        };
+
+        await db.schedule.updateTime(ctx.session.sendout.schema, formattedTime);
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), true);
         common.resetSessionStates(ctx.session);
     }
@@ -37,32 +45,15 @@ function validateTime(time: string): boolean {
     return parts.length === 5;
 }
 
-function formatTime(time: string, timeId: number): Time {
-    console.log(timeId);
-    
+function formatCronTime(time: string): string {
     const trimmed = time.trim();
     const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5]?[0-9]$/;
 
     if (timeRegex.test(trimmed)) {
         const [hour, minute] = trimmed.split(':');
-        return {
-            minute: minute!.padStart(2, '0'),
-            hour: hour!.padStart(2, '0'),
-            day: '*',
-            month: '*',
-            week_day: '*',
-            id: timeId
-        };
+        return `${minute!.padStart(2, '0')} ${hour!.padStart(2, '0')} * * *`;
     }
 
     const [minute, hour, day, month, week_day] = trimmed.split(/\s+/);
-
-    return {
-        minute: minute!,
-        hour: hour!,
-        day: day!,
-        month: month!,
-        week_day: week_day!,
-        id: timeId
-    };
+    return `${minute!.padStart(2, '0')} ${hour!.padStart(2, '0')} ${day} ${month} ${week_day}`;
 }

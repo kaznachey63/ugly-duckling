@@ -12,8 +12,8 @@ const scheduleComposer = new Composer<MyContext>();
 scheduleComposer.callbackQuery(/^mainSchedule:/, async (ctx: MyContext) => {
     try {
         common.resetSessionStates(ctx.session);
-        const times = await db.schedule.getScheduleForBot(ctx.session.sendout.schema);
-        const menu = menuSchedule(ctx, times!);
+        const times = await db.schedule.getSchedule(ctx.session.sendout.schema);
+        const menu = menuSchedule(ctx, times?.length!);
 
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,

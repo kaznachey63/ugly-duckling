@@ -17,7 +17,7 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
     let keyboard = new InlineKeyboard();
 
     for (const time of times) {
-        keyboard.text(utils.local.formatTimeToRu(time)!, `updateOrRemoveTime:${nameDistribution}#${time.id}`).row();
+        keyboard.text(time.label!, `updateOrRemoveTime:${nameDistribution}#${time.id}`).row();
     }
 
     keyboard.row().text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.sendout.name}`);

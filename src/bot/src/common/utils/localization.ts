@@ -1,4 +1,3 @@
-import type { Time } from '@shared/types/Time';
 import map from '../maps';
 
 /**
@@ -6,20 +5,22 @@ import map from '../maps';
  * @param time объект Time из базы данных
  * @param index опциональный номер элемента для отображения (например, 1.)
  * @returns строка вида "Вторник - 12:30" или "1. Вторник - 12:30"
- */
-function formatTimeToRu(time: Time, index?: number): string | null {
+ */ 
+function formatTimeToRu(cronTime: string, index?: number): string | null {
+    const [ minute, day, hour, month, weekDay ] = cronTime.split(' ');
+
     // Проверяем наличие обязательных полей
-    if (!time.minute || !time.hour || !time.week_day) {
-        console.warn(`Пропущены данные в записи с id=${time.id}`);
+    if (!minute || !hour || !weekDay) {
+        console.warn(`Пропущены данные в записи`);
         return null;
     }
 
     // Получаем название дня недели
-    const dayName = map.dayWeekMap[time.week_day] || 'Неизвестный день';
+    const dayName = map.dayWeekMap[weekDay] || 'Неизвестный день';
 
     // Форматируем часы и минуты (добавляем ведущий ноль)
-    const formattedHour = String(time.hour).padStart(2, '0');
-    const formattedMinute = String(time.minute).padStart(2, '0');
+    const formattedHour = String(hour).padStart(2, '0');
+    const formattedMinute = String(minute).padStart(2, '0');
 
     // Формируем итоговую строку
     const prefix = index !== undefined ? `${index}. ` : '';
