@@ -21,8 +21,8 @@ sendoutComposer.callbackQuery(/^mainSendouts/, async (ctx: MyContext) => {
     
     // Сортировка
     const sorted = sendouts.sort((a: Sendout, b: Sendout) => {
-        const displayA = a.call || a.label || a.name;
-        const displayB = b.call || b.label || b.name;
+        const displayA = a.call ?? a.label;
+        const displayB = b.call ?? b.label;
 
         // 1. "Тест" — всегда первым
         if (displayA === 'Тест') return -1;
