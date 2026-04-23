@@ -8,7 +8,7 @@ export class GigaChatService {
     private client: GigaChat;
 
     constructor(credentials: string) {
-        const certsDir = path.resolve(path.join('./certs'));
+        const certsDir = path.resolve(path.join('src', 'common', 'services', 'GigaChat', 'certs'));
 
         const caBundle = [
             readFileSync(path.resolve(certsDir, "root.crt")),

@@ -42,7 +42,7 @@ function saveOrCancelGenerateText(ctx: MyContext, result: boolean, success?: boo
                 ctx.t("commands.cabinet.distribution.messages.create.generate.pathSave", { call: ctx.session.sendout.call })
             );
             keyboard
-                .text(ctx.t("utils.shared.back"), `readMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`)
+                .text(ctx.t("utils.shared.back"), `viewMessagege:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`)
             ;
         }
         else {

@@ -35,8 +35,8 @@ export default async function addingMedia(ctx: MyContext) {
             if (!isDocumentAllowed(msg)) {
                 utils.common.resetSessionStates(ctx.session);
                 await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
-                    utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.documentsWTMedia")), {
-                    reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
+                    utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.view.media.adding.documentsWTMedia")), {
+                    reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewMessagege:${nameDistribution}#${positionId}`),
                     parse_mode: "MarkdownV2"
                 });
                 return;
@@ -46,8 +46,8 @@ export default async function addingMedia(ctx: MyContext) {
         case 'unknown': {
             utils.common.resetSessionStates(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
-                utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.invalidType")), {
-                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
+                utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.view.media.adding.invalidType")), {
+                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewMessagege:${nameDistribution}#${positionId}`),
                 parse_mode: "MarkdownV2"
             });
             return;
@@ -59,8 +59,8 @@ export default async function addingMedia(ctx: MyContext) {
     if (!mediaData || !validateMedia(mediaData)) {
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
-            utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.bigSize")), {
-            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
+            utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.view.media.adding.bigSize")), {
+            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewMessagege:${nameDistribution}#${positionId}`),
             parse_mode: "MarkdownV2"
         });
         return;
@@ -90,8 +90,8 @@ export default async function addingMedia(ctx: MyContext) {
         if (!message) {
             utils.common.resetSessionStates(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
-                utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.error")), {
-                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
+                utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.view.media.adding.error")), {
+                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewMessagege:${nameDistribution}#${positionId}`),
                 parse_mode: "MarkdownV2"
             });
             return;
@@ -115,8 +115,8 @@ export default async function addingMedia(ctx: MyContext) {
         console.error("Ошибка при сохранении медиа:", error);
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
-            utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.read.media.adding.error")), {
-            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `readMessage:${nameDistribution}#${positionId}`),
+            utils.formatting.escapeMarkdown(ctx.t("commands.cabinet.distribution.messages.view.media.adding.error")), {
+            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewMessagege:${nameDistribution}#${positionId}`),
             parse_mode: "MarkdownV2"
         });
     }
