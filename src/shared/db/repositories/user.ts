@@ -2,7 +2,6 @@ import type { LanguageCode } from 'grammy/types';
 import { getPool } from '../pool';
 const pool = getPool();
 import type { MyContext } from '@shared/types/SessionData';
-import type { Contract } from '@shared/types/Contract';
 import type { User } from '@shared/types/User';
 
 /**
@@ -52,32 +51,14 @@ async function getUser(value: string | number, searchById: boolean): Promise<Use
 }
 
 /**
- * Получение договоров на конкреного заказчика
- */
-async function getContracts(userId: number): Promise<Contract[]> {
-        try {
-        const { rows } = await pool.query(
-            `SELECT c.date_start, c.date_end, c.price, u.name as customerName
-            FROM public.contracts c 
-            INNER JOIN public.users u ON c.user_id = u.id
-            WHERE u.telegram_id = $1`,
-            [userId]
-        );
-        return rows!;
-    } catch (error) {
-        console.error("Ошибка при получении договоров", error);
-        return [];
-    }
-}
-
-/**
  * Заполнение данными пользователя, прошедшего авторизацию
  */
 async function updateData(ctx: MyContext) {
     const { id, username, first_name, last_name, language_code } = ctx.from!;
     const phoneNumber = ctx.session?.user.phone;
     const name = last_name ? `${first_name} ${last_name}` : first_name;
-    const roleId = phoneNumber == "79371807522" ? 1 : 2;
+    // const roleId = phoneNumber == "79371807522" ? 1 : 2;
+    const roleId = 2;
 
     try {
         await pool.query(
@@ -104,7 +85,8 @@ async function insertToDB(ctx: MyContext) {
     const { id, username, first_name, last_name } = ctx.from!;
     const phoneNumber = ctx.session?.user.phone || null;
     const name = last_name ? `${first_name} ${last_name}` : first_name;
-    const roleId = phoneNumber == "79371807522" ? 1 : 2;
+    // const roleId = phoneNumber == "79371807522" ? 1 : 2;
+    const roleId = 2;
     const language = ctx.from?.language_code;
 
     try {
@@ -225,6 +207,5 @@ export default {
     updateData,
     removeFromSystem,
     insertToDB,
-    getContracts,
     getUser
 }

@@ -4,7 +4,8 @@ import message from './repositories/message';
 import result from './repositories/result';
 import schedule from './repositories/schedule';
 import user from './repositories/user';
-import bot from './repositories/bot'
+import bot from './repositories/bot';
+import contract from './repositories/contract';
 
 export default {
     chat,
@@ -13,5 +14,6 @@ export default {
     result,
     schedule,
     user,
-    bot
+    bot,
+    contract,
 };
