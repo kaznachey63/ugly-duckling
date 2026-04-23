@@ -475,7 +475,7 @@
                         "path": "[📍 Путь: Панель → Пользователи → Список → *{{userName}}*]",
                         "id": "Tg. айди: {{id}}",
                         "name": "Имя: {{name}}",
-                        "username": "Юзернейм: {{username}}",
+                        "username": "Юзернейм: @{{username}}",
                         "phone": "Телефон: +{{phone}}",
                         "language": "Язык: {{language}}"
                     }

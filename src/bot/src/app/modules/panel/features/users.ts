@@ -38,4 +38,5 @@ usersComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
         reply_markup: menu.keyboard,
     });
 });
+
 export default usersComposer;

@@ -19,9 +19,7 @@ async function getUser(value: string | number, searchById: boolean): Promise<Use
                 u.username,
                 u.phone,
                 u.language,
-                r.id as "role_id",
-                r.name_ru as "role_nameRu",
-                r.name_en as "role_nameEn"
+                r.code as "role"
             FROM public.users u
             LEFT JOIN public.role r ON r.id = u.role_id
             WHERE ${searchField} = $1
@@ -38,11 +36,7 @@ async function getUser(value: string | number, searchById: boolean): Promise<Use
             username: row.username,
             phone: row.phone,
             language: row.language,
-            role: {
-                id: row.role_id,
-                nameRu: row.role_nameRu,
-                nameEn: row.role_nameEn
-            }
+            role: row.role
         };
     } catch (error) {
         console.error("Ошибка при получении пользователя", error);
@@ -59,26 +53,20 @@ async function getUsers(): Promise<User[]> {
                 u.username,
                 u.phone,
                 u.language,
-                r.id as "role_id",
-                r.name_ru as "role_nameRu",
-                r.name_en as "role_nameEn"
+                r.code as "role"
             FROM public.users u
             LEFT JOIN public.role r ON r.id = u.role_id
         `;
         
         const { rows } = await pool.query(query);
         
-        return rows.map(row => ({
+        return rows.map((row) => ({
             telegramId: row.telegramId,
             name: row.name,
             username: row.username,
             phone: row.phone,
             language: row.language,
-            role: {
-                id: row.role_id,
-                nameRu: row.role_nameRu,
-                nameEn: row.role_nameEn
-            }
+            role: row.role  
         }));
     } catch (error) {
         console.error("Ошибка при получении пользователей", error);
