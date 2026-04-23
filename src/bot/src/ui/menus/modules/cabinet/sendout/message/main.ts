@@ -2,9 +2,8 @@ import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
-import type { Message } from '@shared/types/Message';
 
-export default function main(ctx: MyContext, messages: Message[]): Menu<InlineKeyboard> {
+export default function main(ctx: MyContext, messagesLength: number): Menu<InlineKeyboard> {
     const nameDistribution = ctx.session.sendout.name;
     const callDistribution = ctx.session.sendout.call;
     const positionId = ctx.session.other.text.positionId;   
@@ -13,7 +12,7 @@ export default function main(ctx: MyContext, messages: Message[]): Menu<InlineKe
     const keyboard = new InlineKeyboard().text(ctx.t("commands.cabinet.distribution.messages.main.buttons.create"), `mainCreateText:${nameDistribution}#${positionId}`).style("success");
 
     // Нет сообщений
-    if (!messages?.length) {
+    if (!messagesLength) {
         text.push(ctx.t("commands.cabinet.distribution.messages.main.empty", { call: callDistribution }));
     }
     else {

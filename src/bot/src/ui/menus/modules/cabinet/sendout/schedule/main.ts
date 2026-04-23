@@ -4,7 +4,7 @@ import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 import common from '@utils/common';
 
-export default function main(ctx: MyContext, timesLength: number): Menu<InlineKeyboard> {
+export default function main(ctx: MyContext, scheduleLength: number): Menu<InlineKeyboard> {
     const nameDistribution = ctx.session.sendout.name;
     const callDistribution = ctx.session.sendout.call;
     const positionId = ctx.session.other.time.positionId;   
@@ -17,11 +17,11 @@ export default function main(ctx: MyContext, timesLength: number): Menu<InlineKe
     }
 
     // Нет времени
-    if (timesLength == 0) {     
+    if (!scheduleLength) {     
         text.push(ctx.t("commands.cabinet.distribution.schedule.main.empty", { call: callDistribution }));
     }
     else {
-        text.push(ctx.t("commands.cabinet.distribution.schedule.main.title", { amount: timesLength }));
+        text.push(ctx.t("commands.cabinet.distribution.schedule.main.title", { amount: scheduleLength }));
 
         if (common.isAdmin(ctx.session.user.role)) {
             keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.clear"), `clearSchedule:${nameDistribution}`).style("danger").row()

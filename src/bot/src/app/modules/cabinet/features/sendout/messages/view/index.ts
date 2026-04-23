@@ -5,6 +5,7 @@ import textComposer from './text';
 import messageComposer from './message';
 import db from '@shared/db';
 import menuView from '@menus/modules/cabinet/sendout/message/view';
+import menuMessage from '@menus/modules/cabinet/sendout/message/main';
 
 const viewComposer = new Composer<MyContext>();
 
@@ -12,8 +13,10 @@ viewComposer.callbackQuery(/^viewMessage:/, async (ctx: MyContext) => {
     ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
     
     const messages = await db.message.getMessagesForBot(ctx.session.sendout.schema);
-    if (!messages) return;
-    const menu = menuView.main(ctx, messages);
+    
+    let menu;
+    if (!messages) menu = menuMessage(ctx, 0);
+    else menu = menuView.main(ctx, messages);
 
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,

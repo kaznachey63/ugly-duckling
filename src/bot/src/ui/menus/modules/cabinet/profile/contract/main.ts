@@ -23,7 +23,7 @@ export default function main(ctx: MyContext, contractsLength: number): Menu<Inli
     }
 
     // Нет времени
-    if (contractsLength == 0) {     
+    if (!contractsLength) {     
         text.push(ctx.t("commands.cabinet.profile.contract.main.empty", { call: sendoutCall }));
     }
     else {

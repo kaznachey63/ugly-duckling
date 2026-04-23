@@ -15,7 +15,7 @@ viewComposer.callbackQuery(/^viewSchedule:/, async (ctx: MyContext) => {
         const times = await db.schedule.getSchedule(ctx.session.sendout.schema);
         
         let menu;
-        if (!times || times.length <= 0) menu = menuSchedule(ctx, times?.length!);
+        if (!times || times.length <= 0) menu = menuSchedule(ctx, 0);
         else menu = menuView.main(ctx, times!);
 
         await ctx.editMessageText(menu.text, {
