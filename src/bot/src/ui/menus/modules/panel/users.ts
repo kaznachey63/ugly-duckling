@@ -39,12 +39,17 @@ function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
 
     const keyboard = new InlineKeyboard();
 
-    users.forEach((user) => {
-        keyboard.text(
-            user.name,
-            `viewUser#${user.telegramId}`
-        ).row();
-    });    
+users.forEach((user) => {
+    const id = user.telegramId;
+    if (!id) {
+        console.error('User without telegramId:', user);
+        return; // пропускаем этого пользователя
+    }
+    keyboard.text(
+        user.name ?? "Безымянный",
+        `viewUser#${id}`
+    ).row();
+});   
     keyboard.text(ctx.t("utils.shared.back"), "mainUsers");
     return { text: format.escapeMarkdown(text), keyboard }
 }
