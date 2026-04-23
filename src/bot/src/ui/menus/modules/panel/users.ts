@@ -54,7 +54,6 @@ function viewUser(ctx: MyContext, user: User): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.panel.users.view.user.title"), "").row()
         .text(ctx.t("commands.panel.users.view.user.id", { id: user.telegramId ?? 0 }), `updateOrRemoveUserTgId#${user.telegramId}`).row()
         .text(ctx.t("commands.panel.users.view.user.name", { name: user.name ?? "Безымянный"}), `updateOrRemoveUserName#${user.telegramId}`).row()
         .text(ctx.t("commands.panel.users.view.user.username", { username: user.username ?? "@..."}), `updateOrRemoveUserUsername#${user.telegramId}`).row()
