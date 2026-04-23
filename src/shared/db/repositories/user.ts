@@ -50,6 +50,42 @@ async function getUser(value: string | number, searchById: boolean): Promise<Use
     }
 }
 
+async function getUsers(): Promise<User[]> {
+    try {
+        const query = `
+            SELECT 
+                u.telegram_id as "telegramId",
+                u.name,
+                u.username,
+                u.phone,
+                u.language,
+                r.id as "role_id",
+                r.name_ru as "role_nameRu",
+                r.name_en as "role_nameEn"
+            FROM public.users u
+            LEFT JOIN public.role r ON r.id = u.role_id
+        `;
+        
+        const { rows } = await pool.query(query);
+        
+        return rows.map(row => ({
+            telegramId: row.telegramId,
+            name: row.name,
+            username: row.username,
+            phone: row.phone,
+            language: row.language,
+            role: {
+                id: row.role_id,
+                nameRu: row.role_nameRu,
+                nameEn: row.role_nameEn
+            }
+        }));
+    } catch (error) {
+        console.error("Ошибка при получении пользователей", error);
+        return [];
+    }
+}
+
 /**
  * Заполнение данными пользователя, прошедшего авторизацию
  */
@@ -195,16 +231,6 @@ async function getGroupsOfUsers(): Promise<{ customers: number[]; admins: number
         console.log("Ошибка при получении групп пользователей", error);
     } finally {
         return { customers, admins }
-    }
-}
-
-async function getUsers(): Promise<User[]> {
-    try {
-        const { rows } = await pool.query("SELECT telegram_id as telegramId, name, username, phone, language, role_id FROM public.users");
-        return rows;
-    } catch (error) {
-        console.log("Ошибка при получении пользователей", error);
-        return [];
     }
 }
 

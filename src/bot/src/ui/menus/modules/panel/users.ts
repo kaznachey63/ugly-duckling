@@ -29,9 +29,7 @@ function main(ctx: MyContext, amountOfUsers: number): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
-    console.log(users);
-    
+function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {   
     const text = [
         ctx.t("commands.panel.users.view.users.title"),
         ctx.t("commands.panel.users.view.users.path"),
@@ -39,17 +37,12 @@ function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
 
     const keyboard = new InlineKeyboard();
 
-users.forEach((user) => {
-    const id = user.telegramId;
-    if (!id) {
-        console.error('User without telegramId:', user);
-        return; // пропускаем этого пользователя
-    }
-    keyboard.text(
-        user.name ?? "Безымянный",
-        `viewUser#${id}`
-    ).row();
-});   
+    users.forEach((user) => {
+        keyboard.text(
+            user.name ?? "Безымянный",
+            `viewUser#${user.telegramId}`
+        ).row();
+    });    
     keyboard.text(ctx.t("utils.shared.back"), "mainUsers");
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -62,11 +55,11 @@ function viewUser(ctx: MyContext, user: User): Menu<InlineKeyboard> {
 
     const keyboard = new InlineKeyboard()
         .text(ctx.t("commands.panel.users.view.user.title"), "").row()
-        .text(ctx.t("commands.panel.users.view.user.id", { id: user.telegramId }), `updateOrRemoveUserTgId#${user.telegramId}`).row()
-        .text(ctx.t("commands.panel.users.view.user.name", { name: user.name }), `updateOrRemoveUserName#${user.telegramId}`).row()
-        .text(ctx.t("commands.panel.users.view.user.username", { username: user.username }), `updateOrRemoveUserUsername#${user.telegramId}`).row()
-        .text(ctx.t("commands.panel.users.view.user.phone", { phone: user.phone }), `updateOrRemoveUserPhone#${user.telegramId}`).row()
-        .text(ctx.t("commands.panel.users.view.user.language", { language: user.language }), `updateOrRemoveUserLanguage#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.id", { id: user.telegramId ?? 0 }), `updateOrRemoveUserTgId#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.name", { name: user.name ?? "Безымянный"}), `updateOrRemoveUserName#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.username", { username: user.username ?? "@..."}), `updateOrRemoveUserUsername#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.phone", { phone: user.phone ?? "+7..."}), `updateOrRemoveUserPhone#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.language", { language: user.language ?? "ru"}), `updateOrRemoveUserLanguage#${user.telegramId}`).row()
         .text(ctx.t("utils.shared.back"), "mainUsers");
     ; 
     return { text: format.escapeMarkdown(text), keyboard }
