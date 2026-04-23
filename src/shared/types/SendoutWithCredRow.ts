@@ -1,4 +1,4 @@
-export interface SendoutInfoWithCredRow {
+export interface SendoutWithCredRow {
     schema: string;
     name: string;
     call: string;

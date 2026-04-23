@@ -7,7 +7,7 @@ import statisticsComposer from './statistics';
 import messageComposer from './messages';
 import mainComposer from './main';
 import db from '@shared/db';
-import type { SendoutInfo } from '@shared/types/SendoutInfo';
+import type { Sendout } from '@shared/types/Sendout';
 
 const sendoutComposer = new Composer<MyContext>();
 
@@ -20,7 +20,7 @@ sendoutComposer.callbackQuery(/^mainSendouts/, async (ctx: MyContext) => {
     if (!sendouts.length) return ctx.answerCallbackQuery({ text: ctx.t('commands.cabinet.distribution.main.sendouts.noSendouts'), show_alert: true });
     
     // Сортировка
-    const sorted = sendouts.sort((a: SendoutInfo, b: SendoutInfo) => {
+    const sorted = sendouts.sort((a: Sendout, b: Sendout) => {
         const displayA = a.call || a.label || a.name;
         const displayB = b.call || b.label || b.name;
 

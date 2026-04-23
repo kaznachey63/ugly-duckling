@@ -2,7 +2,7 @@ import { InlineKeyboard } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import type { Menu } from '@shared/types/Menu';
 import format from '@utils/formatting';
-import type { SendoutInfo } from '@shared/types/SendoutInfo';
+import type { Sendout } from '@shared/types/Sendout';
 
 function mainSendout(ctx: MyContext): Menu<InlineKeyboard> {
     const nameDistribution = ctx.session.distribution.name;
@@ -25,7 +25,7 @@ function mainSendout(ctx: MyContext): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard };
 }
 
-function mainSendouts (ctx: MyContext, sendouts: SendoutInfo[]): Menu<InlineKeyboard> {
+function mainSendouts (ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.main.sendouts.title", { count: sendouts.length })
     ].join('\n');

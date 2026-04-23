@@ -1,9 +1,9 @@
 import { TelegramClient } from 'telegram';
 import prompts from 'prompts';
 import { StringSession } from 'telegram/sessions';
-import type { SendoutInfoWithCred } from '@shared/types/SendoutInfoWithCred';
+import type { SendoutWithCred } from '@shared/types/SendoutWithCred';
 
-async function start2(distribution: SendoutInfoWithCred): Promise<TelegramClient> {
+async function start2(distribution: SendoutWithCred): Promise<TelegramClient> {
     const stringSession = new StringSession(distribution.stringSession || "");
 
     const client = new TelegramClient(stringSession, distribution.apiId, distribution.apiHash, {

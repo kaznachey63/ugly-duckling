@@ -1,4 +1,4 @@
-export interface SendoutInfo {
+export interface Sendout {
     schema: string;
     name: string;
     label: string;

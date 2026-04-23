@@ -1,21 +1,16 @@
 import type { MyContext } from '@shared/types/SessionData';
 import type { Menu } from "@shared/types/Menu";
-import { InlineKeyboard, InputFile } from "grammy";
+import { InlineKeyboard } from "grammy";
 import format from "@utils/formatting";
 import type { ExportType } from '@shared/types/ExportType';
-
-type ContractInfo = {
-    customer: string;
-    dateStart: string;
-    dateStop: string;
-};
+import type { Contract } from '@shared/types/Contract';
 
 /**
  * Меню обработчика контакта
  */
 function main(ctx: MyContext, errorWithData: true): Menu<InlineKeyboard>
-function main(ctx: MyContext, contractInfo: ContractInfo, errorWithData: false): Menu<InlineKeyboard>
-function main(ctx: MyContext, contractInfoOrError: ContractInfo | boolean, errorWithData?: boolean): Menu<InlineKeyboard> {
+function main(ctx: MyContext, contractInfo: Contract[], errorWithData: false): Menu<InlineKeyboard>
+function main(ctx: MyContext, contractInfoOrError: Contract[] | boolean, errorWithData?: boolean): Menu<InlineKeyboard> {
 
     const is_error = typeof contractInfoOrError === 'boolean' ? contractInfoOrError : (errorWithData ?? false)
     const info = typeof contractInfoOrError === 'boolean' ? undefined : contractInfoOrError
@@ -31,9 +26,9 @@ function main(ctx: MyContext, contractInfoOrError: ContractInfo | boolean, error
     else if (info) {
         textLines = [
             ctx.t("commands.cabinet.profile.contract.main.title"),
-            ctx.t("commands.cabinet.profile.contract.main.customer", { customer: info.customer }),
-            ctx.t("commands.cabinet.profile.contract.main.dateStart", { dateStart: info.dateStart }),
-            ctx.t("commands.cabinet.profile.contract.main.dateStop", { dateStop: info.dateStop }),
+            ctx.t("commands.cabinet.profile.contract.main.customer", { customer: info[0]?.customerName }),
+            ctx.t("commands.cabinet.profile.contract.main.dateStart", { dateStart: info[0]?.dateStart }),
+            ctx.t("commands.cabinet.profile.contract.main.dateStop", { dateStop: info[0]?.dateEnd }),
             ctx.t("commands.cabinet.profile.contract.main.path", { call: ctx.session.distribution.call })
         ]
     }

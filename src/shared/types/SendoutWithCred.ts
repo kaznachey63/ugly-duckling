@@ -1,4 +1,4 @@
-export interface SendoutInfoWithCred {
+export interface SendoutWithCred {
     schema: string;
     name: string;
     call: string;

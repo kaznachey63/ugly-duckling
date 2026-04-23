@@ -1,16 +1,16 @@
 import { getPool } from '../pool';
 const pool = getPool();
-import type { SendoutInfo } from '@shared/types/SendoutInfo';
-import type { SendoutInfoWithCred } from '@shared/types/SendoutInfoWithCred';
-import type { SendoutInfoWithCredRow } from '@shared/types/SendoutInfoWithCredRow';
+import type { Sendout } from '@shared/types/Sendout';
+import type { SendoutWithCred } from '@shared/types/SendoutWithCred';
+import type { SendoutWithCredRow } from '@shared/types/SendoutWithCredRow';
 
 /**
  * Получение данных об аккаунтах (рассылках) с секретами
  */
-async function getSendoutsInfoWithCredentials(): Promise<SendoutInfoWithCred[] | undefined> {
+async function getSendoutsInfoWithCredentials(): Promise<SendoutWithCred[] | undefined> {
     try {
         const result = await pool.query(`SELECT * FROM accounts a JOIN credentials c ON c.account_id = a.id`);
-        return result.rows.map((row: SendoutInfoWithCredRow) => ({
+        return result.rows.map((row: SendoutWithCredRow) => ({
             schema: row.schema,
             name: row.name,
             label: row.label,
@@ -28,7 +28,7 @@ async function getSendoutsInfoWithCredentials(): Promise<SendoutInfoWithCred[] |
 /**
  * Получение информации о рассылке по имени
  */
-async function getSendoutInfo(name: string): Promise<SendoutInfo> {
+async function getSendoutInfo(name: string): Promise<Sendout> {
     const { rows } = await pool.query(
         'SELECT schema, name, label, call FROM public.accounts WHERE name = $1',
         [name]
@@ -37,11 +37,11 @@ async function getSendoutInfo(name: string): Promise<SendoutInfo> {
 }
 
 /**
- * Получение рассылок, закрепленных за конркетными заказчиком
+ * Получение рассылок, закрепленных за конркетным заказчиком
  */
-async function getSendoutsOfUserId(userId: number) {
+async function getSendoutsOfUserId(userId: number): Promise<Sendout[]> {
     const { rows } = await pool.query(
-        'SELECT schema, name, label, call FROM public.accounts WHERE user_id = $1',
+        `SELECT schema, name, label, call FROM public.accounts WHERE user_id = (SELECT id FROM public.users WHERE telegram_id = $1)`,
         [userId]
     );
     return rows;
@@ -50,7 +50,7 @@ async function getSendoutsOfUserId(userId: number) {
 /**
  * Получение всех рассылок
  */
-async function getAllSendouts() {
+async function getAllSendouts(): Promise<Sendout[]> {
     const { rows } = await pool.query(
         'SELECT schema, name, label, call FROM public.accounts'
     );
