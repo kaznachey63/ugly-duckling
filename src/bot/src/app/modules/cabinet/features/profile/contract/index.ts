@@ -1,6 +1,6 @@
 import { Composer, InputFile } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuContract from '@menus/modules/cabinet/profile/contract';
+import menuContract from '@menus/modules/cabinet/profile/contract/main';
 import constants from '@constants';
 import { PdfService } from 'src/common/services/exports/PdfService';
 import { WordService } from 'src/common/services/exports/WordService';
@@ -11,9 +11,11 @@ import db from '@shared/db';
 const contractComposer = new Composer<MyContext>();
 
 contractComposer.callbackQuery(/^mainContract/, async (ctx: MyContext) => {
+    return ctx.answerCallbackQuery({ text: "Над разделом ведутся технические работы, попробуйте позже.", show_alert: true });
+
     try {
         const contracts = await db.contract.getContracts(ctx.from?.id!);
-        const menu = menuContract.main(ctx, contracts.length);
+        const menu = menuContract(ctx, contracts.length);
 
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,

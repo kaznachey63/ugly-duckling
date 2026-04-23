@@ -25,13 +25,13 @@ export default function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard
         text.push(ctx.t("commands.cabinet.distribution.schedule.main.title", { amount: times.length }));
 
         if (common.isAdmin(ctx.session.user.role)) {
-            keyboard.text(ctx.t("commands.cabinet.profile.contract.main.buttons.clear"), "clearContract").style("danger").row()
+            keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.clear"), `clearSchedule:${nameDistribution}`).style("danger").row()
         }
 
-        keyboard.text(ctx.t("commands.cabinet.profile.contract.main.buttons.view"), "viewContract").style("primary")
+        keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.view"), `viewSchedule:${nameDistribution}`).style("primary")
     }
     
-    keyboard.row().text(ctx.t("utils.shared.back"), "mainProfile");
+    keyboard.row().text(ctx.t("utils.shared.back"), `mainDistribution:${ctx.session.sendout.name}`);
     text.push(ctx.t("commands.cabinet.distribution.schedule.main.path", { call: callDistribution }));
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
 }
