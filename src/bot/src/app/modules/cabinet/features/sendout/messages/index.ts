@@ -17,7 +17,7 @@ messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
     if (!messages) return;
     
     ctx.session.other.text.positionId = messages.length;
-    const menu = menuMessage(ctx, messages);
+    const menu = menuMessage(ctx, messages.length);
 
     try {
         const msg = await ctx.editMessageText(menu.text, {
