@@ -30,7 +30,7 @@ usersComposer.callbackQuery("viewUsers", async (ctx: MyContext) => {
 /**
  * Отображение выбранного пользователя
  */
-usersComposer.callbackQuery("viewUser#", async (ctx: MyContext) => {
+usersComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]);
     const menu = menuUsers.viewUser(ctx, (await db.user.getUser(userId, true))!);
     await ctx.editMessageText(menu.text, {
