@@ -30,7 +30,7 @@ function mainSendouts (ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard
     const text = [
         ctx.t("commands.cabinet.distribution.main.sendouts.title", { count: sendouts.length }),
         ctx.t("commands.cabinet.distribution.main.sendouts.path", { count: ctx.session.sendout.call }),
-    ].join('\n');
+    ].join('\n\n');
 
     const keyboard = new InlineKeyboard();
 
