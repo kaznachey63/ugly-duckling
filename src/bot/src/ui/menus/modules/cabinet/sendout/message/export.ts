@@ -11,9 +11,9 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text(ctx.t('utils.shared.pdf'), `exportMessages:${ctx.session.sendout.name}-pdf`)
-        .text(ctx.t('utils.shared.word'), `exportMessages:${ctx.session.sendout.name}-word`)   
-        .text(ctx.t('utils.shared.txt'), `exportMessages:${ctx.session.sendout.name}-txt`)   
+        .text("PDF", `exportMessages:${ctx.session.sendout.name}-pdf`)
+        .text("Word", `exportMessages:${ctx.session.sendout.name}-word`)   
+        .text("Txt", `exportMessages:${ctx.session.sendout.name}-txt`)   
         .row().text(ctx.t('utils.shared.back'), `mainMessage:${ctx.session.sendout.name}`)
     ;
     

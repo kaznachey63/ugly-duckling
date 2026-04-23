@@ -84,8 +84,8 @@ function mainExportContract(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text(ctx.t('utils.shared.pdf'), `exportContract:${ctx.session.sendout.name}-pdf`)
-        .text(ctx.t('utils.shared.word'), `exportContract:${ctx.session.sendout.name}-word`)   
+        .text("PDF", `exportContract:${ctx.session.sendout.name}-pdf`)
+        .text("Word", `exportContract:${ctx.session.sendout.name}-word`)   
         .row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.sendout.name}`)
     ;
     

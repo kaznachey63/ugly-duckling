@@ -58,8 +58,8 @@ function viewUser(ctx: MyContext, user: User): Menu<InlineKeyboard> {
         .text(ctx.t("commands.panel.users.view.user.name", { name: user.name ?? "Безымянный"}), `updateOrRemoveUserName#${user.telegramId}`).row()
         .text(ctx.t("commands.panel.users.view.user.username", { username: user.username ?? "@..."}), `updateOrRemoveUserUsername#${user.telegramId}`).row()
         .text(ctx.t("commands.panel.users.view.user.phone", { phone: user.phone ?? "+7..."}), `updateOrRemoveUserPhone#${user.telegramId}`).row()
-        .text(ctx.t("commands.panel.users.view.user.language", { language: user.language ?? "ru"}), `updateOrRemoveUserLanguage#${user.telegramId}`).row()
-        .text(ctx.t("commands.panel.users.view.user.role", { role: user.role ?? "Неизвестный "}), `updateOrRemoveUserLanguage#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.language", { language: ctx.t(`utils.languages.${user.language}`) }), `updateOrRemoveUserLanguage#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.role", { role:  ctx.t(`utils.roles.${user.role}`) }), `updateOrRemoveUserLanguage#${user.telegramId}`).row()
         .text(ctx.t("utils.shared.back"), "mainUsers");
     ; 
     return { text: format.escapeMarkdown(text), keyboard }
