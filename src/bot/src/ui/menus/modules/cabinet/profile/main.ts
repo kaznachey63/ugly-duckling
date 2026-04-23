@@ -14,7 +14,7 @@ export default function main(ctx: MyContext, userExistsInDB: boolean, userIsAdmi
 
     const keyboard = new InlineKeyboard();
     
-    if (userIsAdmin || !userExistsInDB) keyboard.text(ctx.t("commands.cabinet.profile.buttons.contract"), "mainContract").row();
+    if (!userIsAdmin || !userExistsInDB) keyboard.text(ctx.t("commands.cabinet.profile.buttons.contract"), "mainContract").row();
 
     if (userExistsInDB) keyboard.text(ctx.t("commands.cabinet.profile.buttons.logout"), "logoutAuth").row()
     else keyboard.text(ctx.t("commands.cabinet.profile.buttons.login"), "loginAuth").row()
