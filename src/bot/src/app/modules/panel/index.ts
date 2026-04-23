@@ -3,6 +3,7 @@ import { Composer } from "grammy";
 import menuPanel from "@menus/modules/panel/main";
 import common from '@utils/common';
 import chatsComposer from "./features/chats";
+import usersComposer from "./features/users";
 
 const panelComposer = new Composer<MyContext>();
 
@@ -30,9 +31,8 @@ panelComposer.callbackQuery("mainPanel", async (ctx: MyContext) => {
     }
 });
 
-/**
- * Подключение раздела чаты
- */
+
 panelComposer.use(chatsComposer);
+panelComposer.use(usersComposer);
 
 export default panelComposer;

@@ -40,7 +40,7 @@ function mainSendouts (ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard
             `mainDistribution:${cred.name}`
         ).row();
     });    
-    keyboard.text(ctx.t("utils.shared.back"), `mainCabinet`)
+    keyboard.text(ctx.t("utils.shared.back"), `mainCabinet`);
 
     return { text: format.escapeMarkdown(text), keyboard };
 }

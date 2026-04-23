@@ -183,7 +183,7 @@ async function updateLang(id: number, languageCode: LanguageCode) {
     }
 }
 
-async function getUsers(): Promise<{ customers: number[]; admins: number[] }> {
+async function getGroupsOfUsers(): Promise<{ customers: number[]; admins: number[] }> {
     let customers = [], admins = [];
     try {
         const users = (await pool.query("SELECT telegram_id, role_id FROM public.users")).rows;
@@ -192,9 +192,19 @@ async function getUsers(): Promise<{ customers: number[]; admins: number[] }> {
             else if (user.role_id == 2 && user.telegram_id != 0) customers.push(user.telegram_id);
         }
     } catch (error) {
-        console.log("Ошибка в получении пользователей", error);
+        console.log("Ошибка при получении групп пользователей", error);
     } finally {
         return { customers, admins }
+    }
+}
+
+async function getUsers(): Promise<User[]> {
+    try {
+        const { rows } = await pool.query("SELECT * FROM public.users");
+        return rows;
+    } catch (error) {
+        console.log("Ошибка при получении пользователей", error);
+        return [];
     }
 }
 
@@ -202,10 +212,11 @@ export default {
     existsInDB,
     getPhoneNumber,
     updateLang,
-    getUsers,
+    getGroupsOfUsers,
     matchPhoneNumber,
     updateData,
     removeFromSystem,
     insertToDB,
-    getUser
+    getUser,
+    getUsers
 }

@@ -76,7 +76,7 @@ async function setupBotCommands(bot: any) {
             command: 'panel',
             description: i18next.t('utils.commands.panel', { lng: lang })
         }];
-        const admins = (await db.user.getUsers()).admins;
+        const admins = (await db.user.getGroupsOfUsers()).admins;
 
         for (const adminId of admins) {
             await bot.api.setMyCommands(adminCommands, {

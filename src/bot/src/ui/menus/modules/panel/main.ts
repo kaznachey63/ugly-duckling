@@ -8,6 +8,11 @@ import { InlineKeyboard } from 'grammy';
  */
 export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = ctx.t("commands.panel.main.title");
-    const keyboard = new InlineKeyboard().text(ctx.t("commands.panel.main.buttons.chats"), "mainChats").row();
+    const keyboard = new InlineKeyboard()
+        .text(ctx.t("commands.panel.main.buttons.chats"), "mainChats").row()
+        .text(ctx.t("commands.panel.main.buttons.users"), "mainUsers").row()
+        .text(ctx.t("commands.panel.main.buttons.sendouts"), "mainSendouts").row()
+        .text(ctx.t("commands.panel.main.buttons.contracts"), "mainContracts").row()
+    ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
