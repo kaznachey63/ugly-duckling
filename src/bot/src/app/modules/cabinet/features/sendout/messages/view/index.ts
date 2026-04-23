@@ -15,7 +15,7 @@ viewComposer.callbackQuery(/^viewMessage:/, async (ctx: MyContext) => {
     const messages = await db.message.getMessagesForBot(ctx.session.sendout.schema);
     
     let menu;
-    console.log(messages);
+    console.log("scsdvcsd -" + messages + "- fdmvdfnvk");
     
     if (!messages) menu = menuMessage(ctx, 0);
     else menu = menuView.main(ctx, messages);
