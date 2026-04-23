@@ -6,10 +6,10 @@ import format from '@utils/formatting';
 export default function clearAll(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [
         result ?
-            ctx.t("commands.cabinet.distribution.messages.clearAll.success") :
-            ctx.t("commands.cabinet.distribution.messages.clearAll.error")
+            ctx.t("commands.cabinet.distribution.messages.clear.success") :
+            ctx.t("commands.cabinet.distribution.messages.clear.error")
         ,
-        ctx.t("commands.cabinet.distribution.messages.clearAll.path", { call: ctx.session.sendout.call })
+        ctx.t("commands.cabinet.distribution.messages.clear.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.sendout.name}`);
