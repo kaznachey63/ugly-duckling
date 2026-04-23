@@ -12,11 +12,7 @@ function createDefaultSession(): SessionData {
             name: "",
             phone: "",
             username: "",
-            role: {
-                id: 0,
-                nameRu: "Неизвестный",
-                nameEn: "unknown"
-            },
+            role: "unknown"
         },
         sendout: {
             call: "",
@@ -32,6 +28,7 @@ function createDefaultSession(): SessionData {
             addingTime: false,
             updatingTime: false,
             addingIdea: false,
+            addingUser: false,
         },
         other: {
             ids: {

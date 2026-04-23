@@ -39,4 +39,16 @@ usersComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
     });
 });
 
+/**
+ * Создание пользователя
+ */
+usersComposer.callbackQuery("createUser", async (ctx: MyContext) => {
+    ctx.session.state.addingUser = true;
+    const menu = menuUsers.create(ctx);
+    await ctx.editMessageText(menu.text, {
+        parse_mode: "MarkdownV2",
+        reply_markup: menu.keyboard,
+    });
+});
+
 export default usersComposer;

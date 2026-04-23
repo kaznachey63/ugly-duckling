@@ -13,6 +13,7 @@ export interface SessionData {
         addingTime: boolean;
         updatingTime: boolean;
         addingIdea: boolean;
+        addingUser: boolean;
     };
     other: {
         ids: {

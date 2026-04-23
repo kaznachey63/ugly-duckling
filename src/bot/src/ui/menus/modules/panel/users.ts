@@ -39,7 +39,7 @@ function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
 
     users.forEach((user) => {
         keyboard.text(
-            user.name ?? "Безымянный",
+            user.name ?? ctx.t(`utils.roles.unknown`),
             `viewUser#${user.telegramId}`
         ).row();
     });    
@@ -50,18 +50,29 @@ function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
 function viewUser(ctx: MyContext, user: User): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.panel.users.view.user.title"),
-        ctx.t("commands.panel.users.view.user.path", { userName: user.name ?? "Безымянный" }),
+        ctx.t("commands.panel.users.view.user.path", { userName: user.name }),
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.panel.users.view.user.id", { id: user.telegramId ?? 0 }), `updateOrRemoveUserTgId#${user.telegramId}`).row()
-        .text(ctx.t("commands.panel.users.view.user.name", { name: user.name ?? "Безымянный"}), `updateOrRemoveUserName#${user.telegramId}`).row()
-        .text(ctx.t("commands.panel.users.view.user.username", { username: user.username ?? "@..."}), `updateOrRemoveUserUsername#${user.telegramId}`).row()
-        .text(ctx.t("commands.panel.users.view.user.phone", { phone: user.phone ?? "+7..."}), `updateOrRemoveUserPhone#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.id", { id: user.telegramId }), `updateOrRemoveUserTgId#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.name", { name: user.name }), `updateOrRemoveUserName#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.username", { username: user.username }), `updateOrRemoveUserUsername#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.phone", { phone: user.phone }), `updateOrRemoveUserPhone#${user.telegramId}`).row()
         .text(ctx.t("commands.panel.users.view.user.language", { language: ctx.t(`utils.languages.${user.language}`) }), `updateOrRemoveUserLanguage#${user.telegramId}`).row()
         .text(ctx.t("commands.panel.users.view.user.role", { role:  ctx.t(`utils.roles.${user.role}`) }), `updateOrRemoveUserLanguage#${user.telegramId}`).row()
+        .text(ctx.t("commands.panel.users.view.user.remove"), `removeUser#${user.telegramId}`).style("danger").row()
         .text(ctx.t("utils.shared.back"), "mainUsers");
     ; 
+    return { text: format.escapeMarkdown(text), keyboard }
+}
+
+function create(ctx: MyContext): Menu<InlineKeyboard> {
+    const text = [
+        ctx.t("commands.panel.users.create.title"),
+        ctx.t("commands.panel.users.create.path", { call: ctx.session.sendout.call })
+    ].join('\n\n');
+
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "viewUsers");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -69,4 +80,5 @@ export default {
     main,
     viewUsers,
     viewUser,
+    create,
 };

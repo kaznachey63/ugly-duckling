@@ -5,6 +5,10 @@ import { ServerManager } from "src/common/services/ServerManager";
 import common from '@utils/common';
 
 export default async function addingText(ctx: MyContext) {
+    // if (!validateText(ctx.message?.text?.trim()!)) {
+    //     return; // добавить перезагрузку для валидации
+    // }
+
     await db.message.addMessage(ctx.session.sendout.schema, {
         id: 0,
         caption: ctx.message?.text?.trim()!,
@@ -21,6 +25,7 @@ export default async function addingText(ctx: MyContext) {
     });
 }
 
-// function validateText(params: type) {
-    
-// }
+function validateText(text: string) {
+    if (!text) return false;
+    return true
+}
