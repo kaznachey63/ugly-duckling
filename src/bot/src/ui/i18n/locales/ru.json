@@ -477,7 +477,8 @@
                         "name": "Имя: {{name}}",
                         "username": "Юзернейм: @{{username}}",
                         "phone": "Телефон: +{{phone}}",
-                        "language": "Язык: {{language}}"
+                        "language": "Язык: {{language}}",
+                        "role": "Роль: {{role}}"
                     }
                 }
             }
