@@ -19,7 +19,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         
         const processingMsgId = processingMsg?.message_id;
 
-        if (await db.user.matchPhoneNumber(phoneNumber) || common.isAdmin(ctx.session.user.role)) {
+        if (await db.user.matchPhoneNumber(phoneNumber) || common.isAdmin(ctx)) {
             ctx.session.user.phone = phoneNumber;
             
             // 3. Удаляем, передавая ID сообщения обработки
@@ -27,7 +27,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
 
             let menu;
             try {
-                if (common.isAdmin(ctx.session.user.role)) await db.user.insertToDB(ctx) 
+                if (common.isAdmin(ctx)) await db.user.insertToDB(ctx) 
                 else await db.user.updateData(ctx);
 
                 menu = menuAuth.processLogin(ctx, true);

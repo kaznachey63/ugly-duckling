@@ -12,7 +12,7 @@ export default function main(ctx: MyContext, scheduleLength: number): Menu<Inlin
     let text = [];
     const keyboard = new InlineKeyboard();
     
-    if (common.isAdmin(ctx.session.user.role)) {
+    if (common.isAdmin(ctx)) {
         keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.create"), `createTime:${nameDistribution}#${positionId}`).style("success");
     }
 
@@ -23,7 +23,7 @@ export default function main(ctx: MyContext, scheduleLength: number): Menu<Inlin
     else {
         text.push(ctx.t("commands.cabinet.distribution.schedule.main.title", { amount: scheduleLength }));
 
-        if (common.isAdmin(ctx.session.user.role)) {
+        if (common.isAdmin(ctx)) {
             keyboard.text(ctx.t("commands.cabinet.distribution.schedule.main.buttons.clear"), `clearSchedule:${nameDistribution}`).style("danger").row()
         }
 

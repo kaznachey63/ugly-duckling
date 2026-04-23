@@ -18,7 +18,7 @@ function mainSendout(ctx: MyContext): Menu<InlineKeyboard> {
         .text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.statistics"), `mainStatistic:${nameDistribution}`).row()
     ;
     
-    if (common.isAdmin(ctx.session.user.role)) {
+    if (common.isAdmin(ctx)) {
         keyboard.text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.condition"), `mainCondition:${nameDistribution}`).row();
     }
         

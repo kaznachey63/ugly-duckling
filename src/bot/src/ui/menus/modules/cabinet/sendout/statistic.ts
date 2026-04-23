@@ -55,7 +55,7 @@ function targetDateOnCalendar(ctx: MyContext, result: { time: string, date: stri
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard();
-    if (utils.common.isAdmin(ctx.session.user.role)) keyboard.text(ctx.t('commands.cabinet.distribution.statistics.selective.targetDate.buttonChats'), `readChats:${ctx.session.sendout.name}-${result.date}`);
+    if (utils.common.isAdmin(ctx)) keyboard.text(ctx.t('commands.cabinet.distribution.statistics.selective.targetDate.buttonChats'), `readChats:${ctx.session.sendout.name}-${result.date}`);
     keyboard.text(ctx.t('utils.shared.back'), `comparativeStatistic:${ctx.session.sendout.name}`);
 
     return { text: utils.formatting.escapeMarkdown(text), keyboard }

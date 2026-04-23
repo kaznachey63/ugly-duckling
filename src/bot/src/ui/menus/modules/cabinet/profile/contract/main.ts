@@ -18,7 +18,7 @@ export default function main(ctx: MyContext, contractsLength: number): Menu<Inli
     const keyboard = new InlineKeyboard();
     const sendoutCall = ctx.session.sendout.call;
 
-    if (common.isAdmin(ctx.session.user.role)) {
+    if (common.isAdmin(ctx)) {
         keyboard.text(ctx.t("commands.cabinet.profile.contract.main.buttons.create"), "createContract").style("success");
     }
 
@@ -29,7 +29,7 @@ export default function main(ctx: MyContext, contractsLength: number): Menu<Inli
     else {
         text.push(ctx.t('commands.cabinet.profile.contract.main.title', { amount: contractsLength }));
 
-        if (common.isAdmin(ctx.session.user.role)) {
+        if (common.isAdmin(ctx)) {
             keyboard.text(ctx.t("commands.cabinet.profile.contract.main.buttons.clear"), "clearContract").style("danger").row()
         }
 
