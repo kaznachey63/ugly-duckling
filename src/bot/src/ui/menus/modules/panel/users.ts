@@ -50,7 +50,7 @@ function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
 function viewUser(ctx: MyContext, user: User): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.panel.users.view.user.title"),
-        ctx.t("commands.panel.users.view.user.path", { userName: user.name }),
+        ctx.t("commands.panel.users.view.user.path", { userName: user.name ?? "Безымянный" }),
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
