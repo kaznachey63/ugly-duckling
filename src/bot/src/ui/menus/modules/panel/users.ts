@@ -30,6 +30,8 @@ function main(ctx: MyContext, amountOfUsers: number): Menu<InlineKeyboard> {
 }
 
 function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
+    console.log(users);
+    
     const text = [
         ctx.t("commands.panel.users.view.users.title"),
         ctx.t("commands.panel.users.view.users.path"),
