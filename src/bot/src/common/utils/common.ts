@@ -1,6 +1,5 @@
 import type { MyContext, SessionData } from '@shared/types/SessionData';
 import db from "@shared/db";
-import type { Role } from '@shared/types/Role';
 
 /**
  * Сброс сессии
@@ -33,7 +32,7 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     }
 }
 
-function isAdmin(role: Role): boolean { return role.nameEn == "admin" };
+function isAdmin(ctx: MyContext): boolean { return ctx.session.user.role == "admin" };
 
 export default {
     resetSessionStates,
