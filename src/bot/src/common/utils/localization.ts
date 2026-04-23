@@ -7,7 +7,7 @@ import map from '../maps';
  * @returns строка вида "Вторник - 12:30" или "1. Вторник - 12:30"
  */ 
 function formatTimeToRu(cronTime: string, index?: number): string | null {
-    const [ minute, day, hour, month, weekDay ] = cronTime.split(' ');
+    const [ minute, hour, day, month, weekDay ] = cronTime.split(' ');
 
     // Проверяем наличие обязательных полей
     if (!minute || !hour || !weekDay) {
