@@ -16,14 +16,14 @@ genereteComposer.callbackQuery(/^generateText:.+#\d+-(true|false)$/, async (ctx:
     const action = ctx.callbackQuery?.data!.split(/-/)[1] === 'true';    let menu: any = {};
     
     if (action) {        
-        await db.message.addMessage(ctx.session.distribution.schema, {
+        await db.message.addMessage(ctx.session.sendout.schema, {
             id: 0,
             caption: ctx.session.other.text.generateText.trim()!,
             entities: ctx.session.other.text.generateEntities,
             media: null
         });
         const server = new ServerManager();
-        menu = menuCreate.saveOrCancelGenerateText(ctx, action, await server.restartProcessOrNot(ctx.session.distribution.name, true));
+        menu = menuCreate.saveOrCancelGenerateText(ctx, action, await server.restartProcessOrNot(ctx.session.sendout.name, true));
         common.resetSessionStates(ctx.session);
     }
     else {

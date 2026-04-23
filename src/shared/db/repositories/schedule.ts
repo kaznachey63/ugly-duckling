@@ -1,7 +1,7 @@
 import type { Time } from '@shared/types/Time';
 import { getPool } from '../pool';
 const pool = getPool();
-import distribution from './distribution';
+import distribution from './sendout';
 
 /**
  * Получение графика (для рассылки)

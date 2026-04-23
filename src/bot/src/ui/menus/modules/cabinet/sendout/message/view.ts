@@ -6,8 +6,8 @@ import type { Message } from '@shared/types/Message';
 import constants from '@constants';
 
 function main(ctx: MyContext, messages: Message[]): Menu<InlineKeyboard> {
-    const nameDistribution = ctx.session.distribution.name;
-    const callDistribution = ctx.session.distribution.call;
+    const nameDistribution = ctx.session.sendout.name;
+    const callDistribution = ctx.session.sendout.call;
     const positionId = ctx.session.other.text.positionId;
     const message = messages[positionId];
 
@@ -64,24 +64,24 @@ function main(ctx: MyContext, messages: Message[]): Menu<InlineKeyboard> {
             .text("➡", `viewMessage:${nameDistribution}#${positionId + 1}`).row()
         ;
     }
-    keyboard.text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`);
+    keyboard.text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.sendout.name}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 // сообщения
 function removeMessage(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("commands.cabinet.distribution.messages.view.text.remove.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.view.text.remove.path", { call: ctx.session.sendout.call })
     ];
     const keyboard = new InlineKeyboard();
     
     if (result) {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.view.text.remove.success"));
-        keyboard.text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.distribution.name}#0`);
+        keyboard.text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.sendout.name}#0`);
     }
     else {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.view.text.remove.error"));
-        keyboard.text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
+        keyboard.text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     }
     
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
@@ -91,10 +91,10 @@ function removeMessage(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 function updateText(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.messages.view.text.update.title"),
-        ctx.t("commands.cabinet.distribution.messages.view.text.update.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.view.text.update.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -102,10 +102,10 @@ function updateText(ctx: MyContext): Menu<InlineKeyboard> {
 function addMedia(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.messages.view.media.add.title"),
-        ctx.t("commands.cabinet.distribution.messages.view.media.add.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.view.media.add.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -115,27 +115,27 @@ function clearAllMedia(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
             ctx.t("commands.cabinet.distribution.messages.view.media.clearAll.success") :
             ctx.t("commands.cabinet.distribution.messages.view.media.clearAll.error")
         ,
-        ctx.t("commands.cabinet.distribution.messages.view.media.clearAll.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.view.media.clearAll.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
     
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 function pagination(ctx: MyContext, messagesLength: number) {
     const text = [
         ctx.t("commands.cabinet.distribution.messages.view.pagination.title"),
-        ctx.t("commands.cabinet.distribution.messages.view.pagination.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.view.pagination.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard();
     
     for (let i = 0; i < messagesLength; i++) {
         if (i % 5 == 0) keyboard.row();
-        keyboard.text((i + 1).toString(), `viewMessage:${ctx.session.distribution.name}#${i}`);
+        keyboard.text((i + 1).toString(), `viewMessage:${ctx.session.sendout.name}#${i}`);
     }
 
-    keyboard.row().text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
+    keyboard.row().text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }    
 }
 

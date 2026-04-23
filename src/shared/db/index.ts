@@ -1,17 +1,17 @@
 import chat from './repositories/chat';
-import distribution from './repositories/distribution';
+import sendout from './repositories/sendout';
 import message from './repositories/message';
 import result from './repositories/result';
-import time from './repositories/time';
+import schedule from './repositories/schedule';
 import user from './repositories/user';
 import bot from './repositories/bot'
 
 export default {
     chat,
-    distribution,
+    sendout,
     message,
     result,
-    time,
+    schedule,
     user,
     bot
 };

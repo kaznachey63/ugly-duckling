@@ -13,7 +13,7 @@ const messageComposer = new Composer<MyContext>();
 messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
     
-    const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
+    const messages = await db.message.getMessagesForBot(ctx.session.sendout.schema);
     if (!messages) return;
     
     ctx.session.other.text.positionId = messages.length;

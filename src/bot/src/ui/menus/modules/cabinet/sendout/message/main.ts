@@ -5,8 +5,8 @@ import format from '@utils/formatting';
 import type { Message } from '@shared/types/Message';
 
 export default function main(ctx: MyContext, messages: Message[]): Menu<InlineKeyboard> {
-    const nameDistribution = ctx.session.distribution.name;
-    const callDistribution = ctx.session.distribution.call;
+    const nameDistribution = ctx.session.sendout.name;
+    const callDistribution = ctx.session.sendout.call;
     const positionId = ctx.session.other.text.positionId;   
      
     let text = [];
@@ -20,11 +20,11 @@ export default function main(ctx: MyContext, messages: Message[]): Menu<InlineKe
         text.push(ctx.t("commands.cabinet.distribution.messages.main.title", { amount: positionId }));
         keyboard
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clear"), `clearMessages:${nameDistribution}`).style("danger").row()
-            .text(ctx.t('utils.shared.export'), `mainExportMessages:${ctx.session.distribution.name}`)
+            .text(ctx.t('utils.shared.export'), `mainExportMessages:${ctx.session.sendout.name}`)
             .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.view"), `viewMessage:${nameDistribution}#0`).style("primary")
         ;
     }
-    keyboard.row().text(ctx.t("utils.shared.back"), `mainDistribution:${ctx.session.distribution.name}`);
+    keyboard.row().text(ctx.t("utils.shared.back"), `mainDistribution:${ctx.session.sendout.name}`);
     text.push(ctx.t("commands.cabinet.distribution.messages.main.path", { call: callDistribution }));
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }

@@ -37,7 +37,7 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:next:(\d{4}-\d{2}-\d{2})$/,
 });
 
 selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
-    const results = await db.result.getResults(ctx.session.distribution.schema);
+    const results = await db.result.getResults(ctx.session.sendout.schema);
 
     for (const result of results!) {
         if (result.chats.length == 0 || result.chats.length == 1) continue;
@@ -84,7 +84,7 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:month$/, async (ctx)
 
 selectiveStatisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: MyContext) => {
     try {
-        const logsBaza = await db.result.getResults(ctx.session.distribution.schema);
+        const logsBaza = await db.result.getResults(ctx.session.sendout.schema);
         if (!logsBaza) return;
 
         const lastLog = logsBaza.at(-1)!;
@@ -93,7 +93,7 @@ selectiveStatisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: My
         if (logsBaza.length === 0 || !lastLog?.chats || !infoChats) {
             await ctx.answerCallbackQuery({
                 text: ctx.t('commands.cabinet.distribution.chats.noSendout', {
-                    call: ctx.session.distribution.call
+                    call: ctx.session.sendout.call
                 }),
                 show_alert: true
             });
@@ -118,7 +118,7 @@ selectiveStatisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: My
 function chat(ctx: MyContext, success: number, chats: Chat[]): Menu<InlineKeyboard> {
     const text = [
         ctx.t('commands.cabinet.distribution.chats.amount', { success }),
-        ctx.t('commands.cabinet.distribution.chats.path', { call: ctx.session.distribution.call })
+        ctx.t('commands.cabinet.distribution.chats.path', { call: ctx.session.sendout.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard();

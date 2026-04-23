@@ -3,12 +3,13 @@ import type { MyContext } from '@shared/types/SessionData';
 import type { Menu } from '@shared/types/Menu';
 import format from '@utils/formatting';
 import type { Sendout } from '@shared/types/Sendout';
+import common from '@utils/common';
 
 function mainSendout(ctx: MyContext): Menu<InlineKeyboard> {
-    const nameDistribution = ctx.session.distribution.name;
+    const nameDistribution = ctx.session.sendout.name;
     const text = [
-        ctx.t("commands.cabinet.distribution.main.sendout.title", { call: ctx.session.distribution.call }),
-        ctx.t("commands.cabinet.distribution.main.sendout.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.main.sendout.title", { call: ctx.session.sendout.call }),
+        ctx.t("commands.cabinet.distribution.main.sendout.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
@@ -17,7 +18,7 @@ function mainSendout(ctx: MyContext): Menu<InlineKeyboard> {
         .text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.statistics"), `mainStatistic:${nameDistribution}`).row()
     ;
     
-    if (ctx.session.user.role == 'admin') {
+    if (common.isAdmin(ctx.session.user.role)) {
         keyboard.text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.condition"), `mainCondition:${nameDistribution}`).row();
     }
         

@@ -6,7 +6,7 @@ import common from '@utils/common';
 import type { Time } from "@shared/types/Time";
 
 export default async function addingTime(ctx: MyContext) {
-    const nameDistribution = ctx.session.distribution.name!;
+    const nameDistribution = ctx.session.sendout.name!;
     const server = new ServerManager();
 
     let menu;
@@ -14,7 +14,7 @@ export default async function addingTime(ctx: MyContext) {
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), false);
     }
     else {
-        await db.time.addTime(ctx.session.distribution.schema, formatTime(ctx.message?.text!));
+        await db.schedule.addTime(ctx.session.sendout.schema, formatTime(ctx.message?.text!));
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), true);
         common.resetSessionStates(ctx.session);
     }

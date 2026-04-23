@@ -4,8 +4,8 @@ import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 
 function main(ctx: MyContext): Menu<InlineKeyboard> {
-    const nameDistribution = ctx.session.distribution.name;
-    const callDistribution = ctx.session.distribution.call;
+    const nameDistribution = ctx.session.sendout.name;
+    const callDistribution = ctx.session.sendout.call;
     const positionId = ctx.session.other.text.positionId;   
 
     const text = [
@@ -16,7 +16,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard()
         .text(ctx.t("commands.cabinet.distribution.messages.create.main.buttons.generate"), `generateText:${nameDistribution}#${positionId}`).style("success")
         .text(ctx.t("commands.cabinet.distribution.messages.create.main.buttons.hand"), `handInputText:${nameDistribution}#${positionId}`).row()
-        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.distribution.name}`);
+        .text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.sendout.name}`);
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -24,10 +24,10 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
 function generate(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.messages.create.generate.title"),
-        ctx.t("commands.cabinet.distribution.messages.create.generate.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.create.generate.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainCreateText:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainCreateText:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -39,29 +39,29 @@ function saveOrCancelGenerateText(ctx: MyContext, result: boolean, success?: boo
         if (success) {
             text.push(
                 ctx.t("commands.cabinet.distribution.messages.create.generate.save"),
-                ctx.t("commands.cabinet.distribution.messages.create.generate.pathSave", { call: ctx.session.distribution.call })
+                ctx.t("commands.cabinet.distribution.messages.create.generate.pathSave", { call: ctx.session.sendout.call })
             );
             keyboard
-                .text(ctx.t("utils.shared.back"), `readMessage:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`)
+                .text(ctx.t("utils.shared.back"), `readMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`)
             ;
         }
         else {
             text.push(
                 ctx.t("commands.cabinet.distribution.messages.create.generate.cancel"),
-                ctx.t("commands.cabinet.distribution.messages.create.generate.pathSave", { call: ctx.session.distribution.call })
+                ctx.t("commands.cabinet.distribution.messages.create.generate.pathSave", { call: ctx.session.sendout.call })
             );
             keyboard
-                .text(ctx.t("utils.shared.back"), `mainAddText:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`)
+                .text(ctx.t("utils.shared.back"), `mainAddText:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`)
             ;
         }
     }
     else {
         text.push(
             ctx.t("commands.cabinet.distribution.messages.create.generate.cancel"),
-            ctx.t("commands.cabinet.distribution.messages.create.generate.pathCancel", { call: ctx.session.distribution.call })
+            ctx.t("commands.cabinet.distribution.messages.create.generate.pathCancel", { call: ctx.session.sendout.call })
         );
         keyboard
-            .text(ctx.t("utils.shared.back"), `mainCreateText:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`)
+            .text(ctx.t("utils.shared.back"), `mainCreateText:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`)
         ;
     }
     return { text: format.escapeMarkdown(text.join(('\n\n'))), keyboard }
@@ -70,10 +70,10 @@ function saveOrCancelGenerateText(ctx: MyContext, result: boolean, success?: boo
 function hand(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.messages.create.hand.title"),
-        ctx.t("commands.cabinet.distribution.messages.create.hand.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.messages.create.hand.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainCreateText:${ctx.session.distribution.name}#${ctx.session.other.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainCreateText:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 

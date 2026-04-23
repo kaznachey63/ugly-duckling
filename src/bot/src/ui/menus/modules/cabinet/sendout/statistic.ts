@@ -10,11 +10,11 @@ import constants from '@constants';
  * Меню раздела Статистика
  */
 function main(ctx: MyContext): Menu<InlineKeyboard> {
-    const nameDistribution = ctx.session.distribution?.name;
+    const nameDistribution = ctx.session.sendout?.name;
 
     const text = [
         ctx.t("commands.cabinet.distribution.statistics.main.title"),
-        ctx.t("commands.cabinet.distribution.statistics.main.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.statistics.main.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
@@ -29,7 +29,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
 function selective(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.cabinet.distribution.statistics.selective.main.title"),
-        ctx.t("commands.cabinet.distribution.statistics.selective.main.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.statistics.selective.main.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
     // Создаем экземпляр с параметрами (все опционально)
@@ -42,7 +42,7 @@ function selective(ctx: MyContext): Menu<InlineKeyboard> {
 
     const keyboard = 
         calendar.generate(new Date(), ctx.from?.id!)
-        .row().text(ctx.t('utils.shared.back'), `mainStatistic:${ctx.session.distribution.name}`)
+        .row().text(ctx.t('utils.shared.back'), `mainStatistic:${ctx.session.sendout.name}`)
     ;
 
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
@@ -51,28 +51,28 @@ function selective(ctx: MyContext): Menu<InlineKeyboard> {
 function targetDateOnCalendar(ctx: MyContext, result: { time: string, date: string, success: number, chats: string[] }): Menu<InlineKeyboard> {
     const text = [
         ctx.t(`commands.cabinet.distribution.statistics.selective.targetDate.title`, { date: result.date, time: result.time, success: result.success }),
-        ctx.t(`commands.cabinet.distribution.statistics.selective.targetDate.path`, { call: ctx.session.distribution.call })
+        ctx.t(`commands.cabinet.distribution.statistics.selective.targetDate.path`, { call: ctx.session.sendout.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard();
-    if (ctx.session.user.role == 'admin') keyboard.text(ctx.t('commands.cabinet.distribution.statistics.selective.targetDate.buttonChats'), `readChats:${ctx.session.distribution.name}-${result.date}`);
-    keyboard.text(ctx.t('utils.shared.back'), `comparativeStatistic:${ctx.session.distribution.name}`);
+    if (utils.common.isAdmin(ctx.session.user.role)) keyboard.text(ctx.t('commands.cabinet.distribution.statistics.selective.targetDate.buttonChats'), `readChats:${ctx.session.sendout.name}-${result.date}`);
+    keyboard.text(ctx.t('utils.shared.back'), `comparativeStatistic:${ctx.session.sendout.name}`);
 
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 
 function comparative(ctx: MyContext): Menu<InlineKeyboard> {
-    const nameDistribution = ctx.session.distribution.name;
+    const nameDistribution = ctx.session.sendout.name;
 
     const text = [
         ctx.t("commands.cabinet.distribution.statistics.comparative.main.title"),
-        ctx.t("commands.cabinet.distribution.statistics.comparative.main.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.cabinet.distribution.statistics.comparative.main.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
         .text(ctx.t("commands.cabinet.distribution.statistics.comparative.main.buttons.week"), `comparativeStatistic:${nameDistribution}-week`)
         .text(ctx.t("commands.cabinet.distribution.statistics.comparative.main.buttons.month"), `comparativeStatistic:${nameDistribution}-month`).row()
-        .text(ctx.t('utils.shared.back'), `mainStatistic:${ctx.session.distribution.name}`)
+        .text(ctx.t('utils.shared.back'), `mainStatistic:${ctx.session.sendout.name}`)
     ;
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
@@ -80,10 +80,10 @@ function comparative(ctx: MyContext): Menu<InlineKeyboard> {
 function handlerComparative(ctx: MyContext, type: StatisticType): Menu<InlineKeyboard> {
     const text = [
         ctx.t(`commands.cabinet.distribution.statistics.comparative.${type}.title`),
-        ctx.t(`commands.cabinet.distribution.statistics.comparative.${type}.path`, { call: ctx.session.distribution.call })
+        ctx.t(`commands.cabinet.distribution.statistics.comparative.${type}.path`, { call: ctx.session.sendout.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t('utils.shared.back'), `comparativeStatistic:${ctx.session.distribution.name}`);    
+    const keyboard = new InlineKeyboard().text(ctx.t('utils.shared.back'), `comparativeStatistic:${ctx.session.sendout.name}`);    
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 

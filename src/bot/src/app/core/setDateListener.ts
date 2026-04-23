@@ -12,7 +12,7 @@ export default async function setDateListener(ctx: MyContext) {
             return;
         }
 
-        const nameDistribution = ctx.session.distribution?.name;
+        const nameDistribution = ctx.session.sendout?.name;
         const queryData = ctx.callbackQuery.data;
 
         // Извлечение даты из формата "calendar-YYYY-MM-DD"
@@ -43,7 +43,7 @@ export default async function setDateListener(ctx: MyContext) {
                 utils.formatting.escapeMarkdown(
                     `Итог на время: ${matchingLog.time} (${matchingLog.date})\n` +
                     `Дошло в: ${matchingLog.success}\n\n` +
-                    `[📍 Путь: Кабинет → Меню «${ctx.session.distribution.call}» → Статистика → *Выборочная*]`
+                    `[📍 Путь: Кабинет → Меню «${ctx.session.sendout.call}» → Статистика → *Выборочная*]`
                 ),
                 {
                     parse_mode: 'MarkdownV2',

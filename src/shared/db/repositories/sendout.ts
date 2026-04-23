@@ -9,7 +9,7 @@ import type { SendoutWithCredRow } from '@shared/types/SendoutWithCredRow';
  */
 async function getSendoutsInfoWithCredentials(): Promise<SendoutWithCred[] | undefined> {
     try {
-        const result = await pool.query(`SELECT * FROM accounts a JOIN credentials c ON c.account_id = a.id`);
+        const result = await pool.query(`SELECT * FROM public.sendouts a JOIN credentials c ON c.account_id = a.id`);
         return result.rows.map((row: SendoutWithCredRow) => ({
             schema: row.schema,
             name: row.name,
@@ -30,7 +30,7 @@ async function getSendoutsInfoWithCredentials(): Promise<SendoutWithCred[] | und
  */
 async function getSendoutInfo(name: string): Promise<Sendout> {
     const { rows } = await pool.query(
-        'SELECT schema, name, label, call FROM public.accounts WHERE name = $1',
+        'SELECT schema, name, label, call FROM public.sendouts WHERE name = $1',
         [name]
     );
     return rows[0];
@@ -41,7 +41,7 @@ async function getSendoutInfo(name: string): Promise<Sendout> {
  */
 async function getSendoutsOfUserId(userId: number): Promise<Sendout[]> {
     const { rows } = await pool.query(
-        `SELECT schema, name, label, call FROM public.accounts WHERE user_id = (SELECT id FROM public.users WHERE telegram_id = $1)`,
+        `SELECT schema, name, label, call FROM public.sendouts WHERE user_id = (SELECT id FROM public.users WHERE telegram_id = $1)`,
         [userId]
     );
     return rows;
@@ -52,7 +52,7 @@ async function getSendoutsOfUserId(userId: number): Promise<Sendout[]> {
  */
 async function getAllSendouts(): Promise<Sendout[]> {
     const { rows } = await pool.query(
-        'SELECT schema, name, label, call FROM public.accounts'
+        'SELECT schema, name, label, call FROM public.sendouts'
     );
     return rows;
 }

@@ -11,7 +11,7 @@ const viewComposer = new Composer<MyContext>();
 viewComposer.callbackQuery(/^viewMessage:/, async (ctx: MyContext) => {
     ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
     
-    const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
+    const messages = await db.message.getMessagesForBot(ctx.session.sendout.schema);
     if (!messages) return;
     const menu = menuView.main(ctx, messages);
 

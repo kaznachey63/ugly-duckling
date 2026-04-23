@@ -33,7 +33,7 @@ function reupload(ctx: MyContext, success: boolean): Menu<InlineKeyboard> {
             ctx.t("commands.panel.chats.reupload.success") :
             ctx.t("commands.panel.chats.reupload.error")
         ,
-        ctx.t("commands.panel.chats.reupload.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.panel.chats.reupload.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainChats");
@@ -46,7 +46,7 @@ function clear(ctx: MyContext, amountOfChats: number): Menu<InlineKeyboard> {
             ctx.t("commands.panel.chats.clear.success") :
             ctx.t("commands.panel.chats.clear.error")
         ,
-        ctx.t("commands.panel.chats.clear.path", { call: ctx.session.distribution.call })
+        ctx.t("commands.panel.chats.clear.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainChats");

@@ -1,6 +1,6 @@
 import { getPool } from '../pool';
 const pool = getPool();
-import distribution from './distribution';
+import distribution from './sendout';
 import type { Message } from '@shared/types/Message'
 
 /**

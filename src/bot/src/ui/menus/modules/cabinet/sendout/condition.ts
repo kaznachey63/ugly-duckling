@@ -8,7 +8,7 @@ import type { Status } from "@shared/types/server/Status";
  * Меню раздела Состояние
  */
 export default function condition(ctx: MyContext, status: Status): Menu<InlineKeyboard> {
-    const nameDistribution = ctx.session.distribution.name!;
+    const nameDistribution = ctx.session.sendout.name!;
     let keyboard = new InlineKeyboard();
     
     switch (status) {
@@ -36,10 +36,10 @@ export default function condition(ctx: MyContext, status: Status): Menu<InlineKe
     
     const text = [
         ctx.t(`commands.cabinet.distribution.condition.status.${status}`),
-        ctx.t("commands.cabinet.distribution.condition.path", { call: ctx.session.distribution.call }),
+        ctx.t("commands.cabinet.distribution.condition.path", { call: ctx.session.sendout.call }),
     ].join('\n\n');
 
-    keyboard.text(ctx.t('utils.shared.back'), `mainDistribution:${ctx.session.distribution.name}`);
+    keyboard.text(ctx.t('utils.shared.back'), `mainDistribution:${ctx.session.sendout.name}`);
     
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }

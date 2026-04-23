@@ -1,4 +1,4 @@
-export type ContractData = {
+export type ContractExport = {
     startDay: string,
     startMonth: string,
     startYear: string,

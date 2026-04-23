@@ -6,17 +6,17 @@ import common from '@utils/common';
 
 export default async function editingText(ctx: MyContext) {
     const positionId = ctx.session.other.text.positionId!;
-    const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
+    const messages = await db.message.getMessagesForBot(ctx.session.sendout.schema);
     if (!messages) return;
     const messageId = messages[positionId]?.id!;
 
-    await db.message.updateMessage(ctx.session.distribution.schema, messageId, {
+    await db.message.updateMessage(ctx.session.sendout.schema, messageId, {
         caption: ctx.message?.text?.trim()!,
         entities: ctx.message?.entities!,
     });
 
     const server = new ServerManager();
-    const menu = menuState.updatingText(ctx, await server.restartProcessOrNot(ctx.session.distribution.name, true));
+    const menu = menuState.updatingText(ctx, await server.restartProcessOrNot(ctx.session.sendout.name, true));
     common.resetSessionStates(ctx.session);
     
     await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {

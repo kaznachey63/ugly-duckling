@@ -134,7 +134,7 @@ function getMonth(date: Date): string[] {
 }
 
 async function getDataForDiagram(ctx: MyContext, typeStat: StatisticType): Promise<ChartData | false> {
-    const groups = await getGroups(ctx.session.distribution.schema, typeStat);
+    const groups = await getGroups(ctx.session.sendout.schema, typeStat);
     if (Number(groups.join('')) <= 0) return false;
 
     return {

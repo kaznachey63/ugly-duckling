@@ -3,6 +3,7 @@ import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
+import common from '@utils/common';
 
 /**
  * Меню команды idea
@@ -14,7 +15,7 @@ function main(ctx: MyContext, lastMessageId: string): Menu<InlineKeyboard> {
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("commands.settings.idea.main.buttons.add"), "addIdea").style("success");
 
-    if (ctx.session.user.role == "admin") {
+    if (common.isAdmin(ctx.session.user.role)) {
         keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), constants.link.chatIdeas + lastMessageId);
     }
 

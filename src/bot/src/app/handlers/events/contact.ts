@@ -1,9 +1,9 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
-import constants from '@constants';
 import menuContact from "@menus/handlers/events/contact";
 import menuAuth from '@menus/modules/cabinet/profile/auth';
+import common from '@utils/common';
 
 const contactComposer = new Composer<MyContext>();
 
@@ -19,15 +19,16 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         
         const processingMsgId = processingMsg?.message_id;
 
-        if (await db.user.matchPhoneNumber(phoneNumber) || phoneNumber == constants.adminData.phone) {
-            ctx.session.user.phoneNumber = phoneNumber;
+        if (await db.user.matchPhoneNumber(phoneNumber) || common.isAdmin(ctx.session.user.role)) {
+            ctx.session.user.phone = phoneNumber;
             
             // 3. Удаляем, передавая ID сообщения обработки
             await deleteMessageProcessing(ctx, processingMsgId);
 
             let menu;
             try {
-                phoneNumber == constants.adminData.phone ? await db.user.insertToDB(ctx) : await db.user.updateData(ctx);
+                if (common.isAdmin(ctx.session.user.role)) await db.user.insertToDB(ctx) 
+                else await db.user.updateData(ctx);
 
                 menu = menuAuth.processLogin(ctx, true);
                 await ctx.reply(menu.text, { 

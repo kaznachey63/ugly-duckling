@@ -8,6 +8,7 @@ import messageComposer from './messages';
 import mainComposer from './main';
 import db from '@shared/db';
 import type { Sendout } from '@shared/types/Sendout';
+import common from '@utils/common';
 
 const sendoutComposer = new Composer<MyContext>();
 
@@ -16,7 +17,7 @@ sendoutComposer.callbackQuery(/^mainSendouts/, async (ctx: MyContext) => {
     // await ctx.reply(ctx.t("utils.shared.processing"), { reply_markup: { remove_keyboard: true } });        
 
     // Получение рассылок
-    const sendouts = await db.user.isAdmin(ctx.from!.id) ? await db.distribution.getAllSendouts() : await db.distribution.getSendoutsOfUserId(ctx.from?.id!);
+    const sendouts = common.isAdmin(ctx.session.user.role) ? await db.sendout.getAllSendouts() : await db.sendout.getSendoutsOfUserId(ctx.from?.id!);
     if (!sendouts.length) return ctx.answerCallbackQuery({ text: ctx.t('commands.cabinet.distribution.main.sendouts.noSendouts'), show_alert: true });
     
     // Сортировка

@@ -1,19 +1,19 @@
 import { PDFDocument, PDFFont, PDFPage, rgb } from 'pdf-lib';
 import path from 'node:path';
 import fs from 'fs/promises'
-import type { ContractData } from '@shared/types/ContractData';
+import type { ContractExport } from '@shared/types/ContractExport';
 import fontkit from '@pdf-lib/fontkit';
 import type { Message } from '@shared/types/Message';
 
-// type Data = ContractData | string;
+// type Data = ContractExport | string;
 // type DataName = "contract" | "messages" | "unknown";
 
 export class PdfService {
     private pages: PDFPage[] = [];
     private customFont!: PDFFont;
-    private data!: ContractData;
+    private data!: ContractExport;
 
-    async execRender(data: ContractData): Promise<Uint8Array<ArrayBufferLike>> {
+    async execRender(data: ContractExport): Promise<Uint8Array<ArrayBufferLike>> {
         try {
             // const dataName = this.determineData(data);
             const pdfDoc = await PDFDocument.load(await fs.readFile(path.resolve('src', 'common', 'services', 'exports', 'docs', 'contract.pdf')));
@@ -222,7 +222,7 @@ export class PdfService {
         this.customFont = await pdfDoc!.embedFont(await fs.readFile(path.resolve('src', 'common', 'services', 'exports', 'fonts', 'Roboto-Regular.ttf')));
     }
     // private determineData(data: Data): DataName {
-    //     if (data as ContractData) return "contract";
+    //     if (data as ContractExport) return "contract";
     //     else if (data as string) return "messages";
     //     else return "unknown";
     // }
@@ -243,7 +243,7 @@ export class PdfService {
     // }
 
     // private contract() {
-    //     this.data = this.data as ContractData;
+    //     this.data = this.data as ContractExport;
     //     // 1-я страница
     //     this.pages[0]?.drawText(this.data.startDay, {
     //         x: 412,

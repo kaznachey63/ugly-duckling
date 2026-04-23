@@ -6,15 +6,19 @@ import { sleep } from 'telegram/Helpers';
 
 function createDefaultSession(): SessionData {
     return {
-        settings: {
-            languageCode: 'auto',
-        },
         user: {
-            id: 0,
-            role: 'unknown',
-            phoneNumber: "",
+            telegramId: BigInt(0),
+            language: 'ru',
+            name: "",
+            phone: "",
+            username: "",
+            role: {
+                id: 0,
+                nameRu: "Неизвестный",
+                nameEn: "unknown"
+            },
         },
-        distribution: {
+        sendout: {
             call: "",
             label: "",
             name: "",

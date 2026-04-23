@@ -43,10 +43,10 @@ mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
  */
 mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {    
     const queryData = ctx.callbackQuery?.data;
-    const nameDistribution = ctx.session.distribution.name!;
+    const nameDistribution = ctx.session.sendout.name!;
     const positionId = Number(queryData!.split(/#/)[1]);
     ctx.session.other.media.positionId = positionId;
-    const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
+    const messages = await db.message.getMessagesForBot(ctx.session.sendout.schema);
     if (!messages) return;
     const message = messages[positionId];
     const server = new ServerManager();
@@ -65,7 +65,7 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     }
     
     // 🔥 ОБНУЛЯЕМ МЕДИА В БД
-    await db.message.updateMessage(ctx.session.distribution.schema, message!.id!, { media: null });
+    await db.message.updateMessage(ctx.session.sendout.schema, message!.id!, { media: null });
     
     const menu = menuView.clearAllMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));
     await ctx.editMessageText(menu.text, {

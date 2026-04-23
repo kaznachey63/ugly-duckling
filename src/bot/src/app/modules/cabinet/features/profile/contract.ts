@@ -5,7 +5,7 @@ import constants from '@constants';
 import { PdfService } from 'src/common/services/exports/PdfService';
 import { WordService } from 'src/common/services/exports/WordService';
 import type { ExportType } from '@shared/types/ExportType';
-import type { ContractData } from '@shared/types/ContractData';
+import type { ContractExport } from '@shared/types/ContractExport';
 import db from '@shared/db';
 
 const contractComposer = new Composer<MyContext>();
@@ -13,7 +13,7 @@ const contractComposer = new Composer<MyContext>();
 contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
     // return ctx.answerCallbackQuery({ text: "Над разделом ведутся технические работы, попробуйте позже.", show_alert: true });
 
-    if (!ctx.session.distribution.call) {
+    if (!ctx.session.sendout.call) {
         await ctx.answerCallbackQuery({ text: ctx.t("commands.cabinet.profile.contract.main.notSuccess"), show_alert: true });
         return;
     }
@@ -67,7 +67,7 @@ contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
 //     const exportType = ctx.callbackQuery?.data?.split(/-/)[1]! as ExportType;
 //     let buffer!: Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike>;
 
-//     const contractData = await dataForExport(ctx.session.distribution.label);
+//     const contractData = await dataForExport(ctx.session.sendout.label);
     
 //     let menu;
 //     let fileName;
@@ -109,7 +109,7 @@ contractComposer.callbackQuery(/^mainContract:/, async (ctx: MyContext) => {
 //     }
 // });
 
-// async function dataForExport(distributionLabel: string): Promise<ContractData> {
+// async function dataForExport(distributionLabel: string): Promise<ContractExport> {
 //     const google = new GoogleService();
 //     const dataFromSheets = await google.getRowsFromGS(constants.google.rangeTable);
 //     const row = dataFromSheets?.find(r => r?.[0] === distributionLabel);

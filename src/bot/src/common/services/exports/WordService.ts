@@ -2,10 +2,10 @@ import DocxTemplater from 'docxtemplater';
 import PizZip from 'pizzip';
 import fs from 'fs/promises'
 import path from 'node:path';
-import type { ContractData } from '@shared/types/ContractData';
+import type { ContractExport } from '@shared/types/ContractExport';
 
 export class WordService {
-    async execRender(data: ContractData): Promise<Buffer<ArrayBufferLike>> {
+    async execRender(data: ContractExport): Promise<Buffer<ArrayBufferLike>> {
         const contract = await fs.readFile(path.resolve('src', 'common', 'services', 'exports', 'docs', 'contract.docx'));
         const zip = new PizZip(contract);
 

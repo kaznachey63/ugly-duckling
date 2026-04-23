@@ -10,7 +10,7 @@ const languageComposer = new Composer<MyContext>();
 // Главная страница языка
 languageComposer.callbackQuery('mainLanguage', async (ctx: MyContext) => {
     try {
-        const userLang = await db.user.getLang(ctx.from?.id!);
+        const userLang = ctx.session.user.language;
         const menu = menuLanguage(ctx, userLang);
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
@@ -25,7 +25,7 @@ languageComposer.callbackQuery('mainLanguage', async (ctx: MyContext) => {
 languageComposer.callbackQuery(/^changeLanguage:/, async (ctx: MyContext) => {
     try {
         const languageCode = ctx.callbackQuery?.data?.split(':')[1] as LanguageCode;
-        const currentLang = await db.user.getLang(ctx.from?.id!);
+        const currentLang = ctx.session.user.language;
 
         if (languageCode === currentLang) {
             return await ctx.answerCallbackQuery({

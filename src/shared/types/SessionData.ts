@@ -1,22 +1,10 @@
 import { Context, type SessionFlavor } from "grammy";
-import type { Role } from '@shared/types/Role';
-import type { LanguageCode } from "grammy/types";
+import type { User } from "./User";
+import type { Sendout } from "./Sendout";
 
 export interface SessionData {
-    settings: {
-        languageCode: LanguageCode | 'auto';
-    };
-    user: {
-        id: number;
-        role: Role;
-        phoneNumber: string;
-    };
-    distribution: {
-        call: string;
-        label: string;
-        name: string;
-        schema: string;
-    };
+    user: User;
+    sendout: Sendout;
     state: {
         addingText: boolean;
         updatingText: boolean;

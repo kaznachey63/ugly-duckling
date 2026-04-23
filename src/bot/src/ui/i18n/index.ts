@@ -1,4 +1,3 @@
-import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
 import type { NextFunction } from 'grammy';
 import type { LanguageCode } from "grammy/types";
@@ -25,8 +24,8 @@ export const i18nMiddleware = async (ctx: MyContext, next: NextFunction) => {
     if (!telegramId) return await next();
 
     // Просто берем из БД
-    const lng = await db.user.getLang(telegramId);
+    const lang = ctx.session.user.language;
 
-    ctx.t = (key: string, options = {}) => i18next.t(key, { lng, ...options });
+    ctx.t = (key: string, options = {}) => i18next.t(key, { lang, ...options });
     await next();
 };

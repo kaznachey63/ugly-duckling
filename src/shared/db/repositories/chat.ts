@@ -11,7 +11,7 @@ async function insertChats(list: Chat[]) {
     const links = list.map(chat => chat.link);
     try {
         await pool.query(
-            `INSERT INTO public.REGISTER_CHATS (chat_id, title, link)
+            `INSERT INTO public.chats (chat_id, title, link)
             SELECT * FROM UNNEST($1::TEXT[], $2::TEXT[], $3::TEXT[])`,
             [chatIds, titles, links]
         );

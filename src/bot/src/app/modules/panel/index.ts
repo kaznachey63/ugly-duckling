@@ -7,7 +7,7 @@ import chatsComposer from "./features/chats";
 const panelComposer = new Composer<MyContext>();
 
 panelComposer.command('panel', async (ctx: MyContext) => {
-    if (common.isAdmin(ctx.from?.id!)) {
+    if (common.isAdmin(ctx.session.user.role)) {
         const menu = menuPanel(ctx);
         await ctx.reply(menu.text, {
             reply_markup: menu.keyboard,

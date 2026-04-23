@@ -24,7 +24,7 @@ interface MediaValidationData {
  * Состояние пользователя: добавление медиа
  */
 export default async function addingMedia(ctx: MyContext) {
-    const nameDistribution = ctx.session.distribution.name;
+    const nameDistribution = ctx.session.sendout.name;
     const msg = ctx.message;
     if (!msg) return;
     const positionId = ctx.session.other.media.positionId!;
@@ -83,7 +83,7 @@ export default async function addingMedia(ctx: MyContext) {
         await fileService.writeBuffer(path.join(pathMedia, nameFile), buffer);
         
         // Получение сообщений
-        const messages = await db.message.getMessagesForBot(ctx.session.distribution.schema);
+        const messages = await db.message.getMessagesForBot(ctx.session.sendout.schema);
         if (!messages) return;
 
         const message = messages[positionId!];
@@ -101,7 +101,7 @@ export default async function addingMedia(ctx: MyContext) {
         const newMedia = [...existingMedia, nameFile];
 
         // Обновление медиа
-        await db.message.updateMessage(ctx.session.distribution.schema, message.id!, { media: newMedia });
+        await db.message.updateMessage(ctx.session.sendout.schema, message.id!, { media: newMedia });
         await sleep(250);
         const server = new ServerManager();
         const menu = menuState.addingMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));

@@ -3,6 +3,53 @@ import { getPool } from '../pool';
 const pool = getPool();
 import type { MyContext } from '@shared/types/SessionData';
 import type { Contract } from '@shared/types/Contract';
+import type { User } from '@shared/types/User';
+
+/**
+ * Получение данных о пользователе
+ * @param value - значение для поиска (ID или телефон)
+ * @param searchById - true = поиск по telegram_id, false = поиск по phone
+ */
+async function getUser(value: string | number, searchById: boolean): Promise<User | undefined> {
+    try {
+        const searchField = searchById ? 'u.telegram_id' : 'u.phone';
+        const query = `
+            SELECT 
+                u.telegram_id as "telegramId",
+                u.name,
+                u.username,
+                u.phone,
+                u.language,
+                r.id as "role_id",
+                r.name_ru as "role_nameRu",
+                r.name_en as "role_nameEn"
+            FROM public.users u
+            LEFT JOIN public.role r ON r.id = u.role_id
+            WHERE ${searchField} = $1
+        `;
+        
+        const { rows } = await pool.query(query, [value]);
+        
+        if (!rows[0]) return undefined;
+        
+        const row = rows[0];
+        return {
+            telegramId: row.telegramId,
+            name: row.name,
+            username: row.username,
+            phone: row.phone,
+            language: row.language,
+            role: {
+                id: row.role_id,
+                nameRu: row.role_nameRu,
+                nameEn: row.role_nameEn
+            }
+        };
+    } catch (error) {
+        console.error("Ошибка при получении пользователя", error);
+        return undefined;
+    }
+}
 
 /**
  * Получение договоров на конкреного заказчика
@@ -28,13 +75,13 @@ async function getContracts(userId: number): Promise<Contract[]> {
  */
 async function updateData(ctx: MyContext) {
     const { id, username, first_name, last_name, language_code } = ctx.from!;
-    const phoneNumber = ctx.session?.user.phoneNumber;
+    const phoneNumber = ctx.session?.user.phone;
     const name = last_name ? `${first_name} ${last_name}` : first_name;
     const roleId = phoneNumber == "79371807522" ? 1 : 2;
 
     try {
         await pool.query(
-            `UPDATE users 
+            `UPDATE public.users 
             SET 
                 telegram_id = $1,
                 name = $2, 
@@ -55,14 +102,14 @@ async function updateData(ctx: MyContext) {
  */
 async function insertToDB(ctx: MyContext) {
     const { id, username, first_name, last_name } = ctx.from!;
-    const phoneNumber = ctx.session?.user.phoneNumber || null;
+    const phoneNumber = ctx.session?.user.phone || null;
     const name = last_name ? `${first_name} ${last_name}` : first_name;
     const roleId = phoneNumber == "79371807522" ? 1 : 2;
     const language = ctx.from?.language_code;
 
     try {
         await pool.query(
-            `INSERT INTO users (telegram_id, name, username, phone, language, role_id)
+            `INSERT INTO public.users (telegram_id, name, username, phone, language, role_id)
             VALUES ($1, $2, $3, $4, $5, $6)`,
             [id, name, username, phoneNumber, language, roleId]
         );
@@ -78,7 +125,7 @@ async function insertToDB(ctx: MyContext) {
 async function existsInDB(userId: number): Promise<boolean> {
     try {
         const { rows } = await pool.query(
-            "SELECT telegram_id FROM users WHERE telegram_id = $1",
+            "SELECT telegram_id FROM public.users WHERE telegram_id = $1",
             [userId]
         );
         return rows.length > 0;
@@ -94,7 +141,7 @@ async function existsInDB(userId: number): Promise<boolean> {
 async function removeFromSystem(userId: number): Promise<boolean> {
     try {
         const { rowCount }  = await pool.query(
-            "DELETE FROM users WHERE telegram_id = $1",
+            "DELETE FROM public.users WHERE telegram_id = $1",
             [userId]
         );
         return rowCount! > 0;
@@ -110,7 +157,7 @@ async function removeFromSystem(userId: number): Promise<boolean> {
 async function getPhoneNumber(userId: number): Promise<string> {
     try {
         const { rows } = await pool.query(
-            "SELECT phone FROM users WHERE telegram_id = $1",
+            "SELECT phone FROM public.users WHERE telegram_id = $1",
             [userId]
         );
         return rows[0]?.phone || "";
@@ -126,7 +173,7 @@ async function getPhoneNumber(userId: number): Promise<string> {
 async function matchPhoneNumber(phoneNumber: string): Promise<boolean> {
     try {
         const { rows } = await pool.query(
-            "SELECT id FROM users WHERE phone = $1",
+            "SELECT id FROM public.users WHERE phone = $1",
             [phoneNumber]
         );
         return rows.length > 0;
@@ -137,28 +184,12 @@ async function matchPhoneNumber(phoneNumber: string): Promise<boolean> {
 }
 
 /**
- * Проверка на администратора
- */
-async function isAdmin(userId: number): Promise<boolean> {
-    try {
-        const { rows } = await pool.query(
-            "SELECT role_id FROM users WHERE telegram_id = $1",
-            [userId]
-        );
-        return rows[0]?.role_id == 1;
-    } catch (error) {
-        console.error("Ошибка при проверке на администратора", error);
-        return false;
-    }
-}
-
-/**
  * Обновление языка пользователя
  */
 async function updateLang(id: number, languageCode: LanguageCode) {
     try {
         await pool.query(
-            `UPDATE users 
+            `UPDATE public.users 
              SET language = $1 
              WHERE telegram_id = $2`,
             [languageCode, id]
@@ -170,28 +201,10 @@ async function updateLang(id: number, languageCode: LanguageCode) {
     }
 }
 
-/**
- * Получение кода языка пользователя
- */
-async function getLang(telegramId: number): Promise<LanguageCode> {
-    try {
-        const result = await pool.query(
-            `SELECT language FROM users WHERE telegram_id = $1`,
-            [telegramId]
-        );
-
-        // Если юзер есть и язык задан — возвращаем, иначе дефолт
-        return result.rows[0]?.language;
-    } catch (error) {
-        console.error("Ошибка при получении языка.", error);
-        return 'ru';
-    }
-}
-
 async function getUsers(): Promise<{ customers: number[]; admins: number[] }> {
     let customers = [], admins = [];
     try {
-        const users = (await pool.query("SELECT telegram_id, role_id FROM users")).rows;
+        const users = (await pool.query("SELECT telegram_id, role_id FROM public.users")).rows;
         for (const user of users) {
             if (user.role_id == 1) admins.push(user.telegram_id);
             else if (user.role_id == 2 && user.telegram_id != 0) customers.push(user.telegram_id);
@@ -205,14 +218,13 @@ async function getUsers(): Promise<{ customers: number[]; admins: number[] }> {
 
 export default {
     existsInDB,
-    isAdmin,
     getPhoneNumber,
     updateLang,
-    getLang,
     getUsers,
     matchPhoneNumber,
     updateData,
     removeFromSystem,
     insertToDB,
-    getContracts
+    getContracts,
+    getUser
 }

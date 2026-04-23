@@ -1,1 +1,0 @@
-declare module 'telegram/sessions/index.js';

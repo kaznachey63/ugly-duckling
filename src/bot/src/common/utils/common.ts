@@ -18,29 +18,13 @@ function resetSessionStates(session: SessionData) {
     session.state.addingIdea = false;
 }
 
-/**
- * Проверка на админа по айди
- */
-function isAdmin(id: number): boolean {
-    return id === Number(process.env.ID_ADMIN);
-}
-
-/**
- * Получение роли пользователя по айди
- */
-async function getRole(id: number): Promise<Role> {
-    if (isAdmin(id)) return "admin";
-    else if (await db.user.existsInDB(id)) return "customer";
-    else return "unknown";
-}
-
 async function setPrimaryValuesSession(ctx: MyContext) {
     // Присваивание инфо о рассылке и пользователе
-    ctx.session.user.role = await getRole(ctx.from?.id!);
+    ctx.session.user = ctx.session.user.phone ? (await db.user.getUser(ctx.session.user.phone, false))! : (await db.user.getUser(ctx.from?.id!, true))!;
     const nameDistribution = ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!;
-    const infoDist = await db.distribution.getSendoutInfo(nameDistribution);
+    const infoDist = await db.sendout.getSendoutInfo(nameDistribution);
     if (infoDist) {
-        ctx.session.distribution = {
+        ctx.session.sendout = {
             name: nameDistribution,
             call: infoDist.call,
             label: infoDist.label, 
@@ -49,9 +33,10 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     }
 }
 
+function isAdmin(role: Role): boolean { return role.nameEn == "admin" };
+
 export default {
     resetSessionStates,
-    isAdmin,
-    getRole,
-    setPrimaryValuesSession
+    setPrimaryValuesSession,
+    isAdmin
 };
