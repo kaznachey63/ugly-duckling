@@ -35,7 +35,7 @@ function mainSendouts (ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard
 
     sendouts.forEach((cred) => {
         keyboard.text(
-            cred.call,
+            cred.call ?? cred.label,
             `mainDistribution:${cred.name}`
         ).row();
     });    
