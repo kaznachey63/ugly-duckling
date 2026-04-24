@@ -84,11 +84,11 @@ function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 
     if (result) {
         text.unshift(ctx.t("commands.panel.users.view.user.remove.success"));
-        keyboard.text(ctx.t("utils.shared.back"), `viewUser#${ctx.session.user.id}`);
+        keyboard.text(ctx.t("utils.shared.back"), "viewUsers");
     }
     else {
         text.unshift(ctx.t("commands.panel.users.view.user.remove.error"));
-        keyboard.text(ctx.t("utils.shared.back"), "viewUsers");
+        keyboard.text(ctx.t("utils.shared.back"), `viewUser#${ctx.session.user.id}`);
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }
