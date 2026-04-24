@@ -3,17 +3,24 @@ import { getPool } from '../pool';
 const pool = getPool();
 import type { MyContext } from '@shared/types/SessionData';
 import type { User } from '@shared/types/User';
+import localization from 'src/bot/src/common/utils/localization';
 
 /**
  * Получение данных о пользователе
- * @param value - значение для поиска (ID или телефон)
- * @param searchById - true = поиск по telegram_id, false = поиск по phone
+ * @param value - значение для поиска (ID или телефон или тг.айди)
  */
-async function getUser(value: string | number, searchById: boolean): Promise<User | undefined> {
+async function getUser(value: string | bigint | number): Promise<User | undefined> {
+    const typeOfValue = typeof value;
+    let uniqueValue;
+    switch (typeOfValue) {
+        case 'string': uniqueValue = "u.phone";
+        case 'number': uniqueValue = "u.id";
+        case 'bigint': uniqueValue = "u.telegram_id"
+    }
+
     try {
-        const searchField = searchById ? 'u.telegram_id' : 'u.phone';
-        const query = `
-            SELECT 
+        const { rows } = await pool.query(
+            `SELECT 
                 u.telegram_id as "telegramId",
                 u.name,
                 u.username,
@@ -22,15 +29,15 @@ async function getUser(value: string | number, searchById: boolean): Promise<Use
                 r.code as "role"
             FROM public.users u
             LEFT JOIN public.role r ON r.id = u.role_id
-            WHERE ${searchField} = $1
-        `;
-        
-        const { rows } = await pool.query(query, [value]);
+            WHERE ${uniqueValue} = $1`, 
+            [value]
+        );
         
         if (!rows[0]) return undefined;
         
         const row = rows[0];
         return {
+            id: row.id,
             telegramId: row.telegramId,
             name: row.name,
             username: row.username,
@@ -48,6 +55,7 @@ async function getUsers(): Promise<User[]> {
     try {
         const query = `
             SELECT 
+                u.id,
                 u.telegram_id as "telegramId",
                 u.name,
                 u.username,
@@ -61,6 +69,7 @@ async function getUsers(): Promise<User[]> {
         const { rows } = await pool.query(query);
         
         return rows.map((row) => ({
+            id: row.id,
             telegramId: row.telegramId,
             name: row.name,
             username: row.username,
@@ -124,7 +133,6 @@ async function insertToDB(data: MyContext | User): Promise<boolean> {
         phone = ctx.session?.user?.phone || "";
         language = ctx.session.user.language;
         
-        // Определяем роль по номеру телефона (пример)
         roleId = phone == "79371807522" ? 1 : 2;
     } 
     // User
@@ -135,17 +143,7 @@ async function insertToDB(data: MyContext | User): Promise<boolean> {
         username = user.username;
         phone = user.phone || "";
         language = user.language;
-        
-        switch (user.role) {
-            case 'admin':
-                roleId = 1;
-                break;
-            case 'customer':
-                roleId = 2;
-                break;
-            default:
-                roleId = 3;
-        }
+        roleId = phone == "79371807522" ? 1 : localization.getRoleId(user.role);
     }
 
     try {
@@ -180,14 +178,23 @@ async function existsInDB(userId: number): Promise<boolean> {
 
 /**
  * Удаление пользователя из системы
+ * @param value number - бд айди, бигинт - тг айди
+ * 
  */
-async function removeFromSystem(userId: number): Promise<boolean> {
+async function removeFromSystem(value: number | bigint): Promise<boolean> {
+    const typeOfValue = typeof value;
+    let uniqueValue;
+    switch (typeOfValue) {
+        case 'number': uniqueValue = "u.id";
+        case 'bigint': uniqueValue = "u.telegram_id"
+    }
+
     try {
-        const { rowCount }  = await pool.query(
-            "DELETE FROM public.users WHERE telegram_id = $1",
-            [userId]
+        await pool.query(
+            `DELETE FROM public.users WHERE ${uniqueValue} = $1`,
+            [value]
         );
-        return rowCount! > 0;
+        return true;
     } catch (error) {
         console.error("Ошибка при удалении пользователя", error);
         return false;

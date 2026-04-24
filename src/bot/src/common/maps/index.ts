@@ -1,3 +1,4 @@
+import type { Role } from "@shared/types/Role";
 import type { LanguageCode } from "grammy/types";
 
 const typeComparativeStatistika: Record<string, string> = {
@@ -27,9 +28,16 @@ const dayWeekMap: Record<string, string> = {
     '*': 'Каждый день'
 };
 
+// перенести отсюда
 const allowLanguages: LanguageCode[] = [
     'ru', 'en', 'zh', 'sr'
 ];
+
+const roles: Record<Role, number> = {
+    "admin": 1,
+    "customer": 2,
+    "unknown": 3
+};
 
 export default {
     typeComparativeStatistika,
@@ -37,4 +45,5 @@ export default {
     mimeType,
     dayWeekMap,
     allowLanguages,
+    roles,
 };

@@ -20,7 +20,7 @@ authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
 
 authComposer.callbackQuery("logoutAuth", async (ctx: MyContext) => {
     try {
-        const result = await db.user.removeFromSystem(ctx.from?.id!);
+        const result = await db.user.removeFromSystem(BigInt(ctx.from?.id!));
         
         const menu = menuAuth.logout(ctx, result);
         await ctx.editMessageText(menu.text, {

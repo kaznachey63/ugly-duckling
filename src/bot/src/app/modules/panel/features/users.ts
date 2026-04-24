@@ -31,8 +31,9 @@ usersComposer.callbackQuery("viewUsers", async (ctx: MyContext) => {
  * Отображение выбранного пользователя
  */
 usersComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
-    const userId = Number(ctx.callbackQuery?.data?.split('#')[1]);
-    const menu = menuUsers.viewUser(ctx, (await db.user.getUser(userId, true))!);
+    const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
+    ctx.session.user = (await db.user.getUser(userId))!;
+    const menu = menuUsers.viewUser(ctx);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,
@@ -54,6 +55,26 @@ usersComposer.callbackQuery("createUser", async (ctx: MyContext) => {
     if (typeof msg !== "boolean" && "message_id" in msg) {
         ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
     }
+});
+
+/**
+ * Создание пользователя
+ */
+usersComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
+    const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
+    ctx.session.user.id = userId;
+    let menu;
+    if (await db.user.removeFromSystem(userId)) {
+        menu = menuUsers.remove(ctx, false);
+    }
+    else {
+        menu = menuUsers.remove(ctx, true);
+    }    
+
+    await ctx.editMessageText(menu.text, {
+        parse_mode: "MarkdownV2",
+        reply_markup: menu.keyboard,
+    });
 });
 
 export default usersComposer;

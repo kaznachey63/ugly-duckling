@@ -20,7 +20,7 @@ function resetSessionStates(session: SessionData) {
 
 async function setPrimaryValuesSession(ctx: MyContext) {
     // Присваивание инфо о рассылке и пользователе
-    ctx.session.user = ctx.session.user.phone ? (await db.user.getUser(ctx.session.user.phone, false))! : (await db.user.getUser(ctx.from?.id!, true))!;
+    ctx.session.user = ctx.session.user.phone ? (await db.user.getUser(ctx.session.user.phone))! : (await db.user.getUser(BigInt(ctx.from?.id!)))!;
     const nameDistribution = ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!;
     const infoDist = await db.sendout.getSendoutInfo(nameDistribution);
     if (infoDist) {

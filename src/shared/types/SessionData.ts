@@ -33,7 +33,7 @@ export interface SessionData {
         };
         message: {
             positionId: number;
-        }
+        };
     }
 }
 
