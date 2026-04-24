@@ -32,8 +32,7 @@ usersComposer.callbackQuery("viewUsers", async (ctx: MyContext) => {
  */
 usersComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-    ctx.session.user = (await db.user.getUser(userId))!;
-    const menu = menuUsers.viewUser(ctx);
+    const menu = menuUsers.viewUser(ctx, (await db.user.getUser(userId))!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,
@@ -58,17 +57,17 @@ usersComposer.callbackQuery("createUser", async (ctx: MyContext) => {
 });
 
 /**
- * Создание пользователя
+ * Удаление пользователя
  */
 usersComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-    ctx.session.user.id = userId;
+    const user = (await db.user.getUser(userId))!;
     let menu;
     if (await db.user.removeFromSystem(userId)) {
-        menu = menuUsers.remove(ctx, true);
+        menu = menuUsers.remove(ctx, user, true);
     }
     else {
-        menu = menuUsers.remove(ctx, false);
+        menu = menuUsers.remove(ctx, user, false);
     }    
 
     await ctx.editMessageText(menu.text, {
