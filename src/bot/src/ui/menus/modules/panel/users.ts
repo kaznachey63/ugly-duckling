@@ -39,7 +39,7 @@ function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
 
     users.forEach((user) => {
         keyboard.text(
-            user.name ?? ctx.t("commands.panel.users.view.user.nameless"),
+            user.name ?? ctx.t("commands.panel.users.view.user.main.nameless"),
             `viewUser#${user.id}`
         ).row();
     });    
@@ -50,14 +50,14 @@ function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
 function viewUser(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.panel.users.view.user.main.title"),
-        ctx.t("commands.panel.users.view.user.main.path", { userName: ctx.session.user.name }),
+        ctx.t("commands.panel.users.view.user.main.path", { userName: ctx.session.user.name ?? ctx.t("commands.panel.users.view.user.main.nameless") }),
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.panel.users.view.user.main.telegramId", { telegramId: ctx.session.user.telegramId ?? ctx.t("commands.panel.users.view.user.miss") }), `updateOrRemoveUserTgId#${ctx.session.user.id}`).row()
-        .text(ctx.t("commands.panel.users.view.user.main.name", { name: ctx.session.user.name ?? ctx.t("commands.panel.users.view.user.nameless") }), `updateOrRemoveUserName#${ctx.session.user.id}`).row()
-        .text(ctx.t("commands.panel.users.view.user.main.username", { username: ctx.session.user.username ?? ctx.t("commands.panel.users.view.user.miss") }), `updateOrRemoveUserUsername#${ctx.session.user.id}`).row()
-        .text(ctx.t("commands.panel.users.view.user.main.phone", { phone: ctx.session.user.phone ?? ctx.t("commands.panel.users.view.user.miss") }), `updateOrRemoveUserPhone#${ctx.session.user.id}`).row()
+        .text(ctx.t("commands.panel.users.view.user.main.telegramId", { telegramId: ctx.session.user.telegramId ?? ctx.t("commands.panel.users.view.user.main.miss") }), `updateOrRemoveUserTgId#${ctx.session.user.id}`).row()
+        .text(ctx.t("commands.panel.users.view.user.main.name", { name: ctx.session.user.name ?? ctx.t("commands.panel.users.view.user.main.nameless") }), `updateOrRemoveUserName#${ctx.session.user.id}`).row()
+        .text(ctx.t("commands.panel.users.view.user.main.username", { username: ctx.session.user.username ?? ctx.t("commands.panel.users.view.user.main.miss") }), `updateOrRemoveUserUsername#${ctx.session.user.id}`).row()
+        .text(ctx.t("commands.panel.users.view.user.main.phone", { phone: ctx.session.user.phone ?? ctx.t("commands.panel.users.view.user.main.miss") }), `updateOrRemoveUserPhone#${ctx.session.user.id}`).row()
         .text(ctx.t("commands.panel.users.view.user.main.language", { language: ctx.t(`utils.languages.${ctx.session.user.language}`) }), `updateOrRemoveUserLanguage#${ctx.session.user.id}`).row()
         .text(ctx.t("commands.panel.users.view.user.main.role", { role:  ctx.t(`utils.roles.${ctx.session.user.role}`) }), `updateOrRemoveUserLanguage#${ctx.session.user.id}`).row()
         .text(ctx.t("commands.panel.users.view.user.main.remove"), `removeUser#${ctx.session.user.id}`).style("danger").row()
