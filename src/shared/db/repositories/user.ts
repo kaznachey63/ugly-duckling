@@ -3,7 +3,7 @@ import { getPool } from '../pool';
 const pool = getPool();
 import type { MyContext } from '@shared/types/SessionData';
 import type { User } from '@shared/types/User';
-import localization from 'src/bot/src/common/utils/localization';
+import type { Role } from '@shared/types/Role';
 
 /**
  * Получение данных о пользователе
@@ -143,7 +143,13 @@ async function insertToDB(data: MyContext | User): Promise<boolean> {
         username = user.username;
         phone = user.phone || "";
         language = user.language;
-        roleId = phone == "79371807522" ? 1 : localization.getRoleId(user.role);
+        const roles: Record<Role, number> = {
+            "admin": 1,
+            "customer": 2,
+            "unknown": 3
+        };
+
+        roleId = phone == "79371807522" ? 1 : roles[user.role]!;
     }
 
     try {

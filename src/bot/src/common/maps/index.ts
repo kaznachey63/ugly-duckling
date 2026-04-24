@@ -33,17 +33,10 @@ const allowLanguages: LanguageCode[] = [
     'ru', 'en', 'zh', 'sr'
 ];
 
-const roles: Record<Role, number> = {
-    "admin": 1,
-    "customer": 2,
-    "unknown": 3
-};
-
 export default {
     typeComparativeStatistika,
     fileFormat,
     mimeType,
     dayWeekMap,
     allowLanguages,
-    roles,
 };

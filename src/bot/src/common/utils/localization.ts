@@ -77,15 +77,10 @@ function getTypeCompStatRu(typeStatistika: string ) {
     return map.typeComparativeStatistika[typeStatistika]!;
 }
 
-function getRoleId(role: Role) {
-    return map.roles[role]!;
-}
-
 export default {
     formatTimeToRu,
     checkMediaInDocument,
     getMediaFormat,
     isSupportedMediaType,
     getTypeCompStatRu,
-    getRoleId,
 };
