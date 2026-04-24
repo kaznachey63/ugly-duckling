@@ -10,18 +10,18 @@ import maps from 'src/common/maps';
  */
 export default function language(ctx: MyContext, languageCode: LanguageCode): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("commands.cabinet.profile.language.main.title"),
-        ctx.t("commands.cabinet.profile.language.main.path"),
+        ctx.t("commands.settings.language.main.title"),
+        ctx.t("commands.settings.language.main.path"),
     ].join('\n\n');
     
     const languages: LanguageCode[] = maps.allowLanguages;
     const keyboard = new InlineKeyboard();
     
     for (const lang of languages) {
-        const label = ctx.t(`commands.cabinet.profile.language.main.buttons.${lang}`);
+        const label = ctx.t(`commands.settings.language.main.buttons.${lang}`);
         keyboard.text(lang === languageCode ? `${label} ☑️` : label, `changeLanguage:${lang}`);
     }
     
-    keyboard.row().text(ctx.t("utils.shared.back"), "mainProfile");
+    keyboard.row().text(ctx.t("utils.shared.back"), "mainSettings");
     return { text: utils.formatting.escapeMarkdown(text), keyboard };
 }

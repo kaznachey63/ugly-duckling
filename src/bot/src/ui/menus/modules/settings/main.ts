@@ -9,8 +9,8 @@ import { InlineKeyboard } from 'grammy';
 export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = ctx.t("commands.settings.main.title");
     const keyboard = new InlineKeyboard()
+    .text(ctx.t("commands.settings.main.buttons.language"), "mainLanguage").row()
         .text(ctx.t("commands.settings.main.buttons.help"), "mainHelp").row()
-        .text(ctx.t("commands.settings.main.buttons.language"), "mainLanguage").row()
         .text(ctx.t("commands.settings.main.buttons.about"), "mainAbout").row()
         .text(ctx.t("commands.settings.main.buttons.idea"), "mainIdea").row()
     ;
