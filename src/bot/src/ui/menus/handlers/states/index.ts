@@ -105,12 +105,21 @@ function addingOrUpdateTime(ctx: MyContext, resultRestart: boolean, validate: bo
 
 function addingUser(ctx: MyContext, result: boolean, validate: boolean) {
     const text = [ ctx.t("handlers.states.addingUser.path", { call: ctx.session.sendout.call }) ];
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "viewUsers");
+    const keyboard = new InlineKeyboard();
 
-    if (!validate) text.unshift(ctx.t("handlers.states.addingUser.validate"));
+    if (!validate){
+        text.unshift(ctx.t("handlers.states.addingUser.validate"));
+        keyboard.text(ctx.t("utils.shared.back"), "mainUsers");
+    } 
     else {
-        if (result) text.unshift(ctx.t("handlers.states.addingUser.success"));
-        else text.unshift(ctx.t("handlers.states.addingUser.error"));
+        if (result) {
+            text.unshift(ctx.t("handlers.states.addingUser.success"));
+            keyboard.text(ctx.t("utils.shared.back"), "viewUsers");
+        }
+        else {
+            text.unshift(ctx.t("handlers.states.addingUser.error"));
+            keyboard.text(ctx.t("utils.shared.back"), "viewUsers");
+        }
     }
 
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
