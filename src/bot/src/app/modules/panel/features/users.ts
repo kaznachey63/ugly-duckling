@@ -65,10 +65,10 @@ usersComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
     ctx.session.user.id = userId;
     let menu;
     if (await db.user.removeFromSystem(userId)) {
-        menu = menuUsers.remove(ctx, false);
+        menu = menuUsers.remove(ctx, true);
     }
     else {
-        menu = menuUsers.remove(ctx, true);
+        menu = menuUsers.remove(ctx, false);
     }    
 
     await ctx.editMessageText(menu.text, {

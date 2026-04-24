@@ -77,16 +77,20 @@ function create(ctx: MyContext): Menu<InlineKeyboard> {
 }
 
 function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
-    const text = [
-        result ? 
-            ctx.t("commands.panel.users.view.user.remove.success") : 
-            ctx.t("commands.panel.users.view.user.remove.error")
-        ,
+    const keyboard = new InlineKeyboard();
+    let text = [
         ctx.t("commands.panel.users.view.user.remove.path", { userName: ctx.session.user.name })
-    ].join('\n\n');
+    ];
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewUser#${ctx.session.user.id}`);
-    return { text: format.escapeMarkdown(text), keyboard }
+    if (result) {
+        text.unshift(ctx.t("commands.panel.users.view.user.remove.success"));
+        keyboard.text(ctx.t("utils.shared.back"), `viewUser#${ctx.session.user.id}`);
+    }
+    else {
+        text.unshift(ctx.t("commands.panel.users.view.user.remove.error"));
+        keyboard.text(ctx.t("utils.shared.back"), "viewUsers");
+    }
+    return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }
 
 export default {
