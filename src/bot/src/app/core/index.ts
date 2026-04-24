@@ -45,7 +45,6 @@ bot.on('message', async (ctx: MyContext, next: NextFunction) => {
 bot.on('callback_query', async (ctx: MyContext, next: NextFunction) => {
     try {
         console.log(ctx?.callbackQuery?.data);
-        
         await utils.common.setPrimaryValuesSession(ctx);
         await next();
     } finally {

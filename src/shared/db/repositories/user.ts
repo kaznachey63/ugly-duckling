@@ -21,6 +21,7 @@ async function getUser(value: string | bigint | number): Promise<User | undefine
     try {
         const { rows } = await pool.query(
             `SELECT 
+                u.id
                 u.telegram_id as "telegramId",
                 u.name,
                 u.username,
