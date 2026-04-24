@@ -10,8 +10,7 @@ const languageComposer = new Composer<MyContext>();
 // Главная страница языка
 languageComposer.callbackQuery('mainLanguage', async (ctx: MyContext) => {
     try {
-        const userLang = ctx.session.user.language;
-        const menu = menuLanguage(ctx, userLang);
+        const menu = menuLanguage(ctx);
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'
@@ -34,15 +33,15 @@ languageComposer.callbackQuery(/^changeLanguage:/, async (ctx: MyContext) => {
             });
         }
 
-        await db.user.updateLang(ctx.from?.id!, languageCode);
+        await db.user.updateLang(BigInt(ctx.from?.id!), languageCode);
 
         ctx.t = (key: string, options = {}) => {
             return i18next.t(key, { lng: languageCode, ...options });
         };
 
         await ctx.answerCallbackQuery(ctx.t('commands.settings.language.change.good'));
-
-        const menu = menuLanguage(ctx, languageCode);
+        ctx.session.user.language = languageCode;
+        const menu = menuLanguage(ctx);
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'

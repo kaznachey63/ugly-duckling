@@ -121,7 +121,7 @@ async function insertToDB(data: MyContext | User): Promise<boolean> {
     let phone: string | null;
     let language: LanguageCode | undefined;
     let roleId: number;
-
+    
     // MyContext
     if ('from' in data && data.from) {
         const ctx = data;
@@ -169,7 +169,7 @@ async function insertToDB(data: MyContext | User): Promise<boolean> {
  * Проверка на существование пользователя в БД
  * @returns true - если существует, иначе false
  */
-async function existsInDB(userId: number): Promise<boolean> {
+async function existsInDB(userId: bigint): Promise<boolean> {
     try {
         const { rows } = await pool.query(
             "SELECT telegram_id FROM public.users WHERE telegram_id = $1",
@@ -194,7 +194,7 @@ async function removeFromSystem(value: number | bigint): Promise<boolean> {
         case 'number': uniqueValue = "id"; break;
         case 'bigint': uniqueValue = "telegram_id"; break;
     }
-        
+
     try {
         await pool.query(
             `DELETE FROM public.users WHERE ${uniqueValue} = $1`,
@@ -204,22 +204,6 @@ async function removeFromSystem(value: number | bigint): Promise<boolean> {
     } catch (error) {
         console.error("Ошибка при удалении пользователя", error);
         return false;
-    }
-}
-
-/**
- * Получение номера телефона пользователя
- */
-async function getPhoneNumber(userId: number): Promise<string> {
-    try {
-        const { rows } = await pool.query(
-            "SELECT phone FROM public.users WHERE telegram_id = $1",
-            [userId]
-        );
-        return rows[0]?.phone || "";
-    } catch (error) {
-        console.error("Ошибка при получении номера", error);
-        return "";
     }
 }
 
@@ -242,13 +226,13 @@ async function matchPhoneNumber(phoneNumber: string): Promise<boolean> {
 /**
  * Обновление языка пользователя
  */
-async function updateLang(id: number, languageCode: LanguageCode) {
+async function updateLang(telegramId: bigint, languageCode: LanguageCode): Promise<boolean> {
     try {
         await pool.query(
             `UPDATE public.users 
              SET language = $1 
              WHERE telegram_id = $2`,
-            [languageCode, id]
+            [languageCode, telegramId]
         );
         return true;
     } catch (error) {
@@ -274,7 +258,6 @@ async function getGroupsOfUsers(): Promise<{ customers: number[]; admins: number
 
 export default {
     existsInDB,
-    getPhoneNumber,
     updateLang,
     getGroupsOfUsers,
     matchPhoneNumber,

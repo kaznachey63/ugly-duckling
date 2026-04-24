@@ -1,3 +1,5 @@
+import type { LanguageCode } from "grammy/types"
+
 const link = {
     form: "https://forms.gle/i91r3EaCeigbuo479",
     instructionAboutCommands: "https://telegra.ph/Komandy-Rassylka-bot-11-29-2",
@@ -86,6 +88,9 @@ const adminData = {
     phone: "79371807522"
 }
 
+const allowLanguages: LanguageCode[] = [
+    'ru', 'en', 'zh', 'sr'
+];
 
 export default {
     link,
@@ -95,5 +100,6 @@ export default {
     media,
     chart,
     server,
-    adminData
+    adminData,
+    allowLanguages
 }

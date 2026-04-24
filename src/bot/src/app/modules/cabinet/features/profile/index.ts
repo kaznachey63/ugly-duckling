@@ -10,7 +10,7 @@ const profileComposer = new Composer<MyContext>();
 
 profileComposer.callbackQuery(/^mainProfile/, async (ctx: MyContext) => {
     try {        
-        const menu = menuProfile(ctx, await db.user.existsInDB(ctx.from?.id!), common.isAdmin(ctx));
+        const menu = menuProfile(ctx, await db.user.existsInDB(BigInt(ctx.from?.id!)), common.isAdmin(ctx));
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'
