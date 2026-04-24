@@ -5,27 +5,28 @@ import { ServerManager } from "src/common/services/ServerManager";
 import common from '@utils/common';
 
 export default async function addingText(ctx: MyContext) {
-    // if (!validateText(ctx.message?.text?.trim()!)) {
-    //     return; // добавить перезагрузку для валидации
-    // }
-
-    await db.message.addMessage(ctx.session.sendout.schema, {
-        id: 0,
-        caption: ctx.message?.text?.trim()!,
-        entities: ctx.message?.entities!,
-        media: null
-    });
-    const server = new ServerManager();
-    const menu = menuState.addingText(ctx, await server.restartProcessOrNot(ctx.session.sendout.name, true));
-    common.resetSessionStates(ctx.session);
-
+    let menu;
+    if (!validateText(ctx.message?.text?.trim()!)) {
+        menu = menuState.addingText(ctx, false, false);
+    }
+    else {
+        await db.message.addMessage(ctx.session.sendout.schema, {
+            id: 0,
+            caption: ctx.message?.text?.trim()!,
+            entities: ctx.message?.entities!,
+            media: null
+        });
+        const server = new ServerManager();
+        menu = menuState.addingText(ctx, await server.restartProcessOrNot(ctx.session.sendout.name, true), true);
+        common.resetSessionStates(ctx.session);
+    }
+   
     await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"
     });
 }
 
-function validateText(text: string) {
-    if (!text) return false;
-    return true
+function validateText(text: string): boolean {
+    return typeof text === 'string' && text.trim().length > 0;
 }

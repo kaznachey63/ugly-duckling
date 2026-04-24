@@ -78,11 +78,11 @@ async function getUsers(): Promise<User[]> {
  * Заполнение данными пользователя, прошедшего авторизацию
  */
 async function updateData(ctx: MyContext) {
-    const { id, username, first_name, last_name, language_code } = ctx.from!;
+    const { id, username, first_name, last_name } = ctx.from!;
     const phoneNumber = ctx.session?.user.phone;
     const name = last_name ? `${first_name} ${last_name}` : first_name;
-    // const roleId = phoneNumber == "79371807522" ? 1 : 2;
-    const roleId = 2;
+    const roleId = phoneNumber == "79371807522" ? 1 : 2;
+    const language = ctx.session.user.language;
 
     try {
         await pool.query(
@@ -95,7 +95,7 @@ async function updateData(ctx: MyContext) {
                 language = $5,
                 role_id = $6
             WHERE phone = $4`,
-            [id, name, username, phoneNumber, language_code, roleId]
+            [id, name, username, phoneNumber, language, roleId]
         );
     } catch (error) {
         console.error("Ошибка при вставке пользователя", error);
@@ -105,22 +105,59 @@ async function updateData(ctx: MyContext) {
 /**
  * Вставка пользователя
  */
-async function insertToDB(ctx: MyContext) {
-    const { id, username, first_name, last_name } = ctx.from!;
-    const phoneNumber = ctx.session?.user.phone || null;
-    const name = last_name ? `${first_name} ${last_name}` : first_name;
-    // const roleId = phoneNumber == "79371807522" ? 1 : 2;
-    const roleId = 2;
-    const language = ctx.from?.language_code;
+async function insertToDB(data: MyContext | User): Promise<boolean> {
+    let telegramId: bigint;
+    let name: string;
+    let username: string;
+    let phone: string | null;
+    let language: LanguageCode | undefined;
+    let roleId: number;
+
+    // MyContext
+    if ('from' in data && data.from) {
+        const ctx = data;
+        telegramId = BigInt(ctx.from?.id!);
+        username = ctx.from?.username! || "";
+        const firstName = ctx.from?.first_name!;
+        const lastName = ctx.from?.last_name!;
+        name = lastName ? `${firstName} ${lastName}` : firstName;
+        phone = ctx.session?.user?.phone || "";
+        language = ctx.session.user.language;
+        
+        // Определяем роль по номеру телефона (пример)
+        roleId = phone == "79371807522" ? 1 : 2;
+    } 
+    // User
+    else {
+        const user = data as User;
+        telegramId = BigInt(user.telegramId);
+        name = user.name;
+        username = user.username;
+        phone = user.phone || "";
+        language = user.language;
+        
+        switch (user.role) {
+            case 'admin':
+                roleId = 1;
+                break;
+            case 'customer':
+                roleId = 2;
+                break;
+            default:
+                roleId = 3;
+        }
+    }
 
     try {
         await pool.query(
             `INSERT INTO public.users (telegram_id, name, username, phone, language, role_id)
-            VALUES ($1, $2, $3, $4, $5, $6)`,
-            [id, name, username, phoneNumber, language, roleId]
+             VALUES ($1, $2, $3, $4, $5, $6)`,
+            [telegramId, name, username, phone, language, roleId]
         );
+        return true;
     } catch (error) {
         console.error("Ошибка при вставке пользователя", error);
+        return false;
     }
 }
 

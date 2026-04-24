@@ -8,11 +8,10 @@ import utils from "@utils";
 
 export default async function addingTime(ctx: MyContext) {
     const nameDistribution = ctx.session.sendout.name!;
-    const server = new ServerManager();
 
     let menu;
     if (!validateTime(ctx.message?.text!)) {
-        menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), false);
+        menu = menuState.addingOrUpdateTime(ctx, false, false);
     }
     else {
         const formattedCronTime = formatCronTime(ctx.message?.text!);
@@ -22,6 +21,7 @@ export default async function addingTime(ctx: MyContext) {
         };
 
         await db.schedule.addTime(ctx.session.sendout.schema, formattedTime);
+        const server = new ServerManager();
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), true);
         common.resetSessionStates(ctx.session);
     }

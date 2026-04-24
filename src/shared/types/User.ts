@@ -1,5 +1,5 @@
 import type { LanguageCode } from "grammy/types";
-type Role = "admin" | "customer" | "unknown";
+import type { Role } from "./Role";
 
 export interface User {
     telegramId: bigint,

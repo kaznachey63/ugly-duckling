@@ -40,7 +40,7 @@ function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     users.forEach((user) => {
         keyboard.text(
             user.name ?? ctx.t(`utils.roles.unknown`),
-            `viewUser#${user.telegramId}`
+            `viewUser#${user.telegramId ?? 0}`
         ).row();
     });    
     keyboard.text(ctx.t("utils.shared.back"), "mainUsers");

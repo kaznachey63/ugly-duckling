@@ -12,7 +12,7 @@ export default async function updatingTime(ctx: MyContext) {
 
     let menu;
     if (!validateTime(ctx.message?.text!)) {
-        menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), false);
+        menu = menuState.addingOrUpdateTime(ctx, false, false);
     }
     else {
         const formattedCronTime = formatCronTime(ctx.message?.text!);
