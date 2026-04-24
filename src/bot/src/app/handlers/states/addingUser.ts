@@ -18,7 +18,7 @@ export default async function addingUser(ctx: MyContext) {
         common.resetSessionStates(ctx.session);
     }
 
-    await ctx.editMessageText(menu.text, {
+    await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"
     });
