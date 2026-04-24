@@ -13,14 +13,10 @@ async function getUser(value: string | bigint | number): Promise<User | undefine
     const typeOfValue = typeof value;
     let uniqueValue;
     switch (typeOfValue) {
-        case 'string': uniqueValue = "u.phone";
-        case 'number': uniqueValue = "u.id";
-        case 'bigint': uniqueValue = "u.telegram_id"
+        case 'string': uniqueValue = "u.phone"; break;
+        case 'number': uniqueValue = "u.id"; break;
+        case 'bigint': uniqueValue = "u.telegram_id"; break;
     }
-    console.log(value);
-    console.log(typeof value);
-    
-    
     try {
         const { rows } = await pool.query(
             `SELECT 
@@ -195,8 +191,8 @@ async function removeFromSystem(value: number | bigint): Promise<boolean> {
     const typeOfValue = typeof value;
     let uniqueValue;
     switch (typeOfValue) {
-        case 'number': uniqueValue = "u.id";
-        case 'bigint': uniqueValue = "u.telegram_id"
+        case 'number': uniqueValue = "u.id"; break;
+        case 'bigint': uniqueValue = "u.telegram_id"; break;
     }
 
     try {
