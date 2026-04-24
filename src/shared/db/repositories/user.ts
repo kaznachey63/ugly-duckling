@@ -191,11 +191,10 @@ async function removeFromSystem(value: number | bigint): Promise<boolean> {
     const typeOfValue = typeof value;
     let uniqueValue;
     switch (typeOfValue) {
-        case 'number': uniqueValue = "u.id"; break;
-        case 'bigint': uniqueValue = "u.telegram_id"; break;
+        case 'number': uniqueValue = "id"; break;
+        case 'bigint': uniqueValue = "telegram_id"; break;
     }
-    console.log(typeof value);
-    
+        
     try {
         await pool.query(
             `DELETE FROM public.users WHERE ${uniqueValue} = $1`,
