@@ -1,5 +1,5 @@
-import type { Role } from '@shared/types/Role';
 import map from '../maps';
+import type { RoleCode } from '@shared/types/RoleCode';
 
 /**
  * Преобразует один объект Time в человекочитаемую строку
@@ -77,10 +77,19 @@ function getTypeCompStatRu(typeStatistika: string ) {
     return map.typeComparativeStatistika[typeStatistika]!;
 }
 
+function getRoleId(roleCode: RoleCode): number {
+    return map.roleCodes[roleCode]!;
+}
+function getRoleType(roleId: number): RoleCode {
+    return map.rolesIds[roleId]!;
+}
+
 export default {
     formatTimeToRu,
     checkMediaInDocument,
     getMediaFormat,
     isSupportedMediaType,
     getTypeCompStatRu,
+    getRoleId,
+    getRoleType
 };

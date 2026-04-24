@@ -1,3 +1,5 @@
+import type { RoleCode } from "@shared/types/RoleCode";
+
 const typeComparativeStatistika: Record<string, string> = {
     "week": "Неделя",
     "month": "Месяц"
@@ -25,9 +27,23 @@ const dayWeekMap: Record<string, string> = {
     '*': 'Каждый день'
 };
 
+const roleCodes: Record<RoleCode, number> = {
+    "admin": 1,
+    "customer": 2,
+    "unknown": 3
+};
+
+const rolesIds: Record<number, RoleCode> = {
+    1: "admin",
+    2: "customer",
+    3: "unknown"
+};
+
 export default {
     typeComparativeStatistika,
     fileFormat,
     mimeType,
     dayWeekMap,
+    roleCodes,
+    rolesIds
 };

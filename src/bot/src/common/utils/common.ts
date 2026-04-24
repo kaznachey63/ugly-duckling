@@ -34,7 +34,7 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     }
 }
 
-function isAdmin(ctx: MyContext): boolean { return ctx.session.user.role == "admin" };
+function isAdmin(ctx: MyContext): boolean { return ctx.session.user.role.code == "admin" };
 
 export default {
     resetSessionStates,

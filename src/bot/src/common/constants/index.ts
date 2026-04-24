@@ -1,3 +1,4 @@
+import type { RoleCode } from "@shared/types/RoleCode"
 import type { LanguageCode } from "grammy/types"
 
 const link = {
@@ -92,6 +93,10 @@ const allowLanguages: LanguageCode[] = [
     'ru', 'en', 'zh', 'sr'
 ];
 
+const roles: RoleCode[] = [
+    "admin", "customer", "unknown"
+];
+
 export default {
     link,
     calendar,
@@ -101,5 +106,6 @@ export default {
     chart,
     server,
     adminData,
-    allowLanguages
+    allowLanguages,
+    roles
 }

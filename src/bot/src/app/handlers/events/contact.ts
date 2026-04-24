@@ -4,6 +4,8 @@ import db from '@shared/db';
 import menuContact from "@menus/handlers/events/contact";
 import menuAuth from '@menus/modules/cabinet/profile/auth';
 import common from '@utils/common';
+import type { User } from '@shared/types/User';
+import localization from '@utils/localization';
 
 const contactComposer = new Composer<MyContext>();
 
@@ -19,7 +21,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         
         const processingMsgId = processingMsg?.message_id;
 
-        if (await db.user.matchPhoneNumber(phoneNumber) || common.isAdmin(ctx)) {
+        if (await db.user.matchPhoneNumber(phoneNumber) || common.isAdmin(ctx)) { // возожн лишняя проверка на админа
             ctx.session.user.phone = phoneNumber;
             
             // 3. Удаляем, передавая ID сообщения обработки
@@ -27,8 +29,9 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
 
             let menu;
             try {
-                if (common.isAdmin(ctx)) await db.user.insertToDB(ctx) 
-                else await db.user.updateData(ctx);
+                const user = formatUser(ctx);
+                if (common.isAdmin(ctx)) await db.user.insertToDB(user); // по сути проверка чисто на меня
+                else await db.user.updateData(user); // проверка на остальных
 
                 menu = menuAuth.processLogin(ctx, true);
                 await ctx.reply(menu.text, { 
@@ -83,4 +86,22 @@ async function deleteMessageProcessing(ctx: MyContext, endMsgId?: number) {
     } catch { }
 }
 
+function formatUser(ctx: MyContext): User {
+    const firstName = ctx.from?.first_name!;
+    const lastName = ctx.from?.last_name!;
+    const phone = ctx.session?.user?.phone!;
+    const roleId = phone == "79371807522" ? 1 : 2;
+
+    return {
+        telegramId: BigInt(ctx.from?.id!),
+        username: ctx.from?.username!,
+        name: lastName ? `${firstName} ${lastName}` : firstName,
+        phone: phone,
+        language: ctx.session.user.language,
+        role: {
+            id: roleId,
+            code: localization.getRoleType(roleId)
+        }
+    };
+}
 export default contactComposer;

@@ -4,7 +4,9 @@ import menuState from '@menus/handlers/states';
 import common from '@utils/common';
 import type { User } from "@shared/types/User";
 import type { LanguageCode } from "grammy/types";
-import type { Role } from "@shared/types/Role";
+import constants from "@constants";
+import type { RoleCode } from "@shared/types/RoleCode";
+import localization from "@utils/localization";
 
 export default async function addingUser(ctx: MyContext) {
     let menu;
@@ -27,17 +29,37 @@ export default async function addingUser(ctx: MyContext) {
 function validateUser(text: string): boolean {
     if (typeof text !== 'string' || text.trim().length === 0) return false;    
     if (text.split('\n').length !== 6) return false;
+    
+    const [telegramId, name, username, phone, language, roleCode] = text.split('\n');
+    
+    if (telegramId !== '-' && isNaN(Number(telegramId))) return false;
+    
+    if (name !== '-' && name!.trim().length === 0) return false;
+    
+    if (username !== '-' && !isNaN(Number(username))) return false;
+    
+    if (phone !== '-' && isNaN(Number(phone))) return false;
+    
+    if (language !== '-' && !constants.allowLanguages.includes(language as LanguageCode)) return false;
+    
+    if (roleCode !== '-' && !constants.roles.includes(roleCode as RoleCode)) return false;
+    
     return true;
 }
 
 function formatUser(userInText: string): User {
     const [telegramId, name, username, phone, language, roleCode] = userInText.split('\n');
+    const itogRoleCode: RoleCode = roleCode === '-' ? "unknown" : roleCode! as RoleCode;
+
     return {
-        telegramId: BigInt(telegramId!),
-        name: name!,
-        username: username!,
-        phone: phone!,
-        language: language as LanguageCode,
-        role: roleCode as Role
+        telegramId: telegramId === '-' ? null : BigInt(telegramId!),
+        name: name === '-' ? null : name!,
+        username: username === '-' ? null : username!,
+        phone: phone === '-' ? null : phone!,
+        language: language === '-' ? 'ru' : (language as LanguageCode),
+        role: {
+            id: localization.getRoleId(itogRoleCode),
+            code: itogRoleCode
+        }
     };
 }

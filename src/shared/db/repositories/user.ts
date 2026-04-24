@@ -1,9 +1,7 @@
 import type { LanguageCode } from 'grammy/types';
 import { getPool } from '../pool';
 const pool = getPool();
-import type { MyContext } from '@shared/types/SessionData';
 import type { User } from '@shared/types/User';
-import type { Role } from '@shared/types/Role';
 
 /**
  * Получение данных о пользователе
@@ -26,7 +24,7 @@ async function getUser(value: string | bigint | number): Promise<User | undefine
                 u.username,
                 u.phone,
                 u.language,
-                r.code as "role"
+                r.code as "roleCode"
             FROM public.users u
             LEFT JOIN public.role r ON r.id = u.role_id
             WHERE ${uniqueValue} = $1`, 
@@ -43,7 +41,9 @@ async function getUser(value: string | bigint | number): Promise<User | undefine
             username: row.username,
             phone: row.phone,
             language: row.language,
-            role: row.role
+            role: {
+                code: row.roleCode
+            }
         };
     } catch (error) {
         console.error("Ошибка при получении пользователя", error);
@@ -51,6 +51,9 @@ async function getUser(value: string | bigint | number): Promise<User | undefine
     }
 }
 
+/**
+ * Получение данных о пользователях
+ */
 async function getUsers(): Promise<User[]> {
     try {
         const query = `
@@ -61,7 +64,7 @@ async function getUsers(): Promise<User[]> {
                 u.username,
                 u.phone,
                 u.language,
-                r.code as "role"
+                r.code as "roleCode"
             FROM public.users u
             LEFT JOIN public.role r ON r.id = u.role_id
         `;
@@ -75,7 +78,9 @@ async function getUsers(): Promise<User[]> {
             username: row.username,
             phone: row.phone,
             language: row.language,
-            role: row.role  
+            role: {
+                code: row.roleCodes
+            }
         }));
     } catch (error) {
         console.error("Ошибка при получении пользователей", error);
@@ -86,13 +91,7 @@ async function getUsers(): Promise<User[]> {
 /**
  * Заполнение данными пользователя, прошедшего авторизацию
  */
-async function updateData(ctx: MyContext) {
-    const { id, username, first_name, last_name } = ctx.from!;
-    const phoneNumber = ctx.session?.user.phone;
-    const name = last_name ? `${first_name} ${last_name}` : first_name;
-    const roleId = phoneNumber == "79371807522" ? 1 : 2;
-    const language = ctx.session.user.language;
-
+async function updateData(user: User) {
     try {
         await pool.query(
             `UPDATE public.users 
@@ -104,7 +103,7 @@ async function updateData(ctx: MyContext) {
                 language = $5,
                 role_id = $6
             WHERE phone = $4`,
-            [id, name, username, phoneNumber, language, roleId]
+            [user.telegramId, user.name, user.username, user.phone, user.language, user.role?.id]
         );
     } catch (error) {
         console.error("Ошибка при вставке пользователя", error);
@@ -114,49 +113,12 @@ async function updateData(ctx: MyContext) {
 /**
  * Вставка пользователя
  */
-async function insertToDB(data: MyContext | User): Promise<boolean> {
-    let telegramId: bigint;
-    let name: string;
-    let username: string;
-    let phone: string | null;
-    let language: LanguageCode | undefined;
-    let roleId: number;
-    
-    // MyContext
-    if ('from' in data && data.from) {
-        const ctx = data;
-        telegramId = BigInt(ctx.from?.id!);
-        username = ctx.from?.username! || "";
-        const firstName = ctx.from?.first_name!;
-        const lastName = ctx.from?.last_name!;
-        name = lastName ? `${firstName} ${lastName}` : firstName;
-        phone = ctx.session?.user?.phone || "";
-        language = ctx.session.user.language;
-        
-        roleId = phone == "79371807522" ? 1 : 2;
-    } 
-    // User
-    else {
-        const user = data as User;
-        telegramId = BigInt(user.telegramId);
-        name = user.name;
-        username = user.username;
-        phone = user.phone || "";
-        language = user.language;
-        const roles: Record<Role, number> = {
-            "admin": 1,
-            "customer": 2,
-            "unknown": 3
-        };
-
-        roleId = phone == "79371807522" ? 1 : roles[user.role]!;
-    }
-
+async function insertToDB(user: User): Promise<boolean> {
     try {
         await pool.query(
             `INSERT INTO public.users (telegram_id, name, username, phone, language, role_id)
              VALUES ($1, $2, $3, $4, $5, $6)`,
-            [telegramId, name, username, phone, language, roleId]
+            [user.telegramId, user.name, user.username, user.phone, user.language, user.role?.id]
         );
         return true;
     } catch (error) {
