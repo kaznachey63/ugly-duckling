@@ -17,7 +17,10 @@ async function getUser(value: string | bigint | number): Promise<User | undefine
         case 'number': uniqueValue = "u.id";
         case 'bigint': uniqueValue = "u.telegram_id"
     }
-
+    console.log(value);
+    console.log(typeof value);
+    
+    
     try {
         const { rows } = await pool.query(
             `SELECT 
