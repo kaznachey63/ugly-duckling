@@ -29,7 +29,7 @@ languageComposer.callbackQuery(/^changeLanguage:/, async (ctx: MyContext) => {
 
         if (languageCode === currentLang) {
             return await ctx.answerCallbackQuery({
-                text: ctx.t('commands.cabinet.profile.language.change.error'),
+                text: ctx.t('commands.settings.language.change.error'),
                 show_alert: true
             });
         }
@@ -40,7 +40,7 @@ languageComposer.callbackQuery(/^changeLanguage:/, async (ctx: MyContext) => {
             return i18next.t(key, { lng: languageCode, ...options });
         };
 
-        await ctx.answerCallbackQuery(ctx.t('commands.cabinet.profile.language.change.good'));
+        await ctx.answerCallbackQuery(ctx.t('commands.settings.language.change.good'));
 
         const menu = menuLanguage(ctx, languageCode);
         await ctx.editMessageText(menu.text, {
