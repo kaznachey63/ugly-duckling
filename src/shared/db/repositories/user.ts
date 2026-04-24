@@ -19,6 +19,18 @@ async function getUser(value: string | bigint | number): Promise<User | undefine
     }
 
     try {
+        console.log(            `SELECT 
+                u.id
+                u.telegram_id as "telegramId",
+                u.name,
+                u.username,
+                u.phone,
+                u.language,
+                r.code as "role"
+            FROM public.users u
+            LEFT JOIN public.role r ON r.id = u.role_id
+            WHERE ${uniqueValue} = $1`);
+        
         const { rows } = await pool.query(
             `SELECT 
                 u.id
