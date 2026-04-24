@@ -1,3 +1,4 @@
+import constants from '@constants';
 import type { MyContext } from '@shared/types/SessionData';
 import type { NextFunction } from 'grammy';
 import type { LanguageCode } from "grammy/types";
@@ -12,7 +13,7 @@ const defaultLocale: LanguageCode = 'ru';
 i18next.use(Backend).init({
     lng: defaultLocale,
     fallbackLng: defaultLocale,
-    preload: ['ru', 'en', 'zh'],
+    preload: constants.allowLanguages,
     backend: {
         loadPath: path.join(localesPath, '{{lng}}.json'),
     },
