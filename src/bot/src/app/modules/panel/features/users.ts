@@ -2,6 +2,7 @@ import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
 import menuUsers from "@menus/modules/panel/users";
 import { Composer } from "grammy";
+import common from "@utils/common";
 
 const usersComposer = new Composer<MyContext>();
 
@@ -9,6 +10,7 @@ const usersComposer = new Composer<MyContext>();
  * Главное меню раздела пользователи
  */
 usersComposer.callbackQuery("mainUsers", async (ctx: MyContext) => {
+    common.resetSessionStates(ctx.session);
     const menu = menuUsers.main(ctx, (await db.user.getUsers())?.length!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",

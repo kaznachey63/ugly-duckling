@@ -72,7 +72,7 @@ function create(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.panel.users.create.path")
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "viewUsers");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainUsers");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
