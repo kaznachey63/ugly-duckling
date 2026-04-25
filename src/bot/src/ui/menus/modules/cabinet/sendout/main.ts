@@ -22,7 +22,7 @@ function mainSendout(ctx: MyContext): Menu<InlineKeyboard> {
         keyboard.text(ctx.t("commands.cabinet.distribution.main.sendout.buttons.condition"), `mainCondition:${nameDistribution}`).row();
     }
         
-    keyboard.text(ctx.t('utils.shared.back'), "mainSendouts");
+    keyboard.text(ctx.t('utils.shared.buttons.back'), "mainSendouts");
     return { text: format.escapeMarkdown(text), keyboard };
 }
 
@@ -40,7 +40,7 @@ function mainSendouts (ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard
             `mainDistribution:${cred.name}`
         ).row();
     });    
-    keyboard.text(ctx.t("utils.shared.back"), `mainCabinet`);
+    keyboard.text(ctx.t("utils.shared.buttons.back"), `mainCabinet`);
 
     return { text: format.escapeMarkdown(text), keyboard };
 }

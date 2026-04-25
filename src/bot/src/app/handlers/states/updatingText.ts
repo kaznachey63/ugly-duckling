@@ -7,7 +7,7 @@ import common from '@utils/common';
 export default async function editingText(ctx: MyContext) {
     let menu;
     if (!validateText(ctx.message?.text?.trim()!)) {
-        menu = menuState.addingText(ctx, false, false);
+        menu = menuState.updatingText(ctx, false, false);
     }
     else {
         const positionId = ctx.session.other.text.positionId!;

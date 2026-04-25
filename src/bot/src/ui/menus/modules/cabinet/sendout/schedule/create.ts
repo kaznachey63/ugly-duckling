@@ -8,6 +8,6 @@ export default function create(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.schedule.create.title"),
         ctx.t("commands.cabinet.distribution.schedule.create.path", { call: ctx.session.sendout.call }),
     ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.sendout.name}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.name}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }

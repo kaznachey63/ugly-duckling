@@ -14,7 +14,7 @@ export default function about(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
     const keyboard = new InlineKeyboard()
         .url(ctx.t("commands.settings.about.instruction"), constants.link.instructionAboutCommands).row()
-        .text(ctx.t("utils.shared.back"), "mainSettings")
+        .text(ctx.t("utils.shared.buttons.back"), "mainSettings")
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }

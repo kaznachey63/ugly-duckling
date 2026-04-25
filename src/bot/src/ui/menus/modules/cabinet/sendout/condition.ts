@@ -39,7 +39,7 @@ export default function condition(ctx: MyContext, status: Status): Menu<InlineKe
         ctx.t("commands.cabinet.distribution.condition.path", { call: ctx.session.sendout.call }),
     ].join('\n\n');
 
-    keyboard.text(ctx.t('utils.shared.back'), `mainDistribution:${ctx.session.sendout.name}`);
+    keyboard.text(ctx.t('utils.shared.buttons.back'), `mainDistribution:${ctx.session.sendout.name}`);
     
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }

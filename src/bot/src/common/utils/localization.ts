@@ -1,5 +1,7 @@
+import type { LanguageCode } from 'grammy/types';
 import map from '../maps';
 import type { RoleCode } from '@shared/types/RoleCode';
+import type { LanguagesALlowed } from '@shared/types/LanguagesAllowed';
 
 /**
  * Преобразует один объект Time в человекочитаемую строку
@@ -73,15 +75,16 @@ function isSupportedMediaType(contentType: string): boolean {
     return !!(type && subtype && map.mimeType[type]?.includes(subtype));
 }
 
-function getTypeCompStatRu(typeStatistika: string ) {
-    return map.typeComparativeStatistika[typeStatistika]!;
-}
-
 function getRoleId(roleCode: RoleCode): number {
     return map.roleCodes[roleCode]!;
 }
+
 function getRoleType(roleId: number): RoleCode {
     return map.rolesIds[roleId]!;
+}
+
+function getContryFlagOfCode(countryCode: LanguagesALlowed) {
+    return map.countryFlags[countryCode]!;
 }
 
 export default {
@@ -89,7 +92,7 @@ export default {
     checkMediaInDocument,
     getMediaFormat,
     isSupportedMediaType,
-    getTypeCompStatRu,
     getRoleId,
-    getRoleType
+    getRoleType,
+    getContryFlagOfCode,
 };

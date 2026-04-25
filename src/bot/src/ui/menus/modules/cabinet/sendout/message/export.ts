@@ -14,7 +14,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
         .text("PDF", `exportMessages:${ctx.session.sendout.name}-pdf`)
         .text("Word", `exportMessages:${ctx.session.sendout.name}-word`)   
         .text("Txt", `exportMessages:${ctx.session.sendout.name}-txt`)   
-        .row().text(ctx.t('utils.shared.back'), `mainMessage:${ctx.session.sendout.name}`)
+        .row().text(ctx.t('utils.shared.buttons.back'), `mainMessage:${ctx.session.sendout.name}`)
     ;
     
     return { text: format.escapeMarkdown(text), keyboard }
@@ -29,7 +29,7 @@ function result(ctx: MyContext, exportType: ExportType, result: boolean): Menu<I
         ctx.t('commands.cabinet.distribution.messages.export.result.path', { call: ctx.session.sendout.call, exportType: exportType }),
     ].join('\n');
 
-    const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.back'), `mainMessage:${ctx.session.sendout.name}`);
+    const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.buttons.back'), `mainMessage:${ctx.session.sendout.name}`);
     
     return { text: format.escapeMarkdown(text), keyboard }
 }

@@ -18,12 +18,12 @@ export default function main(ctx: MyContext, messagesLength: number): Menu<Inlin
     else {
         text.push(ctx.t("commands.cabinet.distribution.messages.main.title", { amount: positionId }));
         keyboard
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.clear"), `clearMessages:${nameDistribution}`).style("danger").row()
+            .text(ctx.t("utils.shared.buttons.clear"), `clearMessages:${nameDistribution}`).style("danger").row()
             .text(ctx.t('utils.shared.export'), `mainExportMessages:${ctx.session.sendout.name}`)
-            .text(ctx.t("commands.cabinet.distribution.messages.main.buttons.view"), `viewMessage:${nameDistribution}#0`).style("primary")
+            .text(ctx.t("utils.shared.buttons.view"), `viewMessage:${nameDistribution}#0`).style("primary")
         ;
     }
-    keyboard.row().text(ctx.t("utils.shared.back"), `mainDistribution:${ctx.session.sendout.name}`);
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `mainDistribution:${ctx.session.sendout.name}`);
     text.push(ctx.t("commands.cabinet.distribution.messages.main.path", { call: callDistribution }));
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }

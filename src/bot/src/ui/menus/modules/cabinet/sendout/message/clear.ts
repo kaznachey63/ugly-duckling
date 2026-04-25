@@ -12,6 +12,6 @@ export default function clearAll(ctx: MyContext, result: boolean): Menu<InlineKe
         ctx.t("commands.cabinet.distribution.messages.clear.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.sendout.name}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }

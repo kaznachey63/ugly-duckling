@@ -20,7 +20,7 @@ function main(ctx: MyContext, messages: Message[]): Menu<InlineKeyboard> {
 
     const keyboard = new InlineKeyboard()
         .text(ctx.t("commands.cabinet.distribution.messages.view.main.buttons.updateText"), `updateText:${nameDistribution}#${positionId}`).style("primary")
-        .text(ctx.t("commands.cabinet.distribution.messages.view.main.buttons.removeMessage"), `removeMessage:${nameDistribution}#${positionId}`).style("danger").row()
+        .text(ctx.t("utils.shared.buttons.remove"), `removeMessage:${nameDistribution}#${positionId}`).style("danger").row()
         ;
 
     // Медиа > 0 и != 4
@@ -64,7 +64,7 @@ function main(ctx: MyContext, messages: Message[]): Menu<InlineKeyboard> {
             .text("➡", `viewMessage:${nameDistribution}#${positionId + 1}`).row()
         ;
     }
-    keyboard.text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.sendout.name}`);
+    keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -77,11 +77,11 @@ function removeMessage(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     
     if (result) {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.view.text.remove.success"));
-        keyboard.text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.sendout.name}#0`);
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#0`);
     }
     else {
         text.unshift(ctx.t("commands.cabinet.distribution.messages.view.text.remove.error"));
-        keyboard.text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     }
     
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
@@ -94,7 +94,7 @@ function updateText(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.messages.view.text.update.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `mainMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -105,7 +105,7 @@ function addMedia(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.messages.view.media.add.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -118,7 +118,7 @@ function clearAllMedia(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.messages.view.media.clearAll.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
     
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -135,7 +135,7 @@ function pagination(ctx: MyContext, messagesLength: number) {
         keyboard.text((i + 1).toString(), `viewMessage:${ctx.session.sendout.name}#${i}`);
     }
 
-    keyboard.row().text(ctx.t("utils.shared.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
     return { text: format.escapeMarkdown(text), keyboard }    
 }
 

@@ -1,3 +1,4 @@
+import type { LanguagesALlowed } from "@shared/types/LanguagesAllowed"
 import type { RoleCode } from "@shared/types/RoleCode"
 import type { LanguageCode } from "grammy/types"
 
@@ -89,7 +90,7 @@ const adminData = {
     phone: "79371807522"
 }
 
-const allowLanguages: LanguageCode[] = [
+const allowLanguages: LanguagesALlowed[] = [
     'ru', 'en', 'zh', 'sr'
 ];
 

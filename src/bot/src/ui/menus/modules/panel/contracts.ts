@@ -20,12 +20,12 @@ function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
     
     if (amount > 0) {
         keyboard
-            .text(ctx.t("commands.panel.contracts.main.buttons.clear"), "clearContracts").style("danger").row()
-            .text(ctx.t("commands.panel.contracts.main.buttons.view"), "viewContracts").style("primary")
+            .text(ctx.t("utils.shared.buttons.clear"), "clearContracts").style("danger").row()
+            .text(ctx.t("utils.shared.buttons.view"), "viewContracts").style("primary")
         ;
     }
 
-    keyboard.row().text(ctx.t("utils.shared.back"), "mainPanel");
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), "mainPanel");
 
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -40,29 +40,29 @@ function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboa
 
     contracts.forEach((contract) => {
         keyboard.text(
-            contract.user.name ?? ctx.t("commands.panel.contracts.view.contract.main.nameless"),
+            contract.user.name ?? ctx.t("utils.shared.buttons.nameless"),
             `viewContract#${contract.id}`
         ).row();
     });    
-    keyboard.text(ctx.t("utils.shared.back"), "mainContracts");
+    keyboard.text(ctx.t("utils.shared.buttons.back"), "mainContracts");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 function viewUser(ctx: MyContext, user: User): Menu<InlineKeyboard> {
     const text = [
         ctx.t("commands.panel.users.view.user.main.title"),
-        ctx.t("commands.panel.users.view.user.main.path", { userName: user.name ?? ctx.t("commands.panel.users.view.user.main.nameless") }),
+        ctx.t("commands.panel.users.view.user.main.path", { userName: user.name ?? ctx.t("utils.shared.buttons.nameless") }),
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("commands.panel.users.view.user.main.telegramId", { telegramId: user.telegramId ?? ctx.t("commands.panel.users.view.user.main.miss") }), `updateOrRemoveUserTgId#${user.id}`).row()
-        .text(ctx.t("commands.panel.users.view.user.main.name", { name: user.name ?? ctx.t("commands.panel.users.view.user.main.nameless") }), `updateOrRemoveUserName#${user.id}`).row()
-        .text(ctx.t("commands.panel.users.view.user.main.username", { username: user.username ?? ctx.t("commands.panel.users.view.user.main.miss") }), `updateOrRemoveUserUsername#${user.id}`).row()
-        .text(ctx.t("commands.panel.users.view.user.main.phone", { phone: user.phone ?? ctx.t("commands.panel.users.view.user.main.miss") }), `updateOrRemoveUserPhone#${user.id}`).row()
+        .text(ctx.t("commands.panel.users.view.user.main.telegramId", { telegramId: user.telegramId ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveUserTgId#${user.id}`).row()
+        .text(ctx.t("commands.panel.users.view.user.main.name", { name: user.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateOrRemoveUserName#${user.id}`).row()
+        .text(ctx.t("commands.panel.users.view.user.main.username", { username: user.username ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveUserUsername#${user.id}`).row()
+        .text(ctx.t("commands.panel.users.view.user.main.phone", { phone: user.phone ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveUserPhone#${user.id}`).row()
         .text(ctx.t("commands.panel.users.view.user.main.language", { language: ctx.t(`utils.languages.${user.language}`) }), `updateOrRemoveUserLanguage#${user.id}`).row()
         .text(ctx.t("commands.panel.users.view.user.main.role", { role:  ctx.t(`utils.roleCodes.${user.role.code}`) }), `updateOrRemoveUserLanguage#${user.id}`).row()
         .text(ctx.t("commands.panel.users.view.user.main.remove"), `removeUser#${user.id}`).style("danger").row()
-        .text(ctx.t("utils.shared.back"), "viewUsers");
+        .text(ctx.t("utils.shared.buttons.back"), "viewUsers");
     ; 
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -73,7 +73,7 @@ function create(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.panel.users.create.path")
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainUsers");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainUsers");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -85,11 +85,11 @@ function remove(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboar
 
     if (result) {
         text.unshift(ctx.t("commands.panel.users.view.user.remove.success"));
-        keyboard.text(ctx.t("utils.shared.back"), "viewUsers");
+        keyboard.text(ctx.t("utils.shared.buttons.back"), "viewUsers");
     }
     else {
         text.unshift(ctx.t("commands.panel.users.view.user.remove.error"));
-        keyboard.text(ctx.t("utils.shared.back"), `viewUser#${user.id}`);
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewUser#${user.id}`);
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }

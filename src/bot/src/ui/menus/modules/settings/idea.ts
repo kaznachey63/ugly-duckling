@@ -19,7 +19,7 @@ function main(ctx: MyContext, lastMessageId: string): Menu<InlineKeyboard> {
         keyboard.url(ctx.t("commands.settings.idea.main.buttons.see"), constants.link.chatIdeas + lastMessageId);
     }
 
-    keyboard.row().text(ctx.t("utils.shared.back"), "mainSettings");
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), "mainSettings");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -29,7 +29,7 @@ function add(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t('commands.settings.idea.add.path')
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainIdea");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainIdea");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 

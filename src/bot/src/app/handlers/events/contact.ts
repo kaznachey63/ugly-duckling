@@ -20,8 +20,12 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         });
         
         const processingMsgId = processingMsg?.message_id;
-
-        if (await db.user.matchPhoneNumber(phoneNumber) || common.isAdmin(ctx)) { // возожн лишняя проверка на админа
+        if (await db.user.existsInDB(BigInt(ctx!.from!.id!))) {
+            await ctx.reply(ctx.t("commands.cabinet.profile.auth.login.already"), { 
+                parse_mode: "MarkdownV2" 
+            });  
+        }
+        else if (await db.user.matchPhoneNumber(phoneNumber) || common.isAdmin(ctx)) { // возожн лишняя проверка на админа
             ctx.session.user.phone = phoneNumber;
             
             // 3. Удаляем, передавая ID сообщения обработки

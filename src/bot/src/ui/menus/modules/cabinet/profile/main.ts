@@ -19,6 +19,6 @@ export default function main(ctx: MyContext, userExistsInDB: boolean, userIsAdmi
     if (userExistsInDB) keyboard.text(ctx.t("commands.cabinet.profile.buttons.logout"), "logoutAuth").row()
     else keyboard.text(ctx.t("commands.cabinet.profile.buttons.login"), "loginAuth").row()
 
-    keyboard.text(ctx.t("utils.shared.back"), "mainCabinet")
+    keyboard.text(ctx.t("utils.shared.buttons.back"), "mainCabinet")
     return { text: format.escapeMarkdown(text), keyboard };
 }

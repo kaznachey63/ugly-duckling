@@ -141,7 +141,6 @@ async function getDataForDiagram(ctx: MyContext, typeStat: StatisticType): Promi
         labels: getLabels(ctx, typeStat),
         groups,
         type: typeStat,
-        typeRu: utils.local.getTypeCompStatRu(typeStat)
     };
 }
 

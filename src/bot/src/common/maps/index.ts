@@ -1,11 +1,6 @@
 import type { RoleCode } from "@shared/types/RoleCode";
+import type { LanguagesALlowed } from "@shared/types/LanguagesAllowed";
 
-const typeComparativeStatistika: Record<string, string> = {
-    "week": "Неделя",
-    "month": "Месяц"
-};
-
-// Ключи — string, потому что typeMedia приходит из runtime-данных
 const fileFormat: Record<string, string[]> = {
     "image": ["jpg", "jpeg", "png", "gif", "bmp", "webp", "svg", "tiff", "ico"],
     "video": ["mp4", "avi", "mov", "wmv", "flv", "mkv", "webm", "m4v", "3gp", "mpeg", "mpg"]
@@ -39,11 +34,18 @@ const rolesIds: Record<number, RoleCode> = {
     3: "unknown"
 };
 
+const countryFlags: Record<LanguagesALlowed, string> = {
+    "ru": "🇷🇺",
+    "en": "🇺🇸",
+    "zh": "🇨🇳",
+    "sr": "🇷🇸",
+};
+
 export default {
-    typeComparativeStatistika,
     fileFormat,
     mimeType,
     dayWeekMap,
     roleCodes,
-    rolesIds
+    rolesIds,
+    countryFlags,
 };

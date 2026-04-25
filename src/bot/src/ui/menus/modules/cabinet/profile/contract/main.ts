@@ -33,10 +33,10 @@ export default function main(ctx: MyContext, contractsLength: number): Menu<Inli
             keyboard.text(ctx.t("commands.cabinet.profile.contract.main.buttons.clear"), "clearContract").style("danger").row()
         }
 
-        keyboard.text(ctx.t("commands.cabinet.profile.contract.main.buttons.view"), "viewContract").style("primary")
+        keyboard.text(ctx.t("utils.shared.buttons.view"), "viewContract").style("primary")
     }
   
-    keyboard.row().text(ctx.t("utils.shared.back"), "mainProfile");
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), "mainProfile");
     text.push(ctx.t("commands.cabinet.distribution.schedule.main.path", { call: sendoutCall }));
 
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
@@ -71,7 +71,7 @@ function main2(ctx: MyContext, contractInfoOrError: Contract[] | boolean, errorW
 
     const keyboard = new InlineKeyboard()
         .text(ctx.t('utils.shared.export'), `mainExportContract:${ctx.session.sendout.name}`)
-        .row().text(ctx.t('utils.shared.back'), `mainDistribution:${ctx.session.sendout.name}`)
+        .row().text(ctx.t('utils.shared.buttons.back'), `mainDistribution:${ctx.session.sendout.name}`)
     ;
 
     return { text, keyboard }
@@ -86,7 +86,7 @@ function mainExportContract(ctx: MyContext): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard()
         .text("PDF", `exportContract:${ctx.session.sendout.name}-pdf`)
         .text("Word", `exportContract:${ctx.session.sendout.name}-word`)   
-        .row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.sendout.name}`)
+        .row().text(ctx.t('utils.shared.buttons.back'), `mainContract:${ctx.session.sendout.name}`)
     ;
     
     return { text: format.escapeMarkdown(text), keyboard }
@@ -101,7 +101,7 @@ function exportContract(ctx: MyContext, exportType: ExportType, result: boolean)
         ctx.t('commands.cabinet.profile.contract.export.result.path', { call: ctx.session.sendout.call, exportType: exportType }),
     ].join('\n');
 
-    const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.back'), `mainContract:${ctx.session.sendout.name}`);
+    const keyboard = new InlineKeyboard().row().text(ctx.t('utils.shared.buttons.back'), `mainContract:${ctx.session.sendout.name}`);
     
     return { text: format.escapeMarkdown(text), keyboard }
 }

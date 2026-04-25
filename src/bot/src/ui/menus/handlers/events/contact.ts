@@ -11,7 +11,7 @@ export default function contact(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t('handlers.events.contact.accessDenied'),
         ctx.t("commands.cabinet.profile.auth.login.path")
     ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainProfile");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainProfile");
 
     return { text: format.escapeMarkdown(text), keyboard }
 }

@@ -17,12 +17,12 @@ function main(ctx: MyContext, amountOfChats: number): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
     
     if (amountOfChats > 0) {
-        keyboard.text(ctx.t("commands.panel.chats.main.buttons.clear"), "clearChats").style("danger");
+        keyboard.text(ctx.t("utils.shared.buttons.clear"), "clearChats").style("danger");
     }
     
     keyboard
         .text(ctx.t("commands.panel.chats.main.buttons.reupload"), "reuploadChats").style("success").row()
-        .text(ctx.t("utils.shared.back"), "mainPanel")
+        .text(ctx.t("utils.shared.buttons.back"), "mainPanel")
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -36,7 +36,7 @@ function reupload(ctx: MyContext, success: boolean): Menu<InlineKeyboard> {
         ctx.t("commands.panel.chats.reupload.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
     
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainChats");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainChats");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -49,7 +49,7 @@ function clear(ctx: MyContext, amountOfChats: number): Menu<InlineKeyboard> {
         ctx.t("commands.panel.chats.clear.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
     
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainChats");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainChats");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 

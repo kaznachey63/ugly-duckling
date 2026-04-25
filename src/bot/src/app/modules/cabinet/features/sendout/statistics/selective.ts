@@ -125,7 +125,7 @@ function chat(ctx: MyContext, success: number, chats: Chat[]): Menu<InlineKeyboa
     chats.forEach((chat: Chat) => {
         keyboard.url(chat.title, chat.link).row();
     });
-    keyboard.text(ctx.t('utils.shared.back'), 'mainDistribution');
+    keyboard.text(ctx.t('utils.shared.buttons.back'), 'mainDistribution');
 
     return { text: format.escapeMarkdown(text), keyboard };
 }

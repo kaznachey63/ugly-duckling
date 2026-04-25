@@ -32,7 +32,7 @@ function processLogin(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
         ,
         ctx.t("commands.cabinet.profile.auth.login.path")
     ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainProfile");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainProfile");
 
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -48,7 +48,7 @@ function logout(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
         ,
         ctx.t("commands.cabinet.profile.auth.logout.path")
     ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), "mainProfile");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainProfile");
 
     return { text: format.escapeMarkdown(text), keyboard }
 }

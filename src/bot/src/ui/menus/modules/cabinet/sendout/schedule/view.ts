@@ -20,7 +20,7 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
         keyboard.text(time.label!, `updateOrRemoveTime:${nameDistribution}#${time.id}`).row();
     }
 
-    keyboard.row().text(ctx.t("utils.shared.back"), `mainSchedule:${ctx.session.sendout.name}`);
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.name}`);
     
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
@@ -30,12 +30,12 @@ function update(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("commands.cabinet.distribution.schedule.view.time.update.title"),
         ctx.t("commands.cabinet.distribution.schedule.view.time.update.path", { call: ctx.session.sendout.call }),
     ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.back"), `updateOrRemoveTime:${ctx.session.sendout.name}#${ctx.session.other.time.positionId}`)
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `updateOrRemoveTime:${ctx.session.sendout.name}#${ctx.session.other.time.positionId}`)
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 function remove(ctx: MyContext, resultRestart: boolean): Menu<InlineKeyboard> {
-    const keyboard = new InlineKeyboard().text(ctx.t('utils.shared.back'), `viewSchedule:${ctx.session.sendout.name}`);
+    const keyboard = new InlineKeyboard().text(ctx.t('utils.shared.buttons.back'), `viewSchedule:${ctx.session.sendout.name}`);
     const text = [
         resultRestart ? 
             ctx.t('commands.cabinet.distribution.schedule.view.time.remove.success') :
@@ -55,8 +55,8 @@ function updateOrRemove(ctx: MyContext, targetTime: string): Menu<InlineKeyboard
 
     const keyboard = new InlineKeyboard()
         .text(ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.buttons.update"), `updateTime:${ctx.session.sendout.name}#${ctx.session.other.time.positionId}`)
-        .text(ctx.t("commands.cabinet.distribution.schedule.view.time.updateOrRemove.buttons.remove"), `removeTime:${ctx.session.sendout.name}`).style('danger')
-        .row().text(ctx.t('utils.shared.back'), `mainSchedule:${ctx.session.sendout.name}`);
+        .text(ctx.t("utils.shared.buttons.remove"), `removeTime:${ctx.session.sendout.name}`).style('danger')
+        .row().text(ctx.t('utils.shared.buttons.back'), `mainSchedule:${ctx.session.sendout.name}`);
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
