@@ -11,8 +11,8 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard()
         .text(ctx.t("modules.commands.panel.main.buttons.chats"), "mainChats").row()
         .text(ctx.t("modules.commands.panel.main.buttons.users"), "mainUsers").row()
-        .text(ctx.t("modules.commands.panel.main.buttons.sendouts"), "mainSendouts").row()
-        .text(ctx.t("modules.commands.panel.main.buttons.contracts"), "mainContracts").row()
+        .text(ctx.t("utils.shared.buttons.sendouts"), "mainSendouts").row()
+        .text(ctx.t("utils.shared.buttons.contracts"), "mainContracts").row()
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }

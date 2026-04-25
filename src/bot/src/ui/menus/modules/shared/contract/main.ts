@@ -59,9 +59,10 @@ function viewContract(ctx: MyContext, contract: Contract, userIsAdmin: boolean):
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.shared.contract.view.contract.main.telegramId", { dateStart: contract.dateStart ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${contract.id}`).row()
-        .text(ctx.t("modules.shared.contract.view.contract.main.name", { dateEnd: contract.dateEnd ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateEnd#${contract.id}`).row()
-        .text(ctx.t("modules.shared.contract.view.contract.main.username", { price: contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.userName", { userName: contract.user.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateOrRemoveContractUser#${contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: contract.dateStart ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: contract.dateEnd ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateEnd#${contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${contract.id}`).row()
     ;
 
     if (userIsAdmin) keyboard.text(ctx.t("modules.shared.contract.view.contract.main.remove"), `removeContract#${contract.id}`).style("danger").row()
