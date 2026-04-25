@@ -170,11 +170,11 @@
                 "main": {
                     "title": "Панель администратора.",
                     "buttons": {
-                        "groups": "🗯 Группы",
+                        "chats": "🗯 Группы",
                         "users": "👥 Пользователи"
                     }
                 },
-                "groups": {
+                "chats": {
                     "main": {
                         "title": "Управление группами.",
                         "amount": "Количество: {{amount}}",
@@ -506,6 +506,7 @@
                     },
                     "contract": {
                         "main": {
+                            "title": "Управление договором.",
                             "userName": "Заказчик: {{userName}}",
                             "dateStart": "Дата начала: {{dateStart}}",
                             "dateEnd": "Дата окончания: {{dateEnd}}",

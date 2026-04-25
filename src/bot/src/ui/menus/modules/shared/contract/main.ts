@@ -65,7 +65,7 @@ function viewContract(ctx: MyContext, contract: Contract, userIsAdmin: boolean):
         .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${contract.id}`).row()
     ;
 
-    if (userIsAdmin) keyboard.text(ctx.t("modules.shared.contract.view.contract.main.remove"), `removeContract#${contract.id}`).style("danger").row()
+    if (userIsAdmin) keyboard.text(ctx.t("utils.shared.buttons.remove"), `removeContract#${contract.id}`).style("danger").row()
     keyboard.text(ctx.t("utils.shared.buttons.back"), "viewContracts");
     return { text: format.escapeMarkdown(text), keyboard }
 }
