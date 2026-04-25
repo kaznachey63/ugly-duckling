@@ -1,16 +1,11 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-
-import cabinetComposer from './cabinet';
-import settingsComposer from './settings';
-import panelComposer from './panel';
-import startComposer from './start';
+import commandsComposer from './commands';
+import sharedComposer from './shared';
 
 const modulesComposer = new Composer<MyContext>();
 
-modulesComposer.use(cabinetComposer);
-modulesComposer.use(settingsComposer);
-modulesComposer.use(panelComposer);
-modulesComposer.use(startComposer);
+modulesComposer.use(commandsComposer);
+modulesComposer.use(sharedComposer);
 
 export default modulesComposer;

@@ -18,7 +18,7 @@ export default async function dispatchState(ctx: MyContext) {
                 await ctx.api.editMessageText(
                     ctx.chatId!,
                     ctx.session.other.ids.idForUpdateMessageFromState,
-                    ctx.t('utils.shared.processing')
+                    ctx.t("utils.shared.processing")
                 );
             }
             await handler(ctx);

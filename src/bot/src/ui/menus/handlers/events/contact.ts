@@ -8,8 +8,8 @@ import format from '@utils/formatting';
  */
 export default function contact(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [ 
-        ctx.t('handlers.events.contact.accessDenied'),
-        ctx.t("commands.cabinet.profile.auth.login.path")
+        ctx.t("handlers.events.contact.accessDenied"),
+        ctx.t("modules.commands.cabinet.profile.auth.login.path")
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainProfile");
 

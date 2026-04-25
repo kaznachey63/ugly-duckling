@@ -2,7 +2,7 @@ import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import menuContact from "@menus/handlers/events/contact";
-import menuAuth from '@menus/modules/cabinet/profile/auth';
+import menuAuth from '@menus/modules/commands/cabinet/profile/auth';
 import common from '@utils/common';
 import type { User } from '@shared/types/User';
 import localization from '@utils/localization';
@@ -21,7 +21,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         
         const processingMsgId = processingMsg?.message_id;
         if (await db.user.existsInDB(BigInt(ctx!.from!.id!))) {
-            await ctx.reply(ctx.t("commands.cabinet.profile.auth.login.already"), { 
+            await ctx.reply(ctx.t("modules.commands.cabinet.profile.auth.login.already"), { 
                 parse_mode: "MarkdownV2" 
             });  
         }

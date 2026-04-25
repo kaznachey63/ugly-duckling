@@ -70,10 +70,10 @@ function addingMedia(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 function addingIdea(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [
         result ?
-            ctx.t('handlers.states.addingIdea.success') :
-            ctx.t('handlers.states.addingIdea.error')
+            ctx.t("handlers.states.addingIdea.success") :
+            ctx.t("handlers.states.addingIdea.error")
         ,
-        ctx.t('handlers.states.addingIdea.path')
+        ctx.t("handlers.states.addingIdea.path")
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainIdea");
