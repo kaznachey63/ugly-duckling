@@ -120,8 +120,43 @@ async function getContracts(): Promise<Contract[]> {
     }
 }
 
+/**
+ * Удаление договора по айди
+ */
+async function removeContractById(contractId: number) {
+    try {
+        await pool.query(
+            `DELETE FROM public.contracts WHERE contracts = $1`,
+            [contractId]
+        );
+        return true;
+    } catch (error) {
+        console.error("Ошибка при удалении пользователя", error);
+        return false;
+    }
+}
+
+/**
+ * Вставка пользователя
+ */
+// async function insertToDB(contract: Contract): Promise<boolean> {
+//     try {
+//         await pool.query(
+//             `INSERT INTO public.users (telegram_id, name, username, phone, language, role_id)
+//              VALUES ($1, $2, $3, $4, $5, $6)`,
+//             [user.telegramId, user.name, user.username, user.phone, user.language, user.role?.id]
+//         );
+//         return true;
+//     } catch (error) {
+//         console.error("Ошибка при вставке пользователя", error);
+//         return false;
+//     }
+// }
+
 export default {
     getContracts,
     getContractsByUser,
-    getContractById
+    getContractById,
+    removeContractById,
+    // insertToDB,
 }

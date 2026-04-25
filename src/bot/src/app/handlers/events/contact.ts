@@ -3,7 +3,6 @@ import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import menuContact from "@menus/handlers/events/contact";
 import menuAuth from '@menus/modules/commands/cabinet/auth';
-import common from '@utils/common';
 import type { User } from '@shared/types/User';
 import localization from '@utils/localization';
 
@@ -25,7 +24,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
                 parse_mode: "MarkdownV2" 
             });  
         }
-        else if (await db.user.matchPhoneNumber(phoneNumber) || common.isAdmin(ctx)) { // возожн лишняя проверка на админа
+        else if (await db.user.matchPhoneNumber(phoneNumber) || ctx.session.isAdmin) { // возожн лишняя проверка на админа
             ctx.session.user.phone = phoneNumber;
             
             // 3. Удаляем, передавая ID сообщения обработки
@@ -34,7 +33,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             let menu;
             try {
                 const user = formatUser(ctx);
-                if (common.isAdmin(ctx)) await db.user.insertToDB(user); // по сути проверка чисто на меня
+                if (ctx.session.isAdmin) await db.user.insertToDB(user); // по сути проверка чисто на меня
                 else await db.user.updateData(user); // проверка на остальных
 
                 menu = menuAuth.processLogin(ctx, true);

@@ -27,18 +27,15 @@ bot.use(session({ initial: utils.init.createDefaultSession }));
 bot.use(i18nMiddleware);
 
 /**
- * Установка команд в меню бота
- */
-await utils.init.setupBotCommands(bot);
-
-/**
  * Инициализация якобы, что бот печатает после получения команд
  */
 bot.on('message', async (ctx: MyContext, next: NextFunction) => {
     if (ctx.message?.text?.startsWith('/')) {
         await ctx.api.sendChatAction(ctx.chat?.id!, "typing");
     }
-    await utils.common.setPrimaryValuesSession(ctx);    
+    await utils.common.setPrimaryValuesSession(ctx);   
+    await utils.init.setupBotCommands(bot); 
+
     next();
 });
 
@@ -46,6 +43,7 @@ bot.on('callback_query', async (ctx: MyContext, next: NextFunction) => {
     try {
         console.log(ctx?.callbackQuery?.data);
         await utils.common.setPrimaryValuesSession(ctx);
+        await utils.init.setupBotCommands(bot); 
         await next();
     } finally {
         await ctx.answerCallbackQuery().catch(() => { });        

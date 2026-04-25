@@ -21,7 +21,8 @@ function resetSessionStates(session: SessionData) {
 async function setPrimaryValuesSession(ctx: MyContext) {
     // Присваивание инфо о рассылке и пользователе
     ctx.session.user = ctx.session.user.phone ? (await db.user.getUser(ctx.session.user.phone))! : (await db.user.getUser(BigInt(ctx.from?.id!)))!;
-    
+    ctx.session.isAdmin = ctx.session.user.role.code === "admin";
+
     const nameDistribution = ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!;
     const infoDist = await db.sendout.getSendoutInfo(nameDistribution);
     if (infoDist) {
@@ -34,10 +35,7 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     }
 }
 
-function isAdmin(ctx: MyContext): boolean { return ctx.session.user.role.code == "admin" };
-
 export default {
     resetSessionStates,
     setPrimaryValuesSession,
-    isAdmin
 };

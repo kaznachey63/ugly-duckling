@@ -11,7 +11,7 @@ const contractComposer = new Composer<MyContext>();
  */
 contractComposer.callbackQuery("mainContracts", async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
-    const menu = menuContracts.main(ctx, (await db.contract.getContracts())?.length!, common.isAdmin(ctx));
+    const menu = menuContracts.main(ctx, (await db.contract.getContracts())?.length!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard
@@ -22,7 +22,7 @@ contractComposer.callbackQuery("mainContracts", async (ctx: MyContext) => {
  * Отображение списка контрактов
  */
 contractComposer.callbackQuery("viewContracts", async (ctx: MyContext) => {
-    const contracts = common.isAdmin(ctx) ? await db.contract.getContracts() : await db.contract.getContractsByUser(BigInt(ctx?.from!.id));
+    const contracts = ctx.session.isAdmin ? await db.contract.getContracts() : await db.contract.getContractsByUser(BigInt(ctx?.from!.id));
     const menu = menuContracts.viewContracts(ctx, contracts);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
@@ -35,7 +35,27 @@ contractComposer.callbackQuery("viewContracts", async (ctx: MyContext) => {
  */
 contractComposer.callbackQuery(/^viewContract#/, async (ctx: MyContext) => {
     const contractId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-    const menu = menuContracts.viewContract(ctx, (await db.contract.getContractById(contractId))!, common.isAdmin(ctx));
+    const menu = menuContracts.viewContract(ctx, (await db.contract.getContractById(contractId))!);
+    await ctx.editMessageText(menu.text, {
+        parse_mode: "MarkdownV2",
+        reply_markup: menu.keyboard,
+    });
+});
+
+/**
+ * Удаление договора
+ */
+contractComposer.callbackQuery(/^removeContract#/, async (ctx: MyContext) => {
+    const contractId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
+    const contract = (await db.contract.getContractById(contractId))!;
+    let menu;
+    if (await db.contract.removeContractById(contractId)) {
+        menu = menuContracts.remove(ctx, contract, true);
+    }
+    else {
+        menu = menuContracts.remove(ctx, contract, false);
+    }    
+
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,
@@ -43,11 +63,11 @@ contractComposer.callbackQuery(/^viewContract#/, async (ctx: MyContext) => {
 });
 
 // /**
-//  * Создание пользователя
+//  * Создание договора
 //  */
-// contractComposer.callbackQuery("createUser", async (ctx: MyContext) => {
-//     ctx.session.state.addingUser = true;
-//     const menu = menuUsers.create(ctx);
+// contractComposer.callbackQuery("createContract", async (ctx: MyContext) => {
+//     ctx.session.state.addingContract = true;
+//     const menu = menuContracts.create(ctx);
 //     const msg = await ctx.editMessageText(menu.text, {
 //         parse_mode: "MarkdownV2",
 //         reply_markup: menu.keyboard,
@@ -59,57 +79,10 @@ contractComposer.callbackQuery(/^viewContract#/, async (ctx: MyContext) => {
 //     }
 // });
 
-// /**
-//  * Удаление пользователя
-//  */
-// contractComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
-//     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-//     const user = (await db.user.getUser(userId))!;
-//     let menu;
-//     if (await db.user.removeFromSystem(userId)) {
-//         menu = menuUsers.remove(ctx, user, true);
-//     }
-//     else {
-//         menu = menuUsers.remove(ctx, user, false);
-//     }    
-
-//     await ctx.editMessageText(menu.text, {
-//         parse_mode: "MarkdownV2",
-//         reply_markup: menu.keyboard,
-//     });
-// });
 
 export default contractComposer;
 
 // --------------------------------------------------------------------------------
-
-// import { Composer, InputFile } from 'grammy';
-// import type { MyContext } from '@shared/types/SessionData';
-// import menuContract from '@menus/modules/commands/cabinet/profile/contract/main';
-// import constants from '@constants';
-// import { PdfService } from 'src/common/services/exports/PdfService';
-// import { WordService } from 'src/common/services/exports/WordService';
-// import type { ExportType } from '@shared/types/ExportType';
-// import type { ContractExport } from '@shared/types/ContractExport';
-// import db from '@shared/db';
-
-// const contractComposer = new Composer<MyContext>();
-
-// contractComposer.callbackQuery(/^mainContract/, async (ctx: MyContext) => {
-//     return ctx.answerCallbackQuery({ text: "Над разделом ведутся технические работы, попробуйте позже.", show_alert: true });
-
-//     try {
-//         const contracts = await db.contract.getContracts(ctx.from?.id!);
-//         const menu = menuContract(ctx, contracts.length);
-
-//         await ctx.editMessageText(menu.text, {
-//             reply_markup: menu.keyboard,
-//             parse_mode: 'MarkdownV2'
-//         });
-//     } catch (error) {
-//         console.error('Ошибка в mainSchedule:', error);
-//     }
-// });
 
 // contractComposer.callbackQuery(/^mainContract/, async (ctx: MyContext) => {
 //     // return ctx.answerCallbackQuery({ text: "Над разделом ведутся технические работы, попробуйте позже.", show_alert: true });
@@ -230,5 +203,3 @@ export default contractComposer;
 //         priceString: "две тысячи",
 //     };
 // }
-
-// export default contractComposer;

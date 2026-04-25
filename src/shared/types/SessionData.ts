@@ -3,6 +3,7 @@ import type { User } from "./User";
 import type { Sendout } from "./Sendout";
 
 export interface SessionData {
+    isAdmin: boolean;
     user: User;
     sendout: Sendout;
     state: {

@@ -1,4 +1,5 @@
 import type { Contract } from '@shared/types/Contract';
+import type { ExportType } from '@shared/types/ExportType';
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
@@ -7,10 +8,11 @@ import { InlineKeyboard } from 'grammy';
 /**
  * Меню раздела договоры
  */
-function main(ctx: MyContext, amount: number, userIsAdmin: boolean): Menu<InlineKeyboard> {
+function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
+    const userIsAdmin = ctx.session.isAdmin;
     let text = [
         "",
-        ctx.t("modules.shared.contract.main.path")
+        ctx.t("modules.shared.contract.main.path", { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ];
     
     const keyboard = new InlineKeyboard();
@@ -35,9 +37,10 @@ function main(ctx: MyContext, amount: number, userIsAdmin: boolean): Menu<Inline
 }
 
 function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboard> {   
+    const userIsAdmin = ctx.session.isAdmin;
     const text = [
         ctx.t("modules.shared.contract.view.contracts.title"),
-        ctx.t("modules.shared.contract.view.contracts.path"),
+        ctx.t("modules.shared.contract.view.contracts.path",  { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard();
@@ -52,10 +55,11 @@ function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboa
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function viewContract(ctx: MyContext, contract: Contract, userIsAdmin: boolean): Menu<InlineKeyboard> {
+function viewContract(ctx: MyContext, contract: Contract): Menu<InlineKeyboard> {
+    const userIsAdmin = ctx.session.isAdmin;
     const text = [
         ctx.t("modules.shared.contract.view.contract.main.title"),
-        ctx.t("modules.shared.contract.view.contract.main.path", { userName: contract.user.name ?? ctx.t("utils.shared.buttons.nameless") }),
+        ctx.t("modules.shared.contract.view.contract.main.path", { userName: contract.user.name ?? ctx.t("utils.shared.buttons.nameless"), menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
@@ -63,10 +67,59 @@ function viewContract(ctx: MyContext, contract: Contract, userIsAdmin: boolean):
         .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: contract.dateStart ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: contract.dateEnd ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateEnd#${contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${contract.id}`).row()
+        .text(ctx.t("utils.shared.buttons.export"), `mainExportContract#${contract.id}`).row()
     ;
 
     if (userIsAdmin) keyboard.text(ctx.t("utils.shared.buttons.remove"), `removeContract#${contract.id}`).style("danger").row()
     keyboard.text(ctx.t("utils.shared.buttons.back"), "viewContracts");
+    return { text: format.escapeMarkdown(text), keyboard }
+}
+
+function remove(ctx: MyContext, contract: Contract, result: boolean): Menu<InlineKeyboard> {
+    const keyboard = new InlineKeyboard();
+    let text = [
+        ctx.t("modules.shared.contract.view.contract.remove.path", { userName: contract.user.name })
+    ];
+
+    if (result) {
+        text.unshift(ctx.t("modules.shared.contract.view.contract.remove.success"));
+        keyboard.text(ctx.t("utils.shared.buttons.back"), "viewContracts");
+    }
+    else {
+        text.unshift(ctx.t("modules.shared.contract.view.contract.remove.error"));
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewUser#${contract.id}`);
+    }
+    return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
+}
+
+function mainExportContract(ctx: MyContext): Menu<InlineKeyboard> {
+    const userIsAdmin = ctx.session.isAdmin;
+    const text = [
+        ctx.t("modules.shared.contract.view.contract.export.main.title"),
+        ctx.t("modules.shared.contract.view.contract.export.main.path",  { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
+    ].join('\n\n');
+    
+    const keyboard = new InlineKeyboard()
+        .text("PDF", `exportContract:${ctx.session.sendout.name}-pdf`)
+        .text("Word", `exportContract:${ctx.session.sendout.name}-word`)   
+        .row().text(ctx.t("utils.shared.buttons.back"), `viewContract:${ctx.session.sendout.name}`) // по айди контракта
+    ;
+    
+    return { text: format.escapeMarkdown(text), keyboard }
+}
+
+function exportContract(ctx: MyContext, exportType: ExportType, result: boolean): Menu<InlineKeyboard> {
+    const userIsAdmin = ctx.session.isAdmin;
+    const text = [
+        result ? 
+            ctx.t("modules.shared.contract.view.contract.export.result.caption", { exportType: exportType }) :
+            ctx.t("modules.shared.contract.view.contract.export.result.error")
+        ,
+        ctx.t("modules.shared.contract.view.contract.export.result.path", { call: ctx.session.sendout.call, exportType: exportType, menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
+    ].join('\n');
+
+    const keyboard = new InlineKeyboard().row().text(ctx.t("utils.shared.buttons.back"), `mainContract:${ctx.session.sendout.name}`);
+    
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -80,39 +133,15 @@ function viewContract(ctx: MyContext, contract: Contract, userIsAdmin: boolean):
 //     return { text: format.escapeMarkdown(text), keyboard }
 // }
 
-// function remove(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboard> {
-//     const keyboard = new InlineKeyboard();
-//     let text = [
-//         ctx.t("modules.commands.panel.users.view.user.remove.path", { userName: user.name })
-//     ];
-
-//     if (result) {
-//         text.unshift(ctx.t("modules.commands.panel.users.view.user.remove.success"));
-//         keyboard.text(ctx.t("utils.shared.buttons.back"), "viewUsers");
-//     }
-//     else {
-//         text.unshift(ctx.t("modules.commands.panel.users.view.user.remove.error"));
-//         keyboard.text(ctx.t("utils.shared.buttons.back"), `viewUser#${user.id}`);
-//     }
-//     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
-// }
-
 export default {
     main,
     viewContracts,
     viewContract,
+    // mainExportContract,
+    // exportContract,
+    remove,
     // create,
-    // remove,
 };
-
-// import type { MyContext } from '@shared/types/SessionData';
-// import type { Menu } from "@shared/types/Menu";
-// import { InlineKeyboard } from "grammy";
-// import format from "@utils/formatting";
-// import common from '@utils/common';
-// import type { Contract } from '@shared/types/Contract';
-// import type { ExportType } from '@shared/types/ExportType';
-
 
 // function main2(ctx: MyContext, errorWithData: true): Menu<InlineKeyboard>
 // function main2(ctx: MyContext, contractInfo: Contract[], errorWithData: false): Menu<InlineKeyboard>
@@ -147,33 +176,4 @@ export default {
 //     ;
 
 //     return { text, keyboard }
-// }
-
-// function mainExportContract(ctx: MyContext): Menu<InlineKeyboard> {
-//     const text = [
-//         ctx.t("modules.commands.cabinet.profile.contract.export.main.title"),
-//         ctx.t("modules.commands.cabinet.profile.contract.export.main.path", { call: ctx.session.sendout.call }),
-//     ].join('\n\n');
-    
-//     const keyboard = new InlineKeyboard()
-//         .text("PDF", `exportContract:${ctx.session.sendout.name}-pdf`)
-//         .text("Word", `exportContract:${ctx.session.sendout.name}-word`)   
-//         .row().text(ctx.t("utils.shared.buttons.back"), `mainContract:${ctx.session.sendout.name}`)
-//     ;
-    
-//     return { text: format.escapeMarkdown(text), keyboard }
-// }
-
-// function exportContract(ctx: MyContext, exportType: ExportType, result: boolean): Menu<InlineKeyboard> {
-//     const text = [
-//         result ? 
-//             ctx.t("modules.commands.cabinet.profile.contract.export.result.caption", { exportType: exportType }) :
-//             ctx.t("modules.commands.cabinet.profile.contract.export.result.error")
-//         ,
-//         ctx.t("modules.commands.cabinet.profile.contract.export.result.path", { call: ctx.session.sendout.call, exportType: exportType }),
-//     ].join('\n');
-
-//     const keyboard = new InlineKeyboard().row().text(ctx.t("utils.shared.buttons.back"), `mainContract:${ctx.session.sendout.name}`);
-    
-//     return { text: format.escapeMarkdown(text), keyboard }
 // }

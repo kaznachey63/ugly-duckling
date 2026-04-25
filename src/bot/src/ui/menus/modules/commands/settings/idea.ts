@@ -15,7 +15,7 @@ function main(ctx: MyContext, lastMessageId: string): Menu<InlineKeyboard> {
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("modules.commands.settings.idea.main.buttons.add"), "addIdea").style("success");
 
-    if (common.isAdmin(ctx)) {
+    if (ctx.session.isAdmin) {
         keyboard.url(ctx.t("modules.commands.settings.idea.main.buttons.see"), constants.link.chatIdeas + lastMessageId);
     }
 

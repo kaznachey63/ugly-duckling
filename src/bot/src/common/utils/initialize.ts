@@ -1,4 +1,6 @@
+import constants from '@constants';
 import db from '@shared/db';
+import type { LanguagesALlowed } from '@shared/types/LanguagesAllowed';
 import type { SessionData } from '@shared/types/SessionData';
 import { type BotCommand, type LanguageCode } from 'grammy/types';
 import i18next from 'i18next';
@@ -6,13 +8,16 @@ import { sleep } from 'telegram/Helpers';
 
 function createDefaultSession(): SessionData {
     return {
+        isAdmin: false,
         user: {
             telegramId: BigInt(0),
             language: 'ru',
             name: "",
             phone: "",
             username: "",
-            role: "unknown"
+            role: {
+                code: "unknown"
+            }
         },
         sendout: {
             call: "",
@@ -57,7 +62,7 @@ function createDefaultSession(): SessionData {
 // надо постоянно при кабинете и коллбеке вызывать
 async function setupBotCommands(bot: any) {
     await bot.api.deleteMyCommands({ scope: { type: 'all_private_chats' } });
-    const languages: LanguageCode[] = ['ru', 'en', 'zh'];
+    const languages: LanguagesALlowed[] = constants.allowLanguages;
 
     for (const lang of languages) {
         const baseCommands = getCommandsForLanguage(lang);
