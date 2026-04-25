@@ -7,6 +7,7 @@ import type { LanguageCode } from "grammy/types";
 import constants from "@constants";
 import type { RoleCode } from "@shared/types/RoleCode";
 import localization from "@utils/localization";
+import type { LanguagesALlowed } from "@shared/types/LanguagesAllowed";
 
 export default async function addingUser(ctx: MyContext) {
     let menu;
@@ -36,11 +37,11 @@ function validateUser(text: string): boolean {
     
     if (name !== '-' && name!.trim().length === 0) return false;
     
-    if (username !== '-' && !isNaN(Number(username))) return false;
+    if (username !== "-" && (!/[a-zA-Z]/.test(username!) || /^\d+$/.test(username!) || /^_+$/.test(username!))) return false;    
     
     if (phone !== '-' && isNaN(Number(phone))) return false;
     
-    if (language !== '-' && !constants.allowLanguages.includes(language as LanguageCode)) return false;
+    if (language !== '-' && !constants.allowLanguages.includes(language as LanguagesALlowed)) return false;
     
     if (roleCode !== '-' && !constants.roles.includes(roleCode as RoleCode)) return false;
     
