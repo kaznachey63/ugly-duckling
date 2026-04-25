@@ -490,7 +490,7 @@
                     }
                 }
             },
-            "contracts": {
+            "contract": {
                 "main": {
                     "title": "Управление договорами.",
                     "amount": "Количество: {{amount}}",

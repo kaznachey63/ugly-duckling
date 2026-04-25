@@ -1,7 +1,7 @@
 import db from '@shared/db';
 import common from "@utils/common";
 import type { MyContext } from '@shared/types/SessionData';
-import menuMessage from '@menus/modules/commands/cabinet/sendout/message/main';
+import menuMessage from '@menus/modules/shared/sendout/message/main';
 import { Composer } from 'grammy';
 import viewComposer from './view';
 import addComposer from './create';

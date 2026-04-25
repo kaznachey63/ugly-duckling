@@ -2,7 +2,7 @@ import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db/index';
 import { ServerManager } from 'src/common/services/ServerManager';
-import menuClear from '@menus/modules/commands/cabinet/sendout/schedule/clear';
+import menuClear from '@menus/modules/shared/sendout/schedule/clear';
 
 const clearComposer = new Composer<MyContext>();
 

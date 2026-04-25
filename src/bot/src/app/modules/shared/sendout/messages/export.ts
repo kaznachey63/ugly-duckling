@@ -1,5 +1,5 @@
 import type { MyContext } from '@shared/types/SessionData';
-import menuExport from '@menus/modules/commands/cabinet/sendout/message/export';
+import menuExport from '@menus/modules/shared/sendout/message/export';
 import { Composer, InputFile } from 'grammy';
 import type { ExportType } from '@shared/types/ExportType';
 import { PdfService } from 'src/common/services/exports/PdfService';

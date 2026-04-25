@@ -2,7 +2,7 @@ import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db/index';
 import common from '@utils/common';
-import menuSchedule from '@menus/modules/commands/cabinet/sendout/schedule/main';
+import menuSchedule from '@menus/modules/shared/sendout/schedule/main';
 import createComposer from './create';
 import clearComposer from './clear';
 import viewComposer from './view';

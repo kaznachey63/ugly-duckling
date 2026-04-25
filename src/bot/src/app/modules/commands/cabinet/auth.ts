@@ -1,7 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
-import menuAuth from '@menus/modules/commands/cabinet/profile/auth';
+import menuAuth from '@menus/modules/commands/cabinet/auth';
 
 const authComposer = new Composer<MyContext>();
 

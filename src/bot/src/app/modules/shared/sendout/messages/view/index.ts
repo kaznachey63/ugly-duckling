@@ -4,8 +4,8 @@ import mediaComposer from './media';
 import textComposer from './text';
 import messageComposer from './message';
 import db from '@shared/db';
-import menuView from '@menus/modules/commands/cabinet/sendout/message/view';
-import menuMessage from '@menus/modules/commands/cabinet/sendout/message/main';
+import menuView from '@menus/modules/shared/sendout/message/view';
+import menuMessage from '@menus/modules/shared/sendout/message/main';
 
 const viewComposer = new Composer<MyContext>();
 

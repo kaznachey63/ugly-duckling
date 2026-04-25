@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuSendout from '@menus/modules/commands/cabinet/sendout/main';
+import menuSendout from '@menus/modules/shared/sendout/main';
 
 const mainComposer = new Composer<MyContext>();
 

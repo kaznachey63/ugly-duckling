@@ -1,17 +1,17 @@
 import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
-import menuContracts from "@menus/modules/commands/panel/contracts";
+import menuContracts from "@menus/modules/shared/contract/contracts";
 import { Composer } from "grammy";
 import common from "@utils/common";
 
 const contractComposer = new Composer<MyContext>();
 
 /**
- * Главное меню раздела пользователи
+ * Главное меню раздела договоры
  */
 contractComposer.callbackQuery("mainContracts", async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
-    const menu = menuContracts.main(ctx, (await db.contract.getContracts())?.length!);
+    const menu = menuContracts.main(ctx, (await db.contract.getContracts())?.length!, common.isAdmin(ctx));
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard
@@ -19,27 +19,28 @@ contractComposer.callbackQuery("mainContracts", async (ctx: MyContext) => {
 });
 
 /**
- * Отображение списка пользователей
+ * Отображение списка контрактов
  */
 contractComposer.callbackQuery("viewContracts", async (ctx: MyContext) => {
-    const menu = menuContracts.viewContracts(ctx, await db.contract.getContracts());
+    const contracts = common.isAdmin(ctx) ? await db.contract.getContracts() : await db.contract.getContractsByUser(BigInt(ctx?.from!.id));
+    const menu = menuContracts.viewContracts(ctx, contracts);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,
     });
 });
 
-// /**
-//  * Отображение выбранного пользователя
-//  */
-// contractComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
-//     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-//     const menu = menuUsers.viewUser(ctx, (await db.user.getUser(userId))!);
-//     await ctx.editMessageText(menu.text, {
-//         parse_mode: "MarkdownV2",
-//         reply_markup: menu.keyboard,
-//     });
-// });
+/**
+ * Отображение выбранного пользователя
+ */
+contractComposer.callbackQuery(/^viewContract#/, async (ctx: MyContext) => {
+    const contractId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
+    const menu = menuContracts.viewContract(ctx, (await db.contract.getContractById(contractId))!, common.isAdmin(ctx));
+    await ctx.editMessageText(menu.text, {
+        parse_mode: "MarkdownV2",
+        reply_markup: menu.keyboard,
+    });
+});
 
 // /**
 //  * Создание пользователя
