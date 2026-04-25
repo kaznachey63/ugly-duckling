@@ -1,5 +1,8 @@
+import type { User } from "./User";
+
 export interface Contract {
-    customerName: string,
+    id?: number,
+    user: User,
     dateStart: Date,
     dateEnd: Date,
     price: number

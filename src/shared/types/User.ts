@@ -1,10 +1,5 @@
 import type { LanguageCode } from "grammy/types";
-import type { RoleCode } from "./RoleCode";
-
-interface Role {
-    id?: number,
-    code: RoleCode
-};
+import type { Role } from "./Role";
 
 export interface User {
     id?: number;
