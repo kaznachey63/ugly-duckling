@@ -1,30 +1,114 @@
-import { Composer, InputFile } from 'grammy';
+import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
-import menuContract from '@menus/modules/commands/cabinet/profile/contract/main';
-import constants from '@constants';
-import { PdfService } from 'src/common/services/exports/PdfService';
-import { WordService } from 'src/common/services/exports/WordService';
-import type { ExportType } from '@shared/types/ExportType';
-import type { ContractExport } from '@shared/types/ContractExport';
-import db from '@shared/db';
+import menuContracts from "@menus/modules/commands/panel/contracts";
+import { Composer } from "grammy";
+import common from "@utils/common";
 
 const contractComposer = new Composer<MyContext>();
 
-contractComposer.callbackQuery(/^mainContract/, async (ctx: MyContext) => {
-    return ctx.answerCallbackQuery({ text: "Над разделом ведутся технические работы, попробуйте позже.", show_alert: true });
-
-    try {
-        const contracts = await db.contract.getContracts(ctx.from?.id!);
-        const menu = menuContract(ctx, contracts.length);
-
-        await ctx.editMessageText(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: 'MarkdownV2'
-        });
-    } catch (error) {
-        console.error('Ошибка в mainSchedule:', error);
-    }
+/**
+ * Главное меню раздела пользователи
+ */
+contractComposer.callbackQuery("mainContracts", async (ctx: MyContext) => {
+    common.resetSessionStates(ctx.session);
+    const menu = menuContracts.main(ctx, (await db.contract.getContracts())?.length!);
+    await ctx.editMessageText(menu.text, {
+        parse_mode: "MarkdownV2",
+        reply_markup: menu.keyboard
+    });
 });
+
+/**
+ * Отображение списка пользователей
+ */
+contractComposer.callbackQuery("viewContracts", async (ctx: MyContext) => {
+    const menu = menuContracts.viewContracts(ctx, await db.contract.getContracts());
+    await ctx.editMessageText(menu.text, {
+        parse_mode: "MarkdownV2",
+        reply_markup: menu.keyboard,
+    });
+});
+
+// /**
+//  * Отображение выбранного пользователя
+//  */
+// contractComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
+//     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
+//     const menu = menuUsers.viewUser(ctx, (await db.user.getUser(userId))!);
+//     await ctx.editMessageText(menu.text, {
+//         parse_mode: "MarkdownV2",
+//         reply_markup: menu.keyboard,
+//     });
+// });
+
+// /**
+//  * Создание пользователя
+//  */
+// contractComposer.callbackQuery("createUser", async (ctx: MyContext) => {
+//     ctx.session.state.addingUser = true;
+//     const menu = menuUsers.create(ctx);
+//     const msg = await ctx.editMessageText(menu.text, {
+//         parse_mode: "MarkdownV2",
+//         reply_markup: menu.keyboard,
+//     });
+
+//     // Сохранение айди для последующего редактирования этого же сообщения
+//     if (typeof msg !== "boolean" && "message_id" in msg) {
+//         ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+//     }
+// });
+
+// /**
+//  * Удаление пользователя
+//  */
+// contractComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
+//     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
+//     const user = (await db.user.getUser(userId))!;
+//     let menu;
+//     if (await db.user.removeFromSystem(userId)) {
+//         menu = menuUsers.remove(ctx, user, true);
+//     }
+//     else {
+//         menu = menuUsers.remove(ctx, user, false);
+//     }    
+
+//     await ctx.editMessageText(menu.text, {
+//         parse_mode: "MarkdownV2",
+//         reply_markup: menu.keyboard,
+//     });
+// });
+
+export default contractComposer;
+
+// --------------------------------------------------------------------------------
+
+// import { Composer, InputFile } from 'grammy';
+// import type { MyContext } from '@shared/types/SessionData';
+// import menuContract from '@menus/modules/commands/cabinet/profile/contract/main';
+// import constants from '@constants';
+// import { PdfService } from 'src/common/services/exports/PdfService';
+// import { WordService } from 'src/common/services/exports/WordService';
+// import type { ExportType } from '@shared/types/ExportType';
+// import type { ContractExport } from '@shared/types/ContractExport';
+// import db from '@shared/db';
+
+// const contractComposer = new Composer<MyContext>();
+
+// contractComposer.callbackQuery(/^mainContract/, async (ctx: MyContext) => {
+//     return ctx.answerCallbackQuery({ text: "Над разделом ведутся технические работы, попробуйте позже.", show_alert: true });
+
+//     try {
+//         const contracts = await db.contract.getContracts(ctx.from?.id!);
+//         const menu = menuContract(ctx, contracts.length);
+
+//         await ctx.editMessageText(menu.text, {
+//             reply_markup: menu.keyboard,
+//             parse_mode: 'MarkdownV2'
+//         });
+//     } catch (error) {
+//         console.error('Ошибка в mainSchedule:', error);
+//     }
+// });
 
 // contractComposer.callbackQuery(/^mainContract/, async (ctx: MyContext) => {
 //     // return ctx.answerCallbackQuery({ text: "Над разделом ведутся технические работы, попробуйте позже.", show_alert: true });
@@ -146,4 +230,4 @@ contractComposer.callbackQuery(/^mainContract/, async (ctx: MyContext) => {
 //     };
 // }
 
-export default contractComposer;
+// export default contractComposer;

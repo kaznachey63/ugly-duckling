@@ -4,7 +4,7 @@ import menuPanel from "@menus/modules/commands/panel/main";
 import common from '@utils/common';
 import chatsComposer from "./features/chats";
 import usersComposer from "./features/users";
-import contractComposer from "./features/contracts";
+import contractComposer from "../../shared/contracts";
 
 const panelComposer = new Composer<MyContext>();
 
