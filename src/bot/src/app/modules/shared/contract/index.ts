@@ -1,6 +1,6 @@
 import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
-import menuContracts from "@menus/modules/shared/contract/contracts";
+import menuContracts from "@menus/modules/shared/contract/main";
 import { Composer } from "grammy";
 import common from "@utils/common";
 
@@ -10,8 +10,6 @@ const contractComposer = new Composer<MyContext>();
  * Главное меню раздела договоры
  */
 contractComposer.callbackQuery("mainContracts", async (ctx: MyContext) => {
-    console.log("xsacdvfgbhnjnbgfvdcsx");
-    
     common.resetSessionStates(ctx.session);
     const menu = menuContracts.main(ctx, (await db.contract.getContracts())?.length!, common.isAdmin(ctx));
     await ctx.editMessageText(menu.text, {
