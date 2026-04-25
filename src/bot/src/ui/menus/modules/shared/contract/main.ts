@@ -56,7 +56,7 @@ function viewContract(ctx: MyContext, contract: Contract, userIsAdmin: boolean):
     const text = [
         ctx.t("modules.shared.contract.view.contract.main.title"),
         ctx.t("modules.shared.contract.view.contract.main.path", { userName: contract.user.name ?? ctx.t("utils.shared.buttons.nameless") }),
-    ].join('\n\n');
+    ].join('\n');
 
     const keyboard = new InlineKeyboard()
         .text(ctx.t("modules.shared.contract.view.contract.main.userName", { userName: contract.user.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateOrRemoveContractUser#${contract.id}`).row()

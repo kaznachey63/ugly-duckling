@@ -13,15 +13,15 @@ export default function main(ctx: MyContext, userExistsInDB: boolean, userIsAdmi
 
     const keyboard = new InlineKeyboard();
 
-    if (!userIsAdmin || !userExistsInDB) keyboard.text(ctx.t("modules.commands.cabinet.profile.buttons.contract"), "mainContract");
+    if (!userIsAdmin || !userExistsInDB) keyboard.text(ctx.t("utils.shared.buttons.contract"), "mainContract");
 
     if (userExistsInDB) {
         keyboard
-            .text(ctx.t("modules.commands.cabinet.main.buttons.sendout"), "mainSendouts")
-            .text(ctx.t("modules.commands.cabinet.profile.buttons.logout"), "logoutAuth")
+            .text(ctx.t("utils.shared.buttons.sendout"), "mainSendouts")
+            .text(ctx.t("modules.commands.cabinet.main.buttons.logout"), "logoutAuth")
         ;
     }
-    else keyboard.text(ctx.t("modules.commands.cabinet.profile.buttons.login"), "loginAuth").row()
+    else keyboard.text(ctx.t("modules.commands.cabinet.buttons.login"), "loginAuth").row()
 
     return { text: format.escapeMarkdown(text), keyboard };
 }
