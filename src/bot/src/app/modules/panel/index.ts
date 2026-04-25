@@ -4,6 +4,7 @@ import menuPanel from "@menus/modules/panel/main";
 import common from '@utils/common';
 import chatsComposer from "./features/chats";
 import usersComposer from "./features/users";
+import contractComposer from "./features/contracts";
 
 const panelComposer = new Composer<MyContext>();
 
@@ -34,5 +35,6 @@ panelComposer.callbackQuery("mainPanel", async (ctx: MyContext) => {
 
 panelComposer.use(chatsComposer);
 panelComposer.use(usersComposer);
+panelComposer.use(contractComposer);
 
 export default panelComposer;

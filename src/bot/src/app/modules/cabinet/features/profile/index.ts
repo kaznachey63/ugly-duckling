@@ -21,7 +21,7 @@ profileComposer.callbackQuery(/^mainProfile/, async (ctx: MyContext) => {
     } 
 });
 
-profileComposer.use(contractComposer);
+// profileComposer.use(contractComposer);
 profileComposer.use(authComposer);
 
 export default profileComposer;
