@@ -17,7 +17,7 @@ export default function main(ctx: MyContext, userExistsInDB: boolean, userIsAdmi
 
     if (userExistsInDB) {
         keyboard
-            .text(ctx.t("utils.shared.buttons.sendout"), "mainSendouts")
+            .text(ctx.t("utils.shared.buttons.sendouts"), "mainSendouts")
             .text(ctx.t("modules.commands.cabinet.main.buttons.logout"), "logoutAuth")
         ;
     }
