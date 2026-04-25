@@ -15,7 +15,7 @@ export default function main(ctx: MyContext, userExistsInDB: boolean, userIsAdmi
 
     if (userExistsInDB && !userIsAdmin) {
         keyboard
-            .text(ctx.t("utils.shared.buttons.contract"), "mainContract")
+            .text(ctx.t("utils.shared.buttons.contracts"), "mainContract")
             .text(ctx.t("utils.shared.buttons.sendouts"), "mainSendouts")
         ;
     } 
