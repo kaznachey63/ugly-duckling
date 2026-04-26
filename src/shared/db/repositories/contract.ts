@@ -12,7 +12,7 @@ async function getContractsByUser(userId: bigint): Promise<Contract[]> {
             `SELECT c.id, c.date_start, c.date_end, c.price, c.user_id, 
                     u.name, u.telegram_id, u.username, u.phone, u.language, 
                     r.code as role_code
-            FROM public.contracts c 
+            FROM public.contract c 
             INNER JOIN public.users u ON c.user_id = u.id
             LEFT JOIN public.role r ON r.id = u.role_id
             WHERE u.telegram_id = $1`,
@@ -51,7 +51,7 @@ async function getContractById(id: number): Promise<Contract | null> {
             `SELECT c.id, c.date_start, c.date_end, c.price, c.user_id, 
                     u.name, u.telegram_id, u.username, u.phone, u.language, 
                     r.code as role_code
-            FROM public.contracts c 
+            FROM public.contract c 
             INNER JOIN public.users u ON c.user_id = u.id
             LEFT JOIN public.role r ON r.id = u.role_id
             WHERE c.id = $1`,
@@ -92,7 +92,7 @@ async function getContracts(): Promise<Contract[]> {
             `SELECT c.id, c.date_start, c.date_end, c.price, c.user_id, 
                     u.name, u.telegram_id, u.username, u.phone, u.language, 
                     r.code as role_code
-            FROM public.contracts c 
+            FROM public.contract c 
             INNER JOIN public.users u ON c.user_id = u.id
             LEFT JOIN public.role r ON r.id = u.role_id`
         );
@@ -126,7 +126,7 @@ async function getContracts(): Promise<Contract[]> {
 async function removeContractById(contractId: number) {
     try {
         await pool.query(
-            `DELETE FROM public.contracts WHERE contracts = $1`,
+            `DELETE FROM public.contract WHERE contracts = $1`,
             [contractId]
         );
         return true;

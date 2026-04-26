@@ -9,7 +9,7 @@ const messageComposer = new Composer<MyContext>();
 messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
     const positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
     ctx.session.other.text.positionId = positionId;
-    const messages = await db.message.getMessagesForBot(ctx.session.sendout.schema);
+    const messages = await db.message.getMessages(ctx.session.sendout.schema);
     if (!messages) return;
     const messageId = messages[positionId]?.id!;
 
@@ -24,7 +24,7 @@ messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
 });
 
 messageComposer.callbackQuery(/^paginationMessages:/, async (ctx: MyContext) => {
-    const messages = await db.message.getMessagesForBot(ctx.session.sendout.schema);
+    const messages = await db.message.getMessages(ctx.session.sendout.schema);
     const menu = menuView.pagination(ctx, messages?.length!);
 
     await ctx.editMessageText(menu.text, {

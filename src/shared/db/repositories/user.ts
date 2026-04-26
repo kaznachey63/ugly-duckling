@@ -25,7 +25,7 @@ async function getUser(value: string | bigint | number): Promise<User | undefine
                 u.phone,
                 u.language,
                 r.code as "roleCode"
-            FROM public.users u
+            FROM public.user u
             LEFT JOIN public.role r ON r.id = u.role_id
             WHERE ${uniqueValue} = $1`, 
             [value]
@@ -65,7 +65,7 @@ async function getUsers(): Promise<User[]> {
                 u.phone,
                 u.language,
                 r.code as "roleCode"
-            FROM public.users u
+            FROM public.user u
             LEFT JOIN public.role r ON r.id = u.role_id
         `;
         
@@ -94,7 +94,7 @@ async function getUsers(): Promise<User[]> {
 async function updateData(user: User) {
     try {
         await pool.query(
-            `UPDATE public.users 
+            `UPDATE public.user 
             SET 
                 telegram_id = $1,
                 name = $2, 
@@ -116,7 +116,7 @@ async function updateData(user: User) {
 async function insertToDB(user: User): Promise<boolean> {
     try {
         await pool.query(
-            `INSERT INTO public.users (telegram_id, name, username, phone, language, role_id)
+            `INSERT INTO public.user (telegram_id, name, username, phone, language, role_id)
              VALUES ($1, $2, $3, $4, $5, $6)`,
             [user.telegramId, user.name, user.username, user.phone, user.language, user.role?.id]
         );
@@ -134,7 +134,7 @@ async function insertToDB(user: User): Promise<boolean> {
 async function existsInDB(userId: bigint): Promise<boolean> {
     try {
         const { rows } = await pool.query(
-            "SELECT telegram_id FROM public.users WHERE telegram_id = $1",
+            "SELECT telegram_id FROM public.user WHERE telegram_id = $1",
             [userId]
         );
         return rows.length > 0;
@@ -159,7 +159,7 @@ async function removeFromSystem(value: number | bigint): Promise<boolean> {
 
     try {
         await pool.query(
-            `DELETE FROM public.users WHERE ${uniqueValue} = $1`,
+            `DELETE FROM public.user WHERE ${uniqueValue} = $1`,
             [value]
         );
         return true;
@@ -175,7 +175,7 @@ async function removeFromSystem(value: number | bigint): Promise<boolean> {
 async function matchPhoneNumber(phoneNumber: string): Promise<boolean> {
     try {
         const { rows } = await pool.query(
-            "SELECT id FROM public.users WHERE phone = $1",
+            "SELECT id FROM public.user WHERE phone = $1",
             [phoneNumber]
         );
         return rows.length > 0;
@@ -191,7 +191,7 @@ async function matchPhoneNumber(phoneNumber: string): Promise<boolean> {
 async function updateLang(telegramId: bigint, languageCode: LanguageCode): Promise<boolean> {
     try {
         await pool.query(
-            `UPDATE public.users 
+            `UPDATE public.user 
              SET language = $1 
              WHERE telegram_id = $2`,
             [languageCode, telegramId]
@@ -206,7 +206,7 @@ async function updateLang(telegramId: bigint, languageCode: LanguageCode): Promi
 async function getGroupsOfUsers(): Promise<{ customers: number[]; admins: number[] }> {
     let customers = [], admins = [];
     try {
-        const users = (await pool.query("SELECT telegram_id, role_id FROM public.users")).rows;
+        const users = (await pool.query("SELECT telegram_id, role_id FROM public.user")).rows;
         for (const user of users) {
             if (user.role_id == 1) admins.push(user.telegram_id);
             else if (user.role_id == 2 && user.telegram_id != 0) customers.push(user.telegram_id);

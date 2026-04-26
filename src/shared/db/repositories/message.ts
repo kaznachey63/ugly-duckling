@@ -4,11 +4,13 @@ import distribution from './sendout';
 import type { Message } from '@shared/types/Message'
 
 /**
- * Получение сообщений (для рассылки)
+ * Получение сообщений 
  */
-async function getMessages(): Promise<Message[] | undefined> {
+async function getMessages(schemas?: string): Promise<Message[] | undefined> {
+    const schema = schemas ?? distribution.getSchema();
+
     try {
-        const { rows } = await pool.query(`SELECT id, caption, media, entities FROM ${distribution.getSchema()}.messages ORDER BY POSITION ASC`);
+        const { rows } = await pool.query(`SELECT id, caption, media, entities FROM ${schema}.message ORDER BY POSITION ASC`);
         return rows.map(r => ({
             id: r.id,
             caption: r.caption,
@@ -21,31 +23,11 @@ async function getMessages(): Promise<Message[] | undefined> {
 }
 
 /**
- * Получение сообщений (для бота)
- */
-async function getMessagesForBot(schema: string): Promise<Message[] | undefined> {
-    const client = await pool.connect();    
-    try {
-        const { rows } = await client.query(`SELECT id, caption, media, entities FROM ${schema}.messages ORDER BY POSITION ASC`);
-        return rows.map(r => ({
-            id: r.id,
-            caption: r.caption,
-            media: r.media || [],
-            entities: r.entities
-        }));
-    } catch (error) {
-        console.error('Ошибка получения сообщений:', error);
-    } finally {
-        client.release();
-    }
-}
-
-/**
  * Очистка сообщений
  */
 async function clearTable(schema: string) {
     try {
-        await pool.query(`TRUNCATE TABLE ${schema}.messages RESTART IDENTITY`);
+        await pool.query(`TRUNCATE TABLE ${schema}.message RESTART IDENTITY`);
     } catch (error) {
         console.error("Ошибка при очистке сообщений", error);
     }
@@ -57,7 +39,7 @@ async function clearTable(schema: string) {
 async function removeMessage(schema: string, messageId: number) {
     try {
         await pool.query(
-            `DELETE FROM ${schema}.messages 
+            `DELETE FROM ${schema}.message 
              WHERE id = $1`,
             [messageId]
         );
@@ -97,7 +79,7 @@ async function updateMessage(
         values.push(messageId); // для WHERE id = $N
 
         await pool.query(
-            `UPDATE ${schema}.messages 
+            `UPDATE ${schema}.message 
              SET ${fields.join(', ')} 
              WHERE id = $${paramIndex}`,
             values
@@ -116,12 +98,12 @@ async function addMessage(schema: string, message: Message) {
         await client.query('BEGIN');
 
         // 1. Получаем текущее количество записей (чтобы знать позицию)
-        const { rows } = await client.query(`SELECT COUNT(*) as cnt FROM ${schema}.messages`);
+        const { rows } = await client.query(`SELECT COUNT(*) as cnt FROM ${schema}.message`);
         const position = parseInt(rows[0].cnt);
 
         // 2. Добавляем сообщение с позицией
         await client.query(
-            `INSERT INTO ${schema}.messages (caption, media, position, entities) 
+            `INSERT INTO ${schema}.message (caption, media, position, entities) 
              VALUES ($1, $2, $3, $4)`,
             [message.caption, message.media, position, JSON.stringify(message.entities)]
         );
@@ -140,6 +122,5 @@ export default {
     addMessage,
     updateMessage,
     removeMessage,
-    getMessagesForBot,
     clearTable
 }

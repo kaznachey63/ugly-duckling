@@ -11,7 +11,7 @@ async function insertChats(list: Chat[]) {
     const links = list.map(chat => chat.link);
     try {
         await pool.query(
-            `INSERT INTO public.chats (chat_id, title, link)
+            `INSERT INTO public.chat (chat_id, title, link)
             SELECT * FROM UNNEST($1::TEXT[], $2::TEXT[], $3::TEXT[])`,
             [chatIds, titles, links]
         );
@@ -25,7 +25,7 @@ async function insertChats(list: Chat[]) {
  */
 async function getChats(): Promise<Chat[] | undefined> {
     try {
-        const { rows } = await pool.query(`SELECT chat_id, title, link FROM public.chats`);
+        const { rows } = await pool.query(`SELECT chat_id, title, link FROM public.chat`);
         return rows.map(r => {
             return {
                 id: r.chat_id,
@@ -43,7 +43,7 @@ async function getChats(): Promise<Chat[] | undefined> {
  */
 async function clearTable() {
     try {
-        await pool.query(`TRUNCATE TABLE public.chats RESTART IDENTITY`);
+        await pool.query(`TRUNCATE TABLE public.chat RESTART IDENTITY`);
     } catch (error) {
         console.error("Ошибка при очистке чатов", error);
     }

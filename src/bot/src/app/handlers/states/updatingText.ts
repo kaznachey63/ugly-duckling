@@ -11,7 +11,7 @@ export default async function editingText(ctx: MyContext) {
     }
     else {
         const positionId = ctx.session.other.text.positionId!;
-        const messages = await db.message.getMessagesForBot(ctx.session.sendout.schema);
+        const messages = await db.message.getMessages(ctx.session.sendout.schema);
         if (!messages) return;
         const messageId = messages[positionId]?.id!;
 
