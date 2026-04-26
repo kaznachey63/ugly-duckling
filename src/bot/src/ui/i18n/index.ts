@@ -24,6 +24,6 @@ export const i18nMiddleware = async (ctx: MyContext, next: NextFunction) => {
     const telegramId = ctx.from?.id;
     if (!telegramId) return await next();
 
-    ctx.t = (key: string, options = {}) => i18next.t(key, { lng: ctx.session.user.language, ...options });
+    ctx.t = (key: string, options = {}) => i18next.t(key, { lng: ctx.session.user?.language ?? defaultLocale, ...options });
     await next();
 };
