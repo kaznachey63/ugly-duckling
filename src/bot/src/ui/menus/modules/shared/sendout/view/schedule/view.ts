@@ -6,18 +6,16 @@ import type { Time } from '@shared/types/Time';
 import utils from '@utils';
 
 function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
-    const nameDistribution = ctx.session.sendout.name;
-    const callDistribution = ctx.session.sendout.call;
-
+    const sendoutName = ctx.session.sendout.name;
     const text = [
-        ctx.t("modules.commands.cabinet.distribution.schedule.view.main.title"),
-        ctx.t("modules.commands.cabinet.distribution.schedule.view.main.path", { call: callDistribution })
+        ctx.t("modules.shared.sendout.view.sendout.schedule.view.main.title"),
+        ctx.t("modules.shared.sendout.view.sendout.schedule.view.main.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n');
 
     let keyboard = new InlineKeyboard();
 
     for (const time of times) {
-        keyboard.text(time.label!, `updateOrRemoveTime:${nameDistribution}#${time.id}`).row();
+        keyboard.text(time.label!, `updateOrRemoveTime:${sendoutName}#${time.id}`).row();
     }
 
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.name}`);
@@ -27,8 +25,8 @@ function main(ctx: MyContext, times: Time[]): Menu<InlineKeyboard> {
 
 function update(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("modules.commands.cabinet.distribution.schedule.view.time.update.title"),
-        ctx.t("modules.commands.cabinet.distribution.schedule.view.time.update.path", { call: ctx.session.sendout.call }),
+        ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.update.title"),
+        ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.update.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `updateOrRemoveTime:${ctx.session.sendout.name}#${ctx.session.other.time.positionId}`)
     return { text: format.escapeMarkdown(text), keyboard }
@@ -38,10 +36,10 @@ function remove(ctx: MyContext, resultRestart: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewSchedule:${ctx.session.sendout.name}`);
     const text = [
         resultRestart ? 
-            ctx.t("modules.commands.cabinet.distribution.schedule.view.time.remove.success") :
-            ctx.t("modules.commands.cabinet.distribution.schedule.view.time.remove.remove")
+            ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.remove.success") :
+            ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.remove.remove")
         ,
-        ctx.t("modules.commands.cabinet.distribution.schedule.view.time.remove.path", { call: ctx.session.sendout.call })
+        ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.remove.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
     return { text: format.escapeMarkdown(text), keyboard }
@@ -49,12 +47,12 @@ function remove(ctx: MyContext, resultRestart: boolean): Menu<InlineKeyboard> {
 
 function updateOrRemove(ctx: MyContext, targetTime: string): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("modules.commands.cabinet.distribution.schedule.view.time.updateOrRemove.title", { targetTime: targetTime }),
-        ctx.t("modules.commands.cabinet.distribution.schedule.view.time.updateOrRemove.path", { call: ctx.session.sendout.call })
+        ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.updateOrRemove.title", { targetTime: targetTime }),
+        ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.updateOrRemove.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.commands.cabinet.distribution.schedule.view.time.updateOrRemove.buttons.update"), `updateTime:${ctx.session.sendout.name}#${ctx.session.other.time.positionId}`)
+        .text(ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.updateOrRemove.buttons.update"), `updateTime:${ctx.session.sendout.name}#${ctx.session.other.time.positionId}`)
         .text(ctx.t("utils.shared.buttons.remove"), `removeTime:${ctx.session.sendout.name}`).style('danger')
         .row().text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.name}`);
     ;

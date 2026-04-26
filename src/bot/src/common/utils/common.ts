@@ -23,11 +23,11 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     ctx.session.user = ctx.session.user.phone ? (await db.user.getUser(ctx.session.user.phone))! : (await db.user.getUser(BigInt(ctx.from?.id!)))!;
     ctx.session.isAdmin = ctx.session.user.role.code === "admin";
 
-    const nameDistribution = ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!;
-    const infoDist = await db.sendout.getSendoutInfo(nameDistribution);
+    const sendoutName = ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!;
+    const infoDist = await db.sendout.getSendoutInfo(sendoutName);
     if (infoDist) {
         ctx.session.sendout = {
-            name: nameDistribution,
+            name: sendoutName,
             call: infoDist.call,
             label: infoDist.label, 
             schema: infoDist.schema

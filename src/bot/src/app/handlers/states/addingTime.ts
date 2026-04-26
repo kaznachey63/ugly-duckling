@@ -7,7 +7,7 @@ import type { Time } from "@shared/types/Time";
 import utils from "@utils";
 
 export default async function addingTime(ctx: MyContext) {
-    const nameDistribution = ctx.session.sendout.name!;
+    const sendoutName = ctx.session.sendout.name!;
 
     let menu;
     if (!validateTime(ctx.message?.text!)) {
@@ -22,7 +22,7 @@ export default async function addingTime(ctx: MyContext) {
 
         await db.schedule.addTime(ctx.session.sendout.schema, formattedTime);
         const server = new ServerManager();
-        menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(nameDistribution, true), true);
+        menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(sendoutName, true), true);
         common.resetSessionStates(ctx.session);
     }
 

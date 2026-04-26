@@ -12,7 +12,7 @@ export default async function setDateListener(ctx: MyContext) {
             return;
         }
 
-        const nameDistribution = ctx.session.sendout?.name;
+        const sendoutName = ctx.session.sendout?.name;
         const queryData = ctx.callbackQuery.data;
 
         // Извлечение даты из формата "calendar-YYYY-MM-DD"
@@ -23,7 +23,7 @@ export default async function setDateListener(ctx: MyContext) {
         const targetDate = `${day}.${month}.${year}`;
 
         // Получение логов
-        const logs = await db.result.getResults(nameDistribution);
+        const logs = await db.result.getResults(sendoutName);
 
         // Поиск лога по дате
         if (logs && logs.find(log => log.date === targetDate)) {
@@ -34,7 +34,7 @@ export default async function setDateListener(ctx: MyContext) {
                 reply_markup: {
                     inline_keyboard: [[{
                         text: "🔙 Назад",
-                        callback_data: `selectiveStatistika:${nameDistribution}`
+                        callback_data: `selectiveStatistika:${sendoutName}`
                     }]]
                 }
             };

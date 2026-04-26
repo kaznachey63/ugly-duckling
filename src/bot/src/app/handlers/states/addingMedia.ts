@@ -24,7 +24,7 @@ interface MediaValidationData {
  * Состояние пользователя: добавление медиа
  */
 export default async function addingMedia(ctx: MyContext) {
-    const nameDistribution = ctx.session.sendout.name;
+    const sendoutName = ctx.session.sendout.name;
     const msg = ctx.message;
     if (!msg) return;
     const positionId = ctx.session.other.media.positionId!;
@@ -36,7 +36,7 @@ export default async function addingMedia(ctx: MyContext) {
                 utils.common.resetSessionStates(ctx.session);
                 await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
                     utils.formatting.escapeMarkdown(ctx.t("handlers.states.addingMedia.documentsWTMedia")), {
-                    reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${nameDistribution}#${positionId}`),
+                    reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutName}#${positionId}`),
                     parse_mode: "MarkdownV2"
                 });
                 return;
@@ -47,7 +47,7 @@ export default async function addingMedia(ctx: MyContext) {
             utils.common.resetSessionStates(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
                 utils.formatting.escapeMarkdown(ctx.t("handlers.states.addingMedia.invalidType")), {
-                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${nameDistribution}#${positionId}`),
+                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutName}#${positionId}`),
                 parse_mode: "MarkdownV2"
             });
             return;
@@ -60,7 +60,7 @@ export default async function addingMedia(ctx: MyContext) {
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
             utils.formatting.escapeMarkdown(ctx.t("handlers.states.addingMedia.bigSize")), {
-            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${nameDistribution}#${positionId}`),
+            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutName}#${positionId}`),
             parse_mode: "MarkdownV2"
         });
         return;
@@ -91,7 +91,7 @@ export default async function addingMedia(ctx: MyContext) {
             utils.common.resetSessionStates(ctx.session);
             await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
                 utils.formatting.escapeMarkdown(ctx.t("handlers.states.addingMedia.error")), {
-                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${nameDistribution}#${positionId}`),
+                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutName}#${positionId}`),
                 parse_mode: "MarkdownV2"
             });
             return;
@@ -104,7 +104,7 @@ export default async function addingMedia(ctx: MyContext) {
         await db.message.updateMessage(ctx.session.sendout.schema, message.id!, { media: newMedia });
         await sleep(250);
         const server = new ServerManager();
-        const menu = menuState.addingMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));
+        const menu = menuState.addingMedia(ctx, await server.restartProcessOrNot(sendoutName, true));
 
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
@@ -116,7 +116,7 @@ export default async function addingMedia(ctx: MyContext) {
         utils.common.resetSessionStates(ctx.session);
         await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
             utils.formatting.escapeMarkdown(ctx.t("handlers.states.addingMedia.error")), {
-            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${nameDistribution}#${positionId}`),
+            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutName}#${positionId}`),
             parse_mode: "MarkdownV2"
         });
     }

@@ -6,8 +6,8 @@ import format from '@utils/formatting';
 
 function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("modules.commands.cabinet.distribution.messages.export.main.title"),
-        ctx.t("modules.commands.cabinet.distribution.contract.export.main.path", { call: ctx.session.sendout.call }),
+        ctx.t("modules.shared.sendout.view.sendout.message.export.main.title"),
+        ctx.t("modules.shared.sendout.view.sendout.message.export.main.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
@@ -23,10 +23,10 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
 function result(ctx: MyContext, exportType: ExportType, result: boolean): Menu<InlineKeyboard> {
     const text = [
         result ? 
-            ctx.t("modules.commands.cabinet.distribution.messages.export.result.caption", { exportType: exportType }) :
-            ctx.t("modules.commands.cabinet.distribution.messages.export.result.error")
+            ctx.t("modules.shared.sendout.view.sendout.message.export.result.caption", { exportType: exportType }) :
+            ctx.t("modules.shared.sendout.view.sendout.message.export.result.error")
         ,
-        ctx.t("modules.commands.cabinet.distribution.messages.export.result.path", { call: ctx.session.sendout.call, exportType: exportType }),
+        ctx.t("modules.shared.sendout.view.sendout.message.export.result.path", { call: ctx.session.sendout.call, exportType: exportType, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n');
 
     const keyboard = new InlineKeyboard().row().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);

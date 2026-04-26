@@ -43,7 +43,7 @@ mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
  */
 mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {    
     const queryData = ctx.callbackQuery?.data;
-    const nameDistribution = ctx.session.sendout.name!;
+    const sendoutName = ctx.session.sendout.name!;
     const positionId = Number(queryData!.split(/#/)[1]);
     ctx.session.other.media.positionId = positionId;
     const messages = await db.message.getMessages(ctx.session.sendout.schema);
@@ -67,7 +67,7 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     // 🔥 ОБНУЛЯЕМ МЕДИА В БД
     await db.message.updateMessage(ctx.session.sendout.schema, message!.id!, { media: null });
     
-    const menu = menuView.clearAllMedia(ctx, await server.restartProcessOrNot(nameDistribution, true));
+    const menu = menuView.clearAllMedia(ctx, await server.restartProcessOrNot(sendoutName, true));
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"

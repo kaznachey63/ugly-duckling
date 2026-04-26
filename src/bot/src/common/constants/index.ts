@@ -98,6 +98,11 @@ const roles: RoleCode[] = [
     "admin", "customer", "unknown"
 ];
 
+const CBdata = {
+    cabinet: "mainCabinet",
+    panel: "mainPanel"
+};
+
 export default {
     link,
     calendar,
@@ -108,5 +113,6 @@ export default {
     server,
     adminData,
     allowLanguages,
-    roles
+    roles,
+    CBdata,
 }

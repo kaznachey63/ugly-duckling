@@ -4,7 +4,7 @@ import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 
 function main(ctx: MyContext): Menu<InlineKeyboard> {
-    const nameDistribution = ctx.session.sendout.name;
+    const sendoutName = ctx.session.sendout.name;
     const callDistribution = ctx.session.sendout.call;
     const positionId = ctx.session.other.text.positionId;   
 
@@ -14,8 +14,8 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.commands.cabinet.distribution.messages.create.main.buttons.generate"), `generateText:${nameDistribution}#${positionId}`).style("success")
-        .text(ctx.t("modules.commands.cabinet.distribution.messages.create.main.buttons.hand"), `handInputText:${nameDistribution}#${positionId}`).row()
+        .text(ctx.t("modules.commands.cabinet.distribution.messages.create.main.buttons.generate"), `generateText:${sendoutName}#${positionId}`).style("success")
+        .text(ctx.t("modules.commands.cabinet.distribution.messages.create.main.buttons.hand"), `handInputText:${sendoutName}#${positionId}`).row()
         .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);
     ;
     return { text: format.escapeMarkdown(text), keyboard }

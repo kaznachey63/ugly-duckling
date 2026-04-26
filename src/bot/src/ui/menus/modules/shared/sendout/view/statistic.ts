@@ -10,17 +10,17 @@ import constants from '@constants';
  * Меню раздела Статистика
  */
 function main(ctx: MyContext): Menu<InlineKeyboard> {
-    const nameDistribution = ctx.session.sendout?.name;
+    const sendoutName = ctx.session.sendout?.name;
 
     const text = [
-        ctx.t("modules.commands.cabinet.distribution.statistics.main.title"),
-        ctx.t("modules.commands.cabinet.distribution.statistics.main.path", { call: ctx.session.sendout.call })
+        ctx.t("modules.shared.sendout.view.sendout.statistic.main.title"),
+        ctx.t("modules.shared.sendout.view.sendout.statistic.main.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.commands.cabinet.distribution.statistics.main.buttons.selective"), `selectiveStatistic:${nameDistribution}`)
-        .text(ctx.t("modules.commands.cabinet.distribution.statistics.main.buttons.comparative"), `comparativeStatistic:${nameDistribution}`).row()
-        .text(ctx.t("utils.shared.buttons.back"), `mainDistribution:${nameDistribution}`)
+        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.main.buttons.selective"), `selectiveStatistic:${sendoutName}`)
+        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.main.buttons.comparative"), `comparativeStatistic:${sendoutName}`).row()
+        .text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutName}`)
     ;
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 
@@ -28,8 +28,8 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
 
 function selective(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("modules.commands.cabinet.distribution.statistics.selective.main.title"),
-        ctx.t("modules.commands.cabinet.distribution.statistics.selective.main.path", { call: ctx.session.sendout.call })
+        ctx.t("modules.shared.sendout.view.sendout.statistic.selective.main.title"),
+        ctx.t("modules.shared.sendout.view.sendout.statistic.selective.main.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
     // Создаем экземпляр с параметрами (все опционально)
@@ -50,28 +50,28 @@ function selective(ctx: MyContext): Menu<InlineKeyboard> {
 
 function targetDateOnCalendar(ctx: MyContext, result: { time: string, date: string, success: number, chats: string[] }): Menu<InlineKeyboard> {
     const text = [
-        ctx.t(`commands.cabinet.distribution.statistics.selective.targetDate.title`, { date: result.date, time: result.time, success: result.success }),
-        ctx.t(`commands.cabinet.distribution.statistics.selective.targetDate.path`, { call: ctx.session.sendout.call })
+        ctx.t(`shared.sendout.view.sendout.statistic.selective.targetDate.title`, { date: result.date, time: result.time, success: result.success }),
+        ctx.t(`shared.sendout.view.sendout.statistic.selective.targetDate.path`, { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard();
-    if (utils.ctx.session.isAdmin) keyboard.text(ctx.t("modules.commands.cabinet.distribution.statistics.selective.targetDate.buttonChats"), `readChats:${ctx.session.sendout.name}-${result.date}`);
+    if (ctx.session.isAdmin) keyboard.text(ctx.t("modules.shared.sendout.view.sendout.statistic.selective.targetDate.buttonChat"), `viewChats:${ctx.session.sendout.name}-${result.date}`);
     keyboard.text(ctx.t("utils.shared.buttons.back"), `comparativeStatistic:${ctx.session.sendout.name}`);
 
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 
 function comparative(ctx: MyContext): Menu<InlineKeyboard> {
-    const nameDistribution = ctx.session.sendout.name;
+    const sendoutName = ctx.session.sendout.name;
 
     const text = [
-        ctx.t("modules.commands.cabinet.distribution.statistics.comparative.main.title"),
-        ctx.t("modules.commands.cabinet.distribution.statistics.comparative.main.path", { call: ctx.session.sendout.call })
+        ctx.t("modules.shared.sendout.view.sendout.statistic.comparative.main.title"),
+        ctx.t("modules.shared.sendout.view.sendout.statistic.comparative.main.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.commands.cabinet.distribution.statistics.comparative.main.buttons.week"), `comparativeStatistic:${nameDistribution}-week`)
-        .text(ctx.t("modules.commands.cabinet.distribution.statistics.comparative.main.buttons.month"), `comparativeStatistic:${nameDistribution}-month`).row()
+        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.comparative.main.buttons.week"), `comparativeStatistic:${sendoutName}-week`)
+        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.comparative.main.buttons.month"), `comparativeStatistic:${sendoutName}-month`).row()
         .text(ctx.t("utils.shared.buttons.back"), `mainStatistic:${ctx.session.sendout.name}`)
     ;
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
@@ -79,8 +79,8 @@ function comparative(ctx: MyContext): Menu<InlineKeyboard> {
 
 function handlerComparative(ctx: MyContext, type: StatisticType): Menu<InlineKeyboard> {
     const text = [
-        ctx.t(`commands.cabinet.distribution.statistics.comparative.${type}.title`),
-        ctx.t(`commands.cabinet.distribution.statistics.comparative.${type}.path`, { call: ctx.session.sendout.call })
+        ctx.t(`shared.sendout.view.sendout.statistic.comparative.${type}.title`),
+        ctx.t(`shared.sendout.view.sendout.statistic.comparative.${type}.path`, { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `comparativeStatistic:${ctx.session.sendout.name}`);    
