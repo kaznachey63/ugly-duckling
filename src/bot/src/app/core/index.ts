@@ -32,6 +32,8 @@ bot.use(i18nMiddleware);
 bot.on('message', async (ctx: MyContext, next: NextFunction) => {
     if (ctx.message?.text?.startsWith('/')) {
         await ctx.api.sendChatAction(ctx.chat?.id!, "typing");
+        await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
+        await ctx.deleteMessage();
     }
     await utils.common.setPrimaryValuesSession(ctx);   
     next();
