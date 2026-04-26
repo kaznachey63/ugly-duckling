@@ -20,7 +20,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         
         const processingMsgId = processingMsg?.message_id;
         if (await db.user.existsInDB(BigInt(ctx!.from!.id!))) {
-            await ctx.reply(ctx.t("modules.commands.cabinet.profile.auth.login.already"), { 
+            await ctx.reply(ctx.t("modules.commands.cabinet.auth.login.already"), { 
                 parse_mode: "MarkdownV2" 
             });  
         }
