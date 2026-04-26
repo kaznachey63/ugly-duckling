@@ -8,13 +8,13 @@ import format from '@utils/formatting';
  */
 function sendLogin(ctx: MyContext): Menu<Keyboard> {
     const text = [ 
-        ctx.t("modules.commands.cabinet.profile.auth.login.title"),
-        ctx.t("modules.commands.cabinet.profile.auth.login.path")
+        ctx.t("modules.commands.cabinet.auth.login.title"),
+        ctx.t("modules.commands.cabinet.auth.login.path")
     ].join('\n\n');
     
     const keyboard = new Keyboard()
         .requestContact(
-            ctx.t("modules.commands.cabinet.profile.auth.login.button")
+            ctx.t("modules.commands.cabinet.auth.login.button")
         ).resized().oneTime()
     ;
     
@@ -27,12 +27,12 @@ function sendLogin(ctx: MyContext): Menu<Keyboard> {
 function processLogin(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [ 
         result ? 
-            ctx.t("modules.commands.cabinet.profile.auth.login.good") :
-            ctx.t("modules.commands.cabinet.profile.auth.login.bad")
+            ctx.t("modules.commands.cabinet.auth.login.good") :
+            ctx.t("modules.commands.cabinet.auth.login.bad")
         ,
-        ctx.t("modules.commands.cabinet.profile.auth.login.path")
+        ctx.t("modules.commands.cabinet.auth.login.path")
     ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainProfile");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
 
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -48,7 +48,7 @@ function logout(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
         ,
         ctx.t("modules.commands.cabinet.profile.auth.logout.path")
     ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainProfile");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
 
     return { text: format.escapeMarkdown(text), keyboard }
 }

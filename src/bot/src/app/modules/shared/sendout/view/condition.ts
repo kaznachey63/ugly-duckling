@@ -22,7 +22,7 @@ conditionComposer.callbackQuery(/^mainCondition:/, async (ctx: MyContext) => {
     }
 });
 
-conditionComposer.callbackQuery(/^startDistribution:/, async (ctx: MyContext) => {
+conditionComposer.callbackQuery(/^startSendout:/, async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
         const server = new ServerManager();
@@ -35,13 +35,13 @@ conditionComposer.callbackQuery(/^startDistribution:/, async (ctx: MyContext) =>
             reply_markup: menu.keyboard
         });
     } catch (error) {
-        console.error('Ошибка в startDistribution:', error);
+        console.error('Ошибка в startSendout:', error);
     } finally {
         
     }
 });
 
-conditionComposer.callbackQuery(/^stopDistribution:/, async (ctx: MyContext) => {
+conditionComposer.callbackQuery(/^stoptSendout:/, async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
         const server = new ServerManager();
@@ -54,13 +54,13 @@ conditionComposer.callbackQuery(/^stopDistribution:/, async (ctx: MyContext) => 
             reply_markup: menu.keyboard
         });
     } catch (error) {
-        console.error('Ошибка в stopDistribution:', error);
+        console.error('Ошибка в stoptSendout:', error);
     } finally {
         
     }
 });
 
-conditionComposer.callbackQuery(/^restartDistribution:/, async (ctx: MyContext) => {
+conditionComposer.callbackQuery(/^restartSendout:/, async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
         const server = new ServerManager();
@@ -73,7 +73,7 @@ conditionComposer.callbackQuery(/^restartDistribution:/, async (ctx: MyContext) 
             reply_markup: menu.keyboard
         });
     } catch (error) {
-        console.error('Ошибка в restartDistribution:', error);
+        console.error('Ошибка в restartSendout:', error);
     } finally {
         
     }

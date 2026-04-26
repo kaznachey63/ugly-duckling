@@ -12,7 +12,7 @@ export default function main(ctx: MyContext, scheduleLength: number): Menu<Inlin
     const keyboard = new InlineKeyboard();
     
     if (ctx.session.isAdmin) {
-        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.schedule.main.buttons.create"), `createTime:${sendoutName}#${positionId}`).style("success");
+        keyboard.text(ctx.t("utils.shared.buttons.create"), `createTime:${sendoutName}#${positionId}`).style("success");
     }
 
     // Нет времени

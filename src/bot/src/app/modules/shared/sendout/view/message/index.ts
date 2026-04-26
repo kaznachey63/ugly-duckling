@@ -12,12 +12,15 @@ const messageComposer = new Composer<MyContext>();
 
 messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
-    
+    let menu;
     const messages = await db.message.getMessages(ctx.session.sendout.schema);
-    if (!messages) return;
-    
-    ctx.session.other.text.positionId = messages.length;
-    const menu = menuMessage(ctx, messages.length);
+    if (!messages) {
+        menu = menuMessage(ctx, 0, true);
+    }
+    else {
+        ctx.session.other.text.positionId = messages.length;
+        menu = menuMessage(ctx, messages.length, false);
+    }
 
     try {
         const msg = await ctx.editMessageText(menu.text, {

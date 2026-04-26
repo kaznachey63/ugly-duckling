@@ -6,7 +6,7 @@ import type { Message } from '@shared/types/Message'
 /**
  * Получение сообщений 
  */
-async function getMessages(schemas?: string): Promise<Message[] | undefined> {
+async function getMessages(schemas?: string): Promise<Message[]> {
     const schema = schemas ?? distribution.getSchema();
 
     try {
@@ -19,6 +19,7 @@ async function getMessages(schemas?: string): Promise<Message[] | undefined> {
         }));
     } catch (error) {
         console.error("Ошибка при получении сообщений", error);
+        return [];
     }
 }
 
