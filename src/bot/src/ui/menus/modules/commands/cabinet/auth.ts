@@ -13,8 +13,8 @@ function sendLogin(ctx: MyContext): Menu<Keyboard> {
     ].join('\n\n');
     
     const keyboard = new Keyboard()
-        .requestContact(ctx.t("modules.commands.cabinet.auth.login.button"))
-        .text(ctx.t("modules.commands.cabinet.auth.login.cancel"))
+        .requestContact(ctx.t("modules.commands.cabinet.auth.login.buttons.phone"))
+        .text(ctx.t("modules.commands.cabinet.auth.login.buttons.cancel"))
         .resized().oneTime()
     ;
     
@@ -25,16 +25,23 @@ function sendLogin(ctx: MyContext): Menu<Keyboard> {
  * Обработка кнопки войти
  */
 function processLogin(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
-    const text = [ 
-        result ? 
-            ctx.t("modules.commands.cabinet.auth.login.good") :
-            ctx.t("modules.commands.cabinet.auth.login.bad")
-        ,
-        ctx.t("modules.commands.cabinet.auth.login.path")
-    ].join('\n\n');
+    let text = [];
+
+    if (result) {
+        text.push(
+            ctx.t("modules.commands.cabinet.auth.login.good"),
+            ctx.t("modules.commands.cabinet.auth.login.path", { result: ctx.t("modules.commands.cabinet.auth.login.success")})
+        );
+    }
+    else {
+        text.push(
+            ctx.t("modules.commands.cabinet.auth.login.bad"),
+            ctx.t("modules.commands.cabinet.auth.login.path", { result: ctx.t("modules.commands.cabinet.auth.login.error")})
+        );
+    }
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
 
-    return { text: format.escapeMarkdown(text), keyboard }
+    return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }
 
 /**

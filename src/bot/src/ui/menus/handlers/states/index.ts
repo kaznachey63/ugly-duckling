@@ -128,8 +128,8 @@ function addingUser(ctx: MyContext, result: boolean, validate: boolean) {
 function passingAuthorization(ctx: MyContext) {
     const text = [
         ctx.t("modules.commands.cabinet.auth.login.canceled"),
-        ctx.t("modules.commands.cabinet.auth.login.pathCancel")
-    ].join('\n');
+        ctx.t("modules.commands.cabinet.auth.login.path", { result: ctx.t("modules.commands.cabinet.auth.login.cancel")})
+    ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
     return { text: format.escapeMarkdown(text), keyboard }
