@@ -41,7 +41,7 @@ conditionComposer.callbackQuery(/^startSendout:/, async (ctx: MyContext) => {
     }
 });
 
-conditionComposer.callbackQuery(/^stoptSendout:/, async (ctx: MyContext) => {
+conditionComposer.callbackQuery(/^stopSendout:/, async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
         const server = new ServerManager();

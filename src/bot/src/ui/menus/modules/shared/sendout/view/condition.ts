@@ -34,7 +34,7 @@ export default function condition(ctx: MyContext, status: Status): Menu<InlineKe
     }
     
     const text = [
-        ctx.t(`modulesshared.sendout.view.sendout.condition.status.${status}`),
+        ctx.t(`modules.shared.sendout.view.sendout.condition.status.${status}`),
         ctx.t("modules.shared.sendout.view.sendout.condition.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n\n');
 

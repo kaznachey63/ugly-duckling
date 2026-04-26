@@ -9,7 +9,7 @@ import format from '@utils/formatting';
 function sendLogin(ctx: MyContext): Menu<Keyboard> {
     const text = [ 
         ctx.t("modules.commands.cabinet.auth.login.title"),
-        ctx.t("modules.commands.cabinet.auth.login.path")
+        ctx.t("modules.commands.cabinet.auth.login.pathMain")
     ].join('\n\n');
     
     const keyboard = new Keyboard()
