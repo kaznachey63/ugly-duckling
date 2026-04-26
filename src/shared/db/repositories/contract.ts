@@ -13,7 +13,7 @@ async function getContractsByUser(userId: bigint): Promise<Contract[]> {
                     u.name, u.telegram_id, u.username, u.phone, u.language, 
                     r.code as role_code
             FROM public.contract c 
-            INNER JOIN public.users u ON c.user_id = u.id
+            INNER JOIN public.user u ON c.user_id = u.id
             LEFT JOIN public.role r ON r.id = u.role_id
             WHERE u.telegram_id = $1`,
             [userId]
@@ -52,7 +52,7 @@ async function getContractById(id: number): Promise<Contract | null> {
                     u.name, u.telegram_id, u.username, u.phone, u.language, 
                     r.code as role_code
             FROM public.contract c 
-            INNER JOIN public.users u ON c.user_id = u.id
+            INNER JOIN public.user u ON c.user_id = u.id
             LEFT JOIN public.role r ON r.id = u.role_id
             WHERE c.id = $1`,
             [id]
@@ -93,7 +93,7 @@ async function getContracts(): Promise<Contract[]> {
                     u.name, u.telegram_id, u.username, u.phone, u.language, 
                     r.code as role_code
             FROM public.contract c 
-            INNER JOIN public.users u ON c.user_id = u.id
+            INNER JOIN public.user u ON c.user_id = u.id
             LEFT JOIN public.role r ON r.id = u.role_id`
         );
         
@@ -142,7 +142,7 @@ async function removeContractById(contractId: number) {
 // async function insertToDB(contract: Contract): Promise<boolean> {
 //     try {
 //         await pool.query(
-//             `INSERT INTO public.users (telegram_id, name, username, phone, language, role_id)
+//             `INSERT INTO public.user (telegram_id, name, username, phone, language, role_id)
 //              VALUES ($1, $2, $3, $4, $5, $6)`,
 //             [user.telegramId, user.name, user.username, user.phone, user.language, user.role?.id]
 //         );

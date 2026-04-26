@@ -41,7 +41,7 @@ async function getSendoutInfo(name: string): Promise<Sendout> {
  */
 async function getSendoutsOfUserId(userId: number): Promise<Sendout[]> {
     const { rows } = await pool.query(
-        `SELECT schema, name, label, call FROM public.sendout WHERE user_id = (SELECT id FROM public.users WHERE telegram_id = $1)`,
+        `SELECT schema, name, label, call FROM public.sendout WHERE user_id = (SELECT id FROM public.user WHERE telegram_id = $1)`,
         [userId]
     );
     return rows;
