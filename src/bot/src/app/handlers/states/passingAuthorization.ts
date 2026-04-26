@@ -4,6 +4,12 @@ import common from '@utils/common';
 
 export default async function passingAuthorization(ctx: MyContext) {
     try {
+        const processingMsg = await ctx.reply(ctx.t("utils.shared.processing"), {
+            reply_markup: { remove_keyboard: true }
+        });
+        const processingMsgId = processingMsg?.message_id;
+        await common.deleteMessageProcessing(ctx, processingMsgId);
+
         if (ctx.message?.text === "❌ Отменить") {
             const menu = menuState.passingAuthorization(ctx);
             common.resetSessionStates(ctx.session);

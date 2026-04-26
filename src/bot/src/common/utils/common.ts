@@ -41,6 +41,35 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     }
 }
 
+/**
+ * Удаление сообщений при авторизации
+ */
+async function deleteMessageProcessing(ctx: MyContext, endMsgId?: number) {
+    try {
+        const commandId = ctx.session.other.ids.commandCabinetId;
+        const targetEndId = endMsgId || ctx.msgId;
+        
+        // Проверки: если нет данных — выходим
+        if (!commandId || !targetEndId || !ctx.chat?.id) return;
+
+        let count = 0;
+        const maxIterations = 100;
+
+        while (commandId <= targetEndId - count) {
+            if (count > maxIterations) break;
+
+            const targetId = targetEndId - count;
+            if (!targetId) break;
+
+            try {
+                await ctx.api.deleteMessage(ctx.chat.id, targetId);
+            } catch { }
+
+            count += 1;
+        }
+    } catch { }
+}
+
 function isAdminPhone(phone: string) {
     return phone === constants.adminData.phone;
 }
@@ -49,4 +78,5 @@ export default {
     resetSessionStates,
     setPrimaryValuesSession,
     isAdminPhone,
+    deleteMessageProcessing
 };

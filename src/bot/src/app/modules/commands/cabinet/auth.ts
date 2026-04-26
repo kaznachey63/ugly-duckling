@@ -14,7 +14,6 @@ authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
         reply_markup: menu.keyboard,
         parse_mode: 'MarkdownV2'
     });
-    ctx.session.other.ids.idForUpdateMessageFromState = msg?.message_id!
     ctx.session.other.ids.commandCabinetId = msg?.message_id!;    
 });
 
