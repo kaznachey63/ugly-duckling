@@ -1,6 +1,5 @@
 import type { LanguagesALlowed } from "@shared/types/LanguagesAllowed"
 import type { RoleCode } from "@shared/types/RoleCode"
-import type { LanguageCode } from "grammy/types"
 
 const link = {
     form: "https://forms.gle/i91r3EaCeigbuo479",
@@ -98,11 +97,6 @@ const roles: RoleCode[] = [
     "admin", "customer", "unknown"
 ];
 
-const CBdata = {
-    cabinet: "mainCabinet",
-    panel: "mainPanel"
-};
-
 export default {
     link,
     calendar,
@@ -114,5 +108,4 @@ export default {
     adminData,
     allowLanguages,
     roles,
-    CBdata,
 }

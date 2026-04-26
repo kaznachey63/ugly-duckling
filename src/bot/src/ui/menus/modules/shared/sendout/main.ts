@@ -2,7 +2,6 @@ import { InlineKeyboard } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import type { Menu } from '@shared/types/Menu';
 import format from '@utils/formatting';
-import constants from '@constants';
 
 /**
  * Меню раздела рассылки
@@ -30,7 +29,7 @@ export default function main(ctx: MyContext, amount: number): Menu<InlineKeyboar
     }
     else text.push(ctx.t("modules.shared.sendout.main.empty"));
     
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), userIsAdmin ? constants.CBdata.panel : constants.CBdata.cabinet);
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), userIsAdmin ? "mainPanel" : "mainCabinet");
 
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
 }

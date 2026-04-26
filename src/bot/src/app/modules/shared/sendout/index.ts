@@ -7,7 +7,7 @@ import viewComposer from './view';
 
 const sendoutComposer = new Composer<MyContext>();
 
-sendoutComposer.callbackQuery("mainSendout", async (ctx: MyContext) => {
+sendoutComposer.callbackQuery("mainSendouts", async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
     const menu = menuSendout(ctx, (await db.sendout.getAllSendouts())?.length!); // доработать метод бд
     await ctx.editMessageText(menu.text, {
