@@ -20,16 +20,13 @@ function resetSessionStates(session: SessionData) {
 
 async function setPrimaryValuesSession(ctx: MyContext) {
     // Присваивание инфо о рассылке и пользователе
-    ctx.session.user = ctx.session.user.phone ? (await db.user.getUser(ctx.session.user.phone))! : (await db.user.getUser(BigInt(ctx.from?.id!)))!;
-    
-    // присваивание роли
-    try {
-        ctx.session.isAdmin = ctx.session.user?.role.code === "admin";
+    if (await db.user.existsInDB(BigInt(ctx.from?.id!))) {
+        ctx.session.user = ctx.session.user.phone ? (await db.user.getUser(ctx.session.user.phone))! : (await db.user.getUser(BigInt(ctx.from?.id!)))!;
     }
-    catch {
+    else {
         ctx.session.user.role.code = 'unknown';
-        ctx.session.isAdmin = false;
     }
+    ctx.session.isAdmin = ctx.session.user?.role.code === "admin";
 
     const sendoutName = ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!;
     const infoDist = await db.sendout.getSendoutInfo(sendoutName);
