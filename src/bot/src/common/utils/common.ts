@@ -24,7 +24,7 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     
     // присваивание роли
     try {
-        ctx.session.isAdmin = ctx.session.user.role.code === "admin";
+        ctx.session.isAdmin = ctx.session.user?.role.code === "admin";
     }
     catch {
         ctx.session.user.role.code = 'unknown';
