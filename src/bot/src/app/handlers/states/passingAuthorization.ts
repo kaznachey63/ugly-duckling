@@ -8,7 +8,7 @@ export default async function passingAuthorization(ctx: MyContext) {
             const menu = menuState.passingAuthorization(ctx);
             common.resetSessionStates(ctx.session);
 
-            await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
+            await ctx.reply(menu.text, {
                 reply_markup: menu.keyboard,
                 parse_mode: "MarkdownV2"
             });
