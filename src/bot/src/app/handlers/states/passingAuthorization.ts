@@ -3,6 +3,12 @@ import menuState from '@menus/handlers/states';
 import common from '@utils/common';
 
 export default async function passingAuthorization(ctx: MyContext) {
+    if (!ctx.session.state.passingAuthorization) {
+        await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
+        try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
+        return;
+    }
+    
     try {
         const processingMsg = await ctx.reply(ctx.t("utils.shared.processing"), {
             reply_markup: { remove_keyboard: true }

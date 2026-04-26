@@ -3,7 +3,6 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuCabinet from '@menus/modules/commands/cabinet/main';
 import authComposer from './auth';
 import db from '@shared/db';
-import common from '@utils/common';
 
 const cabinetComposer = new Composer<MyContext>();
 

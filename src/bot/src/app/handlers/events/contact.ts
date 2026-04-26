@@ -10,7 +10,11 @@ import common from '@utils/common';
 const contactComposer = new Composer<MyContext>();
 
 contactComposer.on('message:contact', async (ctx: MyContext) => {
-    if (!ctx.session.state.passingAuthorization) return;
+    if (!ctx.session.state.passingAuthorization) {
+        await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
+        try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
+        return;
+    }
     
     try {
         const phoneNumber = ctx.message!.contact?.phone_number?.replace('+', '');
