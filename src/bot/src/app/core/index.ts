@@ -34,8 +34,6 @@ bot.on('message', async (ctx: MyContext, next: NextFunction) => {
         await ctx.api.sendChatAction(ctx.chat?.id!, "typing");
     }
     await utils.common.setPrimaryValuesSession(ctx);   
-    await utils.init.setupBotCommands(bot); 
-
     next();
 });
 
@@ -43,7 +41,6 @@ bot.on('callback_query', async (ctx: MyContext, next: NextFunction) => {
     try {
         console.log(ctx?.callbackQuery?.data);
         await utils.common.setPrimaryValuesSession(ctx);
-        await utils.init.setupBotCommands(bot); 
         await next();
     } finally {
         await ctx.answerCallbackQuery().catch(() => { });        

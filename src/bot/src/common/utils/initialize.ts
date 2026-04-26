@@ -60,7 +60,8 @@ function createDefaultSession(): SessionData {
 }
 
 // надо постоянно при кабинете и коллбеке вызывать
-async function setupBotCommands(bot: any) {
+async function setupBotCommands(bot: any) { // убрать
+    // return;
     await bot.api.deleteMyCommands({ scope: { type: 'all_private_chats' } });
     const languages: LanguagesALlowed[] = constants.allowLanguages;
 
@@ -101,6 +102,5 @@ function getCommandsForLanguage(lang: LanguageCode): BotCommand[] {
 }
 
 export default {
-    createDefaultSession,
-    setupBotCommands    
+    createDefaultSession
 }

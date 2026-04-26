@@ -33,17 +33,17 @@ function viewSendouts(ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard>
 function viewSendout(ctx: MyContext): Menu<InlineKeyboard> {
     const sendoutName = ctx.session.sendout.name;
     const text = [
-        ctx.t("modules.shared.sendout.view.sendout.main.sendout.title", { call: ctx.session.sendout.call }),
-        ctx.t("modules.shared.sendout.view.sendout.main.sendout.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
+        ctx.t("modules.shared.sendout.view.sendout.main.title", { call: ctx.session.sendout.call }),
+        ctx.t("modules.shared.sendout.view.sendout.main.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.shared.sendout.view.sendout.main.sendout.buttons.message"), `mainMessage:${sendoutName}`).row()
-        .text(ctx.t("modules.shared.sendout.view.sendout.main.sendout.buttons.schedule"), `mainSchedule:${sendoutName}`).row()
-        .text(ctx.t("modules.shared.sendout.view.sendout.main.sendout.buttons.statistic"), `mainStatistic:${sendoutName}`).row()
+        .text(ctx.t("modules.shared.sendout.view.sendout.main.buttons.message"), `mainMessage:${sendoutName}`).row()
+        .text(ctx.t("modules.shared.sendout.view.sendout.main.buttons.schedule"), `mainSchedule:${sendoutName}`).row()
+        .text(ctx.t("modules.shared.sendout.view.sendout.main.buttons.statistic"), `mainStatistic:${sendoutName}`).row()
     ;
     
-    if (ctx.session.isAdmin) keyboard.text(ctx.t("modules.shared.sendout.view.sendout.main.sendout.buttons.condition"), `mainCondition:${sendoutName}`).row();
+    if (ctx.session.isAdmin) keyboard.text(ctx.t("modules.shared.sendout.view.sendout.main.buttons.condition"), `mainCondition:${sendoutName}`).row();
         
     keyboard.text(ctx.t("utils.shared.buttons.back"), "viewSendouts");
     return { text: format.escapeMarkdown(text), keyboard };
