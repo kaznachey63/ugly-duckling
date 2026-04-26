@@ -22,7 +22,7 @@ function viewSendouts(ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard>
             `viewSendout:${cred.name}`
         ).row();
     });    
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), ctx.session.isAdmin ? "mainPanel" : "mainCabinet");
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), "mainSendouts");
 
     return { text: format.escapeMarkdown(text), keyboard };
 }
