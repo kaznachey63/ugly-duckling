@@ -37,7 +37,7 @@ bot.on('message', async (ctx: MyContext, next: NextFunction) => {
         // если вдруг пользователь не захочет использовать кнопки авторизации при авторизации
         common.resetSessionStates(ctx.session);
         await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
-        await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1);
+        try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
     }
     await utils.common.setPrimaryValuesSession(ctx);   
     next();
