@@ -17,6 +17,7 @@ function resetSessionStates(session: SessionData) {
     session.other.media.positionId = 0;
     session.state.addingIdea = false;
     session.state.addingUser = false;
+    session.state.passingAuthorization = false;
 }
 
 async function setPrimaryValuesSession(ctx: MyContext) {
