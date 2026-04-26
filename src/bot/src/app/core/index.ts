@@ -5,6 +5,7 @@ import { i18nMiddleware } from '@i18n';
 import utils from '@utils';
 import modulesComposer from 'src/app/modules';
 import eventsComposer from '@events';
+import common from '@utils/common';
 
 const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
 
@@ -32,6 +33,9 @@ bot.use(i18nMiddleware);
 bot.on('message', async (ctx: MyContext, next: NextFunction) => {
     if (ctx.message?.text?.startsWith('/')) {
         await ctx.api.sendChatAction(ctx.chat?.id!, "typing");
+        
+        // если вдруг пользователь не захочет использовать кнопки авторизации при авторизации
+        common.resetSessionStates(ctx.session);
         await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
         await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1);
     }

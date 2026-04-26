@@ -10,6 +10,8 @@ import common from '@utils/common';
 const contactComposer = new Composer<MyContext>();
 
 contactComposer.on('message:contact', async (ctx: MyContext) => {
+    if (!ctx.session.state.passingAuthorization) return;
+    
     try {
         const phoneNumber = ctx.message!.contact?.phone_number?.replace('+', '');
         if (!phoneNumber) return;
