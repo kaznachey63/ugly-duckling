@@ -4,6 +4,7 @@ import common from '@utils/common';
 
 export default async function passingAuthorization(ctx: MyContext) {
     if (!ctx.session.state.passingAuthorization) {
+        await ctx.deleteMessage();
         await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
         try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
         return;
