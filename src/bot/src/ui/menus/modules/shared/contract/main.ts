@@ -39,8 +39,8 @@ function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
 function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboard> {   
     const userIsAdmin = ctx.session.isAdmin;
     const text = [
-        ctx.t("modules.shared.contract.view.contracts.title"),
-        ctx.t("modules.shared.contract.view.contracts.path",  { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
+        ctx.t("modules.shared.contract.view.contract.title"),
+        ctx.t("modules.shared.contract.view.contract.path",  { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard();
@@ -67,11 +67,11 @@ function viewContract(ctx: MyContext, contract: Contract): Menu<InlineKeyboard> 
         .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: contract.dateStart ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: contract.dateEnd ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateEnd#${contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${contract.id}`).row()
-        .text(ctx.t("utils.shared.buttons.export"), `mainExportContract#${contract.id}`).row()
+        .text(ctx.t("utils.shared.buttons.export"), `mainExportContract#${contract.id}`)
     ;
 
-    if (userIsAdmin) keyboard.text(ctx.t("utils.shared.buttons.remove"), `removeContract#${contract.id}`).style("danger").row()
-    keyboard.text(ctx.t("utils.shared.buttons.back"), "viewContracts");
+    if (userIsAdmin) keyboard.text(ctx.t("utils.shared.buttons.remove"), `removeContract#${contract.id}`).style("danger")
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), "viewContracts");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
