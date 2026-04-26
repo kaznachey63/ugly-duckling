@@ -34,6 +34,7 @@ function createDefaultSession(): SessionData {
             updatingTime: false,
             addingIdea: false,
             addingUser: false,
+            passingAuthorization: false,
         },
         other: {
             ids: {

@@ -125,6 +125,16 @@ function addingUser(ctx: MyContext, result: boolean, validate: boolean) {
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
 }
 
+function passingAuthorization(ctx: MyContext) {
+    const text = [
+        ctx.t("modules.commands.cabinet.auth.login.canceled"),
+        ctx.t("modules.commands.cabinet.auth.login.pathCancel")
+    ].join('\n');
+
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
+    return { text: format.escapeMarkdown(text), keyboard }
+}
+
 export default {
     addingText,
     updatingText,
@@ -132,5 +142,6 @@ export default {
     addingMedia,
     addingIdea,
     addingOrUpdateTime,
-    addingUser
+    addingUser,
+    passingAuthorization,
 }

@@ -15,6 +15,8 @@ export interface SessionData {
         updatingTime: boolean;
         addingIdea: boolean;
         addingUser: boolean;
+        passingAuthorization: boolean;
+
     };
     other: {
         ids: {

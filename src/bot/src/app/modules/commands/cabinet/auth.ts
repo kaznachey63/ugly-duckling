@@ -6,6 +6,7 @@ import menuAuth from '@menus/modules/commands/cabinet/auth';
 const authComposer = new Composer<MyContext>();
 
 authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
+    ctx.session.state.passingAuthorization = true;
     await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId!);
     
     const menu = menuAuth.sendLogin(ctx);

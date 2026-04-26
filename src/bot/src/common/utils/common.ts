@@ -1,5 +1,6 @@
 import type { MyContext, SessionData } from '@shared/types/SessionData';
 import db from "@shared/db";
+import constants from '@constants';
 
 /**
  * Сброс сессии
@@ -40,7 +41,12 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     }
 }
 
+function isAdminPhone(phone: string) {
+    return phone === constants.adminData.phone;
+}
+
 export default {
     resetSessionStates,
     setPrimaryValuesSession,
+    isAdminPhone,
 };

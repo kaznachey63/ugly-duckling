@@ -5,6 +5,7 @@ import menuContact from "@menus/handlers/events/contact";
 import menuAuth from '@menus/modules/commands/cabinet/auth';
 import type { User } from '@shared/types/User';
 import localization from '@utils/localization';
+import common from '@utils/common';
 
 const contactComposer = new Composer<MyContext>();
 
@@ -18,13 +19,14 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             reply_markup: { remove_keyboard: true }
         });
         
+        const isAdminPhone = common.isAdminPhone(phoneNumber);
         const processingMsgId = processingMsg?.message_id;
         if (await db.user.existsInDB(BigInt(ctx!.from!.id!))) {
             await ctx.reply(ctx.t("modules.commands.cabinet.auth.login.already"), { 
                 parse_mode: "MarkdownV2" 
             });  
         }
-        else if (await db.user.matchPhoneNumber(phoneNumber) || ctx.session.isAdmin) { // возожн лишняя проверка на админа
+        else if (await db.user.matchPhoneNumber(phoneNumber) || isAdminPhone) { 
             ctx.session.user.phone = phoneNumber;
             
             // 3. Удаляем, передавая ID сообщения обработки
@@ -33,7 +35,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             let menu;
             try {
                 const user = formatUser(ctx);
-                if (ctx.session.isAdmin) await db.user.insertToDB(user); // по сути проверка чисто на меня
+                if (isAdminPhone) await db.user.insertToDB(user); // по сути проверка чисто на меня
                 else await db.user.updateData(user); // проверка на остальных
 
                 menu = menuAuth.processLogin(ctx, true);
@@ -93,7 +95,7 @@ function formatUser(ctx: MyContext): User {
     const firstName = ctx.from?.first_name!;
     const lastName = ctx.from?.last_name!;
     const phone = ctx.session?.user?.phone!;
-    const roleId = phone == "79371807522" ? 1 : 2;
+    const roleId = common.isAdminPhone(ctx.session.user.phone!) ? 1 : 2;
 
     return {
         telegramId: BigInt(ctx.from?.id!),
