@@ -39,8 +39,8 @@ function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
 function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboard> {   
     const userIsAdmin = ctx.session.isAdmin;
     const text = [
-        ctx.t("modules.shared.contract.view.contract.main.title"),
-        ctx.t("modules.shared.contract.view.contract.main.path",  { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
+        ctx.t("modules.shared.contract.view.main.title"),
+        ctx.t("modules.shared.contract.view.main.path",  { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard();
