@@ -13,9 +13,9 @@ function sendLogin(ctx: MyContext): Menu<Keyboard> {
     ].join('\n\n');
     
     const keyboard = new Keyboard()
-        .requestContact(
-            ctx.t("modules.commands.cabinet.auth.login.button")
-        ).resized().oneTime()
+        .requestContact(ctx.t("modules.commands.cabinet.auth.login.button"))
+        .text(ctx.t("modules.commands.cabinet.auth.login.cancel"))
+        .resized().oneTime()
     ;
     
     return { text: format.escapeMarkdown(text), keyboard }
