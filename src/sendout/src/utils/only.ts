@@ -1,4 +1,3 @@
-// src/distribution/helpers/sequentialLogic.ts
 import type { Message } from '@shared/types/Message';
 
 const CONFIG = {

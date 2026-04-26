@@ -1,6 +1,6 @@
 import '@shared/env'; // ← ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ
 
-import { Distribution } from '../distribution/Distribution';
+import { Sendout} from '../modules/Sendout';
 import utils from '../utils';
 import { TelegramClient } from "telegram";
 import { StringSession } from 'telegram/sessions';
@@ -33,7 +33,7 @@ async function main() {
         await client.connect();
         await utils.auth.start(client);
 
-        const distribution = new Distribution(client);
+        const distribution = new Sendout(client);
         await distribution.initialize();
 
         console.log(`✅ Рассылка "${name}" запущена`);

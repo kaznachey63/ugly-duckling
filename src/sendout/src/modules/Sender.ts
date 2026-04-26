@@ -69,7 +69,8 @@ export class Sender {
     }
 
     private async sendMedia(entity: any, message: Message, htmlCaption: string) {
-        const files = await this.prepareMedia(message.media);
+        const files = await this.prepareMedia(message.media!);
+        
         // Используем entity вместо chatId
         return await this.client.sendFile(entity, {
             file: files,

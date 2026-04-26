@@ -6,7 +6,7 @@ import type { ChatWithPermission } from "@shared/types/ChatWithPermission"
 import utils from '../utils';
 import db from '@shared/db';
 import { TelegramClient, Api } from "telegram";
-import { Sender } from '../distribution/Sender';
+import { Sender } from './Sender';
 import cron from 'node-cron';
 
 export class Scheduler {

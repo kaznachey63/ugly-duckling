@@ -1,10 +1,10 @@
-import { Scheduler } from '../distribution/Scheduler';
+import { Scheduler } from './Scheduler';
 import { TelegramClient } from "telegram";
 
 /**
  * Класс для рассылки по чатам
  */
-export class Distribution {
+export class Sendout {
     private readonly scheduler: Scheduler;
 
     constructor(client: TelegramClient) {
