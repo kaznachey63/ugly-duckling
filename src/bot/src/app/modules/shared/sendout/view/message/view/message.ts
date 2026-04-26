@@ -1,6 +1,6 @@
 import db from '@shared/db';
 import { Composer } from 'grammy';
-import menuView from '@menus/modules/shared/sendout/message/view';
+import menuView from '@menus/modules/shared/sendout/view/message/view';
 import { ServerManager } from "src/common/services/ServerManager";
 import type { MyContext } from '@shared/types/SessionData';
 

@@ -58,6 +58,16 @@ async function getAllSendouts(): Promise<Sendout[]> {
 }
 
 /**
+ * Получение всех рассылок
+ */
+async function getSendouts(): Promise<Sendout[]> {
+    const { rows } = await pool.query(
+        'SELECT FROM public.sendout'
+    );
+    return rows;
+}
+
+/**
  * Получение схемы (для рассылки)
  */
 function getSchema(): string | undefined {

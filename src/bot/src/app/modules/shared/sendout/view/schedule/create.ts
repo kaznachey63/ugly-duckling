@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuCreate from '@menus/modules/shared/sendout/schedule/create';
+import menuCreate from '@menus/modules/shared/sendout/view/schedule/create';
 
 const createComposer = new Composer<MyContext>();
 

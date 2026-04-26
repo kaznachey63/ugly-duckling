@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
-import menuCreate from '@menus/modules/shared/sendout/message/create';
-import menuView from '@menus/modules/shared/sendout/message/view';
+import menuCreate from '@menus/modules/shared/sendout/view/message/create';
+import menuView from '@menus/modules/shared/sendout/view/message/view';
 import type { MyContext } from '@shared/types/SessionData';
 
 const textComposer = new Composer<MyContext>();

@@ -1,5 +1,5 @@
 import type { MyContext } from '@shared/types/SessionData';
-import menuCreate from '@menus/modules/shared/sendout/message/create';
+import menuCreate from '@menus/modules/shared/sendout/view/message/create';
 import { Composer } from 'grammy';
 import { ServerManager } from "src/common/services/ServerManager";
 import db from "@shared/db";
