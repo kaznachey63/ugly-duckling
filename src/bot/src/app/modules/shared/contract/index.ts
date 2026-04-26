@@ -9,7 +9,7 @@ const contractComposer = new Composer<MyContext>();
 /**
  * Главное меню раздела договоры
  */
-contractComposer.callbackQuery("mainContract", async (ctx: MyContext) => {
+contractComposer.callbackQuery("mainContracts", async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
     const menu = menuContracts.main(ctx, (await db.contract.getContracts())?.length!);
     await ctx.editMessageText(menu.text, {

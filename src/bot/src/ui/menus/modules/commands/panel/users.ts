@@ -15,7 +15,7 @@ function main(ctx: MyContext, amountOfUsers: number): Menu<InlineKeyboard> {
         ctx.t("modules.commands.panel.user.main.path")
     ].join('\n');
     
-    const keyboard = new InlineKeyboard().text(ctx.t("modules.commands.panel.user.main.buttons.create"), "createUser").style("success");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.create"), "createUser").style("success");
     
     if (amountOfUsers > 0) {
         keyboard
@@ -31,8 +31,8 @@ function main(ctx: MyContext, amountOfUsers: number): Menu<InlineKeyboard> {
 
 function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {   
     const text = [
-        ctx.t("modules.commands.panel.user.view.user.title"),
-        ctx.t("modules.commands.panel.user.view.user.path"),
+        ctx.t("modules.commands.panel.user.view.main.title"),
+        ctx.t("modules.commands.panel.user.view.main.path"),
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard();
