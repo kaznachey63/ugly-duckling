@@ -43,10 +43,10 @@ function processLogin(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 function logout(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [ 
         result ? 
-            ctx.t("modules.commands.cabinet.profile.auth.logout.good") :
-            ctx.t("modules.commands.cabinet.profile.auth.logout.bad")
+            ctx.t("modules.commands.cabinet.auth.logout.good") :
+            ctx.t("modules.commands.cabinet.auth.logout.bad")
         ,
-        ctx.t("modules.commands.cabinet.profile.auth.logout.path")
+        ctx.t("modules.commands.cabinet.auth.logout.path")
     ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
 

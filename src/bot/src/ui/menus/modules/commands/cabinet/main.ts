@@ -22,7 +22,7 @@ export default function main(ctx: MyContext, userExistsInDB: boolean, userIsAdmi
 
     if (userExistsInDB) keyboard.row().text(ctx.t("modules.commands.cabinet.main.buttons.logout"), "logoutAuth");
 
-    else keyboard.text(ctx.t("modules.commands.cabinet.buttons.login"), "loginAuth").row()
+    else keyboard.text(ctx.t("modules.commands.cabinet.main.buttons.login"), "loginAuth").row()
 
     return { text: format.escapeMarkdown(text), keyboard };
 }
