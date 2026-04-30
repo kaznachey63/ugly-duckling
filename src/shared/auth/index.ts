@@ -2,11 +2,12 @@ import { TelegramClient } from 'telegram';
 import prompts from 'prompts';
 import { StringSession } from 'telegram/sessions';
 import type { SendoutWithCred } from '@shared/types/SendoutWithCred';
+import type { Sendout } from '@shared/types/db';
 
-async function start2(distribution: SendoutWithCred): Promise<TelegramClient> {
-    const stringSession = new StringSession(distribution.stringSession || "");
+async function start2(distribution: Sendout): Promise<TelegramClient> {
+    const stringSession = new StringSession(distribution.credential?.string_session || "");
 
-    const client = new TelegramClient(stringSession, distribution.apiId, distribution.apiHash, {
+    const client = new TelegramClient(stringSession, Number(distribution.credential?.api_id!), distribution.credential?.api_hash!, {
         connectionRetries: 5,
     });
 

@@ -1,4 +1,4 @@
-import db from "@shared/db";
+import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
 import menuChat from "@menus/modules/commands/panel/chats";
 import { ServerManager } from "src/common/services/ServerManager";
@@ -11,7 +11,7 @@ const chatsComposer = new Composer<MyContext>();
  * Главная страница раздела чаты
  */
 chatsComposer.callbackQuery("mainChats", async (ctx: MyContext) => {
-    const menu = menuChat.main(ctx, (await db.chat.getChats())?.length!);
+    const menu = menuChat.main(ctx, (await db.chat.get())?.length!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard
@@ -23,9 +23,9 @@ chatsComposer.callbackQuery("mainChats", async (ctx: MyContext) => {
  */
 chatsComposer.callbackQuery("clearChats", async (ctx: MyContext) => {
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
-    await db.chat.clearTable();
+    await db.chat.clear();
     
-    const menu = menuChat.clear(ctx, (await db.chat.getChats())?.length!);
+    const menu = menuChat.clear(ctx, (await db.chat.get())?.length!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard

@@ -5,8 +5,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "target": "esnext",
-
-    "ignoreDeprecations": "6.0",
+    "exactOptionalPropertyTypes": false,
     "types": ["node"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

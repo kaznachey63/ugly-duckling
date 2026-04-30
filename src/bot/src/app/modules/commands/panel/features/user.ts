@@ -11,7 +11,7 @@ const usersComposer = new Composer<MyContext>();
  */
 usersComposer.callbackQuery("mainUsers", async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
-    const menu = menuUsers.main(ctx, (await db.user.getUsers())?.length!);
+    const menu = menuUsers.main(ctx, (await db.user.gets())?.length!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard
@@ -22,7 +22,7 @@ usersComposer.callbackQuery("mainUsers", async (ctx: MyContext) => {
  * Отображение списка пользователей
  */
 usersComposer.callbackQuery("viewUsers", async (ctx: MyContext) => {
-    const menu = menuUsers.viewUsers(ctx, await db.user.getUsers());
+    const menu = menuUsers.viewUsers(ctx, await db.user.gets());
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,
@@ -34,7 +34,7 @@ usersComposer.callbackQuery("viewUsers", async (ctx: MyContext) => {
  */
 usersComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-    const menu = menuUsers.viewUser(ctx, (await db.user.getUser(userId))!);
+    const menu = menuUsers.viewUser(ctx, (await db.user.get(userId))!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,
@@ -63,7 +63,7 @@ usersComposer.callbackQuery("createUser", async (ctx: MyContext) => {
  */
 usersComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-    const user = (await db.user.getUser(userId))!;
+    const user = (await db.user.get(userId))!;
     let menu;
     if (await db.user.removeFromSystem(userId)) {
         menu = menuUsers.remove(ctx, user, true);

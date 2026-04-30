@@ -104,7 +104,7 @@ function addingOrUpdateTime(ctx: MyContext, resultRestart: boolean, validate: bo
 }
 
 function addingUser(ctx: MyContext, result: boolean, validate: boolean) {
-    const text = [ ctx.t("handlers.states.addingUser.path", { call: ctx.session.sendout.call }) ];
+    const text = [ ctx.t("handlers.states.addingUser.path") ];
     const keyboard = new InlineKeyboard();
 
     if (!validate){
@@ -135,6 +135,28 @@ function passingAuthorization(ctx: MyContext) {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
+function addingContract(ctx: MyContext, result: boolean, validate: boolean) {
+    const text = [ ctx.t("handlers.states.addingContract.path") ];
+    const keyboard = new InlineKeyboard();
+
+    if (!validate){
+        text.unshift(ctx.t("utils.shared.titles.validate"));
+        keyboard.text(ctx.t("utils.shared.buttons.back"), "mainContract");
+    } 
+    else {
+        if (result) {
+            text.unshift(ctx.t("handlers.states.addingContract.success"));
+            keyboard.text(ctx.t("utils.shared.buttons.back"), "viewContracts");
+        }
+        else {
+            text.unshift(ctx.t("handlers.states.addingContract.error"));
+            keyboard.text(ctx.t("utils.shared.buttons.back"), "viewContracts");
+        }
+    }
+
+    return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
+}
+
 export default {
     addingText,
     updatingText,
@@ -144,4 +166,5 @@ export default {
     addingOrUpdateTime,
     addingUser,
     passingAuthorization,
+    addingContract
 }

@@ -1,20 +1,18 @@
-import { getPool } from '../pool';
-const pool = getPool();
-import type { Chat } from '@shared/types/Chat';
+import prisma from '@shared/db/config';
+import type { Chat } from '@shared/types/db';
 
 /**
  * Вставка чатов
  */
-async function insertChats(list: Chat[]) {
-    const chatIds = list.map(chat => chat.id);
-    const titles = list.map(chat => chat.title);
-    const links = list.map(chat => chat.link);
+async function insert(list: Chat[]) {
     try {
-        await pool.query(
-            `INSERT INTO public.chat (chat_id, title, link)
-            SELECT * FROM UNNEST($1::TEXT[], $2::TEXT[], $3::TEXT[])`,
-            [chatIds, titles, links]
-        );
+        await prisma.chat.createMany({
+            data: list.map(chat => ({
+                chat_id: String(chat.id),
+                title: chat.title!,
+                link: chat.link!
+            }))
+        });
     } catch (error) {
         console.error("Ошибка при вставке чатов", error);
     }
@@ -23,49 +21,29 @@ async function insertChats(list: Chat[]) {
 /**
  * Получение чатов
  */
-async function getChats(): Promise<Chat[] | undefined> {
+async function get(): Promise<Chat[] | undefined> {
     try {
-        const { rows } = await pool.query(`SELECT chat_id, title, link FROM public.chat`);
-        return rows.map(r => {
-            return {
-                id: r.chat_id,
-                title: r.title,
-                link: r.link,
-            }
-        });
+        return await prisma.chat.findMany();
     } catch (error) {
         console.error("Ошибка при получении чатов", error);
+        return undefined;
     }
 }
 
 /**
  * Очистка списка чатов
  */
-async function clearTable() {
+async function clear() {
     try {
-        await pool.query(`TRUNCATE TABLE public.chat RESTART IDENTITY`);
+        await prisma.chat.deleteMany();
+        await prisma.$executeRaw`TRUNCATE TABLE public.chat RESTART IDENTITY`;
     } catch (error) {
         console.error("Ошибка при очистке чатов", error);
     }
 }
 
-async function getChatsInfo(chats: string[]): Promise<Chat[] | undefined> {
-    try {
-        const res = await pool.query(
-            "SELECT public.get_chats_info($1) AS chats",
-            [JSON.stringify(chats)]
-        );
-
-        return res.rows[0].chats;
-    } catch (error) {
-        console.error(error);
-        return undefined;
-    }
-}
-
 export default {
-    insertChats,
-    getChats,
-    getChatsInfo,
-    clearTable
+    insert,
+    get,
+    clear
 }

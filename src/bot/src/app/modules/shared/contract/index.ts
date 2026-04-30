@@ -19,10 +19,11 @@ contractComposer.callbackQuery("mainContracts", async (ctx: MyContext) => {
 });
 
 /**
- * Отображение списка контрактов
+ * Отображение списка договоров
  */
 contractComposer.callbackQuery("viewContracts", async (ctx: MyContext) => {
-    const contracts = ctx.session.isAdmin ? await db.contract.getContracts() : await db.contract.getContractsByUser(BigInt(ctx?.from!.id));
+    const contracts = ctx.session.isAdmin ? await db.contract.getContracts() : await db.contract.getContractsByUserId(BigInt(ctx?.from!.id));
+
     const menu = menuContracts.viewContracts(ctx, contracts);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
@@ -31,11 +32,11 @@ contractComposer.callbackQuery("viewContracts", async (ctx: MyContext) => {
 });
 
 /**
- * Отображение выбранного пользователя
+ * Отображение договора за конкретным пользователем
  */
 contractComposer.callbackQuery(/^viewContract#/, async (ctx: MyContext) => {
     const contractId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-    const menu = menuContracts.viewContract(ctx, (await db.contract.getContractById(contractId))!);
+    const menu = menuContracts.viewContract(ctx, (await db.contract.getById(contractId))!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,
@@ -47,9 +48,9 @@ contractComposer.callbackQuery(/^viewContract#/, async (ctx: MyContext) => {
  */
 contractComposer.callbackQuery(/^removeContract#/, async (ctx: MyContext) => {
     const contractId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-    const contract = (await db.contract.getContractById(contractId))!;
+    const contract = (await db.contract.getById(contractId))!;
     let menu;
-    if (await db.contract.removeContractById(contractId)) {
+    if (await db.contract.removeById(contractId)) {
         menu = menuContracts.remove(ctx, contract, true);
     }
     else {
@@ -62,23 +63,22 @@ contractComposer.callbackQuery(/^removeContract#/, async (ctx: MyContext) => {
     });
 });
 
-// /**
-//  * Создание договора
-//  */
-// contractComposer.callbackQuery("createContract", async (ctx: MyContext) => {
-//     ctx.session.state.addingContract = true;
-//     const menu = menuContracts.create(ctx);
-//     const msg = await ctx.editMessageText(menu.text, {
-//         parse_mode: "MarkdownV2",
-//         reply_markup: menu.keyboard,
-//     });
+/**
+ * Создание договора
+ */
+contractComposer.callbackQuery("createContract", async (ctx: MyContext) => {
+    ctx.session.state.addingContract = true;
+    const menu = menuContracts.create(ctx);
+    const msg = await ctx.editMessageText(menu.text, {
+        parse_mode: "MarkdownV2",
+        reply_markup: menu.keyboard,
+    });
 
-//     // Сохранение айди для последующего редактирования этого же сообщения
-//     if (typeof msg !== "boolean" && "message_id" in msg) {
-//         ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
-//     }
-// });
-
+    // Сохранение айди для последующего редактирования этого же сообщения
+    if (typeof msg !== "boolean" && "message_id" in msg) {
+        ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+    }
+});
 
 export default contractComposer;
 

@@ -1,41 +1,40 @@
-import type { ContractRow } from '@shared/types/ContractRow';
-import { getPool } from '../pool';
-const pool = getPool();
-import type { Contract } from '@shared/types/Contract';
+import prisma from '@shared/db/config';
+import type { Contract } from '@shared/types/db';
+
+/**
+ * Получение всех договоров
+ */
+async function getContracts(): Promise<Contract[]> {
+    return await prisma.contract.findMany({
+        include: {
+            user: {
+                include: {
+                    role: true
+                }
+            }
+        }
+    });
+};
 
 /**
  * Получение договоров на конкреного заказчика
  */
-async function getContractsByUser(userId: bigint): Promise<Contract[]> {
+async function getContractsByUserId(userId: bigint): Promise<Contract[]> {
     try {
-        const { rows } = await pool.query<ContractRow>(
-            `SELECT c.id, c.date_start, c.date_end, c.price, c.user_id, 
-                    u.name, u.telegram_id, u.username, u.phone, u.language, 
-                    r.code as role_code
-            FROM public.contract c 
-            INNER JOIN public.user u ON c.user_id = u.id
-            LEFT JOIN public.role r ON r.id = u.role_id
-            WHERE u.telegram_id = $1`,
-            [userId]
-        );
-        
-        return rows.map((row) => ({
-            id: row.id,
-            user: {
-                id: row.user_id,
-                telegramId: row.telegram_id,
-                name: row.name,
-                username: row.username,
-                phone: row.phone,
-                language: row.language,
-                role: {
-                    code: row.role_code
+        return await prisma.contract.findMany({
+            include: { 
+                user: {
+                    include: {
+                        role: true
+                    }
                 }
             },
-            dateStart: row.date_start,
-            dateEnd: row.date_end,
-            price: row.price
-        }));
+            where: {
+                user: {
+                    telegram_id: userId
+                },
+            }
+        });
     } catch (error) {
         console.error("Ошибка при получении договоров", error);
         return [];
@@ -45,90 +44,37 @@ async function getContractsByUser(userId: bigint): Promise<Contract[]> {
 /**
  * Получение договора по его айди
  */
-async function getContractById(id: number): Promise<Contract | null> {
+async function getById(contractId: number): Promise<Contract | null> {
     try {
-        const { rows } = await pool.query<ContractRow>(
-            `SELECT c.id, c.date_start, c.date_end, c.price, c.user_id, 
-                    u.name, u.telegram_id, u.username, u.phone, u.language, 
-                    r.code as role_code
-            FROM public.contract c 
-            INNER JOIN public.user u ON c.user_id = u.id
-            LEFT JOIN public.role r ON r.id = u.role_id
-            WHERE c.id = $1`,
-            [id]
-        );
-        
-        if (rows.length === 0) return null;
-        
-        return {
-            id: rows[0]!.id,
-            user: {
-                id: rows[0]!.user_id,
-                telegramId: rows[0]!.telegram_id,
-                name: rows[0]!.name,
-                username: rows[0]!.username,
-                phone: rows[0]!.phone,
-                language: rows[0]!.language,
-                role: {
-                    code: rows[0]!.role_code
+        return await prisma.contract.findFirst({
+            include: { 
+                user: {
+                    include: {
+                        role: true
+                    }
                 }
             },
-            dateStart: rows[0]!.date_start,
-            dateEnd: rows[0]!.date_end,
-            price: rows[0]!.price
-        };
+            where: {
+                id: contractId
+            }
+        });
     } catch (error) {
         console.error("Ошибка при получении договора", error);
         return null;
     }
 }
 
-/**
- * Получение всех договоров
- */
-async function getContracts(): Promise<Contract[]> {
-    try {
-        const { rows } = await pool.query<ContractRow>(
-            `SELECT c.id, c.date_start, c.date_end, c.price, c.user_id, 
-                    u.name, u.telegram_id, u.username, u.phone, u.language, 
-                    r.code as role_code
-            FROM public.contract c 
-            INNER JOIN public.user u ON c.user_id = u.id
-            LEFT JOIN public.role r ON r.id = u.role_id`
-        );
-        
-        return rows.map((row) => ({
-            id: row.id,
-            user: {
-                id: row.user_id,
-                telegramId: row.telegram_id,
-                name: row.name,
-                username: row.username,
-                phone: row.phone,
-                language: row.language,
-                role: {
-                    code: row.role_code
-                }
-            },
-            dateStart: row.date_start,
-            dateEnd: row.date_end,
-            price: row.price
-        }));
-    } catch (error) {
-        console.error("Ошибка при получении договоров", error);
-        return [];
-    }
-}
 
 /**
  * Удаление договора по айди
  */
-async function removeContractById(contractId: number) {
+async function removeById(contractId: number): Promise<boolean> {
     try {
-        await pool.query(
-            `DELETE FROM public.contract WHERE contracts = $1`,
-            [contractId]
-        );
+        await prisma.contract.delete({
+            where: {
+                id: contractId
+            }
+        });
         return true;
     } catch (error) {
         console.error("Ошибка при удалении пользователя", error);
@@ -137,26 +83,29 @@ async function removeContractById(contractId: number) {
 }
 
 /**
- * Вставка пользователя
+ * Вставка договора
  */
-// async function insertToDB(contract: Contract): Promise<boolean> {
-//     try {
-//         await pool.query(
-//             `INSERT INTO public.user (telegram_id, name, username, phone, language, role_id)
-//              VALUES ($1, $2, $3, $4, $5, $6)`,
-//             [user.telegramId, user.name, user.username, user.phone, user.language, user.role?.id]
-//         );
-//         return true;
-//     } catch (error) {
-//         console.error("Ошибка при вставке пользователя", error);
-//         return false;
-//     }
-// }
+async function insert(contract: Contract): Promise<boolean> {
+    try {
+        await prisma.contract.create({
+            data: {
+                user_id: contract.user_id,
+                date_start: contract.date_start,
+                date_end: contract.date_start,
+                price: contract.price,
+            }
+        });
+        return true;
+    } catch (error) {
+        console.error("Ошибка при вставке контракта", error);
+        return false;
+    }
+}
 
 export default {
     getContracts,
-    getContractsByUser,
-    getContractById,
-    removeContractById,
-    // insertToDB,
+    getContractsByUserId,
+    getById,
+    removeById,
+    insert,
 }

@@ -9,7 +9,7 @@ const sendoutComposer = new Composer<MyContext>();
 
 sendoutComposer.callbackQuery("mainSendouts", async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
-    const menu = menuSendout(ctx, (await db.sendout.getAllSendouts())?.length!); // доработать метод бд
+    const menu = menuSendout(ctx, (await db.sendout.getSendouts())?.length!); // доработать метод бд
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard

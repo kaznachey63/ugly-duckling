@@ -10,12 +10,13 @@ function createDefaultSession(): SessionData {
     return {
         isAdmin: false,
         user: {
-            telegramId: BigInt(0),
+            telegram_id: BigInt(0),
             language: 'ru',
             name: "",
             phone: "",
             username: "",
             role: {
+                id: 0,
                 code: "unknown"
             }
         },
@@ -35,6 +36,7 @@ function createDefaultSession(): SessionData {
             addingIdea: false,
             addingUser: false,
             passingAuthorization: false,
+            addingContract: false
         },
         other: {
             ids: {

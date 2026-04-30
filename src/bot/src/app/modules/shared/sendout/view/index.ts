@@ -6,7 +6,7 @@ import scheduleComposer from './schedule';
 import statisticsComposer from './statistic';
 import messageComposer from './message';
 import db from '@shared/db';
-import type { Sendout } from '@shared/types/Sendout';
+import type { Sendout } from '@shared/types/db';
 
 const viewComposer = new Composer<MyContext>();
 
@@ -15,7 +15,7 @@ viewComposer.callbackQuery("viewSendouts", async (ctx: MyContext) => {
     // await ctx.reply(ctx.t("utils.shared.processing"), { reply_markup: { remove_keyboard: true } });        
 
     // Получение рассылок
-    const sendouts = ctx.session.isAdmin ? await db.sendout.getAllSendouts() : await db.sendout.getSendoutsOfUserId(ctx.from?.id!);
+    const sendouts = ctx.session.isAdmin ? await db.sendout.getSendouts() : await db.sendout.getSendoutsOfUserId(BigInt(ctx.from?.id!));
     if (!sendouts.length) return ctx.answerCallbackQuery({ text: ctx.t("modules.commands.cabinet.distribution.main.sendouts.noSendouts"), show_alert: true });
     
     // Сортировка
@@ -29,8 +29,8 @@ viewComposer.callbackQuery("viewSendouts", async (ctx: MyContext) => {
 
         // 2. Шаблон "Любой текст №число"
         const regex = /^(.+?)\s*№(\d+)$/i;
-        const matchA = displayA.match(regex);
-        const matchB = displayB.match(regex);
+        const matchA = displayA!.match(regex);
+        const matchB = displayB!.match(regex);
 
         if (matchA && matchB) {
             const prefixA = matchA[1]!.trim();
@@ -47,7 +47,7 @@ viewComposer.callbackQuery("viewSendouts", async (ctx: MyContext) => {
         if (matchB) return 1;
 
         // 3. Остальные — алфавитный порядок
-        return displayA.localeCompare(displayB, 'ru', { sensitivity: 'base' });
+        return displayA!.localeCompare(displayB!, 'ru', { sensitivity: 'base' });
     });
 
     const menu = menuSendout.viewSendouts(ctx, sorted);

@@ -3,7 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import menuContact from "@menus/handlers/events/contact";
 import menuAuth from '@menus/modules/commands/cabinet/auth';
-import type { User } from '@shared/types/User';
+import type { User } from '@shared/types/db';
 import localization from '@utils/localization';
 import common from '@utils/common';
 
@@ -28,7 +28,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         
         const isAdminPhone = common.isAdminPhone(phoneNumber);
         const processingMsgId = processingMsg?.message_id;
-        if (await db.user.existsInDB(BigInt(ctx!.from!.id!))) {
+        if (await db.user.exists(BigInt(ctx!.from!.id!))) {
             await ctx.reply(ctx.t("modules.commands.cabinet.auth.login.already"), { 
                 parse_mode: "MarkdownV2" 
             });  
@@ -42,8 +42,8 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             let menu;
             try {
                 const user = formatUser(ctx);
-                if (isAdminPhone) await db.user.insertToDB(user); // по сути проверка чисто на меня
-                else await db.user.updateData(user); // проверка на остальных
+                if (isAdminPhone) await db.user.insert(user); // по сути проверка чисто на меня
+                else await db.user.updateUser(user); // проверка на остальных
 
                 menu = menuAuth.processLogin(ctx, true);
                 await ctx.reply(menu.text, { 
@@ -79,15 +79,16 @@ function formatUser(ctx: MyContext): User {
     const roleId = common.isAdminPhone(ctx.session.user.phone!) ? 1 : 2;
 
     return {
-        telegramId: BigInt(ctx.from?.id!),
+        telegram_id: BigInt(ctx.from?.id!),
         username: ctx.from?.username!,
         name: lastName ? `${firstName} ${lastName}` : firstName,
         phone: phone,
-        language: ctx.session.user.language,
+        language: ctx.session.user.language!,
         role: {
             id: roleId,
             code: localization.getRoleType(roleId)
         }
     };
 }
+
 export default contactComposer;

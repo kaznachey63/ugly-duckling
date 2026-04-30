@@ -1,6 +1,6 @@
 import { TelegramClient } from "telegram";
 import maps from "./maps";
-import type { Chat } from '@shared/types/Chat'
+import type { Chat } from '@shared/types/db'
 
 function getChatLink(id: any, username: any): string {
     if (username) {

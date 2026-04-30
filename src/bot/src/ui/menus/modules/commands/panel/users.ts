@@ -1,6 +1,6 @@
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
-import type { User } from '@shared/types/User';
+import type { User } from '@shared/types/db';
 import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
 
@@ -54,12 +54,12 @@ function viewUser(ctx: MyContext, user: User): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.commands.panel.user.view.user.main.telegramId", { telegramId: user.telegramId ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveUserTgId#${user.id}`).row()
+        .text(ctx.t("modules.commands.panel.user.view.user.main.telegramId", { telegramId: user.telegram_id ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveUserTgId#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.user.view.user.main.name", { name: user.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateOrRemoveUserName#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.user.view.user.main.username", { username: user.username ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveUserUsername#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.user.view.user.main.phone", { phone: user.phone ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveUserPhone#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.user.view.user.main.language", { language: ctx.t(`utils.languages.${user.language}`) }), `updateOrRemoveUserLanguage#${user.id}`).row()
-        .text(ctx.t("modules.commands.panel.user.view.user.main.role", { role:  ctx.t(`utils.roleCodes.${user.role.code}`) }), `updateOrRemoveUserLanguage#${user.id}`).row()
+        .text(ctx.t("modules.commands.panel.user.view.user.main.role", { role:  ctx.t(`utils.roleCodes.${user.role?.code}`) }), `updateOrRemoveUserLanguage#${user.id}`).row()
         .text(ctx.t("utils.shared.buttons.remove"), `removeUser#${user.id}`).style("danger").row()
         .text(ctx.t("utils.shared.buttons.back"), "viewUsers");
     ; 

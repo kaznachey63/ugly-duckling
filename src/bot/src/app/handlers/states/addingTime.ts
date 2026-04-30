@@ -1,4 +1,4 @@
-import db from "@shared/db";
+import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
 import menuState from '@menus/handlers/states';
 import { ServerManager } from "src/common/services/ServerManager";

@@ -18,7 +18,7 @@ export class Scheduler {
     async start() {
         const times = await db.schedule.getSchedule();
         const messages = await db.message.getMessages();
-        const chats = await db.chat.getChats();
+        const chats = await db.chat.get();
         
         if (!chats || !chats.length) {
             console.log('⚠️  Нет чатов для рассылки');

@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
+model base_messages {
+  id       Int     @id @default(autoincrement())
+  position Int?
+  caption  String?
+  entities Json?
+  media    Json?
+}
+
+/// This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
+model base_results {
+  id      Int       @id @default(autoincrement())
+  time    DateTime? @db.Time(6)
+  date    DateTime? @db.Date
+  success Int?
+  chats   Json?
+}
+
+/// This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
+model base_schedule {
+  id    Int     @id @default(autoincrement())
+  cron  String?
+  label String?
+}
+
+model bot {
+  id           Int  @id @default(autoincrement())
+  last_idea_id Int?
+}
+
+model chat {
+  id      Int    @id @default(autoincrement())
+  chat_id String
+  title   String
+  link    String
+}
+
+model contract {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  date_start DateTime? @db.Date
+  date_end   DateTime? @db.Date
+  price      Int?
+  user       user?     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "contract_user_fk")
+  sendout    sendout[]
+
+  @@index([user_id], map: "fki_contracts_users_fk")
+}
+
+model credential {
+  id             Int      @id @default(autoincrement())
+  api_id         BigInt?
+  api_hash       String?
+  string_session String?
+  sendout        sendout?
+}
+
+model role {
+  id   Int     @id @default(autoincrement())
+  code String?
+  user user[]
+}
+
+model sendout {
+  id            Int         @id @default(autoincrement())
+  schema        String?
+  name          String?
+  label         String?
+  call          String?
+  credential_id Int?        @unique(map: "sendout_credential_id")
+  user_id       Int?
+  contract_id   Int?
+  contract      contract?   @relation(fields: [contract_id], references: [id], onUpdate: NoAction, map: "sendout_contract_fk")
+  credential    credential? @relation(fields: [credential_id], references: [id], onUpdate: NoAction, map: "sendout_credential_fk")
+  user          user?       @relation(fields: [user_id], references: [id], onUpdate: NoAction, map: "sendout_user_fk")
+
+  @@index([credential_id], map: "fki_accounts_credential_fk")
+  @@index([user_id], map: "fki_accounts_users_fk")
+  @@index([contract_id], map: "fki_sendouts_contracts_fk")
+  @@index([credential_id], map: "fki_sendouts_credentials_fk")
+  @@index([user_id], map: "fki_sendouts_users_fk")
+}
+
+model user {
+  id          Int        @id @default(autoincrement())
+  telegram_id BigInt?    @unique
+  name        String?
+  username    String?    @unique
+  phone       String?    @unique
+  language    String?    @default("ru")
+  role_id     Int?       @default(3)
+  contract    contract[]
+  sendout     sendout[]
+  role        role?      @relation(fields: [role_id], references: [id], onUpdate: NoAction, map: "user_role_id")
+
+  @@index([role_id], map: "fki_users_role_fk")
+  @@index([role_id], map: "fki_users_role_id")
+}

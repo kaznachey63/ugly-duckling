@@ -1,8 +1,8 @@
-import db from "@shared/db";
+import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
 import menuState from '@menus/handlers/states';
 import common from '@utils/common';
-import type { User } from "@shared/types/User";
+import type { User } from "@shared/types/db";
 import type { LanguageCode } from "grammy/types";
 import constants from "@constants";
 import type { RoleCode } from "@shared/types/RoleCode";
@@ -17,7 +17,7 @@ export default async function addingUser(ctx: MyContext) {
     }
     else {
         const user = formatUser(text);
-        menu = menuState.addingUser(ctx, await db.user.insertToDB(user), true);
+        menu = menuState.addingUser(ctx, await db.user.insert(user), true);
         common.resetSessionStates(ctx.session);
     }
 
@@ -53,7 +53,7 @@ function formatUser(userInText: string): User {
     const itogRoleCode: RoleCode = roleCode === '-' ? "unknown" : roleCode! as RoleCode;
 
     return {
-        telegramId: telegramId === '-' ? null : BigInt(telegramId!),
+        telegram_id: telegramId === '-' ? null : BigInt(telegramId!),
         name: name === '-' ? null : name!,
         username: username === '-' ? null : username!,
         phone: phone === '-' ? null : phone!,

@@ -1,5 +1,5 @@
 import type { MyContext, SessionData } from '@shared/types/SessionData';
-import db from "@shared/db";
+import db from '@shared/db';
 import constants from '@constants';
 
 /**
@@ -18,16 +18,19 @@ function resetSessionStates(session: SessionData) {
     session.state.addingIdea = false;
     session.state.addingUser = false;
     session.state.passingAuthorization = false;
+    session.state.addingContract = false;
 }
 
 async function setPrimaryValuesSession(ctx: MyContext) {
     // Присваивание инфо о рассылке и пользователе
-    if (await db.user.existsInDB(BigInt(ctx.from?.id!))) {
-        ctx.session.user = ctx.session.user.phone ? (await db.user.getUser(ctx.session.user.phone))! : (await db.user.getUser(BigInt(ctx.from?.id!)))!;
+    if (await db.user.exists(BigInt(ctx.from?.id!))) {
+        ctx.session.user = ctx.session.user.phone ? (await db.user.get(ctx.session.user.phone))! : (await db.user.get(BigInt(ctx.from?.id!)))!;
     }
     else {
+        // @ts-ignore
         ctx.session.user.role.code = 'unknown';
     }
+    // @ts-ignore
     ctx.session.isAdmin = ctx.session.user?.role.code === "admin";
 
     const sendoutName = ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!;
@@ -35,9 +38,9 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     if (infoDist) {
         ctx.session.sendout = {
             name: sendoutName,
-            call: infoDist.call,
-            label: infoDist.label, 
-            schema: infoDist.schema
+            call: infoDist.call!,
+            label: infoDist.label!, 
+            schema: infoDist.schema!
         }
     }
 }

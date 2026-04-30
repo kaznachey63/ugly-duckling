@@ -1,5 +1,5 @@
 import { Context, type SessionFlavor } from "grammy";
-import type { User } from "./User";
+import type { User } from "@shared/types/db";
 import type { Sendout } from "./Sendout";
 
 export interface SessionData {
@@ -16,6 +16,7 @@ export interface SessionData {
         addingIdea: boolean;
         addingUser: boolean;
         passingAuthorization: boolean;
+        addingContract: boolean;
 
     };
     other: {

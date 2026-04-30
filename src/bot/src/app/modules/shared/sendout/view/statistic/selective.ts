@@ -82,35 +82,35 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:month$/, async (ctx)
 
 
 
-selectiveStatisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: MyContext) => {
-    try {
-        const logsBaza = await db.result.getResults(ctx.session.sendout.schema);
-        if (!logsBaza) return;
+// selectiveStatisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: MyContext) => {
+//     try {
+//         const logsBaza = await db.result.getResults(ctx.session.sendout.schema);
+//         if (!logsBaza) return;
 
-        const lastLog = logsBaza.at(-1)!;
-        const infoChats = await db.chat.getChatsInfo(lastLog?.chats);
+//         const lastLog = logsBaza.at(-1)!;
+//         const infoChats = await db.chat.getInfo(lastLog?.chats);
 
-        if (logsBaza.length === 0 || !lastLog?.chats || !infoChats) {
-            await ctx.answerCallbackQuery({
-                text: ctx.t("modules.commands.cabinet.distribution.chats.noSendout", {
-                    call: ctx.session.sendout.call
-                }),
-                show_alert: true
-            });
-            return;
-        }
+//         if (logsBaza.length === 0 || !lastLog?.chats || !infoChats) {
+//             await ctx.answerCallbackQuery({
+//                 text: ctx.t("modules.commands.cabinet.distribution.chats.noSendout", {
+//                     call: ctx.session.sendout.call
+//                 }),
+//                 show_alert: true
+//             });
+//             return;
+//         }
 
-        const menu = chat(ctx, lastLog.success, infoChats!);
-        await ctx.editMessageText(format.escapeMarkdown(menu.text), {
-            parse_mode: 'MarkdownV2',
-            reply_markup: menu.keyboard
-        });
-    } catch (error) {
-        console.error('Ошибка в chatsForStatistics:', error);
-    } finally {
+//         const menu = chat(ctx, lastLog.success, infoChats!);
+//         await ctx.editMessageText(format.escapeMarkdown(menu.text), {
+//             parse_mode: 'MarkdownV2',
+//             reply_markup: menu.keyboard
+//         });
+//     } catch (error) {
+//         console.error('Ошибка в chatsForStatistics:', error);
+//     } finally {
 
-    }
-});
+//     }
+// });
 
 /**
  * Меню раздела чаты

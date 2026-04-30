@@ -2,7 +2,7 @@ import { InlineKeyboard } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import type { Menu } from '@shared/types/Menu';
 import format from '@utils/formatting';
-import type { Sendout } from '@shared/types/Sendout';
+import type { Sendout } from '@shared/types/db';
 import constants from '@constants';
 
 /**
@@ -16,10 +16,10 @@ function viewSendouts(ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard>
 
     const keyboard = new InlineKeyboard();
 
-    sendouts.forEach((cred) => {
+    sendouts.forEach((sendout) => {
         keyboard.text(
-            cred.call ?? cred.label,
-            `viewSendout:${cred.name}`
+            sendout.call! ?? sendout.label,
+            `viewSendout:${sendout.name}`
         ).row();
     });    
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), "mainSendouts");

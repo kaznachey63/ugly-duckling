@@ -1,9 +1,9 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import type { LanguageCode } from 'grammy/types';
 import menuLanguage from '@menus/modules/commands/settings/language';
 import i18next from 'i18next';
 import db from '@shared/db';
+import type { LanguagesALlowed } from '@shared/types/LanguagesAllowed';
 
 const languageComposer = new Composer<MyContext>();
 
@@ -23,7 +23,7 @@ languageComposer.callbackQuery('mainLanguage', async (ctx: MyContext) => {
 // Смена языка (с параметром)
 languageComposer.callbackQuery(/^changeLanguage:/, async (ctx: MyContext) => {
     try {
-        const languageCode = ctx.callbackQuery?.data?.split(':')[1] as LanguageCode;
+        const languageCode = ctx.callbackQuery?.data?.split(':')[1] as LanguagesALlowed;
         const currentLang = ctx.session.user.language;
 
         if (languageCode === currentLang) {

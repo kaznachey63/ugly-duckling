@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import db from '@shared/db/index';
+import db from '@shared/db/sql/index';
 import common from '@utils/common';
 import menuSchedule from '@menus/modules/shared/sendout/view/schedule/main';
 import createComposer from './create';

@@ -8,10 +8,10 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
+    "exactOptionalPropertyTypes": false,
     "module": "esnext",
     "moduleResolution": "node",
     "target": "esnext",
-    "ignoreDeprecations": "6.0",
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
@@ -25,7 +25,6 @@
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
 
     // Style Options
     // "noImplicitReturns": true,

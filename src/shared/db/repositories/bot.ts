@@ -1,24 +1,32 @@
-import { getPool } from '../pool';
-const pool = getPool();
+import prisma from '@shared/db/config';
 
 /**
  * Получение айди последнего сообщения в списке идей
  */
 async function getIdeaLastMessageId(): Promise<string> {
-    const { rows } = await pool.query("SELECT last_idea_id FROM public.bot");
-    return String(rows[0]?.last_idea_id);
+    const bot = await prisma.bot.findFirst({
+        where: {
+            id: 1
+        },
+        select: {
+            last_idea_id: true
+        }
+    });
+    return String(bot?.last_idea_id);
 }
 
 /**
  * Обновление айди последнего сообщения в списке идей
  */
 async function updateIdeaLastMessageId(messageId: number) {
-    await pool.query(
-        `UPDATE public.bot 
-         SET last_idea_id = $1
-         WHERE id = 1`,
-        [messageId]
-    );
+    await prisma.bot.updateMany({
+        where: {
+            id: 1
+        },
+        data: {
+            last_idea_id: messageId
+        }
+    });
 }
 
 export default {

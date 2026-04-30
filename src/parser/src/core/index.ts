@@ -6,7 +6,7 @@ import db from '@shared/db';
 
 // cron.schedule("49 10 * * *", async () => {
     try {
-        await db.chat.clearTable();
+        await db.chat.clear();
         const credentials = await db.sendout.getSendoutsInfoWithCredentials();
 
         const chatPromises = credentials?.map(async (dist) => {
@@ -20,7 +20,7 @@ import db from '@shared/db';
 
         const allChats = (await Promise.all(chatPromises!)).flat();
         const uniqueChatList = helpers.createUniqueList(allChats);
-        await db.chat.insertChats(uniqueChatList);
+        await db.chat.insert(uniqueChatList);
     } catch (err) {
         console.error('Критическая ошибка при запуске парсера чатов', err);
         process.exit(1);

@@ -1,24 +1,16 @@
-import { getPool } from '../pool';
-const pool = getPool();
-import type { Sendout } from '@shared/types/Sendout';
-import type { SendoutWithCred } from '@shared/types/SendoutWithCred';
-import type { SendoutWithCredRow } from '@shared/types/SendoutWithCredRow';
+import prisma from '@shared/db/config';
+import type { Sendout } from '@shared/types/db';
 
 /**
- * Получение данных об аккаунтах (рассылках) с секретами
+ * Получение данных о рассылках с секретами
  */
-async function getSendoutsInfoWithCredentials(): Promise<SendoutWithCred[] | undefined> {
+async function getSendoutsInfoWithCredentials(): Promise<Sendout[] | undefined> {
     try {
-        const result = await pool.query(`SELECT * FROM public.sendout a JOIN credentials c ON c.account_id = a.id`);
-        return result.rows.map((row: SendoutWithCredRow) => ({
-            schema: row.schema,
-            name: row.name,
-            label: row.label,
-            call: row.call,
-            apiId: row.api_id,
-            apiHash: row.api_hash,
-            stringSession: row.string_session,
-        }));
+        return await prisma.sendout.findMany({
+            include: {
+                credential: true
+            }
+        });
     } catch (error) {
         console.error("Ошибка при получении секретов", error);
         return undefined;
@@ -28,43 +20,47 @@ async function getSendoutsInfoWithCredentials(): Promise<SendoutWithCred[] | und
 /**
  * Получение информации о рассылке по имени
  */
-async function getSendoutInfo(name: string): Promise<Sendout> {
-    const { rows } = await pool.query(
-        'SELECT schema, name, label, call FROM public.sendout WHERE name = $1',
-        [name]
-    );
-    return rows[0];
+async function getSendoutInfo(name: string): Promise<Sendout | undefined> {
+    try {
+        return await prisma.sendout.findFirst({
+            where: {
+                name: name
+            }
+        }) ?? undefined;
+    } catch (error) {
+        console.error("Ошибка при получении рассылки", error);
+        return undefined;
+    }
 }
 
 /**
- * Получение рассылок, закрепленных за конркетным заказчиком
+ * Получение рассылок, закрепленных за конкретным заказчиком
  */
-async function getSendoutsOfUserId(userId: number): Promise<Sendout[]> {
-    const { rows } = await pool.query(
-        `SELECT schema, name, label, call FROM public.sendout WHERE user_id = (SELECT id FROM public.user WHERE telegram_id = $1)`,
-        [userId]
-    );
-    return rows;
-}
-
-/**
- * Получение всех рассылок
- */
-async function getAllSendouts(): Promise<Sendout[]> {
-    const { rows } = await pool.query(
-        'SELECT schema, name, label, call FROM public.sendout'
-    );
-    return rows;
+async function getSendoutsOfUserId(userId: bigint): Promise<Sendout[]> {
+    try {
+        return await prisma.sendout.findMany({
+            where: {
+                user: {
+                    telegram_id: userId
+                }
+            }
+        });
+    } catch (error) {
+        console.error("Ошибка при получении рассылок", error);
+        return [];
+    }
 }
 
 /**
  * Получение всех рассылок
  */
 async function getSendouts(): Promise<Sendout[]> {
-    const { rows } = await pool.query(
-        'SELECT FROM public.sendout'
-    );
-    return rows;
+    try {
+        return await prisma.sendout.findMany();
+    } catch (error) {
+        console.error("Ошибка при получении рассылок", error);
+        return [];
+    }
 }
 
 /**
@@ -79,5 +75,5 @@ export default {
     getSendoutInfo,
     getSchema,
     getSendoutsOfUserId,
-    getAllSendouts
-}
+    getSendouts
+};

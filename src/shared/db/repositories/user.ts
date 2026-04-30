@@ -1,50 +1,38 @@
-import type { LanguageCode } from 'grammy/types';
-import { getPool } from '../pool';
-const pool = getPool();
-import type { User } from '@shared/types/User';
+import prisma from '@shared/db/config';
+import type { User, UserIds } from '@shared/types/db';
+import type { LanguagesALlowed } from '@shared/types/LanguagesAllowed';
+
+/**
+ * Получение массива ID пользователей
+ */
+async function getIds(): Promise<UserIds[]> {
+    return prisma.user.findMany({
+        select: { id: true }
+    });
+}
 
 /**
  * Получение данных о пользователе
  * @param value - значение для поиска (ID или телефон или тг.айди)
  */
-async function getUser(value: string | bigint | number): Promise<User | undefined> {
+async function get(value: string | bigint | number): Promise<User | undefined> {
     const typeOfValue = typeof value;
-    let uniqueValue;
+    let whereField: string;
     switch (typeOfValue) {
-        case 'string': uniqueValue = "u.phone"; break;
-        case 'number': uniqueValue = "u.id"; break;
-        case 'bigint': uniqueValue = "u.telegram_id"; break;
+        case 'string': whereField = 'phone'; break;
+        case 'number': whereField = 'id'; break;
+        case 'bigint': whereField = 'telegram_id'; break;
     }
     try {
-        const { rows } = await pool.query(
-            `SELECT 
-                u.id,
-                u.telegram_id as "telegramId",
-                u.name,
-                u.username,
-                u.phone,
-                u.language,
-                r.code as "roleCode"
-            FROM public.user u
-            LEFT JOIN public.role r ON r.id = u.role_id
-            WHERE ${uniqueValue} = $1`, 
-            [value]
-        );
-        
-        if (!rows[0]) return undefined;
-        
-        const row = rows[0];
-        return {
-            id: row.id,
-            telegramId: row.telegramId,
-            name: row.name,
-            username: row.username,
-            phone: row.phone,
-            language: row.language,
-            role: {
-                code: row.roleCode
+        const result = await prisma.user.findFirst({
+            where: {
+                [whereField!]: value
+            },
+            include: {
+                role: true
             }
-        };
+        });
+        return result ? result : undefined;
     } catch (error) {
         console.error("Ошибка при получении пользователя", error);
         return undefined;
@@ -54,34 +42,13 @@ async function getUser(value: string | bigint | number): Promise<User | undefine
 /**
  * Получение данных о пользователях
  */
-async function getUsers(): Promise<User[]> {
+async function gets(): Promise<User[]> {
     try {
-        const query = `
-            SELECT 
-                u.id,
-                u.telegram_id as "telegramId",
-                u.name,
-                u.username,
-                u.phone,
-                u.language,
-                r.code as "roleCode"
-            FROM public.user u
-            LEFT JOIN public.role r ON r.id = u.role_id
-        `;
-        
-        const { rows } = await pool.query(query);
-        
-        return rows.map((row) => ({
-            id: row.id,
-            telegramId: row.telegramId,
-            name: row.name,
-            username: row.username,
-            phone: row.phone,
-            language: row.language,
-            role: {
-                code: row.roleCodes
+        return await prisma.user.findMany({
+            include: {
+                role: true
             }
-        }));
+        });
     } catch (error) {
         console.error("Ошибка при получении пользователей", error);
         return [];
@@ -91,20 +58,21 @@ async function getUsers(): Promise<User[]> {
 /**
  * Заполнение данными пользователя, прошедшего авторизацию
  */
-async function updateData(user: User) {
+async function updateUser(user: User) {
     try {
-        await pool.query(
-            `UPDATE public.user 
-            SET 
-                telegram_id = $1,
-                name = $2, 
-                username = $3,
-                phone = $4,
-                language = $5,
-                role_id = $6
-            WHERE phone = $4`,
-            [user.telegramId, user.name, user.username, user.phone, user.language, user.role?.id]
-        );
+        await prisma.user.updateMany({
+            where: {
+                phone: user.phone
+            },
+            data: {
+                telegram_id: user.telegram_id,
+                name: user.name,
+                username: user.username,
+                phone: user.phone,
+                language: user.language,
+                role_id: user.role?.id
+            }
+        });
     } catch (error) {
         console.error("Ошибка при вставке пользователя", error);
     }
@@ -113,13 +81,18 @@ async function updateData(user: User) {
 /**
  * Вставка пользователя
  */
-async function insertToDB(user: User): Promise<boolean> {
+async function insert(user: User): Promise<boolean> {
     try {
-        await pool.query(
-            `INSERT INTO public.user (telegram_id, name, username, phone, language, role_id)
-             VALUES ($1, $2, $3, $4, $5, $6)`,
-            [user.telegramId, user.name, user.username, user.phone, user.language, user.role?.id]
-        );
+        await prisma.user.create({
+            data: {
+                telegram_id: user.telegram_id,
+                name: user.name,
+                username: user.username,
+                phone: user.phone,
+                language: user.language,
+                role_id: user.role?.id
+            }
+        });
         return true;
     } catch (error) {
         console.error("Ошибка при вставке пользователя", error);
@@ -131,13 +104,17 @@ async function insertToDB(user: User): Promise<boolean> {
  * Проверка на существование пользователя в БД
  * @returns true - если существует, иначе false
  */
-async function existsInDB(userId: bigint): Promise<boolean> {
+async function exists(userId: bigint): Promise<boolean> {
     try {
-        const { rows } = await pool.query(
-            "SELECT telegram_id FROM public.user WHERE telegram_id = $1",
-            [userId]
-        );
-        return rows.length > 0;
+        const user = await prisma.user.findFirst({
+            where: {
+                telegram_id: userId
+            },
+            select: {
+                telegram_id: true
+            }
+        });
+        return user !== null;
     } catch (error) {
         console.error("Ошибка при проверке пользователя", error);
         return false;
@@ -147,21 +124,20 @@ async function existsInDB(userId: bigint): Promise<boolean> {
 /**
  * Удаление пользователя из системы
  * @param value number - бд айди, бигинт - тг айди
- * 
  */
 async function removeFromSystem(value: number | bigint): Promise<boolean> {
     const typeOfValue = typeof value;
-    let uniqueValue;
+    let whereField: string;
     switch (typeOfValue) {
-        case 'number': uniqueValue = "id"; break;
-        case 'bigint': uniqueValue = "telegram_id"; break;
+        case 'number': whereField = 'id'; break;
+        case 'bigint': whereField = 'telegram_id'; break;
     }
-
     try {
-        await pool.query(
-            `DELETE FROM public.user WHERE ${uniqueValue} = $1`,
-            [value]
-        );
+        await prisma.user.deleteMany({
+            where: {
+                [whereField!]: value
+            }
+        });
         return true;
     } catch (error) {
         console.error("Ошибка при удалении пользователя", error);
@@ -174,11 +150,15 @@ async function removeFromSystem(value: number | bigint): Promise<boolean> {
  */
 async function matchPhoneNumber(phoneNumber: string): Promise<boolean> {
     try {
-        const { rows } = await pool.query(
-            "SELECT id FROM public.user WHERE phone = $1",
-            [phoneNumber]
-        );
-        return rows.length > 0;
+        const user = await prisma.user.findFirst({
+            where: {
+                phone: phoneNumber
+            },
+            select: {
+                id: true
+            }
+        });
+        return user !== null;
     } catch (error) {
         console.error("Ошибка при проверке номера", error);
         return false;
@@ -188,14 +168,16 @@ async function matchPhoneNumber(phoneNumber: string): Promise<boolean> {
 /**
  * Обновление языка пользователя
  */
-async function updateLang(telegramId: bigint, languageCode: LanguageCode): Promise<boolean> {
+async function updateLang(telegramId: bigint, languageCode: LanguagesALlowed): Promise<boolean> {
     try {
-        await pool.query(
-            `UPDATE public.user 
-             SET language = $1 
-             WHERE telegram_id = $2`,
-            [languageCode, telegramId]
-        );
+        await prisma.user.updateMany({
+            where: {
+                telegram_id: telegramId
+            },
+            data: {
+                language: languageCode
+            }
+        });
         return true;
     } catch (error) {
         console.error("Ошибка при обновлении языка пользователя", error);
@@ -204,28 +186,34 @@ async function updateLang(telegramId: bigint, languageCode: LanguageCode): Promi
 }
 
 async function getGroupsOfUsers(): Promise<{ customers: number[]; admins: number[] }> {
-    let customers = [], admins = [];
+    let customers: number[] = [], admins: number[] = [];
     try {
-        const users = (await pool.query("SELECT telegram_id, role_id FROM public.user")).rows;
+        const users = await prisma.user.findMany({
+            select: {
+                telegram_id: true,
+                role_id: true
+            }
+        });
         for (const user of users) {
-            if (user.role_id == 1) admins.push(user.telegram_id);
-            else if (user.role_id == 2 && user.telegram_id != 0) customers.push(user.telegram_id);
+            if (user.role_id === 1) admins.push(Number(user.telegram_id));
+            else if (user.role_id === 2 && user.telegram_id !== BigInt(0)) customers.push(Number(user.telegram_id));
         }
     } catch (error) {
         console.log("Ошибка при получении групп пользователей", error);
     } finally {
-        return { customers, admins }
+        return { customers, admins };
     }
 }
 
 export default {
-    existsInDB,
+    exists,
     updateLang,
     getGroupsOfUsers,
     matchPhoneNumber,
-    updateData,
+    updateUser,
     removeFromSystem,
-    insertToDB,
-    getUser,
-    getUsers
-}
+    insert,
+    get,
+    gets,
+    getIds
+};
