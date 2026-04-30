@@ -6,7 +6,7 @@ import scheduleComposer from './schedule';
 import statisticsComposer from './statistic';
 import messageComposer from './message';
 import db from '@shared/db';
-import type { Sendout } from '@shared/types/db';
+import type { Sendout } from '@shared/types/DB';
 
 const viewComposer = new Composer<MyContext>();
 

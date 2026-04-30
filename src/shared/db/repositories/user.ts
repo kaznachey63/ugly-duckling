@@ -1,5 +1,5 @@
 import prisma from '@shared/db/config';
-import type { User, UserIds } from '@shared/types/db';
+import type { User, UserIds } from '@shared/types/DB';
 import type { LanguagesALlowed } from '@shared/types/LanguagesAllowed';
 
 /**

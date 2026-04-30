@@ -1,5 +1,5 @@
 import prisma from '@shared/db/config';
-import type { Sendout } from '@shared/types/db';
+import type { Sendout } from '@shared/types/DB';
 
 /**
  * Получение данных о рассылках с секретами

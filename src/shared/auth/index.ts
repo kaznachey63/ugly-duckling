@@ -2,7 +2,7 @@ import { TelegramClient } from 'telegram';
 import prompts from 'prompts';
 import { StringSession } from 'telegram/sessions';
 import type { SendoutWithCred } from '@shared/types/SendoutWithCred';
-import type { Sendout } from '@shared/types/db';
+import type { Sendout } from '@shared/types/DB';
 
 async function start2(distribution: Sendout): Promise<TelegramClient> {
     const stringSession = new StringSession(distribution.credential?.string_session || "");

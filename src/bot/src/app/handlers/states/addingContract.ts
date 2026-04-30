@@ -2,7 +2,7 @@ import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
 import menuState from '@menus/handlers/states';
 import common from '@utils/common';
-import type { Contract } from "@shared/types/db";
+import type { Contract } from "@shared/types/DB";
 
 export default async function addingContract(ctx: MyContext) {
     let menu;

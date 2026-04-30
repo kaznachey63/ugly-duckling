@@ -2,7 +2,7 @@ import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
 import menuState from '@menus/handlers/states';
 import common from '@utils/common';
-import type { User } from "@shared/types/db";
+import type { User } from "@shared/types/DB";
 import type { LanguageCode } from "grammy/types";
 import constants from "@constants";
 import type { RoleCode } from "@shared/types/RoleCode";

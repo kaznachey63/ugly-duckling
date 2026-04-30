@@ -1,5 +1,5 @@
 import prisma from '@shared/db/config';
-import type { Contract } from '@shared/types/db';
+import type { Contract } from '@shared/types/DB';
 
 /**
  * Получение всех договоров

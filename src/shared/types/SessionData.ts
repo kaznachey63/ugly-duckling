@@ -1,5 +1,5 @@
 import { Context, type SessionFlavor } from "grammy";
-import type { User } from "@shared/types/db";
+import type { User } from "@shared/types/DB";
 import type { Sendout } from "./Sendout";
 
 export interface SessionData {

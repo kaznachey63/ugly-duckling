@@ -2,7 +2,7 @@ import { InlineKeyboard } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import type { Menu } from '@shared/types/Menu';
 import format from '@utils/formatting';
-import type { Sendout } from '@shared/types/db';
+import type { Sendout } from '@shared/types/DB';
 import constants from '@constants';
 
 /**

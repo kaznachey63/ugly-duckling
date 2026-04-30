@@ -1,4 +1,4 @@
-import type { Contract } from '@shared/types/db';
+import type { Contract } from '@shared/types/DB';
 import type { ExportType } from '@shared/types/ExportType';
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
