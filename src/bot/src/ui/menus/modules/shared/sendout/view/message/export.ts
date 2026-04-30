@@ -11,10 +11,10 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text("PDF", `exportMessages:${ctx.session.sendout.name}-pdf`)
-        .text("Word", `exportMessages:${ctx.session.sendout.name}-word`)   
-        .text("Txt", `exportMessages:${ctx.session.sendout.name}-txt`)   
-        .row().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`)
+        .text("PDF", `exportMessages:${ctx.session.sendout.id}-pdf`)
+        .text("Word", `exportMessages:${ctx.session.sendout.id}-word`)   
+        .text("Txt", `exportMessages:${ctx.session.sendout.id}-txt`)   
+        .row().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`)
     ;
     
     return { text: format.escapeMarkdown(text), keyboard }
@@ -29,7 +29,7 @@ function result(ctx: MyContext, exportType: ExportType, result: boolean): Menu<I
         ctx.t("modules.shared.sendout.view.sendout.message.export.result.path", { call: ctx.session.sendout.call, exportType: exportType, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n');
 
-    const keyboard = new InlineKeyboard().row().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);
+    const keyboard = new InlineKeyboard().row().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
     
     return { text: format.escapeMarkdown(text), keyboard }
 }

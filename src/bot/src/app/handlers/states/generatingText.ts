@@ -6,8 +6,8 @@ import { gigaChat } from "src/common/services/GigaChat/GigaChatInstance";
 export default async function generatingText(ctx: MyContext) {
     const result = await gigaChat.ask(ctx.message?.text || "");
 
-    ctx.session.other.text.generateText = result;
-    ctx.session.other.text.generateEntities = [];
+    ctx.session.generate.text = result;
+    ctx.session.generate.entities = [];
 
     const menu = menuState.generatingText(ctx, result);
     common.resetSessionStates(ctx.session);

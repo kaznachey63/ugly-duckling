@@ -2,69 +2,69 @@ import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
-import type { Message } from '@shared/types/Message';
 import constants from '@constants';
+import type { Message } from '@shared/types/DB';
 
 function main(ctx: MyContext, messages: Message[]): Menu<InlineKeyboard> {
-    const sendoutName = ctx.session.sendout.name;
+    const sendoutId = ctx.session.sendout.id;
     const callDistribution = ctx.session.sendout.call;
     const positionId = ctx.session.message.position;
-    const message = messages[positionId];
+    const message = messages[positionId!];
 
     const text = [
-        ctx.t("modules.shared.sendout.view.sendout.message.view.main.messageNumber", { number: positionId + 1 }) + ' ' +
+        ctx.t("modules.shared.sendout.view.sendout.message.view.main.messageNumber", { number: positionId! + 1 }) + ' ' +
         ctx.t("modules.shared.sendout.view.sendout.message.view.main.amountMedia", { amount: message!.media?.length!, maxMedia: constants.media.maxMedia }),
         `\`\`\`\n${message?.caption!}\n\`\`\`\n`,
         ctx.t("modules.shared.sendout.view.sendout.message.view.main.path", { call: callDistribution, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.updateText"), `updateText:${sendoutName}#${positionId}`).style("primary")
-        .text(ctx.t("utils.shared.buttons.remove"), `removeMessage:${sendoutName}#${positionId}`).style("danger").row()
+        .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.updateText"), `updateText:${sendoutId}#${positionId!}`).style("primary")
+        .text(ctx.t("utils.shared.buttons.remove"), `removeMessage:${sendoutId}#${positionId!}`).style("danger").row()
     ;
 
     // Медиа > 0 и != 4
     if (message?.media!.length! > 0 && message?.media!.length! != 4) {
         keyboard
-            .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutName}#${positionId}`).style("success")
-            .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutName}#${positionId}`).style("danger").row()
+            .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutId}#${positionId!}`).style("success")
+            .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutId}#${positionId!}`).style("danger").row()
         ;
     }
 
     // Медиа == 0
     if (message?.media!.length! == 0) {
-        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutName}#${positionId}`).style("success").row();
+        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutId}#${positionId!}`).style("success").row();
     }
 
     // Медиа == 4
     if (message?.media!.length! == 4) {
-        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutName}#${positionId}`).style("danger").row();
+        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutId}#${positionId!}`).style("danger").row();
     }
 
     // Навигация по сообщениям
     if (messages.length === 1) {
-        keyboard.text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${sendoutName}#${positionId + 1}/${messages.length}`).row();
+        keyboard.text(`${positionId! + 1} / ${messages.length}`, `paginationMessages:${sendoutId}#${positionId! + 1}/${messages.length}`).row();
     }
-    else if (positionId === 0) {
+    else if (positionId! === 0) {
         keyboard
-            .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${sendoutName}#${positionId + 1}/${messages.length}`)
-            .text("➡", `viewMessage:${sendoutName}#${positionId + 1}`).row()
+            .text(`${positionId! + 1} / ${messages.length}`, `paginationMessages:${sendoutId}#${positionId! + 1}/${messages.length}`)
+            .text("➡", `viewMessage:${sendoutId}#${positionId! + 1}`).row()
         ;
     }
-    else if (positionId + 1 === messages.length) {
+    else if (positionId! + 1 === messages.length) {
         keyboard
-            .text("⬅", `viewMessage:${sendoutName}#${positionId - 1}`)
-            .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${sendoutName}#${positionId + 1}/${messages.length}`).row()
+            .text("⬅", `viewMessage:${sendoutId}#${positionId! - 1}`)
+            .text(`${positionId! + 1} / ${messages.length}`, `paginationMessages:${sendoutId}#${positionId! + 1}/${messages.length}`).row()
         ;
     }
     else {
         keyboard
-            .text("⬅", `viewMessage:${sendoutName}#${positionId - 1}`)
-            .text(`${positionId + 1} / ${messages.length}`, `paginationMessages:${sendoutName}#${positionId + 1}/${messages.length}`)
-            .text("➡", `viewMessage:${sendoutName}#${positionId + 1}`).row()
+            .text("⬅", `viewMessage:${sendoutId}#${positionId! - 1}`)
+            .text(`${positionId! + 1} / ${messages.length}`, `paginationMessages:${sendoutId}#${positionId! + 1}/${messages.length}`)
+            .text("➡", `viewMessage:${sendoutId}#${positionId! + 1}`).row()
         ;
     }
-    keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);
+    keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -77,11 +77,11 @@ function removeMessage(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     
     if (result) {
         text.unshift(ctx.t("modules.shared.sendout.view.sendout.message.view.text.remove.success"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#0`);
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#0`);
     }
     else {
         text.unshift(ctx.t("modules.shared.sendout.view.sendout.message.view.text.remove.error"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.message.position}`);
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);
     }
     
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
@@ -94,7 +94,7 @@ function updateText(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.shared.sendout.view.sendout.message.view.text.update.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}#${ctx.session.message.position}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -105,7 +105,7 @@ function addMedia(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.shared.sendout.view.sendout.message.view.media.add.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.message.position}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -118,7 +118,7 @@ function clearAllMedia(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
         ctx.t("modules.shared.sendout.view.sendout.message.view.media.clearAll.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
     
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.message.position}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -132,10 +132,10 @@ function pagination(ctx: MyContext, messagesLength: number) {
     
     for (let i = 0; i < messagesLength; i++) {
         if (i % 5 == 0) keyboard.row();
-        keyboard.text((i + 1).toString(), `viewMessage:${ctx.session.sendout.name}#${i}`);
+        keyboard.text((i + 1).toString(), `viewMessage:${ctx.session.sendout.id}#${i}`);
     }
 
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.message.position}`);
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);
     return { text: format.escapeMarkdown(text), keyboard }    
 }
 

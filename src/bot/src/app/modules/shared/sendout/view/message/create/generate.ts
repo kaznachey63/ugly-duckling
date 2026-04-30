@@ -4,6 +4,7 @@ import { Composer } from 'grammy';
 import { ServerManager } from "src/common/services/ServerManager";
 import db from '@shared/db';
 import common from '@utils/common';
+import type { Message } from '@shared/types/DB';
 
 const genereteComposer = new Composer<MyContext>();
 
@@ -12,18 +13,19 @@ genereteComposer.callbackQuery(/^generateText:.+#\d+-(true|false)$/, async (ctx:
     ctx.session.state.addingText = true;
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
 
-    ctx.session.message.position = Number(ctx.callbackQuery?.data!.split(/#/)[1]?.split(/-/)[0]);
-    const action = ctx.callbackQuery?.data!.split(/-/)[1] === 'true';    let menu: any = {};
+    const action = ctx.callbackQuery?.data!.split(/-/)[1] === 'true';    
+    let menu: any = {};
     
     if (action) {        
-        await db.message.create(ctx.session.sendout.schema, {
-            id: 0,
-            caption: ctx.session.other.text.generateText.trim()!,
-            entities: ctx.session.other.text.generateEntities,
-            media: null
-        });
+        const message: Message = {
+            caption: ctx.session.generate.text.trim()!,
+            entities: ctx.session.generate.entities,
+            sendout_id: ctx.session.sendout.id!
+        };
+
+        await db.message.create(message);
         const server = new ServerManager();
-        menu = menuCreate.saveOrCancelGenerateText(ctx, action, await server.restartProcessOrNot(ctx.session.sendout.name, true));
+        menu = menuCreate.saveOrCancelGenerateText(ctx, action, await server.restartProcessOrNot(ctx.session.sendout.name!, true));
         common.resetSessionStates(ctx.session);
     }
     else {
@@ -43,7 +45,6 @@ genereteComposer.callbackQuery(/^generateText:.+#\d+-(true|false)$/, async (ctx:
 
 genereteComposer.callbackQuery(/^generateText:/, async (ctx: MyContext) => {
     ctx.session.state.generatingText = true;
-    ctx.session.message.position = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
     const menu = menuCreate.generate(ctx);
     
     const msg = await ctx.editMessageText(menu.text, {

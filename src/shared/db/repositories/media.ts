@@ -2,6 +2,34 @@ import type { Media } from '@shared/types/DB';
 import prisma from '@shared/db/config';
 
 /**
+ * Получение сообщений
+ */
+async function get(messageId: number): Promise<Media[] | undefined> {
+    try {
+        return await prisma.media.findMany({
+            where: {
+                message_id: messageId
+            },
+            include: {
+                message: {
+                    include: {
+                        sendout: {
+                            include: {
+                                execution: true,
+                                status: true
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error("Ошибка при получении медиа", error);    
+        return undefined;
+    }
+}
+
+/**
  * Добавление медиа
  */
 async function add(media: Media) {
@@ -33,6 +61,7 @@ async function clear(messageId: number) {
     }
 }
 export default {
+    get,
     add,
     clear
 }

@@ -6,7 +6,11 @@ export interface SessionData {
     user: User;
     sendout: Sendout;
     schedule: Schedule;
-    message: Message
+    message: Message;
+    generate: {
+        text: string;
+        entities: any[];
+    };
     state: {
         addingText: boolean;
         updatingText: boolean;
@@ -24,20 +28,6 @@ export interface SessionData {
         ids: {
             idForUpdateMessageFromState: number;
             commandCabinetId: number;
-        };
-        text: {
-            generateText: string;
-            generateEntities: any[];
-            positionId: number;
-        };
-        media: {
-            positionId: number;
-        };
-        time: {
-            positionId: number;
-        };
-        message: {
-            positionId: number;
         };
     }
 }

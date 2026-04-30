@@ -11,11 +11,7 @@ const mediaComposer = new Composer<MyContext>();
  * Оповещение пользователя о добавлении медиа. Ожидание медиа.
  */
 mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
-    const queryData = ctx.callbackQuery?.data;
-    const positionId = Number(queryData!.split(/#/)[1]);
-
     ctx.session.state.addingMedia = true;
-    ctx.session.other.media.positionId = positionId;
 
     const menu = menuView.addMedia(ctx);
     let msg: any;
@@ -44,16 +40,14 @@ mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
 mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {    
     const queryData = ctx.callbackQuery?.data;
     const sendoutName = ctx.session.sendout.name!;
-    const positionId = Number(queryData!.split(/#/)[1]);
-    ctx.session.other.media.positionId = positionId;
-    const messages = await db.message.getMessages(ctx.session.sendout.id!);
+    // const positionId = Number(queryData!.split(/#/)[1]);
+    const media = await db.media.get(ctx.session.message.id!);
 
-    if (!messages) return;
-    const message = messages[positionId];
+    if (!media) return;
     const server = new ServerManager();
 
     // 🔥 УДАЛЯЕМ ФАЙЛЫ ИЗ ФАЙЛОВОЙ СИСТЕМЫ
-    for (const file of message?.media!) {
+    for (const file of media!) {
         if (file && file.name !== 'null' && typeof file === 'string') {
             try {
                 const fileService = new FileService();
@@ -66,7 +60,7 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     }
     
     // 🔥 ОБНУЛЯЕМ МЕДИА В БД
-    await db.media.clear(message?.id!);
+    await db.media.clear(ctx.session.message.id!);
     
     const menu = menuView.clearAllMedia(ctx, await server.restartProcessOrNot(sendoutName, true));
     await ctx.editMessageText(menu.text, {

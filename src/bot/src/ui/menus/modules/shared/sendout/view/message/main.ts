@@ -4,12 +4,11 @@ import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 
 export default function main(ctx: MyContext, messagesLength: number, error: boolean): Menu<InlineKeyboard> {
-    const sendoutName = ctx.session.sendout.name;
+    const sendoutId = ctx.session.sendout.id;
     const sendoutCall = ctx.session.sendout.call;
-    const positionId = ctx.session.message.position;   
      
     let text = [];
-    const keyboard = new InlineKeyboard().text(ctx.t("modules.shared.sendout.view.sendout.message.main.buttons.create"), `mainCreateText:${sendoutName}#${positionId}`).style("success");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.create"), `mainCreateText:${sendoutId}`).style("success");
     if (error) {
         text.push(ctx.t("modules.shared.sendout.view.sendout.message.main.error"));
     }
@@ -19,16 +18,16 @@ export default function main(ctx: MyContext, messagesLength: number, error: bool
             text.push(ctx.t("modules.shared.sendout.view.sendout.message.main.empty", { call: sendoutCall }));
         }
         else {
-            text.push(ctx.t("modules.shared.sendout.view.sendout.message.main.title", { amount: positionId }));
+            text.push(ctx.t("modules.shared.sendout.view.sendout.message.main.title", { amount: messagesLength }));
             keyboard
-                .text(ctx.t("utils.shared.buttons.clear"), `clearMessages:${sendoutName}`).style("danger").row()
-                .text(ctx.t("utils.shared.export"), `mainExportMessages:${ctx.session.sendout.name}`)
-                .text(ctx.t("utils.shared.buttons.view"), `viewMessage:${sendoutName}#0`).style("primary")
+                .text(ctx.t("utils.shared.buttons.clear"), `clearMessages:${sendoutId}`).style("danger").row()
+                .text(ctx.t("utils.shared.export"), `mainExportMessages:${sendoutId}`)
+                .text(ctx.t("utils.shared.buttons.view"), `viewMessage:${sendoutId}#0`).style("primary")
             ;
         }
     }
 
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${ctx.session.sendout.name}`);
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`);
     text.push(ctx.t("modules.shared.sendout.view.sendout.message.main.path", { call: sendoutCall, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }));
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }
