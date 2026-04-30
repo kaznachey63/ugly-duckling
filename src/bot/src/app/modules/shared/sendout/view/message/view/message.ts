@@ -8,14 +8,14 @@ const messageComposer = new Composer<MyContext>();
 
 messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
     const positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
-    ctx.session.other.text.positionId = positionId;
-    const messages = await db.message.getMessages(ctx.session.sendout.schema);
-    if (!messages) return;
+    ctx.session.message.position = positionId;
+        const messages = await db.message.getMessages(ctx.session.sendout.id!);
+if (!messages) return;
     const messageId = messages[positionId]?.id!;
 
-    await db.message.removeMessage(ctx.session.sendout.schema, messageId);
+    await db.message.remove(messageId);
     const server = new ServerManager();
-    const menu = menuView.removeMessage(ctx, await server.restartProcessOrNot(ctx.session.sendout.name, true));
+    const menu = menuView.removeMessage(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true));
 
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
@@ -24,7 +24,7 @@ messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
 });
 
 messageComposer.callbackQuery(/^paginationMessages:/, async (ctx: MyContext) => {
-    const messages = await db.message.getMessages(ctx.session.sendout.schema);
+    const messages = await db.message.getMessages(ctx.session.sendout.id!);
     const menu = menuView.pagination(ctx, messages?.length!);
 
     await ctx.editMessageText(menu.text, {

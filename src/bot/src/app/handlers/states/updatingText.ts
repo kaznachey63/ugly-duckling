@@ -3,6 +3,8 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuState from '@menus/handlers/states';
 import { ServerManager } from "src/common/services/ServerManager";
 import common from '@utils/common';
+import type { Message } from '@shared/types/DB';
+import type { Prisma } from '@shared/db/prisma/client';
 
 export default async function editingText(ctx: MyContext) {
     let menu;
@@ -10,18 +12,21 @@ export default async function editingText(ctx: MyContext) {
         menu = menuState.updatingText(ctx, false, false);
     }
     else {
-        const positionId = ctx.session.other.text.positionId!;
-        const messages = await db.message.getMessages(ctx.session.sendout.schema);
+        const positionId = ctx.session.message.position!;
+        const messages = await db.message.getMessages(ctx.session.sendout.id!);
         if (!messages) return;
         const messageId = messages[positionId]?.id!;
 
-        await db.message.updateMessage(ctx.session.sendout.schema, messageId, {
+        const formatMessage: Message = {
+            id: messageId,
             caption: ctx.message?.text?.trim()!,
-            entities: ctx.message?.entities!,
-        });
+            entities: ctx.message?.entities as unknown as Prisma.JsonArray,
+        }
+
+        await db.message.update(formatMessage);
 
         const server = new ServerManager();
-        menu = menuState.updatingText(ctx, await server.restartProcessOrNot(ctx.session.sendout.name, true), true);
+        menu = menuState.updatingText(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true), true);
         common.resetSessionStates(ctx.session);
     }
 

@@ -4,9 +4,9 @@ import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 
 function main(ctx: MyContext): Menu<InlineKeyboard> {
-    const sendoutName = ctx.session.sendout.name;
+    const sendoutId = ctx.session.sendout.id;
     const callDistribution = ctx.session.sendout.call;
-    const positionId = ctx.session.other.text.positionId;   
+    const positionId = ctx.session.message.position;   
 
     const text = [
         ctx.t("modules.commands.cabinet.distribution.messages.create.main.title", { call: callDistribution }),
@@ -14,8 +14,8 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.commands.cabinet.distribution.messages.create.main.buttons.generate"), `generateText:${sendoutName}#${positionId}`).style("success")
-        .text(ctx.t("modules.commands.cabinet.distribution.messages.create.main.buttons.hand"), `handInputText:${sendoutName}#${positionId}`).row()
+        .text(ctx.t("modules.commands.cabinet.distribution.messages.create.main.buttons.generate"), `generateText:${sendoutId}#${positionId}`).style("success")
+        .text(ctx.t("modules.commands.cabinet.distribution.messages.create.main.buttons.hand"), `handInputText:${sendoutId}#${positionId}`).row()
         .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);
     ;
     return { text: format.escapeMarkdown(text), keyboard }
@@ -27,7 +27,7 @@ function generate(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.cabinet.distribution.messages.create.generate.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${ctx.session.sendout.id}#${ctx.session.message.position}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -42,7 +42,7 @@ function saveOrCancelGenerateText(ctx: MyContext, result: boolean, success?: boo
                 ctx.t("modules.commands.cabinet.distribution.messages.create.generate.pathSave", { call: ctx.session.sendout.call })
             );
             keyboard
-                .text(ctx.t("utils.shared.buttons.back"), `viewMessagege:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`)
+                .text(ctx.t("utils.shared.buttons.back"), `viewMessagege:${ctx.session.sendout.name}#${ctx.session.message.position}`)
             ;
         }
         else {
@@ -51,7 +51,7 @@ function saveOrCancelGenerateText(ctx: MyContext, result: boolean, success?: boo
                 ctx.t("modules.commands.cabinet.distribution.messages.create.generate.pathSave", { call: ctx.session.sendout.call })
             );
             keyboard
-                .text(ctx.t("utils.shared.buttons.back"), `mainAddText:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`)
+                .text(ctx.t("utils.shared.buttons.back"), `mainAddText:${ctx.session.sendout.name}#${ctx.session.message.position}`)
             ;
         }
     }
@@ -61,7 +61,7 @@ function saveOrCancelGenerateText(ctx: MyContext, result: boolean, success?: boo
             ctx.t("modules.commands.cabinet.distribution.messages.create.generate.pathCancel", { call: ctx.session.sendout.call })
         );
         keyboard
-            .text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`)
+            .text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${ctx.session.sendout.name}#${ctx.session.message.position}`)
         ;
     }
     return { text: format.escapeMarkdown(text.join(('\n\n'))), keyboard }
@@ -73,7 +73,7 @@ function hand(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.cabinet.distribution.messages.create.hand.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${ctx.session.sendout.name}#${ctx.session.other.text.positionId}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${ctx.session.sendout.name}#${ctx.session.message.position}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 

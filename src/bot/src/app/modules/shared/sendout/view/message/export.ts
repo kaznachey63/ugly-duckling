@@ -40,7 +40,7 @@ exportComposer.callbackQuery(/^exportMessages:/, async (ctx: MyContext) => {
     let menu;
     let fileName;
     try {
-        const messages = await db.message.getMessages(ctx.session.sendout.schema);
+        const messages = await db.message.getMessages(ctx.session.sendout.id!);
         const data = messages!.map((m, i) => `Сообщение №${i + 1}\n${m.caption}`).join('\n\n');
 
         switch (exportType) {

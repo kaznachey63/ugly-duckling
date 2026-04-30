@@ -10,7 +10,7 @@ export default async function addingText(ctx: MyContext) {
         menu = menuState.addingText(ctx, false, false);
     }
     else {
-        await db.message.addMessage(ctx.session.sendout.schema, {
+        await db.message.create(ctx.session.sendout.schema, {
             id: 0,
             caption: ctx.message?.text?.trim()!,
             entities: ctx.message?.entities!,

@@ -46,14 +46,15 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     const sendoutName = ctx.session.sendout.name!;
     const positionId = Number(queryData!.split(/#/)[1]);
     ctx.session.other.media.positionId = positionId;
-    const messages = await db.message.getMessages(ctx.session.sendout.schema);
+    const messages = await db.message.getMessages(ctx.session.sendout.id!);
+
     if (!messages) return;
     const message = messages[positionId];
     const server = new ServerManager();
 
     // 🔥 УДАЛЯЕМ ФАЙЛЫ ИЗ ФАЙЛОВОЙ СИСТЕМЫ
     for (const file of message?.media!) {
-        if (file && file !== 'null' && typeof file === 'string') {
+        if (file && file.name !== 'null' && typeof file === 'string') {
             try {
                 const fileService = new FileService();
                 await fileService.deleteFile(file);
@@ -65,7 +66,7 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     }
     
     // 🔥 ОБНУЛЯЕМ МЕДИА В БД
-    await db.message.updateMessage(ctx.session.sendout.schema, message!.id!, { media: null });
+    await db.media.clear(message?.id!);
     
     const menu = menuView.clearAllMedia(ctx, await server.restartProcessOrNot(sendoutName, true));
     await ctx.editMessageText(menu.text, {

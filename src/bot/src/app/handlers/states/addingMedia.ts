@@ -11,6 +11,7 @@ import { ServerManager } from 'src/common/services/ServerManager';
 import { InlineKeyboard } from 'grammy';
 import { sleep } from 'telegram/Helpers';
 import { FileService } from 'src/common/services/FileService';
+import type { Media } from '@shared/types/DB';
 
 type MediaType = 'photo' | 'video' | 'animation' | 'document' | 'unknown';
 interface MediaValidationData {
@@ -24,7 +25,7 @@ interface MediaValidationData {
  * Состояние пользователя: добавление медиа
  */
 export default async function addingMedia(ctx: MyContext) {
-    const sendoutName = ctx.session.sendout.name;
+    const sendoutName = ctx.session.sendout.name!;
     const msg = ctx.message;
     if (!msg) return;
     const positionId = ctx.session.other.media.positionId!;
@@ -83,7 +84,7 @@ export default async function addingMedia(ctx: MyContext) {
         await fileService.writeBuffer(path.join(pathMedia, nameFile), buffer);
         
         // Получение сообщений
-        const messages = await db.message.getMessages(ctx.session.sendout.schema);
+        const messages = await db.message.getMessages(ctx.session.sendout.id!);
         if (!messages) return;
 
         const message = messages[positionId!];
@@ -97,11 +98,14 @@ export default async function addingMedia(ctx: MyContext) {
             return;
         }
 
-        const existingMedia = message.media || [];
-        const newMedia = [...existingMedia, nameFile];
+        // Добавление медиа
+        const media: Media = {
+            message_id: message.id!,
+            name: nameFile
+        };
 
-        // Обновление медиа
-        await db.message.updateMessage(ctx.session.sendout.schema, message.id!, { media: newMedia });
+        await db.media.add(media);
+
         await sleep(250);
         const server = new ServerManager();
         const menu = menuState.addingMedia(ctx, await server.restartProcessOrNot(sendoutName, true));

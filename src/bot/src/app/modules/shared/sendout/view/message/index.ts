@@ -13,12 +13,12 @@ const messageComposer = new Composer<MyContext>();
 messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
     let menu;
-    const messages = await db.message.getMessages(ctx.session.sendout.schema);
+    const messages = await db.message.getMessages(ctx.session.sendout.id!);
     if (!messages) {
         menu = menuMessage(ctx, 0, true);
     }
     else {
-        ctx.session.other.text.positionId = messages.length;
+        ctx.session.message.position = messages.length;
         menu = menuMessage(ctx, messages.length, false);
     }
 

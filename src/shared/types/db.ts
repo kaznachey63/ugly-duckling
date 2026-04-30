@@ -34,12 +34,12 @@ export type User = Partial<Prisma.userGetPayload<{
 
 export type UserIds = Pick<User, 'id'>;
 
-export type Message = Partial<Prisma.scheduleGetPayload<{
-    include: { sendout: { include: typeof includeSendout } }
+export type Message = Partial<Prisma.messageGetPayload<{
+    include: { sendout: { include: { execution: true, status: true } }, media: true }
 }>>;
 
 export type Media = Partial<Prisma.mediaGetPayload<{
-    include: { message: { include: { sendout: { include: typeof includeSendout } } } }
+    include: { message: { include: { sendout: { include: { execution: true, status: true } } } } }
 }>>;
 
 export type Schedule = Partial<Prisma.scheduleGetPayload<{

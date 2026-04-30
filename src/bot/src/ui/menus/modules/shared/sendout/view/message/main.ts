@@ -6,7 +6,7 @@ import format from '@utils/formatting';
 export default function main(ctx: MyContext, messagesLength: number, error: boolean): Menu<InlineKeyboard> {
     const sendoutName = ctx.session.sendout.name;
     const sendoutCall = ctx.session.sendout.call;
-    const positionId = ctx.session.other.text.positionId;   
+    const positionId = ctx.session.message.position;   
      
     let text = [];
     const keyboard = new InlineKeyboard().text(ctx.t("modules.shared.sendout.view.sendout.message.main.buttons.create"), `mainCreateText:${sendoutName}#${positionId}`).style("success");

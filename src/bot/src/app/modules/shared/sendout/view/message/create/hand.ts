@@ -6,7 +6,7 @@ const handComposer = new Composer<MyContext>();
 
 handComposer.callbackQuery(/^handInputText:/, async (ctx: MyContext) => {
     ctx.session.state.addingText = true;
-    ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+    ctx.session.message.position = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
     const menu = menuCreate.hand(ctx);
 
     const msg = await ctx.editMessageText(menu.text, {

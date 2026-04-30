@@ -6,7 +6,7 @@ import type { MyContext } from '@shared/types/SessionData';
 const textComposer = new Composer<MyContext>();
 
 textComposer.callbackQuery(/^mainCreateText:/, async (ctx: MyContext) => {
-    ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+    ctx.session.message.position = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
 
     const menu = menuCreate.main(ctx);
     const msg = await ctx.editMessageText(menu.text, {
@@ -22,7 +22,7 @@ textComposer.callbackQuery(/^mainCreateText:/, async (ctx: MyContext) => {
 
 textComposer.callbackQuery(/^updateText:/, async (ctx: MyContext) => {
     ctx.session.state.updatingText = true;
-    ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+    ctx.session.message.position = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
     const menu = menuView.updateText(ctx);
 
     // Сохранение айди для последующего редактирования этого же сообщения

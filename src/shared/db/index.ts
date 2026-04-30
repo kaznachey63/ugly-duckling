@@ -6,6 +6,7 @@ import schedule from './repositories/schedule';
 import user from './repositories/user';
 import bot from './repositories/bot';
 import contract from './repositories/contract';
+import media from './repositories/media';
 
 export default {
     chat,
@@ -16,4 +17,5 @@ export default {
     user,
     bot,
     contract,
+    media
 };

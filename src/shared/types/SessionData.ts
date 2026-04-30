@@ -1,11 +1,12 @@
 import { Context, type SessionFlavor } from "grammy";
-import type { User, Sendout, Schedule } from "@shared/types/DB";
+import type { User, Sendout, Schedule, Message } from "@shared/types/DB";
 
 export interface SessionData {
     isAdmin: boolean;
     user: User;
     sendout: Sendout;
     schedule: Schedule;
+    message: Message
     state: {
         addingText: boolean;
         updatingText: boolean;

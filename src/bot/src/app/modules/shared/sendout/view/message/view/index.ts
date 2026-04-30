@@ -10,9 +10,9 @@ import menuMessage from '@menus/modules/shared/sendout/view/message/main';
 const viewComposer = new Composer<MyContext>();
 
 viewComposer.callbackQuery(/^viewMessage:/, async (ctx: MyContext) => {
-    ctx.session.other.text.positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+    ctx.session.message.position = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
     
-    const messages = await db.message.getMessages(ctx.session.sendout.schema);
+    const messages = await db.message.getMessages(ctx.session.sendout.id!);
     
     let menu;
     

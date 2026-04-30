@@ -8,9 +8,9 @@ const clearComposer = new Composer<MyContext>();
 
 clearComposer.callbackQuery(/^clearSchedule:/, async (ctx: MyContext) => {
     try {
-        await db.schedule.clearTable(ctx.session.sendout.schema);
+        await db.schedule.clear(ctx.session.sendout.id!);
         const server = new ServerManager();
-        const menu = menuClear(ctx, await server.restartProcessOrNot(ctx.session.sendout.name, true));
+        const menu = menuClear(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true));
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',

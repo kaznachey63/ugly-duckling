@@ -1,22 +1,20 @@
-import { getPool } from '../pool';
-const pool = getPool();
-import distribution from './sendout';
-import type { Message } from '@shared/types/Message'
+import type { Message } from '@shared/types/DB';
+import prisma from '@shared/db/config';
 
 /**
  * Получение сообщений 
  */
-async function getMessages(schemas?: string): Promise<Message[]> {
-    const schema = schemas ?? distribution.getSchema();
-
+async function getMessages(sendoutId: number): Promise<Message[]> {
     try {
-        const { rows } = await pool.query(`SELECT id, caption, media, entities FROM ${schema}.message ORDER BY POSITION ASC`);
-        return rows.map(r => ({
-            id: r.id,
-            caption: r.caption,
-            media: r.media || [],
-            entities: r.entities
-        }));
+        return await prisma.message.findMany({
+            where: {
+                sendout_id: sendoutId
+            },
+            include: {
+                media: true
+            },
+            orderBy: { position: 'asc' }
+        });
     } catch (error) {
         console.error("Ошибка при получении сообщений", error);
         return [];
@@ -26,9 +24,13 @@ async function getMessages(schemas?: string): Promise<Message[]> {
 /**
  * Очистка сообщений
  */
-async function clearTable(schema: string) {
+async function clear(sendoutId: number) {
     try {
-        await pool.query(`TRUNCATE TABLE ${schema}.message RESTART IDENTITY`);
+        await prisma.message.deleteMany({
+            where: {
+                sendout_id: sendoutId
+            }
+        });
     } catch (error) {
         console.error("Ошибка при очистке сообщений", error);
     }
@@ -37,13 +39,13 @@ async function clearTable(schema: string) {
 /**
  * Удаление сообщения по айди
  */
-async function removeMessage(schema: string, messageId: number) {
+async function remove(messageId: number) {
     try {
-        await pool.query(
-            `DELETE FROM ${schema}.message 
-             WHERE id = $1`,
-            [messageId]
-        );
+        await prisma.message.delete({
+            where: { 
+                id: messageId 
+            }
+        });
     } catch (error) {
         console.error("Ошибка при удалении сообщения", error);
     }
@@ -52,39 +54,17 @@ async function removeMessage(schema: string, messageId: number) {
 /**
  * Обновление сообщения по айди
  */
-async function updateMessage(
-    schema: string,
-    messageId: number,
-    updates: { caption?: string; entities?: any[] | null; media?: string[] | null }
-) {
+async function update(message: Message){
     try {
-        const fields: string[] = [];
-        const values: any[] = [];
-        let paramIndex = 1;
-
-        if (updates.caption !== undefined) {
-            fields.push(`caption = $${paramIndex++}`);
-            values.push(updates.caption);
-        }
-        if (updates.media !== undefined) {
-            fields.push(`media = $${paramIndex++}`);
-            values.push(JSON.stringify(updates.media)); // ← сохраняем как JSON
-        }
-        if (updates.entities !== undefined) {
-            fields.push(`entities = $${paramIndex++}`);
-            values.push(JSON.stringify(updates.entities)); // ← сохраняем как JSON
-        }
-
-        if (fields.length === 0) return; // ничего не обновляем
-
-        values.push(messageId); // для WHERE id = $N
-
-        await pool.query(
-            `UPDATE ${schema}.message 
-             SET ${fields.join(', ')} 
-             WHERE id = $${paramIndex}`,
-            values
-        );
+        await prisma.message.update({
+            where: { 
+                id: message.id 
+            },
+            data: {
+                caption: message.caption,
+                entities: message.entities !== undefined ? message.entities! : undefined
+            }
+        });
     } catch (error) {
         console.error("Ошибка при обновлении сообщения", error);
     }
@@ -93,35 +73,26 @@ async function updateMessage(
 /**
  * Добавление сообщения
  */
-async function addMessage(schema: string, message: Message) {
-    const client = await pool.connect();
+async function create(message: Message) {
     try {
-        await client.query('BEGIN');
-
-        // 1. Получаем текущее количество записей (чтобы знать позицию)
-        const { rows } = await client.query(`SELECT COUNT(*) as cnt FROM ${schema}.message`);
-        const position = parseInt(rows[0].cnt);
-
-        // 2. Добавляем сообщение с позицией
-        await client.query(
-            `INSERT INTO ${schema}.message (caption, media, position, entities) 
-             VALUES ($1, $2, $3, $4)`,
-            [message.caption, message.media, position, JSON.stringify(message.entities)]
-        );
-
-        await client.query('COMMIT');
-    } catch (e) {
-        await client.query('ROLLBACK');
-        throw e; // ← не теряй ошибку!
-    } finally {
-        client.release();
+        await prisma.message.create({
+            data: {
+                caption: message.caption,
+                position: await prisma.message.count(),
+                entities: message.entities as any,
+                sendout_id: message.sendout_id
+            }
+        });
+    } catch (error) {
+        console.error("Ошибка при добавлении сообщения", error);
+        throw error;
     }
 }
 
 export default {
     getMessages,
-    addMessage,
-    updateMessage,
-    removeMessage,
-    clearTable
-}
+    create,
+    update,
+    remove,
+    clear
+};
