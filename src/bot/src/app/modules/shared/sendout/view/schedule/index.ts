@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import db from '@shared/db/sql/index';
+import db from '@shared/db';
 import common from '@utils/common';
 import menuSchedule from '@menus/modules/shared/sendout/view/schedule/main';
 import createComposer from './create';
@@ -12,8 +12,8 @@ const scheduleComposer = new Composer<MyContext>();
 scheduleComposer.callbackQuery(/^mainSchedule:/, async (ctx: MyContext) => {
     try {
         common.resetSessionStates(ctx.session);
-        const times = await db.schedule.getSchedule(ctx.session.sendout.schema);
-        const menu = menuSchedule(ctx, times?.length!);
+        const schedule = await db.schedule.get(ctx.session.sendout.id!);
+        const menu = menuSchedule(ctx, schedule?.length!);
 
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,

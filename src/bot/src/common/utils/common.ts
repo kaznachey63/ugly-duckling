@@ -40,7 +40,6 @@ async function setPrimaryValuesSession(ctx: MyContext) {
             name: sendoutName,
             call: infoDist.call!,
             label: infoDist.label!, 
-            schema: infoDist.schema!
         }
     }
 }

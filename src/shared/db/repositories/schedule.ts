@@ -1,28 +1,49 @@
-import type { Time } from '@shared/types/Time';
-import { getPool } from '../pool';
-const pool = getPool();
-import distribution from './sendout';
+import type { Schedule } from '@shared/types/DB';
+import prisma from '@shared/db/config';
 
 /**
  * Получение графика
  */
-async function getSchedule(schemas?: string): Promise<Time[] | undefined> {
-    const schema = schemas ?? distribution.getSchema();
+async function get(sendoutId: number): Promise<Schedule[] | undefined> {
     try {
-        const { rows } = await pool.query(`SELECT id, cron, label FROM ${schema}.schedule`);
-        return rows;
+        return await prisma.schedule.findMany({
+            include: {
+                sendout: {
+                    include: {
+                        status: true,
+                        execution: true
+                    }
+                }
+            },
+            where: {
+                sendout: {
+                    id: sendoutId
+                }
+            },
+            orderBy: {
+                position: 'asc'
+            }
+        });
     } catch (error) {
         console.error("Ошибка при получении графика", error);
     }
 }
 
 /**
- * Получение времени
+ * Получение инфо о времени по id времени
  */
-async function getTime(schema: string, id: number): Promise<Time | undefined> {
+async function getTime(timeId: number): Promise<Schedule | undefined> {
     try {
-        const { rows } = await pool.query(`SELECT id, cron, label FROM ${schema}.schedule WHERE id = $1`, [id]);        
-        return rows.at(0);
+        return await prisma.schedule.findFirst({
+            where: { 
+                id: timeId
+            },
+            select: { 
+                id: true, 
+                cron: true, 
+                label: true 
+            }
+        }) ?? undefined;
     } catch (error) {
         console.log("Ошибка при получении времени", error);
         return undefined;
@@ -30,63 +51,78 @@ async function getTime(schema: string, id: number): Promise<Time | undefined> {
 }
 
 /**
- * Добавление времени
+ * Добавление нового времени для рассылки
  */
-async function addTime(schema: string, time: Time) {
+async function create(schedule: Schedule) {
     try {
-        await pool.query(
-            `INSERT INTO ${schema}.schedule (cron, label)
-             VALUES ($1, $2)`,
-            [time.cron, time.label]
-        );
+        await prisma.schedule.create({
+            data: {
+                cron: schedule.cron,
+                label: schedule.label,
+                position: await prisma.schedule.count(),
+                sendout_id: schedule.sendout_id
+            }
+        });
     } catch (error) {
         console.log("Ошибка при добавлении времени", error);
     }
 }
 
 /**
- * Обновление времени
+ * Обновление времени в графике
  */
-async function updateTime(schema: string, time: Time) {
+async function update(schedule: Schedule) {
     try {
-        await pool.query(
-            `UPDATE ${schema}.schedule 
-             SET cron = $1, label = $2
-             WHERE id = $3`,
-            [time.cron, time.label, time.id]
-        );
+        await prisma.schedule.update({
+            where: { 
+                id: schedule.id 
+            },
+            data: {
+                cron: schedule.cron,
+                label: schedule.label,
+                sendout_id: schedule.sendout_id
+            }
+        });
     } catch (error) {
         console.log("Ошибка при изменении времени", error);
     }
 }
 
 /**
- * Удаление времени
+ * Удаление времени по айди
  */
-async function removeTime(schema: string, id: number) {
+async function remove(timeId: number) {
     try {
-        await pool.query(`DELETE FROM ${schema}.schedule WHERE id = $1`, [id]);
+        await prisma.schedule.delete({
+            where: { 
+                id: timeId
+            }
+        });
     } catch (error) {
         console.log("Ошибка при удалении времени", error);
     }
 }
 
 /**
- * Очистка графика
+ * Очистка графика по айди рассылки
  */
-async function clearTable(schema: string) {
+async function clear(sendoutId: number) {
     try {
-        await pool.query(`TRUNCATE TABLE ${schema}.schedule RESTART IDENTITY`);
+        await prisma.schedule.deleteMany({
+            where: { 
+                sendout_id: sendoutId
+            }
+        });
     } catch (error) {
         console.error("Ошибка при очистке графика", error);
     }
 }
 
 export default {
-    getSchedule,
+    get,
     getTime,
-    removeTime,
-    addTime,
-    updateTime,
-    clearTable
-}
+    remove,
+    create,
+    update,
+    clear
+};

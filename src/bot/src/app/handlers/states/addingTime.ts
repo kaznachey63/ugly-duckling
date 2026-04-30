@@ -3,8 +3,8 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuState from '@menus/handlers/states';
 import { ServerManager } from "src/common/services/ServerManager";
 import common from '@utils/common';
-import type { Time } from "@shared/types/Time";
 import utils from "@utils";
+import type { Schedule } from '@shared/types/DB';
 
 export default async function addingTime(ctx: MyContext) {
     const sendoutName = ctx.session.sendout.name!;
@@ -15,12 +15,13 @@ export default async function addingTime(ctx: MyContext) {
     }
     else {
         const formattedCronTime = formatCronTime(ctx.message?.text!);
-        const formattedTime: Time = {
+        const formattedTime: Schedule = {
             cron: formatCronTime(ctx.message?.text!),
-            label: utils.local.formatTimeToRu(formattedCronTime)!
+            label: utils.local.formatTimeToRu(formattedCronTime)!,
+            sendout_id: ctx.session.sendout.id!
         };
 
-        await db.schedule.addTime(ctx.session.sendout.schema, formattedTime);
+        await db.schedule.create(formattedTime);
         const server = new ServerManager();
         menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(sendoutName, true), true);
         common.resetSessionStates(ctx.session);

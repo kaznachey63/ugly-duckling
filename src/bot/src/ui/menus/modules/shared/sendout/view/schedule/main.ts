@@ -6,13 +6,12 @@ import format from '@utils/formatting';
 export default function main(ctx: MyContext, scheduleLength: number): Menu<InlineKeyboard> {
     const sendoutName = ctx.session.sendout.name;
     const sendoutCall = ctx.session.sendout.call;
-    const positionId = ctx.session.other.time.positionId;   
      
     let text = [];
     const keyboard = new InlineKeyboard();
     
     if (ctx.session.isAdmin) {
-        keyboard.text(ctx.t("utils.shared.buttons.create"), `createTime:${sendoutName}#${positionId}`).style("success");
+        keyboard.text(ctx.t("utils.shared.buttons.create"), `createTime:${sendoutName}`).style("success");
     }
 
     // Нет времени

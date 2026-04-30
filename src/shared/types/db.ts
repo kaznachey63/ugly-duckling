@@ -34,21 +34,21 @@ export type User = Partial<Prisma.userGetPayload<{
 
 export type UserIds = Pick<User, 'id'>;
 
-export type Message = Prisma.scheduleGetPayload<{
+export type Message = Partial<Prisma.scheduleGetPayload<{
     include: { sendout: { include: typeof includeSendout } }
-}>;
+}>>;
 
-export type Media = Prisma.mediaGetPayload<{
+export type Media = Partial<Prisma.mediaGetPayload<{
     include: { message: { include: { sendout: { include: typeof includeSendout } } } }
-}>;
+}>>;
 
-export type Schedule = Prisma.scheduleGetPayload<{
-    include: { sendout: { include: typeof includeSendout } }
-}>;
+export type Schedule = Partial<Prisma.scheduleGetPayload<{
+    include: { sendout: { include: { execution: true, status: true } } }
+}>>;
 
-export type Result = Prisma.resultGetPayload<{
+export type Result = Partial<Prisma.resultGetPayload<{
     include: { sendout: { include: typeof includeSendout } }
-}>;
+}>>;
 
 export type Bot = Prisma.botGetPayload<{}>;
 export type Credential = Prisma.credentialGetPayload<{}>;

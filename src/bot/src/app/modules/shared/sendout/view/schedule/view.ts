@@ -1,6 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import db from '@shared/db/sql/index';
+import db from '@shared/db';
 import local from '@utils/localization';
 import { ServerManager } from 'src/common/services/ServerManager';
 import menuView from '@menus/modules/shared/sendout/view/schedule/view';
@@ -12,26 +12,42 @@ const viewComposer = new Composer<MyContext>();
 viewComposer.callbackQuery(/^viewSchedule:/, async (ctx: MyContext) => {
     try {
         common.resetSessionStates(ctx.session);
-        const times = await db.schedule.getSchedule(ctx.session.sendout.schema);
+        const schedule = await db.schedule.get(ctx.session.sendout.id!);
         
         let menu;
-        if (!times || times.length <= 0) menu = menuSchedule(ctx, 0);
-        else menu = menuView.main(ctx, times!);
+        if (!schedule || schedule.length <= 0) menu = menuSchedule(ctx, 0);
+        else menu = menuView.main(ctx, schedule!);
 
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'
         });
     } catch (error) {
-        console.error('Ошибка в mainSchedule:', error);
+        console.error('Ошибка в viewSchedule:', error);
+    }
+});
+
+viewComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) => {
+    try {
+        const queryData = ctx.callbackQuery?.data;
+        const timeId = Number(queryData!.split(/#/)[1]);
+        ctx.session.schedule.id = timeId;
+        const { label: targetTime } = (await db.schedule.getTime(timeId))!;
+        const menu = menuView.updateOrRemove(ctx, targetTime!);
+
+        await ctx.editMessageText(menu.text, {
+            reply_markup: menu.keyboard,
+            parse_mode: 'MarkdownV2'
+        });
+    } catch (error) {
+        console.error('Ошибка в updateOrRemoveTime:', error);
     }
 });
 
 viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
     try {
         ctx.session.state.updatingTime = true;
-        const timeId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
-        ctx.session.other.time.positionId = timeId;
+        ctx.session.schedule.id = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
         const menu = menuView.update(ctx);
 
         const msg = await ctx.editMessageText(menu.text, {
@@ -49,9 +65,12 @@ viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
 
 viewComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
     try {
-        await db.schedule.removeTime(ctx.session.sendout.schema, ctx.session.other.time.positionId);
-        if ((await db.schedule.getSchedule(ctx.session.sendout.schema))?.length == 0) {
-            await db.schedule.clearTable(ctx.session.sendout.schema);
+        const timeId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+        ctx.session.schedule.id = timeId;
+        const sendoutId = ctx.session.sendout.id;
+        await db.schedule.remove(timeId!);
+        if ((await db.schedule.get(sendoutId!))?.length == 0) {
+            await db.schedule.clear(sendoutId!);
         }
         const server = new ServerManager();
         const menu = menuView.remove(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true));
@@ -62,23 +81,6 @@ viewComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
         });
     } catch (error) {
         console.error('Ошибка в removeTime:', error);
-    }
-});
-
-viewComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) => {
-    try {
-        const queryData = ctx.callbackQuery?.data;
-        const timeId = Number(queryData!.split(/#/)[1]);
-        ctx.session.other.time.positionId = timeId;
-        const { label: targetTime } = (await db.schedule.getTime(ctx.session.sendout.schema, timeId))!;
-        const menu = menuView.updateOrRemove(ctx, targetTime!);
-
-        await ctx.editMessageText(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: 'MarkdownV2'
-        });
-    } catch (error) {
-        console.error('Ошибка в updateOrRemoveTime:', error);
     }
 });
 
