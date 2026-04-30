@@ -18,7 +18,7 @@ async function logMessage(client: TelegramClient, logType: string, logData: stri
             break;
         }
         case "json": {
-            await db.result.insertResult(logData as LogData);
+            await db.result.insert(logData as LogData);
             break;
         }
     }

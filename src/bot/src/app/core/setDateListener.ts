@@ -23,7 +23,7 @@ export default async function setDateListener(ctx: MyContext) {
         const targetDate = `${day}.${month}.${year}`;
 
         // Получение логов
-        const logs = await db.result.getResults(sendoutName);
+        const logs = await db.result.get(sendoutName);
 
         // Поиск лога по дате
         if (logs && logs.find(log => log.date === targetDate)) {

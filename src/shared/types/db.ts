@@ -46,9 +46,7 @@ export type Schedule = Partial<Prisma.scheduleGetPayload<{
     include: { sendout: { include: { execution: true, status: true } } }
 }>>;
 
-export type Result = Partial<Prisma.resultGetPayload<{
-    include: { sendout: { include: typeof includeSendout } }
-}>>;
+export type Result = Partial<Prisma.resultGetPayload<{}>>;
 
 export type Bot = Prisma.botGetPayload<{}>;
 export type Credential = Prisma.credentialGetPayload<{}>;

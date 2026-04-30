@@ -37,7 +37,7 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:next:(\d{4}-\d{2}-\d{2})$/,
 });
 
 selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
-    const results = await db.result.getResults(ctx.session.sendout.schema);
+    const results = await db.result.get(ctx.session.sendout.id!);
 
     for (const result of results!) {
         if (result.chats.length == 0 || result.chats.length == 1) continue;
@@ -84,7 +84,7 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:month$/, async (ctx)
 
 // selectiveStatisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: MyContext) => {
 //     try {
-//         const logsBaza = await db.result.getResults(ctx.session.sendout.schema);
+//         const logsBaza = await db.result.get(ctx.session.sendout.schema);
 //         if (!logsBaza) return;
 
 //         const lastLog = logsBaza.at(-1)!;

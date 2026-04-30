@@ -1,38 +1,35 @@
-import { getPool } from '../pool';
-const pool = getPool();
-import distribution from './sendout';
-import type { LogData } from '@shared/types/LogData';
+import type { Result } from '@shared/types/DB';
+import prisma from '@shared/db/config';
 
 /**
  * Вставка результатов рассылки
  */
-async function insertResult(data: LogData) {
-    const client = await pool.connect();
+async function insert(result: Result) {
     try {
-        await client.query(
-            `INSERT INTO ${distribution.getSchema()}.result (time, date, success, chats) VALUES ($1, $2, $3, $4)`,
-            [data.time, data.date, data.success, JSON.stringify(data.chats)]
-        );
+        await prisma.result.create({
+            data: {
+                success: result.success,
+                chats: result.chats!, // Prisma автоматически сериализует объект в JSON
+                date_time: result.date_time,
+                sendout_id: result.sendout_id
+            }
+        });
     } catch (error) {
         console.error(error);
-    }
-    finally {
-        client.release();
     }
 }
 
 /**
  * Получение результатов рассылки
  */
-async function getResults(schema: string) {
+async function get(sendoutId: number) {
     try {
-        const { rows } = await pool.query(`SELECT time, date, success, chats FROM ${schema}.result`);
-        return rows.map(r => {
-            return {
-                time: r.time,
-                date: r.date,
-                success: r.success,
-                chats: r.chats
+        return await prisma.result.findMany({
+            where: { 
+                sendout_id: sendoutId
+            },
+            orderBy: {
+                date_time: 'asc'
             }
         });
     } catch (error) {
@@ -41,6 +38,6 @@ async function getResults(schema: string) {
 }
 
 export default {
-    getResults,
-    insertResult
-}
+    insert,
+    get,
+};

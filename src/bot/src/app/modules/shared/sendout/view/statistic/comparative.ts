@@ -73,15 +73,15 @@ function getType(type: StatisticType): string[] {
     }
 }
 
-async function getGroups(schema: string, typeStat: StatisticType): Promise<number[]> {
-    const logs = await db.result.getResults(schema);
-    if (!logs) return [];
+async function getGroups(sendoutId: number, typeStat: StatisticType): Promise<number[]> {
+    const results = await db.result.get(sendoutId);
+    if (!results) return [];
 
     const dates = getType(typeStat);
     const formattedDates = dates.map(d => formatDate(new Date(d)));
 
     return formattedDates.map(date => {
-        const logsForDate = logs.filter(l => l.date === date);
+        const logsForDate = results.filter(l => l.date === date);
         if (logsForDate.length === 0) return 0;
         const bestLog = logsForDate.reduce((max, current) =>
             current.success > max.success ? current : max
@@ -134,7 +134,7 @@ function getMonth(date: Date): string[] {
 }
 
 async function getDataForDiagram(ctx: MyContext, typeStat: StatisticType): Promise<ChartData | false> {
-    const groups = await getGroups(ctx.session.sendout.schema, typeStat);
+    const groups = await getGroups(ctx.session.sendout.id, typeStat);
     if (Number(groups.join('')) <= 0) return false;
 
     return {
