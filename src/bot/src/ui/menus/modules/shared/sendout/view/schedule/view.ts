@@ -52,7 +52,7 @@ function updateOrRemove(ctx: MyContext, targetTime: string): Menu<InlineKeyboard
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.updateOrRemove.buttons.update"), `updateTime:${ctx.session.sendout.name}#${ctx.session.schedule.id}`)
+        .text(ctx.t("utils.shared.buttons.update"), `updateTime:${ctx.session.sendout.name}#${ctx.session.schedule.id}`)
         .text(ctx.t("utils.shared.buttons.remove"), `removeTime:${ctx.session.sendout.id}#${ctx.session.schedule.id}`).style('danger')
         .row().text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.id}`);
     ;

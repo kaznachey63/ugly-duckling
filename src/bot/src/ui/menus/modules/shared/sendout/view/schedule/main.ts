@@ -28,7 +28,7 @@ export default function main(ctx: MyContext, scheduleLength: number): Menu<Inlin
         keyboard.text(ctx.t("utils.shared.buttons.view"), `viewSchedule:${sendoutName}`).style("primary")
     }
     
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${ctx.session.sendout.name}`);
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutName}`);
     text.push(ctx.t("modules.shared.sendout.view.sendout.schedule.main.path", { call: sendoutCall, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }));
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
 }
