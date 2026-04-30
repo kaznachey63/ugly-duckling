@@ -382,6 +382,10 @@ export type contractOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type contractCreateNestedOneWithoutSendoutInput = {
   create?: Prisma.XOR<Prisma.contractCreateWithoutSendoutInput, Prisma.contractUncheckedCreateWithoutSendoutInput>
   connectOrCreate?: Prisma.contractCreateOrConnectWithoutSendoutInput

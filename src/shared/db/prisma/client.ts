@@ -31,8 +31,8 @@ export * from "./enums.js"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Base_messages
- * const base_messages = await prisma.base_messages.findMany()
+ * // Fetch zero or more Bots
+ * const bots = await prisma.bot.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -41,21 +41,6 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
-/**
- * Model base_messages
- * This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
- */
-export type base_messages = Prisma.base_messagesModel
-/**
- * Model base_results
- * This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
- */
-export type base_results = Prisma.base_resultsModel
-/**
- * Model base_schedule
- * This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
- */
-export type base_schedule = Prisma.base_scheduleModel
 /**
  * Model bot
  * 
@@ -77,15 +62,45 @@ export type contract = Prisma.contractModel
  */
 export type credential = Prisma.credentialModel
 /**
+ * Model execution
+ * 
+ */
+export type execution = Prisma.executionModel
+/**
+ * Model media
+ * 
+ */
+export type media = Prisma.mediaModel
+/**
+ * Model message
+ * 
+ */
+export type message = Prisma.messageModel
+/**
+ * Model result
+ * 
+ */
+export type result = Prisma.resultModel
+/**
  * Model role
  * 
  */
 export type role = Prisma.roleModel
 /**
+ * Model schedule
+ * 
+ */
+export type schedule = Prisma.scheduleModel
+/**
  * Model sendout
  * 
  */
 export type sendout = Prisma.sendoutModel
+/**
+ * Model status
+ * 
+ */
+export type status = Prisma.statusModel
 /**
  * Model user
  * 

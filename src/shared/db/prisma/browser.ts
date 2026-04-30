@@ -18,21 +18,6 @@ export { Prisma }
 export * as $Enums from './enums.js'
 export * from './enums.js';
 /**
- * Model base_messages
- * This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
- */
-export type base_messages = Prisma.base_messagesModel
-/**
- * Model base_results
- * This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
- */
-export type base_results = Prisma.base_resultsModel
-/**
- * Model base_schedule
- * This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
- */
-export type base_schedule = Prisma.base_scheduleModel
-/**
  * Model bot
  * 
  */
@@ -53,15 +38,45 @@ export type contract = Prisma.contractModel
  */
 export type credential = Prisma.credentialModel
 /**
+ * Model execution
+ * 
+ */
+export type execution = Prisma.executionModel
+/**
+ * Model media
+ * 
+ */
+export type media = Prisma.mediaModel
+/**
+ * Model message
+ * 
+ */
+export type message = Prisma.messageModel
+/**
+ * Model result
+ * 
+ */
+export type result = Prisma.resultModel
+/**
  * Model role
  * 
  */
 export type role = Prisma.roleModel
 /**
+ * Model schedule
+ * 
+ */
+export type schedule = Prisma.scheduleModel
+/**
  * Model sendout
  * 
  */
 export type sendout = Prisma.sendoutModel
+/**
+ * Model status
+ * 
+ */
+export type status = Prisma.statusModel
 /**
  * Model user
  * 

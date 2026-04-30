@@ -205,11 +205,11 @@ export type botOrderByWithRelationInput = {
 
 export type botWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  last_idea_id?: number
   AND?: Prisma.botWhereInput | Prisma.botWhereInput[]
   OR?: Prisma.botWhereInput[]
   NOT?: Prisma.botWhereInput | Prisma.botWhereInput[]
-  last_idea_id?: Prisma.IntNullableFilter<"bot"> | number | null
-}, "id">
+}, "id" | "last_idea_id">
 
 export type botOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -284,6 +284,22 @@ export type botMinOrderByAggregateInput = {
 export type botSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   last_idea_id?: Prisma.SortOrder
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 

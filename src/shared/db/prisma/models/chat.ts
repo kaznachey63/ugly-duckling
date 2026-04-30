@@ -219,13 +219,13 @@ export type chatOrderByWithRelationInput = {
 
 export type chatWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  chat_id?: string
   AND?: Prisma.chatWhereInput | Prisma.chatWhereInput[]
   OR?: Prisma.chatWhereInput[]
   NOT?: Prisma.chatWhereInput | Prisma.chatWhereInput[]
-  chat_id?: Prisma.StringFilter<"chat"> | string
   title?: Prisma.StringFilter<"chat"> | string
   link?: Prisma.StringFilter<"chat"> | string
-}, "id">
+}, "id" | "chat_id">
 
 export type chatOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

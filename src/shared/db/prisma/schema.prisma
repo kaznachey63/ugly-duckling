@@ -7,39 +7,14 @@ datasource db {
   provider = "postgresql"
 }
 
-/// This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
-model base_messages {
-  id       Int     @id @default(autoincrement())
-  position Int?
-  caption  String?
-  entities Json?
-  media    Json?
-}
-
-/// This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
-model base_results {
-  id      Int       @id @default(autoincrement())
-  time    DateTime? @db.Time(6)
-  date    DateTime? @db.Date
-  success Int?
-  chats   Json?
-}
-
-/// This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
-model base_schedule {
-  id    Int     @id @default(autoincrement())
-  cron  String?
-  label String?
-}
-
 model bot {
   id           Int  @id @default(autoincrement())
-  last_idea_id Int?
+  last_idea_id Int? @unique(map: "bot_last_idea_id")
 }
 
 model chat {
   id      Int    @id @default(autoincrement())
-  chat_id String
+  chat_id String @unique(map: "chat_chat_id")
   title   String
   link    String
 }
@@ -58,36 +33,100 @@ model contract {
 
 model credential {
   id             Int      @id @default(autoincrement())
-  api_id         BigInt?
-  api_hash       String?
-  string_session String?
+  api_id         BigInt?  @unique(map: "credential_api_id")
+  api_hash       String?  @unique(map: "credential_api_hash")
+  string_session String?  @unique(map: "credential_string_session")
   sendout        sendout?
 }
 
+model execution {
+  id      Int       @id @default(autoincrement())
+  code    String    @unique
+  sendout sendout[]
+}
+
+model media {
+  id         Int      @id @default(autoincrement())
+  position   Int?     @unique(map: "media_position")
+  name       String?  @unique(map: "media_name")
+  message_id Int?
+  message    message? @relation(fields: [message_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "media_message_fk")
+
+  @@index([message_id], map: "fki_media_message_fk")
+}
+
+model message {
+  id         Int      @id @default(autoincrement())
+  position   Int?     @unique(map: "message_position")
+  caption    String?
+  entities   Json?
+  sendout_id Int?
+  media      media[]
+  sendout    sendout? @relation(fields: [sendout_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "message_sendout_fk")
+
+  @@index([sendout_id], map: "fki_message_sendout_fk")
+}
+
+model result {
+  id         Int       @id @default(autoincrement())
+  success    Int?
+  chats      Json?
+  date_time  DateTime? @db.Timestamp(6)
+  sendout_id Int?
+  sendout    sendout?  @relation(fields: [sendout_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "result_sendout_fk")
+
+  @@index([sendout_id], map: "fki_result_sendout_fk")
+}
+
 model role {
-  id   Int     @id @default(autoincrement())
-  code String?
+  id   Int    @id @default(autoincrement())
+  code String @unique(map: "role_code")
   user user[]
+}
+
+model schedule {
+  id         Int      @id @default(autoincrement())
+  position   Int?     @unique(map: "schedule_position")
+  cron       String?
+  label      String?
+  sendout_id Int?
+  sendout    sendout? @relation(fields: [sendout_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "schedule_sendout_fk")
+
+  @@index([sendout_id], map: "fki_schedule_sendout_fk")
 }
 
 model sendout {
   id            Int         @id @default(autoincrement())
-  schema        String?
-  name          String?
-  label         String?
-  call          String?
+  name          String?     @unique(map: "sendout_name")
+  label         String?     @unique(map: "sendout_label")
+  call          String?     @unique(map: "sendout_call")
   credential_id Int?        @unique(map: "sendout_credential_id")
   user_id       Int?
   contract_id   Int?
+  status_id     Int?
+  execution_id  Int?
+  message       message[]
+  result        result[]
+  schedule      schedule[]
   contract      contract?   @relation(fields: [contract_id], references: [id], onUpdate: NoAction, map: "sendout_contract_fk")
   credential    credential? @relation(fields: [credential_id], references: [id], onUpdate: NoAction, map: "sendout_credential_fk")
+  execution     execution?  @relation(fields: [execution_id], references: [id], onUpdate: NoAction, map: "sendout_execution_fk")
+  status        status?     @relation(fields: [status_id], references: [id], onUpdate: NoAction, map: "sendout_status_fk")
   user          user?       @relation(fields: [user_id], references: [id], onUpdate: NoAction, map: "sendout_user_fk")
 
   @@index([credential_id], map: "fki_accounts_credential_fk")
   @@index([user_id], map: "fki_accounts_users_fk")
+  @@index([execution_id], map: "fki_sendout_execution_fk")
+  @@index([status_id], map: "fki_sendout_status_fk")
   @@index([contract_id], map: "fki_sendouts_contracts_fk")
   @@index([credential_id], map: "fki_sendouts_credentials_fk")
   @@index([user_id], map: "fki_sendouts_users_fk")
+}
+
+model status {
+  id      Int       @id @default(autoincrement())
+  code    String    @unique
+  sendout sendout[]
 }
 
 model user {

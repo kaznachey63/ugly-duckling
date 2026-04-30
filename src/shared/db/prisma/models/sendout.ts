@@ -31,6 +31,8 @@ export type SendoutAvgAggregateOutputType = {
   credential_id: number | null
   user_id: number | null
   contract_id: number | null
+  status_id: number | null
+  execution_id: number | null
 }
 
 export type SendoutSumAggregateOutputType = {
@@ -38,39 +40,44 @@ export type SendoutSumAggregateOutputType = {
   credential_id: number | null
   user_id: number | null
   contract_id: number | null
+  status_id: number | null
+  execution_id: number | null
 }
 
 export type SendoutMinAggregateOutputType = {
   id: number | null
-  schema: string | null
   name: string | null
   label: string | null
   call: string | null
   credential_id: number | null
   user_id: number | null
   contract_id: number | null
+  status_id: number | null
+  execution_id: number | null
 }
 
 export type SendoutMaxAggregateOutputType = {
   id: number | null
-  schema: string | null
   name: string | null
   label: string | null
   call: string | null
   credential_id: number | null
   user_id: number | null
   contract_id: number | null
+  status_id: number | null
+  execution_id: number | null
 }
 
 export type SendoutCountAggregateOutputType = {
   id: number
-  schema: number
   name: number
   label: number
   call: number
   credential_id: number
   user_id: number
   contract_id: number
+  status_id: number
+  execution_id: number
   _all: number
 }
 
@@ -80,6 +87,8 @@ export type SendoutAvgAggregateInputType = {
   credential_id?: true
   user_id?: true
   contract_id?: true
+  status_id?: true
+  execution_id?: true
 }
 
 export type SendoutSumAggregateInputType = {
@@ -87,39 +96,44 @@ export type SendoutSumAggregateInputType = {
   credential_id?: true
   user_id?: true
   contract_id?: true
+  status_id?: true
+  execution_id?: true
 }
 
 export type SendoutMinAggregateInputType = {
   id?: true
-  schema?: true
   name?: true
   label?: true
   call?: true
   credential_id?: true
   user_id?: true
   contract_id?: true
+  status_id?: true
+  execution_id?: true
 }
 
 export type SendoutMaxAggregateInputType = {
   id?: true
-  schema?: true
   name?: true
   label?: true
   call?: true
   credential_id?: true
   user_id?: true
   contract_id?: true
+  status_id?: true
+  execution_id?: true
 }
 
 export type SendoutCountAggregateInputType = {
   id?: true
-  schema?: true
   name?: true
   label?: true
   call?: true
   credential_id?: true
   user_id?: true
   contract_id?: true
+  status_id?: true
+  execution_id?: true
   _all?: true
 }
 
@@ -211,13 +225,14 @@ export type sendoutGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type SendoutGroupByOutputType = {
   id: number
-  schema: string | null
   name: string | null
   label: string | null
   call: string | null
   credential_id: number | null
   user_id: number | null
   contract_id: number | null
+  status_id: number | null
+  execution_id: number | null
   _count: SendoutCountAggregateOutputType | null
   _avg: SendoutAvgAggregateOutputType | null
   _sum: SendoutSumAggregateOutputType | null
@@ -245,58 +260,77 @@ export type sendoutWhereInput = {
   OR?: Prisma.sendoutWhereInput[]
   NOT?: Prisma.sendoutWhereInput | Prisma.sendoutWhereInput[]
   id?: Prisma.IntFilter<"sendout"> | number
-  schema?: Prisma.StringNullableFilter<"sendout"> | string | null
   name?: Prisma.StringNullableFilter<"sendout"> | string | null
   label?: Prisma.StringNullableFilter<"sendout"> | string | null
   call?: Prisma.StringNullableFilter<"sendout"> | string | null
   credential_id?: Prisma.IntNullableFilter<"sendout"> | number | null
   user_id?: Prisma.IntNullableFilter<"sendout"> | number | null
   contract_id?: Prisma.IntNullableFilter<"sendout"> | number | null
+  status_id?: Prisma.IntNullableFilter<"sendout"> | number | null
+  execution_id?: Prisma.IntNullableFilter<"sendout"> | number | null
+  message?: Prisma.MessageListRelationFilter
+  result?: Prisma.ResultListRelationFilter
+  schedule?: Prisma.ScheduleListRelationFilter
   contract?: Prisma.XOR<Prisma.ContractNullableScalarRelationFilter, Prisma.contractWhereInput> | null
   credential?: Prisma.XOR<Prisma.CredentialNullableScalarRelationFilter, Prisma.credentialWhereInput> | null
+  execution?: Prisma.XOR<Prisma.ExecutionNullableScalarRelationFilter, Prisma.executionWhereInput> | null
+  status?: Prisma.XOR<Prisma.StatusNullableScalarRelationFilter, Prisma.statusWhereInput> | null
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.userWhereInput> | null
 }
 
 export type sendoutOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  schema?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   label?: Prisma.SortOrderInput | Prisma.SortOrder
   call?: Prisma.SortOrderInput | Prisma.SortOrder
   credential_id?: Prisma.SortOrderInput | Prisma.SortOrder
   user_id?: Prisma.SortOrderInput | Prisma.SortOrder
   contract_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  status_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  execution_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.messageOrderByRelationAggregateInput
+  result?: Prisma.resultOrderByRelationAggregateInput
+  schedule?: Prisma.scheduleOrderByRelationAggregateInput
   contract?: Prisma.contractOrderByWithRelationInput
   credential?: Prisma.credentialOrderByWithRelationInput
+  execution?: Prisma.executionOrderByWithRelationInput
+  status?: Prisma.statusOrderByWithRelationInput
   user?: Prisma.userOrderByWithRelationInput
 }
 
 export type sendoutWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  name?: string
+  label?: string
+  call?: string
   credential_id?: number
   AND?: Prisma.sendoutWhereInput | Prisma.sendoutWhereInput[]
   OR?: Prisma.sendoutWhereInput[]
   NOT?: Prisma.sendoutWhereInput | Prisma.sendoutWhereInput[]
-  schema?: Prisma.StringNullableFilter<"sendout"> | string | null
-  name?: Prisma.StringNullableFilter<"sendout"> | string | null
-  label?: Prisma.StringNullableFilter<"sendout"> | string | null
-  call?: Prisma.StringNullableFilter<"sendout"> | string | null
   user_id?: Prisma.IntNullableFilter<"sendout"> | number | null
   contract_id?: Prisma.IntNullableFilter<"sendout"> | number | null
+  status_id?: Prisma.IntNullableFilter<"sendout"> | number | null
+  execution_id?: Prisma.IntNullableFilter<"sendout"> | number | null
+  message?: Prisma.MessageListRelationFilter
+  result?: Prisma.ResultListRelationFilter
+  schedule?: Prisma.ScheduleListRelationFilter
   contract?: Prisma.XOR<Prisma.ContractNullableScalarRelationFilter, Prisma.contractWhereInput> | null
   credential?: Prisma.XOR<Prisma.CredentialNullableScalarRelationFilter, Prisma.credentialWhereInput> | null
+  execution?: Prisma.XOR<Prisma.ExecutionNullableScalarRelationFilter, Prisma.executionWhereInput> | null
+  status?: Prisma.XOR<Prisma.StatusNullableScalarRelationFilter, Prisma.statusWhereInput> | null
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.userWhereInput> | null
-}, "id" | "credential_id">
+}, "id" | "name" | "label" | "call" | "credential_id">
 
 export type sendoutOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  schema?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   label?: Prisma.SortOrderInput | Prisma.SortOrder
   call?: Prisma.SortOrderInput | Prisma.SortOrder
   credential_id?: Prisma.SortOrderInput | Prisma.SortOrder
   user_id?: Prisma.SortOrderInput | Prisma.SortOrder
   contract_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  status_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  execution_id?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.sendoutCountOrderByAggregateInput
   _avg?: Prisma.sendoutAvgOrderByAggregateInput
   _max?: Prisma.sendoutMaxOrderByAggregateInput
@@ -309,70 +343,87 @@ export type sendoutScalarWhereWithAggregatesInput = {
   OR?: Prisma.sendoutScalarWhereWithAggregatesInput[]
   NOT?: Prisma.sendoutScalarWhereWithAggregatesInput | Prisma.sendoutScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"sendout"> | number
-  schema?: Prisma.StringNullableWithAggregatesFilter<"sendout"> | string | null
   name?: Prisma.StringNullableWithAggregatesFilter<"sendout"> | string | null
   label?: Prisma.StringNullableWithAggregatesFilter<"sendout"> | string | null
   call?: Prisma.StringNullableWithAggregatesFilter<"sendout"> | string | null
   credential_id?: Prisma.IntNullableWithAggregatesFilter<"sendout"> | number | null
   user_id?: Prisma.IntNullableWithAggregatesFilter<"sendout"> | number | null
   contract_id?: Prisma.IntNullableWithAggregatesFilter<"sendout"> | number | null
+  status_id?: Prisma.IntNullableWithAggregatesFilter<"sendout"> | number | null
+  execution_id?: Prisma.IntNullableWithAggregatesFilter<"sendout"> | number | null
 }
 
 export type sendoutCreateInput = {
-  schema?: string | null
   name?: string | null
   label?: string | null
   call?: string | null
+  message?: Prisma.messageCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
   contract?: Prisma.contractCreateNestedOneWithoutSendoutInput
   credential?: Prisma.credentialCreateNestedOneWithoutSendoutInput
+  execution?: Prisma.executionCreateNestedOneWithoutSendoutInput
+  status?: Prisma.statusCreateNestedOneWithoutSendoutInput
   user?: Prisma.userCreateNestedOneWithoutSendoutInput
 }
 
 export type sendoutUncheckedCreateInput = {
   id?: number
-  schema?: string | null
   name?: string | null
   label?: string | null
   call?: string | null
   credential_id?: number | null
   user_id?: number | null
   contract_id?: number | null
+  status_id?: number | null
+  execution_id?: number | null
+  message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
 }
 
 export type sendoutUpdateInput = {
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
   contract?: Prisma.contractUpdateOneWithoutSendoutNestedInput
   credential?: Prisma.credentialUpdateOneWithoutSendoutNestedInput
+  execution?: Prisma.executionUpdateOneWithoutSendoutNestedInput
+  status?: Prisma.statusUpdateOneWithoutSendoutNestedInput
   user?: Prisma.userUpdateOneWithoutSendoutNestedInput
 }
 
 export type sendoutUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
 }
 
 export type sendoutCreateManyInput = {
   id?: number
-  schema?: string | null
   name?: string | null
   label?: string | null
   call?: string | null
   credential_id?: number | null
   user_id?: number | null
   contract_id?: number | null
+  status_id?: number | null
+  execution_id?: number | null
 }
 
 export type sendoutUpdateManyMutationInput = {
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -380,13 +431,14 @@ export type sendoutUpdateManyMutationInput = {
 
 export type sendoutUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type SendoutListRelationFilter = {
@@ -406,13 +458,14 @@ export type SendoutNullableScalarRelationFilter = {
 
 export type sendoutCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  schema?: Prisma.SortOrder
   name?: Prisma.SortOrder
   label?: Prisma.SortOrder
   call?: Prisma.SortOrder
   credential_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   contract_id?: Prisma.SortOrder
+  status_id?: Prisma.SortOrder
+  execution_id?: Prisma.SortOrder
 }
 
 export type sendoutAvgOrderByAggregateInput = {
@@ -420,28 +473,32 @@ export type sendoutAvgOrderByAggregateInput = {
   credential_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   contract_id?: Prisma.SortOrder
+  status_id?: Prisma.SortOrder
+  execution_id?: Prisma.SortOrder
 }
 
 export type sendoutMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  schema?: Prisma.SortOrder
   name?: Prisma.SortOrder
   label?: Prisma.SortOrder
   call?: Prisma.SortOrder
   credential_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   contract_id?: Prisma.SortOrder
+  status_id?: Prisma.SortOrder
+  execution_id?: Prisma.SortOrder
 }
 
 export type sendoutMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  schema?: Prisma.SortOrder
   name?: Prisma.SortOrder
   label?: Prisma.SortOrder
   call?: Prisma.SortOrder
   credential_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   contract_id?: Prisma.SortOrder
+  status_id?: Prisma.SortOrder
+  execution_id?: Prisma.SortOrder
 }
 
 export type sendoutSumOrderByAggregateInput = {
@@ -449,6 +506,8 @@ export type sendoutSumOrderByAggregateInput = {
   credential_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   contract_id?: Prisma.SortOrder
+  status_id?: Prisma.SortOrder
+  execution_id?: Prisma.SortOrder
 }
 
 export type sendoutCreateNestedManyWithoutContractInput = {
@@ -525,6 +584,138 @@ export type sendoutUncheckedUpdateOneWithoutCredentialNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.sendoutUpdateToOneWithWhereWithoutCredentialInput, Prisma.sendoutUpdateWithoutCredentialInput>, Prisma.sendoutUncheckedUpdateWithoutCredentialInput>
 }
 
+export type sendoutCreateNestedManyWithoutExecutionInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutExecutionInput, Prisma.sendoutUncheckedCreateWithoutExecutionInput> | Prisma.sendoutCreateWithoutExecutionInput[] | Prisma.sendoutUncheckedCreateWithoutExecutionInput[]
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutExecutionInput | Prisma.sendoutCreateOrConnectWithoutExecutionInput[]
+  createMany?: Prisma.sendoutCreateManyExecutionInputEnvelope
+  connect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+}
+
+export type sendoutUncheckedCreateNestedManyWithoutExecutionInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutExecutionInput, Prisma.sendoutUncheckedCreateWithoutExecutionInput> | Prisma.sendoutCreateWithoutExecutionInput[] | Prisma.sendoutUncheckedCreateWithoutExecutionInput[]
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutExecutionInput | Prisma.sendoutCreateOrConnectWithoutExecutionInput[]
+  createMany?: Prisma.sendoutCreateManyExecutionInputEnvelope
+  connect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+}
+
+export type sendoutUpdateManyWithoutExecutionNestedInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutExecutionInput, Prisma.sendoutUncheckedCreateWithoutExecutionInput> | Prisma.sendoutCreateWithoutExecutionInput[] | Prisma.sendoutUncheckedCreateWithoutExecutionInput[]
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutExecutionInput | Prisma.sendoutCreateOrConnectWithoutExecutionInput[]
+  upsert?: Prisma.sendoutUpsertWithWhereUniqueWithoutExecutionInput | Prisma.sendoutUpsertWithWhereUniqueWithoutExecutionInput[]
+  createMany?: Prisma.sendoutCreateManyExecutionInputEnvelope
+  set?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  disconnect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  delete?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  connect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  update?: Prisma.sendoutUpdateWithWhereUniqueWithoutExecutionInput | Prisma.sendoutUpdateWithWhereUniqueWithoutExecutionInput[]
+  updateMany?: Prisma.sendoutUpdateManyWithWhereWithoutExecutionInput | Prisma.sendoutUpdateManyWithWhereWithoutExecutionInput[]
+  deleteMany?: Prisma.sendoutScalarWhereInput | Prisma.sendoutScalarWhereInput[]
+}
+
+export type sendoutUncheckedUpdateManyWithoutExecutionNestedInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutExecutionInput, Prisma.sendoutUncheckedCreateWithoutExecutionInput> | Prisma.sendoutCreateWithoutExecutionInput[] | Prisma.sendoutUncheckedCreateWithoutExecutionInput[]
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutExecutionInput | Prisma.sendoutCreateOrConnectWithoutExecutionInput[]
+  upsert?: Prisma.sendoutUpsertWithWhereUniqueWithoutExecutionInput | Prisma.sendoutUpsertWithWhereUniqueWithoutExecutionInput[]
+  createMany?: Prisma.sendoutCreateManyExecutionInputEnvelope
+  set?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  disconnect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  delete?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  connect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  update?: Prisma.sendoutUpdateWithWhereUniqueWithoutExecutionInput | Prisma.sendoutUpdateWithWhereUniqueWithoutExecutionInput[]
+  updateMany?: Prisma.sendoutUpdateManyWithWhereWithoutExecutionInput | Prisma.sendoutUpdateManyWithWhereWithoutExecutionInput[]
+  deleteMany?: Prisma.sendoutScalarWhereInput | Prisma.sendoutScalarWhereInput[]
+}
+
+export type sendoutCreateNestedOneWithoutMessageInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutMessageInput, Prisma.sendoutUncheckedCreateWithoutMessageInput>
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutMessageInput
+  connect?: Prisma.sendoutWhereUniqueInput
+}
+
+export type sendoutUpdateOneWithoutMessageNestedInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutMessageInput, Prisma.sendoutUncheckedCreateWithoutMessageInput>
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutMessageInput
+  upsert?: Prisma.sendoutUpsertWithoutMessageInput
+  disconnect?: Prisma.sendoutWhereInput | boolean
+  delete?: Prisma.sendoutWhereInput | boolean
+  connect?: Prisma.sendoutWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.sendoutUpdateToOneWithWhereWithoutMessageInput, Prisma.sendoutUpdateWithoutMessageInput>, Prisma.sendoutUncheckedUpdateWithoutMessageInput>
+}
+
+export type sendoutCreateNestedOneWithoutResultInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutResultInput, Prisma.sendoutUncheckedCreateWithoutResultInput>
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutResultInput
+  connect?: Prisma.sendoutWhereUniqueInput
+}
+
+export type sendoutUpdateOneWithoutResultNestedInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutResultInput, Prisma.sendoutUncheckedCreateWithoutResultInput>
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutResultInput
+  upsert?: Prisma.sendoutUpsertWithoutResultInput
+  disconnect?: Prisma.sendoutWhereInput | boolean
+  delete?: Prisma.sendoutWhereInput | boolean
+  connect?: Prisma.sendoutWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.sendoutUpdateToOneWithWhereWithoutResultInput, Prisma.sendoutUpdateWithoutResultInput>, Prisma.sendoutUncheckedUpdateWithoutResultInput>
+}
+
+export type sendoutCreateNestedOneWithoutScheduleInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutScheduleInput, Prisma.sendoutUncheckedCreateWithoutScheduleInput>
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutScheduleInput
+  connect?: Prisma.sendoutWhereUniqueInput
+}
+
+export type sendoutUpdateOneWithoutScheduleNestedInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutScheduleInput, Prisma.sendoutUncheckedCreateWithoutScheduleInput>
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutScheduleInput
+  upsert?: Prisma.sendoutUpsertWithoutScheduleInput
+  disconnect?: Prisma.sendoutWhereInput | boolean
+  delete?: Prisma.sendoutWhereInput | boolean
+  connect?: Prisma.sendoutWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.sendoutUpdateToOneWithWhereWithoutScheduleInput, Prisma.sendoutUpdateWithoutScheduleInput>, Prisma.sendoutUncheckedUpdateWithoutScheduleInput>
+}
+
+export type sendoutCreateNestedManyWithoutStatusInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutStatusInput, Prisma.sendoutUncheckedCreateWithoutStatusInput> | Prisma.sendoutCreateWithoutStatusInput[] | Prisma.sendoutUncheckedCreateWithoutStatusInput[]
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutStatusInput | Prisma.sendoutCreateOrConnectWithoutStatusInput[]
+  createMany?: Prisma.sendoutCreateManyStatusInputEnvelope
+  connect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+}
+
+export type sendoutUncheckedCreateNestedManyWithoutStatusInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutStatusInput, Prisma.sendoutUncheckedCreateWithoutStatusInput> | Prisma.sendoutCreateWithoutStatusInput[] | Prisma.sendoutUncheckedCreateWithoutStatusInput[]
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutStatusInput | Prisma.sendoutCreateOrConnectWithoutStatusInput[]
+  createMany?: Prisma.sendoutCreateManyStatusInputEnvelope
+  connect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+}
+
+export type sendoutUpdateManyWithoutStatusNestedInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutStatusInput, Prisma.sendoutUncheckedCreateWithoutStatusInput> | Prisma.sendoutCreateWithoutStatusInput[] | Prisma.sendoutUncheckedCreateWithoutStatusInput[]
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutStatusInput | Prisma.sendoutCreateOrConnectWithoutStatusInput[]
+  upsert?: Prisma.sendoutUpsertWithWhereUniqueWithoutStatusInput | Prisma.sendoutUpsertWithWhereUniqueWithoutStatusInput[]
+  createMany?: Prisma.sendoutCreateManyStatusInputEnvelope
+  set?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  disconnect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  delete?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  connect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  update?: Prisma.sendoutUpdateWithWhereUniqueWithoutStatusInput | Prisma.sendoutUpdateWithWhereUniqueWithoutStatusInput[]
+  updateMany?: Prisma.sendoutUpdateManyWithWhereWithoutStatusInput | Prisma.sendoutUpdateManyWithWhereWithoutStatusInput[]
+  deleteMany?: Prisma.sendoutScalarWhereInput | Prisma.sendoutScalarWhereInput[]
+}
+
+export type sendoutUncheckedUpdateManyWithoutStatusNestedInput = {
+  create?: Prisma.XOR<Prisma.sendoutCreateWithoutStatusInput, Prisma.sendoutUncheckedCreateWithoutStatusInput> | Prisma.sendoutCreateWithoutStatusInput[] | Prisma.sendoutUncheckedCreateWithoutStatusInput[]
+  connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutStatusInput | Prisma.sendoutCreateOrConnectWithoutStatusInput[]
+  upsert?: Prisma.sendoutUpsertWithWhereUniqueWithoutStatusInput | Prisma.sendoutUpsertWithWhereUniqueWithoutStatusInput[]
+  createMany?: Prisma.sendoutCreateManyStatusInputEnvelope
+  set?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  disconnect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  delete?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  connect?: Prisma.sendoutWhereUniqueInput | Prisma.sendoutWhereUniqueInput[]
+  update?: Prisma.sendoutUpdateWithWhereUniqueWithoutStatusInput | Prisma.sendoutUpdateWithWhereUniqueWithoutStatusInput[]
+  updateMany?: Prisma.sendoutUpdateManyWithWhereWithoutStatusInput | Prisma.sendoutUpdateManyWithWhereWithoutStatusInput[]
+  deleteMany?: Prisma.sendoutScalarWhereInput | Prisma.sendoutScalarWhereInput[]
+}
+
 export type sendoutCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.sendoutCreateWithoutUserInput, Prisma.sendoutUncheckedCreateWithoutUserInput> | Prisma.sendoutCreateWithoutUserInput[] | Prisma.sendoutUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.sendoutCreateOrConnectWithoutUserInput | Prisma.sendoutCreateOrConnectWithoutUserInput[]
@@ -568,22 +759,30 @@ export type sendoutUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type sendoutCreateWithoutContractInput = {
-  schema?: string | null
   name?: string | null
   label?: string | null
   call?: string | null
+  message?: Prisma.messageCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
   credential?: Prisma.credentialCreateNestedOneWithoutSendoutInput
+  execution?: Prisma.executionCreateNestedOneWithoutSendoutInput
+  status?: Prisma.statusCreateNestedOneWithoutSendoutInput
   user?: Prisma.userCreateNestedOneWithoutSendoutInput
 }
 
 export type sendoutUncheckedCreateWithoutContractInput = {
   id?: number
-  schema?: string | null
   name?: string | null
   label?: string | null
   call?: string | null
   credential_id?: number | null
   user_id?: number | null
+  status_id?: number | null
+  execution_id?: number | null
+  message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
 }
 
 export type sendoutCreateOrConnectWithoutContractInput = {
@@ -617,32 +816,41 @@ export type sendoutScalarWhereInput = {
   OR?: Prisma.sendoutScalarWhereInput[]
   NOT?: Prisma.sendoutScalarWhereInput | Prisma.sendoutScalarWhereInput[]
   id?: Prisma.IntFilter<"sendout"> | number
-  schema?: Prisma.StringNullableFilter<"sendout"> | string | null
   name?: Prisma.StringNullableFilter<"sendout"> | string | null
   label?: Prisma.StringNullableFilter<"sendout"> | string | null
   call?: Prisma.StringNullableFilter<"sendout"> | string | null
   credential_id?: Prisma.IntNullableFilter<"sendout"> | number | null
   user_id?: Prisma.IntNullableFilter<"sendout"> | number | null
   contract_id?: Prisma.IntNullableFilter<"sendout"> | number | null
+  status_id?: Prisma.IntNullableFilter<"sendout"> | number | null
+  execution_id?: Prisma.IntNullableFilter<"sendout"> | number | null
 }
 
 export type sendoutCreateWithoutCredentialInput = {
-  schema?: string | null
   name?: string | null
   label?: string | null
   call?: string | null
+  message?: Prisma.messageCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
   contract?: Prisma.contractCreateNestedOneWithoutSendoutInput
+  execution?: Prisma.executionCreateNestedOneWithoutSendoutInput
+  status?: Prisma.statusCreateNestedOneWithoutSendoutInput
   user?: Prisma.userCreateNestedOneWithoutSendoutInput
 }
 
 export type sendoutUncheckedCreateWithoutCredentialInput = {
   id?: number
-  schema?: string | null
   name?: string | null
   label?: string | null
   call?: string | null
   user_id?: number | null
   contract_id?: number | null
+  status_id?: number | null
+  execution_id?: number | null
+  message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
 }
 
 export type sendoutCreateOrConnectWithoutCredentialInput = {
@@ -662,41 +870,373 @@ export type sendoutUpdateToOneWithWhereWithoutCredentialInput = {
 }
 
 export type sendoutUpdateWithoutCredentialInput = {
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
   contract?: Prisma.contractUpdateOneWithoutSendoutNestedInput
+  execution?: Prisma.executionUpdateOneWithoutSendoutNestedInput
+  status?: Prisma.statusUpdateOneWithoutSendoutNestedInput
   user?: Prisma.userUpdateOneWithoutSendoutNestedInput
 }
 
 export type sendoutUncheckedUpdateWithoutCredentialInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
 }
 
-export type sendoutCreateWithoutUserInput = {
-  schema?: string | null
+export type sendoutCreateWithoutExecutionInput = {
   name?: string | null
   label?: string | null
   call?: string | null
+  message?: Prisma.messageCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
   contract?: Prisma.contractCreateNestedOneWithoutSendoutInput
   credential?: Prisma.credentialCreateNestedOneWithoutSendoutInput
+  status?: Prisma.statusCreateNestedOneWithoutSendoutInput
+  user?: Prisma.userCreateNestedOneWithoutSendoutInput
+}
+
+export type sendoutUncheckedCreateWithoutExecutionInput = {
+  id?: number
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  credential_id?: number | null
+  user_id?: number | null
+  contract_id?: number | null
+  status_id?: number | null
+  message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
+}
+
+export type sendoutCreateOrConnectWithoutExecutionInput = {
+  where: Prisma.sendoutWhereUniqueInput
+  create: Prisma.XOR<Prisma.sendoutCreateWithoutExecutionInput, Prisma.sendoutUncheckedCreateWithoutExecutionInput>
+}
+
+export type sendoutCreateManyExecutionInputEnvelope = {
+  data: Prisma.sendoutCreateManyExecutionInput | Prisma.sendoutCreateManyExecutionInput[]
+  skipDuplicates?: boolean
+}
+
+export type sendoutUpsertWithWhereUniqueWithoutExecutionInput = {
+  where: Prisma.sendoutWhereUniqueInput
+  update: Prisma.XOR<Prisma.sendoutUpdateWithoutExecutionInput, Prisma.sendoutUncheckedUpdateWithoutExecutionInput>
+  create: Prisma.XOR<Prisma.sendoutCreateWithoutExecutionInput, Prisma.sendoutUncheckedCreateWithoutExecutionInput>
+}
+
+export type sendoutUpdateWithWhereUniqueWithoutExecutionInput = {
+  where: Prisma.sendoutWhereUniqueInput
+  data: Prisma.XOR<Prisma.sendoutUpdateWithoutExecutionInput, Prisma.sendoutUncheckedUpdateWithoutExecutionInput>
+}
+
+export type sendoutUpdateManyWithWhereWithoutExecutionInput = {
+  where: Prisma.sendoutScalarWhereInput
+  data: Prisma.XOR<Prisma.sendoutUpdateManyMutationInput, Prisma.sendoutUncheckedUpdateManyWithoutExecutionInput>
+}
+
+export type sendoutCreateWithoutMessageInput = {
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  result?: Prisma.resultCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
+  contract?: Prisma.contractCreateNestedOneWithoutSendoutInput
+  credential?: Prisma.credentialCreateNestedOneWithoutSendoutInput
+  execution?: Prisma.executionCreateNestedOneWithoutSendoutInput
+  status?: Prisma.statusCreateNestedOneWithoutSendoutInput
+  user?: Prisma.userCreateNestedOneWithoutSendoutInput
+}
+
+export type sendoutUncheckedCreateWithoutMessageInput = {
+  id?: number
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  credential_id?: number | null
+  user_id?: number | null
+  contract_id?: number | null
+  status_id?: number | null
+  execution_id?: number | null
+  result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
+}
+
+export type sendoutCreateOrConnectWithoutMessageInput = {
+  where: Prisma.sendoutWhereUniqueInput
+  create: Prisma.XOR<Prisma.sendoutCreateWithoutMessageInput, Prisma.sendoutUncheckedCreateWithoutMessageInput>
+}
+
+export type sendoutUpsertWithoutMessageInput = {
+  update: Prisma.XOR<Prisma.sendoutUpdateWithoutMessageInput, Prisma.sendoutUncheckedUpdateWithoutMessageInput>
+  create: Prisma.XOR<Prisma.sendoutCreateWithoutMessageInput, Prisma.sendoutUncheckedCreateWithoutMessageInput>
+  where?: Prisma.sendoutWhereInput
+}
+
+export type sendoutUpdateToOneWithWhereWithoutMessageInput = {
+  where?: Prisma.sendoutWhereInput
+  data: Prisma.XOR<Prisma.sendoutUpdateWithoutMessageInput, Prisma.sendoutUncheckedUpdateWithoutMessageInput>
+}
+
+export type sendoutUpdateWithoutMessageInput = {
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
+  contract?: Prisma.contractUpdateOneWithoutSendoutNestedInput
+  credential?: Prisma.credentialUpdateOneWithoutSendoutNestedInput
+  execution?: Prisma.executionUpdateOneWithoutSendoutNestedInput
+  status?: Prisma.statusUpdateOneWithoutSendoutNestedInput
+  user?: Prisma.userUpdateOneWithoutSendoutNestedInput
+}
+
+export type sendoutUncheckedUpdateWithoutMessageInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
+}
+
+export type sendoutCreateWithoutResultInput = {
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  message?: Prisma.messageCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
+  contract?: Prisma.contractCreateNestedOneWithoutSendoutInput
+  credential?: Prisma.credentialCreateNestedOneWithoutSendoutInput
+  execution?: Prisma.executionCreateNestedOneWithoutSendoutInput
+  status?: Prisma.statusCreateNestedOneWithoutSendoutInput
+  user?: Prisma.userCreateNestedOneWithoutSendoutInput
+}
+
+export type sendoutUncheckedCreateWithoutResultInput = {
+  id?: number
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  credential_id?: number | null
+  user_id?: number | null
+  contract_id?: number | null
+  status_id?: number | null
+  execution_id?: number | null
+  message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
+}
+
+export type sendoutCreateOrConnectWithoutResultInput = {
+  where: Prisma.sendoutWhereUniqueInput
+  create: Prisma.XOR<Prisma.sendoutCreateWithoutResultInput, Prisma.sendoutUncheckedCreateWithoutResultInput>
+}
+
+export type sendoutUpsertWithoutResultInput = {
+  update: Prisma.XOR<Prisma.sendoutUpdateWithoutResultInput, Prisma.sendoutUncheckedUpdateWithoutResultInput>
+  create: Prisma.XOR<Prisma.sendoutCreateWithoutResultInput, Prisma.sendoutUncheckedCreateWithoutResultInput>
+  where?: Prisma.sendoutWhereInput
+}
+
+export type sendoutUpdateToOneWithWhereWithoutResultInput = {
+  where?: Prisma.sendoutWhereInput
+  data: Prisma.XOR<Prisma.sendoutUpdateWithoutResultInput, Prisma.sendoutUncheckedUpdateWithoutResultInput>
+}
+
+export type sendoutUpdateWithoutResultInput = {
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
+  contract?: Prisma.contractUpdateOneWithoutSendoutNestedInput
+  credential?: Prisma.credentialUpdateOneWithoutSendoutNestedInput
+  execution?: Prisma.executionUpdateOneWithoutSendoutNestedInput
+  status?: Prisma.statusUpdateOneWithoutSendoutNestedInput
+  user?: Prisma.userUpdateOneWithoutSendoutNestedInput
+}
+
+export type sendoutUncheckedUpdateWithoutResultInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
+}
+
+export type sendoutCreateWithoutScheduleInput = {
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  message?: Prisma.messageCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultCreateNestedManyWithoutSendoutInput
+  contract?: Prisma.contractCreateNestedOneWithoutSendoutInput
+  credential?: Prisma.credentialCreateNestedOneWithoutSendoutInput
+  execution?: Prisma.executionCreateNestedOneWithoutSendoutInput
+  status?: Prisma.statusCreateNestedOneWithoutSendoutInput
+  user?: Prisma.userCreateNestedOneWithoutSendoutInput
+}
+
+export type sendoutUncheckedCreateWithoutScheduleInput = {
+  id?: number
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  credential_id?: number | null
+  user_id?: number | null
+  contract_id?: number | null
+  status_id?: number | null
+  execution_id?: number | null
+  message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
+}
+
+export type sendoutCreateOrConnectWithoutScheduleInput = {
+  where: Prisma.sendoutWhereUniqueInput
+  create: Prisma.XOR<Prisma.sendoutCreateWithoutScheduleInput, Prisma.sendoutUncheckedCreateWithoutScheduleInput>
+}
+
+export type sendoutUpsertWithoutScheduleInput = {
+  update: Prisma.XOR<Prisma.sendoutUpdateWithoutScheduleInput, Prisma.sendoutUncheckedUpdateWithoutScheduleInput>
+  create: Prisma.XOR<Prisma.sendoutCreateWithoutScheduleInput, Prisma.sendoutUncheckedCreateWithoutScheduleInput>
+  where?: Prisma.sendoutWhereInput
+}
+
+export type sendoutUpdateToOneWithWhereWithoutScheduleInput = {
+  where?: Prisma.sendoutWhereInput
+  data: Prisma.XOR<Prisma.sendoutUpdateWithoutScheduleInput, Prisma.sendoutUncheckedUpdateWithoutScheduleInput>
+}
+
+export type sendoutUpdateWithoutScheduleInput = {
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
+  contract?: Prisma.contractUpdateOneWithoutSendoutNestedInput
+  credential?: Prisma.credentialUpdateOneWithoutSendoutNestedInput
+  execution?: Prisma.executionUpdateOneWithoutSendoutNestedInput
+  status?: Prisma.statusUpdateOneWithoutSendoutNestedInput
+  user?: Prisma.userUpdateOneWithoutSendoutNestedInput
+}
+
+export type sendoutUncheckedUpdateWithoutScheduleInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
+}
+
+export type sendoutCreateWithoutStatusInput = {
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  message?: Prisma.messageCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
+  contract?: Prisma.contractCreateNestedOneWithoutSendoutInput
+  credential?: Prisma.credentialCreateNestedOneWithoutSendoutInput
+  execution?: Prisma.executionCreateNestedOneWithoutSendoutInput
+  user?: Prisma.userCreateNestedOneWithoutSendoutInput
+}
+
+export type sendoutUncheckedCreateWithoutStatusInput = {
+  id?: number
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  credential_id?: number | null
+  user_id?: number | null
+  contract_id?: number | null
+  execution_id?: number | null
+  message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
+}
+
+export type sendoutCreateOrConnectWithoutStatusInput = {
+  where: Prisma.sendoutWhereUniqueInput
+  create: Prisma.XOR<Prisma.sendoutCreateWithoutStatusInput, Prisma.sendoutUncheckedCreateWithoutStatusInput>
+}
+
+export type sendoutCreateManyStatusInputEnvelope = {
+  data: Prisma.sendoutCreateManyStatusInput | Prisma.sendoutCreateManyStatusInput[]
+  skipDuplicates?: boolean
+}
+
+export type sendoutUpsertWithWhereUniqueWithoutStatusInput = {
+  where: Prisma.sendoutWhereUniqueInput
+  update: Prisma.XOR<Prisma.sendoutUpdateWithoutStatusInput, Prisma.sendoutUncheckedUpdateWithoutStatusInput>
+  create: Prisma.XOR<Prisma.sendoutCreateWithoutStatusInput, Prisma.sendoutUncheckedCreateWithoutStatusInput>
+}
+
+export type sendoutUpdateWithWhereUniqueWithoutStatusInput = {
+  where: Prisma.sendoutWhereUniqueInput
+  data: Prisma.XOR<Prisma.sendoutUpdateWithoutStatusInput, Prisma.sendoutUncheckedUpdateWithoutStatusInput>
+}
+
+export type sendoutUpdateManyWithWhereWithoutStatusInput = {
+  where: Prisma.sendoutScalarWhereInput
+  data: Prisma.XOR<Prisma.sendoutUpdateManyMutationInput, Prisma.sendoutUncheckedUpdateManyWithoutStatusInput>
+}
+
+export type sendoutCreateWithoutUserInput = {
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  message?: Prisma.messageCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
+  contract?: Prisma.contractCreateNestedOneWithoutSendoutInput
+  credential?: Prisma.credentialCreateNestedOneWithoutSendoutInput
+  execution?: Prisma.executionCreateNestedOneWithoutSendoutInput
+  status?: Prisma.statusCreateNestedOneWithoutSendoutInput
 }
 
 export type sendoutUncheckedCreateWithoutUserInput = {
   id?: number
-  schema?: string | null
   name?: string | null
   label?: string | null
   call?: string | null
   credential_id?: number | null
   contract_id?: number | null
+  status_id?: number | null
+  execution_id?: number | null
+  message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
+  result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
+  schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
 }
 
 export type sendoutCreateOrConnectWithoutUserInput = {
@@ -727,170 +1267,365 @@ export type sendoutUpdateManyWithWhereWithoutUserInput = {
 
 export type sendoutCreateManyContractInput = {
   id?: number
-  schema?: string | null
   name?: string | null
   label?: string | null
   call?: string | null
   credential_id?: number | null
   user_id?: number | null
+  status_id?: number | null
+  execution_id?: number | null
 }
 
 export type sendoutUpdateWithoutContractInput = {
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
   credential?: Prisma.credentialUpdateOneWithoutSendoutNestedInput
+  execution?: Prisma.executionUpdateOneWithoutSendoutNestedInput
+  status?: Prisma.statusUpdateOneWithoutSendoutNestedInput
   user?: Prisma.userUpdateOneWithoutSendoutNestedInput
 }
 
 export type sendoutUncheckedUpdateWithoutContractInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
 }
 
 export type sendoutUncheckedUpdateManyWithoutContractInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type sendoutCreateManyExecutionInput = {
+  id?: number
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  credential_id?: number | null
+  user_id?: number | null
+  contract_id?: number | null
+  status_id?: number | null
+}
+
+export type sendoutUpdateWithoutExecutionInput = {
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
+  contract?: Prisma.contractUpdateOneWithoutSendoutNestedInput
+  credential?: Prisma.credentialUpdateOneWithoutSendoutNestedInput
+  status?: Prisma.statusUpdateOneWithoutSendoutNestedInput
+  user?: Prisma.userUpdateOneWithoutSendoutNestedInput
+}
+
+export type sendoutUncheckedUpdateWithoutExecutionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
+}
+
+export type sendoutUncheckedUpdateManyWithoutExecutionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type sendoutCreateManyStatusInput = {
+  id?: number
+  name?: string | null
+  label?: string | null
+  call?: string | null
+  credential_id?: number | null
+  user_id?: number | null
+  contract_id?: number | null
+  execution_id?: number | null
+}
+
+export type sendoutUpdateWithoutStatusInput = {
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
+  contract?: Prisma.contractUpdateOneWithoutSendoutNestedInput
+  credential?: Prisma.credentialUpdateOneWithoutSendoutNestedInput
+  execution?: Prisma.executionUpdateOneWithoutSendoutNestedInput
+  user?: Prisma.userUpdateOneWithoutSendoutNestedInput
+}
+
+export type sendoutUncheckedUpdateWithoutStatusInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
+}
+
+export type sendoutUncheckedUpdateManyWithoutStatusInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type sendoutCreateManyUserInput = {
   id?: number
-  schema?: string | null
   name?: string | null
   label?: string | null
   call?: string | null
   credential_id?: number | null
   contract_id?: number | null
+  status_id?: number | null
+  execution_id?: number | null
 }
 
 export type sendoutUpdateWithoutUserInput = {
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
   contract?: Prisma.contractUpdateOneWithoutSendoutNestedInput
   credential?: Prisma.credentialUpdateOneWithoutSendoutNestedInput
+  execution?: Prisma.executionUpdateOneWithoutSendoutNestedInput
+  status?: Prisma.statusUpdateOneWithoutSendoutNestedInput
 }
 
 export type sendoutUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
+  result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
+  schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
 }
 
 export type sendoutUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  execution_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
+
+/**
+ * Count Type SendoutCountOutputType
+ */
+
+export type SendoutCountOutputType = {
+  message: number
+  result: number
+  schedule: number
+}
+
+export type SendoutCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  message?: boolean | SendoutCountOutputTypeCountMessageArgs
+  result?: boolean | SendoutCountOutputTypeCountResultArgs
+  schedule?: boolean | SendoutCountOutputTypeCountScheduleArgs
+}
+
+/**
+ * SendoutCountOutputType without action
+ */
+export type SendoutCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SendoutCountOutputType
+   */
+  select?: Prisma.SendoutCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * SendoutCountOutputType without action
+ */
+export type SendoutCountOutputTypeCountMessageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.messageWhereInput
+}
+
+/**
+ * SendoutCountOutputType without action
+ */
+export type SendoutCountOutputTypeCountResultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.resultWhereInput
+}
+
+/**
+ * SendoutCountOutputType without action
+ */
+export type SendoutCountOutputTypeCountScheduleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.scheduleWhereInput
+}
 
 
 export type sendoutSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  schema?: boolean
   name?: boolean
   label?: boolean
   call?: boolean
   credential_id?: boolean
   user_id?: boolean
   contract_id?: boolean
+  status_id?: boolean
+  execution_id?: boolean
+  message?: boolean | Prisma.sendout$messageArgs<ExtArgs>
+  result?: boolean | Prisma.sendout$resultArgs<ExtArgs>
+  schedule?: boolean | Prisma.sendout$scheduleArgs<ExtArgs>
   contract?: boolean | Prisma.sendout$contractArgs<ExtArgs>
   credential?: boolean | Prisma.sendout$credentialArgs<ExtArgs>
+  execution?: boolean | Prisma.sendout$executionArgs<ExtArgs>
+  status?: boolean | Prisma.sendout$statusArgs<ExtArgs>
   user?: boolean | Prisma.sendout$userArgs<ExtArgs>
+  _count?: boolean | Prisma.SendoutCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["sendout"]>
 
 export type sendoutSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  schema?: boolean
   name?: boolean
   label?: boolean
   call?: boolean
   credential_id?: boolean
   user_id?: boolean
   contract_id?: boolean
+  status_id?: boolean
+  execution_id?: boolean
   contract?: boolean | Prisma.sendout$contractArgs<ExtArgs>
   credential?: boolean | Prisma.sendout$credentialArgs<ExtArgs>
+  execution?: boolean | Prisma.sendout$executionArgs<ExtArgs>
+  status?: boolean | Prisma.sendout$statusArgs<ExtArgs>
   user?: boolean | Prisma.sendout$userArgs<ExtArgs>
 }, ExtArgs["result"]["sendout"]>
 
 export type sendoutSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  schema?: boolean
   name?: boolean
   label?: boolean
   call?: boolean
   credential_id?: boolean
   user_id?: boolean
   contract_id?: boolean
+  status_id?: boolean
+  execution_id?: boolean
   contract?: boolean | Prisma.sendout$contractArgs<ExtArgs>
   credential?: boolean | Prisma.sendout$credentialArgs<ExtArgs>
+  execution?: boolean | Prisma.sendout$executionArgs<ExtArgs>
+  status?: boolean | Prisma.sendout$statusArgs<ExtArgs>
   user?: boolean | Prisma.sendout$userArgs<ExtArgs>
 }, ExtArgs["result"]["sendout"]>
 
 export type sendoutSelectScalar = {
   id?: boolean
-  schema?: boolean
   name?: boolean
   label?: boolean
   call?: boolean
   credential_id?: boolean
   user_id?: boolean
   contract_id?: boolean
+  status_id?: boolean
+  execution_id?: boolean
 }
 
-export type sendoutOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "schema" | "name" | "label" | "call" | "credential_id" | "user_id" | "contract_id", ExtArgs["result"]["sendout"]>
+export type sendoutOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "label" | "call" | "credential_id" | "user_id" | "contract_id" | "status_id" | "execution_id", ExtArgs["result"]["sendout"]>
 export type sendoutInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  message?: boolean | Prisma.sendout$messageArgs<ExtArgs>
+  result?: boolean | Prisma.sendout$resultArgs<ExtArgs>
+  schedule?: boolean | Prisma.sendout$scheduleArgs<ExtArgs>
   contract?: boolean | Prisma.sendout$contractArgs<ExtArgs>
   credential?: boolean | Prisma.sendout$credentialArgs<ExtArgs>
+  execution?: boolean | Prisma.sendout$executionArgs<ExtArgs>
+  status?: boolean | Prisma.sendout$statusArgs<ExtArgs>
   user?: boolean | Prisma.sendout$userArgs<ExtArgs>
+  _count?: boolean | Prisma.SendoutCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type sendoutIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contract?: boolean | Prisma.sendout$contractArgs<ExtArgs>
   credential?: boolean | Prisma.sendout$credentialArgs<ExtArgs>
+  execution?: boolean | Prisma.sendout$executionArgs<ExtArgs>
+  status?: boolean | Prisma.sendout$statusArgs<ExtArgs>
   user?: boolean | Prisma.sendout$userArgs<ExtArgs>
 }
 export type sendoutIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contract?: boolean | Prisma.sendout$contractArgs<ExtArgs>
   credential?: boolean | Prisma.sendout$credentialArgs<ExtArgs>
+  execution?: boolean | Prisma.sendout$executionArgs<ExtArgs>
+  status?: boolean | Prisma.sendout$statusArgs<ExtArgs>
   user?: boolean | Prisma.sendout$userArgs<ExtArgs>
 }
 
 export type $sendoutPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "sendout"
   objects: {
+    message: Prisma.$messagePayload<ExtArgs>[]
+    result: Prisma.$resultPayload<ExtArgs>[]
+    schedule: Prisma.$schedulePayload<ExtArgs>[]
     contract: Prisma.$contractPayload<ExtArgs> | null
     credential: Prisma.$credentialPayload<ExtArgs> | null
+    execution: Prisma.$executionPayload<ExtArgs> | null
+    status: Prisma.$statusPayload<ExtArgs> | null
     user: Prisma.$userPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    schema: string | null
     name: string | null
     label: string | null
     call: string | null
     credential_id: number | null
     user_id: number | null
     contract_id: number | null
+    status_id: number | null
+    execution_id: number | null
   }, ExtArgs["result"]["sendout"]>
   composites: {}
 }
@@ -1285,8 +2020,13 @@ readonly fields: sendoutFieldRefs;
  */
 export interface Prisma__sendoutClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  message<T extends Prisma.sendout$messageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sendout$messageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$messagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  result<T extends Prisma.sendout$resultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sendout$resultArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$resultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  schedule<T extends Prisma.sendout$scheduleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sendout$scheduleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$schedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contract<T extends Prisma.sendout$contractArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sendout$contractArgs<ExtArgs>>): Prisma.Prisma__contractClient<runtime.Types.Result.GetResult<Prisma.$contractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   credential<T extends Prisma.sendout$credentialArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sendout$credentialArgs<ExtArgs>>): Prisma.Prisma__credentialClient<runtime.Types.Result.GetResult<Prisma.$credentialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  execution<T extends Prisma.sendout$executionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sendout$executionArgs<ExtArgs>>): Prisma.Prisma__executionClient<runtime.Types.Result.GetResult<Prisma.$executionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  status<T extends Prisma.sendout$statusArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sendout$statusArgs<ExtArgs>>): Prisma.Prisma__statusClient<runtime.Types.Result.GetResult<Prisma.$statusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.sendout$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sendout$userArgs<ExtArgs>>): Prisma.Prisma__userClient<runtime.Types.Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1318,13 +2058,14 @@ export interface Prisma__sendoutClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface sendoutFieldRefs {
   readonly id: Prisma.FieldRef<"sendout", 'Int'>
-  readonly schema: Prisma.FieldRef<"sendout", 'String'>
   readonly name: Prisma.FieldRef<"sendout", 'String'>
   readonly label: Prisma.FieldRef<"sendout", 'String'>
   readonly call: Prisma.FieldRef<"sendout", 'String'>
   readonly credential_id: Prisma.FieldRef<"sendout", 'Int'>
   readonly user_id: Prisma.FieldRef<"sendout", 'Int'>
   readonly contract_id: Prisma.FieldRef<"sendout", 'Int'>
+  readonly status_id: Prisma.FieldRef<"sendout", 'Int'>
+  readonly execution_id: Prisma.FieldRef<"sendout", 'Int'>
 }
     
 
@@ -1726,6 +2467,78 @@ export type sendoutDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * sendout.message
+ */
+export type sendout$messageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the message
+   */
+  select?: Prisma.messageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the message
+   */
+  omit?: Prisma.messageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.messageInclude<ExtArgs> | null
+  where?: Prisma.messageWhereInput
+  orderBy?: Prisma.messageOrderByWithRelationInput | Prisma.messageOrderByWithRelationInput[]
+  cursor?: Prisma.messageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * sendout.result
+ */
+export type sendout$resultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the result
+   */
+  select?: Prisma.resultSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the result
+   */
+  omit?: Prisma.resultOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.resultInclude<ExtArgs> | null
+  where?: Prisma.resultWhereInput
+  orderBy?: Prisma.resultOrderByWithRelationInput | Prisma.resultOrderByWithRelationInput[]
+  cursor?: Prisma.resultWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ResultScalarFieldEnum | Prisma.ResultScalarFieldEnum[]
+}
+
+/**
+ * sendout.schedule
+ */
+export type sendout$scheduleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the schedule
+   */
+  select?: Prisma.scheduleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the schedule
+   */
+  omit?: Prisma.scheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.scheduleInclude<ExtArgs> | null
+  where?: Prisma.scheduleWhereInput
+  orderBy?: Prisma.scheduleOrderByWithRelationInput | Prisma.scheduleOrderByWithRelationInput[]
+  cursor?: Prisma.scheduleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ScheduleScalarFieldEnum | Prisma.ScheduleScalarFieldEnum[]
+}
+
+/**
  * sendout.contract
  */
 export type sendout$contractArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1761,6 +2574,44 @@ export type sendout$credentialArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   include?: Prisma.credentialInclude<ExtArgs> | null
   where?: Prisma.credentialWhereInput
+}
+
+/**
+ * sendout.execution
+ */
+export type sendout$executionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the execution
+   */
+  select?: Prisma.executionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the execution
+   */
+  omit?: Prisma.executionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.executionInclude<ExtArgs> | null
+  where?: Prisma.executionWhereInput
+}
+
+/**
+ * sendout.status
+ */
+export type sendout$statusArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the status
+   */
+  select?: Prisma.statusSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the status
+   */
+  omit?: Prisma.statusOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.statusInclude<ExtArgs> | null
+  where?: Prisma.statusWhereInput
 }
 
 /**

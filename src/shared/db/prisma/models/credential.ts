@@ -225,14 +225,14 @@ export type credentialOrderByWithRelationInput = {
 
 export type credentialWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  api_id?: bigint | number
+  api_hash?: string
+  string_session?: string
   AND?: Prisma.credentialWhereInput | Prisma.credentialWhereInput[]
   OR?: Prisma.credentialWhereInput[]
   NOT?: Prisma.credentialWhereInput | Prisma.credentialWhereInput[]
-  api_id?: Prisma.BigIntNullableFilter<"credential"> | bigint | number | null
-  api_hash?: Prisma.StringNullableFilter<"credential"> | string | null
-  string_session?: Prisma.StringNullableFilter<"credential"> | string | null
   sendout?: Prisma.XOR<Prisma.SendoutNullableScalarRelationFilter, Prisma.sendoutWhereInput> | null
-}, "id">
+}, "id" | "api_id" | "api_hash" | "string_session">
 
 export type credentialOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -348,6 +348,10 @@ export type NullableBigIntFieldUpdateOperationsInput = {
   decrement?: bigint | number
   multiply?: bigint | number
   divide?: bigint | number
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type credentialCreateNestedOneWithoutSendoutInput = {
