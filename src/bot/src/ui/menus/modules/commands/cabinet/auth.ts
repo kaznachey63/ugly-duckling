@@ -9,7 +9,7 @@ import format from '@utils/formatting';
 function sendLogin(ctx: MyContext): Menu<Keyboard> {
     const text = [ 
         ctx.t("modules.commands.cabinet.auth.login.title"),
-        ctx.t("modules.commands.cabinet.auth.login.pathMain")
+        ctx.t("modules.commands.cabinet.auth.login.path")
     ].join('\n\n');
     
     const keyboard = new Keyboard()
@@ -30,13 +30,13 @@ function processLogin(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     if (result) {
         text.push(
             ctx.t("modules.commands.cabinet.auth.login.good"),
-            ctx.t("modules.commands.cabinet.auth.login.path", { result: ctx.t("modules.commands.cabinet.auth.login.success")})
+            ctx.t("modules.commands.cabinet.auth.login.path")
         );
     }
     else {
         text.push(
             ctx.t("modules.commands.cabinet.auth.login.bad"),
-            ctx.t("modules.commands.cabinet.auth.login.path", { result: ctx.t("modules.commands.cabinet.auth.login.error")})
+            ctx.t("modules.commands.cabinet.auth.login.path")
         );
     }
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");

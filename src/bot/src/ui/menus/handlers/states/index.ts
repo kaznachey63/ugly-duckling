@@ -128,7 +128,7 @@ function addingUser(ctx: MyContext, result: boolean, validate: boolean) {
 function passingAuthorization(ctx: MyContext) {
     const text = [
         ctx.t("modules.commands.cabinet.auth.login.canceled"),
-        ctx.t("modules.commands.cabinet.auth.login.path", { result: ctx.t("modules.commands.cabinet.auth.login.cancel")})
+        ctx.t("modules.commands.cabinet.auth.login.path")
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
