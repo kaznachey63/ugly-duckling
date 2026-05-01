@@ -10,11 +10,11 @@ export default async function addingContract(ctx: MyContext) {
     const userIds = (await db.user.getIds()).map(u => u.id) as number[];
     
     if (!validateContract(text, userIds!)) {        
-        menu = menuState.addingUser(ctx, false, false);
+        menu = menuState.addingContract(ctx, false, false);
     }
     else {
         const contract = formatContract(text);
-        menu = menuState.addingUser(ctx, await db.contract.insert(contract), true);
+        menu = menuState.addingContract(ctx, await db.contract.insert(contract), true);
         common.resetSessionStates(ctx.session);
     }
 

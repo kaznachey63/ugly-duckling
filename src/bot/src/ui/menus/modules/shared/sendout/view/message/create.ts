@@ -51,7 +51,7 @@ function saveOrCancelGenerateText(ctx: MyContext, result: boolean, success?: boo
                 ctx.t("modules.commands.cabinet.distribution.messages.create.generate.pathSave", { call: ctx.session.sendout.call })
             );
             keyboard
-                .text(ctx.t("utils.shared.buttons.back"), `mainAddText:${sendoutId}`)
+                .text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${sendoutId}`)
             ;
         }
     }

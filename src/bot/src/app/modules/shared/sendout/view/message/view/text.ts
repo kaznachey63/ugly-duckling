@@ -1,22 +1,8 @@
 import { Composer } from 'grammy';
-import menuCreate from '@menus/modules/shared/sendout/view/message/create';
 import menuView from '@menus/modules/shared/sendout/view/message/view';
 import type { MyContext } from '@shared/types/SessionData';
 
 const textComposer = new Composer<MyContext>();
-
-textComposer.callbackQuery(/^mainCreateText:/, async (ctx: MyContext) => {
-    const menu = menuCreate.main(ctx);
-    const msg = await ctx.editMessageText(menu.text, {
-        reply_markup: menu.keyboard,
-        parse_mode: "MarkdownV2"
-    });
-
-    // Сохранение айди для последующего редактирования этого же сообщения
-    if (typeof msg !== "boolean" && "message_id" in msg) {
-        ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
-    }
-});
 
 textComposer.callbackQuery(/^updateText:/, async (ctx: MyContext) => {
     ctx.session.state.updatingText = true;
