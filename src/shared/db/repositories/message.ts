@@ -1,5 +1,73 @@
 import type { Message } from '@shared/types/DB';
 import prisma from '@shared/db/config';
+import type { PaginationType } from '@shared/types/PaginationType';
+
+/**
+ * Получение сообщения по айди рассылки, сообщения и типу пагинаци
+ * @param sendoutId Айди рассылки
+ * @param messageId Айди сообщения след/пред/нет
+ * @param type Тип пагинации след/пред/нет
+ */
+async function getByIdForPagination(sendoutId: number, messageId: number, type: PaginationType) {
+    try {
+        let where: any = {
+            sendout_id: sendoutId
+        };
+
+        let orderBy: any = undefined;
+
+        switch (type) {
+            case 'next': {
+                where.id = { gt: messageId };
+                orderBy = { id: 'asc' };
+                break;
+            }
+
+            case 'prev': {
+                where.id = { lt: messageId };
+                orderBy = { id: 'desc' };
+                break;
+            }
+
+            case 'none': {
+                where.id = messageId;
+                break;
+            }
+        }
+
+        return await prisma.message.findFirst({
+            where,
+            orderBy,
+            include: {
+                media: true
+            }
+        }) ?? undefined;
+
+    } catch (error) {
+        console.error("Ошибка при получении сообщения", error);
+        return undefined;
+    }
+}
+
+/**
+ * Получение сообщения по айди рассылки и позиции
+ */
+async function getByPosition(sendoutId: number, position: number): Promise<Message | undefined> {
+    try {
+        return await prisma.message.findFirst({
+            where: {
+                sendout_id: sendoutId,
+                position: position
+            },
+            include: {
+                media: true
+            }
+        }) ?? undefined;
+    } catch (error) {
+        console.error("Ошибка при получении сообщения по позиции", error);
+        return undefined;
+    }
+}
 
 /**
  * Получение сообщений 
@@ -90,6 +158,8 @@ async function create(message: Message) {
 }
 
 export default {
+    getByIdForPagination,   
+    getByPosition,
     getMessages,
     create,
     update,

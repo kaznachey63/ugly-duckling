@@ -18,7 +18,7 @@ messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
         menu = menuMessage(ctx, 0, true);
     }
     else {
-        ctx.session.message.position = messages.length;
+        ctx.session.message = (await db.message.getByPosition(ctx.session.sendout.id!, 0))!;
         menu = menuMessage(ctx, messages.length, false);
     }
 

@@ -22,7 +22,7 @@ export default function main(ctx: MyContext, messagesLength: number, error: bool
             keyboard
                 .text(ctx.t("utils.shared.buttons.clear"), `clearMessages:${sendoutId}`).style("danger").row()
                 .text(ctx.t("utils.shared.export"), `mainExportMessages:${sendoutId}`)
-                .text(ctx.t("utils.shared.buttons.view"), `viewMessage:${sendoutId}#0`).style("primary")
+                .text(ctx.t("utils.shared.buttons.view"), `viewMessage:${sendoutId}#${ctx.session.message.id}`).style("primary")
             ;
         }
     }

@@ -8,8 +8,7 @@ const messageComposer = new Composer<MyContext>();
 
 messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
     const positionId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
-    ctx.session.message.position = positionId;
-        const messages = await db.message.getMessages(ctx.session.sendout.id!);
+    const messages = await db.message.getMessages(ctx.session.sendout.id!);
 if (!messages) return;
     const messageId = messages[positionId]?.id!;
 

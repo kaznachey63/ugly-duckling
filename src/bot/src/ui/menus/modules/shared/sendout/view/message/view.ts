@@ -3,69 +3,60 @@ import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 import constants from '@constants';
-import type { Message } from '@shared/types/DB';
 
-function main(ctx: MyContext, messages: Message[]): Menu<InlineKeyboard> {
+// Отображение сообщения
+function main(ctx: MyContext, messagesLength: number): Menu<InlineKeyboard> {
     const sendoutId = ctx.session.sendout.id;
     const callDistribution = ctx.session.sendout.call;
-    const positionId = ctx.session.message.position;
-    const message = messages[positionId!];
+    const message = ctx.session.message;
 
     const text = [
-        ctx.t("modules.shared.sendout.view.sendout.message.view.main.messageNumber", { number: positionId! + 1 }) + ' ' +
+        ctx.t("modules.shared.sendout.view.sendout.message.view.main.messageNumber", { number: message.position! }) + ' ' +
         ctx.t("modules.shared.sendout.view.sendout.message.view.main.amountMedia", { amount: message!.media?.length!, maxMedia: constants.media.maxMedia }),
         `\`\`\`\n${message?.caption!}\n\`\`\`\n`,
         ctx.t("modules.shared.sendout.view.sendout.message.view.main.path", { call: callDistribution, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.updateText"), `updateText:${sendoutId}#${positionId!}`).style("primary")
-        .text(ctx.t("utils.shared.buttons.remove"), `removeMessage:${sendoutId}#${positionId!}`).style("danger").row()
-    ;
+        .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.updateText"), `updateText:${sendoutId}#${message.id!}`).style("primary")
+        .text(ctx.t("utils.shared.buttons.remove"), `removeMessage:${sendoutId}#${message.id!}`).style("danger").row();
 
-    // Медиа > 0 и != 4
     if (message?.media!.length! > 0 && message?.media!.length! != 4) {
         keyboard
-            .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutId}#${positionId!}`).style("success")
-            .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutId}#${positionId!}`).style("danger").row()
-        ;
+            .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutId}#${message.id!}`).style("success")
+            .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutId}#${message.id!}`).style("danger").row();
     }
 
-    // Медиа == 0
     if (message?.media!.length! == 0) {
-        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutId}#${positionId!}`).style("success").row();
+        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutId}#${message.id!}`).style("success").row();
     }
 
-    // Медиа == 4
     if (message?.media!.length! == 4) {
-        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutId}#${positionId!}`).style("danger").row();
+        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutId}#${message.id!}`).style("danger").row();
     }
 
-    // Навигация по сообщениям
-    if (messages.length === 1) {
-        keyboard.text(`${positionId! + 1} / ${messages.length}`, `paginationMessages:${sendoutId}#${positionId! + 1}/${messages.length}`).row();
+    if (messagesLength === 1) {
+        keyboard.text(`${message.position!} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`).row();
     }
-    else if (positionId! === 0) {
+    else if (message.position! === 1) {
         keyboard
-            .text(`${positionId! + 1} / ${messages.length}`, `paginationMessages:${sendoutId}#${positionId! + 1}/${messages.length}`)
-            .text("➡", `viewMessage:${sendoutId}#${positionId! + 1}`).row()
-        ;
+            .text(`${message.position!} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`)
+            .text("➡", `viewMessage:${sendoutId}#${message.position! + 1}-next`).row();
     }
-    else if (positionId! + 1 === messages.length) {
+    else if (message.position! === messagesLength) {
         keyboard
-            .text("⬅", `viewMessage:${sendoutId}#${positionId! - 1}`)
-            .text(`${positionId! + 1} / ${messages.length}`, `paginationMessages:${sendoutId}#${positionId! + 1}/${messages.length}`).row()
-        ;
+            .text("⬅", `viewMessage:${sendoutId}#${message.position! - 1}-prev`)
+            .text(`${message.position!} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`).row();
     }
     else {
         keyboard
-            .text("⬅", `viewMessage:${sendoutId}#${positionId! - 1}`)
-            .text(`${positionId! + 1} / ${messages.length}`, `paginationMessages:${sendoutId}#${positionId! + 1}/${messages.length}`)
-            .text("➡", `viewMessage:${sendoutId}#${positionId! + 1}`).row()
-        ;
+            .text("⬅", `viewMessage:${sendoutId}#${message.position! - 1}-prev`)
+            .text(`${message.position!} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`)
+            .text("➡", `viewMessage:${sendoutId}#${message.position! + 1}-next`).row();
     }
+
     keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
-    return { text: format.escapeMarkdown(text), keyboard }
+    return { text: format.escapeMarkdown(text), keyboard };
 }
 
 // сообщения

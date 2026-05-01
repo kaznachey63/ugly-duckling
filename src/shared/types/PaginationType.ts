@@ -1,0 +1,1 @@
+export type PaginationType = "prev" | "next" | "none";
