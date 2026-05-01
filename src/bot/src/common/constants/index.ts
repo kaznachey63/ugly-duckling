@@ -5,7 +5,7 @@ const link = {
     form: "https://forms.gle/i91r3EaCeigbuo479",
     instructionAboutCommands: "https://telegra.ph/Komandy-Rassylka-bot-11-29-2",
     tgAdmin: "https://t.me/master_cuni",
-    chatIdeas: "https://t.me/c/3760118458/"
+    ideasChat: "https://t.me/c/3760118458/81"
 }
 
 const calendar = {
@@ -97,6 +97,11 @@ const roles: RoleCode[] = [
     "admin", "customer", "unknown"
 ];
 
+const ids = {
+    generalChatId: "-1003760118458",
+    ideaChatId: "81"
+};
+
 export default {
     link,
     calendar,
@@ -108,4 +113,5 @@ export default {
     adminData,
     allowLanguages,
     roles,
+    ids
 }
