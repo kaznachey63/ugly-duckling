@@ -9,7 +9,7 @@ import type { Message } from '@shared/types/DB';
 const genereteComposer = new Composer<MyContext>();
 
 // этот обработчик превее нинего т.к. соответсвие на последние значения
-genereteComposer.callbackQuery(/^generateText:.+#\d+-(true|false)$/, async (ctx: MyContext) => {
+genereteComposer.callbackQuery(/^generateText:.+-(true|false)$/, async (ctx: MyContext) => {
     ctx.session.state.addingText = true;
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
 

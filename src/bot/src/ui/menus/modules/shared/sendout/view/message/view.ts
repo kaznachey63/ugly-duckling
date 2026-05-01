@@ -68,7 +68,7 @@ function removeMessage(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     
     if (result) {
         text.unshift(ctx.t("modules.shared.sendout.view.sendout.message.view.text.remove.success"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#0`);
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);
     }
     else {
         text.unshift(ctx.t("modules.shared.sendout.view.sendout.message.view.text.remove.error"));
@@ -124,6 +124,7 @@ function pagination(ctx: MyContext, messagesLength: number) {
     for (let i = 0; i < messagesLength; i++) {
         if (i % 5 == 0) keyboard.row();
         keyboard.text((i + 1).toString(), `viewMessage:${ctx.session.sendout.id}#${i}`);
+        // keyboard.text((i + 1).toString(), `viewMessage:${ctx.session.sendout.id}#${i + 1}`);
     }
 
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);

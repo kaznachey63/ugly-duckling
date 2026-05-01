@@ -79,7 +79,7 @@ function create(ctx: MyContext): Menu<InlineKeyboard> {
 function remove(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
     let text = [
-        ctx.t("modules.commands.panel.user.view.user.remove.path", { userName: user.name })
+        ctx.t("modules.commands.panel.user.view.user.remove.path", { userName: user.name ?? ctx.t("utils.shared.buttons.nameless") }),
     ];
 
     if (result) {

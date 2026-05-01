@@ -8,7 +8,7 @@ import type { PaginationType } from '@shared/types/PaginationType';
  * @param messageId Айди сообщения след/пред/нет
  * @param type Тип пагинации след/пред/нет
  */
-async function getByIdForPagination(sendoutId: number, messageId: number, type: PaginationType) {
+async function getByIdForPagination(sendoutId: number, messageId: number, type: PaginationType): Promise<Message | undefined> {
     try {
         let where: any = {
             sendout_id: sendoutId
@@ -50,6 +50,27 @@ async function getByIdForPagination(sendoutId: number, messageId: number, type: 
 }
 
 /**
+ * Получение собщения по айди
+ */
+async function getById(messageId: number): Promise<Message | undefined> {
+    try {
+        return await prisma.message.findFirst({
+            where: {
+                id: messageId
+            },
+            include: {
+                media: true
+            }
+        }) ?? undefined;
+
+    } catch (error) {
+        console.error("Ошибка при получении сообщения", error);
+        return undefined;
+    }
+}
+
+
+/**
  * Получение сообщения по айди рассылки и позиции
  */
 async function getByPosition(sendoutId: number, position: number): Promise<Message | undefined> {
@@ -68,6 +89,27 @@ async function getByPosition(sendoutId: number, position: number): Promise<Messa
         return undefined;
     }
 }
+
+/**
+ * Получение сообщения по айди рассылки и позиции
+ */
+async function getByFirstMessage(sendoutId: number, position: number): Promise<Message | undefined> {
+    try {
+        return await prisma.message.findFirst({
+            where: {
+                sendout_id: sendoutId,
+                position: position
+            },
+            include: {
+                media: true
+            }
+        }) ?? undefined;
+    } catch (error) {
+        console.error("Ошибка при получении сообщения по позиции", error);
+        return undefined;
+    }
+}
+
 
 /**
  * Получение сообщений 
@@ -159,6 +201,7 @@ async function create(message: Message) {
 
 export default {
     getByIdForPagination,   
+    getById,
     getByPosition,
     getMessages,
     create,

@@ -20,11 +20,81 @@ function createDefaultSession(): SessionData {
                 code: "unknown"
             }
         },
+        generate: {
+            text: "",
+            entities: []
+        },
         sendout: {
             call: "",
+            contract_id: 0,
+            credential_id: 0,
+            execution_id: 0,
+            id: 0,
             label: "",
             name: "",
-            schema: "",
+            status: {
+                code: "",
+                id: 0
+            },
+            user_id: 0,
+            execution: {
+                code: "",
+                id: 0
+            },
+            status_id: 0
+        },
+        message: {
+            caption: "",
+            entities: [],
+            sendout_id: 0,
+            position: 0,
+            id: 0,
+            media: [],
+            sendout: {
+                call: "",
+                contract_id: 0,
+                credential_id: 0,
+                execution_id: 0,
+                id: 0,
+                label: "",
+                name: "",
+                status: {
+                    code: "",
+                    id: 0
+                },
+                user_id: 0,
+                execution: {
+                    code: "",
+                    id: 0
+                },
+                status_id: 0
+            }
+        },
+        schedule: {
+            cron: "",
+            label: "",
+            id: 0,
+            position: 0,
+            sendout_id: 0,
+            sendout: {
+                call: "",
+                contract_id: 0,
+                credential_id: 0,
+                execution_id: 0,
+                id: 0,
+                label: "",
+                name: "",
+                status: {
+                    code: "",
+                    id: 0
+                },
+                user_id: 0,
+                execution: {
+                    code: "",
+                    id: 0
+                },
+                status_id: 0
+            }
         },
         state: {
             addingText: false,
@@ -42,21 +112,6 @@ function createDefaultSession(): SessionData {
             ids: {
                 idForUpdateMessageFromState: 0,
                 commandCabinetId: 0,
-            },
-            text: {
-
-                generateText: "",
-                generateEntities: [],
-                positionId: 0,
-            },
-            media: {
-                positionId: 0,
-            },
-            time: {
-                positionId: 0,
-            },
-            message: {
-                positionId: 0
             }
         }
     }

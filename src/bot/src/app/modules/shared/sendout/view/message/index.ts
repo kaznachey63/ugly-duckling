@@ -17,7 +17,7 @@ messageComposer.callbackQuery(/^mainMessage:/, async (ctx: MyContext) => {
     if (!messages) {
         menu = menuMessage(ctx, 0, true);
     }
-    else {
+    else { // метод по поиску первого. и везде где вызывается этот метод меню
         ctx.session.message = (await db.message.getByPosition(ctx.session.sendout.id!, 0))!;
         menu = menuMessage(ctx, messages.length, false);
     }

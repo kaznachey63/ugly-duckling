@@ -22,7 +22,11 @@ usersComposer.callbackQuery("mainUsers", async (ctx: MyContext) => {
  * Отображение списка пользователей
  */
 usersComposer.callbackQuery("viewUsers", async (ctx: MyContext) => {
-    const menu = menuUsers.viewUsers(ctx, await db.user.gets());
+    let menu;
+    const users = await db.user.gets();
+    
+    if (users.length <= 0) menu = menuUsers.main(ctx, 0);
+    else menu = menuUsers.viewUsers(ctx, users);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,

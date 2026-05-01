@@ -6,7 +6,6 @@ import format from '@utils/formatting';
 function main(ctx: MyContext): Menu<InlineKeyboard> {
     const sendoutId = ctx.session.sendout.id;
     const callDistribution = ctx.session.sendout.call;
-    const positionId = ctx.session.message.position;   
 
     const text = [
         ctx.t("modules.commands.cabinet.distribution.messages.create.main.title", { call: callDistribution }),
@@ -43,7 +42,7 @@ function saveOrCancelGenerateText(ctx: MyContext, result: boolean, success?: boo
                 ctx.t("modules.commands.cabinet.distribution.messages.create.generate.pathSave", { call: ctx.session.sendout.call })
             );
             keyboard
-                .text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutId}#0`)
+                .text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutId}#${ctx.session.message.position}`)
             ;
         }
         else {

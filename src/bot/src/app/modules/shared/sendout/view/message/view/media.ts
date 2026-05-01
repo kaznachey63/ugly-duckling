@@ -10,9 +10,10 @@ const mediaComposer = new Composer<MyContext>();
 /**
  * Оповещение пользователя о добавлении медиа. Ожидание медиа.
  */
-mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
+mediaComposer.callbackQuery(/^addMedia:/, async (ctx: MyContext) => {
     ctx.session.state.addingMedia = true;
-
+    ctx.session.message = (await db.message.getById(Number(ctx.callbackQuery?.data?.split(':')[1]!.split('#')[1])))!;
+    
     const menu = menuView.addMedia(ctx);
     let msg: any;
     try {
@@ -38,9 +39,7 @@ mediaComposer.callbackQuery(/^addMedia/, async (ctx: MyContext) => {
  * Оповещение пользователя об удалении всех медиа
  */
 mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {    
-    const queryData = ctx.callbackQuery?.data;
     const sendoutName = ctx.session.sendout.name!;
-    // const positionId = Number(queryData!.split(/#/)[1]);
     const media = await db.media.get(ctx.session.message.id!);
 
     if (!media) return;

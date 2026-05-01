@@ -21,6 +21,7 @@
       "@shared/*": ["../../src/shared/*"],
       "@utils": ["src/common/utils/index"],
       "@utils/*": ["src/common/utils/*"],
+      "@common/*": ["src/common/*"],
       "@constants": ["src/common/constants/index"],
       "@i18n": ["src/ui/i18n/index"],
       "@menus/*": ["src/ui/menus/*"],

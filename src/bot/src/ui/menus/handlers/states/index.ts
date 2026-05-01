@@ -48,8 +48,8 @@ function generatingText(ctx: MyContext, result: string) {
         '\n' + ctx.t("handlers.states.generatingText.pathChoose", { call: ctx.session.sendout.call }),
     ].join('\n');
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("handlers.states.generatingText.buttons.save"), `generateText:${ctx.session.sendout.name}#${ctx.session.message.position}-true`).style("success")
-        .text(ctx.t("handlers.states.generatingText.buttons.cancel"), `generateText:${ctx.session.sendout.name}#${ctx.session.message.position}-false`).style("danger").row()
+        .text(ctx.t("handlers.states.generatingText.buttons.save"), `generateText:${ctx.session.sendout.name}-true`).style("success")
+        .text(ctx.t("handlers.states.generatingText.buttons.cancel"), `generateText:${ctx.session.sendout.name}-false`).style("danger").row()
         .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);
     ;
     return { text: format.escapeMarkdown(text), keyboard }

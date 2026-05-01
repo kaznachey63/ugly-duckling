@@ -8,17 +8,12 @@ import type { Prisma } from '@shared/db/prisma/client';
 
 export default async function editingText(ctx: MyContext) {
     let menu;
-    if (!validateText(ctx.message?.text?.trim()!)) {
-        menu = menuState.updatingText(ctx, false, false);
-    }
+    if (!validateText(ctx.message?.text?.trim()!)) menu = menuState.updatingText(ctx, false, false);
     else {
-        const positionId = ctx.session.message.position!;
-        const messages = await db.message.getMessages(ctx.session.sendout.id!);
-        if (!messages) return;
-        const messageId = messages[positionId]?.id!;
+        const message = await db.message.getById(Number(ctx.callbackQuery?.data?.split(':')[1]!.split('#')[1]));
 
         const formatMessage: Message = {
-            id: messageId,
+            id: message?.id!,
             caption: ctx.message?.text?.trim()!,
             entities: ctx.message?.entities as unknown as Prisma.JsonArray,
         }
