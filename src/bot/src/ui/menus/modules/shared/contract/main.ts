@@ -11,8 +11,8 @@ import { InlineKeyboard } from 'grammy';
 function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
     const userIsAdmin = ctx.session.isAdmin;
     let text = [
-        ctx.t("modules.shared.contract.main.path", { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
         "",
+        ctx.t("modules.shared.contract.main.path", { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ];
     
     const keyboard = new InlineKeyboard();
@@ -29,7 +29,7 @@ function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
 
         keyboard.row().text(ctx.t("utils.shared.buttons.view"), "viewContracts").style("primary");
     }
-    else text.push(ctx.t("modules.shared.contract.main.empty"));
+    else text.unshift(ctx.t("modules.shared.contract.main.empty"));
     
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), userIsAdmin ? "mainPanel" : "mainCabinet");
 
