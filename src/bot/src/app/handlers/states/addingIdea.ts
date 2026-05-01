@@ -8,11 +8,14 @@ export default async function addingIdea(ctx: MyContext) {
     let forwardResult = false;
 
     try {
-        const result = await ctx.api.forwardMessage(constants.ids.generalChatId, ctx.chatId!, ctx.message?.message_id!, {
-            direct_messages_topic_id: constants.ids.ideaChatId
-        });
-        console.log(result);
-        
+const result = await ctx.api.copyMessage(
+  -1003760118458,
+  ctx!.chat!.id!,
+  ctx!.message!.message_id,
+  {
+    message_thread_id: 81
+  }
+);
         forwardResult = !!result;
         await db.bot.updateIdeaLastMessageId(result.message_id);
     } catch (error) {
