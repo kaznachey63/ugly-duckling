@@ -13,8 +13,6 @@ function resetSessionStates(session: SessionData) {
     session.state.addingTime = false;
     session.state.updatingTime = false;
     session.state.addingMedia = false;
-    session.other.text.positionId = 0;
-    session.other.media.positionId = 0;
     session.state.addingIdea = false;
     session.state.addingUser = false;
     session.state.passingAuthorization = false;
@@ -33,15 +31,9 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     // @ts-ignore
     ctx.session.isAdmin = ctx.session.user?.role.code === "admin";
 
-    const sendoutName = ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!;
-    const infoDist = await db.sendout.getSendoutInfo(sendoutName);
-    if (infoDist) {
-        ctx.session.sendout = {
-            name: sendoutName,
-            call: infoDist.call!,
-            label: infoDist.label!, 
-        }
-    }
+    const sendoutId = Number(ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!);
+    const infoDist = await db.sendout.getSendoutInfo(sendoutId);
+    if (infoDist) ctx.session.sendout = infoDist;
 }
 
 /**

@@ -20,11 +20,11 @@ async function getSendoutsInfoWithCredentials(): Promise<Sendout[] | undefined> 
 /**
  * Получение информации о рассылке по имени
  */
-async function getSendoutInfo(name: string): Promise<Sendout | undefined> {
+async function getSendoutInfo(sendoutId: number): Promise<Sendout | undefined> {
     try {
         return await prisma.sendout.findFirst({
             where: {
-                name: name
+                id: sendoutId
             }
         }) ?? undefined;
     } catch (error) {
