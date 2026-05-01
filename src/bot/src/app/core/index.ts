@@ -12,10 +12,10 @@ const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
 /**
  * Ограничение использования бота вне переписки с ботом
  */
-bot.use(async (ctx: MyContext, next: NextFunction) => {
-    if (ctx.chat && ctx.chat.type !== 'private') return;
-    next();
-});
+// bot.use(async (ctx: MyContext, next: NextFunction) => {
+//     if (ctx.chat && ctx.chat.type !== 'private') return;
+//     next();
+// });
 
 /**
  * Инициализация сессии
