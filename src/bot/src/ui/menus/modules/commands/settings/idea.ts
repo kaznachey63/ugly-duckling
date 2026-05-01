@@ -16,7 +16,7 @@ function main(ctx: MyContext, lastMessageId: string): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard().text(ctx.t("modules.commands.settings.idea.main.buttons.add"), "addIdea").style("success");
 
     if (ctx.session.isAdmin) {
-        keyboard.url(ctx.t("modules.commands.settings.idea.main.buttons.see"), constants.link.chatIdeas + lastMessageId);
+        keyboard.url(ctx.t("modules.commands.settings.idea.main.buttons.see"), constants.link.ideasChat + lastMessageId);
     }
 
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), "mainSettings");
