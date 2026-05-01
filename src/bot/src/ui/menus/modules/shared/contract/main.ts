@@ -11,8 +11,8 @@ import { InlineKeyboard } from 'grammy';
 function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
     const userIsAdmin = ctx.session.isAdmin;
     let text = [
+        ctx.t("modules.shared.contract.main.path", { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
         "",
-        ctx.t("modules.shared.contract.main.path", { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ];
     
     const keyboard = new InlineKeyboard();
@@ -91,16 +91,16 @@ function remove(ctx: MyContext, contract: Contract, result: boolean): Menu<Inlin
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }
+
 function create(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("modules.shared.contract.view.contract.remove.title"),
-        ctx.t("modules.shared.contract.view.contract.remove.path")
+        ctx.t("modules.shared.contract.view.contract.create.title"),    
+        ctx.t("modules.shared.contract.view.contract.create.path")
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainContracts");
     return { text: format.escapeMarkdown(text), keyboard }
 }
-
 
 function mainExportContract(ctx: MyContext): Menu<InlineKeyboard> {
     const userIsAdmin = ctx.session.isAdmin;
