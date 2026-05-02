@@ -28,7 +28,6 @@ async function getSendoutInfo(sendoutId: number): Promise<Sendout | undefined> {
             }
         }) ?? undefined;
     } catch (error) {
-        console.error("Ошибка при получении рассылки", error);
         return undefined;
     }
 }
