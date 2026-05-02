@@ -38,7 +38,7 @@ bot.on('message', async (ctx: MyContext, next: NextFunction) => {
         common.resetSessionStates(ctx.session);
     }
     
-    if (ctx.message?.text === "❌ Отменить") {
+    if (ctx.message?.text === "❌ Отменить" && !ctx.session.state.passingAuthorization) {
         await ctx.deleteMessage();
         await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
         try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
