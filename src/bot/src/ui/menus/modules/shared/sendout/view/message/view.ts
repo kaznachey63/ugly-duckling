@@ -35,22 +35,22 @@ function main(ctx: MyContext, messagesLength: number): Menu<InlineKeyboard> {
     }
 
     if (messagesLength === 1) {
-        keyboard.text(`${message.position!} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`).row();
+        keyboard.text(`${message.position! + 1} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`).row();
     }
     else if (message.position! === 1) {
         keyboard
-            .text(`${message.position!} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`)
+            .text(`${message.position! + 1} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`)
             .text("➡", `viewMessage:${sendoutId}#${message.position! + 1}-next`).row();
     }
     else if (message.position! === messagesLength) {
         keyboard
             .text("⬅", `viewMessage:${sendoutId}#${message.position! - 1}-prev`)
-            .text(`${message.position!} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`).row();
+            .text(`${message.position! + 1} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`).row();
     }
     else {
         keyboard
             .text("⬅", `viewMessage:${sendoutId}#${message.position! - 1}-prev`)
-            .text(`${message.position!} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`)
+            .text(`${message.position! + 1} / ${messagesLength}`, `paginationMessages:${sendoutId}#${message.position!}/${messagesLength}`)
             .text("➡", `viewMessage:${sendoutId}#${message.position! + 1}-next`).row();
     }
 
@@ -67,11 +67,11 @@ function removeMessage(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     
     if (result) {
         text.unshift(ctx.t("modules.shared.sendout.view.sendout.message.view.text.remove.success"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}-none`);
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
     }
     else {
         text.unshift(ctx.t("modules.shared.sendout.view.sendout.message.view.text.remove.error"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}-none`);
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
     }
     
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
