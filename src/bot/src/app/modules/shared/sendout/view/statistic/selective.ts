@@ -1,6 +1,6 @@
 import { Composer, InlineKeyboard } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import type { Chat } from '@shared/types/Chat';
+import type { Chat } from '@shared/types/DB';
 import type { Menu } from '@shared/types/Menu';
 import db from '@shared/db';
 import format from '@utils/formatting';
@@ -36,24 +36,24 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:next:(\d{4}-\d{2}-\d{2})$/,
     // Пусто
 });
 
-selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
-    const results = await db.result.get(ctx.session.sendout.id!);
+// selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
+//     const results = await db.result.get(ctx.session.sendout.id!);
 
-    for (const result of results!) {
-        if (result.chats.length == 0 || result.chats.length == 1) continue;
-        const targetDate = ctx.callbackQuery.data.split(/date:/)[1]?.replace(/-/g, ':');
-        if (targetDate == result.date) {
-            const menu = menuStatistic.targetDateOnCalendar(ctx, result);
-            await ctx.editMessageText(menu.text, {
-                reply_markup: menu.keyboard,
-                parse_mode: "MarkdownV2"
-            });
-            return;
-        }
-    }
+//     for (const result of results!) {
+//         if (result.chats.length == 0 || result.chats.length == 1) continue;
+//         const targetDate = ctx.callbackQuery.data.split(/date:/)[1]?.replace(/-/g, ':');
+//         if (targetDate == result.date) {
+//             const menu = menuStatistic.targetDateOnCalendar(ctx, result);
+//             await ctx.editMessageText(menu.text, {
+//                 reply_markup: menu.keyboard,
+//                 parse_mode: "MarkdownV2"
+//             });
+//             return;
+//         }
+//     }
 
-    await ctx.answerCallbackQuery({ text: ctx.t("modules.commands.cabinet.dustrubution.statistics.selective.noData"), show_alert: true });
-});
+//     await ctx.answerCallbackQuery({ text: ctx.t("modules.commands.cabinet.dustrubution.statistics.selective.noData"), show_alert: true });
+// });
 
 selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:weekday$/, async (ctx) => {
     // Пусто
@@ -115,19 +115,19 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:month$/, async (ctx)
 /**
  * Меню раздела чаты
  */
-function chat(ctx: MyContext, success: number, chats: Chat[]): Menu<InlineKeyboard> {
-    const text = [
-        ctx.t("modules.commands.cabinet.distribution.chats.amount", { success }),
-        ctx.t("modules.commands.cabinet.distribution.chats.path", { call: ctx.session.sendout.call })
-    ].join('\n\n');
+// function chat(ctx: MyContext, success: number, chats: Chat[]): Menu<InlineKeyboard> {
+//     const text = [
+//         ctx.t("modules.commands.cabinet.distribution.chats.amount", { success }),
+//         ctx.t("modules.commands.cabinet.distribution.chats.path", { call: ctx.session.sendout.call })
+//     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard();
-    chats.forEach((chat: Chat) => {
-        keyboard.url(chat.title, chat.link).row();
-    });
-    keyboard.text(ctx.t("utils.shared.buttons.back"), 'mainDistribution');
+//     const keyboard = new InlineKeyboard();
+//     chats.forEach((chat: Chat) => {
+//         keyboard.url(chat.title, chat.link).row();
+//     });
+//     keyboard.text(ctx.t("utils.shared.buttons.back"), 'mainDistribution');
 
-    return { text: format.escapeMarkdown(text), keyboard };
-}
+//     return { text: format.escapeMarkdown(text), keyboard };
+// }
 
 export default selectiveStatisticsComposer;

@@ -10,20 +10,16 @@ let client: TelegramClient | null = null;
 
 async function main() {
     const listDist = await db.sendout.getSendoutsInfoWithCredentials();
-    const name = process.argv[2]!;
+    const sendoutName = process.argv[2]!;
 
-    const target = listDist?.find(d => d.name === name);
-    if (!target) {
-        console.error('Рассылка не найдена:', name);
+    const targetSendout = listDist?.find(d => d.name === sendoutName);
+    if (!targetSendout) {
+        console.error('Рассылка не найдена:', sendoutName);
         process.exit(1);
     }
-
-    // ✅ УСТАНАВЛИВАЕМ СХЕМУ ОДИН РАЗ ДЛЯ ЭТОГО ПРОЦЕССА
-    process.env.SCHEMA = target.schema;
-    process.env.DIST_NAME = target.name; 
     
-    const stringSession = new StringSession(target.stringSession || '');
-    client = new TelegramClient(stringSession, target.apiId, target.apiHash, {
+    const stringSession = new StringSession(targetSendout.credential?.string_session || '');
+    client = new TelegramClient(stringSession, Number(targetSendout.credential?.api_id)!, targetSendout.credential?.api_hash!, {
         connectionRetries: 5,      
         timeout: 10000,            
         floodSleepThreshold: 120,  
@@ -33,12 +29,12 @@ async function main() {
         await client.connect();
         await utils.auth.start(client);
 
-        const distribution = new Sendout(client);
-        await distribution.initialize();
+        const sendout = new Sendout(client);
+        await sendout.initialize(targetSendout);
 
-        console.log(`✅ Рассылка "${name}" запущена`);
+        console.log(`✅ Рассылка "${sendoutName}" запущена`);
     } catch (error) {
-        console.error(`💀 Ошибка запуска "${name}":`, error);
+        console.error(`💀 Ошибка запуска "${sendoutName}":`, error);
         await client?.disconnect().catch(() => { });
         process.exit(1);
     }

@@ -1,11 +1,10 @@
-import type { Message } from '@shared/types/Message';
 import type { Counter } from '@shared/types/Counter';
-import type { Chat } from '@shared/types/Chat';
-
+import type { Chat, Media, Message } from '@shared/types/DB';
 import utils from '../utils';
 import fs from 'fs/promises';
 import path from 'path';
 import { TelegramClient } from 'telegram';
+import type { JsonArray } from '@shared/db/prisma/internal/prismaNamespace';
 
 export class Sender {
     constructor(private readonly client: TelegramClient) { }
@@ -14,9 +13,9 @@ export class Sender {
         const { id: chatId, title: chatName } = chat;
         try {
             // Получаем правильный объект сущности (InputPeer)
-            const entity = await this.client.getInputEntity(chatId);
+            const entity = await this.client.getInputEntity(chatId!);
 
-            const htmlCaption = this.entitiesToHtml(message.caption, message.entities || []);
+            const htmlCaption = this.entitiesToHtml(message.caption!, message.entities as unknown as JsonArray || []);
             let result;
             if (message.media?.length) {
                 // Передаём entity, а не строку
@@ -82,10 +81,10 @@ export class Sender {
     /**
      * Подготовка файлов
      */
-    private async prepareMedia(mediaItems: string[]): Promise<string[]> {
+    private async prepareMedia(mediaItems: Media[]): Promise<string[]> {
         const files: string[] = [];
         for (const item of mediaItems) {
-            const filePath = path.resolve('resources', item);
+            const filePath = path.resolve('resources', item.name!);
             await fs.access(filePath);
             files.push(filePath);
         }

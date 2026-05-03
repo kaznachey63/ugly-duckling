@@ -24,27 +24,27 @@ export class ServerManager {
         });
     }
 
-    private resolveServiceName(name: string, isDistribution: boolean): string {
-        return isDistribution ? `hawk-sendout@${name}.service` : name;
+    private resolveServiceName(name: string, isSendout: boolean): string {
+        return isSendout ? `hawk-sendout@${name}.service` : name;
     }
 
-    async startService(serviceName: string, isDistribution = false): Promise<void> {
-        const name = this.resolveServiceName(serviceName, isDistribution);
+    async startService(serviceName: string, isSendout = false): Promise<void> {
+        const name = this.resolveServiceName(serviceName, isSendout);
         await this.exec(`sudo systemctl start ${name}`, 30000);
     }
 
-    async restartService(serviceName: string, isDistribution = false): Promise<void> {
-        const name = this.resolveServiceName(serviceName, isDistribution);
+    async restartService(serviceName: string, isSendout = false): Promise<void> {
+        const name = this.resolveServiceName(serviceName, isSendout);
         await this.exec(`sudo systemctl restart ${name}`, 30000);
     }
 
-    async stopService(serviceName: string, isDistribution = false): Promise<void> {
-        const name = this.resolveServiceName(serviceName, isDistribution);
+    async stopService(serviceName: string, isSendout = false): Promise<void> {
+        const name = this.resolveServiceName(serviceName, isSendout);
         await this.exec(`sudo systemctl stop ${name}`, 30000);
     }
 
-    async getServiceStatus(serviceName: string, isDistribution = false): Promise<Status> {
-        const name = this.resolveServiceName(serviceName, isDistribution);
+    async getServiceStatus(serviceName: string, isSendout = false): Promise<Status> {
+        const name = this.resolveServiceName(serviceName, isSendout);
         const { stdout } = await this.exec(`sudo systemctl is-active ${name}`, 5000);
         const state = stdout.toLowerCase();
         if (state === 'active') return 'active';
@@ -55,22 +55,22 @@ export class ServerManager {
         return 'inactive';
     }
 
-    async getServiceExitCode(serviceName: string, isDistribution = false): Promise<number> {
-        const name = this.resolveServiceName(serviceName, isDistribution);
+    async getServiceExitCode(serviceName: string, isSendout = false): Promise<number> {
+        const name = this.resolveServiceName(serviceName, isSendout);
         const { stdout } = await this.exec(`sudo systemctl show ${name} --property=ExecMainStatus`, 5000);
         const value = stdout.split('=')[1]!;
         const code = parseInt(value, 10);
         return isNaN(code) ? 0 : code;
     }
 
-    async isServiceActive(serviceName: string, isDistribution = false): Promise<boolean> {
-        return (await this.getServiceStatus(serviceName, isDistribution)) === 'active';
+    async isServiceActive(serviceName: string, isSendout = false): Promise<boolean> {
+        return (await this.getServiceStatus(serviceName, isSendout)) === 'active';
     }
 
-    async restartProcessOrNot(serviceName: string, isDistribution = false): Promise<boolean> {
-        const wasActive = await this.isServiceActive(serviceName, isDistribution);
+    async restartProcessOrNot(serviceName: string, isSendout = false): Promise<boolean> {
+        const wasActive = await this.isServiceActive(serviceName, isSendout);
         if (wasActive) {
-            await this.restartService(serviceName, isDistribution);
+            await this.restartService(serviceName, isSendout);
             await new Promise(resolve => setTimeout(resolve, 500));
             return true;
         }

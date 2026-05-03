@@ -16,7 +16,7 @@ viewComposer.callbackQuery("viewSendouts", async (ctx: MyContext) => {
 
     // Получение рассылок
     const sendouts = ctx.session.isAdmin ? await db.sendout.getSendouts() : await db.sendout.getSendoutsOfUserId(BigInt(ctx.from?.id!));
-    if (!sendouts.length) return ctx.answerCallbackQuery({ text: ctx.t("modules.commands.cabinet.distribution.main.sendouts.noSendouts"), show_alert: true });
+    if (!sendouts.length) return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.sendout.main.empty"), show_alert: true });
     
     // Сортировка
     const sorted = sendouts.sort((a: Sendout, b: Sendout) => {

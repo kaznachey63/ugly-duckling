@@ -1,7 +1,6 @@
-import type { Message } from '@shared/types/Message';
 import type { Counter } from "@shared/types/Counter";
-import type { Chat } from "@shared/types/Chat";
-import type { ChatWithPermission } from "@shared/types/ChatWithPermission"
+import type { ChatWithPermission } from "@shared/types/ChatWithPermission";
+import type { Chat, Message, Sendout } from '@shared/types/DB';
 
 import utils from '../utils';
 import db from '@shared/db';
@@ -15,9 +14,9 @@ export class Scheduler {
         this.sender = new Sender(client);
     }
 
-    async start() {
-        const times = await db.schedule.getSchedule();
-        const messages = await db.message.getMessages();
+    async start(sendout: Sendout) {
+        const times = await db.schedule.get(sendout.id!);
+        const messages = await db.message.getMessages(sendout.id!);
         const chats = await db.chat.get();
         
         if (!chats || !chats.length) {
@@ -36,9 +35,9 @@ export class Scheduler {
         }
         this.getSendingStats(chats);
         times.forEach((time) => {
-            cron.schedule(time.cron, async () => {
+            cron.schedule(time.cron!, async () => {
                 // 👇 Передаём time.id вместо index
-                await this.execute(time.cron, time.id!, messages, chats);
+                await this.execute(time.cron!, time.id!, messages, chats);
             }, { timezone: "Europe/Moscow" });
         });
     }
@@ -92,7 +91,7 @@ export class Scheduler {
             let reason = '';
 
             try {
-                const entity = await this.client.getInputEntity(chat.id);
+                const entity = await this.client.getInputEntity(chat.id!);
                 if (entity instanceof Api.InputPeerChannel) {
                     const result = await this.client.invoke(
                         new Api.channels.GetParticipant({
@@ -115,9 +114,9 @@ export class Scheduler {
                 reason = e.message || 'Not a member or chat unavailable';
             }
 
-            results.push({ id: chat.id, title: chat.title, canSend, reason: canSend ? undefined : reason });
+            results.push({ id: chat.chat_id!, title: chat.title!, canSend, reason: canSend ? undefined : reason });
 
-            // Задержка для избежания флуда (можно оставить)
+            // Задержка для избежания флуда
             if (i % 20 === 19) await this.sleep(1000);
         }
         return results;
@@ -141,7 +140,7 @@ export class Scheduler {
             }
 
             const counter = { good: 0, chats: [] };
-            const message = this.selectMessage(messages, scheduleId); // 👇 передаём id
+            const message = this.selectMessage(messages, scheduleId);
 
             for (let i = 0; i < accessibleChats.length; i++) {
                 const chat = accessibleChats[i];
@@ -154,7 +153,7 @@ export class Scheduler {
             }
             
             await this.logResults(time, counter);
-            console.log(`!!!!!!!!!!!!!!!!!!!! Рассылка завершена! Успешно: ${counter.good} из ${accessibleChats.length}\n`);
+            console.log(`Рассылка завершена! Успешно: ${counter.good} из ${accessibleChats.length}\n`);
 
         } catch (error) {
             console.error('💀 Ошибка выполнения рассылки:', error);
@@ -162,17 +161,6 @@ export class Scheduler {
     }
 
     private selectMessage(messages: Message[], scheduleId: number): Message {
-
-        // 🔥 ПРОВЕРКА: Только для рассылки "6"
-        // Имя рассылки мы записали в process.argv[2], но проще проверить через env
-        // В main.ts добавь: process.env.DIST_NAME = target.name; (см. ниже)
-
-        if (process.env.DIST_NAME === "6" && messages.length === 11) {
-            const msg = utils.only.getSequentialMessage(messages, scheduleId);
-            if (msg) return msg;
-        }
-
-        // 👇 Дальше — твой старый код без изменений
         if (messages.length === 1) return messages[0]!;
         if (messages.length === 2) {
             const day = new Date().getDay();

@@ -1,6 +1,8 @@
 import { TelegramClient } from "telegram";
 import maps from "./maps";
-import type { Chat } from '@shared/types/DB'
+import type { Chat, Sendout } from '@shared/types/DB'
+import prompts from 'prompts';
+import { StringSession } from 'telegram/sessions';
 
 function getChatLink(id: any, username: any): string {
     if (username) {
@@ -59,7 +61,28 @@ function createUniqueList(list: Chat[]): Chat[] {
     return uniqueChats;
 }
 
+async function auth(sendout: Sendout): Promise<TelegramClient> {
+    const stringSession = new StringSession(sendout.credential?.string_session || "");
+
+    const client = new TelegramClient(stringSession, Number(sendout.credential?.api_id!), sendout.credential?.api_hash!, {
+        connectionRetries: 5,
+    });
+
+    await client.start({
+        phoneNumber: async () => (await prompts({ type: 'text', name: 'value', message: "Введите номер телефона: " })).value,
+        password: async () => {
+            const res = await prompts({ type: 'text', name: 'value', message: "Введите пароль (если есть, иначе Enter): " });
+            return res.value || undefined;
+        },
+        phoneCode: async () => (await prompts({ type: 'text', name: 'value', message: "Введите код подтверждения: " })).value,
+        onError: (err: object) => console.log("Ошибка авторизации:", err),
+    });
+    console.log(`Успешный вход на ${sendout.call}!`);
+    return client;
+}
+
 export default {
     chatsFromClient,
-    createUniqueList
+    createUniqueList,
+    auth
 };

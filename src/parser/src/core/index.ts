@@ -1,5 +1,4 @@
 import '@shared/env'; // ← ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ
-import auth from '@shared/auth';
 import helpers from '../helpers';
 import cron from 'node-cron';
 import db from '@shared/db';
@@ -10,7 +9,7 @@ import db from '@shared/db';
         const credentials = await db.sendout.getSendoutsInfoWithCredentials();
 
         const chatPromises = credentials?.map(async (dist) => {
-            const client = await auth.start2(dist);
+            const client = await helpers.auth(dist);
             try {
                 return await helpers.chatsFromClient(client);
             }  finally { 
