@@ -93,7 +93,7 @@ async function getByPosition(sendoutId: number, position: number): Promise<Messa
 /**
  * Получение первого сообщения по позиции по айди рассылки
  */
-async function getByFirstMessage(sendoutId: number): Promise<Message> {
+async function getByFirstPosition(sendoutId: number): Promise<Message> {
     return (await prisma.message.findFirst({
         where: {
             sendout_id: sendoutId,
@@ -201,5 +201,5 @@ export default {
     update,
     remove,
     clear,
-    getByFirstMessage
+    getByFirstPosition
 };

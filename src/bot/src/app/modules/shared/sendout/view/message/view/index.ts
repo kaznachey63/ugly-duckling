@@ -24,6 +24,8 @@ viewComposer.callbackQuery(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/, async (
         const type = (callbackData.split('-')[1] ?? "none") as PaginationType;
 
         ctx.session.message = (await db.message.getByIdForPagination(ctx.session.sendout.id!, messagePosition, type))!;
+        console.log(ctx.message);
+        
         menu = menuView.main(ctx, messages.length);
     }
 
