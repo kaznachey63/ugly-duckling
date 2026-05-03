@@ -1,14 +1,15 @@
 import { TelegramClient } from 'telegram';
 import prompts from 'prompts';
-import log from './log';
+import logMessage from './log';
+import type { Sendout } from '@shared/types/DB';
 
 /**
  * Метод-запуск программы и авторизация пользователя
  */
-async function start(client: TelegramClient) {
+async function start(client: TelegramClient, sendout: Sendout) {
     try {
         console.log("🔄 Запуск...");
-        // console.log("Серверное время:", new Date().toLocaleString());
+
         if (!client.connected) {
             await client.connect();
         }
@@ -26,12 +27,11 @@ async function start(client: TelegramClient) {
 
             console.log("Сохраненная сессия:", client.session.save());
         }
-        await log.logMessage(client, "telegram", "✅ Программа подключилась");
+        await logMessage("telegram", "✅ Программа подключилась", client, sendout);
     } catch (error) {
         console.error("❌ Ошибка в start():", error);
     }
 }
-
 
 export default {
     start

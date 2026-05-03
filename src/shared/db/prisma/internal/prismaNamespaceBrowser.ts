@@ -189,7 +189,8 @@ export const SendoutScalarFieldEnum = {
   user_id: 'user_id',
   contract_id: 'contract_id',
   status_id: 'status_id',
-  execution_id: 'execution_id'
+  execution_id: 'execution_id',
+  telegram_topic_id: 'telegram_topic_id'
 } as const
 
 export type SendoutScalarFieldEnum = (typeof SendoutScalarFieldEnum)[keyof typeof SendoutScalarFieldEnum]

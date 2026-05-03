@@ -10,13 +10,16 @@ import cron from 'node-cron';
 
 export class Scheduler {
     private readonly sender: Sender;
-    constructor(private readonly client: TelegramClient) {
+    private readonly sendout: Sendout;
+
+    constructor(private readonly client: TelegramClient, sendout: Sendout) {
         this.sender = new Sender(client);
+        this.sendout = sendout;
     }
 
-    async start(sendout: Sendout) {
-        const times = await db.schedule.get(sendout.id!);
-        const messages = await db.message.getMessages(sendout.id!);
+    async start() {
+        const times = await db.schedule.get(this.sendout.id!);
+        const messages = await db.message.getMessages(this.sendout.id!);
         const chats = await db.chat.get();
         
         if (!chats || !chats.length) {
@@ -37,11 +40,10 @@ export class Scheduler {
         times.forEach((time) => {
             cron.schedule(time.cron!, async () => {
                 // 👇 Передаём time.id вместо index
-                await this.execute(time.cron!, time.id!, messages, chats);
+                await this.execute(new Date(), time.id!, messages, chats);
             }, { timezone: "Europe/Moscow" });
         });
     }
-
 
     public async getSendingStats(allChats: Chat[]): Promise<{
         totalInDb: number;
@@ -126,7 +128,7 @@ export class Scheduler {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    private async execute(time: string, scheduleId: number, messages: Message[], chats: Chat[]) {
+    private async execute(dateTime: Date, scheduleId: number, messages: Message[], chats: Chat[]) {
         try {
             if (!this.client.connected) {
                 await this.client.connect();
@@ -152,7 +154,7 @@ export class Scheduler {
                 await this.sender.send(chat, message, counter);
             }
             
-            await this.logResults(time, counter);
+            await this.logResults(dateTime, counter);
             console.log(`Рассылка завершена! Успешно: ${counter.good} из ${accessibleChats.length}\n`);
 
         } catch (error) {
@@ -169,15 +171,12 @@ export class Scheduler {
         return messages[scheduleId] || messages[0]!;
     }
 
-    private async logResults(time: string, counter: Counter) {
-        const formattedTime = utils.time.formatCronTime(time);
-        const formattedDate = new Date().toLocaleDateString('ru-RU');
-
-        await utils.log.logMessage(this.client, "json", {
-            time: formattedTime,
-            date: formattedDate,
+    private async logResults(dateTime: Date, counter: Counter) {
+        await utils.log("db", {
+            date_time: dateTime,
             success: counter.good,
-            chats: counter.chats
+            chats: counter.chats,
+            sendout_id: this.sendout.id
         });
     }
 }

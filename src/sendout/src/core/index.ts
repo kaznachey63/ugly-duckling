@@ -27,10 +27,10 @@ async function main() {
 
     try {
         await client.connect();
-        await utils.auth.start(client);
+        await utils.auth.start(client, targetSendout);
 
-        const sendout = new Sendout(client);
-        await sendout.initialize(targetSendout);
+        const sendout = new Sendout(client, targetSendout);
+        await sendout.initialize();
 
         console.log(`✅ Рассылка "${sendoutName}" запущена`);
     } catch (error) {

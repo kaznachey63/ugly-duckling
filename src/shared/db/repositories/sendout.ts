@@ -63,16 +63,23 @@ async function getSendouts(): Promise<Sendout[]> {
 }
 
 /**
- * Получение схемы (для рассылки)
+ * Получение айди темы для лога телеграм по айди рассылки
  */
-function getSchema(): string | undefined {
-    return process.env.SCHEMA;
+async function getTopicIdBySendoutId(sendoutId: number): Promise<number | null> {
+    return (await prisma.sendout.findFirst({
+        where: {
+            id: sendoutId
+        },
+        select: {
+            telegram_topic_id: true
+        }
+    }))?.telegram_topic_id!;
 }
 
 export default {
     getSendoutsInfoWithCredentials,
     getSendoutInfo,
-    getSchema,
     getSendoutsOfUserId,
-    getSendouts
+    getSendouts,
+    getTopicIdBySendoutId
 };

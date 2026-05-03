@@ -8,6 +8,7 @@ import format from '@utils/formatting';
  */
 export default function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
     const userIsAdmin = ctx.session.isAdmin;
+
     let text = [
         "",
         ctx.t("modules.shared.sendout.main.path", { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })

@@ -8,11 +8,11 @@ import type { Sendout as SendoutEntity } from '@shared/types/DB'; // 1. Пере
 export class Sendout {
     private readonly scheduler: Scheduler;
 
-    constructor(client: TelegramClient) {
-        this.scheduler = new Scheduler(client);
+    constructor(client: TelegramClient, targetSendout: SendoutEntity) {
+        this.scheduler = new Scheduler(client, targetSendout);
     }
 
-    async initialize(targetSendout: SendoutEntity) {
-        this.scheduler.start(targetSendout);
+    async initialize() {
+        this.scheduler.start();
     }
 }
