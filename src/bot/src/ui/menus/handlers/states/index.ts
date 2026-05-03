@@ -17,7 +17,7 @@ function addingText(ctx: MyContext, result: boolean, validate: boolean): Menu<In
     else {
         if (result) {
             text.unshift(ctx.t("handlers.states.addingText.success"));
-            keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);
+            keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
         }
         else {
             text.unshift(ctx.t("handlers.states.addingText.error"));
@@ -31,7 +31,7 @@ function updatingText(ctx: MyContext, result: boolean, validate: boolean): Menu<
     const text = [
         ctx.t("handlers.states.updatingText.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ];
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
 
     if (!validate) text.unshift(ctx.t("utils.shared.titles.validate"));
     else {
@@ -132,7 +132,7 @@ function addingUser(ctx: MyContext, result: boolean, validate: boolean) {
 
     if (!validate){
         text.unshift(ctx.t("utils.shared.titles.validate"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), "mainUsers");
+        keyboard.text(ctx.t("utils.shared.buttons.back"), "mainUser");
     } 
     else {
         if (result) {

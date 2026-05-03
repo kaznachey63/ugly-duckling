@@ -36,7 +36,7 @@ function reupload(ctx: MyContext, success: boolean): Menu<InlineKeyboard> {
         ctx.t("modules.commands.panel.chat.reupload.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
     
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainChats");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainChat");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -49,7 +49,7 @@ function clear(ctx: MyContext, amountOfChats: number): Menu<InlineKeyboard> {
         ctx.t("modules.commands.panel.chat.clear.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
     
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainChats");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainChat");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 

@@ -9,7 +9,7 @@ const usersComposer = new Composer<MyContext>();
 /**
  * Главное меню раздела пользователи
  */
-usersComposer.callbackQuery("mainUsers", async (ctx: MyContext) => {
+usersComposer.callbackQuery("mainUser", async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
     const menu = menuUsers.main(ctx, (await db.user.gets())?.length!);
     await ctx.editMessageText(menu.text, {

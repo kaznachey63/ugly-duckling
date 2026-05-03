@@ -7,7 +7,7 @@ import viewComposer from './view';
 
 const sendoutComposer = new Composer<MyContext>();
 
-sendoutComposer.callbackQuery("mainSendouts", async (ctx: MyContext) => {
+sendoutComposer.callbackQuery("mainSendout", async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
     const sendoutsLength = ctx.session.isAdmin ? (await db.sendout.getSendouts())?.length! : (await db.sendout.getSendoutsOfUserId(BigInt(ctx.from?.id!)))?.length!;
     const menu = menuSendout(ctx, sendoutsLength);

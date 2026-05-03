@@ -51,7 +51,7 @@ function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboa
             `viewContract#${contract.id}`
         ).row();
     });    
-    keyboard.text(ctx.t("utils.shared.buttons.back"), "mainContracts");
+    keyboard.text(ctx.t("utils.shared.buttons.back"), "mainContract");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -98,7 +98,7 @@ function create(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.shared.contract.view.contract.create.path")
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainContracts");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainContract");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -128,7 +128,7 @@ function exportContract(ctx: MyContext, exportType: ExportType, result: boolean)
         ctx.t("modules.shared.contract.view.contract.export.result.path", { call: ctx.session.sendout.call, exportType: exportType, menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n');
 
-    const keyboard = new InlineKeyboard().row().text(ctx.t("utils.shared.buttons.back"), `mainContracts:${ctx.session.sendout.name}`);
+    const keyboard = new InlineKeyboard().row().text(ctx.t("utils.shared.buttons.back"), `mainContract:${ctx.session.sendout.name}`);
     
     return { text: format.escapeMarkdown(text), keyboard }
 }

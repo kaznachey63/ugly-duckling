@@ -10,7 +10,7 @@ const chatsComposer = new Composer<MyContext>();
 /**
  * Главная страница раздела чаты
  */
-chatsComposer.callbackQuery("mainChats", async (ctx: MyContext) => {
+chatsComposer.callbackQuery("mainChat", async (ctx: MyContext) => {
     const menu = menuChat.main(ctx, (await db.chat.get())?.length!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",

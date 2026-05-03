@@ -21,7 +21,7 @@ function viewSendouts(ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard>
             `viewSendout:${sendout.id}`
         ).row();
     });    
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), "mainSendouts");
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), "mainSendout");
 
     return { text: format.escapeMarkdown(text), keyboard };
 }

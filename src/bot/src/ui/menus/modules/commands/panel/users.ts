@@ -43,7 +43,7 @@ function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
             `viewUser#${user.id}`
         ).row();
     });    
-    keyboard.text(ctx.t("utils.shared.buttons.back"), "mainUsers");
+    keyboard.text(ctx.t("utils.shared.buttons.back"), "mainUser");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -72,7 +72,7 @@ function create(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.panel.user.create.path")
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainUsers");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainUser");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 

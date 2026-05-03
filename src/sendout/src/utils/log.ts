@@ -16,9 +16,7 @@ export default async function logMessage(logType: logType, data: string | Result
                         message: data as string, 
                         replyTo: topic_id,
                         topMsgId: topic_id,
-                    });
-                    console.log(topic_id);
-                    
+                    });                    
                 } catch (err) {
                     console.error("❌ Ошибка логирования в канал:", err);
                 }
