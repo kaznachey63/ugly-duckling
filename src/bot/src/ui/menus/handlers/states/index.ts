@@ -5,23 +5,23 @@ import format from '@utils/formatting';
 
 function addingText(ctx: MyContext, result: boolean, validate: boolean): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("handlers.states.addingText.path", { call: ctx.session.sendout.call })
+        ctx.t("handlers.states.addingText.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ];
 
     const keyboard = new InlineKeyboard();
 
     if (!validate) {
         text.unshift(ctx.t("utils.shared.titles.validate"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
     }
     else {
         if (result) {
             text.unshift(ctx.t("handlers.states.addingText.success"));
-            keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.message.position}`);
+            keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);
         }
         else {
             text.unshift(ctx.t("handlers.states.addingText.error"));
-            keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);
+            keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
         }
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
@@ -29,9 +29,9 @@ function addingText(ctx: MyContext, result: boolean, validate: boolean): Menu<In
 
 function updatingText(ctx: MyContext, result: boolean, validate: boolean): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("handlers.states.updatingText.path", { call: ctx.session.sendout.call })
+        ctx.t("handlers.states.updatingText.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ];
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.message.position}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);
 
     if (!validate) text.unshift(ctx.t("utils.shared.titles.validate"));
     else {
@@ -45,20 +45,20 @@ function generatingText(ctx: MyContext, result: string) {
     const text = [
         ctx.t("handlers.states.generatingText.result") + '\n',
         result,
-        '\n' + ctx.t("handlers.states.generatingText.pathChoose", { call: ctx.session.sendout.call }),
+        '\n' + ctx.t("handlers.states.generatingText.pathChoose", { call: ctx.session.sendout.call,  menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n');
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("handlers.states.generatingText.buttons.save"), `generateText:${ctx.session.sendout.name}-true`).style("success")
-        .text(ctx.t("handlers.states.generatingText.buttons.cancel"), `generateText:${ctx.session.sendout.name}-false`).style("danger").row()
-        .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);
+        .text(ctx.t("handlers.states.generatingText.buttons.save"), `generateText:${ctx.session.sendout.id}-true`).style("success")
+        .text(ctx.t("handlers.states.generatingText.buttons.cancel"), `generateText:${ctx.session.sendout.id}-false`).style("danger").row()
+        .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 function addingMedia(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.name}#${ctx.session.message.position}`);;
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}`);;
     const text = [
-        ctx.t("handlers.states.addingMedia.path", { call: ctx.session.sendout.call })
+        ctx.t("handlers.states.addingMedia.path", { call: ctx.session.sendout.call,  menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ];
 
     if (result) text.unshift(ctx.t("handlers.states.addingMedia.success"));
@@ -80,24 +80,47 @@ function addingIdea(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function addingOrUpdateTime(ctx: MyContext, resultRestart: boolean, validate: boolean): Menu<InlineKeyboard> {
+function addingTime(ctx: MyContext, resultRestart: boolean, validate: boolean): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("handlers.states.addingOrUpdateTime.path", { call: ctx.session.sendout.call })
+        ctx.t("handlers.states.addingTime.path", { call: ctx.session.sendout.call })
     ];
     const keyboard = new InlineKeyboard();
 
     if (!validate) {
         text.unshift(ctx.t("utils.shared.titles.validate"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.name}`);            
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.id}`);            
     }
     else {
         if (resultRestart) {
-            text.unshift(ctx.t("handlers.states.addingOrUpdateTime.success"));
-            keyboard.text(ctx.t("utils.shared.buttons.back"), `viewSchedule:${ctx.session.sendout.name}`);
+            text.unshift(ctx.t("handlers.states.addingTime.success"));
+            keyboard.text(ctx.t("utils.shared.buttons.back"), `viewSchedule:${ctx.session.sendout.id}`);
         }
         else {
-            text.unshift(ctx.t("handlers.states.addingOrUpdateTime.error"));
-            keyboard.text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.name}`);            
+            text.unshift(ctx.t("handlers.states.addingTime.error"));
+            keyboard.text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.id}`);            
+        }
+    }
+    return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
+}
+
+function updatingTime(ctx: MyContext, resultRestart: boolean, validate: boolean): Menu<InlineKeyboard> {
+    const text = [
+        ctx.t("handlers.states.updatingTime.path", { call: ctx.session.sendout.call })
+    ];
+    const keyboard = new InlineKeyboard();
+
+    if (!validate) {
+        text.unshift(ctx.t("utils.shared.titles.validate"));
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.id}`);            
+    }
+    else {
+        if (resultRestart) {
+            text.unshift(ctx.t("handlers.states.updatingTime.success"));
+            keyboard.text(ctx.t("utils.shared.buttons.back"), `viewSchedule:${ctx.session.sendout.id}`);
+        }
+        else {
+            text.unshift(ctx.t("handlers.states.updatingTime.error"));
+            keyboard.text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.id}`);            
         }
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
@@ -163,7 +186,8 @@ export default {
     generatingText,
     addingMedia,
     addingIdea,
-    addingOrUpdateTime,
+    addingTime,
+    updatingTime,
     addingUser,
     passingAuthorization,
     addingContract

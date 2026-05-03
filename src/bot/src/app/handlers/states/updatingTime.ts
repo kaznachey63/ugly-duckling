@@ -12,7 +12,7 @@ export default async function updatingTime(ctx: MyContext) {
 
     let menu;
     if (!validateTime(ctx.message?.text!)) {
-        menu = menuState.addingOrUpdateTime(ctx, false, false);
+        menu = menuState.updatingTime(ctx, false, false);
     }
     else {
         const formattedCronTime = formatCronTime(ctx.message?.text!);
@@ -24,7 +24,7 @@ export default async function updatingTime(ctx: MyContext) {
         };
 
         await db.schedule.update(formattedTime);
-        menu = menuState.addingOrUpdateTime(ctx, await server.restartProcessOrNot(sendoutName, true), true);
+        menu = menuState.updatingTime(ctx, await server.restartProcessOrNot(sendoutName, true), true);
         common.resetSessionStates(ctx.session);
     }
 

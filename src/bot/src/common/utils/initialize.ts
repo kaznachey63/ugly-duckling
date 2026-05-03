@@ -55,6 +55,7 @@ function createDefaultSession(): SessionData {
                 contract_id: 0,
                 credential_id: 0,
                 execution_id: 0,
+                telegram_topic_id: 0,
                 id: 0,
                 label: "",
                 name: "",
@@ -78,6 +79,7 @@ function createDefaultSession(): SessionData {
             sendout_id: 0,
             sendout: {
                 call: "",
+                telegram_topic_id: 0,
                 contract_id: 0,
                 credential_id: 0,
                 execution_id: 0,
