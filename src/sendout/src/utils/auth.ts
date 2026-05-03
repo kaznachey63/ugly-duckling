@@ -27,7 +27,7 @@ async function start(client: TelegramClient, sendout: Sendout) {
 
             console.log("Сохраненная сессия:", client.session.save());
         }
-        await logMessage("telegram", "✅ Программа подключилась", client, sendout);
+        await logMessage("telegram", "✅ Рассылка подключилась", client, sendout);
     } catch (error) {
         console.error("❌ Ошибка в start():", error);
     }

@@ -11,7 +11,14 @@ export default async function logMessage(logType: logType, data: string | Result
         case "telegram": {
             if (client!.connected) {
                 try {
-                    await client!.sendMessage("-1003760118458", { message: data as string, topMsgId: (await db.sendout.getTopicIdBySendoutId(sendout?.id!))! });
+                    const topic_id =  (await db.sendout.getTopicIdBySendoutId(sendout?.id!))!;
+                    await client!.sendMessage("-1003760118458", { 
+                        message: data as string, 
+                        replyTo: topic_id,
+                        topMsgId: topic_id,
+                    });
+                    console.log(topic_id);
+                    
                 } catch (err) {
                     console.error("❌ Ошибка логирования в канал:", err);
                 }
