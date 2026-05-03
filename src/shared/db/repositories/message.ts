@@ -91,25 +91,18 @@ async function getByPosition(sendoutId: number, position: number): Promise<Messa
 }
 
 /**
- * Получение сообщения по айди рассылки и позиции
+ * Получение первого сообщения по позиции по айди рассылки
  */
-async function getByFirstMessage(sendoutId: number, position: number): Promise<Message | undefined> {
-    try {
-        return await prisma.message.findFirst({
-            where: {
-                sendout_id: sendoutId,
-                position: position
-            },
-            include: {
-                media: true
-            }
-        }) ?? undefined;
-    } catch (error) {
-        console.error("Ошибка при получении сообщения по позиции", error);
-        return undefined;
-    }
+async function getByFirstMessage(sendoutId: number): Promise<Message> {
+    return (await prisma.message.findFirst({
+        where: {
+            sendout_id: sendoutId,
+        },
+        orderBy: {
+            position: "asc"
+        }
+    }))!;
 }
-
 
 /**
  * Получение сообщений 
@@ -207,5 +200,6 @@ export default {
     create,
     update,
     remove,
-    clear
+    clear,
+    getByFirstMessage
 };
