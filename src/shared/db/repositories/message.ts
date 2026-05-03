@@ -5,10 +5,10 @@ import type { PaginationType } from '@shared/types/PaginationType';
 /**
  * Получение сообщения по айди рассылки, сообщения и типу пагинаци
  * @param sendoutId Айди рассылки
- * @param messageId Айди сообщения след/пред/нет
+ * @param position позиция сообщения
  * @param type Тип пагинации след/пред/нет
  */
-async function getByIdForPagination(sendoutId: number, messageId: number, type: PaginationType): Promise<Message | undefined> {
+async function getByIdForPagination(sendoutId: number, position: number, type: PaginationType): Promise<Message | undefined> {
     try {
         let where: any = {
             sendout_id: sendoutId
@@ -18,19 +18,19 @@ async function getByIdForPagination(sendoutId: number, messageId: number, type: 
 
         switch (type) {
             case 'next': {
-                where.id = { gt: messageId };
-                orderBy = { id: 'asc' };
+                where.position = { gt: position };
+                orderBy = { position: 'asc' };
                 break;
             }
 
             case 'prev': {
-                where.id = { lt: messageId };
-                orderBy = { id: 'desc' };
+                where.position = { lt: position };
+                orderBy = { position: 'desc' };
                 break;
             }
 
             case 'none': {
-                where.id = messageId;
+                where.position = position;
                 break;
             }
         }
@@ -48,7 +48,6 @@ async function getByIdForPagination(sendoutId: number, messageId: number, type: 
         return undefined;
     }
 }
-
 /**
  * Получение собщения по айди
  */
