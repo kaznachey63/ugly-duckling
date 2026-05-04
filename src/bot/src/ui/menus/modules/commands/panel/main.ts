@@ -15,7 +15,7 @@ export default function main(ctx: MyContext, maintenace: boolean): Menu<InlineKe
         .text(ctx.t("utils.shared.buttons.sendout"), "mainSendout").row()
         .text(ctx.t("utils.shared.buttons.contract"), "mainContract").row()
         .text(
-            maintenace ? ctx.t("modules.commands.panel.main.buttons.maintenace") + ' ✔️' : ctx.t("utils.shared.buttons.maintenace") + ' 🔘', 
+            maintenace ? ctx.t("modules.commands.panel.main.buttons.maintenace") + ' ✔️' : ctx.t("modules.commands.panel.main.buttons.maintenace") + ' 🔘', 
             "mainMaintenace"
         ).row()
     ;
