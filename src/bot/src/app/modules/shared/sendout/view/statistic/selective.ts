@@ -66,12 +66,14 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:/, async (ctx) => {
 
 // Пред. месяц
 selectiveStatisticsComposer.callbackQuery(/^calendar:prev:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
-    // Пусто
+    const keyboard = menuStatistic.prev(ctx);
+    await ctx.editMessageReplyMarkup({ reply_markup: keyboard });
 });
 
 // След. месяц
 selectiveStatisticsComposer.callbackQuery(/^calendar:next:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
-    // Пусто
+    const keyboard = menuStatistic.next(ctx);
+    await ctx.editMessageReplyMarkup({ reply_markup: keyboard });
 });
 
 selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:weekday$/, async (ctx) => {

@@ -11,7 +11,7 @@ import type { Chat, Result } from '@shared/types/DB';
  * Меню раздела Статистика
  */
 function main(ctx: MyContext): Menu<InlineKeyboard> {
-    const sendoutName = ctx.session.sendout?.name;
+    const sendoutId = ctx.session.sendout?.id;
 
     const text = [
         ctx.t("modules.shared.sendout.view.sendout.statistic.main.title"),
@@ -19,9 +19,9 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.main.buttons.selective"), `selectiveStatistic:${sendoutName}`)
-        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.main.buttons.comparative"), `comparativeStatistic:${sendoutName}`).row()
-        .text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutName}`)
+        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.main.buttons.selective"), `selectiveStatistic:${sendoutId}`)
+        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.main.buttons.comparative"), `comparativeStatistic:${sendoutId}`).row()
+        .text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`)
     ;
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 
@@ -43,7 +43,7 @@ function selective(ctx: MyContext): Menu<InlineKeyboard> {
 
     const keyboard = 
         calendar.generate(new Date(), ctx.from?.id!)
-        .row().text(ctx.t("utils.shared.buttons.back"), `mainStatistic:${ctx.session.sendout.name}`)
+        .row().text(ctx.t("utils.shared.buttons.back"), `mainStatistic:${ctx.session.sendout.id}`)
     ;
 
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
@@ -107,8 +107,42 @@ function chats(ctx: MyContext): Menu<InlineKeyboard> {
     return { text: utils.formatting.escapeMarkdown(text), keyboard };
 }
 
+function prev(ctx: MyContext): InlineKeyboard {
+    const userId = ctx.from!.id;
+    const current = CalendarKeyboard.getDisplayMonth(userId) ?? new Date();
+    const newDate = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+    CalendarKeyboard.updateCurrentMonth(userId, newDate);
+
+    const calendar = new CalendarKeyboard({
+        minDate: new Date(constants.calendar.minDate),
+        maxDate: new Date(constants.calendar.maxDate),
+        startWeekDay: 1,
+        locale: ctx.session.user.language ?? 'ru'
+    });
+
+    return calendar.generate(newDate, userId)
+    .row().text(ctx.t("utils.shared.buttons.back"), `mainStatistic:${ctx.session.sendout.id}`);
+}
+
+function next(ctx: MyContext): InlineKeyboard {
+    const userId = ctx.from!.id;
+    const current = CalendarKeyboard.getDisplayMonth(userId) ?? new Date();
+    const newDate = new Date(current.getFullYear(), current.getMonth() + 1, 1);
+    CalendarKeyboard.updateCurrentMonth(userId, newDate);
+
+    const calendar = new CalendarKeyboard({
+        minDate: new Date(constants.calendar.minDate),
+        maxDate: new Date(constants.calendar.maxDate),
+        startWeekDay: 1,
+        locale: ctx.session.user.language ?? 'ru'
+    });
+
+    return calendar.generate(newDate, userId)
+    .row().text(ctx.t("utils.shared.buttons.back"), `mainStatistic:${ctx.session.sendout.id}`);
+}
+
 function comparative(ctx: MyContext): Menu<InlineKeyboard> {
-    const sendoutName = ctx.session.sendout.name;
+    const sendoutId = ctx.session.sendout.id;
 
     const text = [
         ctx.t("modules.shared.sendout.view.sendout.statistic.comparative.main.title"),
@@ -116,9 +150,9 @@ function comparative(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.comparative.main.buttons.week"), `comparativeStatistic:${sendoutName}-week`)
-        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.comparative.main.buttons.month"), `comparativeStatistic:${sendoutName}-month`).row()
-        .text(ctx.t("utils.shared.buttons.back"), `mainStatistic:${ctx.session.sendout.name}`)
+        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.comparative.main.buttons.week"), `comparativeStatistic:${sendoutId}-week`)
+        .text(ctx.t("modules.shared.sendout.view.sendout.statistic.comparative.main.buttons.month"), `comparativeStatistic:${sendoutId}-month`).row()
+        .text(ctx.t("utils.shared.buttons.back"), `mainStatistic:${sendoutId}`)
     ;
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
@@ -129,7 +163,7 @@ function handlerComparative(ctx: MyContext, type: StatisticType): Menu<InlineKey
         ctx.t(`shared.sendout.view.sendout.statistic.comparative.${type}.path`, { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `comparativeStatistic:${ctx.session.sendout.name}`);    
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `comparativeStatistic:${ctx.session.sendout.id}`);    
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 
@@ -139,5 +173,7 @@ export default {
     comparative,
     handlerComparative,
     targetDateOnCalendar,
-    chats
+    chats,
+    prev,
+    next
 }

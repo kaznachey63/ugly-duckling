@@ -39,7 +39,6 @@ mediaComposer.callbackQuery(/^addMedia:/, async (ctx: MyContext) => {
  * Оповещение пользователя об удалении всех медиа
  */
 mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {    
-    const sendoutName = ctx.session.sendout.name!;
     const media = await db.media.get(ctx.session.message.id!);
 
     if (!media) return;
@@ -61,7 +60,7 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     // 🔥 ОБНУЛЯЕМ МЕДИА В БД
     await db.media.clear(ctx.session.message.id!);
     
-    const menu = menuView.clearAllMedia(ctx, await server.restartProcessOrNot(sendoutName, true));
+    const menu = menuView.clearAllMedia(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true));
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"

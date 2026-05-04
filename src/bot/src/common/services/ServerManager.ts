@@ -1,5 +1,4 @@
 import { exec } from 'child_process';
-import { promisify } from 'util';
 import type { Status } from '@shared/types/server/Status';
 
 export class ServerManager {

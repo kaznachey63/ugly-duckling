@@ -28,12 +28,12 @@ function update(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.update.title"),
         ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.update.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n\n');
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `updateOrRemoveTime:${ctx.session.sendout.name}#${ctx.session.schedule.id}`)
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `updateOrRemoveTime:${ctx.session.sendout.id}#${ctx.session.schedule.id}`)
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 function remove(ctx: MyContext, resultRestart: boolean): Menu<InlineKeyboard> {
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewSchedule:${ctx.session.sendout.name}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewSchedule:${ctx.session.sendout.id}`);
     const text = [
         resultRestart ? 
             ctx.t("modules.shared.sendout.view.sendout.schedule.view.time.remove.success") :
@@ -52,7 +52,7 @@ function updateOrRemove(ctx: MyContext, targetTime: string): Menu<InlineKeyboard
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.buttons.update"), `updateTime:${ctx.session.sendout.name}#${ctx.session.schedule.id}`)
+        .text(ctx.t("utils.shared.buttons.update"), `updateTime:${ctx.session.sendout.id}#${ctx.session.schedule.id}`)
         .text(ctx.t("utils.shared.buttons.remove"), `removeTime:${ctx.session.sendout.id}#${ctx.session.schedule.id}`).style('danger')
         .row().text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.id}`);
     ;

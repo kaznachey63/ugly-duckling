@@ -4,14 +4,14 @@ import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 
 export default function main(ctx: MyContext, scheduleLength: number): Menu<InlineKeyboard> {
-    const sendoutName = ctx.session.sendout.name;
+    const sendoutId = ctx.session.sendout.id;
     const sendoutCall = ctx.session.sendout.call;
      
     let text = [];
     const keyboard = new InlineKeyboard();
     
     if (ctx.session.isAdmin) {
-        keyboard.text(ctx.t("utils.shared.buttons.create"), `createTime:${sendoutName}`).style("success");
+        keyboard.text(ctx.t("utils.shared.buttons.create"), `createTime:${sendoutId}`).style("success");
     }
 
     // Нет времени
@@ -22,13 +22,13 @@ export default function main(ctx: MyContext, scheduleLength: number): Menu<Inlin
         text.push(ctx.t("modules.shared.sendout.view.sendout.schedule.main.title", { amount: scheduleLength }));
 
         if (ctx.session.isAdmin) {
-            keyboard.text(ctx.t("utils.shared.buttons.clear"), `clearSchedule:${sendoutName}`).style("danger").row()
+            keyboard.text(ctx.t("utils.shared.buttons.clear"), `clearSchedule:${sendoutId}`).style("danger").row()
         }
 
-        keyboard.text(ctx.t("utils.shared.buttons.view"), `viewSchedule:${sendoutName}`).style("primary")
+        keyboard.text(ctx.t("utils.shared.buttons.view"), `viewSchedule:${sendoutId}`).style("primary")
     }
     
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutName}`);
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`);
     text.push(ctx.t("modules.shared.sendout.view.sendout.schedule.main.path", { call: sendoutCall, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }));
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
 }

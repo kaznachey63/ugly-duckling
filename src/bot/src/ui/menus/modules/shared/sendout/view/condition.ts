@@ -8,7 +8,7 @@ import type { Status } from "@shared/types/server/Status";
  * Меню раздела Состояние
  */
 export default function condition(ctx: MyContext, status: Status): Menu<InlineKeyboard> {
-    const sendoutName = ctx.session.sendout.name!;
+    const sendoutId = ctx.session.sendout.id!;
     let keyboard = new InlineKeyboard();
     
     switch (status) {
@@ -16,18 +16,18 @@ export default function condition(ctx: MyContext, status: Status): Menu<InlineKe
             keyboard
             .text(
                 ctx.t("modules.shared.sendout.view.sendout.condition.buttons.stop"),
-                `stopSendout:${sendoutName}`
+                `stopSendout:${sendoutId}`
             )
             .text(
                 ctx.t("modules.shared.sendout.view.sendout.condition.buttons.restart"),
-                `restartSendout:${sendoutName}`
+                `restartSendout:${sendoutId}`
             );
             break;
         }
         case "inactive": {
             keyboard.text(
                 ctx.t("modules.shared.sendout.view.sendout.condition.buttons.start"),
-                `startSendout:${sendoutName}`
+                `startSendout:${sendoutId}`
             );
             break;
         }
@@ -38,7 +38,7 @@ export default function condition(ctx: MyContext, status: Status): Menu<InlineKe
         ctx.t("modules.shared.sendout.view.sendout.condition.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n\n');
 
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${ctx.session.sendout.name}`);
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`);
     
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }

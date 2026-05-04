@@ -10,7 +10,7 @@ const conditionComposer = new Composer<MyContext>();
 conditionComposer.callbackQuery(/^mainCondition:/, async (ctx: MyContext) => {
     try {
         const server = new ServerManager();
-        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name, true) as Status);
+        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as Status);
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
             reply_markup: menu.keyboard
@@ -26,9 +26,9 @@ conditionComposer.callbackQuery(/^startSendout:/, async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
         const server = new ServerManager();
-        await server.startService(ctx.session.sendout.name, true);
+        await server.startService(ctx.session.sendout.name!, true);
         await sleep(250);
-        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name, true) as Status);
+        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as Status);
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
@@ -45,9 +45,9 @@ conditionComposer.callbackQuery(/^stopSendout:/, async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
         const server = new ServerManager();
-        await server.stopService(ctx.session.sendout.name, true);
+        await server.stopService(ctx.session.sendout.name!, true);
         await sleep(250);
-        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name, true) as Status);
+        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as Status);
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
@@ -64,9 +64,9 @@ conditionComposer.callbackQuery(/^restartSendout:/, async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
         const server = new ServerManager();
-        await server.restartService(ctx.session.sendout.name, true);
+        await server.restartService(ctx.session.sendout.name!, true);
         await sleep(250);
-        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name, true) as Status);
+        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as Status);
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',

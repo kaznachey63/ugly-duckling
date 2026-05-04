@@ -15,7 +15,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard()
         .text(ctx.t("modules.shared.sendout.view.sendout.message.create.main.buttons.generate"), `generateText:${sendoutId}`).style("success")
         .text(ctx.t("modules.shared.sendout.view.sendout.message.create.main.buttons.hand"), `handInputText:${sendoutId}`).row()
-        .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.name}`);
+        .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }

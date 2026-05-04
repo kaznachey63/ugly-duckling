@@ -74,24 +74,27 @@ function getType(type: StatisticType): string[] {
 }
 
 async function getGroups(sendoutId: number, typeStat: StatisticType): Promise<number[]> {
-    const results = await db.result.get(sendoutId);
+    const results = await db.result.gets(sendoutId);
     if (!results) return [];
 
     const dates = getType(typeStat);
-    const formattedDates = dates.map(d => formatDate(new Date(d)));
+    const targetKeys = dates.map(d => {
+        const date = new Date(d);
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    });
 
-    return formattedDates.map(date => {
-        const logsForDate = results.filter(l => l.date === date);
+    return targetKeys.map(key => {
+        const logsForDate = results.filter(l => {
+            const logDate = new Date(l.date_time!);
+            const logKey = `${logDate.getFullYear()}-${String(logDate.getMonth() + 1).padStart(2, '0')}-${String(logDate.getDate()).padStart(2, '0')}`;
+            return logKey === key;
+        });
         if (logsForDate.length === 0) return 0;
         const bestLog = logsForDate.reduce((max, current) =>
-            current.success > max.success ? current : max
+            current.success! > max.success! ? current : max
         );
-        return bestLog.success;
+        return bestLog.success!;
     });
-}
-
-function formatDate(date: Date): string {
-    return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`;
 }
 
 function getLabels(ctx: MyContext, typeStat: StatisticType): string[] {
@@ -134,7 +137,7 @@ function getMonth(date: Date): string[] {
 }
 
 async function getDataForDiagram(ctx: MyContext, typeStat: StatisticType): Promise<ChartData | false> {
-    const groups = await getGroups(ctx.session.sendout.id, typeStat);
+    const groups = await getGroups(ctx.session.sendout.id!, typeStat);
     if (Number(groups.join('')) <= 0) return false;
 
     return {
