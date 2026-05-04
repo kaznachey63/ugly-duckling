@@ -65,7 +65,6 @@ function main(
     }
 
     keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${sendoutId}`);
-    console.log(`[MENU DEBUG] display:${currentDisplayPos}, currPos:${currentPosition}, prev:${prevPosition}, next:${nextPosition}`);
     return { text: format.escapeMarkdown(text), keyboard };
 }
 
