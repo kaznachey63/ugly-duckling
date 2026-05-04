@@ -6,45 +6,64 @@ import constants from '@constants';
 import type { Message } from '@shared/types/DB';
 
 // Отображение сообщения
-function main(ctx: MyContext, totalMessages: number, currentDisplayPos: number, prevDbPos: number | null, nextDbPos: number | null): Menu<InlineKeyboard> {
+function main(
+    ctx: MyContext, 
+    totalMessages: number, 
+    currentDisplayPos: number, // 1-based номер для показа юзеру (1, 2, 3...)
+    prevId: number | null,     // Реальный ID предыдущего сообщения
+    nextId: number | null      // Реальный ID следующего сообщения
+): Menu<InlineKeyboard> {
+    
     const sendoutId = ctx.session.sendout.id;
-    const message = ctx.session.message!;
+    const message = ctx.session.message;
+
     const mediaCount = message.media?.length ?? 0;
 
     const text = [
         ctx.t("modules.shared.sendout.view.sendout.message.view.main.messageNumber", { number: currentDisplayPos }) + ' ' +
         ctx.t("modules.shared.sendout.view.sendout.message.view.main.amountMedia", { amount: mediaCount, maxMedia: constants.media.maxMedia }),
         `\`\`\`\n${message.caption ?? ''}\n\`\`\`\n`,
-        ctx.t("modules.shared.sendout.view.sendout.message.view.main.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
+        ctx.t("modules.shared.sendout.view.sendout.message.view.main.path", { 
+            call: ctx.session.sendout.call, 
+            menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") 
+        })
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.updateText"), `updateText:${sendoutId}#${message.id!}`).style("primary")
-        .text(ctx.t("utils.shared.buttons.remove"), `removeMessage:${sendoutId}#${message.id!}`).style("danger").row();
+        .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.updateText"), `updateText:${sendoutId}#${message.id}`).style("primary")
+        .text(ctx.t("utils.shared.buttons.remove"), `removeMessage:${sendoutId}#${message.id}`).style("danger").row();
 
-    // Кнопки медиа (убраны дубли, добавлена безопасность)
+    // Кнопки медиа (логика без изменений)
     if (mediaCount > 0 && mediaCount < 4) {
-        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutId}#${message.id!}`).style("success")
-               .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutId}#${message.id!}`).style("danger").row();
+        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutId}#${message.id}`).style("success")
+               .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutId}#${message.id}`).style("danger").row();
     } else if (mediaCount === 0) {
-        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutId}#${message.id!}`).style("success").row();
+        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutId}#${message.id}`).style("success").row();
     } else if (mediaCount === 4) {
-        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutId}#${message.id!}`).style("danger").row();
+        keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutId}#${message.id}`).style("danger").row();
     }
 
-    // Пагинация (теперь работает даже с дырками в position)
+    // === ПАГИНАЦИЯ ===
+    // Теперь кнопки ссылаются на УНИКАЛЬНЫЕ ID, поэтому пропуски в нумерации не важны
     const paginationLabel = `${currentDisplayPos} / ${totalMessages}`;
     const paginationCb = `paginationMessages:${sendoutId}#${currentDisplayPos}/${totalMessages}`;
 
-    const pageRow = keyboard;
     if (totalMessages === 1) {
-        pageRow.text(paginationLabel, paginationCb);
+        keyboard.text(paginationLabel, paginationCb).row();
     } else {
-        if (prevDbPos !== null) pageRow.text("⬅", `viewMessage:${sendoutId}#${prevDbPos}-prev`);
-        pageRow.text(paginationLabel, paginationCb);
-        if (nextDbPos !== null) pageRow.text("➡", `viewMessage:${sendoutId}#${nextDbPos}-next`);
+        // Если есть левый сосед — рисуем стрелку с его ID
+        if (prevId !== null) {
+            keyboard.text("⬅", `viewMessage:${sendoutId}#${prevId}-prev`);
+        }
+        
+        keyboard.text(paginationLabel, paginationCb);
+        
+        // Если есть правый сосед — рисуем стрелку с его ID
+        if (nextId !== null) {
+            keyboard.text("➡", `viewMessage:${sendoutId}#${nextId}-next`);
+        }
+        keyboard.row();
     }
-    pageRow.row();
 
     keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${sendoutId}`);
     return { text: format.escapeMarkdown(text), keyboard };
