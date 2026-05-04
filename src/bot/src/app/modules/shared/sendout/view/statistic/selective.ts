@@ -1,9 +1,6 @@
-import { Composer, InlineKeyboard } from 'grammy';
+import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import type { Chat } from '@shared/types/DB';
-import type { Menu } from '@shared/types/Menu';
 import db from '@shared/db';
-import format from '@utils/formatting';
 import menuStatistic from '@menus/modules/shared/sendout/view/statistic';
 
 const selectiveStatisticsComposer = new Composer<MyContext>();
@@ -42,12 +39,12 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/,
         }
     }
 
-    await ctx.answerCallbackQuery({ text: ctx.t("modules.shared.sendout.view.sendout.statistic.selective.noData"), show_alert: true });
+    await ctx.answerCallbackQuery({ text: ctx.t("modules.shared.sendout.view.sendout.statistic.selective.main.noData"), show_alert: true });
 });
 
 // Недоступная кнопка
 selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:/, async (ctx) => {
-    await ctx.answerCallbackQuery({ text: ctx.t("modules.shared.sendout.view.sendout.statistic.selective.noAccess"), show_alert: true });
+    await ctx.answerCallbackQuery({ text: ctx.t("modules.shared.sendout.view.sendout.statistic.selective.main.noAccess"), show_alert: true });
 });
 
 // Пред. месяц
