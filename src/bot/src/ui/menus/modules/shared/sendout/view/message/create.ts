@@ -42,7 +42,7 @@ function saveOrCancelGenerateText(ctx: MyContext, result: boolean, success?: boo
                 ctx.t("modules.shared.sendout.view.sendout.message.create.generate.pathSave", { call: ctx.session.sendout.call,  menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
             );
             keyboard
-                .text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${sendoutId}`)
+                .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${sendoutId}`)
             ;
         }
         else {
@@ -51,7 +51,7 @@ function saveOrCancelGenerateText(ctx: MyContext, result: boolean, success?: boo
                 ctx.t("modules.shared.sendout.view.sendout.message.create.generate.pathSave", { call: ctx.session.sendout.call,  menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
             );
             keyboard
-                .text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${sendoutId}`)
+                .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${sendoutId}`)
             ;
         }
     }

@@ -50,7 +50,7 @@ function generatingText(ctx: MyContext, result: string) {
     const keyboard = new InlineKeyboard()
         .text(ctx.t("handlers.states.generatingText.buttons.save"), `generateText:${ctx.session.sendout.id}-true`).style("success")
         .text(ctx.t("handlers.states.generatingText.buttons.cancel"), `generateText:${ctx.session.sendout.id}-false`).style("danger").row()
-        .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
+        .text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${ctx.session.sendout.id}`);
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }

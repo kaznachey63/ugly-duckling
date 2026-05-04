@@ -10,12 +10,8 @@ export default async function updatingText(ctx: MyContext) {
     let menu;
     if (!validateText(ctx.message?.text?.trim()!)) menu = menuState.updatingText(ctx, false, false);
     else {
-const rawId = ctx.callbackQuery?.data?.split('#')[1];
-console.log(`Parsing ID from: ${ctx.callbackQuery?.data}, extracted: ${rawId}`); // Для отладки
-const message = await db.message.getById(Number(rawId));        console.log(message + "inhbgv hbjnk");
-        
         const formatMessage: Message = {
-            id: message?.id!,
+            id: ctx.session.message?.id!,
             caption: ctx.message?.text?.trim()!,
             entities: ctx.message?.entities as unknown as Prisma.JsonArray,
         }
