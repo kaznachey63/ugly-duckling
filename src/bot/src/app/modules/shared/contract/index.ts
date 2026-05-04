@@ -106,7 +106,7 @@ contractComposer.callbackQuery("createContract", async (ctx: MyContext) => {
 /**
  * Выбор формата экспорта
  */
-contractComposer.callbackQuery(/^mainExportContract:/, async (ctx: MyContext) => {
+contractComposer.callbackQuery(/^mainExportContract#/, async (ctx: MyContext) => {
     const menu = menuContracts.mainExportContract(ctx);
     await ctx.editMessageText(menu.text, {
         parse_mode: 'MarkdownV2',
@@ -117,7 +117,7 @@ contractComposer.callbackQuery(/^mainExportContract:/, async (ctx: MyContext) =>
 /**
  * Экспорт договора в выбранный формат
  */
-contractComposer.callbackQuery(/^exportContract:/, async (ctx: MyContext) => {   
+contractComposer.callbackQuery(/^exportContract#/, async (ctx: MyContext) => {   
     const exportType = ctx.callbackQuery?.data?.split(/-/)[1]! as ExportType;
     let buffer!: Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike>;
 
