@@ -4,12 +4,12 @@ import menuUsers from "@menus/modules/commands/panel/users";
 import { Composer } from "grammy";
 import common from "@utils/common";
 
-const usersComposer = new Composer<MyContext>();
+const userComposer = new Composer<MyContext>();
 
 /**
  * Главное меню раздела пользователи
  */
-usersComposer.callbackQuery("mainUser", async (ctx: MyContext) => {
+userComposer.callbackQuery("mainUser", async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
     const menu = menuUsers.main(ctx, (await db.user.gets())?.length!);
     await ctx.editMessageText(menu.text, {
@@ -21,7 +21,7 @@ usersComposer.callbackQuery("mainUser", async (ctx: MyContext) => {
 /**
  * Отображение списка пользователей
  */
-usersComposer.callbackQuery("viewUsers", async (ctx: MyContext) => {
+userComposer.callbackQuery("viewUsers", async (ctx: MyContext) => {
     let menu;
     const users = await db.user.gets();
     
@@ -36,7 +36,7 @@ usersComposer.callbackQuery("viewUsers", async (ctx: MyContext) => {
 /**
  * Отображение выбранного пользователя
  */
-usersComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
+userComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
     const menu = menuUsers.viewUser(ctx, (await db.user.get(userId))!);
     await ctx.editMessageText(menu.text, {
@@ -48,7 +48,7 @@ usersComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
 /**
  * Создание пользователя
  */
-usersComposer.callbackQuery("createUser", async (ctx: MyContext) => {
+userComposer.callbackQuery("createUser", async (ctx: MyContext) => {
     ctx.session.state.addingUser = true;
     const menu = menuUsers.create(ctx);
     const msg = await ctx.editMessageText(menu.text, {
@@ -65,7 +65,7 @@ usersComposer.callbackQuery("createUser", async (ctx: MyContext) => {
 /**
  * Удаление пользователя
  */
-usersComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
+userComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
     const user = (await db.user.get(userId))!;
     let menu;
@@ -82,4 +82,4 @@ usersComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
     });
 });
 
-export default usersComposer;
+export default userComposer;

@@ -33,18 +33,12 @@ bot.use(i18nMiddleware);
 bot.on('message', async (ctx: MyContext, next: NextFunction) => {
     if (ctx.message?.text?.startsWith('/')) {
         await ctx.api.sendChatAction(ctx.chat?.id!, "typing");
-        
-        // если вдруг пользователь не захочет использовать кнопки авторизации при авторизации
         common.resetSessionStates(ctx.session);
     }
-    
-    if (ctx.message?.text === "❌ Отменить" && !ctx.session.state.passingAuthorization) {
-        await ctx.deleteMessage();
-        await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
-        try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
-        return;
-    }
-    await utils.common.setPrimaryValuesSession(ctx);   
+
+    await utils.common.checkCancelButton(ctx);
+    await utils.common.setPrimaryValuesSession(ctx);  
+    await utils.common.checkMaintenace(ctx);
     next();
 });
 
@@ -52,6 +46,7 @@ bot.on('callback_query', async (ctx: MyContext, next: NextFunction) => {
     try {
         console.log(ctx?.callbackQuery?.data);
         await utils.common.setPrimaryValuesSession(ctx);
+        await utils.common.checkMaintenace(ctx);
         await next();
     } finally {
         await ctx.answerCallbackQuery().catch(() => { });        

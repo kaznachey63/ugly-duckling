@@ -32,7 +32,7 @@ async function updateIdeaLastMessageId(messageId: number) {
 /**
  * Получение режима разработки
  */
-async function getMaintenace(): Promise<boolean> {
+async function maintenace(): Promise<boolean> {
     const result = await prisma.general.findFirst({
         select: { maintenace: true }
     });
@@ -61,6 +61,6 @@ async function setMaintenace(mode: boolean) {
 export default {
     getIdeaLastMessageId,
     updateIdeaLastMessageId,
-    getMaintenace,
+    maintenace,
     setMaintenace
 }

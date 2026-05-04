@@ -4,7 +4,6 @@ import constants from '@constants';
 
 /**
  * Сброс сессии
- * @param session Сессия
  */
 function resetSessionStates(session: SessionData) {
     session.state.addingText = false;
@@ -19,6 +18,9 @@ function resetSessionStates(session: SessionData) {
     session.state.addingContract = false;
 }
 
+/**
+ * Уставнока важных значений в сессию
+ */
 async function setPrimaryValuesSession(ctx: MyContext) {
     // Присваивание инфо о рассылке и пользователе
     if (await db.user.exists(BigInt(ctx.from?.id!))) {
@@ -34,6 +36,23 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     const sendoutId = Number(ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!);
     const infoDist = await db.sendout.getSendoutInfo(sendoutId);
     if (infoDist) ctx.session.sendout = infoDist;
+}
+/**
+ * Проверка на тех. режим
+ */
+async function checkMaintenace(ctx: MyContext) {
+    if (await db.general.maintenace() && !ctx.session.isAdmin) {
+        await ctx.reply(ctx.t("utils.maintenace"));
+    }
+}
+
+async function checkCancelButton(ctx: MyContext) {
+    if (ctx.message?.text === "❌ Отменить" && !ctx.session.state.passingAuthorization) {
+        await ctx.deleteMessage();
+        await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
+        try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
+        return;
+    }
 }
 
 /**
@@ -65,6 +84,9 @@ async function deleteMessageProcessing(ctx: MyContext, endMsgId?: number) {
     } catch { }
 }
 
+/**
+ * Проверка на телефон админа
+ */
 function isAdminPhone(phone: string) {
     return phone === constants.adminData.phone;
 }
@@ -73,5 +95,7 @@ export default {
     resetSessionStates,
     setPrimaryValuesSession,
     isAdminPhone,
-    deleteMessageProcessing
+    deleteMessageProcessing,
+    checkMaintenace,
+    checkCancelButton,
 };

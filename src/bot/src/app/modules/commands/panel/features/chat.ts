@@ -5,12 +5,12 @@ import { ServerManager } from "src/common/services/ServerManager";
 import { Composer } from "grammy";
 import { sleep } from "telegram/Helpers";
 
-const chatsComposer = new Composer<MyContext>();
+const chatComposer = new Composer<MyContext>();
 
 /**
  * Главная страница раздела чаты
  */
-chatsComposer.callbackQuery("mainChat", async (ctx: MyContext) => {
+chatComposer.callbackQuery("mainChat", async (ctx: MyContext) => {
     const menu = menuChat.main(ctx, (await db.chat.get())?.length!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
@@ -21,7 +21,7 @@ chatsComposer.callbackQuery("mainChat", async (ctx: MyContext) => {
 /**
  * Обработка очистки чатов
  */
-chatsComposer.callbackQuery("clearChats", async (ctx: MyContext) => {
+chatComposer.callbackQuery("clearChats", async (ctx: MyContext) => {
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
     await db.chat.clear();
     
@@ -35,7 +35,7 @@ chatsComposer.callbackQuery("clearChats", async (ctx: MyContext) => {
 /**
  * Обработка переформирования чатов
  */
-chatsComposer.callbackQuery("reuploadChats", async (ctx: MyContext) => {
+chatComposer.callbackQuery("reuploadChats", async (ctx: MyContext) => {
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
 
     const server = new ServerManager();
@@ -64,4 +64,4 @@ chatsComposer.callbackQuery("reuploadChats", async (ctx: MyContext) => {
     });
 });
 
-export default chatsComposer;
+export default chatComposer;
