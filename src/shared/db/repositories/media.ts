@@ -37,7 +37,11 @@ async function add(media: Media) {
         await prisma.media.create({
             data: {
                 name: media.name,
-                position: await prisma.media.count() ?? 0,
+                position: (await prisma.message.findMany({
+                    where: {
+                        sendout_id: media.message_id
+                    }
+                })).length ?? 0,
                 message_id: media.message_id
             }
         });

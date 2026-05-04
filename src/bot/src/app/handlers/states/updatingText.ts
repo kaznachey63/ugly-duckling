@@ -11,7 +11,8 @@ export default async function updatingText(ctx: MyContext) {
     if (!validateText(ctx.message?.text?.trim()!)) menu = menuState.updatingText(ctx, false, false);
     else {
         const message = await db.message.getById(Number(ctx.callbackQuery?.data?.split('#')[1]));
-
+        console.log(message + "inhbgv hbjnk");
+        
         const formatMessage: Message = {
             id: message?.id!,
             caption: ctx.message?.text?.trim()!,

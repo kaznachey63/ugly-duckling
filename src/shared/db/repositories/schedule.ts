@@ -59,7 +59,11 @@ async function create(schedule: Schedule) {
             data: {
                 cron: schedule.cron,
                 label: schedule.label,
-                position: await prisma.schedule.count() ?? 0,
+                position: (await prisma.message.findMany({
+                    where: {
+                        sendout_id: schedule.sendout_id
+                    }
+                })).length ?? 0,
                 sendout_id: schedule.sendout_id
             }
         });
