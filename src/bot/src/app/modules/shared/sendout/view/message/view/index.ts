@@ -12,15 +12,13 @@ const viewComposer = new Composer<MyContext>();
 
 viewComposer.callbackQuery(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/, async (ctx: MyContext) => {
     const callbackData = ctx.callbackQuery?.data!;
-    
     const match = callbackData.match(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/);
+    
+    const sendoutId = Number(match![1]);
+    // 🔥 ИСПРАВЛЕНИЕ: Теперь это ПОЗИЦИЯ в БД (0, 1, 2...), а не уникальный ID
+    const currentPosition = Number(match![2]); 
+    const type = match![3] as PaginationType;
 
-    const sendoutId = Number(match[1]);
-    const currentMsgId = Number(match[2]); // <-- Теперь это ID сообщения, а не позиция!
-    const type = match[3] as 'prev' | 'next' | 'none';
-
-    // 1. Получаем ВСЕ сообщения рассылки, отсортированные по позиции
-    // Важно: getMessages должен делать .orderBy({ position: 'asc' })
     const messages = await db.message.getMessages(sendoutId);
 
     if (!messages?.length) {
@@ -29,33 +27,33 @@ viewComposer.callbackQuery(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/, async (
         return;
     }
 
-    // 2. Ищем индекс текущего сообщения в массиве по его УНИКАЛЬНОМУ ID
-    let currentIndex = messages.findIndex(m => m.id === currentMsgId);
+    // Ищем индекс в массиве по ПОЗИЦИИ
+    let currentIndex = messages.findIndex(m => m.position === currentPosition);
     
-    // Если сообщение не найдено (удалено), берем первое или последнее в зависимости от направления
     if (currentIndex === -1) {
+        // Если позиция не найдена (сообщение удалили), сбрасываемся на начало или конец
         currentIndex = type === 'prev' ? messages.length - 1 : 0;
     }
 
-    // 3. Вычисляем целевой индекс
+    // Вычисляем целевой индекс
     let targetIndex = currentIndex;
     if (type === 'prev' && currentIndex > 0) targetIndex = currentIndex - 1;
     if (type === 'next' && currentIndex < messages.length - 1) targetIndex = currentIndex + 1;
 
     const targetMessage = messages[targetIndex];
     
-    // 4. Сохраняем в сессию и рендерим меню
-    ctx.session.message = targetMessage;
+    // Сохраняем в сессию
+    ctx.session.message = targetMessage!;
     
-    // Вычисляем красивый номер для отображения (индекс + 1)
+    // Вычисляем номер для отображения (индекс + 1)
     const displayNumber = targetIndex + 1; 
     const total = messages.length;
     
-    // Определяем реальные ID соседей для кнопок
-    const prevId = targetIndex > 0 ? messages[targetIndex - 1].id : null;
-    const nextId = targetIndex < total - 1 ? messages[targetIndex + 1].id : null;
+    // 🔥 ИСПРАВЛЕНИЕ: Передаем реальные ПОЗИЦИИ соседей из БД, а не их индексы или ID
+    const prevPosition = targetIndex > 0 ? messages[targetIndex - 1]!.position : null;
+    const nextPosition = targetIndex < total - 1 ? messages[targetIndex + 1]!.position : null;
 
-    const menu = menuView.main(ctx, total, displayNumber, prevId, nextId);
+    const menu = menuView.main(ctx, total, displayNumber, prevPosition!, nextPosition!);
     
     await ctx.editMessageText(menu.text, { 
         reply_markup: menu.keyboard, 

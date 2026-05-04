@@ -9,14 +9,13 @@ import type { Message } from '@shared/types/DB';
 function main(
     ctx: MyContext, 
     totalMessages: number, 
-    currentDisplayPos: number, // 1-based номер для показа юзеру (1, 2, 3...)
-    prevId: number | null,     // Реальный ID предыдущего сообщения
-    nextId: number | null      // Реальный ID следующего сообщения
+    currentDisplayPos: number, // 1-based номер для юзера (1, 2, 3...)
+    prevPosition: number | null, // ПОЗИЦИЯ из БД для кнопки "Назад"
+    nextPosition: number | null  // ПОЗИЦИЯ из БД для кнопки "Вперед"
 ): Menu<InlineKeyboard> {
     
     const sendoutId = ctx.session.sendout.id;
     const message = ctx.session.message;
-
     const mediaCount = message.media?.length ?? 0;
 
     const text = [
@@ -30,10 +29,11 @@ function main(
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
+        // 🔥 Важно: для кнопок редактирования используем уникальный message.id
         .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.updateText"), `updateText:${sendoutId}#${message.id}`).style("primary")
         .text(ctx.t("utils.shared.buttons.remove"), `removeMessage:${sendoutId}#${message.id}`).style("danger").row();
 
-    // Кнопки медиа (логика без изменений)
+    // ... (логика кнопок медиа без изменений) ...
     if (mediaCount > 0 && mediaCount < 4) {
         keyboard.text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.addMedia"), `addMedia:${sendoutId}#${message.id}`).style("success")
                .text(ctx.t("modules.shared.sendout.view.sendout.message.view.main.buttons.clearAllMedia"), `clearAllMedia:${sendoutId}#${message.id}`).style("danger").row();
@@ -44,23 +44,21 @@ function main(
     }
 
     // === ПАГИНАЦИЯ ===
-    // Теперь кнопки ссылаются на УНИКАЛЬНЫЕ ID, поэтому пропуски в нумерации не важны
     const paginationLabel = `${currentDisplayPos} / ${totalMessages}`;
     const paginationCb = `paginationMessages:${sendoutId}#${currentDisplayPos}/${totalMessages}`;
 
     if (totalMessages === 1) {
         keyboard.text(paginationLabel, paginationCb).row();
     } else {
-        // Если есть левый сосед — рисуем стрелку с его ID
-        if (prevId !== null) {
-            keyboard.text("⬅", `viewMessage:${sendoutId}#${prevId}-prev`);
+        // 🔥 ИСПРАВЛЕНИЕ: В колбэк навигации летит position, а не id
+        if (prevPosition !== null) {
+            keyboard.text("⬅", `viewMessage:${sendoutId}#${prevPosition}-prev`);
         }
         
         keyboard.text(paginationLabel, paginationCb);
         
-        // Если есть правый сосед — рисуем стрелку с его ID
-        if (nextId !== null) {
-            keyboard.text("➡", `viewMessage:${sendoutId}#${nextId}-next`);
+        if (nextPosition !== null) {
+            keyboard.text("➡", `viewMessage:${sendoutId}#${nextPosition}-next`);
         }
         keyboard.row();
     }
