@@ -5,7 +5,7 @@ import type { StatisticType } from '@shared/types/StatisticType';
 import utils from '@utils';
 import { CalendarKeyboard } from 'src/ui/calendar';
 import constants from '@constants';
-import type { Result } from '@shared/types/DB';
+import type { Chat, Result } from '@shared/types/DB';
 
 /**
  * Меню раздела Статистика
@@ -49,17 +49,63 @@ function selective(ctx: MyContext): Menu<InlineKeyboard> {
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
 
-function targetDateOnCalendar(ctx: MyContext, result: Result): Menu<InlineKeyboard> {
+function targetDateOnCalendar(ctx: MyContext): Menu<InlineKeyboard> {
+    const date = ctx.session.result.date_time?.toLocaleDateString('ru-RU', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    }); 
+    const time = ctx.session.result.date_time?.toISOString().split('T')[1]!.slice(0, 5);
+
     const text = [
-        ctx.t(`shared.sendout.view.sendout.statistic.selective.targetDate.title`, { date: result.date, time: result.time, success: result.success }),
-        ctx.t(`shared.sendout.view.sendout.statistic.selective.targetDate.path`, { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
+        ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.title`, { date: date }),
+        ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.time`, { time: time }),
+        ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.success`, { success: ctx.session.result.success }),
+
+        ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.path`, { 
+            call: ctx.session.sendout.call, 
+            menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"),
+            date: date
+        })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard();
-    if (ctx.session.isAdmin) keyboard.text(ctx.t("modules.shared.sendout.view.sendout.statistic.selective.targetDate.buttonChat"), `viewChats:${ctx.session.sendout.name}-${result.date}`);
+    if (ctx.session.isAdmin) keyboard.text(ctx.t("utils.shared.buttons.chats"), `viewChats:${ctx.session.sendout.id}#${ctx.session.result.id}`).row();
     keyboard.text(ctx.t("utils.shared.buttons.back"), `comparativeStatistic:${ctx.session.sendout.name}`);
 
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
+}
+
+/**
+ * Просмотр чатов за результат рассылки
+ */
+
+function chats(ctx: MyContext): Menu<InlineKeyboard> {
+    const dateBase = ctx.session.result.date_time?.toISOString().split('T')[0];
+    const date = ctx.session.result.date_time?.toLocaleDateString('ru-RU', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    }); 
+
+    const text = [
+        ctx.t("shared.titles.amount", { success: ctx.session.result.success }),
+        ctx.t("modules.shared.sendout.view.sendout.statistic.selective.targetDate.chats.path", { 
+            call: ctx.session.sendout.call, 
+            menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"),
+            date: date
+        })
+    ].join('\n\n');
+
+    const keyboard = new InlineKeyboard();
+
+    (ctx.session.result.chats as Chat[]).forEach((chat: Chat) => {
+        keyboard.url(chat.title!, chat.link!).row();
+    });
+
+    keyboard.text(ctx.t("utils.shared.buttons.back"), `calendar:date:${dateBase}`);
+
+    return { text: utils.formatting.escapeMarkdown(text), keyboard };
 }
 
 function comparative(ctx: MyContext): Menu<InlineKeyboard> {
@@ -93,5 +139,6 @@ export default {
     selective,
     comparative,
     handlerComparative,
-    targetDateOnCalendar
+    targetDateOnCalendar,
+    chats
 }

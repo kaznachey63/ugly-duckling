@@ -9,7 +9,7 @@ import { InlineKeyboard } from 'grammy';
 export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = ctx.t("modules.commands.panel.main.title");
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.commands.panel.main.buttons.chats"), "mainChat").row()
+        .text(ctx.t("utils.shared.buttons.chats"), "mainChat").row()
         .text(ctx.t("modules.commands.panel.main.buttons.users"), "mainUser").row()
         .text(ctx.t("utils.shared.buttons.sendouts"), "mainSendout").row()
         .text(ctx.t("utils.shared.buttons.contracts"), "mainContract").row()

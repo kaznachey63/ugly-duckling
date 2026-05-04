@@ -20,27 +20,20 @@ selectiveStatisticsComposer.callbackQuery(/^selectiveStatistic:/, async (ctx: My
     }
 });
 
+// Дата
 selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
-    const results = await db.result.get(ctx.session.sendout.id!);
-    if (!results)  {     
-        await ctx.answerCallbackQuery({
-            text: ctx.t("modules.shared.sendout.view.sendout.statistic.selective.main.notDone"),
-            show_alert: true
-        });
-    }
+    const results = await db.result.gets(ctx.session.sendout.id!);
+    if (!results) await ctx.answerCallbackQuery({ text: ctx.t("modules.shared.sendout.view.sendout.statistic.selective.main.notDone"), show_alert: true });
+
     for (const result of results!) {
         if (result.chats == 0 || result.chats == 1) continue;
 
         const targetDate = ctx.callbackQuery.data.split(/date:/)[1]?.replace(/-/g, ':');
-        const dateFromResult = result.date_time?.getDate();
-        console.log(
-            ctx.callbackQuery.data,
-            targetDate,
-            dateFromResult
-        );
+        const dateFromResult = result.date_time?.toISOString().split('T')[0];
         
         if (targetDate == dateFromResult) {
-            const menu = menuStatistic.targetDateOnCalendar(ctx, result);
+            ctx.session.result = result;
+            const menu = menuStatistic.targetDateOnCalendar(ctx);
             await ctx.editMessageText(menu.text, {
                 reply_markup: menu.keyboard,
                 parse_mode: "MarkdownV2"
@@ -49,17 +42,20 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/,
         }
     }
 
-    await ctx.answerCallbackQuery({ text: ctx.t("modules.shared.sendout.view.sendout.statistics.selective.noData"), show_alert: true });
+    await ctx.answerCallbackQuery({ text: ctx.t("modules.shared.sendout.view.sendout.statistic.selective.noData"), show_alert: true });
 });
 
+// Недоступная кнопка
 selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:/, async (ctx) => {
-    // Пусто
+    await ctx.answerCallbackQuery({ text: ctx.t("modules.shared.sendout.view.sendout.statistic.selective.noAccess"), show_alert: true });
 });
 
+// Пред. месяц
 selectiveStatisticsComposer.callbackQuery(/^calendar:prev:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
     // Пусто
 });
 
+// След. месяц
 selectiveStatisticsComposer.callbackQuery(/^calendar:next:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
     // Пусто
 });
@@ -81,62 +77,21 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:month$/, async (ctx)
 });
 
 
+selectiveStatisticsComposer.callbackQuery(/^viewChats:/, async (ctx: MyContext) => {
+    try {
+        const resultId = Number(ctx.callbackQuery?.data!.split('#')[1]);
+        ctx.session.result = await db.result.getById(resultId);
 
+        const menu = menuStatistic.chats(ctx);
+        await ctx.editMessageText(menu.text, {
+            parse_mode: 'MarkdownV2',
+            reply_markup: menu.keyboard
+        });
+    } catch (error) {
+        console.error('Ошибка в viewChats:', error);
+    } finally {
 
-
-
-
-
-
-
-
-
-// selectiveStatisticsComposer.callbackQuery(/^chatsForStatistics:/, async (ctx: MyContext) => {
-//     try {
-//         const logsBaza = await db.result.get(ctx.session.sendout.schema);
-//         if (!logsBaza) return;
-
-//         const lastLog = logsBaza.at(-1)!;
-//         const infoChats = await db.chat.getInfo(lastLog?.chats);
-
-//         if (logsBaza.length === 0 || !lastLog?.chats || !infoChats) {
-//             await ctx.answerCallbackQuery({
-//                 text: ctx.t("modules.commands.cabinet.distribution.chats.noSendout", {
-//                     call: ctx.session.sendout.call
-//                 }),
-//                 show_alert: true
-//             });
-//             return;
-//         }
-
-//         const menu = chat(ctx, lastLog.success, infoChats!);
-//         await ctx.editMessageText(format.escapeMarkdown(menu.text), {
-//             parse_mode: 'MarkdownV2',
-//             reply_markup: menu.keyboard
-//         });
-//     } catch (error) {
-//         console.error('Ошибка в chatsForStatistics:', error);
-//     } finally {
-
-//     }
-// });
-
-/**
- * Меню раздела чаты
- */
-// function chat(ctx: MyContext, success: number, chats: Chat[]): Menu<InlineKeyboard> {
-//     const text = [
-//         ctx.t("modules.commands.cabinet.distribution.chats.amount", { success }),
-//         ctx.t("modules.commands.cabinet.distribution.chats.path", { call: ctx.session.sendout.call })
-//     ].join('\n\n');
-
-//     const keyboard = new InlineKeyboard();
-//     chats.forEach((chat: Chat) => {
-//         keyboard.url(chat.title, chat.link).row();
-//     });
-//     keyboard.text(ctx.t("utils.shared.buttons.back"), 'mainDistribution');
-
-//     return { text: format.escapeMarkdown(text), keyboard };
-// }
+    }
+});
 
 export default selectiveStatisticsComposer;

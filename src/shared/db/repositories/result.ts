@@ -22,22 +22,30 @@ async function insert(result: Result) {
 /**
  * Получение результатов рассылки
  */
-async function get(sendoutId: number) {
-    try {
-        return await prisma.result.findMany({
-            where: { 
-                sendout_id: sendoutId
-            },
-            orderBy: {
-                date_time: 'asc'
-            }
-        });
-    } catch (error) {
-        console.error(error);
-    }
+async function gets(sendoutId: number): Promise<Result[]> {
+    return await prisma.result.findMany({
+        where: { 
+            sendout_id: sendoutId
+        },
+        orderBy: {
+            date_time: 'asc'
+        }
+    });
+}
+
+/**
+ * Получение результатов рассылки по айди результата
+ */
+async function getById(resultId: number): Promise<Result> {
+    return (await prisma.result.findFirst({
+        where: { 
+            id: resultId
+        }
+    }))!;
 }
 
 export default {
     insert,
-    get,
+    gets,
+    getById
 };

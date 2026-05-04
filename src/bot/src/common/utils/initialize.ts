@@ -1,10 +1,4 @@
-import constants from '@constants';
-import db from '@shared/db';
-import type { LanguagesALlowed } from '@shared/types/LanguagesAllowed';
 import type { SessionData } from '@shared/types/SessionData';
-import { type BotCommand, type LanguageCode } from 'grammy/types';
-import i18next from 'i18next';
-import { sleep } from 'telegram/Helpers';
 
 function createDefaultSession(): SessionData {
     return {
@@ -97,6 +91,13 @@ function createDefaultSession(): SessionData {
                 },
                 status_id: 0
             }
+        },
+        result: {
+            id: 0,
+            date_time: new Date(),
+            sendout_id: 0,
+            chats: [],
+            success: 0,
         },
         state: {
             addingText: false,

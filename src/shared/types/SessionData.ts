@@ -1,5 +1,5 @@
 import { Context, type SessionFlavor } from "grammy";
-import type { User, Sendout, Schedule, Message } from "@shared/types/DB";
+import type { User, Sendout, Schedule, Message, Result } from "@shared/types/DB";
 
 export interface SessionData {
     isAdmin: boolean;
@@ -7,6 +7,7 @@ export interface SessionData {
     sendout: Sendout;
     schedule: Schedule;
     message: Message;
+    result: Result;
     generate: {
         text: string;
         entities: any[];
