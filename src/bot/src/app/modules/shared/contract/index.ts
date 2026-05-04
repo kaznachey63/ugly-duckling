@@ -171,14 +171,14 @@ function dataForExport(contract: Contract): ContractExport {
     const end = new Date(contract.date_end!);
 
     return {
-        startDay: String(start.getDate()),
-        startMonth: String(start.getMonth() + 1),
+        startDay: String(start.getDate()).padStart(2, '0'),
+        startMonth: String(start.getMonth() + 1).padStart(2, '0'),
         startYear: String(start.getFullYear()),
         customerName: contract.user!.name!,
-        endDay: String(end.getDate()),
-        endMonth: String(end.getMonth() + 1),
-        endYear: String(end.getFullYear()),
-        priceNumber: String(contract.price),
+        endDay: String(end.getDate()).padStart(2, '0'),
+        endMonth: String(end.getMonth() + 1).padStart(2, '0'),
+        endYear: String(end.getFullYear()).slice(0, 3),
+        priceNumber: String(contract.price).slice(0, 3),
         priceString: contract.price_text!
     };
 }

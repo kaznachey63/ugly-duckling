@@ -67,7 +67,7 @@ function viewContract(ctx: MyContext): Menu<InlineKeyboard> {
         .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: ctx.session.contract.date_start ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${ctx.session.contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: ctx.session.contract.date_end ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateEnd#${ctx.session.contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: ctx.session.contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${ctx.session.contract.id}`).row()
-        .text(ctx.t("modules.shared.contract.view.contract.main.priceText", { price: ctx.session.contract.price_text ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPriceText#${ctx.session.contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.priceText", { priceText: ctx.session.contract.price_text ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPriceText#${ctx.session.contract.id}`).row()
         .text(ctx.t("utils.shared.buttons.export"), `mainExportContract#${ctx.session.contract.id}`)
     ;
 
@@ -106,12 +106,12 @@ function create(ctx: MyContext): Menu<InlineKeyboard> {
 function mainExportContract(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("modules.shared.contract.view.contract.export.main.title"),
-        ctx.t("modules.shared.contract.view.contract.export.main.path",  { menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
+        ctx.t("modules.shared.contract.view.contract.export.main.path",  { menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), userName: ctx.session.contract.user?.name }),
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
         .text("PDF", `exportContract#${ctx.session.contract.id}-pdf`)
-        .text("Word", `exportContrac#${ctx.session.contract.id}-word`)   
+        .text("Word", `exportContract#${ctx.session.contract.id}-word`)   
         .row().text(ctx.t("utils.shared.buttons.back"), `viewContract#${ctx.session.contract.id}`)
     ;
     
@@ -125,7 +125,7 @@ function exportContract(ctx: MyContext, exportType: ExportType, result: boolean)
             ctx.t("modules.shared.contract.view.contract.export.result.caption", { exportType: exportType }) :
             ctx.t("modules.shared.contract.view.contract.export.result.error")
         ,
-        ctx.t("modules.shared.contract.view.contract.export.result.path", { call: ctx.session.sendout.call, exportType: exportType, menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
+        ctx.t("modules.shared.contract.view.contract.export.result.path", { call: ctx.session.sendout.call, exportType: exportType, menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), userName: ctx.session.contract.user?.name }),
     ].join('\n');
 
     const keyboard = new InlineKeyboard().row().text(ctx.t("utils.shared.buttons.back"), `viewContract#${ctx.session.contract.id}`);
