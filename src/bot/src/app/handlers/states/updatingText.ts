@@ -6,11 +6,11 @@ import common from '@utils/common';
 import type { Message } from '@shared/types/DB';
 import type { Prisma } from '@shared/db/prisma/client';
 
-export default async function editingText(ctx: MyContext) {
+export default async function updatingText(ctx: MyContext) {
     let menu;
     if (!validateText(ctx.message?.text?.trim()!)) menu = menuState.updatingText(ctx, false, false);
     else {
-        const message = await db.message.getById(Number(ctx.callbackQuery?.data?.split(':')[1]!.split('#')[1]));
+        const message = await db.message.getById(Number(ctx.callbackQuery?.data?.split('#')[1]));
 
         const formatMessage: Message = {
             id: message?.id!,

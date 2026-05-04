@@ -37,7 +37,7 @@ async function add(media: Media) {
         await prisma.media.create({
             data: {
                 name: media.name,
-                position: await prisma.media.count(),
+                position: await prisma.media.count() ?? 0,
                 message_id: media.message_id
             }
         });

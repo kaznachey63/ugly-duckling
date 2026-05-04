@@ -180,7 +180,7 @@ async function create(message: Message) {
         await prisma.message.create({
             data: {
                 caption: message.caption,
-                position: await prisma.message.count(),
+                position: await prisma.message.count() ?? 0,
                 entities: message.entities as any,
                 sendout_id: message.sendout_id
             }
