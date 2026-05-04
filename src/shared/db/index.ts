@@ -4,7 +4,7 @@ import message from './repositories/message';
 import result from './repositories/result';
 import schedule from './repositories/schedule';
 import user from './repositories/user';
-import bot from './repositories/bot';
+import general from './repositories/general';
 import contract from './repositories/contract';
 import media from './repositories/media';
 
@@ -15,7 +15,7 @@ export default {
     result,
     schedule,
     user,
-    bot,
+    general,
     contract,
     media
 };

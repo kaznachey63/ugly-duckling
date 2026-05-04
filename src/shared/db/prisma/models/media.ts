@@ -229,14 +229,14 @@ export type mediaOrderByWithRelationInput = {
 
 export type mediaWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  position?: number
   name?: string
   AND?: Prisma.mediaWhereInput | Prisma.mediaWhereInput[]
   OR?: Prisma.mediaWhereInput[]
   NOT?: Prisma.mediaWhereInput | Prisma.mediaWhereInput[]
+  position?: Prisma.IntNullableFilter<"media"> | number | null
   message_id?: Prisma.IntNullableFilter<"media"> | number | null
   message?: Prisma.XOR<Prisma.MessageNullableScalarRelationFilter, Prisma.messageWhereInput> | null
-}, "id" | "position" | "name">
+}, "id" | "name">
 
 export type mediaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

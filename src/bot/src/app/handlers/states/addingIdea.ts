@@ -13,7 +13,7 @@ export default async function addingIdea(ctx: MyContext) {
         })
 
         forwardResult = !!result;
-        await db.bot.updateIdeaLastMessageId(result.message_id);
+        await db.general.updateIdeaLastMessageId(result.message_id);
     } catch (error) {
         console.error('Не удалось добавить идею:', error);
     }

@@ -386,6 +386,14 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type contractCreateNestedOneWithoutSendoutInput = {
   create?: Prisma.XOR<Prisma.contractCreateWithoutSendoutInput, Prisma.contractUncheckedCreateWithoutSendoutInput>
   connectOrCreate?: Prisma.contractCreateOrConnectWithoutSendoutInput

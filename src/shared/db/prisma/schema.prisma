@@ -7,11 +7,6 @@ datasource db {
   provider = "postgresql"
 }
 
-model bot {
-  id           Int  @id @default(autoincrement())
-  last_idea_id Int? @unique(map: "bot_last_idea_id")
-}
-
 model chat {
   id      Int    @id @default(autoincrement())
   chat_id String @unique(map: "chat_chat_id")
@@ -47,7 +42,7 @@ model execution {
 
 model media {
   id         Int      @id @default(autoincrement())
-  position   Int?     @unique(map: "media_position")
+  position   Int?
   name       String?  @unique(map: "media_name")
   message_id Int?
   message    message? @relation(fields: [message_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "media_message_fk")
@@ -57,7 +52,7 @@ model media {
 
 model message {
   id         Int      @id @default(autoincrement())
-  position   Int?     @unique(map: "message_position")
+  position   Int?
   caption    String?
   entities   Json?
   sendout_id Int?
@@ -86,7 +81,7 @@ model role {
 
 model schedule {
   id         Int      @id @default(autoincrement())
-  position   Int?     @unique(map: "schedule_position")
+  position   Int?
   cron       String?
   label      String?
   sendout_id Int?
@@ -144,4 +139,10 @@ model user {
 
   @@index([role_id], map: "fki_users_role_fk")
   @@index([role_id], map: "fki_users_role_id")
+}
+
+model general {
+  id           Int      @id(map: "general_id")
+  last_idea_id Int?     @unique(map: "general_last_idea_id")
+  maintenace   Boolean?
 }

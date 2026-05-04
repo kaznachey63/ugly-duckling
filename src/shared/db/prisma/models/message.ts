@@ -236,16 +236,16 @@ export type messageOrderByWithRelationInput = {
 
 export type messageWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  position?: number
   AND?: Prisma.messageWhereInput | Prisma.messageWhereInput[]
   OR?: Prisma.messageWhereInput[]
   NOT?: Prisma.messageWhereInput | Prisma.messageWhereInput[]
+  position?: Prisma.IntNullableFilter<"message"> | number | null
   caption?: Prisma.StringNullableFilter<"message"> | string | null
   entities?: Prisma.JsonNullableFilter<"message">
   sendout_id?: Prisma.IntNullableFilter<"message"> | number | null
   media?: Prisma.MediaListRelationFilter
   sendout?: Prisma.XOR<Prisma.SendoutNullableScalarRelationFilter, Prisma.sendoutWhereInput> | null
-}, "id" | "position">
+}, "id">
 
 export type messageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

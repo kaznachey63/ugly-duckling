@@ -48,7 +48,7 @@ export type Schedule = Partial<Prisma.scheduleGetPayload<{
 
 export type Result = Partial<Prisma.resultGetPayload<{}>>;
 
-export type Bot = Prisma.botGetPayload<{}>;
+export type General = Prisma.generalGetPayload<{}>;
 export type Credential = Prisma.credentialGetPayload<{}>;
 export type Role = Prisma.roleGetPayload<{}>;
 export type Chat = Partial<Prisma.chatGetPayload<{}>>;

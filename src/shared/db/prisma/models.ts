@@ -8,7 +8,6 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/bot.js'
 export type * from './models/chat.js'
 export type * from './models/contract.js'
 export type * from './models/credential.js'
@@ -21,4 +20,5 @@ export type * from './models/schedule.js'
 export type * from './models/sendout.js'
 export type * from './models/status.js'
 export type * from './models/user.js'
+export type * from './models/general.js'
 export type * from './commonInputTypes.js'

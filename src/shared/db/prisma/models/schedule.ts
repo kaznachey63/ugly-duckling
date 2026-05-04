@@ -238,15 +238,15 @@ export type scheduleOrderByWithRelationInput = {
 
 export type scheduleWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  position?: number
   AND?: Prisma.scheduleWhereInput | Prisma.scheduleWhereInput[]
   OR?: Prisma.scheduleWhereInput[]
   NOT?: Prisma.scheduleWhereInput | Prisma.scheduleWhereInput[]
+  position?: Prisma.IntNullableFilter<"schedule"> | number | null
   cron?: Prisma.StringNullableFilter<"schedule"> | string | null
   label?: Prisma.StringNullableFilter<"schedule"> | string | null
   sendout_id?: Prisma.IntNullableFilter<"schedule"> | number | null
   sendout?: Prisma.XOR<Prisma.SendoutNullableScalarRelationFilter, Prisma.sendoutWhereInput> | null
-}, "id" | "position">
+}, "id">
 
 export type scheduleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

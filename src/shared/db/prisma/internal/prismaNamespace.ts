@@ -384,7 +384,6 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  bot: 'bot',
   chat: 'chat',
   contract: 'contract',
   credential: 'credential',
@@ -396,7 +395,8 @@ export const ModelName = {
   schedule: 'schedule',
   sendout: 'sendout',
   status: 'status',
-  user: 'user'
+  user: 'user',
+  general: 'general'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -412,84 +412,10 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "bot" | "chat" | "contract" | "credential" | "execution" | "media" | "message" | "result" | "role" | "schedule" | "sendout" | "status" | "user"
+    modelProps: "chat" | "contract" | "credential" | "execution" | "media" | "message" | "result" | "role" | "schedule" | "sendout" | "status" | "user" | "general"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
-    bot: {
-      payload: Prisma.$botPayload<ExtArgs>
-      fields: Prisma.botFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.botFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$botPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.botFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$botPayload>
-        }
-        findFirst: {
-          args: Prisma.botFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$botPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.botFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$botPayload>
-        }
-        findMany: {
-          args: Prisma.botFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$botPayload>[]
-        }
-        create: {
-          args: Prisma.botCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$botPayload>
-        }
-        createMany: {
-          args: Prisma.botCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.botCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$botPayload>[]
-        }
-        delete: {
-          args: Prisma.botDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$botPayload>
-        }
-        update: {
-          args: Prisma.botUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$botPayload>
-        }
-        deleteMany: {
-          args: Prisma.botDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.botUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.botUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$botPayload>[]
-        }
-        upsert: {
-          args: Prisma.botUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$botPayload>
-        }
-        aggregate: {
-          args: Prisma.BotAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateBot>
-        }
-        groupBy: {
-          args: Prisma.botGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.BotGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.botCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.BotCountAggregateOutputType> | number
-        }
-      }
-    }
     chat: {
       payload: Prisma.$chatPayload<ExtArgs>
       fields: Prisma.chatFieldRefs
@@ -1378,6 +1304,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    general: {
+      payload: Prisma.$generalPayload<ExtArgs>
+      fields: Prisma.generalFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.generalFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$generalPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.generalFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$generalPayload>
+        }
+        findFirst: {
+          args: Prisma.generalFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$generalPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.generalFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$generalPayload>
+        }
+        findMany: {
+          args: Prisma.generalFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$generalPayload>[]
+        }
+        create: {
+          args: Prisma.generalCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$generalPayload>
+        }
+        createMany: {
+          args: Prisma.generalCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.generalCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$generalPayload>[]
+        }
+        delete: {
+          args: Prisma.generalDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$generalPayload>
+        }
+        update: {
+          args: Prisma.generalUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$generalPayload>
+        }
+        deleteMany: {
+          args: Prisma.generalDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.generalUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.generalUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$generalPayload>[]
+        }
+        upsert: {
+          args: Prisma.generalUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$generalPayload>
+        }
+        aggregate: {
+          args: Prisma.GeneralAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGeneral>
+        }
+        groupBy: {
+          args: Prisma.generalGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GeneralGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.generalCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GeneralCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1415,14 +1415,6 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
-
-
-export const BotScalarFieldEnum = {
-  id: 'id',
-  last_idea_id: 'last_idea_id'
-} as const
-
-export type BotScalarFieldEnum = (typeof BotScalarFieldEnum)[keyof typeof BotScalarFieldEnum]
 
 
 export const ChatScalarFieldEnum = {
@@ -1552,6 +1544,15 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const GeneralScalarFieldEnum = {
+  id: 'id',
+  last_idea_id: 'last_idea_id',
+  maintenace: 'maintenace'
+} as const
+
+export type GeneralScalarFieldEnum = (typeof GeneralScalarFieldEnum)[keyof typeof GeneralScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1568,20 +1569,20 @@ export const NullableJsonNullValueInput = {
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 export const JsonNullValueFilter = {
@@ -1666,6 +1667,13 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
  * Reference to a field of type 'QueryMode'
  */
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -1792,7 +1800,6 @@ export type PrismaClientOptions = ({
   queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
-  bot?: Prisma.botOmit
   chat?: Prisma.chatOmit
   contract?: Prisma.contractOmit
   credential?: Prisma.credentialOmit
@@ -1805,6 +1812,7 @@ export type GlobalOmitConfig = {
   sendout?: Prisma.sendoutOmit
   status?: Prisma.statusOmit
   user?: Prisma.userOmit
+  general?: Prisma.generalOmit
 }
 
 /* Types for Logging */
