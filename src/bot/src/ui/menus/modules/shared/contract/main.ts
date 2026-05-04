@@ -47,7 +47,10 @@ function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboa
 
     contracts.forEach((contract) => {
         keyboard.text(
-            contract.user?.name ?? ctx.t("utils.shared.buttons.nameless"),
+            ctx.t("modules.shared.contract.view.main.contractName", { 
+                userName: contract.user?.name ?? ctx.t("utils.shared.buttons.nameless"),
+                dateStart: new Date(contract.date_start!)
+            }),
             `viewContract#${contract.id}`
         ).row();
     });    
@@ -58,10 +61,12 @@ function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboa
 function viewContract(ctx: MyContext, sendoutsCall: string): Menu<InlineKeyboard> {
     const userIsAdmin = ctx.session.isAdmin;
     const text = [
-        ctx.t("modules.shared.contract.view.contract.main.title"),
+        ctx.t("modules.shared.contract.view.contract.main.title", { dateStart: new Date(ctx.session.contract.date_start!) }),
         ctx.t("modules.shared.contract.view.contract.main.sendouts", { sendouts: sendoutsCall }),
-        '',
-        ctx.t("modules.shared.contract.view.contract.main.path", { userName: ctx.session.contract.user?.name ?? ctx.t("utils.shared.buttons.nameless"), menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
+        ctx.t("modules.shared.contract.view.contract.main.path", { 
+            dateStart: new Date(ctx.session.contract.date_start!), 
+            menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") 
+        }),
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
@@ -81,7 +86,7 @@ function viewContract(ctx: MyContext, sendoutsCall: string): Menu<InlineKeyboard
 function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
     let text = [
-        ctx.t("modules.shared.contract.view.contract.remove.path", { userName: ctx.session.contract.user?.name })
+        ctx.t("modules.shared.contract.view.contract.remove.path", { dateStart: new Date(ctx.session.contract.date_start!) })
     ];
 
     if (result) {
@@ -108,7 +113,10 @@ function create(ctx: MyContext): Menu<InlineKeyboard> {
 function mainExportContract(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("modules.shared.contract.view.contract.export.main.title"),
-        ctx.t("modules.shared.contract.view.contract.export.main.path",  { menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), userName: ctx.session.contract.user?.name }),
+        ctx.t("modules.shared.contract.view.contract.export.main.path",  { 
+            menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), 
+            dateStart: new Date(ctx.session.contract.date_start!) 
+        }),
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
@@ -127,7 +135,12 @@ function exportContract(ctx: MyContext, exportType: ExportType, result: boolean)
             ctx.t("modules.shared.contract.view.contract.export.result.caption", { exportType: exportType }) :
             ctx.t("modules.shared.contract.view.contract.export.result.error")
         ,
-        ctx.t("modules.shared.contract.view.contract.export.result.path", { call: ctx.session.sendout.call, exportType: exportType, menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), userName: ctx.session.contract.user?.name }),
+        ctx.t("modules.shared.contract.view.contract.export.result.path", { 
+            call: ctx.session.sendout.call, 
+            exportType: exportType, 
+            menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), 
+            dateStart: new Date(ctx.session.contract.date_start!)
+        }),
     ].join('\n');
 
     const keyboard = new InlineKeyboard().row().text(ctx.t("utils.shared.buttons.back"), `viewContract#${ctx.session.contract.id}`);
