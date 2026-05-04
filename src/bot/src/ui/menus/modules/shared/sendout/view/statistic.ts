@@ -61,17 +61,17 @@ function targetDateOnCalendar(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.title`, { date: date }),
         ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.time`, { time: time }),
         ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.success`, { success: ctx.session.result.success }),
-
+        "\n",
         ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.path`, { 
             call: ctx.session.sendout.call, 
             menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"),
             date: date
         })
-    ].join('\n\n');
+    ].join('\n');
 
     const keyboard = new InlineKeyboard();
     if (ctx.session.isAdmin) keyboard.text(ctx.t("utils.shared.buttons.chats"), `viewChats:${ctx.session.sendout.id}#${ctx.session.result.id}`).row();
-    keyboard.text(ctx.t("utils.shared.buttons.back"), `comparativeStatistic:${ctx.session.sendout.name}`);
+    keyboard.text(ctx.t("utils.shared.buttons.back"), `selectiveStatistic:${ctx.session.sendout.id}`);
 
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }
@@ -81,7 +81,7 @@ function targetDateOnCalendar(ctx: MyContext): Menu<InlineKeyboard> {
  */
 
 function chats(ctx: MyContext): Menu<InlineKeyboard> {
-    const dateBase = ctx.session.result.date_time?.toISOString().split('T')[0];
+    const dateBase = ctx.session.result.date_time?.toISOString().split('T')[0]?.replace(/:/g, '-');
     const date = ctx.session.result.date_time?.toLocaleDateString('ru-RU', {
         day: '2-digit', 
         month: '2-digit',
@@ -89,7 +89,7 @@ function chats(ctx: MyContext): Menu<InlineKeyboard> {
     }); 
 
     const text = [
-        ctx.t("shared.titles.amount", { success: ctx.session.result.success }),
+        ctx.t("utils.shared.titles.amount", { success: ctx.session.result.success }),
         ctx.t("modules.shared.sendout.view.sendout.statistic.selective.targetDate.chats.path", { 
             call: ctx.session.sendout.call, 
             menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"),
