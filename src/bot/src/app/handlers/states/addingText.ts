@@ -5,10 +5,11 @@ import { ServerManager } from "src/common/services/ServerManager";
 import common from '@utils/common';
 import type { Message } from '@shared/types/DB';
 import type { JsonArray } from '@shared/db/prisma/internal/prismaNamespace';
+import shared from './shared';
 
 export default async function addingText(ctx: MyContext) {
     let menu;
-    if (!validateText(ctx.message?.text?.trim()!)) {
+    if (!shared.validateText(ctx.message?.text?.trim()!)) {
         menu = menuState.addingText(ctx, false, false);
     }
     else {
@@ -29,8 +30,4 @@ export default async function addingText(ctx: MyContext) {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"
     });
-}
-
-function validateText(text: string): boolean {
-    return typeof text === 'string' && text.trim().length > 0;
 }

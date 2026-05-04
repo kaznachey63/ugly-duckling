@@ -5,10 +5,11 @@ import { ServerManager } from "src/common/services/ServerManager";
 import common from '@utils/common';
 import type { Message } from '@shared/types/DB';
 import type { Prisma } from '@shared/db/prisma/client';
+import shared from './shared';
 
 export default async function updatingText(ctx: MyContext) {
     let menu;
-    if (!validateText(ctx.message?.text?.trim()!)) menu = menuState.updatingText(ctx, false, false);
+    if (!shared.validateText(ctx.message?.text?.trim()!)) menu = menuState.updatingText(ctx, false, false);
     else {
         const formatMessage: Message = {
             id: ctx.session.message?.id!,
@@ -27,8 +28,4 @@ export default async function updatingText(ctx: MyContext) {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"
     });
-}
-
-function validateText(text: string): boolean {
-    return typeof text === 'string' && text.trim().length > 0;
 }

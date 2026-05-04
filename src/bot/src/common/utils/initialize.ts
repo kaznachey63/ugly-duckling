@@ -119,48 +119,6 @@ function createDefaultSession(): SessionData {
     }
 }
 
-// надо постоянно при кабинете и коллбеке вызывать
-async function setupBotCommands(bot: any) { // убрать
-    // return;
-    await bot.api.deleteMyCommands({ scope: { type: 'all_private_chats' } });
-    const languages: LanguagesALlowed[] = constants.allowLanguages;
-
-    for (const lang of languages) {
-        const baseCommands = getCommandsForLanguage(lang);
-
-        // отображение комманд для всех
-        await bot.api.setMyCommands(baseCommands, {
-            language_code: lang,
-            scope: { type: "all_private_chats" }
-        });
-
-        // отображение комманд для админов (с панелью)
-        const adminCommands = [...baseCommands, {
-            command: 'panel',
-            description: i18next.t('utils.commands.panel', { lng: lang })
-        }];
-        const admins = (await db.user.getGroupsOfUsers()).admins;
-
-        for (const adminId of admins) {
-            await bot.api.setMyCommands(adminCommands, {
-                language_code: lang,
-                scope: {
-                    type: "chat",
-                    chat_id: adminId
-                }
-            });
-            await sleep(50);
-        }
-    }
-}
-
-function getCommandsForLanguage(lang: LanguageCode): BotCommand[] {
-    return [
-        { command: 'cabinet', description: i18next.t('utils.commands.cabinet', { lng: lang }) },
-        { command: 'settings', description: i18next.t('utils.commands.settings', { lng: lang }) },
-    ];
-}
-
 export default {
     createDefaultSession
 }
