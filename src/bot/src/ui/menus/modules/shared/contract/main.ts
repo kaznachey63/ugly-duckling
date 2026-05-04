@@ -47,7 +47,7 @@ function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboa
 
     contracts.forEach((contract) => {
         keyboard.text(
-            ctx.t("modules.shared.contract.view.main.contractName", { 
+            ctx.t("modules.shared.contract.main.contractName", { 
                 userName: contract.user?.name ?? ctx.t("utils.shared.buttons.nameless"),
                 dateStart: new Date(contract.date_start!)
             }),
