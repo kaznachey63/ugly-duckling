@@ -27,6 +27,7 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/,
 
         const targetDate = ctx.callbackQuery.data.split(/date:/)[1]?.replace(/-/g, ':');
         const dateFromResult = result.date_time?.toISOString().split('T')[0];
+        console.log(targetDate, dateFromResult);
         
         if (targetDate == dateFromResult) {
             ctx.session.result = result;
