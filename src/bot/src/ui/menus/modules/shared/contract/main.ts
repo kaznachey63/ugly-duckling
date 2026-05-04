@@ -49,7 +49,7 @@ function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboa
         keyboard.text(
             ctx.t("modules.shared.contract.main.contractName", { 
                 userName: contract.user?.name ?? ctx.t("utils.shared.buttons.nameless"),
-                dateStart: new Date(contract.date_start!)
+                dateStart: new Date(contract.date_start!).toLocaleDateString('ru-RU')
             }),
             `viewContract#${contract.id}`
         ).row();
@@ -61,7 +61,7 @@ function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboa
 function viewContract(ctx: MyContext, sendoutsCall: string): Menu<InlineKeyboard> {
     const userIsAdmin = ctx.session.isAdmin;
     const text = [
-        ctx.t("modules.shared.contract.view.contract.main.title", { dateStart: new Date(ctx.session.contract.date_start!) }),
+        ctx.t("modules.shared.contract.view.contract.main.title", { dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') }),
         ctx.t("modules.shared.contract.view.contract.main.sendouts", { sendouts: sendoutsCall }),
         ctx.t("modules.shared.contract.view.contract.main.path", { 
             dateStart: new Date(ctx.session.contract.date_start!), 
@@ -71,7 +71,7 @@ function viewContract(ctx: MyContext, sendoutsCall: string): Menu<InlineKeyboard
 
     const keyboard = new InlineKeyboard()
         .text(ctx.t("modules.shared.contract.view.contract.main.userName", { userName: ctx.session.contract.user?.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateOrRemoveContractUser#${ctx.session.contract.id}`).row()
-        .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: ctx.session.contract.date_start ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${ctx.session.contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${ctx.session.contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: ctx.session.contract.date_end ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateEnd#${ctx.session.contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: ctx.session.contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${ctx.session.contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.priceText", { priceText: ctx.session.contract.price_text ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPriceText#${ctx.session.contract.id}`).row()
@@ -86,7 +86,7 @@ function viewContract(ctx: MyContext, sendoutsCall: string): Menu<InlineKeyboard
 function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
     let text = [
-        ctx.t("modules.shared.contract.view.contract.remove.path", { dateStart: new Date(ctx.session.contract.date_start!) })
+        ctx.t("modules.shared.contract.view.contract.remove.path", { dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') })
     ];
 
     if (result) {
@@ -115,7 +115,7 @@ function mainExportContract(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.shared.contract.view.contract.export.main.title"),
         ctx.t("modules.shared.contract.view.contract.export.main.path",  { 
             menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), 
-            dateStart: new Date(ctx.session.contract.date_start!) 
+            dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') 
         }),
     ].join('\n\n');
     
@@ -139,7 +139,7 @@ function exportContract(ctx: MyContext, exportType: ExportType, result: boolean)
             call: ctx.session.sendout.call, 
             exportType: exportType, 
             menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), 
-            dateStart: new Date(ctx.session.contract.date_start!)
+            dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU')
         }),
     ].join('\n');
 
