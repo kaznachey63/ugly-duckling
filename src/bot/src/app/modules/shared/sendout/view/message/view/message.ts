@@ -21,7 +21,7 @@ messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
 
 messageComposer.callbackQuery(/^paginationMessages:/, async (ctx: MyContext) => {
     const messages = await db.message.getMessages(ctx.session.sendout.id!);
-    const menu = menuView.pagination(ctx, messages?.length!);
+    const menu = menuView.pagination(ctx, messages);
 
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
