@@ -55,30 +55,30 @@ function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboa
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function viewContract(ctx: MyContext, contract: Contract): Menu<InlineKeyboard> {
+function viewContract(ctx: MyContext): Menu<InlineKeyboard> {
     const userIsAdmin = ctx.session.isAdmin;
     const text = [
         ctx.t("modules.shared.contract.view.contract.main.title"),
-        ctx.t("modules.shared.contract.view.contract.main.path", { userName: contract.user?.name ?? ctx.t("utils.shared.buttons.nameless"), menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
+        ctx.t("modules.shared.contract.view.contract.main.path", { userName: ctx.session.contract.user?.name ?? ctx.t("utils.shared.buttons.nameless"), menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.shared.contract.view.contract.main.userName", { userName: contract.user?.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateOrRemoveContractUser#${contract.id}`).row()
-        .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: contract.date_start ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${contract.id}`).row()
-        .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: contract.date_end ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateEnd#${contract.id}`).row()
-        .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${contract.id}`).row()
-        .text(ctx.t("utils.shared.buttons.export"), `mainExportContract#${contract.id}`)
+        .text(ctx.t("modules.shared.contract.view.contract.main.userName", { userName: ctx.session.contract.user?.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateOrRemoveContractUser#${ctx.session.contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: ctx.session.contract.date_start ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${ctx.session.contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: ctx.session.contract.date_end ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateEnd#${ctx.session.contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: ctx.session.contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${ctx.session.contract.id}`).row()
+        .text(ctx.t("utils.shared.buttons.export"), `mainExportContract#${ctx.session.contract.id}`)
     ;
 
-    if (userIsAdmin) keyboard.text(ctx.t("utils.shared.buttons.remove"), `removeContract#${contract.id}`).style("danger")
+    if (userIsAdmin) keyboard.text(ctx.t("utils.shared.buttons.remove"), `removeContract#${ctx.session.contract.id}`).style("danger")
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), "viewContracts");
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function remove(ctx: MyContext, contract: Contract, result: boolean): Menu<InlineKeyboard> {
+function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
     let text = [
-        ctx.t("modules.shared.contract.view.contract.remove.path", { userName: contract.user?.name })
+        ctx.t("modules.shared.contract.view.contract.remove.path", { userName: ctx.session.contract.user?.name })
     ];
 
     if (result) {
@@ -87,7 +87,7 @@ function remove(ctx: MyContext, contract: Contract, result: boolean): Menu<Inlin
     }
     else {
         text.unshift(ctx.t("modules.shared.contract.view.contract.remove.error"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewUser#${contract.id}`);
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewUser#${ctx.session.contract.id}`);
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }
@@ -103,16 +103,15 @@ function create(ctx: MyContext): Menu<InlineKeyboard> {
 }
 
 function mainExportContract(ctx: MyContext): Menu<InlineKeyboard> {
-    const userIsAdmin = ctx.session.isAdmin;
     const text = [
         ctx.t("modules.shared.contract.view.contract.export.main.title"),
-        ctx.t("modules.shared.contract.view.contract.export.main.path",  { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
+        ctx.t("modules.shared.contract.view.contract.export.main.path",  { menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text("PDF", `exportContract:${ctx.session.sendout.name}-pdf`)
-        .text("Word", `exportContract:${ctx.session.sendout.name}-word`)   
-        .row().text(ctx.t("utils.shared.buttons.back"), `viewContract:${ctx.session.sendout.name}`) // по айди контракта
+        .text("PDF", `exportContract:${ctx.session.contract.id}-pdf`)
+        .text("Word", `exportContract:${ctx.session.contract.id}-word`)   
+        .row().text(ctx.t("utils.shared.buttons.back"), `viewContract:${ctx.session.contract.id}`)
     ;
     
     return { text: format.escapeMarkdown(text), keyboard }
@@ -128,7 +127,7 @@ function exportContract(ctx: MyContext, exportType: ExportType, result: boolean)
         ctx.t("modules.shared.contract.view.contract.export.result.path", { call: ctx.session.sendout.call, exportType: exportType, menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n');
 
-    const keyboard = new InlineKeyboard().row().text(ctx.t("utils.shared.buttons.back"), `mainContract:${ctx.session.sendout.name}`);
+    const keyboard = new InlineKeyboard().row().text(ctx.t("utils.shared.buttons.back"), `viewContract:${ctx.session.contract.id}`);
     
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -139,41 +138,6 @@ export default {
     viewContract,
     remove,
     create,
-    // mainExportContract,
-    // exportContract,
+    mainExportContract,
+    exportContract,
 };
-
-// function main2(ctx: MyContext, errorWithData: true): Menu<InlineKeyboard>
-// function main2(ctx: MyContext, contractInfo: Contract[], errorWithData: false): Menu<InlineKeyboard>
-// function main2(ctx: MyContext, contractInfoOrError: Contract[] | boolean, errorWithData?: boolean): Menu<InlineKeyboard> {
-
-//     const is_error = typeof contractInfoOrError === 'boolean' ? contractInfoOrError : (errorWithData ?? false)
-//     const info = typeof contractInfoOrError === 'boolean' ? undefined : contractInfoOrError
-
-//     let textLines: string[] = []
-
-//     if (is_error) {
-//         textLines = [
-//             ctx.t("modules.commands.cabinet.profile.contract.main.title"),
-//             ctx.t("modules.commands.cabinet.profile.contract.main.error")
-//         ]
-//     }
-//     else if (info) {
-//         textLines = [
-//             ctx.t("modules.commands.cabinet.profile.contract.main.title"),
-//             ctx.t("modules.commands.cabinet.profile.contract.main.customer", { customer: info[0]?.customerName }),
-//             ctx.t("modules.commands.cabinet.profile.contract.main.dateStart", { dateStart: info[0]?.dateStart }),
-//             ctx.t("modules.commands.cabinet.profile.contract.main.dateStop", { dateStop: info[0]?.dateEnd }),
-//             ctx.t("modules.commands.cabinet.profile.contract.main.path", { call: ctx.session.sendout.call })
-//         ]
-//     }
-
-//     const text = format.escapeMarkdown(textLines.join('\n'))
-
-//     const keyboard = new InlineKeyboard()
-//         .text(ctx.t("utils.shared.export"), `mainExportContract:${ctx.session.sendout.name}`)
-//         .row().text(ctx.t("utils.shared.buttons.back"), `mainDistribution:${ctx.session.sendout.name}`)
-//     ;
-
-//     return { text, keyboard }
-// }

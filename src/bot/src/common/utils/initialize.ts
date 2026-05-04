@@ -4,6 +4,8 @@ function createDefaultSession(): SessionData {
     return {
         isAdmin: false,
         user: {
+            id: 0,
+            role_id: 0,
             telegram_id: BigInt(0),
             language: 'ru',
             name: "",
@@ -90,6 +92,27 @@ function createDefaultSession(): SessionData {
                     id: 0
                 },
                 status_id: 0
+            }
+        },
+        contract: {
+            date_end: new Date(),
+            date_start: new Date(),
+            price: 0,
+            price_text: "",
+            id: 0,
+            user_id: 0,
+            user: {
+                telegram_id: BigInt(0),
+                language: 'ru',
+                name: "",
+                phone: "",
+                username: "",
+                role: {
+                    id: 0,
+                    code: "unknown"
+                },
+                id: 0,
+                role_id: 0
             }
         },
         result: {

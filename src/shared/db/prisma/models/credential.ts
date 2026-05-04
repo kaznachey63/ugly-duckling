@@ -350,10 +350,6 @@ export type NullableBigIntFieldUpdateOperationsInput = {
   divide?: bigint | number
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type credentialCreateNestedOneWithoutSendoutInput = {
   create?: Prisma.XOR<Prisma.credentialCreateWithoutSendoutInput, Prisma.credentialUncheckedCreateWithoutSendoutInput>
   connectOrCreate?: Prisma.credentialCreateOrConnectWithoutSendoutInput

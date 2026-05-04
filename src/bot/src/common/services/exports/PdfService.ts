@@ -3,7 +3,6 @@ import path from 'node:path';
 import fs from 'fs/promises'
 import type { ContractExport } from '@shared/types/ContractExport';
 import fontkit from '@pdf-lib/fontkit';
-import type { Message } from '@shared/types/Message';
 
 // type Data = ContractExport | string;
 // type DataName = "contract" | "messages" | "unknown";

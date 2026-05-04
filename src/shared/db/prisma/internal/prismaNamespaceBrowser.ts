@@ -97,7 +97,8 @@ export const ContractScalarFieldEnum = {
   user_id: 'user_id',
   date_start: 'date_start',
   date_end: 'date_end',
-  price: 'price'
+  price: 'price',
+  price_text: 'price_text'
 } as const
 
 export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]

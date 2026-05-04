@@ -44,6 +44,7 @@ export type ContractMinAggregateOutputType = {
   date_start: Date | null
   date_end: Date | null
   price: number | null
+  price_text: string | null
 }
 
 export type ContractMaxAggregateOutputType = {
@@ -52,6 +53,7 @@ export type ContractMaxAggregateOutputType = {
   date_start: Date | null
   date_end: Date | null
   price: number | null
+  price_text: string | null
 }
 
 export type ContractCountAggregateOutputType = {
@@ -60,6 +62,7 @@ export type ContractCountAggregateOutputType = {
   date_start: number
   date_end: number
   price: number
+  price_text: number
   _all: number
 }
 
@@ -82,6 +85,7 @@ export type ContractMinAggregateInputType = {
   date_start?: true
   date_end?: true
   price?: true
+  price_text?: true
 }
 
 export type ContractMaxAggregateInputType = {
@@ -90,6 +94,7 @@ export type ContractMaxAggregateInputType = {
   date_start?: true
   date_end?: true
   price?: true
+  price_text?: true
 }
 
 export type ContractCountAggregateInputType = {
@@ -98,6 +103,7 @@ export type ContractCountAggregateInputType = {
   date_start?: true
   date_end?: true
   price?: true
+  price_text?: true
   _all?: true
 }
 
@@ -193,6 +199,7 @@ export type ContractGroupByOutputType = {
   date_start: Date | null
   date_end: Date | null
   price: number | null
+  price_text: string | null
   _count: ContractCountAggregateOutputType | null
   _avg: ContractAvgAggregateOutputType | null
   _sum: ContractSumAggregateOutputType | null
@@ -224,6 +231,7 @@ export type contractWhereInput = {
   date_start?: Prisma.DateTimeNullableFilter<"contract"> | Date | string | null
   date_end?: Prisma.DateTimeNullableFilter<"contract"> | Date | string | null
   price?: Prisma.IntNullableFilter<"contract"> | number | null
+  price_text?: Prisma.StringNullableFilter<"contract"> | string | null
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.userWhereInput> | null
   sendout?: Prisma.SendoutListRelationFilter
 }
@@ -234,6 +242,7 @@ export type contractOrderByWithRelationInput = {
   date_start?: Prisma.SortOrderInput | Prisma.SortOrder
   date_end?: Prisma.SortOrderInput | Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
+  price_text?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.userOrderByWithRelationInput
   sendout?: Prisma.sendoutOrderByRelationAggregateInput
 }
@@ -247,6 +256,7 @@ export type contractWhereUniqueInput = Prisma.AtLeast<{
   date_start?: Prisma.DateTimeNullableFilter<"contract"> | Date | string | null
   date_end?: Prisma.DateTimeNullableFilter<"contract"> | Date | string | null
   price?: Prisma.IntNullableFilter<"contract"> | number | null
+  price_text?: Prisma.StringNullableFilter<"contract"> | string | null
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.userWhereInput> | null
   sendout?: Prisma.SendoutListRelationFilter
 }, "id">
@@ -257,6 +267,7 @@ export type contractOrderByWithAggregationInput = {
   date_start?: Prisma.SortOrderInput | Prisma.SortOrder
   date_end?: Prisma.SortOrderInput | Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
+  price_text?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.contractCountOrderByAggregateInput
   _avg?: Prisma.contractAvgOrderByAggregateInput
   _max?: Prisma.contractMaxOrderByAggregateInput
@@ -273,12 +284,14 @@ export type contractScalarWhereWithAggregatesInput = {
   date_start?: Prisma.DateTimeNullableWithAggregatesFilter<"contract"> | Date | string | null
   date_end?: Prisma.DateTimeNullableWithAggregatesFilter<"contract"> | Date | string | null
   price?: Prisma.IntNullableWithAggregatesFilter<"contract"> | number | null
+  price_text?: Prisma.StringNullableWithAggregatesFilter<"contract"> | string | null
 }
 
 export type contractCreateInput = {
   date_start?: Date | string | null
   date_end?: Date | string | null
   price?: number | null
+  price_text?: string | null
   user?: Prisma.userCreateNestedOneWithoutContractInput
   sendout?: Prisma.sendoutCreateNestedManyWithoutContractInput
 }
@@ -289,6 +302,7 @@ export type contractUncheckedCreateInput = {
   date_start?: Date | string | null
   date_end?: Date | string | null
   price?: number | null
+  price_text?: string | null
   sendout?: Prisma.sendoutUncheckedCreateNestedManyWithoutContractInput
 }
 
@@ -296,6 +310,7 @@ export type contractUpdateInput = {
   date_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   date_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  price_text?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.userUpdateOneWithoutContractNestedInput
   sendout?: Prisma.sendoutUpdateManyWithoutContractNestedInput
 }
@@ -306,6 +321,7 @@ export type contractUncheckedUpdateInput = {
   date_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   date_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  price_text?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sendout?: Prisma.sendoutUncheckedUpdateManyWithoutContractNestedInput
 }
 
@@ -315,12 +331,14 @@ export type contractCreateManyInput = {
   date_start?: Date | string | null
   date_end?: Date | string | null
   price?: number | null
+  price_text?: string | null
 }
 
 export type contractUpdateManyMutationInput = {
   date_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   date_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  price_text?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type contractUncheckedUpdateManyInput = {
@@ -329,6 +347,7 @@ export type contractUncheckedUpdateManyInput = {
   date_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   date_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  price_text?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type contractCountOrderByAggregateInput = {
@@ -337,6 +356,7 @@ export type contractCountOrderByAggregateInput = {
   date_start?: Prisma.SortOrder
   date_end?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  price_text?: Prisma.SortOrder
 }
 
 export type contractAvgOrderByAggregateInput = {
@@ -351,6 +371,7 @@ export type contractMaxOrderByAggregateInput = {
   date_start?: Prisma.SortOrder
   date_end?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  price_text?: Prisma.SortOrder
 }
 
 export type contractMinOrderByAggregateInput = {
@@ -359,6 +380,7 @@ export type contractMinOrderByAggregateInput = {
   date_start?: Prisma.SortOrder
   date_end?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  price_text?: Prisma.SortOrder
 }
 
 export type contractSumOrderByAggregateInput = {
@@ -392,6 +414,10 @@ export type NullableIntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type contractCreateNestedOneWithoutSendoutInput = {
@@ -456,6 +482,7 @@ export type contractCreateWithoutSendoutInput = {
   date_start?: Date | string | null
   date_end?: Date | string | null
   price?: number | null
+  price_text?: string | null
   user?: Prisma.userCreateNestedOneWithoutContractInput
 }
 
@@ -465,6 +492,7 @@ export type contractUncheckedCreateWithoutSendoutInput = {
   date_start?: Date | string | null
   date_end?: Date | string | null
   price?: number | null
+  price_text?: string | null
 }
 
 export type contractCreateOrConnectWithoutSendoutInput = {
@@ -487,6 +515,7 @@ export type contractUpdateWithoutSendoutInput = {
   date_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   date_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  price_text?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.userUpdateOneWithoutContractNestedInput
 }
 
@@ -496,12 +525,14 @@ export type contractUncheckedUpdateWithoutSendoutInput = {
   date_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   date_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  price_text?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type contractCreateWithoutUserInput = {
   date_start?: Date | string | null
   date_end?: Date | string | null
   price?: number | null
+  price_text?: string | null
   sendout?: Prisma.sendoutCreateNestedManyWithoutContractInput
 }
 
@@ -510,6 +541,7 @@ export type contractUncheckedCreateWithoutUserInput = {
   date_start?: Date | string | null
   date_end?: Date | string | null
   price?: number | null
+  price_text?: string | null
   sendout?: Prisma.sendoutUncheckedCreateNestedManyWithoutContractInput
 }
 
@@ -548,6 +580,7 @@ export type contractScalarWhereInput = {
   date_start?: Prisma.DateTimeNullableFilter<"contract"> | Date | string | null
   date_end?: Prisma.DateTimeNullableFilter<"contract"> | Date | string | null
   price?: Prisma.IntNullableFilter<"contract"> | number | null
+  price_text?: Prisma.StringNullableFilter<"contract"> | string | null
 }
 
 export type contractCreateManyUserInput = {
@@ -555,12 +588,14 @@ export type contractCreateManyUserInput = {
   date_start?: Date | string | null
   date_end?: Date | string | null
   price?: number | null
+  price_text?: string | null
 }
 
 export type contractUpdateWithoutUserInput = {
   date_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   date_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  price_text?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sendout?: Prisma.sendoutUpdateManyWithoutContractNestedInput
 }
 
@@ -569,6 +604,7 @@ export type contractUncheckedUpdateWithoutUserInput = {
   date_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   date_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  price_text?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sendout?: Prisma.sendoutUncheckedUpdateManyWithoutContractNestedInput
 }
 
@@ -577,6 +613,7 @@ export type contractUncheckedUpdateManyWithoutUserInput = {
   date_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   date_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  price_text?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -616,6 +653,7 @@ export type contractSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   date_start?: boolean
   date_end?: boolean
   price?: boolean
+  price_text?: boolean
   user?: boolean | Prisma.contract$userArgs<ExtArgs>
   sendout?: boolean | Prisma.contract$sendoutArgs<ExtArgs>
   _count?: boolean | Prisma.ContractCountOutputTypeDefaultArgs<ExtArgs>
@@ -627,6 +665,7 @@ export type contractSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   date_start?: boolean
   date_end?: boolean
   price?: boolean
+  price_text?: boolean
   user?: boolean | Prisma.contract$userArgs<ExtArgs>
 }, ExtArgs["result"]["contract"]>
 
@@ -636,6 +675,7 @@ export type contractSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   date_start?: boolean
   date_end?: boolean
   price?: boolean
+  price_text?: boolean
   user?: boolean | Prisma.contract$userArgs<ExtArgs>
 }, ExtArgs["result"]["contract"]>
 
@@ -645,9 +685,10 @@ export type contractSelectScalar = {
   date_start?: boolean
   date_end?: boolean
   price?: boolean
+  price_text?: boolean
 }
 
-export type contractOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "user_id" | "date_start" | "date_end" | "price", ExtArgs["result"]["contract"]>
+export type contractOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "user_id" | "date_start" | "date_end" | "price" | "price_text", ExtArgs["result"]["contract"]>
 export type contractInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.contract$userArgs<ExtArgs>
   sendout?: boolean | Prisma.contract$sendoutArgs<ExtArgs>
@@ -672,6 +713,7 @@ export type $contractPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     date_start: Date | null
     date_end: Date | null
     price: number | null
+    price_text: string | null
   }, ExtArgs["result"]["contract"]>
   composites: {}
 }
@@ -1102,6 +1144,7 @@ export interface contractFieldRefs {
   readonly date_start: Prisma.FieldRef<"contract", 'DateTime'>
   readonly date_end: Prisma.FieldRef<"contract", 'DateTime'>
   readonly price: Prisma.FieldRef<"contract", 'Int'>
+  readonly price_text: Prisma.FieldRef<"contract", 'String'>
 }
     
 
