@@ -45,5 +45,5 @@ async function clear() {
 export default {
     insert,
     get,
-    clear
+    clear,
 }

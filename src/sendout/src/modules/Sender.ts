@@ -10,7 +10,7 @@ export class Sender {
     constructor(private readonly client: TelegramClient) { }
 
     async send(chat: Chat, message: Message, counter: Counter) {
-        const { id: chatId, title: chatName } = chat;
+        const { chat_id: chatId, title: chatName, link } = chat;
         try {
             // Получаем правильный объект сущности (InputPeer)
             const entity = await this.client.getInputEntity(chatId!);
@@ -48,20 +48,16 @@ export class Sender {
 
             if (isSuccess) {
                 counter.good++;
-                counter.chats.push(chatId);
+                counter.chats.push({
+                    chat_id: chat.chat_id,
+                    title: chat.title,
+                    link: chat.link
+                });
                 console.log(`✅ Успешно: "${chatName}" (${chatId}) — ${details} | Счётчик: ${counter.good}`);
             } else {
                 console.log(`⚠️  Нет подтверждения: "${chatName}" (${chatId}) — ${details} | Счётчик: ${counter.good}`);
             }
         } catch (error: any) {
-            // 👇 ВРЕМЕННЫЙ ДЕБАГ-ЛОГ
-            console.error(`[DEBUG ERROR] Chat: ${chatId}`, {
-                message: error.message,
-                code: error.code,
-                errorMessage: error.errorMessage,
-                stack: error.stack?.substring(0, 300)
-            });
-
             const reason = utils.error.errorSmsHandler(error);
             console.log(`❌ Неудачно: "${chatName}" (${chatId}) — ${reason} | Счётчик: ${counter.good}`);
         }

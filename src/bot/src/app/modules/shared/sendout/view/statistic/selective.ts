@@ -23,7 +23,7 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/,
     if (!results) await ctx.answerCallbackQuery({ text: ctx.t("modules.shared.sendout.view.sendout.statistic.selective.main.notDone"), show_alert: true });
 
     for (const result of results!) {
-        if (result.chats == 0 || result.chats == 1) continue;
+        // if (result.chats == 0 || result.chats == 1) continue;
 
         const targetDate = ctx.callbackQuery.data.split(/date:/)[1]?.replace(/-/g, ':');
         const dateFromResult = result.date_time?.toISOString().split('T')[0];
@@ -72,7 +72,6 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:disabled-\d+$/, asyn
 selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:month$/, async (ctx) => {
     // Пусто
 });
-
 
 selectiveStatisticsComposer.callbackQuery(/^viewChats:/, async (ctx: MyContext) => {
     try {

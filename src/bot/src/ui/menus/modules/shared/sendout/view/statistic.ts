@@ -83,7 +83,7 @@ function targetDateOnCalendar(ctx: MyContext): Menu<InlineKeyboard> {
 function chats(ctx: MyContext): Menu<InlineKeyboard> {
     const dateBase = ctx.session.result.date_time?.toISOString().split('T')[0];
     const date = ctx.session.result.date_time?.toLocaleDateString('ru-RU', {
-        day: '2-digit',
+        day: '2-digit', 
         month: '2-digit',
         year: 'numeric'
     }); 
@@ -98,7 +98,6 @@ function chats(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard();
-
     (ctx.session.result.chats as Chat[]).forEach((chat: Chat) => {
         keyboard.url(chat.title!, chat.link!).row();
     });
