@@ -159,8 +159,8 @@ function comparative(ctx: MyContext): Menu<InlineKeyboard> {
 
 function handlerComparative(ctx: MyContext, type: StatisticType): Menu<InlineKeyboard> {
     const text = [
-        ctx.t(`shared.sendout.view.sendout.statistic.comparative.${type}.title`),
-        ctx.t(`shared.sendout.view.sendout.statistic.comparative.${type}.path`, { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
+        ctx.t(`modules.shared.sendout.view.sendout.statistic.comparative.${type}.title`),
+        ctx.t(`modules. shared.sendout.view.sendout.statistic.comparative.${type}.path`, { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `comparativeStatistic:${ctx.session.sendout.id}`);    
