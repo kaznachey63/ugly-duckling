@@ -25,9 +25,8 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/,
     for (const result of results!) {
         // if (result.chats == 0 || result.chats == 1) continue;
 
-        const targetDate = ctx.callbackQuery.data.split(/date:/)[1]?.replace(/-/g, ':');
+        const targetDate = ctx.callbackQuery.data.split(/date:/)[1];
         const dateFromResult = result.date_time?.toISOString().split('T')[0];
-        console.log(targetDate, dateFromResult);
         
         if (targetDate == dateFromResult) {
             ctx.session.result = result;
