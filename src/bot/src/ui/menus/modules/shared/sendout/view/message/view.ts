@@ -46,8 +46,8 @@ function main(
     // === ПАГИНАЦИЯ ===
     const paginationLabel = `${currentDisplayPos} / ${totalMessages}`;
     // Для кнопки n/n тоже используем display-номер, так как pagination меню само разберется
-    const paginationCb = `paginationMessages:${sendoutId}#${currentDisplayPos}/${totalMessages}`;
-
+    const paginationCb = `paginationMessages:${sendoutId}#${currentPosition}/${totalMessages}`;
+    
     if (totalMessages === 1) {
         keyboard.text(paginationLabel, paginationCb).row();
     } else {
