@@ -17,6 +17,23 @@ selectiveStatisticsComposer.callbackQuery(/^selectiveStatistic:/, async (ctx: My
     }
 });
 
+selectiveStatisticsComposer.callbackQuery(/^viewChats:/, async (ctx: MyContext) => {
+    try {
+        const resultId = Number(ctx.callbackQuery?.data!.split('#')[1]);
+        ctx.session.result = await db.result.getById(resultId);
+
+        const menu = menuStatistic.chats(ctx);
+        await ctx.editMessageText(menu.text, {
+            parse_mode: 'MarkdownV2',
+            reply_markup: menu.keyboard
+        });
+    } catch (error) {
+        console.error('Ошибка в viewChats:', error);
+    } finally {
+
+    }
+});
+
 // Дата
 selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
     const results = await db.result.gets(ctx.session.sendout.id!);
@@ -71,23 +88,6 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:disabled-\d+$/, asyn
 
 selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:month$/, async (ctx) => {
     // Пусто
-});
-
-selectiveStatisticsComposer.callbackQuery(/^viewChats:/, async (ctx: MyContext) => {
-    try {
-        const resultId = Number(ctx.callbackQuery?.data!.split('#')[1]);
-        ctx.session.result = await db.result.getById(resultId);
-
-        const menu = menuStatistic.chats(ctx);
-        await ctx.editMessageText(menu.text, {
-            parse_mode: 'MarkdownV2',
-            reply_markup: menu.keyboard
-        });
-    } catch (error) {
-        console.error('Ошибка в viewChats:', error);
-    } finally {
-
-    }
 });
 
 export default selectiveStatisticsComposer;

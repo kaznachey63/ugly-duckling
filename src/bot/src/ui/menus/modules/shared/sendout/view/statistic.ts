@@ -61,7 +61,7 @@ function targetDateOnCalendar(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.title`, { date: date }),
         ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.time`, { time: time }),
         ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.success`, { success: ctx.session.result.success }),
-        "\n",
+        '',
         ctx.t(`modules.shared.sendout.view.sendout.statistic.selective.targetDate.main.path`, { 
             call: ctx.session.sendout.call, 
             menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"),
@@ -89,7 +89,7 @@ function chats(ctx: MyContext): Menu<InlineKeyboard> {
     }); 
 
     const text = [
-        ctx.t("utils.shared.titles.amount", { success: ctx.session.result.success }),
+        ctx.t("utils.shared.titles.amount", { amount: ctx.session.result.success }),
         ctx.t("modules.shared.sendout.view.sendout.statistic.selective.targetDate.chats.path", { 
             call: ctx.session.sendout.call, 
             menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"),
