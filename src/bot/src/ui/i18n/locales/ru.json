@@ -530,7 +530,8 @@
                     },
                     "contract": {
                         "main": {
-                            "title": "Управление договором.",
+                            "title": "Договор №.",
+                            "sendouts": "Рассылки, включенные в договор: {{sendouts}}",
                             "userName": "Заказчик: {{userName}}",
                             "dateStart": "Дата начала: {{dateStart}}",
                             "dateEnd": "Дата окончания: {{dateEnd}}",

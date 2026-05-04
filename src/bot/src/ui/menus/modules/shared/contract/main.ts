@@ -55,10 +55,12 @@ function viewContracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboa
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function viewContract(ctx: MyContext): Menu<InlineKeyboard> {
+function viewContract(ctx: MyContext, sendoutsCall: string): Menu<InlineKeyboard> {
     const userIsAdmin = ctx.session.isAdmin;
     const text = [
         ctx.t("modules.shared.contract.view.contract.main.title"),
+        ctx.t("modules.shared.contract.view.contract.main.sendouts", { sendouts: sendoutsCall }),
+        '',
         ctx.t("modules.shared.contract.view.contract.main.path", { userName: ctx.session.contract.user?.name ?? ctx.t("utils.shared.buttons.nameless"), menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
     ].join('\n');
 

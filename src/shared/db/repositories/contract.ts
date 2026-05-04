@@ -102,10 +102,30 @@ async function insert(contract: Contract): Promise<boolean> {
     }
 }
 
+/**
+ * Получение имен рассылок, закрепленных за договором
+ */
+async function getSendoutsByContractId(contractId: number): Promise<string> {
+    const contract = await prisma.contract.findUnique({
+        where: { id: contractId },
+        include: {
+            sendout: {
+                orderBy: { id: 'asc' },
+                select: { call: true }
+            }
+        }
+    });
+
+    return contract?.sendout
+        .map(s => s.call ?? '')
+        .join(', ') ?? '';
+}
+
 export default {
     getContracts,
     getContractsByUserId,
     getById,
     removeById,
     insert,
+    getSendoutsByContractId,
 }
