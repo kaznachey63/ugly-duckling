@@ -47,7 +47,7 @@ function main(
     const paginationLabel = `${currentDisplayPos} / ${totalMessages}`;
     // Для кнопки n/n тоже используем display-номер, так как pagination меню само разберется
     const paginationCb = `paginationMessages:${sendoutId}#${currentPosition}/${totalMessages}`;
-    
+
     if (totalMessages === 1) {
         keyboard.text(paginationLabel, paginationCb).row();
     } else {
@@ -65,6 +65,7 @@ function main(
     }
 
     keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${sendoutId}`);
+    console.log(`[MENU DEBUG] display:${currentDisplayPos}, currPos:${currentPosition}, prev:${prevPosition}, next:${nextPosition}`);
     return { text: format.escapeMarkdown(text), keyboard };
 }
 
