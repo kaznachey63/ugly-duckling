@@ -8,7 +8,6 @@ import utils from 'src/common/utils';
 import type { Message } from 'grammy/types';
 import menuState from '@menus/handlers/states';
 import { ServerManager } from 'src/common/services/ServerManager';
-import { InlineKeyboard } from 'grammy';
 import { sleep } from 'telegram/Helpers';
 import { FileService } from '@common/services/FileService';
 import type { Media } from '@shared/types/DB';
@@ -29,6 +28,7 @@ export default async function addingMedia(ctx: MyContext) {
     const sendoutId = ctx.session.sendout!.id!;
     const positionId = ctx.session.message?.position;
     const msg = ctx.message;
+    let menu;
 
     if (!msg) return;
     const mediaType = determineMediaType(msg);
@@ -37,22 +37,14 @@ export default async function addingMedia(ctx: MyContext) {
         case 'document': {
             if (!isDocumentAllowed(msg)) {
                 utils.common.resetSessionStates(ctx.session);
-                await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
-                    utils.formatting.escapeMarkdown(ctx.t("handlers.states.addingMedia.documentsWTMedia")), {
-                    reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutId}#${positionId}-none`),
-                    parse_mode: "MarkdownV2"
-                });
+                await editMessage(ctx, false);
                 return;
             }
             break;
         }
         case 'unknown': {
             utils.common.resetSessionStates(ctx.session);
-            await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
-                utils.formatting.escapeMarkdown(ctx.t("handlers.states.addingMedia.invalidType")), {
-                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutId}#${positionId}-none`),
-                parse_mode: "MarkdownV2"
-            });
+            await editMessage(ctx, false);
             return;
         }
     }
@@ -61,11 +53,7 @@ export default async function addingMedia(ctx: MyContext) {
     const mediaData = extractMediaData(msg, mediaType);
     if (!mediaData || !validateMedia(mediaData)) {
         utils.common.resetSessionStates(ctx.session);
-        await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
-            utils.formatting.escapeMarkdown(ctx.t("handlers.states.addingMedia.bigSize")), {
-            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutId}#${positionId}-none`),
-            parse_mode: "MarkdownV2"
-        });
+        await editMessage(ctx, false);
         return;
     }
 
@@ -90,19 +78,10 @@ export default async function addingMedia(ctx: MyContext) {
         if (!messages) return;
 
         const message = messages[positionId!];
-        if (!message) {
-            utils.common.resetSessionStates(ctx.session);
-            await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
-                utils.formatting.escapeMarkdown(ctx.t("handlers.states.addingMedia.error")), {
-                reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutId}#${positionId}-none`),
-                parse_mode: "MarkdownV2"
-            });
-            return;
-        }
 
         // Добавление медиа
         const media: Media = {
-            message_id: message.id!,
+            message_id: message!.id!,
             name: nameFile
         };
 
@@ -110,23 +89,26 @@ export default async function addingMedia(ctx: MyContext) {
 
         await sleep(250);
         const server = new ServerManager();
-        const menu = menuState.addingMedia(ctx, await server.restartProcessOrNot(ctx.session.sendout?.name!, true));
-
         utils.common.resetSessionStates(ctx.session);
-        await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
-        });
+        await editMessage(ctx, true, await server.restartProcessOrNot(ctx.session.sendout?.name!, true));
     } catch (error) {
         console.error("Ошибка при сохранении медиа:", error);
         utils.common.resetSessionStates(ctx.session);
-        await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
-            utils.formatting.escapeMarkdown(ctx.t("handlers.states.addingMedia.error")), {
-            reply_markup: new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${sendoutId}#${positionId}-none`),
-            parse_mode: "MarkdownV2"
-        });
+        await editMessage(ctx, false);
     }
 };
+
+// Редактирование сообщения
+async function editMessage(ctx: MyContext, validate: boolean, result?: boolean) {
+    const res = result ? result : false;
+    const menu = menuState.addingMedia(ctx, validate, res);
+
+    await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
+        menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: "MarkdownV2"
+    });
+}
 
 // Определение типа медиа
 function determineMediaType(msg: Message): MediaType {
