@@ -15,10 +15,11 @@ viewComposer.callbackQuery(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/, async (
     const match = callbackData.match(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/);
     
     const sendoutId = Number(match![1]);
-    // 🔥 ИСПРАВЛЕНИЕ: Теперь это ПОЗИЦИЯ в БД (0, 1, 2...), а не уникальный ID
-    const currentPosition = Number(match![2]); 
+    const currentPosition = Number(match![2]); // ← ПОЗИЦИЯ из БД (2, 3, 4...)
     const type = match![3] as PaginationType;
 
+    // Запрашиваем сообщения ТОЛЬКО если нужно вычислить навигацию
+    // Если type === 'none' (клик из быстрого доступа) — можно оптимизировать, но для надежности грузим
     const messages = await db.message.getMessages(sendoutId);
 
     if (!messages?.length) {
@@ -27,11 +28,11 @@ viewComposer.callbackQuery(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/, async (
         return;
     }
 
-    // Ищем индекс в массиве по ПОЗИЦИИ
+    // Ищем текущий индекс по ПОЗИЦИИ из БД
     let currentIndex = messages.findIndex(m => m.position === currentPosition);
     
+    // Фоллбэк: если позиция не найдена (удалено), берем первую или последнюю
     if (currentIndex === -1) {
-        // Если позиция не найдена (сообщение удалили), сбрасываемся на начало или конец
         currentIndex = type === 'prev' ? messages.length - 1 : 0;
     }
 
@@ -40,20 +41,30 @@ viewComposer.callbackQuery(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/, async (
     if (type === 'prev' && currentIndex > 0) targetIndex = currentIndex - 1;
     if (type === 'next' && currentIndex < messages.length - 1) targetIndex = currentIndex + 1;
 
-    const targetMessage = messages[targetIndex];
+    const targetMessage = messages[targetIndex]!;
     
-    // Сохраняем в сессию
+    // Сохраняем в сессию только целевое сообщение
     ctx.session.message = targetMessage!;
     
     // Вычисляем номер для отображения (индекс + 1)
     const displayNumber = targetIndex + 1; 
     const total = messages.length;
     
-    // 🔥 ИСПРАВЛЕНИЕ: Передаем реальные ПОЗИЦИИ соседей из БД, а не их индексы или ID
+    // 🔥 ГЛАВНОЕ: берем реальные ПОЗИЦИИ соседей из БД для кнопок
     const prevPosition = targetIndex > 0 ? messages[targetIndex - 1]!.position : null;
     const nextPosition = targetIndex < total - 1 ? messages[targetIndex + 1]!.position : null;
+    // Также передаем текущую позицию, чтобы меню знало, на чем мы стоим
+    const currentTargetPosition = targetMessage.position;
 
-    const menu = menuView.main(ctx, total, displayNumber, prevPosition!, nextPosition!);
+    // Вызываем меню, передавая ВСЕ необходимые данные аргументами
+    const menu = menuView.main(
+        ctx, 
+        total, 
+        displayNumber,           // Для текста: "2 / 3"
+        prevPosition!,            // Для кнопки ⬅: position из БД
+        nextPosition!,            // Для кнопки ➡: position из БД
+        currentTargetPosition!    // Текущая position из БД (для надежности)
+    );
     
     await ctx.editMessageText(menu.text, { 
         reply_markup: menu.keyboard, 
