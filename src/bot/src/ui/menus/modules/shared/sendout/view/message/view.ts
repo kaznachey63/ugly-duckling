@@ -10,7 +10,7 @@ function main(ctx: MyContext, messagesLength: number): Menu<InlineKeyboard> {
     const message = ctx.session.message;
 
     const text = [
-        ctx.t("modules.shared.sendout.view.sendout.message.view.main.messageNumber", { number: message.position! }) + ' ' +
+        ctx.t("modules.shared.sendout.view.sendout.message.view.main.messageNumber", { number: message.position! + 1 }) + ' ' +
         ctx.t("modules.shared.sendout.view.sendout.message.view.main.amountMedia", { amount: message!.media?.length!, maxMedia: constants.media.maxMedia }),
         `\`\`\`\n${message?.caption!}\n\`\`\`\n`,
         ctx.t("modules.shared.sendout.view.sendout.message.view.main.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
