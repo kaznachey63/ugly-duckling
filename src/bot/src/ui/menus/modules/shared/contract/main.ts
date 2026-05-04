@@ -64,7 +64,7 @@ function viewContract(ctx: MyContext, sendoutsCall: string): Menu<InlineKeyboard
         ctx.t("modules.shared.contract.view.contract.main.title", { dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') }),
         ctx.t("modules.shared.contract.view.contract.main.sendouts", { sendouts: sendoutsCall }),
         ctx.t("modules.shared.contract.view.contract.main.path", { 
-            dateStart: new Date(ctx.session.contract.date_start!), 
+            dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU'), 
             menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") 
         }),
     ].join('\n');
