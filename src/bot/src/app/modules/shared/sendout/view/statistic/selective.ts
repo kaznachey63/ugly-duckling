@@ -10,10 +10,6 @@ const selectiveStatisticsComposer = new Composer<MyContext>();
 
 selectiveStatisticsComposer.callbackQuery(/^selectiveStatistic:/, async (ctx: MyContext) => {
     try {
-        // await ctx.answerCallbackQuery({
-        //     text: ctx.t("modules.shared.sendout.view.sendout.statistic.selective.main.notDone"),
-        //     show_alert: true
-        // });
         const menu = menuStatistic.selective(ctx);
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
@@ -22,6 +18,38 @@ selectiveStatisticsComposer.callbackQuery(/^selectiveStatistic:/, async (ctx: My
     } catch (error) {
         console.error('Ошибка в selectiveStatistic:', error);
     }
+});
+
+selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
+    const results = await db.result.get(ctx.session.sendout.id!);
+    if (!results)  {     
+        await ctx.answerCallbackQuery({
+            text: ctx.t("modules.shared.sendout.view.sendout.statistic.selective.main.notDone"),
+            show_alert: true
+        });
+    }
+    for (const result of results!) {
+        if (result.chats == 0 || result.chats == 1) continue;
+
+        const targetDate = ctx.callbackQuery.data.split(/date:/)[1]?.replace(/-/g, ':');
+        const dateFromResult = result.date_time?.getDate();
+        console.log(
+            ctx.callbackQuery.data,
+            targetDate,
+            dateFromResult
+        );
+        
+        if (targetDate == dateFromResult) {
+            const menu = menuStatistic.targetDateOnCalendar(ctx, result);
+            await ctx.editMessageText(menu.text, {
+                reply_markup: menu.keyboard,
+                parse_mode: "MarkdownV2"
+            });
+            return;
+        }
+    }
+
+    await ctx.answerCallbackQuery({ text: ctx.t("modules.shared.sendout.view.sendout.statistics.selective.noData"), show_alert: true });
 });
 
 selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:/, async (ctx) => {
@@ -35,25 +63,6 @@ selectiveStatisticsComposer.callbackQuery(/^calendar:prev:(\d{4}-\d{2}-\d{2})$/,
 selectiveStatisticsComposer.callbackQuery(/^calendar:next:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
     // Пусто
 });
-
-// selectiveStatisticsComposer.callbackQuery(/^calendar:date:(\d{4}-\d{2}-\d{2})$/, async (ctx) => {
-//     const results = await db.result.get(ctx.session.sendout.id!);
-
-//     for (const result of results!) {
-//         if (result.chats.length == 0 || result.chats.length == 1) continue;
-//         const targetDate = ctx.callbackQuery.data.split(/date:/)[1]?.replace(/-/g, ':');
-//         if (targetDate == result.date) {
-//             const menu = menuStatistic.targetDateOnCalendar(ctx, result);
-//             await ctx.editMessageText(menu.text, {
-//                 reply_markup: menu.keyboard,
-//                 parse_mode: "MarkdownV2"
-//             });
-//             return;
-//         }
-//     }
-
-//     await ctx.answerCallbackQuery({ text: ctx.t("modules.commands.cabinet.dustrubution.statistics.selective.noData"), show_alert: true });
-// });
 
 selectiveStatisticsComposer.callbackQuery(/^calendar:ignore:weekday$/, async (ctx) => {
     // Пусто
