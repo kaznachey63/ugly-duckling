@@ -9,10 +9,10 @@ import type { Message } from '@shared/types/DB';
 function main(
     ctx: MyContext, 
     totalMessages: number, 
-    currentDisplayPos: number, // 1-based: 1, 2, 3... (только для текста!)
+    currentDisplayPos: number, // 1-based: 1, 2, 3... 
     prevPosition: number | null, // position из БД для кнопки ⬅
     nextPosition: number | null, // position из БД для кнопки ➡
-    currentPosition: number      // 🔥 НОВЫЙ: текущая position из БД (2, 3, 4...)
+    currentPosition: number      // текущая position из БД (2, 3, 4...)
 ): Menu<InlineKeyboard> {
     
     const sendoutId = ctx.session.sendout.id;
@@ -51,7 +51,7 @@ function main(
     if (totalMessages === 1) {
         keyboard.text(paginationLabel, paginationCb).row();
     } else {
-        // 🔥 ИСПРАВЛЕНИЕ: в колбэки стрелок кладем ПОЗИЦИИ из БД, а не display-номера
+        // в колбэки стрелок кладем ПОЗИЦИИ из БД, а не display-номера
         if (prevPosition !== null) {
             keyboard.text("⬅", `viewMessage:${sendoutId}#${prevPosition}-prev`);
         }
