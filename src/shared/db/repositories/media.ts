@@ -1,5 +1,6 @@
 import type { Media } from '@shared/types/DB';
 import prisma from '@shared/db/config';
+import shared from './shared';
 
 /**
  * Получение сообщений
@@ -37,11 +38,7 @@ async function add(media: Media) {
         await prisma.media.create({
             data: {
                 name: media.name,
-                position: (await prisma.message.findMany({
-                    where: {
-                        sendout_id: media.message_id
-                    }
-                })).length ?? 0,
+                position: await shared.getPosition(media.message_id!, 'media'),
                 message_id: media.message_id
             }
         });

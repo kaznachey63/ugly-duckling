@@ -1,6 +1,7 @@
 import type { Message } from '@shared/types/DB';
 import prisma from '@shared/db/config';
 import type { PaginationType } from '@shared/types/PaginationType';
+import shared from './shared';
 
 /**
  * Получение сообщения по айди рассылки, сообщения и типу пагинаци
@@ -181,11 +182,7 @@ async function create(message: Message) {
         await prisma.message.create({
             data: {
                 caption: message.caption,
-                position: (await prisma.message.findMany({
-                    where: {
-                        sendout_id: message.sendout_id
-                    }
-                })).length ?? 0,
+                position: await shared.getPosition(message.sendout_id!, 'message'),
                 entities: message.entities as any,
                 sendout_id: message.sendout_id
             }
