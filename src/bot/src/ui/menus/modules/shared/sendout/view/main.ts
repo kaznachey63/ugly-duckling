@@ -41,9 +41,7 @@ function viewSendout(ctx: MyContext): Menu<InlineKeyboard> {
         .text(ctx.t("modules.shared.sendout.view.sendout.main.buttons.schedule"), `mainSchedule:${sendoutId}`).row()
         .text(ctx.t("modules.shared.sendout.view.sendout.main.buttons.statistic"), `mainStatistic:${sendoutId}`).row()
     ;
-    
-    if (ctx.session.isAdmin) keyboard.text(ctx.t("modules.shared.sendout.view.sendout.main.buttons.condition"), `mainCondition:${sendoutId}`).row();
-        
+            
     keyboard.text(ctx.t("utils.shared.buttons.back"), "viewSendouts");
     return { text: format.escapeMarkdown(text), keyboard };
 }

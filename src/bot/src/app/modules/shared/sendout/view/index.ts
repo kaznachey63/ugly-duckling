@@ -1,7 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import menuSendout from '@menus/modules/shared/sendout/view/main';
-import conditionComposer from './condition';
+import conditionComposer from '../../../commands/panel/features/condition';
 import scheduleComposer from './schedule';
 import statisticsComposer from './statistic';
 import messageComposer from './message';
@@ -68,7 +68,6 @@ viewComposer.callbackQuery(/^viewSendout:/, async (ctx: MyContext) => {
 });
 
 viewComposer.use(messageComposer);
-viewComposer.use(conditionComposer);
 viewComposer.use(scheduleComposer);
 viewComposer.use(statisticsComposer);
 
