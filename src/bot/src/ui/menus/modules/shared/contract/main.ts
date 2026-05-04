@@ -67,6 +67,7 @@ function viewContract(ctx: MyContext): Menu<InlineKeyboard> {
         .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: ctx.session.contract.date_start ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${ctx.session.contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: ctx.session.contract.date_end ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateEnd#${ctx.session.contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: ctx.session.contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${ctx.session.contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.priceText", { price: ctx.session.contract.price_text ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPriceText#${ctx.session.contract.id}`).row()
         .text(ctx.t("utils.shared.buttons.export"), `mainExportContract#${ctx.session.contract.id}`)
     ;
 
