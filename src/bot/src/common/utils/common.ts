@@ -42,7 +42,14 @@ async function setPrimaryValuesSession(ctx: MyContext) {
  */
 async function checkMaintenace(ctx: MyContext): Promise<boolean> {
     if (await db.general.maintenace() && !ctx.session.isAdmin) {
-        await ctx.reply(ctx.t("utils.maintenace"));
+        if (ctx && ctx.callbackQuery?.data) {
+            try {
+                await ctx.editMessageText(ctx.t("utils.maintenace"));
+            } catch (error) {
+                await ctx.reply(ctx.t("utils.maintenace"));
+            }
+        }
+        else await ctx.reply(ctx.t("utils.maintenace"));
         return true
     }
     return false
