@@ -1,6 +1,6 @@
 import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
-import menuPanel from "@menus/modules/commands/panel/main";
+import menuSystem from "@menus/modules/commands/panel/system/main";
 import { Composer } from "grammy";
 
 const maintenaceComposer = new Composer<MyContext>();
@@ -10,7 +10,7 @@ maintenaceComposer.callbackQuery("mainMaintenace", async (ctx: MyContext) => {
     
     await db.general.setMaintenace(nextMode);
     
-    const menu = menuPanel(ctx, nextMode);
+    const menu = menuSystem(ctx, nextMode);
     await ctx.editMessageReplyMarkup({ reply_markup: menu.keyboard });
     await ctx.answerCallbackQuery();
 });
