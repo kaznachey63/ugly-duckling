@@ -10,8 +10,8 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = ctx.t("modules.commands.panel.main.title");
     
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.commands.panel.main.buttons.data"), "mainData").row()
-        .text(ctx.t("modules.commands.panel.main.buttons.system"), "mainSystem").row()
+        .text(ctx.t("modules.commands.panel.main.buttons.data"), "mainData")
+        .text(ctx.t("modules.commands.panel.main.buttons.system"), "mainSystem")
     ;
 
     return { text: format.escapeMarkdown(text), keyboard }
