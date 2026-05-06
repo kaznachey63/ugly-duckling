@@ -30,7 +30,7 @@ export default function main(ctx: MyContext, amount: number): Menu<InlineKeyboar
     }
     else text.push(ctx.t("modules.shared.sendout.main.empty"));
     
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), userIsAdmin ? "mainPanel" : "mainCabinet");
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), userIsAdmin ? "mainData" : "mainCabinet");
 
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
 }

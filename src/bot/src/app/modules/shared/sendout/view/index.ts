@@ -1,7 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import menuSendout from '@menus/modules/shared/sendout/view/main';
-import conditionComposer from '../../../commands/panel/features/condition';
+import conditionComposer from '../../../commands/panel/features/system/condition';
 import scheduleComposer from './schedule';
 import statisticsComposer from './statistic';
 import messageComposer from './message';

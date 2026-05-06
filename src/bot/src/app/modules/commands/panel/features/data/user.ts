@@ -1,6 +1,6 @@
 import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
-import menuUsers from "@menus/modules/commands/panel/users";
+import menuUsers from "@menus/modules/commands/panel/data/users";
 import { Composer } from "grammy";
 import common from "@utils/common";
 

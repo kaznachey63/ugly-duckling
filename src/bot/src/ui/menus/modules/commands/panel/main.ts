@@ -6,19 +6,13 @@ import { InlineKeyboard } from 'grammy';
 /**
  * Меню команды panel
  */
-export default function main(ctx: MyContext, maintenace: boolean): Menu<InlineKeyboard> {
+export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = ctx.t("modules.commands.panel.main.title");
     
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("utils.shared.buttons.chat"), "mainChat").row()
-        .text(ctx.t("modules.commands.panel.main.buttons.user"), "mainUser").row()
-        .text(ctx.t("utils.shared.buttons.sendout"), "mainSendout").row()
-        .text(ctx.t("utils.shared.buttons.contract"), "mainContract").row()
-        .text(ctx.t("modules.commands.panel.main.buttons.server"), "mainServer").row()
-        .text(
-            maintenace ? ctx.t("modules.commands.panel.main.buttons.maintenace") + ' ✔️' : ctx.t("modules.commands.panel.main.buttons.maintenace") + ' 🔘', 
-            "mainMaintenace"
-        ).row()
+        .text(ctx.t("modules.commands.panel.main.buttons.data"), "mainData").row()
+        .text(ctx.t("modules.commands.panel.main.buttons.system"), "mainSystem").row()
     ;
+
     return { text: format.escapeMarkdown(text), keyboard }
 }

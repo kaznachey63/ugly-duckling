@@ -31,7 +31,7 @@ function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
     }
     else text.unshift(ctx.t("modules.shared.contract.main.empty"));
     
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), userIsAdmin ? "mainPanel" : "mainCabinet");
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), userIsAdmin ? "mainData" : "mainCabinet");
 
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
 }

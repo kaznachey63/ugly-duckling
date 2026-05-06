@@ -8,10 +8,10 @@ import { InlineKeyboard } from 'grammy';
  */
 function main(ctx: MyContext, amountOfChats: number): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("modules.commands.panel.chat.main.title"),
-        ctx.t("modules.commands.panel.chat.main.amount", { amount: amountOfChats }),
+        ctx.t("modules.commands.panel.data.chat.main.title"),
+        ctx.t("modules.commands.panel.data.chat.main.amount", { amount: amountOfChats }),
         "",
-        ctx.t("modules.commands.panel.chat.main.path")
+        ctx.t("modules.commands.panel.data.chat.main.path")
     ].join('\n');
     
     const keyboard = new InlineKeyboard();
@@ -21,8 +21,8 @@ function main(ctx: MyContext, amountOfChats: number): Menu<InlineKeyboard> {
     }
     
     keyboard
-        .text(ctx.t("modules.commands.panel.chat.main.buttons.reupload"), "reuploadChats").style("success").row()
-        .text(ctx.t("utils.shared.buttons.back"), "mainPanel")
+        .text(ctx.t("modules.commands.panel.data.chat.main.buttons.reupload"), "reuploadChats").style("success").row()
+        .text(ctx.t("utils.shared.buttons.back"), "mainData")
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -30,10 +30,10 @@ function main(ctx: MyContext, amountOfChats: number): Menu<InlineKeyboard> {
 function reupload(ctx: MyContext, success: boolean): Menu<InlineKeyboard> {
     const text = [
         success ?
-            ctx.t("modules.commands.panel.chat.reupload.success") :
-            ctx.t("modules.commands.panel.chat.reupload.error")
+            ctx.t("modules.commands.panel.data.chat.reupload.success") :
+            ctx.t("modules.commands.panel.data.chat.reupload.error")
         ,
-        ctx.t("modules.commands.panel.chat.reupload.path", { call: ctx.session.sendout.call })
+        ctx.t("modules.commands.panel.data.chat.reupload.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainChat");
@@ -43,10 +43,10 @@ function reupload(ctx: MyContext, success: boolean): Menu<InlineKeyboard> {
 function clear(ctx: MyContext, amountOfChats: number): Menu<InlineKeyboard> {
     const text = [
         amountOfChats == 0 ?
-            ctx.t("modules.commands.panel.chat.clear.success") :
-            ctx.t("modules.commands.panel.chat.clear.error")
+            ctx.t("modules.commands.panel.data.chat.clear.success") :
+            ctx.t("modules.commands.panel.data.chat.clear.error")
         ,
-        ctx.t("modules.commands.panel.chat.clear.path", { call: ctx.session.sendout.call })
+        ctx.t("modules.commands.panel.data.chat.clear.path", { call: ctx.session.sendout.call })
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainChat");
