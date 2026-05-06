@@ -12,7 +12,6 @@ maintenaceComposer.callbackQuery("mainMaintenace", async (ctx: MyContext) => {
     
     const menu = menuSystem(ctx, nextMode);
     await ctx.editMessageReplyMarkup({ reply_markup: menu.keyboard });
-    await ctx.answerCallbackQuery();
 });
 
 export default maintenaceComposer;
