@@ -7,7 +7,7 @@ import { InlineKeyboard } from 'grammy';
  * Меню раздела Система
  */
 export default function main(ctx: MyContext, maintenace: boolean): Menu<InlineKeyboard> {
-    const text = ctx.t("modules.commands.panel.main.title");
+    const text = ctx.t("modules.commands.panel.system.main.title");
     
     const keyboard = new InlineKeyboard()
         .text(ctx.t("modules.commands.panel.system.main.buttons.server"), "mainServer").row()
@@ -15,6 +15,7 @@ export default function main(ctx: MyContext, maintenace: boolean): Menu<InlineKe
             maintenace ? ctx.t("modules.commands.panel.system.main.buttons.maintenace") + ' ✔️' : ctx.t("modules.commands.panel.system.main.buttons.maintenace") + ' 🔘', 
             "mainMaintenace"
         ).row()
+        .text(ctx.t("utils.shared.buttons.back"), "mainPanel")
     ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
