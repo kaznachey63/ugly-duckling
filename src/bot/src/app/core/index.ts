@@ -38,16 +38,14 @@ bot.on('message', async (ctx: MyContext, next: NextFunction) => {
 
     await utils.common.checkCancelButton(ctx);
     await utils.common.setPrimaryValuesSession(ctx);  
-    await utils.common.checkMaintenace(ctx);
-    next();
+    if (!await utils.common.checkMaintenace(ctx)) await next();
 });
 
 bot.on('callback_query', async (ctx: MyContext, next: NextFunction) => {
     try {
         console.log(ctx?.callbackQuery?.data);
         await utils.common.setPrimaryValuesSession(ctx);
-        await utils.common.checkMaintenace(ctx);
-        await next();
+        if (!await utils.common.checkMaintenace(ctx)) await next();
     } finally {
         await ctx.answerCallbackQuery().catch(() => { });        
     }

@@ -40,10 +40,12 @@ async function setPrimaryValuesSession(ctx: MyContext) {
 /**
  * Проверка на тех. режим
  */
-async function checkMaintenace(ctx: MyContext) {
+async function checkMaintenace(ctx: MyContext): Promise<boolean> {
     if (await db.general.maintenace() && !ctx.session.isAdmin) {
         await ctx.reply(ctx.t("utils.maintenace"));
+        return true
     }
+    return false
 }
 
 async function checkCancelButton(ctx: MyContext) {
