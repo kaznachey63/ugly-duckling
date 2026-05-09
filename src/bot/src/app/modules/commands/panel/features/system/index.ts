@@ -3,6 +3,7 @@ import { Composer } from "grammy";
 import menuSystem from "@menus/modules/commands/panel/system/main";
 import maintenaceComposer from "./maintenace";
 import db from "@shared/db";
+import serverComposer from "./server";
 
 const systemComposer = new Composer<MyContext>();
 
@@ -19,5 +20,6 @@ systemComposer.callbackQuery("mainSystem", async (ctx: MyContext) => {
 });
 
 systemComposer.use(maintenaceComposer);
+systemComposer.use(serverComposer);
 
 export default systemComposer;

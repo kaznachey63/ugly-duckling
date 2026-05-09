@@ -1,0 +1,1 @@
+export type ProcessType = "sendout" | "bot" | "parser";

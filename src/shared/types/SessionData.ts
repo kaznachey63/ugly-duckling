@@ -1,5 +1,6 @@
 import { Context, type SessionFlavor } from "grammy";
 import type { User, Sendout, Schedule, Message, Result, Contract } from "@shared/types/DB";
+import type { ProcessType } from "./ProcessType";
 
 export interface SessionData {
     isAdmin: boolean;
@@ -26,6 +27,7 @@ export interface SessionData {
         addingContract: boolean;
 
     };
+    processType: ProcessType;
     other: {
         ids: {
             idForUpdateMessageFromState: number;
