@@ -1,6 +1,7 @@
 import { exec, execSync } from 'child_process';
 import type { ProcessStatus } from '@shared/types/ProcessStatus';
 import type { ProcessType } from '@shared/types/ProcessType';
+import db from '@shared/db';
 
 export class ServerManager {
     /**
@@ -94,20 +95,15 @@ export class ServerManager {
     async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
         const { stdout } = await this.execute("systemctl list-unit-files --type=service --no-legend --no-pager", 5000);
         if (processType == 'sendout') {
-            return [
-                "hawk-sendout@1.service",
-                "hawk-sendout@2.service",
-                "hawk-sendout@3.service",
-                "hawk-sendout@4.service",
-                "hawk-sendout@5.service",
-                "hawk-sendout@6.service",
-            ]
+            const sendouts = await db.sendout.getSendouts();
+            return sendouts.map(s => `hawk-sendout@${s.name}.service`);
         }
         
         // @ts-ignore
         return stdout
             .split('\n')
             .map(l => l.trim().split(/\s+/)[0])
-            .filter(name => name!.trim().startsWith(`hawk-${processType}`));
+            .filter(name => name!.trim().startsWith(`hawk-${processType}`))
+        ;
     }
 }
