@@ -111,7 +111,7 @@ export class ServerManager {
      * Получение логов по имени процесса
      */
     async getLogsByProcessName(name: string): Promise<string> {
-        const { stdout } = await this.execute(`journalctl -u ${name} -n --no-pager`, 10000);
+        const { stdout } = await this.execute(`journalctl -u ${name} --no-pager`, 10000);
         return stdout;
     }
 }
