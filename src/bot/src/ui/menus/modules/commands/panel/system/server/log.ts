@@ -101,7 +101,7 @@ function buildLogKeyboard(ctx: MyContext, page: number, totalPages: number, logS
 
     keyboard.row().text(
         ctx.t("modules.commands.panel.system.server.process.control.log.sort", {
-            sortType: `modules.commands.panel.system.server.process.control.log.sortType.${logSort}`
+            sortType: ctx.t(`modules.commands.panel.system.server.process.control.log.sortType.${logSort}`)
         }),
         `sortLog-${logSort == 'new' ? 'old' : 'new'}`
     );
