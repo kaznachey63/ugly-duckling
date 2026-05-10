@@ -44,15 +44,14 @@ function buildLogPages(ctx: MyContext, log: string, logSort: LogSortType): strin
     const separator = '------------------------------------';
 
     const header =
-        utils.formatting.escapeMarkdown(
             title + '\n' +
             separator + '\n'
-        );
+    ;
 
     const footer =
         '\n' +
         separator + '\n' +
-        utils.formatting.escapeMarkdown(path);
+        path;
 
     const lines = logSort === "old" ? log.split('\n') : log.split('\n').reverse();
 
@@ -60,7 +59,7 @@ function buildLogPages(ctx: MyContext, log: string, logSort: LogSortType): strin
     let currentPage = header;
 
     for (const rawLine of lines) {
-        const line = utils.formatting.escapeMarkdown(rawLine);
+        const line = rawLine;
         const next = currentPage + line + '\n';
 
         if (next.length <= constants.message.maxCharsWithoutPremium - footer.length) {
