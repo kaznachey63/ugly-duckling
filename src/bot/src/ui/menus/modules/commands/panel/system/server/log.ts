@@ -14,7 +14,7 @@ export default function log(ctx: MyContext, log: string): Menu<InlineKeyboard> {
     const page = Math.max(0, Math.min(ctx.session.server.logPage ?? 0, pages.length - 1));
 
     return {
-        text: pages[page]!,
+        text:utils.formatting.escapeMarkdown(pages[page]!),
         keyboard: buildLogKeyboard(ctx, page, pages.length, logSort)
     };
 }
