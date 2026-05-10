@@ -17,7 +17,8 @@ logComposer.callbackQuery("mainLog", async (ctx: MyContext) => {
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
-            reply_markup: menu.keyboard
+            reply_markup: menu.keyboard,
+            link_preview_options: { is_disabled: true }
         });
     } catch (error) {
         console.error("Ошибка в mainLog", error);
@@ -36,7 +37,8 @@ logComposer.callbackQuery(/^sortLog-/, async (ctx: MyContext) => {
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
-            reply_markup: menu.keyboard
+            reply_markup: menu.keyboard,
+            link_preview_options: { is_disabled: true }
         });
     } catch (error) {
         console.error("Ошибка в mainLog", error);
@@ -54,7 +56,8 @@ logComposer.callbackQuery(/^logPage-(\d+)$/, async (ctx: MyContext) => {
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
-            reply_markup: menu.keyboard
+            reply_markup: menu.keyboard,
+            link_preview_options: { is_disabled: true }
         });
     } catch (error) {
         console.error("Ошибка в logPage", error);
