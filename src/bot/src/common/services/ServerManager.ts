@@ -1,5 +1,6 @@
-import { exec } from 'child_process';
+import { exec, execSync } from 'child_process';
 import type { Status } from '@shared/types/server/Status';
+import type { ProcessType } from '@shared/types/ProcessType';
 
 export class ServerManager {
     private async exec(cmd: string, timeoutMs = 30000): Promise<{ stdout: string; stderr: string }> {
@@ -74,5 +75,16 @@ export class ServerManager {
             return true;
         }
         return true;
+    }
+
+    async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
+        const allProcesses = execSync("systemctl list-units --type=service --all --no-pager --no-legend", { encoding: "utf-8"} );
+        const targetProcesses: string[] = [];
+
+        for (const line of allProcesses.trim()) {
+            const serviceName = line.split(/\s+/)[0];
+            if (serviceName?.endsWith(".service") || serviceName?.includes(processType)) targetProcesses.push(serviceName);
+        }
+        return targetProcesses;
     }
 }

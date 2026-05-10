@@ -27,7 +27,10 @@ export interface SessionData {
         addingContract: boolean;
 
     };
-    processType: ProcessType;
+    server: {
+        processType: ProcessType;
+        processName: string;
+    };
     other: {
         ids: {
             idForUpdateMessageFromState: number;

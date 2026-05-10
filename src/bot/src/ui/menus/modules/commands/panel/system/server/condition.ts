@@ -8,37 +8,42 @@ import type { Status } from "@shared/types/server/Status";
  * Меню раздела Состояние
  */
 export default function condition(ctx: MyContext, status: Status): Menu<InlineKeyboard> {
-    const sendoutId = ctx.session.sendout.id!;
+    const processName = ctx.session.server.processName;
+
     let keyboard = new InlineKeyboard();
     
     switch (status) {
         case "active": {
             keyboard
-            .text(
-                ctx.t("modules.shared.sendout.view.sendout.condition.buttons.stop"),
-                `stopSendout:${sendoutId}`
-            )
-            .text(
-                ctx.t("modules.shared.sendout.view.sendout.condition.buttons.restart"),
-                `restartSendout:${sendoutId}`
-            );
+                .text(
+                    ctx.t("modules.commands.panel.system.server.process.control.condition.buttons.stop"),
+                    "stopProcess"
+                )
+                .text(
+                    ctx.t("modules.commands.panel.system.server.process.control.condition.buttons.restart"),
+                    "restartProcess"
+                )
+            ;
             break;
         }
         case "inactive": {
             keyboard.text(
-                ctx.t("modules.shared.sendout.view.sendout.condition.buttons.start"),
-                `startSendout:${sendoutId}`
+                ctx.t("modules.commands.panel.system.server.process.control.condition.buttons.start"),
+                "startProcess"
             );
             break;
         }
     }
     
     const text = [
-        ctx.t(`modules.shared.sendout.view.sendout.condition.status.${status}`),
-        ctx.t("modules.shared.sendout.view.sendout.condition.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
+        ctx.t(`modules.commands.panel.system.server.process.control.condition.status.${status}`),
+        ctx.t("modules.commands.panel.system.server.process.control.condition.path", { 
+            processType: ctx.t(`modules.commands.panel.system.server.process.main.${ctx.session.server.processType}`) ,
+            processName: ctx.session.server.processName
+        }),
     ].join('\n\n');
 
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`);
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `control:${processName}`);
     
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }

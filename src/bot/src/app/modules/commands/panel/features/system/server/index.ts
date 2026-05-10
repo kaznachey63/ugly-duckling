@@ -4,6 +4,7 @@ import type { ProcessType } from '@shared/types/ProcessType';
 import menuServer from '@menus/modules/commands/panel/system/server/main';
 import conditionComposer from './condition';
 import logComposer from './log';
+import { ServerManager } from '@common/services/ServerManager';
 
 const serverComposer = new Composer<MyContext>();
 
@@ -21,9 +22,12 @@ serverComposer.callbackQuery("mainServer", async (ctx: MyContext) => {
 
 serverComposer.callbackQuery(/^mainProcess-/, async (ctx: MyContext) => {
     try {
-        ctx.session.processType = ctx.callbackQuery?.data?.split('-')[1] as ProcessType;
-        // const sendouts = await db.sendout.getSendouts();
-        const menu = menuServer.process(ctx, []);
+        const processType = ctx.callbackQuery?.data?.split('-')[1] as ProcessType;
+        ctx.session.server.processType = processType;
+        const server = new ServerManager();
+        const processes = await server.getProcessesByProcessType(processType);
+
+        const menu = menuServer.process(ctx, processes);
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
@@ -38,8 +42,8 @@ serverComposer.callbackQuery(/^mainProcess-/, async (ctx: MyContext) => {
 
 serverComposer.callbackQuery(/^control:/, async (ctx: MyContext) => {
     try {
-        const processName = ctx.callbackQuery?.data?.split(':')[1]!;
-        const menu = menuServer.control(ctx, processName);
+        ctx.session.server.processName = ctx.callbackQuery?.data?.split(':')[1]!;
+        const menu = menuServer.control(ctx);
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',

@@ -7,7 +7,10 @@ import { InlineKeyboard } from 'grammy';
  * Меню раздела Система
  */
 export default function main(ctx: MyContext, maintenace: boolean): Menu<InlineKeyboard> {
-    const text = ctx.t("modules.commands.panel.system.main.title");
+    const text = [
+        ctx.t("modules.commands.panel.system.main.title"),
+        ctx.t("modules.commands.panel.system.main.path")
+    ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
         .text(ctx.t("modules.commands.panel.system.main.buttons.server"), "mainServer").row()

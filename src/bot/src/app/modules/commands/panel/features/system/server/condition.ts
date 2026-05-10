@@ -7,7 +7,7 @@ import { sleep } from 'telegram/Helpers';
 
 const conditionComposer = new Composer<MyContext>();
 
-conditionComposer.callbackQuery(/^mainCondition:/, async (ctx: MyContext) => {
+conditionComposer.callbackQuery("mainCondition", async (ctx: MyContext) => {
     try {
         const server = new ServerManager();
         const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as Status);
@@ -17,12 +17,10 @@ conditionComposer.callbackQuery(/^mainCondition:/, async (ctx: MyContext) => {
         });
     } catch (error) {
         console.error('Ошибка в mainCondition:', error);
-    } finally {
-        
     }
 });
 
-conditionComposer.callbackQuery(/^startSendout:/, async (ctx: MyContext) => {
+conditionComposer.callbackQuery("startProcess", async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
         const server = new ServerManager();
@@ -35,13 +33,11 @@ conditionComposer.callbackQuery(/^startSendout:/, async (ctx: MyContext) => {
             reply_markup: menu.keyboard
         });
     } catch (error) {
-        console.error('Ошибка в startSendout:', error);
-    } finally {
-        
+        console.error('Ошибка в startProcess:', error);
     }
 });
 
-conditionComposer.callbackQuery(/^stopSendout:/, async (ctx: MyContext) => {
+conditionComposer.callbackQuery("stopProcess", async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
         const server = new ServerManager();
@@ -54,13 +50,11 @@ conditionComposer.callbackQuery(/^stopSendout:/, async (ctx: MyContext) => {
             reply_markup: menu.keyboard
         });
     } catch (error) {
-        console.error('Ошибка в stoptSendout:', error);
-    } finally {
-        
+        console.error("Ошибка в stopProcess", error);
     }
 });
 
-conditionComposer.callbackQuery(/^restartSendout:/, async (ctx: MyContext) => {
+conditionComposer.callbackQuery("restartProcess", async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
         const server = new ServerManager();
@@ -73,9 +67,7 @@ conditionComposer.callbackQuery(/^restartSendout:/, async (ctx: MyContext) => {
             reply_markup: menu.keyboard
         });
     } catch (error) {
-        console.error('Ошибка в restartSendout:', error);
-    } finally {
-        
+        console.error("Ошибка в restartProcess", error);
     }
 });
 
