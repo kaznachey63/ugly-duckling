@@ -30,16 +30,30 @@ function splitTextByLimit(text: string, limit: number): string[] {
 }
 
 function buildLogPages(ctx: MyContext, log: string, logSort: LogSortType): string[] {
-    const titleAndPath =
-        ctx.t("modules.commands.panel.system.server.process.control.log.title") +
-        '\n\n' +
-        ctx.t("modules.commands.panel.system.server.process.control.log.path", {
+    const title =
+        ctx.t("modules.commands.panel.system.server.process.control.log.title");
+
+    const path = ctx.t(
+        "modules.commands.panel.system.server.process.control.log.path",
+        {
             processType: ctx.t(`utils.processType.${ctx.session.server.processType}`),
             processName: ctx.session.server.processName
-        }) +
-        '\n' + '------------------------------------' + '\n';
+        }
+    );
 
-    const header = utils.formatting.escapeMarkdown(titleAndPath);
+    const separator = '------------------------------------';
+
+    const header =
+        utils.formatting.escapeMarkdown(
+            title + '\n' +
+            separator + '\n'
+        );
+
+    const footer =
+        '\n' +
+        separator + '\n' +
+        utils.formatting.escapeMarkdown(path);
+
     const lines = logSort === "old" ? log.split('\n') : log.split('\n').reverse();
 
     const pages: string[] = [];
@@ -49,21 +63,23 @@ function buildLogPages(ctx: MyContext, log: string, logSort: LogSortType): strin
         const line = utils.formatting.escapeMarkdown(rawLine);
         const next = currentPage + line + '\n';
 
-        if (next.length <= constants.message.maxCharsWithoutPremium) {
+        if (next.length <= constants.message.maxCharsWithoutPremium - footer.length) {
             currentPage = next;
             continue;
         }
 
         if (currentPage !== header) {
-            pages.push(currentPage);
+            pages.push(currentPage + footer);
             currentPage = header;
         }
 
-        const maxLineLength = constants.message.maxCharsWithoutPremium - header.length - 1;
+        const maxLineLength =
+            constants.message.maxCharsWithoutPremium - header.length - footer.length - 1;
+
         const chunks = splitTextByLimit(line, maxLineLength);
 
         for (const chunk of chunks) {
-            const page = header + chunk + '\n';
+            const page = header + chunk + '\n' + footer;
 
             if (page.length > constants.message.maxCharsWithoutPremium) {
                 continue;
@@ -76,10 +92,10 @@ function buildLogPages(ctx: MyContext, log: string, logSort: LogSortType): strin
     }
 
     if (currentPage !== header) {
-        pages.push(currentPage);
+        pages.push(currentPage + footer);
     }
 
-    return pages.length ? pages : [header];
+    return pages.length ? pages : [header + footer];
 }
 
 function buildLogKeyboard(ctx: MyContext, page: number, totalPages: number, logSort: LogSortType): InlineKeyboard {
