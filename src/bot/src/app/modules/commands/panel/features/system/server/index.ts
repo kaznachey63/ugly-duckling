@@ -26,8 +26,7 @@ serverComposer.callbackQuery(/^mainProcess-/, async (ctx: MyContext) => {
         ctx.session.server.processType = processType;
         const server = new ServerManager();
         const processes = await server.getProcessesByProcessType(processType);
-        console.log(processes);
-        
+
         const menu = menuServer.process(ctx, processes);
 
         await ctx.editMessageText(menu.text, {

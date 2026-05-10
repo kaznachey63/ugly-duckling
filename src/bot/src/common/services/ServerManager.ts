@@ -92,12 +92,12 @@ export class ServerManager {
      * Получение списка процессов по типу процесса
      */
     async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
-        const allProcesses = execSync("systemctl list-units --type=service --all --no-pager --no-legend", { encoding: "utf-8"} );
+        const { stdout } = await this.execute("systemctl list-units --type=service --all --no-pager --no-legend", 5000)
         const targetProcesses: string[] = [];
 
-        for (const line of allProcesses.trim()) {
+        for (const line of stdout.trim().split('\n')) {
             const serviceName = line.split(/\s+/)[0];
-            if (serviceName?.endsWith(".service") || serviceName?.includes(processType)) targetProcesses.push(serviceName);
+            if (serviceName?.endsWith(".service") && serviceName?.includes(processType)) targetProcesses.push(serviceName);
         }
         return targetProcesses;
     }
