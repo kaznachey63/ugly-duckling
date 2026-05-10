@@ -38,7 +38,7 @@ export default function condition(ctx: MyContext, status: ProcessStatus): Menu<I
     const text = [
         ctx.t(`modules.commands.panel.system.server.process.control.condition.status.${status}`),
         ctx.t("modules.commands.panel.system.server.process.control.condition.path", { 
-            processType: ctx.t(`modules.commands.panel.system.server.process.main.${ctx.session.server.processType}`) ,
+            processType: ctx.t(`utils.processType.${ctx.session.server.processType}`) ,
             processName: ctx.session.server.processName
         }),
     ].join('\n\n');

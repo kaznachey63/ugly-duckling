@@ -345,7 +345,7 @@
                                     "path": "[📍 Путь: Панель → Система → Сервер → {{processType}} → *{{processName}}*]",
                                     "buttons": {
                                         "condition": "🩻 Состояние",
-                                        "logs": "Логи"
+                                        "log": "📋 Логи"
                                     }
                                 },
                                 "condition": {
