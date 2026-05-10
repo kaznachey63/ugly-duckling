@@ -93,6 +93,16 @@ export class ServerManager {
      */
     async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
         const { stdout } = await this.execute("systemctl list-unit-files --type=service --no-legend --no-pager", 5000);
+        if (processType == 'sendout') {
+            return [
+                "hawk-sendout@1.service",
+                "hawk-sendout@2.service",
+                "hawk-sendout@3.service",
+                "hawk-sendout@4.service",
+                "hawk-sendout@5.service",
+                "hawk-sendout@6.service",
+            ]
+        }
         
         // @ts-ignore
         return stdout
