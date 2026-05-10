@@ -12,6 +12,8 @@ logComposer.callbackQuery("mainLog", async (ctx: MyContext) => {
 
         const server = new ServerManager();
         const logs = await server.getLogsByProcessName(ctx.session.server.processName);
+        console.log(logs.length);
+        
 
         const menu = menuLog(ctx, logs);
 
