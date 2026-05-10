@@ -33,7 +33,7 @@ function buildLogPages(ctx: MyContext, log: string, logSort: LogSortType): strin
     const titleAndPath =
         ctx.t("modules.commands.panel.system.server.process.control.log.title") +
         '\n\n' +
-        ctx.t("modules.commands.panel.system.server.process.control.condition.path", {
+        ctx.t("modules.commands.panel.system.server.process.control.log.path", {
             processType: ctx.t(`utils.processType.${ctx.session.server.processType}`),
             processName: ctx.session.server.processName
         }) +
@@ -100,8 +100,8 @@ function buildLogKeyboard(ctx: MyContext, page: number, totalPages: number, logS
     keyboard.row(...row);
 
     keyboard.row().text(
-        ctx.t("modules.commands.panel.system.server.process.control.condition.sort", {
-            sortType: `modules.commands.panel.system.server.process.control.condition.sortType.${logSort}`
+        ctx.t("modules.commands.panel.system.server.process.control.log.sort", {
+            sortType: `modules.commands.panel.system.server.process.control.log.sortType.${logSort}`
         }),
         `sortLog-${logSort == 'new' ? 'old' : 'new'}`
     );
