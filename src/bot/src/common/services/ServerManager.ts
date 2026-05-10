@@ -92,16 +92,12 @@ export class ServerManager {
      * Получение списка процессов по типу процесса
      */
     async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
-        const { stdout } = await this.execute("systemctl list-units --type=service --all --no-pager --no-legend", 5000)
-        const targetProcesses: string[] = [];
-        console.log(stdout);
+        const { stdout } = await this.execute("systemctl list-unit-files --type=service --no-legend --no-pager", 5000);
         
-        for (const line of stdout.trim().split('\n')) {
-            const processName = line.split(/\s+/)[0];
-            console.log(processName);
-            
-            if (processName?.includes(processType)) targetProcesses.push(processName);
-        }
-        return targetProcesses;
+        // @ts-ignore
+        return stdout
+            .split('\n')
+            .map(l => l.trim().split(/\s+/)[0])
+            .filter(name => name!.trim().startsWith(`hawk-${processType}`));
     }
 }
