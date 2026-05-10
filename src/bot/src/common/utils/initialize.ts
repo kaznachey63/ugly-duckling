@@ -110,6 +110,8 @@ function createDefaultSession(): SessionData {
         server: {
             processName: "",
             processType: "none",
+            logPage: 0,
+            logSort: "old"
         },
         other: {
             ids: {

@@ -106,4 +106,12 @@ export class ServerManager {
             .filter(name => name!.trim().startsWith(`hawk-${processType}`))
         ;
     }
+
+    /**
+     * Получение логов по имени процесса
+     */
+    async getLogsByProcessName(name: string): Promise<string> {
+        const { stdout } = await this.execute(`journalctl -u ${name} -n --no-pager`, 10000);
+        return stdout;
+    }
 }

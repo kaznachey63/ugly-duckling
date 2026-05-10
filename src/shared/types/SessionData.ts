@@ -1,6 +1,7 @@
 import { Context, type SessionFlavor } from "grammy";
 import type { User, Sendout, Schedule, Message, Result, Contract } from "@shared/types/DB";
 import type { ProcessType } from "./ProcessType";
+import type { LogSortType } from "./LogSortType";
 
 export interface SessionData {
     isAdmin: boolean;
@@ -30,6 +31,8 @@ export interface SessionData {
     server: {
         processType: ProcessType;
         processName: string;
+        logPage: number;
+        logSort: LogSortType;
     };
     other: {
         ids: {

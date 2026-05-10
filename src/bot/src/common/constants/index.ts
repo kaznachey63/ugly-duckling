@@ -49,6 +49,7 @@ const gigaChat = {
 const media = {
     maxSizeFile: 20 * 1024 * 1024, // 20 МБ
     maxMedia: 4,
+    maxCharsCaption: 1024
 }
 
 const server = {
@@ -102,6 +103,11 @@ const ids = {
     ideaChatId: 81
 };
 
+const message = {
+    maxCharsWithoutPremium: 4096,
+    maxCharsWithPremium: 32768,
+}
+
 export default {
     link,
     calendar,
@@ -113,5 +119,6 @@ export default {
     adminData,
     allowLanguages,
     roles,
-    ids
+    ids,
+    message
 }
