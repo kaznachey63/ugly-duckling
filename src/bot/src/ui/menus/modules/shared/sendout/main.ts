@@ -28,7 +28,7 @@ export default function main(ctx: MyContext, amount: number): Menu<InlineKeyboar
 
         keyboard.row().text(ctx.t("utils.shared.buttons.view"), "viewSendouts").style("primary");
     }
-    else text.push(ctx.t("modules.shared.sendout.main.empty"));
+    else text.unshift(ctx.t("modules.shared.sendout.main.empty"));
     
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), userIsAdmin ? "mainData" : "mainCabinet");
 
