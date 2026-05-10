@@ -1,5 +1,5 @@
 import { exec, execSync } from 'child_process';
-import type { Status } from '@shared/types/server/Status';
+import type { ServiceStatus } from '@shared/types/ServiceStatus';
 import type { ProcessType } from '@shared/types/ProcessType';
 
 export class ServerManager {
@@ -43,7 +43,7 @@ export class ServerManager {
         await this.exec(`sudo systemctl stop ${name}`, 30000);
     }
 
-    async getServiceStatus(serviceName: string, isSendout = false): Promise<Status> {
+    async getServiceStatus(serviceName: string, isSendout = false): Promise<ServiceStatus> {
         const name = this.resolveServiceName(serviceName, isSendout);
         const { stdout } = await this.exec(`sudo systemctl is-active ${name}`, 5000);
         const state = stdout.toLowerCase();

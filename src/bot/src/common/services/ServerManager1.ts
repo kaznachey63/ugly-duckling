@@ -1,5 +1,5 @@
 import { NodeSSH, type SSHExecCommandResponse } from 'node-ssh';
-import type { Status } from '@shared/types/server/Status';
+import type { ServiceStatus } from '@shared/types/ServiceStatus';
 import fs from 'fs/promises';
 
 export class ServerManager {
@@ -59,10 +59,10 @@ export class ServerManager {
         return stdout;
     }
 
-    async getServiceStatus(serviceName: string, isSendout = false): Promise<Status> {
+    async getServiceStatus(serviceName: string, isSendout = false): Promise<ServiceStatus> {
         const name = this.resolveServiceName(serviceName, isSendout);
         const { stdout } = await this.exec(`systemctl is-active ${name}`);
-        return stdout.trim() as Status;
+        return stdout.trim() as ServiceStatus;
     }
 
     async restartProcessOrNot(serviceName: string, isSendout = false): Promise<boolean> {

@@ -1,8 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
-import local from '@utils/localization';
-import { ServerManager } from 'src/common/services/ServerManager';
+import { ServerManager } from '@common/services/ServerManager';
 import menuView from '@menus/modules/shared/sendout/view/schedule/view';
 import common from '@utils/common';
 import menuSchedule from '@menus/modules/shared/sendout/view/schedule/main';

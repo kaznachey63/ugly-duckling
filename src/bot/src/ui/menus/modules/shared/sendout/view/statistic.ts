@@ -3,7 +3,7 @@ import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import type { StatisticType } from '@shared/types/StatisticType';
 import utils from '@utils';
-import { CalendarKeyboard } from 'src/ui/calendar';
+import { CalendarKeyboard } from '@src/ui/calendar';
 import constants from '@constants';
 import type { Chat, Result } from '@shared/types/DB';
 

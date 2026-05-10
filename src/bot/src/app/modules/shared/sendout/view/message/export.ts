@@ -2,9 +2,9 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuExport from '@menus/modules/shared/sendout/view/message/export';
 import { Composer, InputFile } from 'grammy';
 import type { ExportType } from '@shared/types/ExportType';
-import { PdfService } from 'src/common/services/exports/PdfService';
-import { WordService } from 'src/common/services/exports/WordService';
-import { FileService } from 'src/common/services/FileService';
+import { PdfService } from '@common/services/exports/PdfService';
+import { WordService } from '@common/services/exports/WordService';
+import { FileService } from '@common/services/FileService';
 import db from '@shared/db';
 const exportComposer = new Composer<MyContext>();
 

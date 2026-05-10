@@ -2,12 +2,12 @@ import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import utils from '@utils';
-import type { Status } from "@shared/types/server/Status";
+import type { ServiceStatus } from "@shared/types/ServiceStatus";
 
 /**
  * Меню раздела Состояние
  */
-export default function condition(ctx: MyContext, status: Status): Menu<InlineKeyboard> {
+export default function condition(ctx: MyContext, status: ServiceStatus): Menu<InlineKeyboard> {
     const processName = ctx.session.server.processName;
 
     let keyboard = new InlineKeyboard();

@@ -1,7 +1,7 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import type { Status } from '@shared/types/server/Status';
-import { ServerManager } from 'src/common/services/ServerManager';
+import type { ServiceStatus } from '@shared/types/ServiceStatus';
+import { ServerManager } from '@common/services/ServerManager';
 import menuCondition from '@menus/modules/commands/panel/system/server/condition';
 import { sleep } from 'telegram/Helpers';
 
@@ -10,7 +10,7 @@ const conditionComposer = new Composer<MyContext>();
 conditionComposer.callbackQuery("mainCondition", async (ctx: MyContext) => {
     try {
         const server = new ServerManager();
-        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as Status);
+        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as ServiceStatus);
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
             reply_markup: menu.keyboard
@@ -26,7 +26,7 @@ conditionComposer.callbackQuery("startProcess", async (ctx: MyContext) => {
         const server = new ServerManager();
         await server.startService(ctx.session.sendout.name!, true);
         await sleep(250);
-        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as Status);
+        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as ServiceStatus);
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
@@ -43,7 +43,7 @@ conditionComposer.callbackQuery("stopProcess", async (ctx: MyContext) => {
         const server = new ServerManager();
         await server.stopService(ctx.session.sendout.name!, true);
         await sleep(250);
-        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as Status);
+        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as ServiceStatus);
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',
@@ -60,7 +60,7 @@ conditionComposer.callbackQuery("restartProcess", async (ctx: MyContext) => {
         const server = new ServerManager();
         await server.restartService(ctx.session.sendout.name!, true);
         await sleep(250);
-        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as Status);
+        const menu = menuCondition(ctx, await server.getServiceStatus(ctx.session.sendout.name!, true) as ServiceStatus);
 
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',

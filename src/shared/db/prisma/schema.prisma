@@ -36,9 +36,8 @@ model credential {
 }
 
 model execution {
-  id      Int       @id @default(autoincrement())
-  code    String    @unique
-  sendout sendout[]
+  id   Int    @id @default(autoincrement())
+  code String @unique
 }
 
 model media {
@@ -99,31 +98,25 @@ model sendout {
   credential_id     Int?        @unique(map: "sendout_credential_id")
   user_id           Int?
   contract_id       Int?
-  status_id         Int?
-  execution_id      Int?
   telegram_topic_id Int?
+  active            Boolean?
   message           message[]
   result            result[]
   schedule          schedule[]
   contract          contract?   @relation(fields: [contract_id], references: [id], onUpdate: NoAction, map: "sendout_contract_fk")
   credential        credential? @relation(fields: [credential_id], references: [id], onUpdate: NoAction, map: "sendout_credential_fk")
-  execution         execution?  @relation(fields: [execution_id], references: [id], onUpdate: NoAction, map: "sendout_execution_fk")
-  status            status?     @relation(fields: [status_id], references: [id], onUpdate: NoAction, map: "sendout_status_fk")
   user              user?       @relation(fields: [user_id], references: [id], onUpdate: NoAction, map: "sendout_user_fk")
 
   @@index([credential_id], map: "fki_accounts_credential_fk")
   @@index([user_id], map: "fki_accounts_users_fk")
-  @@index([execution_id], map: "fki_sendout_execution_fk")
-  @@index([status_id], map: "fki_sendout_status_fk")
   @@index([contract_id], map: "fki_sendouts_contracts_fk")
   @@index([credential_id], map: "fki_sendouts_credentials_fk")
   @@index([user_id], map: "fki_sendouts_users_fk")
 }
 
 model status {
-  id      Int       @id @default(autoincrement())
-  code    String    @unique
-  sendout sendout[]
+  id   Int    @id @default(autoincrement())
+  code String @unique
 }
 
 model user {

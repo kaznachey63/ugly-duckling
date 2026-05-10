@@ -1,1 +1,0 @@
-export type Status = "active" | "inactive" | "failed" | "maintenance" | "deactivating" | "activating" | "";

@@ -3,7 +3,7 @@ import { Composer, GrammyError } from 'grammy';
 import menuView from '@menus/modules/shared/sendout/view/message/view';
 import { ServerManager } from "src/common/services/ServerManager";
 import type { MyContext } from '@shared/types/SessionData';
-import { FileService } from 'src/common/services/FileService';
+import { FileService } from '@common/services/FileService';
 
 const mediaComposer = new Composer<MyContext>();
 

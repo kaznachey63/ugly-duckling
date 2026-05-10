@@ -52,5 +52,3 @@ export type General = Prisma.generalGetPayload<{}>;
 export type Credential = Prisma.credentialGetPayload<{}>;
 export type Role = Prisma.roleGetPayload<{}>;
 export type Chat = Partial<Prisma.chatGetPayload<{}>>;
-export type Status = Partial<Prisma.statusGetPayload<{}>>;
-export type Execution = Partial<Prisma.executionGetPayload<{}>>;

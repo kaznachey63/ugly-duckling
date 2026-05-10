@@ -192,13 +192,11 @@ export type statusWhereInput = {
   NOT?: Prisma.statusWhereInput | Prisma.statusWhereInput[]
   id?: Prisma.IntFilter<"status"> | number
   code?: Prisma.StringFilter<"status"> | string
-  sendout?: Prisma.SendoutListRelationFilter
 }
 
 export type statusOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
-  sendout?: Prisma.sendoutOrderByRelationAggregateInput
 }
 
 export type statusWhereUniqueInput = Prisma.AtLeast<{
@@ -207,7 +205,6 @@ export type statusWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.statusWhereInput | Prisma.statusWhereInput[]
   OR?: Prisma.statusWhereInput[]
   NOT?: Prisma.statusWhereInput | Prisma.statusWhereInput[]
-  sendout?: Prisma.SendoutListRelationFilter
 }, "id" | "code">
 
 export type statusOrderByWithAggregationInput = {
@@ -230,24 +227,20 @@ export type statusScalarWhereWithAggregatesInput = {
 
 export type statusCreateInput = {
   code: string
-  sendout?: Prisma.sendoutCreateNestedManyWithoutStatusInput
 }
 
 export type statusUncheckedCreateInput = {
   id?: number
   code: string
-  sendout?: Prisma.sendoutUncheckedCreateNestedManyWithoutStatusInput
 }
 
 export type statusUpdateInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
-  sendout?: Prisma.sendoutUpdateManyWithoutStatusNestedInput
 }
 
 export type statusUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.StringFieldUpdateOperationsInput | string
-  sendout?: Prisma.sendoutUncheckedUpdateManyWithoutStatusNestedInput
 }
 
 export type statusCreateManyInput = {
@@ -262,11 +255,6 @@ export type statusUpdateManyMutationInput = {
 export type statusUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type StatusNullableScalarRelationFilter = {
-  is?: Prisma.statusWhereInput | null
-  isNot?: Prisma.statusWhereInput | null
 }
 
 export type statusCountOrderByAggregateInput = {
@@ -292,92 +280,11 @@ export type statusSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type statusCreateNestedOneWithoutSendoutInput = {
-  create?: Prisma.XOR<Prisma.statusCreateWithoutSendoutInput, Prisma.statusUncheckedCreateWithoutSendoutInput>
-  connectOrCreate?: Prisma.statusCreateOrConnectWithoutSendoutInput
-  connect?: Prisma.statusWhereUniqueInput
-}
-
-export type statusUpdateOneWithoutSendoutNestedInput = {
-  create?: Prisma.XOR<Prisma.statusCreateWithoutSendoutInput, Prisma.statusUncheckedCreateWithoutSendoutInput>
-  connectOrCreate?: Prisma.statusCreateOrConnectWithoutSendoutInput
-  upsert?: Prisma.statusUpsertWithoutSendoutInput
-  disconnect?: Prisma.statusWhereInput | boolean
-  delete?: Prisma.statusWhereInput | boolean
-  connect?: Prisma.statusWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.statusUpdateToOneWithWhereWithoutSendoutInput, Prisma.statusUpdateWithoutSendoutInput>, Prisma.statusUncheckedUpdateWithoutSendoutInput>
-}
-
-export type statusCreateWithoutSendoutInput = {
-  code: string
-}
-
-export type statusUncheckedCreateWithoutSendoutInput = {
-  id?: number
-  code: string
-}
-
-export type statusCreateOrConnectWithoutSendoutInput = {
-  where: Prisma.statusWhereUniqueInput
-  create: Prisma.XOR<Prisma.statusCreateWithoutSendoutInput, Prisma.statusUncheckedCreateWithoutSendoutInput>
-}
-
-export type statusUpsertWithoutSendoutInput = {
-  update: Prisma.XOR<Prisma.statusUpdateWithoutSendoutInput, Prisma.statusUncheckedUpdateWithoutSendoutInput>
-  create: Prisma.XOR<Prisma.statusCreateWithoutSendoutInput, Prisma.statusUncheckedCreateWithoutSendoutInput>
-  where?: Prisma.statusWhereInput
-}
-
-export type statusUpdateToOneWithWhereWithoutSendoutInput = {
-  where?: Prisma.statusWhereInput
-  data: Prisma.XOR<Prisma.statusUpdateWithoutSendoutInput, Prisma.statusUncheckedUpdateWithoutSendoutInput>
-}
-
-export type statusUpdateWithoutSendoutInput = {
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type statusUncheckedUpdateWithoutSendoutInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-
-/**
- * Count Type StatusCountOutputType
- */
-
-export type StatusCountOutputType = {
-  sendout: number
-}
-
-export type StatusCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sendout?: boolean | StatusCountOutputTypeCountSendoutArgs
-}
-
-/**
- * StatusCountOutputType without action
- */
-export type StatusCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the StatusCountOutputType
-   */
-  select?: Prisma.StatusCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * StatusCountOutputType without action
- */
-export type StatusCountOutputTypeCountSendoutArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.sendoutWhereInput
-}
 
 
 export type statusSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   code?: boolean
-  sendout?: boolean | Prisma.status$sendoutArgs<ExtArgs>
-  _count?: boolean | Prisma.StatusCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["status"]>
 
 export type statusSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -396,18 +303,10 @@ export type statusSelectScalar = {
 }
 
 export type statusOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code", ExtArgs["result"]["status"]>
-export type statusInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sendout?: boolean | Prisma.status$sendoutArgs<ExtArgs>
-  _count?: boolean | Prisma.StatusCountOutputTypeDefaultArgs<ExtArgs>
-}
-export type statusIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type statusIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $statusPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "status"
-  objects: {
-    sendout: Prisma.$sendoutPayload<ExtArgs>[]
-  }
+  objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     code: string
@@ -805,7 +704,6 @@ readonly fields: statusFieldRefs;
  */
 export interface Prisma__statusClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  sendout<T extends Prisma.status$sendoutArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.status$sendoutArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$sendoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -854,10 +752,6 @@ export type statusFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.statusOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.statusInclude<ExtArgs> | null
-  /**
    * Filter, which status to fetch.
    */
   where: Prisma.statusWhereUniqueInput
@@ -876,10 +770,6 @@ export type statusFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.statusOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.statusInclude<ExtArgs> | null
-  /**
    * Filter, which status to fetch.
    */
   where: Prisma.statusWhereUniqueInput
@@ -897,10 +787,6 @@ export type statusFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the status
    */
   omit?: Prisma.statusOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.statusInclude<ExtArgs> | null
   /**
    * Filter, which status to fetch.
    */
@@ -950,10 +836,6 @@ export type statusFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.statusOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.statusInclude<ExtArgs> | null
-  /**
    * Filter, which status to fetch.
    */
   where?: Prisma.statusWhereInput
@@ -1001,10 +883,6 @@ export type statusFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the status
    */
   omit?: Prisma.statusOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.statusInclude<ExtArgs> | null
   /**
    * Filter, which statuses to fetch.
    */
@@ -1054,10 +932,6 @@ export type statusCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.statusOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.statusInclude<ExtArgs> | null
-  /**
    * The data needed to create a status.
    */
   data: Prisma.XOR<Prisma.statusCreateInput, Prisma.statusUncheckedCreateInput>
@@ -1105,10 +979,6 @@ export type statusUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the status
    */
   omit?: Prisma.statusOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.statusInclude<ExtArgs> | null
   /**
    * The data needed to update a status.
    */
@@ -1176,10 +1046,6 @@ export type statusUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.statusOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.statusInclude<ExtArgs> | null
-  /**
    * The filter to search for the status to update in case it exists.
    */
   where: Prisma.statusWhereUniqueInput
@@ -1206,10 +1072,6 @@ export type statusDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.statusOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.statusInclude<ExtArgs> | null
-  /**
    * Filter which status to delete.
    */
   where: Prisma.statusWhereUniqueInput
@@ -1230,30 +1092,6 @@ export type statusDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * status.sendout
- */
-export type status$sendoutArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the sendout
-   */
-  select?: Prisma.sendoutSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the sendout
-   */
-  omit?: Prisma.sendoutOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.sendoutInclude<ExtArgs> | null
-  where?: Prisma.sendoutWhereInput
-  orderBy?: Prisma.sendoutOrderByWithRelationInput | Prisma.sendoutOrderByWithRelationInput[]
-  cursor?: Prisma.sendoutWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.SendoutScalarFieldEnum | Prisma.SendoutScalarFieldEnum[]
-}
-
-/**
  * status without action
  */
 export type statusDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1265,8 +1103,4 @@ export type statusDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the status
    */
   omit?: Prisma.statusOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.statusInclude<ExtArgs> | null
 }

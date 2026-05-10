@@ -192,13 +192,11 @@ export type executionWhereInput = {
   NOT?: Prisma.executionWhereInput | Prisma.executionWhereInput[]
   id?: Prisma.IntFilter<"execution"> | number
   code?: Prisma.StringFilter<"execution"> | string
-  sendout?: Prisma.SendoutListRelationFilter
 }
 
 export type executionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
-  sendout?: Prisma.sendoutOrderByRelationAggregateInput
 }
 
 export type executionWhereUniqueInput = Prisma.AtLeast<{
@@ -207,7 +205,6 @@ export type executionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.executionWhereInput | Prisma.executionWhereInput[]
   OR?: Prisma.executionWhereInput[]
   NOT?: Prisma.executionWhereInput | Prisma.executionWhereInput[]
-  sendout?: Prisma.SendoutListRelationFilter
 }, "id" | "code">
 
 export type executionOrderByWithAggregationInput = {
@@ -230,24 +227,20 @@ export type executionScalarWhereWithAggregatesInput = {
 
 export type executionCreateInput = {
   code: string
-  sendout?: Prisma.sendoutCreateNestedManyWithoutExecutionInput
 }
 
 export type executionUncheckedCreateInput = {
   id?: number
   code: string
-  sendout?: Prisma.sendoutUncheckedCreateNestedManyWithoutExecutionInput
 }
 
 export type executionUpdateInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
-  sendout?: Prisma.sendoutUpdateManyWithoutExecutionNestedInput
 }
 
 export type executionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.StringFieldUpdateOperationsInput | string
-  sendout?: Prisma.sendoutUncheckedUpdateManyWithoutExecutionNestedInput
 }
 
 export type executionCreateManyInput = {
@@ -287,97 +280,11 @@ export type executionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type ExecutionNullableScalarRelationFilter = {
-  is?: Prisma.executionWhereInput | null
-  isNot?: Prisma.executionWhereInput | null
-}
-
-export type executionCreateNestedOneWithoutSendoutInput = {
-  create?: Prisma.XOR<Prisma.executionCreateWithoutSendoutInput, Prisma.executionUncheckedCreateWithoutSendoutInput>
-  connectOrCreate?: Prisma.executionCreateOrConnectWithoutSendoutInput
-  connect?: Prisma.executionWhereUniqueInput
-}
-
-export type executionUpdateOneWithoutSendoutNestedInput = {
-  create?: Prisma.XOR<Prisma.executionCreateWithoutSendoutInput, Prisma.executionUncheckedCreateWithoutSendoutInput>
-  connectOrCreate?: Prisma.executionCreateOrConnectWithoutSendoutInput
-  upsert?: Prisma.executionUpsertWithoutSendoutInput
-  disconnect?: Prisma.executionWhereInput | boolean
-  delete?: Prisma.executionWhereInput | boolean
-  connect?: Prisma.executionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.executionUpdateToOneWithWhereWithoutSendoutInput, Prisma.executionUpdateWithoutSendoutInput>, Prisma.executionUncheckedUpdateWithoutSendoutInput>
-}
-
-export type executionCreateWithoutSendoutInput = {
-  code: string
-}
-
-export type executionUncheckedCreateWithoutSendoutInput = {
-  id?: number
-  code: string
-}
-
-export type executionCreateOrConnectWithoutSendoutInput = {
-  where: Prisma.executionWhereUniqueInput
-  create: Prisma.XOR<Prisma.executionCreateWithoutSendoutInput, Prisma.executionUncheckedCreateWithoutSendoutInput>
-}
-
-export type executionUpsertWithoutSendoutInput = {
-  update: Prisma.XOR<Prisma.executionUpdateWithoutSendoutInput, Prisma.executionUncheckedUpdateWithoutSendoutInput>
-  create: Prisma.XOR<Prisma.executionCreateWithoutSendoutInput, Prisma.executionUncheckedCreateWithoutSendoutInput>
-  where?: Prisma.executionWhereInput
-}
-
-export type executionUpdateToOneWithWhereWithoutSendoutInput = {
-  where?: Prisma.executionWhereInput
-  data: Prisma.XOR<Prisma.executionUpdateWithoutSendoutInput, Prisma.executionUncheckedUpdateWithoutSendoutInput>
-}
-
-export type executionUpdateWithoutSendoutInput = {
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type executionUncheckedUpdateWithoutSendoutInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-
-/**
- * Count Type ExecutionCountOutputType
- */
-
-export type ExecutionCountOutputType = {
-  sendout: number
-}
-
-export type ExecutionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sendout?: boolean | ExecutionCountOutputTypeCountSendoutArgs
-}
-
-/**
- * ExecutionCountOutputType without action
- */
-export type ExecutionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ExecutionCountOutputType
-   */
-  select?: Prisma.ExecutionCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * ExecutionCountOutputType without action
- */
-export type ExecutionCountOutputTypeCountSendoutArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.sendoutWhereInput
-}
 
 
 export type executionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   code?: boolean
-  sendout?: boolean | Prisma.execution$sendoutArgs<ExtArgs>
-  _count?: boolean | Prisma.ExecutionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["execution"]>
 
 export type executionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -396,18 +303,10 @@ export type executionSelectScalar = {
 }
 
 export type executionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code", ExtArgs["result"]["execution"]>
-export type executionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sendout?: boolean | Prisma.execution$sendoutArgs<ExtArgs>
-  _count?: boolean | Prisma.ExecutionCountOutputTypeDefaultArgs<ExtArgs>
-}
-export type executionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type executionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $executionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "execution"
-  objects: {
-    sendout: Prisma.$sendoutPayload<ExtArgs>[]
-  }
+  objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     code: string
@@ -805,7 +704,6 @@ readonly fields: executionFieldRefs;
  */
 export interface Prisma__executionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  sendout<T extends Prisma.execution$sendoutArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.execution$sendoutArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$sendoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -854,10 +752,6 @@ export type executionFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   omit?: Prisma.executionOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.executionInclude<ExtArgs> | null
-  /**
    * Filter, which execution to fetch.
    */
   where: Prisma.executionWhereUniqueInput
@@ -876,10 +770,6 @@ export type executionFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.executionOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.executionInclude<ExtArgs> | null
-  /**
    * Filter, which execution to fetch.
    */
   where: Prisma.executionWhereUniqueInput
@@ -897,10 +787,6 @@ export type executionFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the execution
    */
   omit?: Prisma.executionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.executionInclude<ExtArgs> | null
   /**
    * Filter, which execution to fetch.
    */
@@ -950,10 +836,6 @@ export type executionFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.executionOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.executionInclude<ExtArgs> | null
-  /**
    * Filter, which execution to fetch.
    */
   where?: Prisma.executionWhereInput
@@ -1001,10 +883,6 @@ export type executionFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the execution
    */
   omit?: Prisma.executionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.executionInclude<ExtArgs> | null
   /**
    * Filter, which executions to fetch.
    */
@@ -1054,10 +932,6 @@ export type executionCreateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.executionOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.executionInclude<ExtArgs> | null
-  /**
    * The data needed to create a execution.
    */
   data: Prisma.XOR<Prisma.executionCreateInput, Prisma.executionUncheckedCreateInput>
@@ -1105,10 +979,6 @@ export type executionUpdateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the execution
    */
   omit?: Prisma.executionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.executionInclude<ExtArgs> | null
   /**
    * The data needed to update a execution.
    */
@@ -1176,10 +1046,6 @@ export type executionUpsertArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.executionOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.executionInclude<ExtArgs> | null
-  /**
    * The filter to search for the execution to update in case it exists.
    */
   where: Prisma.executionWhereUniqueInput
@@ -1206,10 +1072,6 @@ export type executionDeleteArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.executionOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.executionInclude<ExtArgs> | null
-  /**
    * Filter which execution to delete.
    */
   where: Prisma.executionWhereUniqueInput
@@ -1230,30 +1092,6 @@ export type executionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
- * execution.sendout
- */
-export type execution$sendoutArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the sendout
-   */
-  select?: Prisma.sendoutSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the sendout
-   */
-  omit?: Prisma.sendoutOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.sendoutInclude<ExtArgs> | null
-  where?: Prisma.sendoutWhereInput
-  orderBy?: Prisma.sendoutOrderByWithRelationInput | Prisma.sendoutOrderByWithRelationInput[]
-  cursor?: Prisma.sendoutWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.SendoutScalarFieldEnum | Prisma.SendoutScalarFieldEnum[]
-}
-
-/**
  * execution without action
  */
 export type executionDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1265,8 +1103,4 @@ export type executionDefaultArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the execution
    */
   omit?: Prisma.executionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.executionInclude<ExtArgs> | null
 }

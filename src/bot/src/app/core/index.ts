@@ -3,7 +3,7 @@ import { Bot, session, type NextFunction } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import { i18nMiddleware } from '@i18n';
 import utils from '@utils';
-import modulesComposer from 'src/app/modules';
+import modulesComposer from '@modules';
 import eventsComposer from '@events';
 import common from '@utils/common';
 
