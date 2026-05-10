@@ -94,9 +94,12 @@ export class ServerManager {
     async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
         const { stdout } = await this.execute("systemctl list-units --type=service --all --no-pager --no-legend", 5000)
         const targetProcesses: string[] = [];
-
+        console.log(stdout);
+        
         for (const line of stdout.trim().split('\n')) {
             const processName = line.split(/\s+/)[0];
+            console.log(processName);
+            
             if (processName?.includes(processType)) targetProcesses.push(processName);
         }
         return targetProcesses;
