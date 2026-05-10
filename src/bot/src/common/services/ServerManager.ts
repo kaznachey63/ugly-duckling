@@ -31,10 +31,10 @@ export class ServerManager {
      * Проверка на необходимость перезапуска процесса
      */
     async restartProcessOrNot(name: string, isSendout = false): Promise<boolean> {
-        const serviceName = isSendout ? `hawk-sendout@${name}.service` : name;
-        const wasActive = await this.isProcessActive(serviceName);
+        const processName = isSendout ? `hawk-sendout@${name}.service` : name;
+        const wasActive = await this.isProcessActive(processName);
         if (wasActive) {
-            await this.restartProcess(serviceName);
+            await this.restartProcess(processName);
             await new Promise(resolve => setTimeout(resolve, 500));
             return true;
         }
@@ -93,18 +93,11 @@ export class ServerManager {
      */
     async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
         const { stdout } = await this.execute("systemctl list-units --type=service --all --no-pager --no-legend", 5000)
-        console.log(stdout);
         const targetProcesses: string[] = [];
 
         for (const line of stdout.trim().split('\n')) {
-            const serviceName = line.trim().split(/\s+/)[0];
-
-            if (
-                serviceName.endsWith(".service") &&
-                serviceName.includes(processType)
-            ) {
-                targetProcesses.push(serviceName);
-            }
+            const processName = line.split(/\s+/)[0];
+            if (processName?.includes(processType)) targetProcesses.push(processName);
         }
         return targetProcesses;
     }
