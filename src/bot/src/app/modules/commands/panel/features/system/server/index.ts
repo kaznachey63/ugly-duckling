@@ -16,7 +16,7 @@ serverComposer.callbackQuery("mainServer", async (ctx: MyContext) => {
             reply_markup: menu.keyboard
         });
     } catch (error) {
-        console.error('Ошибка в mainServer:', error);
+        console.error("Ошибка в mainServer", error);
     }
 });
 
@@ -34,9 +34,7 @@ serverComposer.callbackQuery(/^mainProcess-/, async (ctx: MyContext) => {
             reply_markup: menu.keyboard
         });
     } catch (error) {
-        console.error('Ошибка в mainProcess-', error);
-    } finally {
-        
+        console.error("Ошибка в mainProcess-", error);
     }
 });
 
@@ -50,9 +48,7 @@ serverComposer.callbackQuery(/^control:/, async (ctx: MyContext) => {
             reply_markup: menu.keyboard
         });
     } catch (error) {
-        console.error('Ошибка в mainProcess-', error);
-    } finally {
-        
+        console.error("Ошибка в control", error);
     }
 });
 

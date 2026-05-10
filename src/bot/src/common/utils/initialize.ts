@@ -24,20 +24,11 @@ function createDefaultSession(): SessionData {
             call: "",
             contract_id: 0,
             credential_id: 0,
-            execution_id: 0,
             id: 0,
             label: "",
             name: "",
-            status: {
-                code: "",
-                id: 0
-            },
             user_id: 0,
-            execution: {
-                code: "",
-                id: 0
-            },
-            status_id: 0
+            active: false
         },
         message: {
             caption: "",
@@ -50,21 +41,12 @@ function createDefaultSession(): SessionData {
                 call: "",
                 contract_id: 0,
                 credential_id: 0,
-                execution_id: 0,
                 telegram_topic_id: 0,
                 id: 0,
                 label: "",
                 name: "",
-                status: {
-                    code: "",
-                    id: 0
-                },
                 user_id: 0,
-                execution: {
-                    code: "",
-                    id: 0
-                },
-                status_id: 0
+                active: false,
             }
         },
         schedule: {
@@ -78,20 +60,11 @@ function createDefaultSession(): SessionData {
                 telegram_topic_id: 0,
                 contract_id: 0,
                 credential_id: 0,
-                execution_id: 0,
                 id: 0,
                 label: "",
                 name: "",
-                status: {
-                    code: "",
-                    id: 0
-                },
                 user_id: 0,
-                execution: {
-                    code: "",
-                    id: 0
-                },
-                status_id: 0
+                active: false
             }
         },
         contract: {
@@ -133,6 +106,10 @@ function createDefaultSession(): SessionData {
             addingUser: false,
             passingAuthorization: false,
             addingContract: false
+        },
+        server: {
+            processName: "",
+            processType: "none",
         },
         other: {
             ids: {

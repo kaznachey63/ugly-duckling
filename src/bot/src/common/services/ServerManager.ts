@@ -1,9 +1,12 @@
 import { exec, execSync } from 'child_process';
-import type { ServiceStatus } from '@shared/types/ServiceStatus';
+import type { ProcessStatus } from '@shared/types/ProcessStatus';
 import type { ProcessType } from '@shared/types/ProcessType';
 
 export class ServerManager {
-    private async exec(cmd: string, timeoutMs = 30000): Promise<{ stdout: string; stderr: string }> {
+    /**
+     * Выполнение запроса на сервере с укзанаием команды и задержки
+     */
+    private async execute(cmd: string, timeoutMs = 30000): Promise<{ stdout: string; stderr: string }> {
         return new Promise((resolve, reject) => {
             exec(cmd, {
                 timeout: timeoutMs,
@@ -24,59 +27,70 @@ export class ServerManager {
         });
     }
 
-    private resolveServiceName(name: string, isSendout: boolean): string {
-        return isSendout ? `hawk-sendout@${name}.service` : name;
-    }
-
-    async startService(serviceName: string, isSendout = false): Promise<void> {
-        const name = this.resolveServiceName(serviceName, isSendout);
-        await this.exec(`sudo systemctl start ${name}`, 30000);
-    }
-
-    async restartService(serviceName: string, isSendout = false): Promise<void> {
-        const name = this.resolveServiceName(serviceName, isSendout);
-        await this.exec(`sudo systemctl restart ${name}`, 30000);
-    }
-
-    async stopService(serviceName: string, isSendout = false): Promise<void> {
-        const name = this.resolveServiceName(serviceName, isSendout);
-        await this.exec(`sudo systemctl stop ${name}`, 30000);
-    }
-
-    async getServiceStatus(serviceName: string, isSendout = false): Promise<ServiceStatus> {
-        const name = this.resolveServiceName(serviceName, isSendout);
-        const { stdout } = await this.exec(`sudo systemctl is-active ${name}`, 5000);
-        const state = stdout.toLowerCase();
-        if (state === 'active') return 'active';
-        if (state === 'failed') return 'failed';
-        if (state === 'activating') return 'activating';
-        if (state === 'deactivating') return 'deactivating';
-        if (state === 'maintenance') return 'maintenance';
-        return 'inactive';
-    }
-
-    async getServiceExitCode(serviceName: string, isSendout = false): Promise<number> {
-        const name = this.resolveServiceName(serviceName, isSendout);
-        const { stdout } = await this.exec(`sudo systemctl show ${name} --property=ExecMainStatus`, 5000);
-        const value = stdout.split('=')[1]!;
-        const code = parseInt(value, 10);
-        return isNaN(code) ? 0 : code;
-    }
-
-    async isServiceActive(serviceName: string, isSendout = false): Promise<boolean> {
-        return (await this.getServiceStatus(serviceName, isSendout)) === 'active';
-    }
-
-    async restartProcessOrNot(serviceName: string, isSendout = false): Promise<boolean> {
-        const wasActive = await this.isServiceActive(serviceName, isSendout);
+    /**
+     * Проверка на необходимость перезапуска процесса
+     */
+    async restartProcessOrNot(name: string, isSendout = false): Promise<boolean> {
+        const serviceName = isSendout ? `hawk-sendout@${name}.service` : name;
+        const wasActive = await this.isProcessActive(serviceName);
         if (wasActive) {
-            await this.restartService(serviceName, isSendout);
+            await this.restartProcess(serviceName);
             await new Promise(resolve => setTimeout(resolve, 500));
             return true;
         }
         return true;
     }
 
+    /**
+     * Проверка процесса на активность
+     */ 
+    async isProcessActive(name: string): Promise<boolean> {
+        return (await this.getProcessStatus(name)) === 'active';
+    }
+
+    /**
+     * Получение кода выполнения
+     */
+    async getProcessExitCode(name: string): Promise<number> {
+        const { stdout } = await this.execute(`sudo systemctl show ${name} --property=ExecMainStatus`, 5000);
+        const value = stdout.split('=')[1]!;
+        const code = parseInt(value, 10);
+        return isNaN(code) ? 0 : code;
+    }
+
+    /**
+     * Перезапуск процесса по имени
+     */
+    async restartProcess(name: string): Promise<void> {
+        await this.execute(`sudo systemctl restart ${name}`, 30000);
+    }
+
+    /**
+     * Остановка процесса по имени
+     */
+    async stopProcess(name: string): Promise<void> {
+        await this.execute(`sudo systemctl stop ${name}`, 30000);
+    }
+
+    /**
+     * Запуск процесса по имени
+     */
+    async startProcess(name: string): Promise<void> {
+        await this.execute(`sudo systemctl start ${name}`, 30000);
+    }
+
+    /**
+     * Получение статуса процесса по имени
+     */
+    async getProcessStatus(name: string): Promise<ProcessStatus> {
+        const { stdout } = await this.execute(`sudo systemctl is-active ${name}`, 5000);
+        const state = stdout.toLowerCase() as ProcessStatus;
+        return state;
+    }
+
+    /**
+     * Получение списка процессов по типу процесса
+     */
     async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
         const allProcesses = execSync("systemctl list-units --type=service --all --no-pager --no-legend", { encoding: "utf-8"} );
         const targetProcesses: string[] = [];

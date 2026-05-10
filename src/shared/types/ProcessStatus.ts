@@ -1,0 +1,1 @@
+export type ProcessStatus = "active" | "inactive" | "failed" | "maintenance" | "deactivating" | "activating" | "";

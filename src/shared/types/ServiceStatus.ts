@@ -1,1 +1,0 @@
-export type ServiceStatus = "active" | "inactive" | "failed" | "maintenance" | "deactivating" | "activating" | "";

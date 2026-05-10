@@ -1,1 +1,1 @@
-export type ProcessType = "sendout" | "bot" | "parser";
+export type ProcessType = "sendout" | "bot" | "parser" | "none";

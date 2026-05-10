@@ -39,9 +39,9 @@ chatComposer.callbackQuery("reuploadChats", async (ctx: MyContext) => {
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
 
     const server = new ServerManager();
-    const nameService = "hawk-parser";
+    const processName = "hawk-parser.service";
 
-    await server.startService(nameService);
+    await server.startProcess(processName);
 
     const maxWait = 1000 * 60 * 2;
     const interval = 10000;
@@ -50,8 +50,8 @@ chatComposer.callbackQuery("reuploadChats", async (ctx: MyContext) => {
 
     while (Date.now() - start < maxWait) {
         sleep(interval);
-        if (!await server.isServiceActive(nameService)) {
-            const exitCode = await server.getServiceExitCode(nameService);
+        if (!await server.isProcessActive(processName)) {
+            const exitCode = await server.getProcessExitCode(processName);
             success = exitCode === 0; // true только если код 0
             break;
         }
