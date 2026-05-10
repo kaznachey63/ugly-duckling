@@ -91,15 +91,35 @@ export class ServerManager {
     /**
      * Получение списка процессов по типу процесса
      */
-    async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
-        const { stdout } = await this.execute("systemctl list-units --type=service --all --no-pager --no-legend", 5000)
-        console.log(stdout);
-        const targetProcesses: string[] = [];
+async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
+    const { stdout } = await this.execute(
+        "systemctl list-units --type=service --all --no-pager --no-legend",
+        5000
+    );
 
-        for (const line of stdout.trim().split('\n')) {
-            const serviceName = line.split(/\s+/)[0];
-            if (serviceName?.endsWith(".service") && serviceName?.includes(processType)) targetProcesses.push(serviceName);
+    const targetProcesses: string[] = [];
+
+    console.log("PROCESS TYPE:", processType);
+
+    for (const line of stdout.trim().split('\n')) {
+        const serviceName = line.split(/\s+/)[0];
+
+        console.log({
+            serviceName,
+            includes: serviceName.includes(processType),
+            endsWith: serviceName.endsWith(".service")
+        });
+
+        if (
+            serviceName.endsWith(".service") &&
+            serviceName.includes(processType)
+        ) {
+            targetProcesses.push(serviceName);
         }
-        return targetProcesses;
     }
+
+    console.log("RESULT:", targetProcesses);
+
+    return targetProcesses;
+}
 }
