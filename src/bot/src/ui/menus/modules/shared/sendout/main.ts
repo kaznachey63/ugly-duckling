@@ -2,35 +2,57 @@ import { InlineKeyboard } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import type { Menu } from '@shared/types/Menu';
 import format from '@utils/formatting';
+import type { Sendout } from '@shared/types/DB';
 
 /**
- * Меню раздела рассылки
+ * Отображение рассылок
  */
-export default function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
-    const userIsAdmin = ctx.session.isAdmin;
-
-    let text = [
-        "",
-        ctx.t("modules.shared.sendout.main.path", { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
+function main(ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard> {
+    const text: string[] = [
+        ctx.t("modules.shared.sendout.main.path", { menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ];
-    
+
     const keyboard = new InlineKeyboard();
     
-    if (userIsAdmin) keyboard.text(ctx.t("utils.shared.buttons.create"), "createSendout").style("success");
-
-    if (amount > 0) {
-        text.unshift(
-            ctx.t("modules.shared.sendout.main.title"), 
-            ctx.t("modules.shared.sendout.main.amount", { amount: amount })
-        );
-        
-        if (userIsAdmin) keyboard.text(ctx.t("utils.shared.buttons.clear"), "clearSendouts").style("danger").row();
-
-        keyboard.row().text(ctx.t("utils.shared.buttons.view"), "viewSendouts").style("primary");
+    if (sendouts.length > 0) {
+        text.unshift(ctx.t("modules.shared.sendout.main.title"));
+        sendouts.forEach((sendout) => {
+            keyboard.text(
+                sendout.call! ?? sendout.label,
+                `viewSendout:${sendout.id}`
+            ).row();
+        }); 
     }
-    else text.unshift(ctx.t("modules.shared.sendout.main.empty"));
-    
-    keyboard.row().text(ctx.t("utils.shared.buttons.back"), userIsAdmin ? "mainData" : "mainCabinet");
+    else {
+        text.unshift(ctx.t("modules.shared.sendout.main.empty"));
+    }
+   
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), ctx.session.isAdmin ? "mainData" : "mainCabinet");
 
-    return { text: format.escapeMarkdown(text.join('\n')), keyboard }
+    return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
+}
+
+/**
+ * Отображение конрктеной рассылки
+ */
+function view(ctx: MyContext): Menu<InlineKeyboard> {
+    const sendoutId = ctx.session.sendout.id;
+    const text = [
+        ctx.t("modules.shared.sendout.view.main.title", { call: ctx.session.sendout.call }),
+        ctx.t("modules.shared.sendout.view.main.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
+    ].join('\n\n');
+
+    const keyboard = new InlineKeyboard()
+        .text(ctx.t("modules.shared.sendout.view.main.buttons.message"), `mainMessage:${sendoutId}`).row()
+        .text(ctx.t("modules.shared.sendout.view.main.buttons.schedule"), `mainSchedule:${sendoutId}`).row()
+        .text(ctx.t("modules.shared.sendout.view.main.buttons.statistic"), `mainStatistic:${sendoutId}`).row()
+    ;
+            
+    keyboard.text(ctx.t("utils.shared.buttons.back"), "mainSendout");
+    return { text: format.escapeMarkdown(text), keyboard };
+}
+
+export default {
+    view,
+    main
 }
