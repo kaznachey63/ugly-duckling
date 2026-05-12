@@ -51,6 +51,19 @@ async function getSendoutsOfUserId(userId: bigint): Promise<Sendout[]> {
 }
 
 /**
+ * Получение рассылок, закрепленных за конкретным заказчиком, и не находящихся в договорах
+ */
+async function getSendoutsOfUserIdAndNotInContract(userId: number): Promise<Sendout[]> {
+    return await prisma.sendout.findMany({
+        where: {
+            user_id: userId,
+            contract_id: null
+        },
+        
+    });
+}
+
+/**
  * Получение всех рассылок
  */
 async function getSendouts(): Promise<Sendout[]> {
@@ -158,5 +171,6 @@ export default {
     getUserOfSendout,
     updateOwner,
     updateCall,
-    updateManyOfIds
+    updateManyOfIds,
+    getSendoutsOfUserIdAndNotInContract,
 };

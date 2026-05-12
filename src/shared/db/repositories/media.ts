@@ -14,12 +14,7 @@ async function get(messageId: number): Promise<Media[] | undefined> {
             include: {
                 message: {
                     include: {
-                        sendout: {
-                            include: {
-                                execution: true,
-                                status: true
-                            }
-                        }
+                        sendout: true
                     }
                 }
             }

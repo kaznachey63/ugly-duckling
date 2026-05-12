@@ -9,12 +9,7 @@ async function get(sendoutId: number): Promise<Schedule[] | undefined> {
     try {
         return await prisma.schedule.findMany({
             include: {
-                sendout: {
-                    include: {
-                        status: true,
-                        execution: true
-                    }
-                }
+                sendout: true
             },
             where: {
                 sendout: {
