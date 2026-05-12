@@ -2,6 +2,7 @@ import type { MyContext } from "@shared/types/SessionData";
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import type { User } from "@shared/types/DB";
+import formatting from "@utils/formatting";
 
 /**
  * Меню просмотра владельца рассылки
@@ -28,7 +29,7 @@ function main(ctx: MyContext, user: User | undefined): Menu<InlineKeyboard> {
     }
     else text.unshift(ctx.t("modules.shared.sendout.view.owner.main.empty"));
         
-    return { text: text.join('\n'), keyboard }
+    return { text: formatting.escapeMarkdown(text.join('\n')), keyboard }
 }
 
 /**
@@ -49,7 +50,7 @@ function change(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
         ).row();
     });
     keyboard.text(ctx.t("utils.shared.buttons.back"), `mainOwner:${ctx.session.sendout.id}`)
-    return { text: text.join('\n\n'), keyboard }
+    return { text: formatting.escapeMarkdown(text.join('\n\n')), keyboard }
 }
 
 /**
@@ -68,7 +69,7 @@ function appoint(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboa
     if (result) text.unshift(ctx.t("modules.shared.sendout.view.owner.action.success"));
     else text.unshift(ctx.t("modules.shared.sendout.view.owner.action.error"));
 
-    return { text: text.join('\n\n'), keyboard }
+    return { text: formatting.escapeMarkdown(text.join('\n\n')), keyboard }
 }
 
 export default {
