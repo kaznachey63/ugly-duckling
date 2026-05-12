@@ -1,6 +1,6 @@
 import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
-import menuState from '@menus/handlers/states';
+import menuAddingContract from '@menus/handlers/states/addingContract';
 import common from '@utils/common';
 import type { Contract } from "@shared/types/DB";
 
@@ -10,11 +10,11 @@ export default async function addingContract(ctx: MyContext) {
     const userIds = (await db.user.getIds()).map(u => u.id) as number[];
     
     if (!validateContract(text, userIds!)) {        
-        menu = menuState.addingContract(ctx, false, false);
+        menu = menuAddingContract(ctx, false, false);
     }
     else {
         const contract = formatContract(text);
-        menu = menuState.addingContract(ctx, await db.contract.insert(contract), true);
+        menu = menuAddingContract(ctx, await db.contract.insert(contract), true);
         common.resetSessionStates(ctx.session);
     }
 

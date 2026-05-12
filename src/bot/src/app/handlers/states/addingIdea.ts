@@ -1,5 +1,5 @@
 import type { MyContext } from '@shared/types/SessionData';
-import menuState from '@menus/handlers/states';
+import menuAddingIdea from '@menus/handlers/states/addingIdea';
 import common from '@utils/common';
 import db from '@shared/db';
 import constants from '@constants';
@@ -18,7 +18,7 @@ export default async function addingIdea(ctx: MyContext) {
         console.error('Не удалось добавить идею:', error);
     }
 
-    const menu = menuState.addingIdea(ctx, forwardResult);
+    const menu = menuAddingIdea(ctx, forwardResult);
     common.resetSessionStates(ctx.session);
 
     await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {

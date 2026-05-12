@@ -1,6 +1,6 @@
 import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
-import menuState from '@menus/handlers/states';
+import menuUpdatingTime from '@menus/handlers/states/updatingTime';
 import { ServerManager } from "src/common/services/ServerManager";
 import common from '@utils/common';
 import utils from "@utils";
@@ -12,7 +12,7 @@ export default async function updatingTime(ctx: MyContext) {
 
     let menu;
     if (!shared.validateTime(ctx.message?.text!)) {
-        menu = menuState.updatingTime(ctx, false, false);
+        menu = menuUpdatingTime(ctx, false, false);
     }
     else {
         const formattedCronTime = shared.formatCronTime(ctx.message?.text!);
@@ -24,7 +24,7 @@ export default async function updatingTime(ctx: MyContext) {
         };
 
         await db.schedule.update(formattedTime);
-        menu = menuState.updatingTime(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true), true);
+        menu = menuUpdatingTime(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true), true);
         common.resetSessionStates(ctx.session);
     }
 

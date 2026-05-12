@@ -1,5 +1,5 @@
 import type { MyContext } from '@shared/types/SessionData';
-import menuState from '@menus/handlers/states';
+import menuGeneratingText from '@menus/handlers/states/generatingText';
 import common from '@utils/common';
 import { gigaChat } from "src/common/services/GigaChat/GigaChatInstance";
 
@@ -9,7 +9,7 @@ export default async function generatingText(ctx: MyContext) {
     ctx.session.generate.text = result;
     ctx.session.generate.entities = [];
 
-    const menu = menuState.generatingText(ctx, result);
+    const menu = menuGeneratingText(ctx, result);
     common.resetSessionStates(ctx.session);
 
     await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {

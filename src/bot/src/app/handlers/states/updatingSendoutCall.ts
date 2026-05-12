@@ -1,16 +1,16 @@
 import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
-import menuState from '@menus/handlers/states';
+import menuUpdatingSendoutCall from '@menus/handlers/states/updatingSendoutCall';
 import common from '@utils/common';
 import shared from './shared';
 
 export default async function updatingText(ctx: MyContext) {
     let menu;
     const text = ctx.message?.text?.trim()!;
-    if (!shared.validateText(text)) menu = menuState.updatingSendoutCall(ctx, false, false);
+    if (!shared.validateText(text)) menu = menuUpdatingSendoutCall(ctx, false, false);
     else {
         const result = await db.sendout.updateCall(ctx.session.sendout.id!, text);
-        menu = menuState.updatingSendoutCall(ctx, result, true);
+        menu = menuUpdatingSendoutCall(ctx, result, true);
         common.resetSessionStates(ctx.session);
     }
 

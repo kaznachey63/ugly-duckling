@@ -6,7 +6,7 @@ import { randomUUID } from "crypto";
 import consts from '@common/constants';
 import utils from '@utils';
 import type { Message } from 'grammy/types';
-import menuState from '@menus/handlers/states';
+import menuAddingMedia from '@menus/handlers/states/addingMedia';
 import { ServerManager } from '@common/services/ServerManager';
 import { sleep } from 'telegram/Helpers';
 import { FileService } from '@common/services/FileService';
@@ -101,7 +101,7 @@ export default async function addingMedia(ctx: MyContext) {
 // Редактирование сообщения
 async function editMessage(ctx: MyContext, validate: boolean, result?: boolean) {
     const res = result ? result : false;
-    const menu = menuState.addingMedia(ctx, validate, res);
+    const menu = menuAddingMedia(ctx, validate, res);
 
     await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
         menu.text, {

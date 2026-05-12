@@ -1,6 +1,6 @@
 import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
-import menuState from '@menus/handlers/states';
+import menuAddingText from '@menus/handlers/states/addingText';
 import { ServerManager } from "src/common/services/ServerManager";
 import common from '@utils/common';
 import type { Message } from '@shared/types/DB';
@@ -10,7 +10,7 @@ import shared from './shared';
 export default async function addingText(ctx: MyContext) {
     let menu;
     if (!shared.validateText(ctx.message?.text?.trim()!)) {
-        menu = menuState.addingText(ctx, false, false);
+        menu = menuAddingText(ctx, false, false);
     }
     else {
         const message: Message = {
@@ -22,7 +22,7 @@ export default async function addingText(ctx: MyContext) {
         await db.message.create(message);
 
         const server = new ServerManager();
-        menu = menuState.addingText(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true), true);
+        menu = menuAddingText(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true), true);
         common.resetSessionStates(ctx.session);
     }
    

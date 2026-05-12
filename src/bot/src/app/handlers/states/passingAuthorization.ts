@@ -1,5 +1,5 @@
 import type { MyContext } from '@shared/types/SessionData';
-import menuState from '@menus/handlers/states';
+import menuPassingAuthorization from '@menus/handlers/states/passingAuthorization';
 import common from '@utils/common';
 
 export default async function passingAuthorization(ctx: MyContext) {
@@ -11,7 +11,7 @@ export default async function passingAuthorization(ctx: MyContext) {
         await common.deleteMessageProcessing(ctx, processingMsgId);
 
         if (ctx.message?.text === "❌ Отменить") {
-            const menu = menuState.passingAuthorization(ctx);
+            const menu = menuPassingAuthorization(ctx);
             common.resetSessionStates(ctx.session);
 
             await ctx.reply(menu.text, {

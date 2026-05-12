@@ -1,6 +1,6 @@
 import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
-import menuState from '@menus/handlers/states';
+import menuAddingUser from '@menus/handlers/states/addingUser';
 import common from '@utils/common';
 import type { User } from "@shared/types/DB";
 import type { LanguageCode } from "grammy/types";
@@ -13,11 +13,11 @@ export default async function addingUser(ctx: MyContext) {
     let menu;
     const text = ctx.message?.text?.trim()!;
     if (!validateUser(text)) {        
-        menu = menuState.addingUser(ctx, false, false);
+        menu = menuAddingUser(ctx, false, false);
     }
     else {
         const user = formatUser(text);
-        menu = menuState.addingUser(ctx, await db.user.insert(user), true);
+        menu = menuAddingUser(ctx, await db.user.insert(user), true);
         common.resetSessionStates(ctx.session);
     }
 
