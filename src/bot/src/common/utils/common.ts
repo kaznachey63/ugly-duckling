@@ -38,6 +38,7 @@ async function setPrimaryValuesSession(ctx: MyContext) {
     const infoDist = await db.sendout.getSendoutInfo(sendoutId);
     if (infoDist) ctx.session.sendout = infoDist;
 }
+
 /**
  * Проверка на тех. режим
  */
