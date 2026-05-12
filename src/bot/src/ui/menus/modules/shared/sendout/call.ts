@@ -12,7 +12,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.shared.sendout.view.owner.main.path", { call: ctx.session.sendout.call }),
     ];
 
-    if (ctx.session.sendout.call?.length! > 0) text.unshift(ctx.t("modules.shared.sendout.view.owner.main.call", { call: ctx.session.sendout.call }));
+    if (ctx.session.sendout.call?.length! > 0) text.unshift(ctx.t("modules.shared.sendout.view.owner.main.title", { call: ctx.session.sendout.call }));
     else text.unshift(ctx.t("modules.shared.sendout.view.owner.main.empty"));
 
     const keyboard = new InlineKeyboard()
