@@ -1,5 +1,5 @@
 import prisma from '@shared/db/config';
-import type { Sendout } from '@shared/types/DB';
+import type { Sendout, User } from '@shared/types/DB';
 
 /**
  * Получение данных о рассылках с секретами
@@ -76,10 +76,45 @@ async function getTopicIdBySendoutId(sendoutId: number): Promise<number | null> 
     }))?.telegram_topic_id!;
 }
 
+/**
+ * Получение заказчика по айди рассылки
+ */
+async function getUserOfSendout(sendoutId: number):Promise<User | undefined> {
+    return (await prisma.sendout.findFirst({
+        where: {
+            id: sendoutId
+        },
+        select: {
+            user: true
+        }
+    }))?.user ?? undefined;
+}
+
+/**
+ * Смена владельца рассылки
+ */
+async function changeOwner(sendoutId: number, userId: number): Promise<boolean> {
+    try {
+        await prisma.sendout.update({
+            where: {
+                id: sendoutId
+            },
+            data: {
+                user_id: userId
+            }
+        })
+        return true;
+    } catch {
+        return false;
+    }
+}
+
 export default {
     getSendoutsInfoWithCredentials,
     getSendoutInfo,
     getSendoutsOfUserId,
     getSendouts,
-    getTopicIdBySendoutId
+    getTopicIdBySendoutId,
+    getUserOfSendout,
+    changeOwner
 };

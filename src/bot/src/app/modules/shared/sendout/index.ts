@@ -6,6 +6,7 @@ import statisticsComposer from './statistic';
 import messageComposer from './message';
 import db from '@shared/db';
 import type { Sendout } from '@shared/types/DB';
+import ownerComposer from './owner';
 
 const sendoutComposer = new Composer<MyContext>();
 
@@ -66,5 +67,6 @@ sendoutComposer.callbackQuery(/^viewSendout:/, async (ctx: MyContext) => {
 sendoutComposer.use(messageComposer);
 sendoutComposer.use(scheduleComposer);
 sendoutComposer.use(statisticsComposer);
+sendoutComposer.use(ownerComposer);
 
 export default sendoutComposer;
