@@ -20,13 +20,17 @@ ownerComposer.callbackQuery(/^mainOwner:/, async (ctx: MyContext) => {
 });
 
 ownerComposer.callbackQuery(/^mainChangeOwner:/, async (ctx: MyContext) => {
-    const users = await db.user.gets();
-    const menu = menuOwner.change(ctx, users);
+    try {
+        const users = await db.user.gets();
+        const menu = menuOwner.change(ctx, users);
 
-    await ctx.editMessageText(menu.text, {
-        reply_markup: menu.keyboard,
-        parse_mode: 'MarkdownV2'
-    });
+        await ctx.editMessageText(menu.text, {
+            reply_markup: menu.keyboard,
+            parse_mode: 'MarkdownV2'
+        });
+    } catch (error) {
+        console.error('Ошибка в mainChangeOwner:', error);
+    }
 });
 
 ownerComposer.callbackQuery(/^mainAppointOwner:/, async (ctx: MyContext) => {
@@ -41,7 +45,7 @@ ownerComposer.callbackQuery(/^mainAppointOwner:/, async (ctx: MyContext) => {
             parse_mode: 'MarkdownV2'
         });
     } catch (error) {
-        console.error('Ошибка в mainOwner:', error);
+        console.error('Ошибка в mainAppointOwner:', error);
     } 
 });
 

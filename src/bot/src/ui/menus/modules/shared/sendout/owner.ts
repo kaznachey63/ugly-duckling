@@ -57,7 +57,7 @@ function change(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
  */
 function appoint(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboard> {
     const text: string[] = [
-        ctx.t("modules.shared.sendout.view.owner.action.change.path", { 
+        ctx.t("modules.shared.sendout.view.owner.change.action.path", { 
             call: ctx.session.sendout.call,
             owner: user?.name ?? "Без владельца"
         }),
