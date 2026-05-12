@@ -25,7 +25,6 @@ function main(ctx: MyContext, user: User | undefined): Menu<InlineKeyboard> {
             ctx.t("modules.shared.sendout.view.owner.main.name", { name: user.name }),
             ctx.t("modules.shared.sendout.view.owner.main.phone", { phone: user.phone }),
         );
-        keyboard;
     }
     else text.unshift(ctx.t("modules.shared.sendout.view.owner.main.empty"));
         
@@ -41,7 +40,7 @@ function change(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
         ctx.t("modules.shared.sendout.view.owner.change.main.path", { call: ctx.session.sendout.call }),
     ];
 
-    const keyboard = new InlineKeyboard();
+    const keyboard = new InlineKeyboard().text(ctx.t("modules.shared.sendout.view.owner.main.noWner.change"), `mainAppointOwner:${ctx.session.sendout.id}=undefined`);
         
     users.forEach(user => {
         keyboard.text(
@@ -58,9 +57,9 @@ function change(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
  */
 function appoint(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboard> {
     const text: string[] = [
-        ctx.t("modules.shared.sendout.view.owner.action.path", { 
+        ctx.t("modules.shared.sendout.view.owner.action.change.path", { 
             call: ctx.session.sendout.call,
-            owner: user.name
+            owner: user.name ?? "Без владельца"
         }),
     ];
 
