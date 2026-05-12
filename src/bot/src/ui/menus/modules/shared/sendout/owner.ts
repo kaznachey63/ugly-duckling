@@ -23,7 +23,7 @@ function main(ctx: MyContext, user: User | undefined): Menu<InlineKeyboard> {
         text.unshift(
             ctx.t("modules.shared.sendout.view.owner.main.title"),
             ctx.t("modules.shared.sendout.view.owner.main.name", { name: user.name }),
-            ctx.t("modules.shared.sendout.view.owner.main.phone", { call: user.phone }),
+            ctx.t("modules.shared.sendout.view.owner.main.phone", { phone: user.phone }),
         );
         keyboard;
     }
@@ -66,8 +66,8 @@ function appoint(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboa
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainOwner:${ctx.session.sendout.id}`);
 
-    if (result) text.unshift(ctx.t("modules.shared.sendout.view.owner.action.success"));
-    else text.unshift(ctx.t("modules.shared.sendout.view.owner.action.error"));
+    if (result) text.unshift(ctx.t("modules.shared.sendout.view.owner.change.action.success"));
+    else text.unshift(ctx.t("modules.shared.sendout.view.owner.change.action.error"));
 
     return { text: formatting.escapeMarkdown(text.join('\n\n')), keyboard }
 }
