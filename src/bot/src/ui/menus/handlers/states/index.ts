@@ -188,7 +188,7 @@ function addingContract(ctx: MyContext, result: boolean, validate: boolean) {
  */
 function updatingSendoutCall(ctx: MyContext, result: boolean, validate: boolean): Menu<InlineKeyboard> {
     const text: string[] = [
-        ctx.t("modules.shared.sendout.view.owner.change.action.path", { call: ctx.session.sendout.call }),
+        ctx.t("handlers.states.updatingSendoutCall.path", { call: ctx.session.sendout.call }),
     ];
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainSendoutCall:${ctx.session.sendout.id}`);
