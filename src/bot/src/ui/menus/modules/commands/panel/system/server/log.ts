@@ -49,8 +49,7 @@ function buildLogPages(ctx: MyContext, log: string, logSort: LogSortType): strin
     ;
 
     const footer =
-        '\n' +
-        separator + '\n' +
+        separator + '\n\n' +
         path;
 
     const lines = logSort === "old" ? log.split('\n') : log.split('\n').reverse();
