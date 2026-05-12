@@ -21,11 +21,78 @@ controlComposer.callbackQuery(/^removeContract#/, async (ctx: MyContext) => {
 });
 
 /**
- * Создание договора
+ * 1 шаг создания договора. Отображение пользователей
  */
-controlComposer.callbackQuery("createContract", async (ctx: MyContext) => {
+controlComposer.callbackQuery("chooseUsers", async (ctx: MyContext) => {
+    const users = await db.user.gets();
+    const menu = menuControl.chooseUsers(ctx, users);
+
+    await ctx.editMessageText(menu.text, {
+        parse_mode: "MarkdownV2",
+        reply_markup: menu.keyboard,
+    });
+});
+
+/**
+ * 1.5 шаг создания договора. Сохранение выбранного пользователя
+ */
+controlComposer.callbackQuery(/^pickUser#/, async (ctx: MyContext) => {
+    ctx.session.contract.user_id = Number(ctx.callbackQuery?.data?.split('#')[1]);      
+
+    const users = await db.user.gets();
+    const menu = menuControl.chooseUsers(ctx, users);
+
+    await ctx.editMessageText(menu.text, {
+        parse_mode: "MarkdownV2",
+        reply_markup: menu.keyboard,
+    });
+});
+
+/**
+ * 2 шаг создания договора. Отображение рассылок
+ */
+controlComposer.callbackQuery("chooseSendouts", async (ctx: MyContext) => {
+    const sendouts = await db.sendout.getSendouts();
+    const menu = menuControl.chooseSendouts(ctx, sendouts);
+    
+    await ctx.editMessageText(menu.text, {
+        parse_mode: "MarkdownV2",
+        reply_markup: menu.keyboard,
+    });
+});
+
+/**
+ * 2.5 шаг создания договора. Сохранение выбранной рассылки
+ */
+controlComposer.callbackQuery(/^pickSendout#/, async (ctx: MyContext) => {
+    const sendoutId = Number(ctx.callbackQuery?.data?.split('#')[1]);
+
+    if (ctx.session.contract.sendout?.includes({ id: sendoutId })) {
+        ctx.session.contract.sendout.filter(s => {
+            s.id != sendoutId
+        });
+    }
+    else {
+        ctx.session.contract.sendout?.push({
+            id: sendoutId
+        });
+    }
+
+    const sendouts = await db.sendout.getSendouts();
+    const menu = menuControl.chooseSendouts(ctx, sendouts);
+    
+    await ctx.editMessageText(menu.text, {
+        parse_mode: "MarkdownV2",
+        reply_markup: menu.keyboard,
+    });
+});
+
+/**
+ * 3 шаг создания договора. Ожидание ввода данных договора (даты, цена и т.п.)
+ */
+controlComposer.callbackQuery("inputContractData", async (ctx: MyContext) => {
     ctx.session.state.addingContract = true;
-    const menu = menuControl.create(ctx);
+    const menu = menuControl.inputData(ctx);
     const msg = await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,

@@ -21,7 +21,18 @@ const includeSendout = {
 };
 
 export type Contract = Partial<Prisma.contractGetPayload<{
-    include: { user: { include: { role: true } } }
+    include: {
+        user: {
+            include: {
+                role: true
+            }
+        },
+        sendout: {
+            select: {
+                id: true
+            }
+        }
+    }
 }>>;
 
 export type Sendout = Partial<Prisma.sendoutGetPayload<{

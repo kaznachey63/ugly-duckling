@@ -6,15 +6,21 @@ import type { Contract } from "@shared/types/DB";
 
 export default async function addingContract(ctx: MyContext) {
     let menu;
-    const text = ctx.message?.text?.trim()!;
-    const userIds = (await db.user.getIds()).map(u => u.id) as number[];
     
-    if (!validateContract(text, userIds!)) {        
+    if (!validateContract(ctx.message?.text?.trim()!)) {        
         menu = menuAddingContract(ctx, false, false);
     }
     else {
-        const contract = formatContract(text);
-        menu = menuAddingContract(ctx, await db.contract.insert(contract), true);
+        const contract = formatContract(ctx);
+        const resultContract = await db.contract.insert(contract);
+        if (!resultContract) menu = menuAddingContract(ctx, false, true);
+        else {
+            const sendoutIds = ctx.session.contract.sendout?.map(s => { return s.id });
+            const resultSendouts = await db.sendout.updateManyOfIds(ctx.session.contract.id!, sendoutIds!);
+            
+            if (!resultSendouts) menu = menuAddingContract(ctx, false, true);
+            else menu = menuAddingContract(ctx, true, true);
+        }
         common.resetSessionStates(ctx.session);
     }
 
@@ -24,14 +30,12 @@ export default async function addingContract(ctx: MyContext) {
     });
 }
 
-function validateContract(text: string, userIds: number[]): boolean {
+function validateContract(text: string): boolean {
     if (typeof text !== 'string' || text.trim().length === 0) return false;    
-    if (text.split('\n').length !== 4) return false;
+    if (text.split('\n').length !== 3) return false;
     
-    const [userId, dateStart, dateEnd, price] = text.split('\n');
-    
-    if (userId !== '-' && isNaN(Number(userId)) && !userIds.includes(Number(userId))) return false;
-    
+    const [dateStart, dateEnd, price] = text.split('\n');
+        
     if (dateStart !== '-' && isNaN(Date.parse(dateStart!))) return false;
     
     if (dateEnd !== '-' && isNaN(Date.parse(dateEnd!))) return false;
@@ -41,13 +45,14 @@ function validateContract(text: string, userIds: number[]): boolean {
     return true;
 }
 
-function formatContract(contractInText: string): Contract {
-    const [userId, dateStart, dateEnd, price] = contractInText.split('\n');
+function formatContract(ctx: MyContext): Contract {
+    const contractInText = ctx.message?.text?.trim()!;
+    const [dateStart, dateEnd, price] = contractInText.split('\n');
 
     return {
-        user_id: userId === '-' ? null : Number(userId),
         date_start: dateStart === '-' ? null : new Date(dateStart!),
         date_end: dateEnd === '-' ? null : new Date(dateEnd!),
-        price: price === '-' ? null : Number(price)
+        price: price === '-' ? null : Number(price),
+        user_id: ctx.session.contract.user_id!,
     };
 }

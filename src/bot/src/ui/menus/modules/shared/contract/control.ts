@@ -1,3 +1,4 @@
+import type { Sendout, User } from '@shared/types/DB';
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
@@ -15,22 +16,95 @@ function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     }
     else {
         text.unshift(ctx.t("modules.shared.contract.view.contract.remove.error"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewUser#${ctx.session.contract.id}`);
+        keyboard.text(ctx.t("utils.shared.buttons.back"), `viewContract#${ctx.session.contract.id}`);
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }
 
-function create(ctx: MyContext): Menu<InlineKeyboard> {
+function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
+    const text: string[] = [
+        ctx.t("modules.shared.contract.view.contract.create.title"),
+        ctx.t("modules.shared.contract.view.contract.create.data.user"),
+        '\n',
+        ctx.t("modules.shared.sendout.view.contract.create.path"),
+    ];
+
+    const keyboard = new InlineKeyboard();
+        
+    users.forEach(user => {
+        if (user.id == ctx.session.contract.user_id)
+            keyboard.text(
+                user.name! + ' ☑️', 
+                `pickUser#${user.id}`
+            ).row();
+        else
+            keyboard.text(
+                user.name!, 
+                `pickUser#${user.id}`
+            ).row();
+    });
+
+    keyboard
+        .text(ctx.t("modules.shared.contract.view.contract.create.step", { number: 1 }), "amountSteps")
+        .text('➡', "chooseSendouts")   
+        .text(ctx.t("utils.shared.buttons.back"), "mainContract").row()
+    ;
+    return { text: format.escapeMarkdown(text.join('\n')), keyboard }
+}
+
+function chooseSendouts(ctx: MyContext, sendouts: Sendout[]) {
+    const text: string[] = [
+        ctx.t("modules.shared.contract.view.contract.create.title"),
+        ctx.t("modules.shared.contract.view.contract.create.data.sendout"),
+        '\n',
+        ctx.t("modules.shared.sendout.view.contract.create.path"),
+    ];
+
+    const keyboard = new InlineKeyboard();
+        
+    sendouts.forEach(sendout => {
+        if (ctx.session.contract.sendout?.includes({ id: sendout.id! }))
+            keyboard.text(
+                sendout.call! + ' ☑️', 
+                `pickSendout#${sendout.id}`
+            ).row();
+        else
+            keyboard.text(
+                sendout.call!, 
+                `pickSendout#${sendout.id}`
+            ).row();
+    });
+
+    keyboard
+        .text('⬅', "chooseUsers")
+        .text(ctx.t("modules.shared.contract.view.contract.create.step", { number: 2 }), "amountSteps")
+        .text('➡', "inputContractData")
+        .row().text(ctx.t("utils.shared.buttons.back"), "mainContract")
+    ;
+
+    return { text: format.escapeMarkdown(text.join('\n')), keyboard }
+}
+
+function inputData(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("modules.shared.contract.view.contract.create.title"),    
+        ctx.t("modules.shared.contract.view.contract.create.title"), 
+        ctx.t("modules.shared.contract.view.contract.create.data.contract"),
+        '\n',   
         ctx.t("modules.shared.contract.view.contract.create.path")
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainContract");
+    const keyboard = new InlineKeyboard()
+        .text('⬅', "chooseSendout")
+        .text(ctx.t("modules.shared.contract.view.contract.create.step", { number: 3 }), "amountSteps")
+        .row().text(ctx.t("utils.shared.buttons.back"), "mainContract")
+    ;
+    
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
 export default {
     remove,
-    create
+    chooseUsers,
+    chooseSendouts,
+    inputData
 }

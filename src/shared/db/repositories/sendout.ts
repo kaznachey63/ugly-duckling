@@ -128,6 +128,27 @@ async function updateCall(sendoutId: number, call: string): Promise<boolean> {
     }
 }
 
+/**
+ * Обновление полей у рассылок по соотв. айди
+ */
+async function updateManyOfIds(contractId: number, sendouts: number[]): Promise<boolean> {
+    try {
+        await prisma.sendout.updateMany({
+            where: {
+                id: {
+                    in: sendouts
+                }
+            },
+            data: {
+                contract_id: contractId
+            }
+        });
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
 export default {
     getSendoutsInfoWithCredentials,
     getSendoutInfo,
@@ -137,4 +158,5 @@ export default {
     getUserOfSendout,
     updateOwner,
     updateCall,
+    updateManyOfIds
 };

@@ -15,7 +15,7 @@ export default function main(ctx: MyContext, amount: number): Menu<InlineKeyboar
     
     const keyboard = new InlineKeyboard();
     
-    if (userIsAdmin) keyboard.text(ctx.t("utils.shared.buttons.create"), "createContract").style("success");
+    if (userIsAdmin) keyboard.text(ctx.t("utils.shared.buttons.create"), "chooseUsers").style("success");
 
     if (amount > 0) {
         text.unshift(
