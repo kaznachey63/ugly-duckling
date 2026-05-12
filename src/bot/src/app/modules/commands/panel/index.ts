@@ -2,7 +2,7 @@ import type { MyContext } from "@shared/types/SessionData";
 import { Composer } from "grammy";
 import menuPanel from "@menus/modules/commands/panel/main";
 import systemComposer from "./features/system";
-import dataComposer from "./features/data";
+import dataComposer from "./features/data/chat";
 
 const panelComposer = new Composer<MyContext>();
 
