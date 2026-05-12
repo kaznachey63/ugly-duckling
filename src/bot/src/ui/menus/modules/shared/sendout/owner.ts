@@ -40,7 +40,7 @@ function change(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
         ctx.t("modules.shared.sendout.view.owner.change.main.path", { call: ctx.session.sendout.call }),
     ];
 
-    const keyboard = new InlineKeyboard().text(ctx.t("modules.shared.sendout.view.owner.main.noWner.change"), `mainAppointOwner:${ctx.session.sendout.id}=undefined`);
+    const keyboard = new InlineKeyboard().text(ctx.t("modules.shared.sendout.view.owner.change.main.noOwner"), `mainAppointOwner:${ctx.session.sendout.id}=0`).row();
         
     users.forEach(user => {
         keyboard.text(
@@ -59,7 +59,7 @@ function appoint(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboa
     const text: string[] = [
         ctx.t("modules.shared.sendout.view.owner.action.change.path", { 
             call: ctx.session.sendout.call,
-            owner: user.name ?? "Без владельца"
+            owner: user?.name ?? "Без владельца"
         }),
     ];
 

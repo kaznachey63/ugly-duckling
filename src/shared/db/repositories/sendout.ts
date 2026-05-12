@@ -100,7 +100,7 @@ async function changeOwner(sendoutId: number, userId: number): Promise<boolean> 
                 id: sendoutId
             },
             data: {
-                user_id: userId
+                user_id: userId == 0 ? null : userId
             }
         })
         return true;
