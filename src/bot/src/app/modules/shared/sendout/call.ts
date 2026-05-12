@@ -1,0 +1,35 @@
+import { Composer } from 'grammy';
+import type { MyContext } from '@shared/types/SessionData';
+import menuCall from '@menus/modules/shared/sendout/call';
+
+const callComposer = new Composer<MyContext>();
+
+callComposer.callbackQuery(/^mainSendoutCall:/, async (ctx: MyContext) => {
+    try {    
+        ctx.session.state.updatingSendoutCall = false;
+        const menu = menuCall.main(ctx);
+
+        await ctx.editMessageText(menu.text, {
+            reply_markup: menu.keyboard,
+            parse_mode: 'MarkdownV2'
+        });
+    } catch (error) {
+        console.error('Ошибка в mainSendoutCall:', error);
+    } 
+});
+
+callComposer.callbackQuery(/^mainUpdateSendoutCall:/, async (ctx: MyContext) => {
+    try {
+        ctx.session.state.updatingSendoutCall = true;
+        const menu = menuCall.update(ctx);
+
+        await ctx.editMessageText(menu.text, {
+            reply_markup: menu.keyboard,
+            parse_mode: 'MarkdownV2'
+        });
+    } catch (error) {
+        console.error('Ошибка в mainUpdateSendoutCall:', error);
+    }
+});
+
+export default callComposer;

@@ -22,7 +22,7 @@ ownerComposer.callbackQuery(/^mainOwner:/, async (ctx: MyContext) => {
 ownerComposer.callbackQuery(/^mainChangeOwner:/, async (ctx: MyContext) => {
     try {
         const users = await db.user.gets();
-        const menu = menuOwner.change(ctx, users);
+        const menu = menuOwner.update(ctx, users);
 
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
@@ -37,7 +37,7 @@ ownerComposer.callbackQuery(/^mainAppointOwner:/, async (ctx: MyContext) => {
     try {    
         const userId = Number(ctx.callbackQuery?.data?.split('=')[1]);
         const user = await db.user.get(userId);
-        const result = await db.sendout.changeOwner(ctx.session.sendout.id!, user?.id ?? 0);
+        const result = await db.sendout.updateOwner(ctx.session.sendout.id!, user?.id ?? 0);
         const menu = menuOwner.appoint(ctx, user!, result);
 
         await ctx.editMessageText(menu.text, {

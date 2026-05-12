@@ -93,7 +93,7 @@ async function getUserOfSendout(sendoutId: number):Promise<User | undefined> {
 /**
  * Смена владельца рассылки
  */
-async function changeOwner(sendoutId: number, userId: number): Promise<boolean> {
+async function updateOwner(sendoutId: number, userId: number): Promise<boolean> {
     try {
         await prisma.sendout.update({
             where: {
@@ -109,6 +109,25 @@ async function changeOwner(sendoutId: number, userId: number): Promise<boolean> 
     }
 }
 
+/**
+ * Обновление позывного рассылки
+ */
+async function updateCall(sendoutId: number, call: string): Promise<boolean> {
+    try {
+        await prisma.sendout.update({
+            where: {
+                id: sendoutId
+            },
+            data: {
+                call: call
+            }
+        })
+        return true;
+    } catch {
+        return false;
+    }
+}
+
 export default {
     getSendoutsInfoWithCredentials,
     getSendoutInfo,
@@ -116,5 +135,6 @@ export default {
     getSendouts,
     getTopicIdBySendoutId,
     getUserOfSendout,
-    changeOwner
+    updateOwner,
+    updateCall,
 };

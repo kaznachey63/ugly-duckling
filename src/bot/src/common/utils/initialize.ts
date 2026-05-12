@@ -105,7 +105,8 @@ function createDefaultSession(): SessionData {
             addingIdea: false,
             addingUser: false,
             passingAuthorization: false,
-            addingContract: false
+            addingContract: false,
+            updatingSendoutCall: false,
         },
         server: {
             processName: "",

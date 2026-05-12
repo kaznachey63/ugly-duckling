@@ -183,6 +183,25 @@ function addingContract(ctx: MyContext, result: boolean, validate: boolean) {
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
 }
 
+/**
+ * Меню результата смены позывного рассылки
+ */
+function updatingSendoutCall(ctx: MyContext, result: boolean, validate: boolean): Menu<InlineKeyboard> {
+    const text: string[] = [
+        ctx.t("modules.shared.sendout.view.owner.change.action.path", { call: ctx.session.sendout.call }),
+    ];
+
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainSendoutCall:${ctx.session.sendout.id}`);
+
+    if (!validate) text.unshift(ctx.t("utils.shared.titles.validate"));
+    else {
+        if (result) text.unshift(ctx.t("handlers.states.updatingSendoutCall.success"));
+        else text.unshift(ctx.t("handlers.states.updatingSendoutCall.error"));
+    }
+
+    return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
+}
+
 export default {
     addingText,
     updatingText,
@@ -193,5 +212,6 @@ export default {
     updatingTime,
     addingUser,
     passingAuthorization,
-    addingContract
+    addingContract,
+    updatingSendoutCall
 }

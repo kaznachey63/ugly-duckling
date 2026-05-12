@@ -26,6 +26,7 @@ export interface SessionData {
         addingUser: boolean;
         passingAuthorization: boolean;
         addingContract: boolean;
+        updatingSendoutCall: boolean;
 
     };
     server: {

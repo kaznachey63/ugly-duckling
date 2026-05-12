@@ -34,13 +34,13 @@ function main(ctx: MyContext, user: User | undefined): Menu<InlineKeyboard> {
 /**
  * Меню выбора владельца для смены
  */
-function change(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
+function update(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     const text: string[] = [
-        ctx.t("modules.shared.sendout.view.owner.change.main.title"),
-        ctx.t("modules.shared.sendout.view.owner.change.main.path", { call: ctx.session.sendout.call }),
+        ctx.t("modules.shared.sendout.view.owner.update.main.title"),
+        ctx.t("modules.shared.sendout.view.owner.update.main.path", { call: ctx.session.sendout.call }),
     ];
 
-    const keyboard = new InlineKeyboard().text(ctx.t("modules.shared.sendout.view.owner.change.main.noOwner"), `mainAppointOwner:${ctx.session.sendout.id}=0`).row();
+    const keyboard = new InlineKeyboard().text(ctx.t("modules.shared.sendout.view.owner.update.main.noOwner"), `mainAppointOwner:${ctx.session.sendout.id}=0`).row();
         
     users.forEach(user => {
         keyboard.text(
@@ -57,7 +57,7 @@ function change(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
  */
 function appoint(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboard> {
     const text: string[] = [
-        ctx.t("modules.shared.sendout.view.owner.change.action.path", { 
+        ctx.t("modules.shared.sendout.view.owner.update.action.path", { 
             call: ctx.session.sendout.call,
             owner: user?.name ?? "Без владельца"
         }),
@@ -65,14 +65,14 @@ function appoint(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboa
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainOwner:${ctx.session.sendout.id}`);
 
-    if (result) text.unshift(ctx.t("modules.shared.sendout.view.owner.change.action.success"));
-    else text.unshift(ctx.t("modules.shared.sendout.view.owner.change.action.error"));
+    if (result) text.unshift(ctx.t("modules.shared.sendout.view.owner.update.action.success"));
+    else text.unshift(ctx.t("modules.shared.sendout.view.owner.update.action.error"));
 
     return { text: formatting.escapeMarkdown(text.join('\n\n')), keyboard }
 }
 
 export default {
     main,
-    change,
+    update,
     appoint
 }

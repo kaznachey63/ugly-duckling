@@ -16,6 +16,7 @@ function resetSessionStates(session: SessionData) {
     session.state.addingUser = false;
     session.state.passingAuthorization = false;
     session.state.addingContract = false;
+    session.state.updatingSendoutCall = false;
 }
 
 /**
