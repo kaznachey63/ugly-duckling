@@ -1,12 +1,13 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import menuCall from '@menus/modules/shared/sendout/call';
+import common from '@utils/common';
 
 const callComposer = new Composer<MyContext>();
 
 callComposer.callbackQuery(/^mainSendoutCall:/, async (ctx: MyContext) => {
     try {    
-        ctx.session.state.updatingSendoutCall = false;
+        common.resetSessionStates(ctx.session);
         const menu = menuCall.main(ctx);
 
         await ctx.editMessageText(menu.text, {

@@ -14,12 +14,37 @@ const contractComposer = new Composer<MyContext>();
  */
 contractComposer.callbackQuery("mainContract", async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
+    clearContract(ctx);
     const menu = menuContract(ctx, (await db.contract.getContracts())?.length!);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard
     });
 });
+
+function clearContract(ctx: MyContext) {
+    ctx.session.contract = {
+        date_end: new Date(),
+        date_start: new Date(),
+        price: 0,
+        price_text: "",
+        id: 0,
+        user_id: 0,
+        user: {
+            telegram_id: BigInt(0),
+            language: 'ru',
+            name: "",
+            phone: "",
+            username: "",
+            role: {
+                id: 0,
+                code: "unknown"
+            },
+            id: 0,
+            role_id: 0
+        }
+    }
+}
 
 contractComposer.use(controlComposer);
 contractComposer.use(exportComposer)

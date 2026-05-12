@@ -37,8 +37,10 @@ controlComposer.callbackQuery("chooseUsers", async (ctx: MyContext) => {
  * 1.5 шаг создания договора. Сохранение выбранного пользователя
  */
 controlComposer.callbackQuery(/^pickUser#/, async (ctx: MyContext) => {
-    ctx.session.contract.user_id = Number(ctx.callbackQuery?.data?.split('#')[1]);      
+    const userId = Number(ctx.callbackQuery?.data?.split('#')[1])!;
+    if (userId == ctx.session.contract.user_id) return;
 
+    ctx.session.contract.user_id = userId;      
     const users = await db.user.gets();
     const menu = menuControl.chooseUsers(ctx, users);
 

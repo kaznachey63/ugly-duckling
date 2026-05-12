@@ -25,8 +25,8 @@ function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     const text: string[] = [
         ctx.t("modules.shared.contract.view.contract.create.title"),
         ctx.t("modules.shared.contract.view.contract.create.data.user"),
-        '\n',
-        ctx.t("modules.shared.sendout.view.contract.create.path"),
+        '',
+        ctx.t("modules.shared.contract.view.contract.create.path"),
     ];
 
     const keyboard = new InlineKeyboard();
@@ -47,7 +47,7 @@ function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     keyboard
         .text(ctx.t("modules.shared.contract.view.contract.create.step", { number: 1 }), "amountSteps")
         .text('➡', "chooseSendouts")   
-        .text(ctx.t("utils.shared.buttons.back"), "mainContract").row()
+        .row().text(ctx.t("utils.shared.buttons.back"), "mainContract")
     ;
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
 }
@@ -56,8 +56,8 @@ function chooseSendouts(ctx: MyContext, sendouts: Sendout[]) {
     const text: string[] = [
         ctx.t("modules.shared.contract.view.contract.create.title"),
         ctx.t("modules.shared.contract.view.contract.create.data.sendout"),
-        '\n',
-        ctx.t("modules.shared.sendout.view.contract.create.path"),
+        '',
+        ctx.t("modules.shared.contract.view.contract.create.path"),
     ];
 
     const keyboard = new InlineKeyboard();
@@ -89,12 +89,12 @@ function inputData(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("modules.shared.contract.view.contract.create.title"), 
         ctx.t("modules.shared.contract.view.contract.create.data.contract"),
-        '\n',   
+        '',   
         ctx.t("modules.shared.contract.view.contract.create.path")
-    ].join('\n\n');
+    ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text('⬅', "chooseSendout")
+        .text('⬅', "chooseSendouts")
         .text(ctx.t("modules.shared.contract.view.contract.create.step", { number: 3 }), "amountSteps")
         .row().text(ctx.t("utils.shared.buttons.back"), "mainContract")
     ;
