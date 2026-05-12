@@ -23,10 +23,15 @@ callComposer.callbackQuery(/^mainUpdateSendoutCall:/, async (ctx: MyContext) => 
         ctx.session.state.updatingSendoutCall = true;
         const menu = menuCall.update(ctx);
 
-        await ctx.editMessageText(menu.text, {
+        const msg = await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'
         });
+
+        // Сохранение айди для последующего редактирования этого же сообщения
+        if (typeof msg !== "boolean" && "message_id" in msg) {
+            ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+        }
     } catch (error) {
         console.error('Ошибка в mainUpdateSendoutCall:', error);
     }
