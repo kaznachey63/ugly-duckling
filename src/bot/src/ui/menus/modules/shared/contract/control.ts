@@ -63,7 +63,7 @@ function chooseSendouts(ctx: MyContext, sendouts: Sendout[]) {
     const keyboard = new InlineKeyboard();
         
     sendouts.forEach(sendout => {
-        if (ctx.session.contract.sendout?.includes({ id: sendout.id! }))
+        if (ctx.session.contract.sendout?.some(s => s.id === sendout.id))            
             keyboard.text(
                 sendout.call! + ' ☑️', 
                 `pickSendout#${sendout.id}`
