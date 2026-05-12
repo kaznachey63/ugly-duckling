@@ -85,20 +85,21 @@ async function removeById(contractId: number): Promise<boolean> {
 /**
  * Вставка договора
  */
-async function insert(contract: Contract): Promise<boolean> {
+async function insert(contract: Contract) {
     try {
-        await prisma.contract.create({
+        const created = await prisma.contract.create({
             data: {
                 user_id: contract.user_id,
                 date_start: contract.date_start,
-                date_end: contract.date_start,
+                date_end: contract.date_end,
                 price: contract.price,
             }
         });
-        return true;
+
+        return created;
     } catch (error) {
         console.error("Ошибка при вставке контракта", error);
-        return false;
+        return null;
     }
 }
 

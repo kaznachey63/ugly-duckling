@@ -30,7 +30,7 @@ function contract(ctx: MyContext, sendoutsCall: string): Menu<InlineKeyboard> {
     const userIsAdmin = ctx.session.isAdmin;
     const text = [
         ctx.t("modules.shared.contract.view.contract.main.title", { dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') }),
-        ctx.t("modules.shared.contract.view.contract.main.sendouts", { sendouts: sendoutsCall }),
+        ctx.t("modules.shared.contract.view.contract.main.sendouts", { sendouts: sendoutsCall.length > 0 ? sendoutsCall : ctx.t("modules.shared.contract.view.contract.main.noSendouts") }),
         ctx.t("modules.shared.contract.view.contract.main.path", { 
             dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU'), 
             menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") 

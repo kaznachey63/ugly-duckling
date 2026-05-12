@@ -626,6 +626,7 @@
                         "main": {
                             "title": "Договор от {{dateStart}}.",
                             "sendouts": "Рассылки, включенные в договор: {{sendouts}}",
+                            "noSendouts": "пусто.",
                             "userName": "Заказчик: {{userName}}",
                             "dateStart": "Дата начала: {{dateStart}}",
                             "dateEnd": "Дата окончания: {{dateEnd}}",

@@ -14,14 +14,16 @@ export default async function addingContract(ctx: MyContext) {
     else {
         const contract = formatContract(ctx);
         const resultContract = await db.contract.insert(contract);
+
         if (!resultContract) menu = menuAddingContract(ctx, false, true);
         else {
             const sendoutIds = ctx.session.contract.sendout?.map(s => { return s.id });
-            const resultSendouts = await db.sendout.updateManyOfIds(ctx.session.contract.id!, sendoutIds!);
+            const resultSendouts = await db.sendout.updateManyOfIds(resultContract.id, sendoutIds!);
             
             if (!resultSendouts) menu = menuAddingContract(ctx, false, true);
             else menu = menuAddingContract(ctx, true, true);
         }
+
         common.resetSessionStates(ctx.session);
     }
 

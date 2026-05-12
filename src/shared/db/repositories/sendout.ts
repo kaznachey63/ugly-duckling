@@ -146,6 +146,8 @@ async function updateCall(sendoutId: number, call: string): Promise<boolean> {
  */
 async function updateManyOfIds(contractId: number, sendouts: number[]): Promise<boolean> {
     try {
+        if (sendouts.length === 0) return true;
+
         await prisma.sendout.updateMany({
             where: {
                 id: {
@@ -156,8 +158,10 @@ async function updateManyOfIds(contractId: number, sendouts: number[]): Promise<
                 contract_id: contractId
             }
         });
+
         return true;
     } catch (error) {
+        console.error("Ошибка при обновлении рассылок", error);
         return false;
     }
 }
