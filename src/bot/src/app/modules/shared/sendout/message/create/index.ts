@@ -3,10 +3,16 @@ import { Composer } from 'grammy';
 import genereteComposer from './generate';
 import handComposer from './hand';
 import menuCreate from '@menus/modules/shared/sendout/message/create';
+import common from '@utils/common';
 
 const createComposer = new Composer<MyContext>();
 
 createComposer.callbackQuery(/^mainCreateText:/, async (ctx: MyContext) => {
+    if (ctx.session.sendout.active) {
+        await common.alertSendoutIsActive(ctx);
+        return;
+    }
+
     const menu = menuCreate.main(ctx);
     const msg = await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,

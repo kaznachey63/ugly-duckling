@@ -2,6 +2,20 @@ import prisma from '@shared/db/config';
 import type { Sendout, User } from '@shared/types/DB';
 
 /**
+ * Задание режима активности рассылки
+ */
+async function setActive(sendoutId: number, active: boolean) {
+    await prisma.sendout.update({
+        where: {
+            id: sendoutId
+        },
+        data: {
+            active: active
+        }
+    });
+}
+
+/**
  * Получение данных о рассылках с секретами
  */
 async function getSendoutsInfoWithCredentials(): Promise<Sendout[] | undefined> {
@@ -177,4 +191,5 @@ export default {
     updateCall,
     updateManyOfIds,
     getSendoutsOfUserIdAndNotInContract,
+    setActive,
 };

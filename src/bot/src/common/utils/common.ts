@@ -102,6 +102,10 @@ function isAdminPhone(phone: string) {
     return phone === constants.adminData.phone;
 }
 
+async function alertSendoutIsActive(ctx: MyContext) {
+    await ctx.answerCallbackQuery({ text: ctx.t("utils.shared.titles.sendoutActive"), show_alert: true })
+}
+
 export default {
     resetSessionStates,
     setPrimaryValuesSession,
@@ -109,4 +113,5 @@ export default {
     deleteMessageProcessing,
     checkMaintenace,
     checkCancelButton,
+    alertSendoutIsActive,
 };

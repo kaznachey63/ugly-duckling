@@ -4,6 +4,7 @@ import menuView from '@menus/modules/shared/sendout/message/view';
 import { ServerManager } from "src/common/services/ServerManager";
 import type { MyContext } from '@shared/types/SessionData';
 import { FileService } from '@common/services/FileService';
+import common from '@utils/common';
 
 const mediaComposer = new Composer<MyContext>();
 
@@ -11,6 +12,11 @@ const mediaComposer = new Composer<MyContext>();
  * Оповещение пользователя о добавлении медиа. Ожидание медиа.
  */
 mediaComposer.callbackQuery(/^addMedia:/, async (ctx: MyContext) => {
+    if (ctx.session.sendout.active) {
+        await common.alertSendoutIsActive(ctx);
+        return;
+    }
+
     ctx.session.state.addingMedia = true;
     ctx.session.message = (await db.message.getById(Number(ctx.callbackQuery?.data?.split(':')[1]!.split('#')[1])))!;
     

@@ -3,10 +3,16 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuClear from '@menus/modules/shared/sendout/message/clear';
 import { ServerManager } from "src/common/services/ServerManager";
 import { Composer } from 'grammy';
+import common from '@utils/common';
 
 const clearComposer = new Composer<MyContext>();
 
 clearComposer.callbackQuery(/^clearMessages:/, async (ctx: MyContext) => {
+    if (ctx.session.sendout.active) {
+        await common.alertSendoutIsActive(ctx);
+        return;
+    }
+    
     const messages = await db.message.getMessages(ctx.session.sendout.id!);
     if (!messages) return;
 

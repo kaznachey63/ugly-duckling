@@ -39,6 +39,8 @@ export class Scheduler {
         this.getSendingStats(chats);
         times.forEach((time) => {
             cron.schedule(time.cron!, async () => {
+                await db.sendout.setActive(this.sendout.id!, true);
+
                 // 👇 Передаём time.id вместо index
                 await this.execute(new Date(), time.id!, messages, chats);
             }, { timezone: "Europe/Moscow" });
@@ -138,6 +140,7 @@ export class Scheduler {
 
             if (accessibleChats.length === 0) {
                 console.log('❌ Нет доступных чатов для рассылки');
+                await db.sendout.setActive(this.sendout.id!, false); 
                 return;
             }
 
@@ -156,7 +159,7 @@ export class Scheduler {
             
             await this.logResults(dateTime, counter);
             console.log(`Рассылка завершена! Успешно: ${counter.good} из ${accessibleChats.length}\n`);
-
+            await db.sendout.setActive(this.sendout.id!, false); 
         } catch (error) {
             console.error('💀 Ошибка выполнения рассылки:', error);
         }

@@ -3,10 +3,16 @@ import { Composer } from 'grammy';
 import menuView from '@menus/modules/shared/sendout/message/view';
 import { ServerManager } from "src/common/services/ServerManager";
 import type { MyContext } from '@shared/types/SessionData';
+import common from '@utils/common';
 
 const messageComposer = new Composer<MyContext>();
 
 messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
+    if (ctx.session.sendout.active) {
+        await common.alertSendoutIsActive(ctx);
+        return;
+    }
+    
     const message = await db.message.getById(Number(ctx.callbackQuery?.data?.split(':')[1]!.split('#')[1]));
 
     await db.message.remove(message?.id!);

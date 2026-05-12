@@ -10,7 +10,11 @@ const genereteComposer = new Composer<MyContext>();
 
 // этот обработчик превее нинего т.к. соответсвие на последние значения
 genereteComposer.callbackQuery(/^generateText:.+-(true|false)$/, async (ctx: MyContext) => {
-    // ctx.session.state.addingText = true;
+    if (ctx.session.sendout.active) {
+        await common.alertSendoutIsActive(ctx);
+        return;
+    }
+
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
 
     const action = ctx.callbackQuery?.data!.split(/-/)[1] === 'true';    
@@ -44,6 +48,11 @@ genereteComposer.callbackQuery(/^generateText:.+-(true|false)$/, async (ctx: MyC
 });
 
 genereteComposer.callbackQuery(/^generateText:/, async (ctx: MyContext) => {
+    if (ctx.session.sendout.active) {
+        await common.alertSendoutIsActive(ctx);
+        return;
+    }
+    
     ctx.session.state.generatingText = true;
     const menu = menuCreate.generate(ctx);
     

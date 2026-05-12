@@ -6,7 +6,6 @@ import messageComposer from './message';
 import db from '@shared/db';
 import menuView from '@menus/modules/shared/sendout/message/view';
 import menuMessage from '@menus/modules/shared/sendout/message/main';
-import type { PaginationType } from '@shared/types/PaginationType';
 
 const viewComposer = new Composer<MyContext>();
 

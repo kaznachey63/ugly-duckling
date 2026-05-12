@@ -1,10 +1,15 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import menuCreate from '@menus/modules/shared/sendout/schedule/create';
+import common from '@utils/common';
 
 const createComposer = new Composer<MyContext>();
 
 createComposer.callbackQuery(/^createTime:/, async (ctx: MyContext) => {
+    if (ctx.session.sendout.active) {
+        await common.alertSendoutIsActive(ctx);
+        return;
+    }   
     try {
         ctx.session.state.addingTime = true;
         const menu = menuCreate(ctx);

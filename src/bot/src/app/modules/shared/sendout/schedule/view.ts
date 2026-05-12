@@ -27,6 +27,11 @@ viewComposer.callbackQuery(/^viewSchedule:/, async (ctx: MyContext) => {
 });
 
 viewComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) => {
+    if (ctx.session.sendout.active) {
+        await common.alertSendoutIsActive(ctx);
+        return;
+    }
+
     try {
         const queryData = ctx.callbackQuery?.data;
         const timeId = Number(queryData!.split(/#/)[1]);
@@ -44,6 +49,11 @@ viewComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) => {
 });
 
 viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
+    if (ctx.session.sendout.active) {
+        await common.alertSendoutIsActive(ctx);
+        return;
+    }
+
     try {
         ctx.session.state.updatingTime = true;
         ctx.session.schedule.id = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
@@ -63,6 +73,11 @@ viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
 });
 
 viewComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
+    if (ctx.session.sendout.active) {
+        await common.alertSendoutIsActive(ctx);
+        return;
+    }
+    
     try {
         const timeId = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
         ctx.session.schedule.id = timeId;

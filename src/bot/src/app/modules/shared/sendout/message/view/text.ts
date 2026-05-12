@@ -2,10 +2,16 @@ import { Composer } from 'grammy';
 import menuView from '@menus/modules/shared/sendout/message/view';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
+import common from '@utils/common';
 
 const textComposer = new Composer<MyContext>();
 
 textComposer.callbackQuery(/^updateText:/, async (ctx: MyContext) => {
+    if (ctx.session.sendout.active) {
+        await common.alertSendoutIsActive(ctx);
+        return;
+    }
+
     ctx.session.state.updatingText = true;
     ctx.session.message = (await db.message.getById(Number(ctx.callbackQuery?.data?.split('#')[1])))!;
     const menu = menuView.updateText(ctx);
