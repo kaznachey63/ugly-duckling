@@ -12,7 +12,7 @@ function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 
     if (result) {
         text.unshift(ctx.t("modules.shared.contract.view.contract.remove.success"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), "viewContracts");
+        keyboard.text(ctx.t("utils.shared.buttons.back"), "mainContract");
     }
     else {
         text.unshift(ctx.t("modules.shared.contract.view.contract.remove.error"));
