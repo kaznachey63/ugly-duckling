@@ -1,0 +1,57 @@
+import type { Contract } from '@shared/types/DB';
+import type { Menu } from '@shared/types/Menu';
+import type { MyContext } from '@shared/types/SessionData';
+import format from '@utils/formatting';
+import { InlineKeyboard } from 'grammy';
+
+function contracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboard> {   
+    const userIsAdmin = ctx.session.isAdmin;
+    const text = [
+        ctx.t("modules.shared.contract.view.main.title"),
+        ctx.t("modules.shared.contract.view.main.path",  { menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") }),
+    ].join('\n\n');
+
+    const keyboard = new InlineKeyboard();
+
+    contracts.forEach((contract) => {
+        keyboard.text(
+            ctx.t("modules.shared.contract.main.contractName", { 
+                userName: contract.user?.name ?? ctx.t("utils.shared.buttons.nameless"),
+                dateStart: new Date(contract.date_start!).toLocaleDateString('ru-RU')
+            }),
+            `viewContract#${contract.id}`
+        ).row();
+    });    
+    keyboard.text(ctx.t("utils.shared.buttons.back"), "mainContract");
+    return { text: format.escapeMarkdown(text), keyboard }
+}
+
+function contract(ctx: MyContext, sendoutsCall: string): Menu<InlineKeyboard> {
+    const userIsAdmin = ctx.session.isAdmin;
+    const text = [
+        ctx.t("modules.shared.contract.view.contract.main.title", { dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') }),
+        ctx.t("modules.shared.contract.view.contract.main.sendouts", { sendouts: sendoutsCall }),
+        ctx.t("modules.shared.contract.view.contract.main.path", { 
+            dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU'), 
+            menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") 
+        }),
+    ].join('\n');
+
+    const keyboard = new InlineKeyboard()
+        .text(ctx.t("modules.shared.contract.view.contract.main.userName", { userName: ctx.session.contract.user?.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateOrRemoveContractUser#${ctx.session.contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${ctx.session.contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: new Date(ctx.session.contract.date_end!).toLocaleDateString('ru-RU') ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateEnd#${ctx.session.contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: ctx.session.contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${ctx.session.contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.priceText", { priceText: ctx.session.contract.price_text ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPriceText#${ctx.session.contract.id}`).row()
+        .text(ctx.t("utils.shared.buttons.export"), `mainExportContract#${ctx.session.contract.id}`)
+    ;
+
+    if (userIsAdmin) keyboard.text(ctx.t("utils.shared.buttons.remove"), `removeContract#${ctx.session.contract.id}`).style("danger")
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), "viewContracts");
+    return { text: format.escapeMarkdown(text), keyboard }
+}
+
+export default {
+    contracts,
+    contract,
+};
