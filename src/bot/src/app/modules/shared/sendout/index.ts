@@ -8,6 +8,7 @@ import db from '@shared/db';
 import type { Sendout } from '@shared/types/DB';
 import ownerComposer from './owner';
 import callComposer from './call';
+import viewComposer from './view';
 
 const sendoutComposer = new Composer<MyContext>();
 
@@ -52,19 +53,7 @@ sendoutComposer.callbackQuery("mainSendout", async (ctx: MyContext) => {
     await ctx.editMessageText(menu.text, { reply_markup: menu.keyboard, parse_mode: "MarkdownV2" });
 });
 
-sendoutComposer.callbackQuery(/^viewSendout:/, async (ctx: MyContext) => {
-    try {
-        const menu = menuSendout.view(ctx);
-        await ctx.editMessageText(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: 'MarkdownV2'
-        });
-    } catch (error) {
-        console.error('Ошибка в viewSendout:', error);
-        throw error;
-    } 
-});
-
+sendoutComposer.use(viewComposer);
 sendoutComposer.use(messageComposer);
 sendoutComposer.use(scheduleComposer);
 sendoutComposer.use(statisticsComposer);

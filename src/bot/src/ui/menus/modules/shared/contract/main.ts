@@ -6,7 +6,7 @@ import { InlineKeyboard } from 'grammy';
 /**
  * Меню раздела договоры
  */
-function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
+export default function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
     const userIsAdmin = ctx.session.isAdmin;
     let text = [
         "",
@@ -33,7 +33,3 @@ function main(ctx: MyContext, amount: number): Menu<InlineKeyboard> {
 
     return { text: format.escapeMarkdown(text.join('\n')), keyboard }
 }
-
-export default {
-    main,
-};
