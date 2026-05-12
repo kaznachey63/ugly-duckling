@@ -80,10 +80,7 @@ controlComposer.callbackQuery(/^pickSendout#/, async (ctx: MyContext) => {
     const exists = ctx.session.contract.sendout.some(s => s.id === sendoutId);
 
     if (exists) {
-        ctx.session.contract.sendout =
-            ctx.session.contract.sendout.filter(
-                s => s.id !== sendoutId
-            );
+        ctx.session.contract.sendout = ctx.session.contract.sendout.filter(s => s.id !== sendoutId);
     } 
     else {
         ctx.session.contract.sendout.push({
