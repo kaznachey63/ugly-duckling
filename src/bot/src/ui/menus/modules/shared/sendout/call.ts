@@ -9,9 +9,11 @@ import formatting from "@utils/formatting";
 function main(ctx: MyContext): Menu<InlineKeyboard> {
     const sendoutId = ctx.session.sendout.id;
     const text: string[] = [
-        ctx.t("modules.shared.sendout.view.owner.main.call", { call: ctx.session.sendout.call }),
         ctx.t("modules.shared.sendout.view.owner.main.path", { call: ctx.session.sendout.call }),
     ];
+
+    if (ctx.session.sendout.call?.length! > 0) text.unshift(ctx.t("modules.shared.sendout.view.owner.main.call", { call: ctx.session.sendout.call }));
+    else text.unshift(ctx.t("modules.shared.sendout.view.owner.main.empty"));
 
     const keyboard = new InlineKeyboard()
         .text(ctx.t("utils.shared.buttons.update"), `mainUpdateSendoutCall:${sendoutId}`).row()
