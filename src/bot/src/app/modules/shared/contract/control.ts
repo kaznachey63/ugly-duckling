@@ -24,7 +24,7 @@ controlComposer.callbackQuery(/^removeContract#/, async (ctx: MyContext) => {
  * 1 шаг создания договора. Отображение пользователей
  */
 controlComposer.callbackQuery("chooseUsers", async (ctx: MyContext) => {
-    const users = await db.user.gets();
+    const users = (await db.user.gets()).filter(u => u.role_id != 1);
     const menu = menuControl.chooseUsers(ctx, users);
 
     await ctx.editMessageText(menu.text, {
