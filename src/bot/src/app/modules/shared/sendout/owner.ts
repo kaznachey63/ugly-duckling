@@ -31,7 +31,7 @@ ownerComposer.callbackQuery(/^mainChangeOwner:/, async (ctx: MyContext) => {
 
 ownerComposer.callbackQuery(/^mainAppointOwner:/, async (ctx: MyContext) => {
     try {    
-        const userId = Number(ctx.callbackQuery?.data?.split('=')[1]);
+        const userId = Number(ctx.callbackQuery?.data?.split('=')[1]) ?? 0;
         const user = await db.user.get(userId);
         const result = await db.sendout.changeOwner(ctx.session.sendout.id!, user?.id!);
         const menu = menuOwner.appoint(ctx, user!, result);
