@@ -40,7 +40,7 @@ controlComposer.callbackQuery(/^pickUser#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1])!;
     if (userId == ctx.session.contract.user_id) return;
     
-    if (!await db.sendout.getSendoutsOfUserIdAndNotInContract(userId)) {
+    if (!(await db.sendout.getSendoutsOfUserIdAndNotInContract(userId)).length) {
         return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.contract.view.contract.create.noFreeSendouts"), show_alert: true });
     }
 
