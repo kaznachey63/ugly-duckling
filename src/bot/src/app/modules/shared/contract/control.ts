@@ -45,7 +45,7 @@ controlComposer.callbackQuery(/^pickUser#/, async (ctx: MyContext) => {
     }
 
     ctx.session.contract.user_id = userId;      
-    const users = await db.user.gets();
+    const users = (await db.user.gets()).filter(u => u.role_id != 1);
     const menu = menuControl.chooseUsers(ctx, users);
 
     await ctx.editMessageText(menu.text, {

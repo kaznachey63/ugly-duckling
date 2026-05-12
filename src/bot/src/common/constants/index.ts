@@ -108,6 +108,10 @@ const message = {
     maxCharsWithPremium: 32768,
 }
 
+const price = {
+    days30: 2000
+};
+
 export default {
     link,
     calendar,
@@ -120,5 +124,6 @@ export default {
     allowLanguages,
     roles,
     ids,
-    message
+    message,
+    price,
 }

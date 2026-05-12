@@ -3,6 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuAddingContract from '@menus/handlers/states/addingContract';
 import common from '@utils/common';
 import type { Contract } from "@shared/types/DB";
+import constants from "@common/constants";
 
 export default async function addingContract(ctx: MyContext) {
     let menu;
@@ -32,27 +33,25 @@ export default async function addingContract(ctx: MyContext) {
 
 function validateContract(text: string): boolean {
     if (typeof text !== 'string' || text.trim().length === 0) return false;    
-    if (text.split('\n').length !== 3) return false;
+    if (text.split('\n').length !== 2) return false;
     
-    const [dateStart, dateEnd, price] = text.split('\n');
+    const [dateStart, dateEnd] = text.split('\n');
         
     if (dateStart !== '-' && isNaN(Date.parse(dateStart!))) return false;
     
     if (dateEnd !== '-' && isNaN(Date.parse(dateEnd!))) return false;
-    
-    if (price !== '-' && isNaN(Number(price))) return false;
-    
+        
     return true;
 }
 
 function formatContract(ctx: MyContext): Contract {
     const contractInText = ctx.message?.text?.trim()!;
-    const [dateStart, dateEnd, price] = contractInText.split('\n');
+    const [dateStart, dateEnd] = contractInText.split('\n');
 
     return {
         date_start: dateStart === '-' ? null : new Date(dateStart!),
         date_end: dateEnd === '-' ? null : new Date(dateEnd!),
-        price: price === '-' ? null : Number(price),
+        price: constants.price.days30 * ctx.session.contract.sendout?.length!,
         user_id: ctx.session.contract.user_id!,
     };
 }
