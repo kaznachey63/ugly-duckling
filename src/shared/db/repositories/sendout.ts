@@ -144,9 +144,7 @@ async function updateCall(sendoutId: number, call: string): Promise<boolean> {
 /**
  * Обновление полей у рассылок по соотв. айди
  */
-async function updateManyOfIds(contractId: number, sendouts: number[]): Promise<boolean> {
-    console.log(sendouts, '\n', contractId);
-    
+async function updateManyOfIds(contractId: number, sendouts: number[]): Promise<boolean> {    
     try {
         if (sendouts.length === 0) return true;
 
