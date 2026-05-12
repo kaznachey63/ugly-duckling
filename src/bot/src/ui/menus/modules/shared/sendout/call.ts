@@ -20,7 +20,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
         .text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`)
     ;
 
-    return { text: formatting.escapeMarkdown(text.join('\n')), keyboard }
+    return { text: formatting.escapeMarkdown(text.join('\n\n')), keyboard }
 }
 
 /**
