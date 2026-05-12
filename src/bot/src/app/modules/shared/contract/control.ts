@@ -54,6 +54,10 @@ controlComposer.callbackQuery(/^pickUser#/, async (ctx: MyContext) => {
  * 2 шаг создания договора. Отображение рассылок
  */
 controlComposer.callbackQuery("chooseSendouts", async (ctx: MyContext) => {
+    if (ctx.session.contract.user_id! <= 0) {
+        return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.contract.view.contract.create.noUser"), show_alert: true });
+    }
+
     const sendouts = await db.sendout.getSendouts();
     const menu = menuControl.chooseSendouts(ctx, sendouts);
     
@@ -93,6 +97,10 @@ controlComposer.callbackQuery(/^pickSendout#/, async (ctx: MyContext) => {
  * 3 шаг создания договора. Ожидание ввода данных договора (даты, цена и т.п.)
  */
 controlComposer.callbackQuery("inputContractData", async (ctx: MyContext) => {
+    if (ctx.session.contract.sendout?.length! <= 0) {
+        return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.contract.view.contract.create.noSendouts"), show_alert: true });
+    }
+    
     ctx.session.state.addingContract = true;
     const menu = menuControl.inputData(ctx);
     const msg = await ctx.editMessageText(menu.text, {
