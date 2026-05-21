@@ -54,6 +54,8 @@ function formatContract(ctx: MyContext): Contract {
         date_start: dateStart === '-' ? null : new Date(dateStart!),
         date_end: dateEnd === '-' ? null : new Date(dateEnd!),
         price: constants.price.days30 * ctx.session.contract.sendout?.length!,
+        // @ts-ignore
+        price_text: constants.priceText[ctx.session.contract.sendout?.length]!,
         user_id: ctx.session.contract.user_id!,
     };
 }

@@ -112,6 +112,14 @@ const price = {
     days30: 2000
 };
 
+const priceText = {
+    1: "две тысячи рублей",
+    2: "четыре тысячи рублей",
+    3: "шесть тысяч рублей",
+    4: "восемь тысяч рублей",
+    5: "десять тысяч рублей",
+};
+
 export default {
     link,
     calendar,
@@ -126,4 +134,5 @@ export default {
     ids,
     message,
     price,
+    priceText
 }
