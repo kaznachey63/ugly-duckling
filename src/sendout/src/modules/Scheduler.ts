@@ -8,6 +8,9 @@ import { TelegramClient, Api } from "telegram";
 import { Sender } from './Sender';
 import cron from 'node-cron';
 
+/**
+ * Отслеживание расписания
+ */
 export class Scheduler {
     private readonly sender: Sender;
     private readonly sendout: Sendout;
@@ -40,8 +43,6 @@ export class Scheduler {
         times.forEach((time) => {
             cron.schedule(time.cron!, async () => {
                 await db.sendout.setActive(this.sendout.id!, true);
-
-                // 👇 Передаём time.id вместо index
                 await this.execute(new Date(), time.id!, messages, chats);
             }, { timezone: "Europe/Moscow" });
         });
@@ -111,7 +112,7 @@ export class Scheduler {
                         canSend = true;
                     }
                 } else {
-                    canSend = true; // не канал — считаем, что можно (в вашем случае таких нет)
+                    canSend = true;  // не канал — считаем, что можно (в вашем случае таких нет)
                 }
             } catch (e: any) {
                 canSend = false;

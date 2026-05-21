@@ -6,6 +6,9 @@ import path from 'path';
 import { TelegramClient } from 'telegram';
 import type { JsonArray } from '@shared/db/prisma/internal/prismaNamespace';
 
+/**
+ * Отправка сообщения
+ */
 export class Sender {
     constructor(private readonly client: TelegramClient) { }
 
@@ -88,9 +91,7 @@ export class Sender {
     }
 
     /**
-     * 🔥 Преобразование Telegram entities в HTML с корректной вложенностью.
-     * Поддерживает: bold, italic, underline, mention, text_link.
-     * Хэштеги оставляет как есть (Telegram сам их подсветит).
+     * Преобразование Telegram entities в HTML с корректной вложенностью.
      */
     private entitiesToHtml(text: string, entities: any[]): string {
         if (!entities.length) return this.escapeHtml(text);
@@ -145,7 +146,7 @@ export class Sender {
     }
 
     /**
-     * Возвращает HTML-теги для сущности или null (например, для hashtag).
+     * Возвращает HTML-теги для сущности или null.
      */
     private getTagInfo(entity: any, fullText: string): { tag: string; closeTag: string; entity: any } | null {
         const { type, offset, length, url } = entity;
@@ -185,9 +186,9 @@ export class Sender {
             .replace(/'/g, '&#039;');
     }
 
-    /**
- * 🔍 Анализ ошибки и формирование понятного сообщения
- */
+        /**
+     * Анализ ошибки и формирование понятного сообщения
+     */
     private analyzeError(error: any): {
         message: string;
         type: string;

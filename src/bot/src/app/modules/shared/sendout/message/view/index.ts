@@ -9,11 +9,13 @@ import menuMessage from '@menus/modules/shared/sendout/message/main';
 
 const viewComposer = new Composer<MyContext>();
 
+/**
+ * Просмотр сообщения
+ */
 viewComposer.callbackQuery(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/, async (ctx: MyContext) => {
     const callbackData = ctx.callbackQuery?.data!;
     const match = callbackData.match(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/);
     
-
     const sendoutId = Number(match![1]);
     // ЭТО ПОЗИЦИЯ, НА КОТОРУЮ НУЖНО ПОПАСТЬ (цель), а не точка старта
     const targetPosition = Number(match![2]); 
@@ -27,7 +29,7 @@ viewComposer.callbackQuery(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/, async (
         return;
     }
 
-    // 🔥 ИСПРАВЛЕНИЕ: Ищем индекс сразу по целевой позиции из колбэка
+    // Ищем индекс сразу по целевой позиции из колбэка
     let targetIndex = messages.findIndex(m => m.position === targetPosition);
     
     // Если целевая позиция не найдена (сообщение удалили), берем первое или последнее
@@ -44,16 +46,16 @@ viewComposer.callbackQuery(/^viewMessage:(\d+)#(\d+)-(prev|next|none)$/, async (
     const displayNumber = targetIndex + 1; 
     const total = messages.length;
     
-    // Берем реальные ПОЗИЦИИ соседей из БД для кнопок
+    // Берем реальные позиции соседей из БД для кнопок
     const prevPosition = targetIndex > 0 ? messages[targetIndex - 1]!.position : null;
     const nextPosition = targetIndex < total - 1 ? messages[targetIndex + 1]!.position : null;
 
     const menu = menuView.main(
         ctx, 
         total, 
-        displayNumber,           // Для текста: "2 / 3"
-        prevPosition!,            // Для кнопки ⬅: position из БД
-        nextPosition!,            // Для кнопки ➡: position из БД
+        displayNumber,           // Для пагинации"
+        prevPosition!,            // Для кнопки влево: position из БД
+        nextPosition!,            // Для кнопки вправо: position из БД
         targetPosition           // Текущая position из БД (для paginationCb)
     );
     
