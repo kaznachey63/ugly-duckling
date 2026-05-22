@@ -6,7 +6,7 @@ import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import path from 'path';
 
-const localesPath = path.join('src', 'ui', 'i18n', 'locales');
+const localesPath = path.join('src', 'bot', 'src', 'ui', 'i18n', 'locales');
 const defaultLocale: LanguageCode = 'ru';
 
 // Инициализация i18next
