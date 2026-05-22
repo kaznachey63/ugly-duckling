@@ -3,94 +3,35 @@ import menuPassingAuthorization from '@menus/handlers/states/passingAuthorizatio
 import common from '@utils/common';
 
 export default async function passingAuthorization(ctx: MyContext) {
-    try {
 
-        // если не нажал отмену
-        if (ctx.message?.text !== "❌ Отменить") {
+    if (!ctx.session.state.passingAuthorization) return;
 
-            // логируем входящее сообщение
-            console.log(
-                "[AUTH INPUT]",
-                ctx.message?.message_id,
-                ctx.message?.text
-            );
+    // ❌ НЕ отмена и НЕ контакт
+    if (ctx.message?.text !== "❌ Отменить" && !ctx.message?.contact) {
 
-            // пробуем удалить сообщение пользователя
-            try {
-
-                console.log(
-                    "[DELETE TRY]",
-                    ctx.message!.message_id
-                );
-
-                await ctx.api.deleteMessage(
-                    ctx.chat!.id,
-                    ctx.message!.message_id
-                );
-
-                console.log(
-                    "[DELETE SUCCESS]",
-                    ctx.message!.message_id
-                );
-
-            } catch (error) {
-
-                console.log(
-                    "[DELETE ERROR]",
-                    error
-                );
-            }
-
-            // отвечаем ВСЕГДА
-            const warnMsg = await ctx.reply(
-                "Действие не опознано, попробуйте снова воспользоваться кнопками: 'Поделиться' и 'Отменить'"
-            );
-
-            console.log(
-                "[WARN MESSAGE]",
-                warnMsg.message_id
-            );
-
-            return;
-        }
-
-        // processing
-        const processingMsg = await ctx.reply(
-            ctx.t("utils.shared.processing"),
-            {
-                reply_markup: {
-                    remove_keyboard: true
-                }
-            }
+        // сюда диспетчер уже НЕ нужен
+        await ctx.reply(
+            "❌ Некорректный ввод. Используйте кнопки: 'Поделиться' или 'Отменить'"
         );
 
-        console.log(
-            "[PROCESSING]",
-            processingMsg.message_id
+        return;
+    }
+
+    // ❌ отмена
+    if (ctx.message?.text === "❌ Отменить") {
+
+        const processing = await ctx.reply(
+            "Обработка...",
+            { reply_markup: { remove_keyboard: true } }
         );
 
-        // удаляем всё
         await common.deleteMessageProcessing(
             ctx,
-            processingMsg.message_id
+            processing.message_id
         );
 
-        // сбрасываем состояния
-        common.resetSessionStates(ctx.session);
+        ctx.session.state.passingAuthorization = false;
 
-        // меню
-        const menu = menuPassingAuthorization(ctx);
-
-        await ctx.reply(menu.text, {
-            reply_markup: menu.keyboard,
-            parse_mode: "MarkdownV2"
-        });
-
-    } catch (error) {
-
-        console.error(
-            "[PASSING AUTH ERROR]",
-            error
-        );
+        return;
     }
 }
