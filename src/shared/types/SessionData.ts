@@ -36,6 +36,7 @@ export interface SessionData {
     };
     other: {
         ids: {
+            cash: number[];
             idForUpdateMessageFromState: number;
             commandCabinetId: number;
         };

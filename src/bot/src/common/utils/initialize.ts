@@ -116,9 +116,10 @@ function createDefaultSession(): SessionData {
         },
         other: {
             ids: {
+                cash: [],
                 idForUpdateMessageFromState: 0,
                 commandCabinetId: 0,
-            }
+            },
         }
     }
 }

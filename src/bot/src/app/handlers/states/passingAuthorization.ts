@@ -3,31 +3,27 @@ import menuPassingAuthorization from '@menus/handlers/states/passingAuthorizatio
 import common from '@utils/common';
 
 export default async function passingAuthorization(ctx: MyContext) {
-    // ❌ НЕ отмена и НЕ контакт
-    if (ctx.message?.text !== "❌ Отменить") {
+    try {
+        if (ctx.message?.text != "❌ Отменить") {
+            const unknownMessage = await ctx.reply("Действие не опознано, попробуйте снова воспользоваться кнопками: 'Поделиться' и 'Отменить'");
+            ctx.session.other.ids.cash.push(unknownMessage.message_id);
+            return;
+        }
 
-        // сюда диспетчер уже НЕ нужен
-        await ctx.reply(
-            "❌ Некорректный ввод. Используйте кнопки: 'Поделиться' или 'Отменить'"
-        );
+        const processingMsg = await ctx.reply(ctx.t("utils.shared.processing"), {
+            reply_markup: { remove_keyboard: true }
+        });
+        ctx.session.other.ids.cash.push(processingMsg.message_id);
+        await common.deleteCashMessages(ctx);
 
-        return;
-    }
+        const menu = menuPassingAuthorization(ctx);
+        common.resetSessionStates(ctx.session);
 
-    // ❌ отмена
-    if (ctx.message?.text === "❌ Отменить") {
-
-        const processing = await ctx.reply(
-            "Обработка...",
-            { reply_markup: { remove_keyboard: true } }
-        );
-
-        // await common.deleteMessageProcessing(
-        //     ctx,
-        //     processing.message_id
-        // );
-
-        ctx.session.state.passingAuthorization = false;
-        return;
+        await ctx.reply(menu.text, {
+            reply_markup: menu.keyboard,
+            parse_mode: "MarkdownV2"
+        });
+    } catch (error) {
+        console.error('Ошибка при отменe авторизации:', error);
     }
 }

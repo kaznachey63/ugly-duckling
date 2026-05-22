@@ -115,6 +115,16 @@ async function deleteMessageProcessing(
 }
 
 /**
+ * Удаление кеша (списка) сообщений
+ */
+async function deleteCashMessages(ctx: MyContext) {
+    for await (const messageId of ctx.session.other.ids.cash) {
+        await ctx.api.deleteMessage(ctx.chatId!, messageId);
+    }
+    ctx.session.other.ids.cash = [];
+}
+
+/**
  * Проверка на телефон админа
  */
 function isAdminPhone(phone: string) {
@@ -133,4 +143,5 @@ export default {
     checkMaintenace,
     checkCancelButton,
     alertSendoutIsActive,
+    deleteCashMessages
 };
