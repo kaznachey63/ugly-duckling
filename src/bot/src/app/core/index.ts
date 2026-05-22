@@ -37,7 +37,7 @@ bot.on('message', async (ctx: MyContext, next: NextFunction) => {
         common.resetSessionStates(ctx.session); // сброс состояний сессии
     }
 
-    await utils.common.checkCancelButton(ctx); 
+    // await utils.common.checkCancelButton(ctx); 
     await utils.common.setPrimaryValuesSession(ctx); // установка важных параметров в сесии
     if (!await utils.common.checkMaintenace(ctx)) await next(); // проверка на тех. режим
 });
