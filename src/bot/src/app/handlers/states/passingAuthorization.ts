@@ -5,24 +5,56 @@ import common from '@utils/common';
 export default async function passingAuthorization(ctx: MyContext) {
     try {
 
-        // не отмена
+        // если не нажал отмену
         if (ctx.message?.text !== "❌ Отменить") {
 
+            // логируем входящее сообщение
+            console.log(
+                "[AUTH INPUT]",
+                ctx.message?.message_id,
+                ctx.message?.text
+            );
+
+            // пробуем удалить сообщение пользователя
             try {
+
+                console.log(
+                    "[DELETE TRY]",
+                    ctx.message!.message_id
+                );
+
                 await ctx.api.deleteMessage(
                     ctx.chat!.id,
                     ctx.message!.message_id
                 );
-            } catch {}
 
-            await ctx.reply(
+                console.log(
+                    "[DELETE SUCCESS]",
+                    ctx.message!.message_id
+                );
+
+            } catch (error) {
+
+                console.log(
+                    "[DELETE ERROR]",
+                    error
+                );
+            }
+
+            // отвечаем ВСЕГДА
+            const warnMsg = await ctx.reply(
                 "Действие не опознано, попробуйте снова воспользоваться кнопками: 'Поделиться' и 'Отменить'"
+            );
+
+            console.log(
+                "[WARN MESSAGE]",
+                warnMsg.message_id
             );
 
             return;
         }
 
-        // сообщение обработки
+        // processing
         const processingMsg = await ctx.reply(
             ctx.t("utils.shared.processing"),
             {
@@ -32,16 +64,21 @@ export default async function passingAuthorization(ctx: MyContext) {
             }
         );
 
-        // удаляем ВСЁ
+        console.log(
+            "[PROCESSING]",
+            processingMsg.message_id
+        );
+
+        // удаляем всё
         await common.deleteMessageProcessing(
             ctx,
             processingMsg.message_id
         );
 
-        // сброс state
+        // сбрасываем состояния
         common.resetSessionStates(ctx.session);
 
-        // новое меню
+        // меню
         const menu = menuPassingAuthorization(ctx);
 
         await ctx.reply(menu.text, {
@@ -50,8 +87,9 @@ export default async function passingAuthorization(ctx: MyContext) {
         });
 
     } catch (error) {
+
         console.error(
-            'Ошибка при отменe авторизации:',
+            "[PASSING AUTH ERROR]",
             error
         );
     }
