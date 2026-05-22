@@ -12,8 +12,8 @@ const contactComposer = new Composer<MyContext>();
 contactComposer.on('message:contact', async (ctx: MyContext) => {
     if (!ctx.session.state.passingAuthorization) {
         await ctx.deleteMessage();
-        await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
-        try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
+        const msg = await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
+        try { await ctx.api.deleteMessage(ctx.chatId!, msg.message_id); } catch {};
         return;
     }
     
