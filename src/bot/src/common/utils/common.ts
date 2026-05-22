@@ -74,24 +74,21 @@ async function deleteMessageProcessing(
     endMsgId?: number
 ) {
     try {
+
         const commandId =
             ctx.session.other.ids.commandCabinetId;
 
-        if (!commandId || !ctx.chat?.id) {
-            return;
-        }
-
-        // самая верхняя граница удаления
         const targetEndId =
-            ctx.session.other.ids.lastTempMessageId ??
-            endMsgId ??
-            ctx.msgId;
+            endMsgId ?? ctx.msgId;
 
-        if (!targetEndId) {
+        if (
+            !commandId ||
+            !targetEndId ||
+            !ctx.chat?.id
+        ) {
             return;
         }
 
-        // удаляем диапазоном
         for (
             let id = targetEndId;
             id >= commandId;
@@ -109,6 +106,7 @@ async function deleteMessageProcessing(
         console.error(error);
     }
 }
+
 /**
  * Проверка на телефон админа
  */
