@@ -60,8 +60,8 @@ async function checkMaintenace(ctx: MyContext): Promise<boolean> {
 async function checkCancelButton(ctx: MyContext) {
     if (ctx.message?.text === "❌ Отменить" && !ctx.session.state.passingAuthorization) {
         await ctx.deleteMessage();
-        await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
-        try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
+        const msg = await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
+        try { await ctx.api.deleteMessage(ctx.chatId!, msg.message_id); } catch {};
         return;
     }
 }
