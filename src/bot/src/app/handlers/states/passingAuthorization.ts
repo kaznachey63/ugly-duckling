@@ -14,7 +14,7 @@ export default async function passingAuthorization(ctx: MyContext) {
             );
 
             setTimeout(() => {
-                ctx.api.deleteMessage(ctx.chat!.id, unknownMessage.message_id)
+                void ctx.api.deleteMessage(ctx.chat!.id, unknownMessage.message_id)
                     .catch(() => {});
             }, 3000);
 
