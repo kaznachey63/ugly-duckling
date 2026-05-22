@@ -10,12 +10,12 @@ import common from '@utils/common';
 const contactComposer = new Composer<MyContext>();
 
 contactComposer.on('message:contact', async (ctx: MyContext) => {
-    if (!ctx.session.state.passingAuthorization) {
-        await ctx.deleteMessage();
-        await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
-        try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
-        return;
-    }
+    // if (!ctx.session.state.passingAuthorization) {
+    //     await ctx.deleteMessage();
+    //     await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
+    //     try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
+    //     return;
+    // }
     
     try {
         const phoneNumber = ctx.message!.contact?.phone_number?.replace('+', '');
@@ -27,7 +27,8 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         });
         
         const isAdminPhone = common.isAdminPhone(phoneNumber);
-        const processingMsgId = processingMsg?.message_id;
+        ctx.session.other.ids.cash.push(processingMsg?.message_id);
+
         if (await db.user.exists(BigInt(ctx!.from!.id!))) {
             await ctx.reply(ctx.t("modules.commands.cabinet.auth.login.already"), { 
                 parse_mode: "MarkdownV2" 
@@ -37,7 +38,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             ctx.session.user.phone = phoneNumber;
             
             // 3. Удаляем, передавая ID сообщения обработки
-            await common.deleteMessageProcessing(ctx, processingMsgId);
+            await common.deleteCashMessages(ctx);
 
             let menu;
             try {
@@ -60,7 +61,8 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         }
         else {
             // 4. Если доступ запрещен — тоже удаляем
-            await common.deleteMessageProcessing(ctx, processingMsgId);
+            await common.deleteCashMessages(ctx);
+            
             const menu = menuContact(ctx);
             await ctx.reply(menu.text, {
                 reply_markup: menu.keyboard,
