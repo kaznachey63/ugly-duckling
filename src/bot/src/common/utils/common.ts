@@ -69,32 +69,46 @@ async function checkCancelButton(ctx: MyContext) {
 /**
  * Удаление сообщений при авторизации
  */
-async function deleteMessageProcessing(ctx: MyContext, endMsgId?: number) {
+async function deleteMessageProcessing(
+    ctx: MyContext,
+    endMsgId?: number
+) {
     try {
-        const commandId = ctx.session.other.ids.commandCabinetId;
-        const targetEndId = endMsgId || ctx.msgId;
-        
-        // Проверки: если нет данных — выходим
-        if (!commandId || !targetEndId || !ctx.chat?.id) return;
+        const commandId =
+            ctx.session.other.ids.commandCabinetId;
 
-        let count = 0;
-        const maxIterations = 100;
-
-        while (commandId <= targetEndId - count) {
-            if (count > maxIterations) break;
-
-            const targetId = targetEndId - count;
-            if (!targetId) break;
-
-            try {
-                await ctx.api.deleteMessage(ctx.chat.id, targetId);
-            } catch { }
-
-            count += 1;
+        if (!commandId || !ctx.chat?.id) {
+            return;
         }
-    } catch { }
-}
 
+        // самая верхняя граница удаления
+        const targetEndId =
+            ctx.session.other.ids.lastTempMessageId ??
+            endMsgId ??
+            ctx.msgId;
+
+        if (!targetEndId) {
+            return;
+        }
+
+        // удаляем диапазоном
+        for (
+            let id = targetEndId;
+            id >= commandId;
+            id--
+        ) {
+            try {
+                await ctx.api.deleteMessage(
+                    ctx.chat.id,
+                    id
+                );
+            } catch {}
+        }
+
+    } catch (error) {
+        console.error(error);
+    }
+}
 /**
  * Проверка на телефон админа
  */

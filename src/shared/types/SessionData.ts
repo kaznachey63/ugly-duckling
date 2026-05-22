@@ -39,6 +39,7 @@ export interface SessionData {
         ids: {
             idForUpdateMessageFromState: number;
             commandCabinetId: number;
+            lastTempMessageId: number;
         };
     }
 }

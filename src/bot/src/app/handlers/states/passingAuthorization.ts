@@ -4,36 +4,52 @@ import common from '@utils/common';
 
 export default async function passingAuthorization(ctx: MyContext) {
     try {
+        // пользователь написал хуйню
         if (ctx.message?.text != "❌ Отменить") {
+
+            // удаляем его сообщение
             try {
                 await ctx.deleteMessage();
             } catch {}
 
+            // отправляем предупреждение
             const unknownMessage = await ctx.reply(
                 "Действие не опознано, попробуйте снова воспользоваться кнопками: 'Поделиться' и 'Отменить'"
             );
 
-            setTimeout(() => {
-                void ctx.api.deleteMessage(ctx.chat!.id, unknownMessage.message_id)
-                    .catch(() => {});
-            }, 3000);
+            // сохраняем id временного сообщения
+            ctx.session.other.ids.lastTempMessageId = unknownMessage.message_id;
 
             return;
         }
 
-        const processingMsg = await ctx.reply(ctx.t("utils.shared.processing"), {
-            reply_markup: { remove_keyboard: true }
-        });
-        const processingMsgId = processingMsg?.message_id;
-        await common.deleteMessageProcessing(ctx, processingMsgId);
+        // скрываем клавиатуру
+        const processingMsg = await ctx.reply(
+            ctx.t("utils.shared.processing"),
+            {
+                reply_markup: { remove_keyboard: true }
+            }
+        );
+
+        // удаляем всё
+        await common.deleteMessageProcessing(
+            ctx,
+            processingMsg.message_id
+        );
+
+        // сбрасываем временный id
+        ctx.session.other.ids.lastTempMessageId = 0;
+
+        // сбрасываем state
+        common.resetSessionStates(ctx.session);
 
         const menu = menuPassingAuthorization(ctx);
-        common.resetSessionStates(ctx.session);
 
         await ctx.reply(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: "MarkdownV2"
         });
+
     } catch (error) {
         console.error('Ошибка при отменe авторизации:', error);
     }
