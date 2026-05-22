@@ -28,33 +28,46 @@ bot.use(session({ initial: utils.init.createDefaultSession }));
 bot.use(i18nMiddleware);
 
 /**
- * Инициализация якобы, что бот печатает после получения команд
+ * Корневая инициализация обработки сообщений
  */
 bot.on('message', async (ctx: MyContext, next: NextFunction) => {
+    // проверк на команду
     if (ctx.message?.text?.startsWith('/')) {
-        await ctx.api.sendChatAction(ctx.chat?.id!, "typing");
-        common.resetSessionStates(ctx.session);
+        await ctx.api.sendChatAction(ctx.chat?.id!, "typing"); // бот "печатает"
+        common.resetSessionStates(ctx.session); // сброс состояний сессии
     }
 
-    await utils.common.checkCancelButton(ctx);
-    await utils.common.setPrimaryValuesSession(ctx);  
-    if (!await utils.common.checkMaintenace(ctx)) await next();
+    await utils.common.checkCancelButton(ctx); 
+    await utils.common.setPrimaryValuesSession(ctx); // установка важных параметров в сесии
+    if (!await utils.common.checkMaintenace(ctx)) await next(); // проверка на тех. режим
 });
 
+/**
+ * Корневая инициализация обработки нажатий на кнопки
+ */
 bot.on('callback_query', async (ctx: MyContext, next: NextFunction) => {
     try {
         console.log(ctx?.callbackQuery?.data);
-        await utils.common.setPrimaryValuesSession(ctx);
-        if (!await utils.common.checkMaintenace(ctx)) await next();
+        await utils.common.setPrimaryValuesSession(ctx); // установка важных параметров в сесии
+        if (!await utils.common.checkMaintenace(ctx)) await next(); // проверка на тех. режим
     } finally {
-        await ctx.answerCallbackQuery().catch(() => { });        
+        await ctx.answerCallbackQuery().catch(() => { }); // глушение необработанных нажатий на кнопку                  
     }
 });
 
+/**
+ * Инициализация модулей (обработчиков кнопок и команд)
+ */
 bot.use(modulesComposer);
 
+/**
+ * Инициализация событий (прием сообщений)
+ */
 bot.use(eventsComposer);
 
+/**
+ * Запуск бота
+ */
 bot.start();
 
 // bot.catch(async (err, ctx) => {
