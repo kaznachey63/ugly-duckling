@@ -48,7 +48,7 @@ sendoutComposer.callbackQuery("mainSendout", async (ctx: MyContext) => {
         return displayA!.localeCompare(displayB!, 'ru', { sensitivity: 'base' });
     });
 
-    const menu = menuSendout.main(ctx, sorted);
+    const menu = menuSendout(ctx, sorted);
 
     await ctx.editMessageText(menu.text, { reply_markup: menu.keyboard, parse_mode: "MarkdownV2" });
 });

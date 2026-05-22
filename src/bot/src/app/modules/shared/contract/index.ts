@@ -15,7 +15,10 @@ const contractComposer = new Composer<MyContext>();
 contractComposer.callbackQuery("mainContract", async (ctx: MyContext) => {
     common.resetSessionStates(ctx.session);
     clearContract(ctx);
-    const menu = menuContract(ctx, (await db.contract.getContracts())?.length!);
+
+    const contratsLength = ctx.session.isAdmin ? (await db.contract.getContracts())?.length! : (await db.contract.getContractsByUserId(BigInt(ctx.session.user.telegram_id!)))?.length!;
+
+    const menu = menuContract(ctx, contratsLength);
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard

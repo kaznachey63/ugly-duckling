@@ -7,7 +7,7 @@ import type { Sendout } from '@shared/types/DB';
 /**
  * Отображение рассылок
  */
-function main(ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard> {
+export default function main(ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard> {
     const text: string[] = [
         ctx.t("modules.shared.sendout.main.path", { menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ];
@@ -30,8 +30,4 @@ function main(ctx: MyContext, sendouts: Sendout[]): Menu<InlineKeyboard> {
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), ctx.session.isAdmin ? "mainData" : "mainCabinet");
 
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
-}
-
-export default {
-    main
 }
