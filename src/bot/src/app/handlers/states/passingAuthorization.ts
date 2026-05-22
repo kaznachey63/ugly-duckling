@@ -19,6 +19,7 @@ export default async function passingAuthorization(ctx: MyContext) {
 
     // ❌ отмена
     if (ctx.message?.text === "❌ Отменить") {
+    ctx.session.state.lock = true;
 
         const processing = await ctx.reply(
             "Обработка...",
@@ -31,6 +32,7 @@ export default async function passingAuthorization(ctx: MyContext) {
         );
 
         ctx.session.state.passingAuthorization = false;
+    ctx.session.state.lock = false;
 
         return;
     }

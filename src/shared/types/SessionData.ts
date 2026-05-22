@@ -27,7 +27,7 @@ export interface SessionData {
         passingAuthorization: boolean;
         addingContract: boolean;
         updatingSendoutCall: boolean;
-
+        lock: boolean
     };
     server: {
         processType: ProcessType;

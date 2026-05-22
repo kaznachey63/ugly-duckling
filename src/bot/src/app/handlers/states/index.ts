@@ -2,6 +2,7 @@ import type { MyContext } from '@shared/types/SessionData';
 
 export default async function dispatchState(ctx: MyContext) {
     const states = ctx.session.state;
+    if (states.lock) return;
 
     for (const [stateName, value] of Object.entries(states)) {
         if (typeof value !== 'boolean' || !value) continue;
