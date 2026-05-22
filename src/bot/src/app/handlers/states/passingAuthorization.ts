@@ -13,10 +13,9 @@ export default async function passingAuthorization(ctx: MyContext) {
                 "Действие не опознано, попробуйте снова воспользоваться кнопками: 'Поделиться' и 'Отменить'"
             );
 
-            setTimeout(async () => {
-                try {
-                    await ctx.api.deleteMessage(ctx.chat!.id, unknownMessage.message_id);
-                } catch {}
+            setTimeout(() => {
+                ctx.api.deleteMessage(ctx.chat!.id, unknownMessage.message_id)
+                    .catch(() => {});
             }, 3000);
 
             return;
