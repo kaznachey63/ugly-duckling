@@ -27,7 +27,6 @@ export interface SessionData {
         passingAuthorization: boolean;
         addingContract: boolean;
         updatingSendoutCall: boolean;
-        lock: boolean
     };
     server: {
         processType: ProcessType;
@@ -39,7 +38,6 @@ export interface SessionData {
         ids: {
             idForUpdateMessageFromState: number;
             commandCabinetId: number;
-            lastTempMessageId: number;
         };
     }
 }
