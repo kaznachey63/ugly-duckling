@@ -8,12 +8,13 @@ export default async function passingAuthorization(ctx: MyContext) {
         // не отмена
         if (ctx.message?.text !== "❌ Отменить") {
 
-            // удаляем сообщение пользователя
             try {
-                await ctx.deleteMessage();
+                await ctx.api.deleteMessage(
+                    ctx.chat!.id,
+                    ctx.message!.message_id
+                );
             } catch {}
 
-            // ВСЕГДА отвечаем предупреждением
             await ctx.reply(
                 "Действие не опознано, попробуйте снова воспользоваться кнопками: 'Поделиться' и 'Отменить'"
             );
