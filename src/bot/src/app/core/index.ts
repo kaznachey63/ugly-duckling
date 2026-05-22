@@ -30,13 +30,13 @@ bot.use(i18nMiddleware);
  * Корневая инициализация обработки сообщений
  */
 bot.on('message', async (ctx: MyContext, next: NextFunction) => {
-    // проверк на команду
+    // проверка на команду
     if (ctx.message?.text?.startsWith('/')) {
         await ctx.api.sendChatAction(ctx.chat?.id!, "typing"); // бот "печатает"
         common.resetSessionStates(ctx.session); // сброс состояний сессии
     }
 
-    // await utils.common.checkCancelButton(ctx); 
+    await utils.common.checkCancelButton(ctx); 
     await utils.common.setPrimaryValuesSession(ctx); // установка важных параметров в сесии
     if (!await utils.common.checkMaintenace(ctx)) await next(); // проверка на тех. режим
 });

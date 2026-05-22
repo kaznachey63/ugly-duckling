@@ -10,12 +10,12 @@ import common from '@utils/common';
 const contactComposer = new Composer<MyContext>();
 
 contactComposer.on('message:contact', async (ctx: MyContext) => {
-    // if (!ctx.session.state.passingAuthorization) {
-    //     await ctx.deleteMessage();
-    //     await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
-    //     try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
-    //     return;
-    // }
+    if (!ctx.session.state.passingAuthorization) {
+        await ctx.deleteMessage();
+        await ctx.reply('.', { reply_markup: { remove_keyboard: true } });
+        try { await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId! + 1); } catch {};
+        return;
+    }
     
     try {
         ctx.session.other.ids.cash.push(ctx.message?.message_id!);
