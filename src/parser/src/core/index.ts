@@ -1,4 +1,3 @@
-import '@shared/env'; // ← ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ
 import helpers from '../helpers';
 import cron from 'node-cron';
 import db from '@shared/db';

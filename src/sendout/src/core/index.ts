@@ -1,5 +1,3 @@
-import '@shared/env'; // ← ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ
-
 import { Sendout} from '../modules/Sendout';
 import utils from '../utils';
 import { TelegramClient } from "telegram";

@@ -18,7 +18,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
     // }
     
     try {
-        ctx.session.other.ids.cash.push(ctx.message?.message_id);
+        ctx.session.other.ids.cash.push(ctx.message?.message_id!);
         const phoneNumber = ctx.message!.contact?.phone_number?.replace('+', '');
         if (!phoneNumber) return;
     

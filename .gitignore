@@ -1,4 +1,4 @@
-/.env
+/.env.keys     
 /node_modules
 /package-lock.json
 /src/shared/db/prisma

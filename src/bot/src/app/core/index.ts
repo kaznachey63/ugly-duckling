@@ -1,4 +1,3 @@
-import '@shared/env'; // ← ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ
 import { Bot, session, type NextFunction } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import { i18nMiddleware } from '@i18n';
