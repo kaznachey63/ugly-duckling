@@ -78,8 +78,9 @@ async function deleteMessageProcessing(
         const commandId =
             ctx.session.other.ids.commandCabinetId;
 
+        // ❗ фикс: берём только явный endMsgId, иначе НЕ ctx.msgId
         const targetEndId =
-            endMsgId ?? ctx.msgId;
+            endMsgId;
 
         if (
             !commandId ||
@@ -89,9 +90,13 @@ async function deleteMessageProcessing(
             return;
         }
 
+        // ❗ защита от сломанного диапазона
+        const start = Math.min(commandId, targetEndId);
+        const end = Math.max(commandId, targetEndId);
+
         for (
-            let id = targetEndId;
-            id >= commandId;
+            let id = end;
+            id >= start;
             id--
         ) {
             try {
@@ -99,7 +104,9 @@ async function deleteMessageProcessing(
                     ctx.chat.id,
                     id
                 );
-            } catch {}
+            } catch {
+                // игнорируем missing / already deleted
+            }
         }
 
     } catch (error) {
