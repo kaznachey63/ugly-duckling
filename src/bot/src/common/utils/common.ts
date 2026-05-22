@@ -67,54 +67,6 @@ async function checkCancelButton(ctx: MyContext) {
 }
 
 /**
- * Удаление сообщений при авторизации
- */
-async function deleteMessageProcessing(
-    ctx: MyContext,
-    endMsgId?: number
-) {
-    try {
-
-        const commandId =
-            ctx.session.other.ids.commandCabinetId;
-
-        // ❗ фикс: берём только явный endMsgId, иначе НЕ ctx.msgId
-        const targetEndId =
-            endMsgId;
-
-        if (
-            !commandId ||
-            !targetEndId ||
-            !ctx.chat?.id
-        ) {
-            return;
-        }
-
-        // ❗ защита от сломанного диапазона
-        const start = Math.min(commandId, targetEndId);
-        const end = Math.max(commandId, targetEndId);
-
-        for (
-            let id = end;
-            id >= start;
-            id--
-        ) {
-            try {
-                await ctx.api.deleteMessage(
-                    ctx.chat.id,
-                    id
-                );
-            } catch {
-                // игнорируем missing / already deleted
-            }
-        }
-
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-/**
  * Удаление кеша (списка) сообщений
  */
 async function deleteCashMessages(ctx: MyContext) {
@@ -139,7 +91,6 @@ export default {
     resetSessionStates,
     setPrimaryValuesSession,
     isAdminPhone,
-    deleteMessageProcessing,
     checkMaintenace,
     checkCancelButton,
     alertSendoutIsActive,

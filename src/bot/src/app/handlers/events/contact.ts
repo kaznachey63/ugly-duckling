@@ -18,6 +18,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
     // }
     
     try {
+        ctx.session.other.ids.cash.push(ctx.message?.message_id);
         const phoneNumber = ctx.message!.contact?.phone_number?.replace('+', '');
         if (!phoneNumber) return;
     
@@ -62,7 +63,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         else {
             // 4. Если доступ запрещен — тоже удаляем
             await common.deleteCashMessages(ctx);
-            
+
             const menu = menuContact(ctx);
             await ctx.reply(menu.text, {
                 reply_markup: menu.keyboard,
