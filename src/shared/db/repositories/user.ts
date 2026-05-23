@@ -74,7 +74,7 @@ async function updateUser(user: User) {
             }
         });
     } catch (error) {
-        console.error("Ошибка при вставке пользователя", error);
+        console.error("Ошибка при обновлении пользователя", error);
     }
 }
 
@@ -148,11 +148,11 @@ async function removeFromSystem(value: number | bigint): Promise<boolean> {
 /**
  * Проверка номера телефона на существование в БД
  */
-async function matchPhoneNumber(phoneNumber: string): Promise<boolean> {
+async function matchPhoneNumber(phoneNumberHashed: string): Promise<boolean> {
     try {
         const user = await prisma.user.findFirst({
             where: {
-                phone: phoneNumber
+                phone: phoneNumberHashed
             },
             select: {
                 id: true
@@ -160,7 +160,6 @@ async function matchPhoneNumber(phoneNumber: string): Promise<boolean> {
         });
         return user !== null;
     } catch (error) {
-        console.error("Ошибка при проверке номера", error);
         return false;
     }
 }

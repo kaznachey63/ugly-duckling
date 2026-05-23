@@ -6,6 +6,7 @@ import menuAuth from '@menus/modules/commands/cabinet/auth';
 import type { User } from '@shared/types/DB';
 import localization from '@utils/localization';
 import common from '@utils/common';
+import { CryptoService } from '@common/services/CryptoService';
 
 const contactComposer = new Composer<MyContext>();
 
@@ -20,22 +21,30 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
     try {
         ctx.session.other.ids.cash.push(ctx.message?.message_id!);
         const phoneNumber = ctx.message!.contact?.phone_number?.replace('+', '');
-        if (!phoneNumber) return;
     
         // 1. Сначала отправляем "Обработка..." и ПОЛУЧАЕМ ID этого сообщения
         const processingMsg = await ctx.reply(ctx.t("utils.shared.processing"), {
             reply_markup: { remove_keyboard: true }
         });
-        
-        const isAdminPhone = common.isAdminPhone(phoneNumber);
         ctx.session.other.ids.cash.push(processingMsg?.message_id);
+        
+        if (!phoneNumber) {
+            await common.deleteCashMessages(ctx);
+            await ctx.reply("Ошибка при прохождении авторизации. Номер телефона окзался пустым");
+            return;
+        }
+
+        const isAdminPhone = common.isAdminPhone(phoneNumber);
+
+        const phoneNumberHashed = CryptoService.encrypt(phoneNumber);
+        const matchNumberCustomer = await db.user.matchPhoneNumber(phoneNumberHashed);
 
         if (await db.user.exists(BigInt(ctx!.from!.id!))) {
             await ctx.reply(ctx.t("modules.commands.cabinet.auth.login.already"), { 
                 parse_mode: "MarkdownV2" 
             });  
         }
-        else if (await db.user.matchPhoneNumber(phoneNumber) || isAdminPhone) { 
+        else if (matchNumberCustomer || isAdminPhone) { 
             ctx.session.user.phone = phoneNumber;
             
             // 3. Удаляем, передавая ID сообщения обработки
@@ -78,7 +87,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
 function formatUser(ctx: MyContext): User {
     const firstName = ctx.from?.first_name!;
     const lastName = ctx.from?.last_name!;
-    const phone = ctx.session?.user?.phone!;
+    const phone = CryptoService.encrypt(ctx.session?.user?.phone!);
     const roleId = common.isAdminPhone(ctx.session.user.phone!) ? 1 : 2;
 
     return {

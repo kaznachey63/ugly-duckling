@@ -1,5 +1,8 @@
 import type { LanguagesALlowed } from "@shared/types/LanguagesAllowed"
 import type { RoleCode } from "@shared/types/RoleCode"
+const shared = {
+    utf8: 'utf8',
+};
 
 const link = {
     form: "https://forms.gle/i91r3EaCeigbuo479",
@@ -120,7 +123,17 @@ const priceText = {
     5: "десять тысяч рублей",
 };
 
+const crypto = {
+    key: process.env.CRYPTO_KEY,
+    salt: process.env.CRYPTO_SALT,
+    cipherAlgorithm: 'aes-256-ctr',
+    hex: 'hex',
+    hashAlgorithm: 'sha256',
+    ivLength: 16
+};
+
 export default {
+    shared,
     link,
     calendar,
     google,
@@ -134,5 +147,6 @@ export default {
     ids,
     message,
     price,
-    priceText
+    priceText,
+    crypto,
 }
