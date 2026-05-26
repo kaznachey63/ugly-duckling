@@ -13,8 +13,8 @@ export default function contact(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.cabinet.auth.login.path")
     ];
 
-    if (ctx.session.authLimit.failed_attempts == 3) text.splice(1, 0, ctx.t("modules.commands.cabinet.auth.login.manyAttempts", { actualAttempts: ctx.session.authLimit.failed_attempts, maxAttempts: constants.auth.maxAttempts }));
-    else if (ctx.session.authLimit.failed_attempts! > 0) text.splice(1, 0, ctx.t("modules.commands.cabinet.auth.login.stop", { dateTime: ctx.session.authLimit.blocked_until }));
+    if (ctx.session.authLimit.failed_attempts! > 0) text.splice(1, 0, ctx.t("modules.commands.cabinet.auth.login.manyAttempts", { actualAttempts: ctx.session.authLimit.failed_attempts, maxAttempts: constants.auth.maxAttempts }));
+    else if (ctx.session.authLimit.failed_attempts == 3) text.splice(1, 0, ctx.t("modules.commands.cabinet.auth.login.stop", { dateTime: ctx.session.authLimit.blocked_until }));
     
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
 
