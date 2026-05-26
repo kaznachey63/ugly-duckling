@@ -8,6 +8,7 @@ import localization from '@utils/localization';
 import common from '@utils/common';
 import { CryptoService } from '@common/services/CryptoService';
 import type { AuthLimit } from '@shared/types/DB';
+import utils from '@utils';
 
 const contactComposer = new Composer<MyContext>();
 
@@ -103,6 +104,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
     } catch (error) {
         console.error("Ошибка в обработке контакта:", error);
     }
+    finally { utils.common.resetSessionStates(ctx.session); }
 });
 
 function formatUser(ctx: MyContext): User {
