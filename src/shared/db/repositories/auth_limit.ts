@@ -39,13 +39,11 @@ async function get(telegramId: bigint): Promise<AuthLimit | null> {
 /**
  * Добавление пользователя в базу авторизации
  */
-async function insert(authLimit: AuthLimit) {
+async function insert(telegramId: bigint) {
     try {
         await prisma.auth_limit.create({
             data: {
-                blocked_until: authLimit.blocked_until,
-                failed_attempts: authLimit.failed_attempts,
-                last_attempt_at: authLimit.last_attempt_at
+                telegram_id: telegramId,
             }
         });
     } catch (error) {

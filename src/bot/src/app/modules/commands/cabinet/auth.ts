@@ -11,28 +11,35 @@ authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
     let menu;
     if (infoAboutAuth) { // если есть информация в базе авторизации
         ctx.session.authLimit = infoAboutAuth;
-        if (infoAboutAuth.blocked_until && infoAboutAuth.blocked_until.getTime() > Date.now()) {
-            menu = menuAuth.stop(ctx);
-            await ctx.editMessageText(menu.text, {
-                reply_markup: menu.keyboard,
-                parse_mode: 'MarkdownV2'
-            });
-            
-            // const authLimit: AuthLimit = {
-            //     telegram_id: BigInt(ctx.from?.id!),
-            //     failed_attempts: 0,
-            //     blocked_until: new Date(Date.now() + 60 * 60 * 1000),
-            //     last_attempt_at: new Date()
-            // };
+        if (infoAboutAuth.blocked_until) {
+            if (infoAboutAuth.blocked_until.getTime() >= Date.now()) {
+                menu = menuAuth.stop(ctx);
+                await ctx.editMessageText(menu.text, {
+                    reply_markup: menu.keyboard,
+                    parse_mode: 'MarkdownV2'
+                });
+            }
+            else {
+                const authLimit: AuthLimit = {
+                    telegram_id: BigInt(ctx.from?.id!),
+                    failed_attempts: 0,
+                    blocked_until: null,
+                    last_attempt_at: new Date()
+                };
 
-            // await db.auth_limit.update(authLimit);
+                await db.auth_limit.update(authLimit);
+                login(ctx); 
+            }
         }
         // если 4 > кол-во неудач > 0
         else if (infoAboutAuth.failed_attempts! > 0 && infoAboutAuth.failed_attempts! < 4) {
             login(ctx, infoAboutAuth.failed_attempts!);
         }
     }
-    else login(ctx); // пользователя нет в базе авторизации 
+    else { // пользователя нет в базе авторизации
+        await db.auth_limit.insert(BigInt(ctx.from?.id!));
+        login(ctx); 
+    }
 });
 
 authComposer.callbackQuery("logoutAuth", async (ctx: MyContext) => {
