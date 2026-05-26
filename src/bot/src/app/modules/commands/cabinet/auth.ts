@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
@@ -38,6 +39,7 @@ authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
     }
     else { // пользователя нет в базе авторизации
         await db.auth_limit.insert(BigInt(ctx.from?.id!));
+        ctx.session.authLimit = await db.auth_limit.get(BigInt(ctx.from?.id!));
         login(ctx); 
     }
 });
