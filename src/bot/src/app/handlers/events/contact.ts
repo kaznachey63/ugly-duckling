@@ -86,12 +86,12 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             await common.deleteCashMessages(ctx);
             const authLimit = (await db.auth_limit.get(BigInt(ctx.from?.id!)))!;
 
-            if (authLimit?.failed_attempts == 3) {
+            if (authLimit?.failed_attempts == 2) {
                 authLimit.blocked_until = new Date(Date.now() + 60 * 60 * 1000);
                 authLimit.last_attempt_at = new Date();
             }
-            else authLimit!.failed_attempts! += 1;
-
+            
+            authLimit!.failed_attempts! += 1;
             ctx.session.authLimit = authLimit;
             await db.auth_limit.update(authLimit);
 

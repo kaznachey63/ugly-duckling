@@ -29,7 +29,7 @@ function login(ctx: MyContext): Menu<Keyboard> {
  */
 function stop(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [ 
-        ctx.t("modules.commands.cabinet.auth.login.stop", { dateTime: ctx.session.authLimit.blocked_until }),
+        ctx.t("modules.commands.cabinet.auth.login.stop", { dateTime: ctx.session.authLimit.blocked_until?.toLocaleString('ru-RU') }),
         ctx.t("modules.commands.cabinet.auth.login.path")
     ].join('\n\n');
     

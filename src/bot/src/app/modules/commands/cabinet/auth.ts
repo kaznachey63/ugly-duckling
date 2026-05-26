@@ -33,12 +33,12 @@ authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
             }
         }
         // если кол-во неудач > 0
-        else if (infoAboutAuth.failed_attempts! > 0 && infoAboutAuth.failed_attempts! < 4) login(ctx);        
+        else if (infoAboutAuth.failed_attempts! > 0) login(ctx);        
         else login(ctx); 
     }
     else { // пользователя нет в базе авторизации
         await db.auth_limit.insert(BigInt(ctx.from?.id!));
-        ctx.session.authLimit = await db.auth_limit.get(BigInt(ctx.from?.id!));
+        ctx.session.authLimit = (await db.auth_limit.get(BigInt(ctx.from?.id!)))!;
         login(ctx); 
     }
 });
