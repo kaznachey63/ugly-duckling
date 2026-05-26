@@ -8,13 +8,7 @@ import type { AuthLimit } from '@shared/types/DB';
 const authComposer = new Composer<MyContext>();
 
 authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
-const infoAboutAuth = await db.auth_limit.get(BigInt(ctx.from?.id!));
-console.log('=== DEBUG auth_limit ===');
-console.log('blocked_until value:', infoAboutAuth?.blocked_until);
-console.log('blocked_until type:', typeof infoAboutAuth?.blocked_until);
-console.log('blocked_until instanceof Date:', infoAboutAuth?.blocked_until instanceof Date);
-console.log('blocked_until == null:', infoAboutAuth?.blocked_until == null);
-console.log('========================');    
+    const infoAboutAuth = await db.auth_limit.get(BigInt(ctx.from?.id!));
     let menu;
     if (infoAboutAuth) { // если есть информация в базе авторизации
         ctx.session.authLimit = infoAboutAuth;
