@@ -128,16 +128,42 @@ async function exists(userId: bigint): Promise<boolean> {
 async function removeFromSystem(value: number | bigint): Promise<boolean> {
     const typeOfValue = typeof value;
     let whereField: string;
+
     switch (typeOfValue) {
         case 'number': whereField = 'id'; break;
         case 'bigint': whereField = 'telegram_id'; break;
     }
+
     try {
         await prisma.user.deleteMany({
             where: {
                 [whereField!]: value
             }
         });
+
+        let telegramId: bigint | null = null;
+
+        if (typeOfValue == 'bigint') {
+            telegramId = value as bigint;
+        }
+        else {
+            const user = await prisma.user.findFirst({
+                where: {
+                    id: value as number
+                }
+            });
+
+            telegramId = user?.telegram_id ?? null;
+        }
+
+        if (telegramId) {
+            await prisma.auth_limit.deleteMany({
+                where: {
+                    telegram_id: telegramId
+                }
+            });
+        }
+
         return true;
     } catch (error) {
         console.error("Ошибка при удалении пользователя", error);
