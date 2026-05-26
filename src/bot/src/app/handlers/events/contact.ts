@@ -7,6 +7,7 @@ import type { User } from '@shared/types/DB';
 import localization from '@utils/localization';
 import common from '@utils/common';
 import { CryptoService } from '@common/services/CryptoService';
+import type { AuthLimit } from '@shared/types/DB';
 
 const contactComposer = new Composer<MyContext>();
 
@@ -54,7 +55,17 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             try {
                 const user = formatUser(ctx);
                 if (isAdminPhone) await db.user.insert(user); // по сути проверка чисто на меня
-                else await db.user.updateUser(user); // проверка на остальных
+                else { // проверка на остальных
+                    await db.user.updateUser(user); 
+
+                    const authLimit: AuthLimit = {
+                        telegram_id: BigInt(ctx.from?.id!),
+                        failed_attempts: 0,
+                        blocked_until: null,
+                        last_attempt_at: new Date()
+                    };
+                    await db.auth_limit.update(authLimit);
+                }
 
                 menu = menuAuth.processLogin(ctx, true);
                 await ctx.reply(menu.text, { 
@@ -72,6 +83,16 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         else {
             // 4. Если доступ запрещен — тоже удаляем
             await common.deleteCashMessages(ctx);
+            const authLimit = (await db.auth_limit.get(BigInt(ctx.from?.id!)))!;
+
+            if (authLimit?.failed_attempts == 3) {
+                authLimit.blocked_until = new Date(Date.now() + 60 * 60 * 1000);
+                authLimit.last_attempt_at = new Date();
+            }
+            else authLimit!.failed_attempts! += 1;
+
+            ctx.session.authLimit = authLimit;
+            await db.auth_limit.update(authLimit);
 
             const menu = menuContact(ctx);
             await ctx.reply(menu.text, {

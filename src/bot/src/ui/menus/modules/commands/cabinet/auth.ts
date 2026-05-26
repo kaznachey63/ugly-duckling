@@ -7,9 +7,10 @@ import constants from '@common/constants';
 /**
  * Отправка кнопки войти
  */
-function login(ctx: MyContext, attempts?: number): Menu<Keyboard> {
+function login(ctx: MyContext): Menu<Keyboard> {
+    const attempts = ctx.session.authLimit.failed_attempts!;
     const text = [ 
-        attempts ? ctx.t("modules.commands.cabinet.auth.login.manyAttempts", { actualAttempts: attempts, maxAttempts: constants.auth.maxAttempts }) : '',
+        attempts > 0 ? ctx.t("modules.commands.cabinet.auth.login.manyAttempts", { actualAttempts: attempts, maxAttempts: constants.auth.maxAttempts }) : '',
         ctx.t("modules.commands.cabinet.auth.login.title"),
         ctx.t("modules.commands.cabinet.auth.login.path")
     ].filter(Boolean).join('\n\n');

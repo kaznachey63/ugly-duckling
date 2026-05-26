@@ -31,9 +31,9 @@ authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
                 login(ctx); 
             }
         }
-        // если 4 > кол-во неудач > 0
-        else if (infoAboutAuth.failed_attempts! > 0 && infoAboutAuth.failed_attempts! < 4) {
-            login(ctx, infoAboutAuth.failed_attempts!);
+        // если кол-во неудач > 0
+        else if (infoAboutAuth.failed_attempts! > 0) {
+            login(ctx);
         }
     }
     else { // пользователя нет в базе авторизации
@@ -56,8 +56,8 @@ authComposer.callbackQuery("logoutAuth", async (ctx: MyContext) => {
     }
 });
 
-async function login(ctx: MyContext, attempts?: number) {
-    const menu = attempts ? menuAuth.login(ctx, attempts) : menuAuth.login(ctx);
+async function login(ctx: MyContext) {
+    const menu = menuAuth.login(ctx);
         
     ctx.session.state.passingAuthorization = true;
     await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId!);
