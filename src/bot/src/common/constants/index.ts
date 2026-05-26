@@ -132,6 +132,10 @@ const crypto = {
     ivLength: 16
 };
 
+const auth = {
+    maxAttempts: 3
+};
+
 export default {
     shared,
     link,
@@ -149,4 +153,5 @@ export default {
     price,
     priceText,
     crypto,
+    auth,
 }

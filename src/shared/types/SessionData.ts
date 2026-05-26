@@ -1,5 +1,5 @@
 import { Context, type SessionFlavor } from "grammy";
-import type { User, Sendout, Schedule, Message, Result, Contract } from "@shared/types/DB";
+import type { User, Sendout, Schedule, Message, Result, Contract, AuthLimit } from "@shared/types/DB";
 import type { ProcessType } from "./ProcessType";
 import type { LogSortType } from "./LogSortType";
 
@@ -11,6 +11,7 @@ export interface SessionData {
     message: Message;
     result: Result;
     contract: Contract;
+    authLimit: AuthLimit;
     generate: {
         text: string;
         entities: any[];

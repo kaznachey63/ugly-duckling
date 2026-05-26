@@ -2,25 +2,37 @@ import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import menuAuth from '@menus/modules/commands/cabinet/auth';
+import type { AuthLimit } from '@shared/types/DB';
 
 const authComposer = new Composer<MyContext>();
 
 authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
-    const infoAboutAuth = await db.auth_limit.get(ctx.from?.id!);
+    const infoAboutAuth = await db.auth_limit.get(BigInt(ctx.from?.id!));
+    let menu;
+    if (infoAboutAuth) { // если есть информация в базе авторизации
+        ctx.session.authLimit = infoAboutAuth;
+        if (infoAboutAuth.blocked_until && infoAboutAuth.blocked_until.getTime() > Date.now()) {
+            menu = menuAuth.stop(ctx);
+            await ctx.editMessageText(menu.text, {
+                reply_markup: menu.keyboard,
+                parse_mode: 'MarkdownV2'
+            });
+            
+            // const authLimit: AuthLimit = {
+            //     telegram_id: BigInt(ctx.from?.id!),
+            //     failed_attempts: 0,
+            //     blocked_until: new Date(Date.now() + 60 * 60 * 1000),
+            //     last_attempt_at: new Date()
+            // };
 
-    if (!infoAboutAuth) {
-        
+            // await db.auth_limit.update(authLimit);
+        }
+        // если 4 > кол-во неудач > 0
+        else if (infoAboutAuth.failed_attempts! > 0 && infoAboutAuth.failed_attempts! < 4) {
+            login(ctx, infoAboutAuth.failed_attempts!);
+        }
     }
-
-    ctx.session.state.passingAuthorization = true;
-    await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId!);
-    
-    const menu = menuAuth.sendLogin(ctx);
-    const msg = await ctx.reply(menu.text, {
-        reply_markup: menu.keyboard,
-        parse_mode: 'MarkdownV2'
-    });
-    ctx.session.other.ids.cash.push(msg?.message_id!);
+    else login(ctx); // пользователя нет в базе авторизации 
 });
 
 authComposer.callbackQuery("logoutAuth", async (ctx: MyContext) => {
@@ -36,5 +48,18 @@ authComposer.callbackQuery("logoutAuth", async (ctx: MyContext) => {
         console.error("Ошибка при выходе из системы", error);
     }
 });
+
+async function login(ctx: MyContext, attempts?: number) {
+    const menu = attempts ? menuAuth.login(ctx, attempts) : menuAuth.login(ctx);
+        
+    ctx.session.state.passingAuthorization = true;
+    await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId!);
+    
+    const msg = await ctx.reply(menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: 'MarkdownV2'
+    });
+    ctx.session.other.ids.cash.push(msg?.message_id!);
+}
 
 export default authComposer;

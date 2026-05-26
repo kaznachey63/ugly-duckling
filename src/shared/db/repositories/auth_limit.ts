@@ -2,26 +2,29 @@ import prisma from '@shared/db/config';
 import type { AuthLimit } from '@shared/types/DB';
 
 /**
- * Вставка чатов
+ * Обновление полей лимита по авторизации
  */
-async function insert(list: Chat[]) {
+async function update(authLimit: AuthLimit) {
     try {
-        await prisma.chat.createMany({
-            data: list.map(chat => ({
-                chat_id: String(chat.id),
-                title: chat.title!,
-                link: chat.link!
-            }))
+        await prisma.auth_limit.update({
+            where: {
+                telegram_id: authLimit.telegram_id!
+            },
+            data: {
+                blocked_until: authLimit.blocked_until,
+                failed_attempts: authLimit.failed_attempts,
+                last_attempt_at: authLimit.last_attempt_at
+            }
         });
     } catch (error) {
-        console.error("Ошибка при вставке чатов", error);
+        console.error("Ошибка при обновлении ограничения лимитов авторизации", error);
     }
 }
 
 /**
  * Получение информации о пользователе в списках авторизации по телеграм айди
  */
-async function get(telegramId: number): Promise<AuthLimit[] | undefined> {
+async function get(telegramId: bigint): Promise<AuthLimit | null> {
     try {
         return await prisma.auth_limit.findFirst({
             where: {
@@ -29,24 +32,29 @@ async function get(telegramId: number): Promise<AuthLimit[] | undefined> {
             }
         });
     } catch {
-        return undefined;
+        return null;
     }
 }
 
 /**
- * Очистка списка чатов
+ * Добавление пользователя в базу авторизации
  */
-async function clear() {
+async function insert(authLimit: AuthLimit) {
     try {
-        await prisma.chat.deleteMany();
-        await prisma.$executeRaw`TRUNCATE TABLE public.chat RESTART IDENTITY`;
+        await prisma.auth_limit.create({
+            data: {
+                blocked_until: authLimit.blocked_until,
+                failed_attempts: authLimit.failed_attempts,
+                last_attempt_at: authLimit.last_attempt_at
+            }
+        });
     } catch (error) {
-        console.error("Ошибка при очистке чатов", error);
+        console.error("Ошибка при вставке пользователя в огр. авторизации", error);
     }
 }
 
 export default {
     insert,
     get,
-    clear,
+    update,
 }
