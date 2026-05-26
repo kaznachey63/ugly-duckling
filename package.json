@@ -13,6 +13,8 @@
   "scripts": {
     "test": "tsx --watch test/index.ts",
     "remove:packages": "rm -rf package-lock.json node_modules",
+    "reload:packages": "npm install",
+
     "start:bot": "dotenvx run -- tsx --tsconfig src/bot/tsconfig.json src/bot/src/app/core/index.ts",
     "start:parser": "dotenvx run -- tsx --tsconfig src/parser/tsconfig.json src/parser/src/core/index.ts",
     "start:sendout": "dotenvx run -- tsx --tsconfig src/sendout/tsconfig.json src/sendout/src/core/index.ts",
