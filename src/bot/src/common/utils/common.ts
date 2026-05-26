@@ -79,12 +79,13 @@ async function deleteCashMessages(ctx: MyContext) {
 /**
  * Проверка на телефон админа
  */
-function isAdminPhone(phone: string) {
-    return phone === constants.adminData.phone;
+function isAdminPhone(phone: string): boolean {
+    // return phone === constants.adminData.phone;
+    return false;
 }
 
 async function alertSendoutIsActive(ctx: MyContext) {
-    await ctx.answerCallbackQuery({ text: ctx.t("utils.shared.titles.sendoutActive"), show_alert: true })
+    return await ctx.answerCallbackQuery({ text: ctx.t("utils.shared.titles.sendoutActive"), show_alert: true })
 }
 
 export default {
