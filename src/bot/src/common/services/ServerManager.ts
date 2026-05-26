@@ -32,7 +32,7 @@ export class ServerManager {
      * Проверка на необходимость перезапуска процесса
      */
     async restartProcessOrNot(name: string, isSendout = false): Promise<boolean> {
-        const processName = isSendout ? `hawk-sendout@${name}.service` : name;
+        const processName = isSendout ? `uglyduckling-sendout@${name}.service` : name;
         const wasActive = await this.isProcessActive(processName);
         if (wasActive) {
             await this.restartProcess(processName);
@@ -96,14 +96,14 @@ export class ServerManager {
         const { stdout } = await this.execute("systemctl list-unit-files --type=service --no-legend --no-pager", 5000);
         if (processType == 'sendout') {
             const sendouts = await db.sendout.getSendouts();
-            return sendouts.map(s => `hawk-sendout@${s.name}.service`);
+            return sendouts.map(s => `uglyduckling-sendout@${s.name}.service`);
         }
         
         // @ts-ignore
         return stdout
             .split('\n')
             .map(l => l.trim().split(/\s+/)[0])
-            .filter(name => name!.trim().startsWith(`hawk-${processType}`))
+            .filter(name => name!.trim().startsWith(`uglyduckling-${processType}`))
         ;
     }
 

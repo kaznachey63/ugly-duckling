@@ -80,7 +80,7 @@ export class ServerManager {
 
     private resolveServiceName(name: string, isSendout: boolean): string {
         return isSendout
-            ? `hawk-sendout@${name}.service`
+            ? `uglyduckling-sendout@${name}.service`
             : name
         ;
     }

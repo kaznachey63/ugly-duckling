@@ -28,7 +28,7 @@ controlComposer.callbackQuery("reuploadChats", async (ctx: MyContext) => {
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
 
     const server = new ServerManager();
-    const processName = "hawk-parser.service";
+    const processName = "uglyduckling-parser.service";
 
     await server.startProcess(processName);
 
