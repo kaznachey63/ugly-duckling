@@ -5,7 +5,7 @@ import common from '@utils/common';
 export default async function passingAuthorization(ctx: MyContext) {
     try {
         if (ctx.message?.text != "❌ Отменить") {
-            const unknownMessage = await ctx.reply("Действие не опознано, попробуйте снова воспользоваться кнопками: 'Поделиться' и 'Отменить'");
+            const unknownMessage = await ctx.reply(ctx.t("modules.commands.cabinet.auth.login.unknownMessage"));
             ctx.session.other.ids.cash.push(unknownMessage.message_id);
             return;
         }
