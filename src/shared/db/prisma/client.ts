@@ -57,11 +57,6 @@ export type contract = Prisma.contractModel
  */
 export type credential = Prisma.credentialModel
 /**
- * Model execution
- * 
- */
-export type execution = Prisma.executionModel
-/**
  * Model media
  * 
  */
@@ -92,11 +87,6 @@ export type schedule = Prisma.scheduleModel
  */
 export type sendout = Prisma.sendoutModel
 /**
- * Model status
- * 
- */
-export type status = Prisma.statusModel
-/**
  * Model user
  * 
  */
@@ -106,3 +96,8 @@ export type user = Prisma.userModel
  * 
  */
 export type general = Prisma.generalModel
+/**
+ * Model auth_limit
+ * 
+ */
+export type auth_limit = Prisma.auth_limitModel

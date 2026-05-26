@@ -387,16 +387,15 @@ export const ModelName = {
   chat: 'chat',
   contract: 'contract',
   credential: 'credential',
-  execution: 'execution',
   media: 'media',
   message: 'message',
   result: 'result',
   role: 'role',
   schedule: 'schedule',
   sendout: 'sendout',
-  status: 'status',
   user: 'user',
-  general: 'general'
+  general: 'general',
+  auth_limit: 'auth_limit'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -412,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "chat" | "contract" | "credential" | "execution" | "media" | "message" | "result" | "role" | "schedule" | "sendout" | "status" | "user" | "general"
+    modelProps: "chat" | "contract" | "credential" | "media" | "message" | "result" | "role" | "schedule" | "sendout" | "user" | "general" | "auth_limit"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -635,80 +634,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.credentialCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CredentialCountAggregateOutputType> | number
-        }
-      }
-    }
-    execution: {
-      payload: Prisma.$executionPayload<ExtArgs>
-      fields: Prisma.executionFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.executionFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$executionPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.executionFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$executionPayload>
-        }
-        findFirst: {
-          args: Prisma.executionFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$executionPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.executionFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$executionPayload>
-        }
-        findMany: {
-          args: Prisma.executionFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$executionPayload>[]
-        }
-        create: {
-          args: Prisma.executionCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$executionPayload>
-        }
-        createMany: {
-          args: Prisma.executionCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.executionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$executionPayload>[]
-        }
-        delete: {
-          args: Prisma.executionDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$executionPayload>
-        }
-        update: {
-          args: Prisma.executionUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$executionPayload>
-        }
-        deleteMany: {
-          args: Prisma.executionDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.executionUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.executionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$executionPayload>[]
-        }
-        upsert: {
-          args: Prisma.executionUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$executionPayload>
-        }
-        aggregate: {
-          args: Prisma.ExecutionAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateExecution>
-        }
-        groupBy: {
-          args: Prisma.executionGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ExecutionGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.executionCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ExecutionCountAggregateOutputType> | number
         }
       }
     }
@@ -1156,80 +1081,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    status: {
-      payload: Prisma.$statusPayload<ExtArgs>
-      fields: Prisma.statusFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.statusFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$statusPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.statusFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$statusPayload>
-        }
-        findFirst: {
-          args: Prisma.statusFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$statusPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.statusFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$statusPayload>
-        }
-        findMany: {
-          args: Prisma.statusFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$statusPayload>[]
-        }
-        create: {
-          args: Prisma.statusCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$statusPayload>
-        }
-        createMany: {
-          args: Prisma.statusCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.statusCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$statusPayload>[]
-        }
-        delete: {
-          args: Prisma.statusDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$statusPayload>
-        }
-        update: {
-          args: Prisma.statusUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$statusPayload>
-        }
-        deleteMany: {
-          args: Prisma.statusDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.statusUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.statusUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$statusPayload>[]
-        }
-        upsert: {
-          args: Prisma.statusUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$statusPayload>
-        }
-        aggregate: {
-          args: Prisma.StatusAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateStatus>
-        }
-        groupBy: {
-          args: Prisma.statusGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.StatusGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.statusCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.StatusCountAggregateOutputType> | number
-        }
-      }
-    }
     user: {
       payload: Prisma.$userPayload<ExtArgs>
       fields: Prisma.userFieldRefs
@@ -1378,6 +1229,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    auth_limit: {
+      payload: Prisma.$auth_limitPayload<ExtArgs>
+      fields: Prisma.auth_limitFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.auth_limitFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auth_limitPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.auth_limitFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auth_limitPayload>
+        }
+        findFirst: {
+          args: Prisma.auth_limitFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auth_limitPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.auth_limitFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auth_limitPayload>
+        }
+        findMany: {
+          args: Prisma.auth_limitFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auth_limitPayload>[]
+        }
+        create: {
+          args: Prisma.auth_limitCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auth_limitPayload>
+        }
+        createMany: {
+          args: Prisma.auth_limitCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.auth_limitCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auth_limitPayload>[]
+        }
+        delete: {
+          args: Prisma.auth_limitDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auth_limitPayload>
+        }
+        update: {
+          args: Prisma.auth_limitUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auth_limitPayload>
+        }
+        deleteMany: {
+          args: Prisma.auth_limitDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.auth_limitUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.auth_limitUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auth_limitPayload>[]
+        }
+        upsert: {
+          args: Prisma.auth_limitUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auth_limitPayload>
+        }
+        aggregate: {
+          args: Prisma.Auth_limitAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAuth_limit>
+        }
+        groupBy: {
+          args: Prisma.auth_limitGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Auth_limitGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.auth_limitCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Auth_limitCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1449,14 +1374,6 @@ export const CredentialScalarFieldEnum = {
 export type CredentialScalarFieldEnum = (typeof CredentialScalarFieldEnum)[keyof typeof CredentialScalarFieldEnum]
 
 
-export const ExecutionScalarFieldEnum = {
-  id: 'id',
-  code: 'code'
-} as const
-
-export type ExecutionScalarFieldEnum = (typeof ExecutionScalarFieldEnum)[keyof typeof ExecutionScalarFieldEnum]
-
-
 export const MediaScalarFieldEnum = {
   id: 'id',
   position: 'position',
@@ -1523,14 +1440,6 @@ export const SendoutScalarFieldEnum = {
 export type SendoutScalarFieldEnum = (typeof SendoutScalarFieldEnum)[keyof typeof SendoutScalarFieldEnum]
 
 
-export const StatusScalarFieldEnum = {
-  id: 'id',
-  code: 'code'
-} as const
-
-export type StatusScalarFieldEnum = (typeof StatusScalarFieldEnum)[keyof typeof StatusScalarFieldEnum]
-
-
 export const UserScalarFieldEnum = {
   id: 'id',
   telegram_id: 'telegram_id',
@@ -1551,6 +1460,17 @@ export const GeneralScalarFieldEnum = {
 } as const
 
 export type GeneralScalarFieldEnum = (typeof GeneralScalarFieldEnum)[keyof typeof GeneralScalarFieldEnum]
+
+
+export const Auth_limitScalarFieldEnum = {
+  id: 'id',
+  telegram_id: 'telegram_id',
+  failed_attempts: 'failed_attempts',
+  blocked_until: 'blocked_until',
+  last_attempt_at: 'last_attempt_at'
+} as const
+
+export type Auth_limitScalarFieldEnum = (typeof Auth_limitScalarFieldEnum)[keyof typeof Auth_limitScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1803,16 +1723,15 @@ export type GlobalOmitConfig = {
   chat?: Prisma.chatOmit
   contract?: Prisma.contractOmit
   credential?: Prisma.credentialOmit
-  execution?: Prisma.executionOmit
   media?: Prisma.mediaOmit
   message?: Prisma.messageOmit
   result?: Prisma.resultOmit
   role?: Prisma.roleOmit
   schedule?: Prisma.scheduleOmit
   sendout?: Prisma.sendoutOmit
-  status?: Prisma.statusOmit
   user?: Prisma.userOmit
   general?: Prisma.generalOmit
+  auth_limit?: Prisma.auth_limitOmit
 }
 
 /* Types for Logging */

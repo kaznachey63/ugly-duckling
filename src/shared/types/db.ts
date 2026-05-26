@@ -63,3 +63,4 @@ export type General = Prisma.generalGetPayload<{}>;
 export type Credential = Prisma.credentialGetPayload<{}>;
 export type Role = Prisma.roleGetPayload<{}>;
 export type Chat = Partial<Prisma.chatGetPayload<{}>>;
+export type AuthLimit = Partial<Prisma.auth_limitGetPayload<{}>>;

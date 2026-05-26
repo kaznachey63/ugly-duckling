@@ -35,11 +35,6 @@ model credential {
   sendout        sendout?
 }
 
-model execution {
-  id   Int    @id @default(autoincrement())
-  code String @unique
-}
-
 model media {
   id         Int      @id @default(autoincrement())
   position   Int?
@@ -114,11 +109,6 @@ model sendout {
   @@index([user_id], map: "fki_sendouts_users_fk")
 }
 
-model status {
-  id   Int    @id @default(autoincrement())
-  code String @unique
-}
-
 model user {
   id          Int        @id @default(autoincrement())
   telegram_id BigInt?    @unique
@@ -139,4 +129,12 @@ model general {
   id           Int      @id(map: "general_id") @default(autoincrement())
   last_idea_id Int?     @unique(map: "general_last_idea_id")
   maintenace   Boolean?
+}
+
+model auth_limit {
+  id              Int       @id(map: "auth_limitI_id") @default(autoincrement())
+  telegram_id     BigInt?   @unique(map: "auth_limit_telegram_id")
+  failed_attempts Int?      @default(0)
+  blocked_until   DateTime? @db.Timestamp(6)
+  last_attempt_at DateTime? @default(now()) @db.Timestamp(6)
 }

@@ -54,16 +54,15 @@ export const ModelName = {
   chat: 'chat',
   contract: 'contract',
   credential: 'credential',
-  execution: 'execution',
   media: 'media',
   message: 'message',
   result: 'result',
   role: 'role',
   schedule: 'schedule',
   sendout: 'sendout',
-  status: 'status',
   user: 'user',
-  general: 'general'
+  general: 'general',
+  auth_limit: 'auth_limit'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -112,14 +111,6 @@ export const CredentialScalarFieldEnum = {
 } as const
 
 export type CredentialScalarFieldEnum = (typeof CredentialScalarFieldEnum)[keyof typeof CredentialScalarFieldEnum]
-
-
-export const ExecutionScalarFieldEnum = {
-  id: 'id',
-  code: 'code'
-} as const
-
-export type ExecutionScalarFieldEnum = (typeof ExecutionScalarFieldEnum)[keyof typeof ExecutionScalarFieldEnum]
 
 
 export const MediaScalarFieldEnum = {
@@ -188,14 +179,6 @@ export const SendoutScalarFieldEnum = {
 export type SendoutScalarFieldEnum = (typeof SendoutScalarFieldEnum)[keyof typeof SendoutScalarFieldEnum]
 
 
-export const StatusScalarFieldEnum = {
-  id: 'id',
-  code: 'code'
-} as const
-
-export type StatusScalarFieldEnum = (typeof StatusScalarFieldEnum)[keyof typeof StatusScalarFieldEnum]
-
-
 export const UserScalarFieldEnum = {
   id: 'id',
   telegram_id: 'telegram_id',
@@ -216,6 +199,17 @@ export const GeneralScalarFieldEnum = {
 } as const
 
 export type GeneralScalarFieldEnum = (typeof GeneralScalarFieldEnum)[keyof typeof GeneralScalarFieldEnum]
+
+
+export const Auth_limitScalarFieldEnum = {
+  id: 'id',
+  telegram_id: 'telegram_id',
+  failed_attempts: 'failed_attempts',
+  blocked_until: 'blocked_until',
+  last_attempt_at: 'last_attempt_at'
+} as const
+
+export type Auth_limitScalarFieldEnum = (typeof Auth_limitScalarFieldEnum)[keyof typeof Auth_limitScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -6,6 +6,12 @@ import menuAuth from '@menus/modules/commands/cabinet/auth';
 const authComposer = new Composer<MyContext>();
 
 authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
+    const infoAboutAuth = await db.auth_limit.get(ctx.from?.id!);
+
+    if (!infoAboutAuth) {
+        
+    }
+
     ctx.session.state.passingAuthorization = true;
     await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId!);
     

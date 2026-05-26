@@ -7,6 +7,7 @@ import user from './repositories/user';
 import general from './repositories/general';
 import contract from './repositories/contract';
 import media from './repositories/media';
+import auth_limit from './repositories/auth_limit';
 
 export default {
     chat,
@@ -17,5 +18,6 @@ export default {
     user,
     general,
     contract,
-    media
+    media,
+    auth_limit,
 };

@@ -12,10 +12,15 @@
   ],
   "scripts": {
     "test": "tsx --watch test/index.ts",
-
     "start:bot": "dotenvx run -- tsx --tsconfig src/bot/tsconfig.json src/bot/src/app/core/index.ts",
     "start:parser": "dotenvx run -- tsx --tsconfig src/parser/tsconfig.json src/parser/src/core/index.ts",
-    "start:sendout": "dotenvx run -- tsx --tsconfig src/sendout/tsconfig.json src/sendout/src/core/index.ts"
+    "start:sendout": "dotenvx run -- tsx --tsconfig src/sendout/tsconfig.json src/sendout/src/core/index.ts",
+    
+    "dotenv:encrypt": "dotenvx encrypt",
+    "dotenv:decrypt": "dotenvx decrypt",
+    
+    "prisma:pull": "dotenvx run -- npx prisma db pull",
+    "prisma:generate": "dotenvx run -- npx prisma generate"
   },
   "keywords": [],
   "author": "",
