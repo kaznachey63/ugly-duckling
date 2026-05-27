@@ -46,8 +46,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
                 parse_mode: "MarkdownV2" 
             });  
         }
-        // else if (matchNumberCustomer || isAdminPhone) { 
-        else {
+        else if (matchNumberCustomer || isAdminPhone) { 
             ctx.session.user.phone = phoneNumberHashed;
             
             // 3. Удаляем, передавая ID сообщения обработки
@@ -82,26 +81,26 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
                 });  
             }
         }
-        // else {
-        //     // 4. Если доступ запрещен — тоже удаляем
-        //     await common.deleteCashMessages(ctx);
-        //     const authLimit = (await db.auth_limit.get(BigInt(ctx.from?.id!)))!;
+        else {
+            // 4. Если доступ запрещен — тоже удаляем
+            await common.deleteCashMessages(ctx);
+            const authLimit = (await db.auth_limit.get(BigInt(ctx.from?.id!)))!;
 
-        //     if (authLimit?.failed_attempts == 2) {
-        //         authLimit.blocked_until = new Date(Date.now() + 60 * 60 * 1000);
-        //         authLimit.last_attempt_at = new Date();
-        //     }
+            if (authLimit?.failed_attempts == 2) {
+                authLimit.blocked_until = new Date(Date.now() + 60 * 60 * 1000);
+                authLimit.last_attempt_at = new Date();
+            }
             
-        //     authLimit!.failed_attempts! += 1;
-        //     ctx.session.authLimit = authLimit;
-        //     await db.auth_limit.update(authLimit);
+            authLimit!.failed_attempts! += 1;
+            ctx.session.authLimit = authLimit;
+            await db.auth_limit.update(authLimit);
 
-        //     const menu = menuContact(ctx);
-        //     await ctx.reply(menu.text, {
-        //         reply_markup: menu.keyboard,
-        //         parse_mode: 'MarkdownV2'
-        //     });
-        // }
+            const menu = menuContact(ctx);
+            await ctx.reply(menu.text, {
+                reply_markup: menu.keyboard,
+                parse_mode: 'MarkdownV2'
+            });
+        }
     } catch (error) {
         console.error("Ошибка в обработке контакта:", error);
     }
