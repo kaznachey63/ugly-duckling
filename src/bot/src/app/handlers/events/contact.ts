@@ -110,7 +110,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
 function formatUser(ctx: MyContext): User {
     const firstName = ctx.from?.first_name!;
     const lastName = ctx.from?.last_name!;
-    const phone = CryptoService.encrypt(ctx.session?.user?.phone!);
+    const phone = ctx.session?.user?.phone!;
     const roleId = common.isAdminPhone(ctx.session.user.phone!) ? 1 : 2;
 
     return {
