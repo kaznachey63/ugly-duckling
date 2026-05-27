@@ -132,8 +132,9 @@ const crypto = {
     ivLength: 16
 };
 
-const auth = {
-    maxAttempts: 3
+const limit = {
+    authMaxAttempts: 3,
+    commandsTime: 1500
 };
 
 export default {
@@ -153,5 +154,5 @@ export default {
     price,
     priceText,
     crypto,
-    auth,
+    limit,
 }

@@ -1,3 +1,4 @@
+import constants from '@common/constants';
 import type { MyContext, SessionData } from '@shared/types/SessionData';
 
 /**
@@ -141,7 +142,7 @@ function rateLimitCommands(ctx: MyContext, commandCooldowns: Map<number, number>
     const userId = ctx.from?.id!;
     const now = Date.now();
     const last = commandCooldowns.get(userId) || 0;
-    if (now - last < 2000) return false;
+    if (now - last < constants.limit.commandsTime) return false;
     commandCooldowns.set(userId, now);
     return true;
 }
