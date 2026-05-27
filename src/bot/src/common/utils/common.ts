@@ -158,8 +158,13 @@ async function deleteCashMessages(ctx: MyContext) {
 /**
  * Проверка на телефон админа
  */
-function isAdminPhone(phone: string): boolean {
-    return phone === CryptoService.encrypt(constants.adminData.phone);
+function isAdminPhone(encryptedPhone: string): boolean {
+    const decrypted = CryptoService.decrypt(encryptedPhone);
+
+    return (
+        CryptoService.makeSearchIndex(decrypted) ===
+        CryptoService.makeSearchIndex(constants.adminData.phone)
+    );
 }
 
 async function alertSendoutIsActive(ctx: MyContext) {
