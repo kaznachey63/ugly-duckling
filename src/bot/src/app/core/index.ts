@@ -15,7 +15,7 @@ const callbackLocks = new Set<number>();
  */
 bot.use(async (ctx: MyContext, next: NextFunction) => {
     if (ctx.chat && ctx.chat.type !== 'private') return;
-    next();
+    await next();
 });
 
 /**
@@ -74,28 +74,27 @@ bot.use(modulesComposer);
 bot.use(eventsComposer);
 
 /**
+ * Логирование ошибок бота
+ */
+bot.catch((error) => {
+    console.error("BOT ERROR:", error);
+});
+
+/**
+ * Ловля необработанных ошибок от промисов
+ */
+process.on("unhandledRejection", (error) => {
+    console.error('unhandledRejection', error);
+});
+
+/**
+ * Ловля необработанных ошибок throw
+ */
+process.on('uncaughtException', (error) => {
+    console.error('uncaughtException:', error);
+});
+
+/**
  * Запуск бота
  */
 bot.start();
-
-// bot.catch(async (err, ctx) => {
-//     console.error(`Ошибка в обработчике:`, err);
-//     if (ctx.updateType !== 'channel_post') {
-//         if (ctx.message) try { await ctx.deleteMessage() } catch {};
-//         await ctx.reply("⚠️ Что-то пошло не так. Мы уже чиним!").catch(() => { });
-//     }
-// });
-
-/**
- * Защита от падения процесса
- */
-// process.on("unhandledRejection", (error) => {
-//     console.error('unhandledRejection', error);
-// });
-
-/**
- * Защита от падения процесса
- */
-// process.on('uncaughtException', err => {
-//     console.error('uncaughtException:', err);
-// });
