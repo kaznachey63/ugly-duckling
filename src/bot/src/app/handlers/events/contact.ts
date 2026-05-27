@@ -47,7 +47,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
             });  
         }
         else if (matchNumberCustomer || isAdminPhone) { 
-            ctx.session.user.phone = phoneNumber;
+            ctx.session.user.phone = phoneNumberHashed;
             
             // 3. Удаляем, передавая ID сообщения обработки
             await common.deleteCashMessages(ctx);
