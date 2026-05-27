@@ -147,7 +147,26 @@ function rateLimitCommands(ctx: MyContext, commandCooldowns: Map<number, number>
     return true;
 }
 
+/**
+ * Ограничение нажатия на кнопку
+ */
+function lockCallback(ctx: MyContext, callbackLocks: Set<number>): boolean {
+    const userId = ctx.from?.id!;
+    if (callbackLocks.has(userId)) return false;
+    callbackLocks.add(userId);
+    return true;
+}
+
+/**
+ * Снятие ограничения коллбека прожатой кнопки
+ */
+function unlockCallback(ctx: MyContext, callbackLocks: Set<number>) {
+    callbackLocks.delete(ctx.from?.id!);
+}
+
 export default {
     createDefaultSession,
-    rateLimitCommands
+    rateLimitCommands,
+    lockCallback,
+    unlockCallback
 }

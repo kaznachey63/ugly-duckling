@@ -8,6 +8,7 @@ import common from '@utils/common';
 
 const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
 const commandCooldowns = new Map<number, number>();
+const callbackLocks = new Set<number>();
 
 /**
  * Ограничение использования бота вне переписки с ботом
@@ -48,10 +49,16 @@ bot.on('message', async (ctx: MyContext, next: NextFunction) => {
  */
 bot.on('callback_query', async (ctx: MyContext, next: NextFunction) => {
     try {
-        console.log(ctx?.callbackQuery?.data);
+        // проверка: заблокировано ли управление кнопками
+        if (!utils.init.lockCallback(ctx, callbackLocks)) return;
+
+        console.log(ctx?.callbackQuery?.data); // лог коллбека для отладки
         await utils.common.setPrimaryValuesSession(ctx); // установка важных параметров в сесии
         if (!await utils.common.checkMaintenace(ctx)) await next(); // проверка на тех. режим
+
+
     } finally {
+        utils.init.unlockCallback(ctx, callbackLocks); 
         await ctx.answerCallbackQuery().catch(() => { }); // глушение необработанных нажатий на кнопку                  
     }
 });
