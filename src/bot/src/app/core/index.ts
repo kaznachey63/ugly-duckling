@@ -7,6 +7,7 @@ import eventsComposer from '@events';
 import common from '@utils/common';
 
 const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
+const commandCooldowns = new Map<number, number>();
 
 /**
  * Ограничение использования бота вне переписки с ботом
@@ -32,11 +33,12 @@ bot.use(i18nMiddleware);
 bot.on('message', async (ctx: MyContext, next: NextFunction) => {
     // проверка на команду
     if (ctx.message?.text?.startsWith('/')) {
+        if (!utils.init.rateLimitCommands(ctx, commandCooldowns)) return; // если спам командами
         await ctx.api.sendChatAction(ctx.chat?.id!, "typing"); // бот "печатает"
         common.resetSessionStates(ctx.session); // сброс состояний сессии
     }
 
-    await utils.common.checkCancelButton(ctx); 
+    await utils.common.checkCancelButton(ctx); // проверка на кнопку 'отменить' из авторизации без состояния
     await utils.common.setPrimaryValuesSession(ctx); // установка важных параметров в сесии
     if (!await utils.common.checkMaintenace(ctx)) await next(); // проверка на тех. режим
 });
@@ -89,31 +91,4 @@ bot.start();
  */
 // process.on('uncaughtException', err => {
 //     console.error('uncaughtException:', err);
-// });
-
-// const MAINTE NANCE = false;
-/**
- * Режим разработчика
- */
-// bot.use(async (ctx, next) => {
-//     if (!MAINTENANCE) return next();
-
-//     if (await db.user.isAdmin(ctx.from?.id!)) {
-//         return next(); // админ проходит
-//     }
-
-//     if (ctx.message) try { await ctx.deleteMessage() } catch { };
-
-//     const techText = "🛠 Сейчас ведутся технические работы.\nМы оповестим, когда всё заработает."
-
-//     if (ctx.callbackQuery) {
-//         await ctx.answerCallbackQuery({text: techText, show_alert: true});
-//         return;
-//     }
-
-//     if (ctx.message) {
-//         await ctx.reply(techText);
-//     }
-
-//     return; // ⛔ стоп всё
 // });

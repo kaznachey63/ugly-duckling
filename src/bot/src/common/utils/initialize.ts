@@ -1,5 +1,8 @@
-import type { SessionData } from '@shared/types/SessionData';
+import type { MyContext, SessionData } from '@shared/types/SessionData';
 
+/**
+ * Создание базовой (пустой) сессии
+ */
 function createDefaultSession(): SessionData {
     return {
         isAdmin: false,
@@ -88,6 +91,13 @@ function createDefaultSession(): SessionData {
                 role_id: 0
             }
         },
+        authLimit: {
+            blocked_until: null,
+            failed_attempts: 0,
+            id: 0,
+            telegram_id: BigInt(0),
+            last_attempt_at: null
+        },
         result: {
             id: 0,
             date_time: new Date(),
@@ -124,6 +134,19 @@ function createDefaultSession(): SessionData {
     }
 }
 
+/**
+ * Ограничение использования команд
+ */
+function rateLimitCommands(ctx: MyContext, commandCooldowns: Map<number, number>): boolean {
+    const userId = ctx.from?.id!;
+    const now = Date.now();
+    const last = commandCooldowns.get(userId) || 0;
+    if (now - last < 2000) return false;
+    commandCooldowns.set(userId, now);
+    return true;
+}
+
 export default {
-    createDefaultSession
+    createDefaultSession,
+    rateLimitCommands
 }

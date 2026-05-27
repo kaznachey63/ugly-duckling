@@ -1,4 +1,3 @@
-// @ts-ignore
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
