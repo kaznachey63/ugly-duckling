@@ -158,19 +158,34 @@ async function deleteCashMessages(ctx: MyContext) {
 /**
  * Проверка на телефон админа
  */
-function isAdminPhone(phone: string | undefined | null): boolean {
-    if (!phone) return false;
-    if (!phone.includes(':')) return false;
+function isAdminPhone(phone: string): boolean {
+    console.log('isAdminPhone INPUT:', phone);
+
+    if (!phone) {
+        console.log('isAdminPhone SKIP: empty phone');
+        return false;
+    }
+
+    if (!phone.includes(':')) {
+        console.log('isAdminPhone SKIP: not encrypted format');
+        return false;
+    }
 
     try {
         const decrypted = CryptoService.decrypt(phone);
+        console.log('DECRYPT RESULT:', decrypted);
 
-        return (
+        const adminDecrypted = constants.adminData.phone;
+
+        const result =
             CryptoService.makeSearchIndex(decrypted) ===
-            CryptoService.makeSearchIndex(constants.adminData.phone)
-        );
+            CryptoService.makeSearchIndex(adminDecrypted);
+
+        console.log('ADMIN RESULT:', result);
+
+        return result;
     } catch (e) {
-        console.error('isAdminPhone decrypt failed:', e);
+        console.log('isAdminPhone ERROR:', e);
         return false;
     }
 }
