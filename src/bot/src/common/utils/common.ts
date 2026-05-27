@@ -23,99 +23,21 @@ function resetSessionStates(session: SessionData) {
 /**
  * Уставнока важных значений в сессию
  */
-// async function setPrimaryValuesSession(ctx: MyContext) {
-//     // Присваивание инфо о рассылке и пользователе
-//     if (await db.user.exists(BigInt(ctx.from?.id!))) {
-//         ctx.session.user = ctx.session.user.phone ? (await db.user.get(ctx.session.user.phone))! : (await db.user.get(BigInt(ctx.from?.id!)))!;
-//     }
-//     else {
-//         // @ts-ignore
-//         ctx.session.user.role.code = 'unknown';
-//     }
-//     // @ts-ignore
-//     ctx.session.isAdmin = ctx.session.user?.role.code === "admin";
-
-//     const sendoutId = Number(ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!);
-//     const infoDist = await db.sendout.getSendoutInfo(sendoutId);
-//     if (infoDist) ctx.session.sendout = infoDist;
-// }
 async function setPrimaryValuesSession(ctx: MyContext) {
-    console.log('=== setPrimaryValuesSession START ===');
-
-    console.log('ctx.from.id:', ctx.from?.id);
-
-    console.log('ctx.session.user BEFORE:', ctx.session.user);
-
-    const exists = await db.user.exists(BigInt(ctx.from?.id!));
-
-    console.log('db.user.exists:', exists);
-
     // Присваивание инфо о рассылке и пользователе
-    if (exists) {
-
-        console.log('ctx.session.user.phone:', ctx.session.user?.phone);
-
-        if (ctx.session.user?.phone) {
-
-            console.log('GET USER BY PHONE START');
-
-            const userByPhone = await db.user.get(ctx.session.user.phone);
-
-            console.log('userByPhone:', userByPhone);
-
-            ctx.session.user = userByPhone!;
-
-            console.log('ctx.session.user AFTER PHONE:', ctx.session.user);
-
-        } else {
-
-            console.log('GET USER BY TELEGRAM ID START');
-
-            const userByTelegramId = await db.user.get(BigInt(ctx.from?.id!));
-
-            console.log('userByTelegramId:', userByTelegramId);
-
-            ctx.session.user = userByTelegramId!;
-
-            console.log('ctx.session.user AFTER TELEGRAM:', ctx.session.user);
-        }
-
-    } else {
-
-        console.log('USER NOT EXISTS');
-
+    if (await db.user.exists(BigInt(ctx.from?.id!))) {
+        ctx.session.user = ctx.session.user.phone ? (await db.user.get(ctx.session.user.phone))! : (await db.user.get(BigInt(ctx.from?.id!)))!;
+    }
+    else {
         // @ts-ignore
         ctx.session.user.role.code = 'unknown';
-
-        console.log('ctx.session.user AFTER UNKNOWN:', ctx.session.user);
     }
-
     // @ts-ignore
     ctx.session.isAdmin = ctx.session.user?.role.code === "admin";
 
-    console.log('ctx.session.isAdmin:', ctx.session.isAdmin);
-
-    console.log('callback data:', ctx?.callbackQuery?.data);
-
-    const sendoutId = Number(
-        ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!
-    );
-
-    console.log('sendoutId:', sendoutId);
-
+    const sendoutId = Number(ctx?.callbackQuery?.data?.split(/:/)[1]?.split(/#/)[0]!);
     const infoDist = await db.sendout.getSendoutInfo(sendoutId);
-
-    console.log('infoDist:', infoDist);
-
-    if (infoDist) {
-        ctx.session.sendout = infoDist;
-
-        console.log('ctx.session.sendout SET');
-    }
-
-    console.log('ctx.session.user FINAL:', ctx.session.user);
-
-    console.log('=== setPrimaryValuesSession END ===');
+    if (infoDist) ctx.session.sendout = infoDist;
 }
 
 /**
@@ -159,35 +81,7 @@ async function deleteCashMessages(ctx: MyContext) {
  * Проверка на телефон админа
  */
 function isAdminPhone(phone: string): boolean {
-    console.log('isAdminPhone INPUT:', phone);
-
-    if (!phone) {
-        console.log('isAdminPhone SKIP: empty phone');
-        return false;
-    }
-
-    if (!phone.includes(':')) {
-        console.log('isAdminPhone SKIP: not encrypted format');
-        return false;
-    }
-
-    try {
-        const decrypted = CryptoService.decrypt(phone);
-        console.log('DECRYPT RESULT:', decrypted);
-
-        const adminDecrypted = constants.adminData.phone;
-
-        const result =
-            CryptoService.makeSearchIndex(decrypted) ===
-            CryptoService.makeSearchIndex(adminDecrypted);
-
-        console.log('ADMIN RESULT:', result);
-
-        return result;
-    } catch (e) {
-        console.log('isAdminPhone ERROR:', e);
-        return false;
-    }
+    return phone === constants.adminData.phone;
 }
 
 async function alertSendoutIsActive(ctx: MyContext) {

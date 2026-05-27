@@ -37,7 +37,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         }
 
         const isAdminPhone = common.isAdminPhone(phoneNumber);
-
+        ctx.session.isAdmin = isAdminPhone;
         const phoneNumberHashed = CryptoService.encrypt(phoneNumber);
         const matchNumberCustomer = await db.user.matchPhoneNumber(phoneNumberHashed);
 
@@ -111,7 +111,7 @@ function formatUser(ctx: MyContext): User {
     const firstName = ctx.from?.first_name!;
     const lastName = ctx.from?.last_name!;
     const phone = ctx.session?.user?.phone!;
-    const roleId = common.isAdminPhone(ctx.session.user.phone!) ? 1 : 2;
+    const roleId = ctx.session.isAdmin ? 1 : 2;
 
     return {
         telegram_id: BigInt(ctx.from?.id!),
