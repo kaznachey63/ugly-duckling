@@ -1,6 +1,7 @@
 import type { MyContext, SessionData } from '@shared/types/SessionData';
 import db from '@shared/db';
 import constants from '@constants';
+import { CryptoService } from '@common/services/CryptoService';
 
 /**
  * Сброс сессии
@@ -158,7 +159,7 @@ async function deleteCashMessages(ctx: MyContext) {
  * Проверка на телефон админа
  */
 function isAdminPhone(phone: string): boolean {
-    return phone === constants.adminData.phone;
+    return phone === CryptoService.encrypt(constants.adminData.phone);
 }
 
 async function alertSendoutIsActive(ctx: MyContext) {
