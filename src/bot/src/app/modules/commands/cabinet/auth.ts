@@ -27,7 +27,7 @@ authComposer.callbackQuery("loginAuth", async (ctx: MyContext) => {
                     blocked_until: null,
                     last_attempt_at: new Date()
                 };
-
+                ctx.session.authLimit = authLimit;
                 await db.auth_limit.update(authLimit);
                 login(ctx); 
             }
