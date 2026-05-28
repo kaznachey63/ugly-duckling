@@ -14,7 +14,7 @@ export default function menuUpdatingUserPhone(ctx: MyContext, validate: boolean,
 
     if (!validate) text.unshift(ctx.t("utils.shared.titles.validate"));
     else {
-        if (result) text.unshift(ctx.t("handlers.states.menuUpdatingUserPhone.success"));
+        if (result) text.unshift(ctx.t("handlers.states.updatingUserPhone.success"));
         else text.unshift(ctx.t("handlers.states.updatingUserPhone.error"));
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
