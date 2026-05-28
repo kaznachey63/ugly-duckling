@@ -218,7 +218,7 @@ export class PdfService {
     
     private async loadFonts(pdfDoc: PDFDocument) {
         pdfDoc!.registerFontkit(fontkit);
-        this.customFont = await pdfDoc!.embedFont(await fs.readFile(path.resolve('src', 'common', 'services', 'exports', 'fonts', 'Roboto-Regular.ttf')));
+        this.customFont = await pdfDoc!.embedFont(await fs.readFile(path.resolve('src', 'bot', 'src', 'common', 'services', 'exports', 'fonts', 'Roboto-Regular.ttf')));
     }
     // private determineData(data: Data): DataName {
     //     if (data as ContractExport) return "contract";
