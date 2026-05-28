@@ -58,7 +58,7 @@ async function gets(): Promise<User[]> {
 /**
  * Заполнение данными пользователя, прошедшего авторизацию
  */
-async function updateUser(user: User) {
+async function update(user: User) {
     try {
         await prisma.user.updateMany({
             where: {
@@ -210,35 +210,35 @@ async function updateLang(telegramId: bigint, languageCode: LanguagesALlowed): P
     }
 }
 
-async function getGroupsOfUsers(): Promise<{ customers: number[]; admins: number[] }> {
-    let customers: number[] = [], admins: number[] = [];
+/**
+ * Обновление роли пользователя
+ */
+async function updateRole(userId: number, roleId: number): Promise<boolean> {
     try {
-        const users = await prisma.user.findMany({
-            select: {
-                telegram_id: true,
-                role_id: true
+        await prisma.user.updateMany({
+            where: {
+                id: userId
+            },
+            data: {
+                role_id: roleId
             }
         });
-        for (const user of users) {
-            if (user.role_id === 1) admins.push(Number(user.telegram_id));
-            else if (user.role_id === 2 && user.telegram_id !== BigInt(0)) customers.push(Number(user.telegram_id));
-        }
+        return true;
     } catch (error) {
-        console.log("Ошибка при получении групп пользователей", error);
-    } finally {
-        return { customers, admins };
+        console.error("Ошибка при обновлении роли пользователя", error);
+        return false;
     }
 }
 
 export default {
     exists,
     updateLang,
-    getGroupsOfUsers,
     matchPhoneNumber,
-    updateUser,
+    update,
     removeFromSystem,
     insert,
     get,
     gets,
-    getIds
+    getIds,
+    updateRole,
 };

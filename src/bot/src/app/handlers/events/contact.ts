@@ -57,7 +57,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
                 const user = formatUser(ctx);
                 if (isAdminPhone) await db.user.insert(user); // по сути проверка чисто на меня
                 else { // проверка на остальных
-                    await db.user.updateUser(user); 
+                    await db.user.update(user); 
 
                     const authLimit: AuthLimit = {
                         telegram_id: BigInt(ctx.from?.id!),

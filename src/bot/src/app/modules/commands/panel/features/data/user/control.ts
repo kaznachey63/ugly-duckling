@@ -2,6 +2,7 @@ import db from "@shared/db";
 import type { MyContext } from '@shared/types/SessionData';
 import menuControl from "@menus/modules/commands/panel/data/user/control";
 import { Composer } from "grammy";
+import menuView from "@menus/modules/commands/panel/data/user/view";
 
 const controlComposer = new Composer<MyContext>();
 
@@ -35,6 +36,25 @@ controlComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,
     });
+});
+
+/**
+ * Редактирование роли пользователя
+ */
+controlComposer.callbackQuery(/^updateOrRemoveUserRole#/, async (ctx: MyContext) => {
+    const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
+    const user = (await db.user.get(userId))!;
+    
+    switch (user.role_id!) {
+        case 1: user.role_id = 2; break;
+        case 2: user.role_id = 3; break;
+        case 3: user.role_id = 1; break;
+    }
+    
+    await db.user.updateRole(userId, user.role_id!);
+
+    const menu = menuView.viewUser(ctx, user);
+    await ctx.editMessageReplyMarkup({ reply_markup: menu.keyboard });
 });
 
 export default controlComposer;

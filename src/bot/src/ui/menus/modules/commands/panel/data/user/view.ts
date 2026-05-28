@@ -34,7 +34,7 @@ function viewUser(ctx: MyContext, user: User): Menu<InlineKeyboard> {
         .text(ctx.t("modules.commands.panel.data.user.view.user.main.username", { username: user.username ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveUserUsername#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.user.main.phone", { phone: user.phone ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveUserPhone#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.user.main.language", { language: ctx.t(`utils.languages.${user.language}`) }), `updateOrRemoveUserLanguage#${user.id}`).row()
-        .text(ctx.t("modules.commands.panel.data.user.view.user.main.role", { role:  ctx.t(`utils.roleCodes.${user.role?.code}`) }), `updateOrRemoveUserLanguage#${user.id}`).row()
+        .text(ctx.t("modules.commands.panel.data.user.view.user.main.role", { role:  ctx.t(`utils.roleCodes.${user.role?.code}`) }), `updateOrRemoveUserRole#${user.id}`).row()
         .text(ctx.t("utils.shared.buttons.remove"), `removeUser#${user.id}`).style("danger").row()
         .text(ctx.t("utils.shared.buttons.back"), "viewUsers");
     ; 
