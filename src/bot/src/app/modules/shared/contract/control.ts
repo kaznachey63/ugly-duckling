@@ -97,7 +97,7 @@ controlComposer.callbackQuery(/^pickSendout#/, async (ctx: MyContext) => {
 });
 
 /**
- * 3 шаг создания договора. Ожидание ввода данных договора (даты, цена и т.п.)
+ * 3 шаг создания договора. Ожидание ввода данных договора (даты)
  */
 controlComposer.callbackQuery("inputContractData", async (ctx: MyContext) => {
     if (!ctx.session.contract.sendout?.length! || ctx.session.contract.sendout?.length! <= 0) {

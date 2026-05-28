@@ -8,6 +8,7 @@ import constants from "@constants";
 import type { RoleCode } from "@shared/types/RoleCode";
 import localization from "@utils/localization";
 import type { LanguagesALlowed } from "@shared/types/LanguagesAllowed";
+import { CryptoService } from '@common/services/CryptoService';
 
 export default async function addingUser(ctx: MyContext) {
     let menu;
@@ -56,7 +57,7 @@ function formatUser(userInText: string): User {
         telegram_id: telegramId === '-' ? null : BigInt(telegramId!),
         name: name === '-' ? null : name!,
         username: username === '-' ? null : username!,
-        phone: phone === '-' ? null : phone!,
+        phone: phone === '-' ? null : CryptoService.encrypt(phone!),
         language: language === '-' ? 'ru' : (language as LanguageCode),
         role: {
             id: localization.getRoleId(itogRoleCode),
