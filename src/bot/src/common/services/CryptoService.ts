@@ -18,7 +18,8 @@ export class CryptoService {
     /**
      * Дешифрование данных
      */
-    static decrypt(hex: string): string {        
+    static decrypt(hex: string): string {    
+        if (!hex.length) return '';
         const [ivHex, encryptedText] = hex.split(':');
         const iv = Buffer.from(ivHex!, constants.crypto.hex as BufferEncoding);
         const decipher = crypto.createDecipheriv(constants.crypto.cipherAlgorithm, constants.crypto.key!, iv);

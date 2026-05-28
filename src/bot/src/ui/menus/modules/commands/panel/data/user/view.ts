@@ -3,6 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import type { User } from '@shared/types/DB';
 import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
+import { CryptoService } from '@common/services/CryptoService';
 
 function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {   
     const text = [
@@ -38,7 +39,7 @@ function viewUser(ctx: MyContext): Menu<InlineKeyboard> {
     keyboard
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.name", { name: user.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateUserName#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.username", { username: user.username ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
-        .text(ctx.t("modules.commands.panel.data.user.view.control.main.phone", { phone: user.phone ?? ctx.t("utils.shared.buttons.miss") }), `updateUserPhone#${user.id}`).row()
+        .text(ctx.t("modules.commands.panel.data.user.view.control.main.phone", { phone: CryptoService.decrypt(user.phone!) ?? ctx.t("utils.shared.buttons.miss") }), `updateUserPhone#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.language", { language: ctx.t(`utils.languages.${user.language}`) }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.role", { role:  ctx.t(`utils.roleCodes.${user.role?.code}`) }), `updateUserRole#${user.id}`).row()
         .text(ctx.t("utils.shared.buttons.remove"), `removeUser#${user.id}`).style("danger").row()
