@@ -80,10 +80,15 @@ controlComposer.callbackQuery(/^updateUserPhone#/, async (ctx: MyContext) => {
     ctx.session.state.updatingUserPhone = true;
     const menu = menuControl.updatePhone(ctx);
 
-    await ctx.editMessageText(menu.text, {
+    const msg = await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,
     });
+     
+    // Сохранение айди для последующего редактирования этого же сообщения
+    if (typeof msg !== "boolean" && "message_id" in msg) {
+        ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+    }
 });
 
 /**
@@ -96,10 +101,15 @@ controlComposer.callbackQuery(/^updateUserName#/, async (ctx: MyContext) => {
     ctx.session.state.updatingUserName = true;
     const menu = menuControl.updateName(ctx);
 
-    await ctx.editMessageText(menu.text, {
+    const msg = await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,
     });
+    
+    // Сохранение айди для последующего редактирования этого же сообщения
+    if (typeof msg !== "boolean" && "message_id" in msg) {
+        ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+    }
 });
 
 export default controlComposer;
