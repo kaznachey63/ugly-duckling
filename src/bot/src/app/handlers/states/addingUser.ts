@@ -41,7 +41,7 @@ function validateUser(text: string): boolean {
     
     if (username !== "-" && (!/[a-zA-Z]/.test(username!) || /^\d+$/.test(username!) || /^_+$/.test(username!))) return false;    
     
-    if (shared.validatePhone(phone!)) return false;
+    if (!shared.validatePhone(phone!)) return false;
     
     if (language !== '-' && !constants.allowLanguages.includes(language as LanguagesALlowed)) return false;
     
