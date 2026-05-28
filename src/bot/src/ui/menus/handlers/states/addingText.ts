@@ -27,6 +27,6 @@ export default function addingText(ctx: MyContext, result: boolean, validate: bo
 
     }
     
-    keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`).row()
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
 }    

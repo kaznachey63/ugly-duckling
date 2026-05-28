@@ -21,7 +21,7 @@ export default function addingTime(ctx: MyContext, result: boolean, validate: bo
         if (result) {
             text.unshift(ctx.t("handlers.states.addingTime.success"));
             keyboard
-                .text(ctx.t("utils.shared.buttons.create"), "mainContract")
+                .text(ctx.t("utils.shared.buttons.create"), `createTime:${ctx.session.sendout.id}`).style("success")
                 .row().text(ctx.t("utils.shared.buttons.back"), `viewSchedule:${ctx.session.sendout.id}`)
             ;
         }

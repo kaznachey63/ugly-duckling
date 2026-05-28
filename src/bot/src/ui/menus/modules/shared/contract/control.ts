@@ -30,7 +30,7 @@ function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     ];
 
     const keyboard = new InlineKeyboard();
-        
+    users =  users.filter(u => u.role_id != 3);
     users.forEach(user => {
         if (user.id == ctx.session.contract.user_id)
             keyboard.text(

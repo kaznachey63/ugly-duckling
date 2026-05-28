@@ -17,7 +17,7 @@ export default function addingMedia(ctx: MyContext, validate: boolean, result?: 
     else {
         if (result) {
             text.unshift(ctx.t("handlers.states.addingMedia.success"));
-            if (ctx.session.message.media?.length! < 5) keyboard.text(ctx.t("modules.shared.sendout.view.message.view.main.buttons.addMedia"), `addMedia:${ctx.session.sendout.id}#${ctx.session.message.id}`).style("success");
+            if (ctx.session.message.media?.length! < 4) keyboard.text(ctx.t("modules.shared.sendout.view.message.view.main.buttons.addMedia"), `addMedia:${ctx.session.sendout.id}#${ctx.session.message.id}`).style("success");
         }
         else {
             text.unshift(ctx.t("handlers.states.addingMedia.error"));
