@@ -79,7 +79,7 @@ function getRoleId(roleCode: RoleCode): number {
     return map.roleCodes[roleCode]!;
 }
 
-function getRoleType(roleId: number): RoleCode {
+function getRoleCode(roleId: number): RoleCode {
     return map.rolesIds[roleId]!;
 }
 
@@ -93,6 +93,6 @@ export default {
     getMediaFormat,
     isSupportedMediaType,
     getRoleId,
-    getRoleType,
+    getRoleCode,
     getContryFlagOfCode,
 };

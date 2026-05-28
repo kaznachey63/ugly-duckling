@@ -3,6 +3,8 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuControl from "@menus/modules/commands/panel/data/user/control";
 import { Composer } from "grammy";
 import menuView from "@menus/modules/commands/panel/data/user/view";
+import common from "@utils/common";
+import localization from "@utils/localization";
 
 const controlComposer = new Composer<MyContext>();
 
@@ -42,39 +44,31 @@ controlComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
  * Редактирование роли пользователя
  */
 controlComposer.callbackQuery(/^updateOrRemoveUserRole#/, async (ctx: MyContext) => {
-    const userId = Number(ctx.callbackQuery.data.split('#')[1]);
+    const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
+    const user = (await db.user.get(userId))!;
     
-    const user = await db.user.get(userId);
-    if (!user) return;
-
-    const oldRole = user.role_id;
-
-    // Меняем роль
     switch (user.role_id!) {
-        case 1: user.role_id = 2; break;
-        case 2: user.role_id = 3; break;
-        case 3: user.role_id = 1; break;
+        case 1: {
+            user.role_id = 2; 
+            user.role!.code = localization.getRoleCode(2);
+            break;
+        }
+        case 2: {
+            user.role_id = 3; 
+            user.role!.code = localization.getRoleCode(3);
+            break;
+        }
+        case 3: {
+            user.role_id = 1; 
+            user.role!.code = localization.getRoleCode(1);
+            break;
+        }
     }
-
+    
     await db.user.updateRole(userId, user.role_id!);
 
-    // Если роль не изменилась — не обновляем сообщение
-    if (oldRole === user.role_id) {
-        await ctx.answerCallbackQuery();
-        return;
-    }
-
     const menu = menuView.viewUser(ctx, user);
-
-    await ctx.editMessageReplyMarkup({
-        reply_markup: menu.keyboard
-    }).catch(err => {
-        // Игнорируем только эту конкретную ошибку
-        if (!err.description?.includes("message is not modified")) {
-            console.error(err);
-        }
-    });
-
-    await ctx.answerCallbackQuery();
+    await ctx.editMessageReplyMarkup({ reply_markup: menu.keyboard });
 });
+
 export default controlComposer;

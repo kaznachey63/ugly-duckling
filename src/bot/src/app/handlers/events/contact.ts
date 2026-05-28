@@ -121,7 +121,7 @@ function formatUser(ctx: MyContext): User {
         language: ctx.session.user.language!,
         role: {
             id: roleId,
-            code: localization.getRoleType(roleId)
+            code: localization.getRoleCode(roleId)
         }
     };
 }
