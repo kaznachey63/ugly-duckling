@@ -13,6 +13,8 @@ export default async function addingContract(ctx: MyContext) {
     }
     else {
         const contract = formatContract(ctx);
+        console.log(contract);
+        
         const resultContract = await db.contract.insert(contract);
 
         if (!resultContract) menu = menuAddingContract(ctx, false, true);
