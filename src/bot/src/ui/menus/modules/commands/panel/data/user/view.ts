@@ -22,15 +22,20 @@ function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function viewUser(ctx: MyContext, user: User): Menu<InlineKeyboard> {
+function viewUser(ctx: MyContext): Menu<InlineKeyboard> {
+    const user = ctx.session.userForUpdate;
     const text = [
         ctx.t("modules.commands.panel.data.user.view.user.main.title"),
         ctx.t("modules.commands.panel.data.user.view.user.main.path", { userName: user.name ?? ctx.t("utils.shared.buttons.nameless") }),
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard()
-        // .text(ctx.t("modules.commands.panel.data.user.view.user.main.telegramId", { telegramId: user.telegram_id ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
-        .url(ctx.t("modules.commands.panel.data.user.view.user.main.telegramId", { telegramId: user.telegram_id ?? ctx.t("utils.shared.buttons.miss") }), `tg://user?id=${user.telegram_id}`).row()
+    const keyboard = new InlineKeyboard();
+    user.telegram_id ? 
+        keyboard.url(ctx.t("modules.commands.panel.data.user.view.user.main.telegramId", { telegramId: user.telegram_id }), `tg://user?id=${user.telegram_id}`).row()
+        : keyboard.text(ctx.t("modules.commands.panel.data.user.view.user.main.telegramId", { telegramId: ctx.t("utils.shared.buttons.miss") }), '#').row()
+    ;
+    
+    keyboard
         .text(ctx.t("modules.commands.panel.data.user.view.user.main.name", { name: user.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateUserName#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.user.main.username", { username: user.username ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.user.main.phone", { phone: user.phone ?? ctx.t("utils.shared.buttons.miss") }), `updateUserPhone#${user.id}`).row()

@@ -20,6 +20,19 @@ function createDefaultSession(): SessionData {
                 code: "unknown"
             }
         },
+        userForUpdate: {
+            id: 0,
+            role_id: 0,
+            telegram_id: BigInt(0),
+            language: 'ru',
+            name: "",
+            phone: "",
+            username: "",
+            role: {
+                id: 0,
+                code: "unknown"
+            }
+        },
         generate: {
             text: "",
             entities: []
@@ -118,6 +131,8 @@ function createDefaultSession(): SessionData {
             passingAuthorization: false,
             addingContract: false,
             updatingSendoutCall: false,
+            updatingUserName: false,
+            updatingUserPhone: false,
         },
         server: {
             processName: "",

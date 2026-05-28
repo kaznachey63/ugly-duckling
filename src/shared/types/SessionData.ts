@@ -6,6 +6,7 @@ import type { LogSortType } from "./LogSortType";
 export interface SessionData {
     isAdmin: boolean;
     user: User;
+    userForUpdate: User;
     sendout: Sendout;
     schedule: Schedule;
     message: Message;
@@ -28,6 +29,9 @@ export interface SessionData {
         passingAuthorization: boolean;
         addingContract: boolean;
         updatingSendoutCall: boolean;
+        updatingUserName: boolean;
+        updatingUserPhone: boolean;
+
     };
     server: {
         processType: ProcessType;

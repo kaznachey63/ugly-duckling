@@ -14,7 +14,8 @@ function create(ctx: MyContext): Menu<InlineKeyboard> {
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
-function remove(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboard> {
+function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
+    const user = ctx.session.userForUpdate;
     const keyboard = new InlineKeyboard();
     let text = [
         ctx.t("modules.commands.panel.data.user.view.user.remove.path", { userName: user.name ?? ctx.t("utils.shared.buttons.nameless") }),
@@ -31,7 +32,29 @@ function remove(ctx: MyContext, user: User, result: boolean): Menu<InlineKeyboar
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }
 
+function updateName(ctx: MyContext): Menu<InlineKeyboard> {
+    const text = [
+        ctx.t("modules.commands.panel.data.user.update.name.title"),
+        ctx.t("modules.commands.panel.data.user.update.name.path", { userName: ctx.session.userForUpdate.name })
+    ].join('\n\n');
+
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainUser");
+    return { text: format.escapeMarkdown(text), keyboard }
+}
+
+function updatePhone(ctx: MyContext): Menu<InlineKeyboard> {
+    const text = [
+        ctx.t("modules.commands.panel.data.user.update.phone.title"),
+        ctx.t("modules.commands.panel.data.user.update.phone.path", { userName: ctx.session.userForUpdate.name ??  ctx.t("utils.shared.buttons.nameless") })
+    ].join('\n\n');
+
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainUser");
+    return { text: format.escapeMarkdown(text), keyboard }
+}
+
 export default {
     create,
     remove,
+    updateName,
+    updatePhone,
 };

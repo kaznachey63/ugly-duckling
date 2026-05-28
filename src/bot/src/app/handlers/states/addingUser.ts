@@ -9,6 +9,7 @@ import type { RoleCode } from "@shared/types/RoleCode";
 import localization from "@utils/localization";
 import type { LanguagesALlowed } from "@shared/types/LanguagesAllowed";
 import { CryptoService } from '@common/services/CryptoService';
+import shared from './shared';
 
 export default async function addingUser(ctx: MyContext) {
     let menu;
@@ -40,7 +41,7 @@ function validateUser(text: string): boolean {
     
     if (username !== "-" && (!/[a-zA-Z]/.test(username!) || /^\d+$/.test(username!) || /^_+$/.test(username!))) return false;    
     
-    if (phone !== '-' && isNaN(Number(phone))) return false;
+    if (shared.validatePhone(phone!)) return false;
     
     if (language !== '-' && !constants.allowLanguages.includes(language as LanguagesALlowed)) return false;
     

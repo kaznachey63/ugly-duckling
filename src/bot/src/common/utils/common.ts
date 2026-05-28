@@ -18,6 +18,8 @@ function resetSessionStates(session: SessionData) {
     session.state.passingAuthorization = false;
     session.state.addingContract = false;
     session.state.updatingSendoutCall = false;
+    session.state.updatingUserName = false;
+    session.state.updatingUserPhone = false;
 }
 
 /**

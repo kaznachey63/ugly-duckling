@@ -26,7 +26,9 @@ viewComposer.callbackQuery("viewUsers", async (ctx: MyContext) => {
  */
 viewComposer.callbackQuery(/^viewUser#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-    const menu = menuView.viewUser(ctx, (await db.user.get(userId))!);
+    ctx.session.userForUpdate = (await db.user.get(userId))!;
+    const menu = menuView.viewUser(ctx);
+    
     await ctx.editMessageText(menu.text, {
         parse_mode: "MarkdownV2",
         reply_markup: menu.keyboard,

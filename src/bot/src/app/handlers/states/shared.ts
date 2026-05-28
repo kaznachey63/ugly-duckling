@@ -38,8 +38,13 @@ function formatCronTime(time: string): string {
     return `${minute!.padStart(2, '0')} ${hour!.padStart(2, '0')} ${day} ${month} ${week_day}`;
 }
 
+function validatePhone(phone: string): boolean {
+    return phone === '-' || (!isNaN(Number(phone)) && phone.length === 11);
+}
+
 export default {
     validateText,
     validateTime,
-    formatCronTime
+    formatCronTime,
+    validatePhone,
 }
