@@ -3,7 +3,6 @@ import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
-import common from '@utils/common';
 
 /**
  * Меню команды idea

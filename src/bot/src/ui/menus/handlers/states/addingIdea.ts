@@ -23,6 +23,6 @@ export default function addingIdea(ctx: MyContext, result: boolean): Menu<Inline
         keyboard.url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin);
     }
 
-    keyboard.text(ctx.t("utils.shared.buttons.back"), "mainIdea").row();
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), "mainIdea");
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 };
