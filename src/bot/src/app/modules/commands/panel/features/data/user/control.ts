@@ -73,9 +73,9 @@ controlComposer.callbackQuery(/^updateUserRole#/, async (ctx: MyContext) => {
  */
 controlComposer.callbackQuery(/^updateUserPhone#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-    if (userId != 3) return;
-
     const user = (await db.user.get(userId))!;
+    if (user.role_id != 3) return;
+
     ctx.session.userForUpdate = user;
     ctx.session.state.updatingUserPhone = true;
     const menu = menuControl.updatePhone(ctx);
