@@ -1,6 +1,6 @@
 import { PDFDocument, PDFFont, PDFPage, rgb } from 'pdf-lib';
 import path from 'node:path';
-import fs from 'fs/promises';
+import fs from 'fs/promises'
 import type { ContractExport } from '@shared/types/ContractExport';
 import fontkit from '@pdf-lib/fontkit';
 
@@ -11,16 +11,17 @@ export class PdfService {
 
     async execRender(data: ContractExport): Promise<Uint8Array<ArrayBufferLike>> {
         try {
-            console.log('📄 execRender: получены данные:', JSON.stringify(data, null, 2));
+            // const dataName = this.determineData(data);
+            const pdfDoc = await PDFDocument.load(await fs.readFile(path.resolve('src', 'bot', 'src', 'common', 'services', 'exports', 'docs', 'contract.pdf')));
 
-            const pdfDoc = await PDFDocument.load(
-                await fs.readFile(path.resolve('src', 'bot', 'src', 'common', 'services', 'exports', 'docs', 'contract.pdf'))
-            );
+            if (!pdfDoc) {
+                throw new Error('Невалидный тип данных');
+            }
 
             await this.loadFonts(pdfDoc);
             this.data = data;
 
-            this.pages = pdfDoc.getPages();
+            this.pages = pdfDoc!.getPages();
 
             if (this.pages.length === 0) {
                 throw new Error('PDF не содержит страниц');
@@ -28,69 +29,192 @@ export class PdfService {
 
             this.render();
 
-            return await pdfDoc.save();
+            return await pdfDoc!.save();
         } catch (error) {
-            console.error('❌ Ошибка при генерации PDF:', error);
+            console.error('Ошибка:', error);
             throw error;
         }
     }
 
     render() {
-        const d = this.data;
-        console.log('🔍 Начало рендера PDF. Проверяем все поля:');
+        // 1-я страница
+        this.pages[0]?.drawText(this.data.startDay, {
+            x: 412,
+            y: 742,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        // ==================== 1-я страница ====================
+        this.pages[0]?.drawText(this.data.startMonth, {
+            x: 442,
+            y: 742,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        this.logAndDraw(0, 'startDay', d.startDay, { x: 412, y: 742 });
-        this.logAndDraw(0, 'startMonth', d.startMonth, { x: 442, y: 742 });
-        this.logAndDraw(0, 'startYear', d.startYear, { x: 513, y: 742 });
+        this.pages[0]?.drawText(this.data.startYear, {
+            x: 513,
+            y: 742,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        this.logAndDraw(0, 'startDay (2)', d.startDay, { x: 272, y: 438 });
-        this.logAndDraw(0, 'startMonth (2)', d.startMonth, { x: 340, y: 438 });
-        this.logAndDraw(0, 'startYear (2)', d.startYear, { x: 448, y: 438 });
+        this.pages[0]?.drawText(this.data.startDay, {
+            x: 272,
+            y: 438,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        this.logAndDraw(0, 'endDay', d.endDay, { x: 528, y: 438 });
-        this.logAndDraw(0, 'endMonth', d.endMonth, { x: 118, y: 424 });
-        this.logAndDraw(0, 'endYear', d.endYear, { x: 214, y: 424 });
+        this.pages[0]?.drawText(this.data.startMonth, {
+            x: 340,
+            y: 438,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        // ==================== 2-я страница ====================
+        this.pages[0]?.drawText(this.data.startYear, {
+            x: 448,
+            y: 438,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        this.logAndDraw(1, 'priceNumber', d.priceNumber, { x: 128, y: 616 });
-        this.logAndDraw(1, 'priceString', d.priceString, { x: 302, y: 616 });
+        this.pages[0]?.drawText(this.data.endDay, {
+            x: 528,
+            y: 438,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        this.logAndDraw(1, 'priceNumber (2)', d.priceNumber, { x: 128, y: 576 });
-        this.logAndDraw(1, 'priceString (2)', d.priceString, { x: 302, y: 576 });
+        this.pages[0]?.drawText(this.data.endMonth, {
+            x: 118,
+            y: 424,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        this.logAndDraw(1, 'priceNumber (3)', d.priceNumber, { x: 128, y: 536 });
-        this.logAndDraw(1, 'priceString (3)', d.priceString, { x: 302, y: 536 });
+        this.pages[0]?.drawText(this.data.endYear, {
+            x: 214,
+            y: 424,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        this.logAndDraw(1, 'customerName', d.customerName, { x: 146, y: 84 });
-    }
+        // 2-я страница
+        this.pages[1]?.drawText(this.data.priceNumber, {
+            x: 128,
+            y: 616,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-    /**
-     * Вспомогательный метод: логирует значение и рисует текст
-     */
-    private logAndDraw(pageIndex: number, fieldName: string, value: any, options: any) {
-        const text = value == null ? null : String(value).trim();
+        this.pages[1]?.drawText(this.data.priceString, {
+            x: 302,
+            y: 616,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        console.log(`   📌 [Страница ${pageIndex + 1}] ${fieldName}: "${text}" (тип: ${typeof value})`);
+        this.pages[1]?.drawText(this.data.priceNumber, {
+            x: 128,
+            y: 576,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        if (text === null || text === '') {
-            console.warn(`   ⚠️  Поле ${fieldName} пустое или null!`);
-        }
+        this.pages[1]?.drawText(this.data.priceString, {
+            x: 302,
+            y: 576,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
 
-        this.pages[pageIndex]?.drawText(text ?? '', {
-            ...options,
+        this.pages[1]?.drawText(this.data.priceNumber, {
+            x: 128,
+            y: 536,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
+
+        this.pages[1]?.drawText(this.data.priceString, {
+            x: 302,
+            y: 536,
+            color: rgb(0, 0, 0),
+            size: 12,
+            font: this.customFont
+        });
+
+        this.pages[1]?.drawText(this.data.customerName, {
+            x: 146,
+            y: 84,
             color: rgb(0, 0, 0),
             size: 12,
             font: this.customFont
         });
     }
+    
+    async write(data: string): Promise<Uint8Array> {
+        const pdfDoc = await PDFDocument.create();
+        await this.loadFonts(pdfDoc);
 
+        const pageWidth = 600;
+        const marginX = 50;
+        const marginY = 40;
+        const fontSize = 14;
+        const lineHeight = 18;
+        const maxWidth = pageWidth - marginX * 2;
+
+        // Разбиваем на логические строки (по \n)
+        const logicalLines = data.split('\n');
+
+        // Для каждой строки считаем, сколько физических строк она займёт (перенос по ширине)
+        const physicalLines: string[] = [];
+        for (const line of logicalLines) {
+            if (line.trim() === '') {
+                physicalLines.push('');
+                continue;
+            }
+            // Грубый расчёт: ~0.6px на символ при 14pt шрифте
+            const charsPerLine = Math.floor(maxWidth / (fontSize * 0.6));
+            if (line.length <= charsPerLine) {
+                physicalLines.push(line);
+            } else {
+                // Переносим длинные строки
+                for (let i = 0; i < line.length; i += charsPerLine) {
+                    physicalLines.push(line.slice(i, i + charsPerLine));
+                }
+            }
+        }
+
+        const contentHeight = physicalLines.length * lineHeight + marginY * 2;
+        const page = pdfDoc.addPage([pageWidth, contentHeight]);
+
+        let y = contentHeight - marginY;
+        for (const line of physicalLines) {
+            page.drawText(line, { x: marginX, y, size: fontSize, font: this.customFont, color: rgb(0, 0, 0) });
+            y -= lineHeight;
+        }
+
+        return await pdfDoc.save();
+    }
+    
     private async loadFonts(pdfDoc: PDFDocument) {
-        pdfDoc.registerFontkit(fontkit);
-        this.customFont = await pdfDoc.embedFont(
-            await fs.readFile(path.resolve('src', 'bot', 'src', 'common', 'services', 'exports', 'fonts', 'Roboto-Regular.ttf'))
-        );
+        pdfDoc!.registerFontkit(fontkit);
+        this.customFont = await pdfDoc!.embedFont(await fs.readFile(path.resolve('src', 'bot', 'src', 'common', 'services', 'exports', 'fonts', 'Roboto-Regular.ttf')));
     }
 }
