@@ -22,9 +22,9 @@ export default function language(ctx: MyContext): Menu<InlineKeyboard> {
         const lang = languages[i] as LanguagesALlowed;
         const label = localization.getContryFlagOfCode(lang);
         keyboard.text(lang === ctx.session.user.language ? `${label} ☑️` : label, `changeLanguage:${lang}`);
-        if ((i + 1) % 5 === 0 && i !== languages.length - 1) keyboard.row();
+        if ((i + 1) % 4 === 0 && i !== languages.length - 1) keyboard.row();
     }
-    
+
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), "mainSettings");
     return { text: utils.formatting.escapeMarkdown(text), keyboard };
 }
