@@ -10,7 +10,7 @@ export default function menuUpdatingUserPhone(ctx: MyContext, validate: boolean,
     const text = [
         ctx.t("handlers.states.updatingText.path", { userName: ctx.session.userForUpdate.name })
     ];
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewUser$${ctx.session.userForUpdate.id}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewUser#${ctx.session.userForUpdate.id}`);
 
     if (!validate) text.unshift(ctx.t("utils.shared.titles.validate"));
     else {
