@@ -20,7 +20,7 @@ export default function addingContract(ctx: MyContext, result: boolean, validate
             text.unshift(ctx.t("handlers.states.addingContract.success"));
             keyboard
                 .text(ctx.t("utils.shared.buttons.create"), `createTime:${ctx.session.sendout.id}`).style("success")
-                .text(ctx.t("utils.shared.buttons.back"), "viewContracts").row()
+                .row().text(ctx.t("utils.shared.buttons.back"), "viewContracts")
             ;
         }
         else {
