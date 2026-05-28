@@ -1,0 +1,695 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Procesando...",
+            "cabinet": "🪴 Panel personal",
+            "buttons": {
+                "export": "📧 Exportar",
+                "nameless": "Sin nombre",
+                "back": "🔙 Atrás",
+                "remove": "🗑 Eliminar",
+                "miss": "Faltante",
+                "create": "➕ Crear",
+                "update": "✍ Editar",
+                "clear": "🗑 Limpiar",
+                "view": "👁 Ver",
+                "contract": "📜 Contratos",
+                "sendout": "📢 Envíos",
+                "chat": "🗯 Grupos",
+                "contactAdmin": "👨 Administrador"
+            },
+            "titles": {
+                "validate": "⚠ Los datos de entrada tenían un formato inválido. Envíalos de nuevo",
+                "cabinet": "Panel",
+                "panel": "Panel → Datos",
+                "amount": "Cantidad: {{amount}}",
+                "sendoutActive": "El envío está activo actualmente, intenta gestionar los datos más tarde"
+            }
+        },
+        "maintenace": "🚧 Actualmente se están realizando tareas de mantenimiento. El uso del servicio está temporalmente limitado.\n¡Te avisaremos en cuanto terminemos!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Administrador",
+            "customer": "Cliente",
+            "unknown": "Desconocido"
+        },
+        "languages": {
+            "ru": "Ruso",
+            "zh": "Chino",
+            "en": "Inglés",
+            "sr": "Serbio"
+        },
+        "commands": {
+            "cabinet": "Panel",
+            "settings": "Ajustes",
+            "panel": "Panel de admin"
+        },
+        "chart": {
+            "labelMonth": "Estadísticas de grupos que recibieron el envío. {{month}} {{year}}",
+            "labelWeek": "Estadísticas de grupos que recibieron el envío. Semana",
+            "amountSms": "Número de mensajes",
+            "noLogs": "¡Aún no ha ocurrido ningún envío en el período seleccionado!",
+            "daysOfWeek": {
+                "Mon": "Lun",
+                "Tue": "Mar",
+                "Wed": "Mié",
+                "Thu": "Jue",
+                "Fri": "Vie",
+                "Sat": "Sáb",
+                "Sun": "Dom"
+            },
+            "months": {
+                "january": "Enero",
+                "february": "Febrero",
+                "march": "Marzo",
+                "april": "Abril",
+                "may": "Mayo",
+                "june": "Junio",
+                "july": "Julio",
+                "august": "Agosto",
+                "september": "Septiembre",
+                "october": "Octubre",
+                "november": "Noviembre",
+                "december": "Diciembre"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Enero",
+                "1": "Febrero",
+                "2": "Marzo",
+                "3": "Abril",
+                "4": "Mayo",
+                "5": "Junio",
+                "6": "Julio",
+                "7": "Agosto",
+                "8": "Septiembre",
+                "9": "Octubre",
+                "10": "Noviembre",
+                "11": "Diciembre"
+            },
+            "days": {
+                "0": "Lun",
+                "1": "Mar",
+                "2": "Mié",
+                "3": "Jue",
+                "4": "Vie",
+                "5": "Sáb",
+                "6": "Dom"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Parser",
+            "sendout": "Envíos"
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "¡Error al procesar el número de teléfono!\n¡Inténtalo de nuevo!",
+                "accessDenied": "Acceso denegado. Para utilizar el servicio de envío, usa el comando '/settings', sección 'Ayuda'"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ ¡Texto guardado!",
+                "error": "❌ ¡Texto no guardado!\nContacta al administrador",
+                "path": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → *Agregar texto*]"
+            },
+            "generatingText": {
+                "result": "El mensaje generado se muestra a continuación.\nUsa los botones debajo de los mensajes para decidir el destino del texto.",
+                "pathChoose": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → Generación de texto → *Destino del texto*]",
+                "buttons": {
+                    "save": "✔ Guardar",
+                    "cancel": "❌ No guardar"
+                }
+            },
+            "updatingText": {
+                "success": "✅ ¡Texto editado!",
+                "error": "❌ ¡Texto no editado!\nContacta al administrador",
+                "path": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → *Editar texto*]"
+            },
+            "addingMedia": {
+                "error": "💀 ¡Error al guardar el medio!\nContacta al administrador",
+                "invalidType": "¡Tipo de medio no reconocido! Inténtalo de nuevo",
+                "bigSize": "Archivo demasiado grande. Tamaño máximo {{size}} MB.",
+                "documentsWTMedia": "No puedo procesar documentos que no contengan: foto / video / gif",
+                "success": "✅ ¡Medio guardado!",
+                "error2": "❌ ¡Medio no guardado!\nContacta al administrador",
+                "path": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → *Agregar medio*]"
+            },
+            "addingTime": {
+                "success": "✅ ¡Hora guardada!",
+                "error": "❌ ¡Hora no editada!\nContacta al administrador",
+                "path": "[📍 Ruta: Panel → Menú «{{call}}» → Horario → Ver → *Agregar*]"
+            },
+            "updatingTime": {
+                "success": "✅ ¡Hora editada!",
+                "error": "❌ ¡Hora no editada!\nContacta al administrador",
+                "path": "[📍 Ruta: Panel → Menú «{{call}}» → Horario → Ver → *Editar*]"
+            },
+            "addingIdea": {
+                "success": "✅ ¡Idea agregada con éxito, gracias!",
+                "error": "❌ ¡Idea no agregada!\n¡Inténtalo de nuevo o contacta al administrador!",
+                "path": "[📍 Ruta: Ajustes → Ideas → *Agregar*]"
+            },
+            "addingUser": {
+                "success": "✅ ¡Usuario creado con éxito!",
+                "error": "❌ ¡Usuario no creado!\nInténtalo más tarde.",
+                "path": "[📍 Ruta: Panel → Datos → Usuarios → *Creación*]"
+            },
+            "addingContract": {
+                "success": "✅ ¡Contrato creado con éxito!",
+                "error": "❌ ¡Contrato no creado!\nInténtalo más tarde.",
+                "path": "[📍 Ruta: Panel → Contratos → *Creación*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ ¡Señal de llamada actualizada con éxito!",
+                "error": "❌ ¡Señal de llamada no actualizada!\nInténtalo más tarde.",
+                "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → Nombre → *Actualizar*]"
+            },
+            "updatingUserName": {
+                "success": "✅ ¡Nombre actualizado con éxito!",
+                "error": "❌ ¡Nombre no actualizado!\nInténtalo más tarde.",
+                "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → {{userName}} → *Editar nombre*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ ¡Teléfono actualizado con éxito!",
+                "error": "❌ ¡Teléfono no actualizado!\nInténtalo más tarde.",
+                "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → {{userName}} → *Editar número de teléfono*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "¡Bienvenido! Soy un bot de Telegram, asistente para envíos.\n\nTe recomiendo que te familiarices con todo el registro de mis comandos presionando el botón ovalado 'Menú' en la esquina inferior izquierda de la pantalla.\nDespués de leer el manual de uso, que se invoca con el comando '/settings', en la sección 'Acerca del bot'."
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Ajustes",
+                    "buttons": {
+                        "about": "ℹ Sobre el Servicio",
+                        "help": "❓ Ayuda",
+                        "idea": "💡 Ideas",
+                        "language": "🌐 Idioma"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Selecciona un idioma.",
+                        "path": "[📍 Ruta: Ajustes → *Idioma*]"
+                    },
+                    "change": {
+                        "good": "¡Idioma cambiado!",
+                        "error": "¡Este idioma ya está seleccionado!"
+                    }
+                },
+                "help": {
+                    "title": "¿Tienes un problema?\n¿Tienes preguntas?\n¿Quieres elogiar el servicio?\n¿Tienes ideas para mejorar el servicio?",
+                    "interest": "¿O estás interesado en el producto?\n¡Completa el siguiente formulario y nos pondremos en contacto contigo!",
+                    "path": "[📍 Ruta: Ajustes → *Ayuda*]"
+                },
+                "about": {
+                    "title": "El servicio está desarrollado para automatizar la publicidad (publicaciones, envíos) de tus productos (ofertas) dentro de grupos / chats / canales.\n\n¡Instrucciones para usar el Bot - con el botón de abajo!",
+                    "instruction": "📖 Instrucciones",
+                    "path": "[📍 Ruta: Ajustes → *Sobre el servicio*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Menú de la sección Ideas. \nAquí puedes proponer tu idea para el desarrollo del servicio.",
+                        "path": "[📍 Ruta: Ajustes → *Ideas*]",
+                        "buttons": {
+                            "add": "🗳 Proponer",
+                            "see": "🔍 Explorar"
+                        }
+                    },
+                    "add": {
+                        "title": "¡Envíame medios/audio/texto, etc. No hay límites!",
+                        "path": "[📍 Ruta: Ajustes → Ideas → *Agregar*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {                        
+                        "logout": "🚪 Salir",
+                        "login": "🔑 Iniciar sesión"
+                    }
+                },
+                "auth": {
+                    "login": {
+                        "buttons": {
+                            "cancel": "❌ Cancelar",
+                            "phone": "📞 Compartir"
+                        },
+                        "unknownMessage": "Acción no reconocida, intenta usar los botones 'Compartir' y 'Cancelar' de nuevo",
+                        "manyAttempts": "Número de intentos de autenticación utilizados antes del límite de una hora: {{actualAttempts}} de {{maxAttempts}}",
+                        "stop": "Autorización limitada. Las restricciones se levantarán después de: {{dateTime}}",
+                        "canceled": "¡Autorización detenida con éxito!",
+                        "title": "Para acceder al panel de envíos, necesitas compartir tu número de teléfono conmigo.\n\nEl botón debería aparecer junto al teclado, con la etiqueta '📞 Compartir'.",
+                        "good": "¡Has iniciado sesión en el sistema con éxito!",
+                        "already": "¡Ya has iniciado sesión en el sistema!",
+                        "bad": "Error al iniciar sesión en el sistema.\n¡Contacta al administrador!",
+                        "path": "[📍 Ruta: Panel → *Autorización*"
+                    },
+                    "logout": {
+                        "good": "Has cerrado sesión correctamente. ¡Tus datos han sido borrados!",
+                        "bad": "Error al cerrar sesión.\n¡Contacta al administrador!",
+                        "path": "[📍 Ruta: Panel → *Cerrar sesión*]"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "title": "👨‍💻 Panel de administrador",
+                    "buttons": {
+                        "data": "🗂 Datos",
+                        "system": "⚡ Sistema "
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Gestión de datos",
+                        "path": "[📍 Ruta: Panel → *Datos*]",
+                        "buttons": {
+                            "user": "👥 Usuarios"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Gestión de grupos",
+                            "amount": "Cantidad: {{amount}}",
+                            "path": "[📍 Ruta: Panel → Datos → *Grupos*]",
+                            "buttons": {
+                                "reupload": "🔁 Actualizar"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ ¡Grupos actualizados!",
+                            "error": "❌ Error al actualizar grupos\nContacta al administrador",
+                            "path": "[📍 Ruta: Panel → Datos → Grupos → *Actualizar*]"
+                        },
+                        "clear": {
+                            "success": "✅ ¡Grupos limpiados!",
+                            "error": "❌ Error al limpiar grupos\nContacta al administrador",
+                            "path": "[📍 Ruta: Panel → Datos → Grupos → *Limpiar*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Gestión de usuarios",
+                            "amount": "Cantidad: {{amount}}",
+                            "path": "[📍 Ruta: Panel → Datos → *Usuarios*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Lista de usuarios.",
+                                "path": "[📍 Ruta: Panel → Datos → Usuarios → *Ver*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Gestión de usuario",
+                                    "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → *{{userName}}*]",
+                                    "telegramId": "Tg ID: {{telegramId}}",
+                                    "name": "Nombre: {{name}}",
+                                    "username": "Nombre de usuario: @{{username}}",
+                                    "phone": "Teléfono: +{{phone}}",
+                                    "language": "Idioma: {{language}}",
+                                    "role": "Rol: {{role}}"
+                                },
+                                "remove": {
+                                    "success":"✅ ¡Usuario eliminado con éxito!",
+                                    "error": "❌ ¡Usuario no eliminado!\nInténtalo más tarde",
+                                    "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → {{userName}} → *Eliminar*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Cambiando el teléfono.\nEnvíalo aquí.",
+                                        "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → {{userName}} → *Editar número de teléfono*]"
+                                    },
+                                    "name": {
+                                        "title": "Cambiando el nombre.\nEnvíalo aquí.",
+                                        "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → {{userName}} → *Editar nombre*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Creando un usuario. Antes de comenzar, lee las instrucciones para una correcta creación.",
+                            "path": "[📍 Ruta: Panel → Datos → Usuarios → *Creación*]"
+                        }   
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Gestión del sistema",
+                        "path": "[📍 Ruta: Panel → *Sistema*]",
+                        "buttons": {
+                            "server": "📟 Servidor",
+                            "maintenace": "🛠️ Mantenimiento"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Categorías de procesos",
+                            "path": "[📍 Ruta: Panel → Sistema → *Servidor*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Parser"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Selecciona un proceso",
+                                "path": "[📍 Ruta: Panel → Sistema → Servidor → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Gestión del proceso",
+                                    "path": "[📍 Ruta: Panel → Sistema → Servidor → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Estado",
+                                        "log": "📋 Registros"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Ruta: Panel → Sistema → Servidor → {{processType}} → {{processName}} → *Estado*]",
+                                    "status": {
+                                        "active": "✅ El proceso está activo.\nPara detenerlo, presiona el botón de abajo",
+                                        "inactive": "❌ El proceso está inactivo.\nPara iniciarlo, presiona el botón de abajo",
+                                        "failed": "💀 El proceso ha muerto.\nContacta al programador.",
+                                        "error": "Problema con el proceso. Contacta al programador."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Detener",
+                                        "start": "▶️ Iniciar",
+                                        "restart": "🔁 Reiniciar"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Ver registros",
+                                    "path": "[📍 Ruta: Panel → Sistema → Servidor → {{processType}} → {{processName}} → *Registros*]",
+                                    "sort": "Orden: {{sortType}}",
+                                    "sortType": {
+                                        "new": "de más nuevo a más antiguo",
+                                        "old": "de más antiguo a más nuevo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Lista de envíos activos en este momento.",
+                    "path": "[📍 Ruta: {{menu}} → Envíos → *Ver*]",
+                    "empty": "¡Aún no se han configurado envíos! Vuelve más tarde."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Menú de envío «{{call}}»",
+                        "path": "[📍 Ruta: {{menu}} → Envíos → Ver → *Menú «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Horario",
+                            "message": "💬 Mensajes",
+                            "statistic": "📈 Estadísticas",
+                            "owner": "👑 Propietario",
+                            "call": "🏷️ Nombre"
+                        }
+                    },
+                    "message": {
+                        "main": {
+                            "error": "¡Error al recibir los mensajes!\nContacta al administrador",
+                            "empty": "¡No hay mensajes!\nPara agregar un texto, presiona el botón de abajo",
+                            "title": "Menú de la sección Mensajes. Cantidad: {{amount}}",
+                            "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → *Mensajes*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Selecciona el tipo de adición de texto.",
+                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Modo de adición*]",
+                                "buttons": {
+                                    "generate": "🔮 Generar",
+                                    "hand": "✍ Entrada manual"
+                                }
+                            },
+                            "generate": {
+                                "title": "¡Generaré un texto de venta!\nEnvía el texto fuente aquí. No se permite un montón de textos.",
+                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Generación*]",
+                                "save": "✅ ¡Texto guardado!",
+                                "cancel": "❌ ¡Texto no guardado!",
+                                "pathSave": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → Generación → *Guardar*]",
+                                "pathCancel": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → Generación → *Cancelar*]"
+                            },
+                            "hand": {
+                                "title": "Agregando texto.\nEnvía el texto o reenvíalo aquí. No se permite un montón de textos.",
+                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Agregar texto*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ ¡Todos los mensajes limpiados!",
+                            "error": "❌ ¡Mensajes no limpiados!\nContacta al administrador",
+                            "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Limpiar*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Mensaje nº {{number}}.",
+                                "amountMedia": "Cantidad de medios: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Ver*]",
+                                "buttons": {
+                                    "updateText": "✍️ Editar texto",
+                                    "addMedia": "🖼 Agregar medio",
+                                    "clearAllMedia": "🗑 Limpiar medios"    
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Editando texto.\nEnvía el texto o reenvíalo aquí. No se permite un montón de textos.",
+                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Editar texto*]"
+                                },
+                                "remove": {
+                                    "success": "✅ ¡Mensaje eliminado!",
+                                    "error": "❌ ¡Texto no eliminado!\nContacta al administrador",
+                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Eliminar texto*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Agregando medio.\nEnvía medio en cantidad de 1 pieza.",
+                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Agregar medio*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ ¡Todos los medios limpiados!",
+                                    "error": "❌ ¡Medios no limpiados!\nContacta al administrador",
+                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Limpiar medios*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Salto rápido al mensaje por número",
+                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → Ver → *Seleccionar mensaje*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Selecciona el formato en el que se guardará la lista de mensajes",
+                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Selección de formato de exportación*]"
+                            },
+                            "result": {
+                                "error": "❌ Error al exportar mensajes\nContacta al administrador",
+                                "caption": "¡Lista de mensajes en formato {{exportType}} lista!",
+                                "path": "\n[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Exportar a {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "¡Horario aún no configurado!",
+                            "title": "Menú de la sección Horario. Número de horas en el horario: {{amount}}",
+                            "path": "\n[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → *Horario*]"
+                        },
+                        "create": {
+                            "title": "Agregando hora.",
+                            "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → *Agregar*]"
+                        },
+                        "clear": {
+                            "success": "✅ ¡Horario limpiado!",
+                            "error": "❌ ¡Horario no limpiado!\nContacta al administrador",
+                            "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → *Limpiar*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "El horario de envío se presenta a continuación como botones.",
+                                "path": "\n[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → *Ver*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Editando la hora.",
+                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → Ver → *Editar hora*]"
+                                },
+                                "remove": {
+                                    "success": "✅ ¡Hora eliminada!",
+                                    "error": "❌ ¡Hora no eliminada!\nContacta al administrador",
+                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → Ver → *Eliminar hora*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Hora seleccionada:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → Ver → *Selección de acción*]"
+                                }
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Selecciona el formato de las estadísticas deseadas.",
+                            "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → *Estadísticas*]",
+                            "buttons": {
+                                "selective": "📅 Selectiva",
+                                "comparative": "📊 Comparativa"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Actualmente se están realizando tareas de mantenimiento en esta sección.",
+                                "noData": "¡No se encontró ningún resultado para la fecha seleccionada!",
+                                "noAccess": "¡El botón presionado no está disponible!",
+                                "title": "Estadística selectiva.\nA continuación hay un calendario con fechas. Para ver el resultado del envío de un día específico, ¡solo haz clic en él!\n\nSi el envío: \n*no ocurrió, \n*no hubo, \n*no está programado, \n*u otra cosa\n- se mostrará un mensaje con el contexto correspondiente, no te alarmes.",
+                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → *Selectiva*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Resultado del envío del {{date}}.",
+                                    "time": "Hora: {{time}}",
+                                    "success": "Envíos exitosos: {{success}}",
+                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → Selectiva → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "amount":"Cantidad: {{amount}}",
+                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → Selectiva → {{date}} → *Grupos*]"    
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Selecciona el tipo de estadística comparativa.",
+                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → *Comparativa*]",
+                                "buttons": {
+                                    "week": "Semana",
+                                    "month": "Mes"
+                                }
+                            },
+                            "week": {
+                                "title": "Estadística comparativa. (Semana)",
+                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → Comparativa → *Semana*]"
+                            },
+                            "month": {
+                                "title": "Estadística comparativa. (Mes)",
+                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → Comparativa → *Mes*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Propietario del envío.",
+                            "empty": "¡El envío no tiene propietario!",
+                            "name": "Nombre: {{name}}",
+                            "phone": "Teléfono: +{{phone}}",
+                            "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → *Propietario*]",
+                            "buttons": {
+                                "change": "🪧 Reasignar"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Selecciona un usuario para asignarlo como propietario de este envío.",
+                                "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → Propietario → *Selección*]",
+                                "noOwner": "Sin propietario"
+                            },
+                            "action": {
+                                "success": "✅ ¡Propietario reasignado con éxito!",
+                                "error": "❌ ¡Propietario no reasignado!\n¡Inténtalo más tarde!",
+                                "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → Propietario → {{owner}} → *Asignación*]"
+                            }
+                        }
+                    },
+                    "call": {
+                        "main": {
+                            "title": "Nombre (señal de llamada) del envío: {{call}}",
+                            "empty": "¡El envío no tiene nombre!",
+                            "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → *Nombre*]"
+                        },
+                        "update": {
+                            "title": "Cambiando la señal de llamada del envío. Envía el nuevo nombre del envío.",
+                            "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → Nombre → *Actualizar*]"
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Gestión de contratos",
+                    "amount": "Cantidad: {{amount}}",
+                    "path": "[📍 Ruta: {{menu}} → *Contratos*]",
+                    "empty": "¡Aún no se han configurado contratos! Vuelve más tarde.",
+                    "contractName": "{{userName}}: desde {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Lista de contratos.",
+                        "path": "[📍 Ruta: {{menu}} → Contratos → *Ver*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Contrato del {{dateStart}}.",
+                            "sendouts": "Envíos incluidos en el contrato: {{sendouts}}",
+                            "noSendouts": "vacío.",
+                            "userName": "Cliente: {{userName}}",
+                            "dateStart": "Fecha de inicio: {{dateStart}}",
+                            "dateEnd": "Fecha de finalización: {{dateEnd}}",
+                            "price": "Precio: {{price}}",
+                            "priceText": "Precio (texto): {{priceText}}",
+                            "error": "Error al recibir el contrato. Contacta al administrador",
+                            "path": "\n[📍 Ruta: {{menu}} → Contratos → Ver → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success":"✅ ¡Contrato eliminado con éxito!",
+                            "error": "❌ ¡Contrato no eliminado!\nInténtalo más tarde",
+                            "path": "[📍 Ruta: Panel → Contratos → Ver → {{dateStart}} → *Eliminar*]"
+                        },
+                        "create": {
+                            "step": "Paso: {{number}} / 3",
+                            "noUser": "¡Para proceder al paso nº2, debes completar el paso nº1!",
+                            "noSendouts": "¡Para proceder al paso nº3, debes completar el paso nº2!",
+                            "noFreeSendouts": "¡El cliente no tiene envíos libres (sin contrato)!",
+                            "data": {
+                                "user": "Selecciona el usuario para el cual se redactará el contrato",
+                                "sendout": "Selecciona los envíos que se incluirán en el contrato",
+                                "contract": "Envía los datos referentes al contrato"
+                            },
+                            "title": "Creando un contrato. Lee las instrucciones para una correcta creación.",
+                            "path": "[📍 Ruta: Panel → Contratos → *Creación*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Selecciona el formato en el que se guardará el contrato",
+                                "path": "[📍 Ruta: {{menu}} → Contratos → Ver → {{dateStart}} → *Selección de formato de exportación*]"
+                            },
+                            "result": {
+                                "error": "❌ Error al exportar el contrato\nContacta al administrador",
+                                "caption": "¡Contrato en formato {{exportType}} listo!",
+                                "path": "\n[📍 Ruta: {{menu}} → Contratos → Ver → {{dateStart}} → *Exportar a {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "title": "Creando un contrato. Antes de comenzar, lee las instrucciones para una correcta creación.",
+                    "path": "[📍 Ruta: Panel → Contratos → *Creación*]"
+                }
+            }
+        }
+    }
+}
