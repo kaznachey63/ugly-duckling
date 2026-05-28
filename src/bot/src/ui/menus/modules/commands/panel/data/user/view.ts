@@ -30,7 +30,7 @@ function viewUser(ctx: MyContext, user: User): Menu<InlineKeyboard> {
 
     const keyboard = new InlineKeyboard()
         // .text(ctx.t("modules.commands.panel.data.user.view.user.main.telegramId", { telegramId: user.telegram_id ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
-        .url(ctx.t("modules.commands.panel.data.user.view.user.main.telegramId", { telegramId: user.telegram_id ?? ctx.t("utils.shared.buttons.miss") }), `tg://user?id-${user.telegram_id}`).row()
+        .url(ctx.t("modules.commands.panel.data.user.view.user.main.telegramId", { telegramId: user.telegram_id ?? ctx.t("utils.shared.buttons.miss") }), `tg://user?id=${user.telegram_id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.user.main.name", { name: user.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateUserName#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.user.main.username", { username: user.username ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.user.main.phone", { phone: user.phone ?? ctx.t("utils.shared.buttons.miss") }), `updateUserPhone#${user.id}`).row()
