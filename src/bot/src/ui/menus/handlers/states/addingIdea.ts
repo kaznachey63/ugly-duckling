@@ -15,6 +15,9 @@ export default function addingIdea(ctx: MyContext, result: boolean): Menu<Inline
         ctx.t("handlers.states.addingIdea.path")
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainIdea");
+    const keyboard = new InlineKeyboard()
+        .text(ctx.t("modules.commands.settings.help.buttons.contactAdmin"), "...")
+        .text(ctx.t("utils.shared.buttons.back"), "mainIdea")
+        ;
     return { text: format.escapeMarkdown(text), keyboard }
 };
