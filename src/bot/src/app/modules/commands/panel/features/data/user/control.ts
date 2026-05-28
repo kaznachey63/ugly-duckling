@@ -54,11 +54,6 @@ controlComposer.callbackQuery(/^updateOrRemoveUserRole#/, async (ctx: MyContext)
             break;
         }
         case 2: {
-            user.role_id = 3; 
-            user.role!.code = localization.getRoleCode(3);
-            break;
-        }
-        case 3: {
             user.role_id = 1; 
             user.role!.code = localization.getRoleCode(1);
             break;
