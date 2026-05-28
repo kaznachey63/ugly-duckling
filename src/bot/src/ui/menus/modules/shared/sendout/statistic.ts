@@ -70,7 +70,7 @@ function targetDateOnCalendar(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n');
 
     const keyboard = new InlineKeyboard();
-    if (ctx.session.isAdmin) keyboard.text(ctx.t("utils.shared.buttons.chats"), `viewChats:${ctx.session.sendout.id}#${ctx.session.result.id}`).row();
+    if (ctx.session.isAdmin) keyboard.text(ctx.t("utils.shared.buttons.chat"), `viewChats:${ctx.session.sendout.id}#${ctx.session.result.id}`).row();
     keyboard.text(ctx.t("utils.shared.buttons.back"), `selectiveStatistic:${ctx.session.sendout.id}`);
 
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
