@@ -25,6 +25,6 @@ export default function addingMedia(ctx: MyContext, validate: boolean, result?: 
 
         }
     }
-    keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}-none`).row();
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}-none`);
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
 };

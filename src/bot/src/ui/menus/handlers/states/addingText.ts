@@ -14,25 +14,19 @@ export default function addingText(ctx: MyContext, result: boolean, validate: bo
 
     const keyboard = new InlineKeyboard();
 
-    if (!validate) {
-        text.unshift(ctx.t("utils.shared.titles.validate"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
-    }
+    if (!validate) text.unshift(ctx.t("utils.shared.titles.validate"));
     else {
         if (result) {
             text.unshift(ctx.t("handlers.states.addingText.success"));
-            keyboard
-                .text(ctx.t("utils.shared.buttons.create"), `mainCreateText:${ctx.session.sendout.id}`).style("success")
-                .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`).row()
-            ;
+            keyboard.text(ctx.t("utils.shared.buttons.create"), `mainCreateText:${ctx.session.sendout.id}`).style("success");
         }
         else {
             text.unshift(ctx.t("handlers.states.addingText.error"));
-            keyboard
-                .url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin)
-                .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`).row()
-            ;
+            keyboard.url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin);
         }
+
     }
+    
+    keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`).row()
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
-};
+}    

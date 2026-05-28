@@ -20,14 +20,14 @@ export default function addingUser(ctx: MyContext, result: boolean, validate: bo
             text.unshift(ctx.t("handlers.states.addingUser.success"));
             keyboard
                 .text(ctx.t("utils.shared.buttons.create"), "mainUser").style("success")
-                .text(ctx.t("utils.shared.buttons.back"), "viewUsers").row()
+                .row().text(ctx.t("utils.shared.buttons.back"), "viewUsers")
             ;
         }
         else {
             text.unshift(ctx.t("handlers.states.addingUser.error"));
             keyboard
                 .url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin)
-                .text(ctx.t("utils.shared.buttons.back"), "viewUser").row();
+                .row().text(ctx.t("utils.shared.buttons.back"), "viewUser");
         }
     }
 

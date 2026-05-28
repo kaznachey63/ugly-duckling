@@ -27,7 +27,7 @@ export default function addingContract(ctx: MyContext, result: boolean, validate
             text.unshift(ctx.t("handlers.states.addingContract.error"));
             keyboard
                 .url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin)
-                .text(ctx.t("utils.shared.buttons.back"), "mainContract").row()
+                .row().text(ctx.t("utils.shared.buttons.back"), "mainContract")
             ;
         }
     }
