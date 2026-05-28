@@ -43,8 +43,10 @@ controlComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
 /**
  * Редактирование роли пользователя
  */
-controlComposer.callbackQuery(/^updateOrRemoveUserRole#/, async (ctx: MyContext) => {
+controlComposer.callbackQuery(/^updateUserRole#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
+    if (userId == 3) return;
+
     const user = (await db.user.get(userId))!;
     
     switch (user.role_id!) {
@@ -65,5 +67,45 @@ controlComposer.callbackQuery(/^updateOrRemoveUserRole#/, async (ctx: MyContext)
     const menu = menuView.viewUser(ctx, user);
     await ctx.editMessageReplyMarkup({ reply_markup: menu.keyboard });
 });
+
+/**
+ * Редактирование телефона пользователя (неизвестного)
+ */
+// controlComposer.callbackQuery(/^updateUserPhone#/, async (ctx: MyContext) => {
+//     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
+//     if (userId != 3) return;
+
+//     const user = (await db.user.get(userId))!;
+    
+    
+//     await db.user.updateRole(userId, user.role_id!);
+
+//     const menu = menuView.viewUser(ctx, user);
+// });
+
+/**
+ * Редактирование имени пользователя
+ */
+// controlComposer.callbackQuery(/^updateUserName#/, async (ctx: MyContext) => {
+//     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
+//     const user = (await db.user.get(userId))!;
+    
+//     switch (user.role_id!) {
+//         case 1: {
+//             user.role_id = 2; 
+//             user.role!.code = localization.getRoleCode(2);
+//             break;
+//         }
+//         case 2: {
+//             user.role_id = 1; 
+//             user.role!.code = localization.getRoleCode(1);
+//             break;
+//         }
+//     }
+    
+//     await db.user.updateRole(userId, user.role_id!);
+
+//     const menu = menuView.viewUser(ctx, user);
+// });
 
 export default controlComposer;

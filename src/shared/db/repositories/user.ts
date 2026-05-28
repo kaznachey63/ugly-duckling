@@ -230,6 +230,46 @@ async function updateRole(userId: number, roleId: number): Promise<boolean> {
     }
 }
 
+/**
+ * Обновление роли пользователя
+ */
+async function updatePhone(userId: number, phone: string): Promise<boolean> {
+    try {
+        await prisma.user.updateMany({
+            where: {
+                id: userId
+            },
+            data: {
+                phone: phone
+            }
+        });
+        return true;
+    } catch (error) {
+        console.error("Ошибка при обновлении телефона пользователя", error);
+        return false;
+    }
+}
+
+/**
+ * Обновление имени пользователя
+ */
+async function updateName(userId: number, name: string): Promise<boolean> {
+    try {
+        await prisma.user.updateMany({
+            where: {
+                id: userId
+            },
+            data: {
+                name: name
+            }
+        });
+        return true;
+    } catch (error) {
+        console.error("Ошибка при обновлении имени пользователя", error);
+        return false;
+    }
+}
+
 export default {
     exists,
     updateLang,
@@ -241,4 +281,6 @@ export default {
     gets,
     getIds,
     updateRole,
+    updatePhone,
+    updateName,
 };
