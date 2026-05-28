@@ -50,6 +50,11 @@ function formatContract(ctx: MyContext): Contract {
     const contractInText = ctx.message?.text?.trim()!;
     const [dateStart, dateEnd] = contractInText.split('\n');
     console.log(constants.price.days30, ctx.session.contract.sendout?.length!);
+    console.log(
+         constants.priceText,
+         ctx.session.contract.sendout?.length,
+          constants.priceText[ctx.session.contract.sendout?.length]!
+    );
     
     return {
         date_start: dateStart === '-' ? null : new Date(dateStart!),
