@@ -44,13 +44,16 @@ controlComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
 controlComposer.callbackQuery(/^updateOrRemoveUserRole#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
     const user = (await db.user.get(userId))!;
-    
+    const oldRoleId = user.role_id;
     switch (user.role_id!) {
         case 1: user.role_id = 2; break;
         case 2: user.role_id = 3; break;
         case 3: user.role_id = 1; break;
     }
-    
+    if (oldRoleId === user.role_id) {
+        await ctx.answerCallbackQuery();
+        return;
+    }
     await db.user.updateRole(userId, user.role_id!);
 
     const menu = menuView.viewUser(ctx, user);
