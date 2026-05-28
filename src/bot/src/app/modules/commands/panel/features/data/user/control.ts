@@ -42,22 +42,39 @@ controlComposer.callbackQuery(/^removeUser#/, async (ctx: MyContext) => {
  * Редактирование роли пользователя
  */
 controlComposer.callbackQuery(/^updateOrRemoveUserRole#/, async (ctx: MyContext) => {
-    const userId = Number(ctx.callbackQuery?.data?.split('#')[1]!);
-    const user = (await db.user.get(userId))!;
-    const oldRoleId = user.role_id;
+    const userId = Number(ctx.callbackQuery.data.split('#')[1]);
+    
+    const user = await db.user.get(userId);
+    if (!user) return;
+
+    const oldRole = user.role_id;
+
+    // Меняем роль
     switch (user.role_id!) {
         case 1: user.role_id = 2; break;
         case 2: user.role_id = 3; break;
         case 3: user.role_id = 1; break;
     }
-    if (oldRoleId === user.role_id) {
+
+    await db.user.updateRole(userId, user.role_id!);
+
+    // Если роль не изменилась — не обновляем сообщение
+    if (oldRole === user.role_id) {
         await ctx.answerCallbackQuery();
         return;
     }
-    await db.user.updateRole(userId, user.role_id!);
 
     const menu = menuView.viewUser(ctx, user);
-    await ctx.editMessageReplyMarkup({ reply_markup: menu.keyboard });
-});
 
+    await ctx.editMessageReplyMarkup({
+        reply_markup: menu.keyboard
+    }).catch(err => {
+        // Игнорируем только эту конкретную ошибку
+        if (!err.description?.includes("message is not modified")) {
+            console.error(err);
+        }
+    });
+
+    await ctx.answerCallbackQuery();
+});
 export default controlComposer;
