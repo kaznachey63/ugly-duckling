@@ -2,6 +2,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
+import constants from '@common/constants';
 
 /**
  * Результат добавления пользователя
@@ -17,11 +18,16 @@ export default function addingUser(ctx: MyContext, result: boolean, validate: bo
     else {
         if (result) {
             text.unshift(ctx.t("handlers.states.addingUser.success"));
-            keyboard.text(ctx.t("utils.shared.buttons.back"), "viewUsers");
+            keyboard
+                .text(ctx.t("utils.shared.buttons.create"), "mainUser").style("success")
+                .text(ctx.t("utils.shared.buttons.back"), "viewUsers").row()
+            ;
         }
         else {
             text.unshift(ctx.t("handlers.states.addingUser.error"));
-            keyboard.text(ctx.t("utils.shared.buttons.back"), "viewUsers");
+            keyboard
+                .url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin)
+                .text(ctx.t("utils.shared.buttons.back"), "viewUser").row();
         }
     }
 

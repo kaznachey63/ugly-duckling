@@ -2,6 +2,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
+import constants from '@common/constants';
 
 /**
  * Результат добавления текста
@@ -20,11 +21,17 @@ export default function addingText(ctx: MyContext, result: boolean, validate: bo
     else {
         if (result) {
             text.unshift(ctx.t("handlers.states.addingText.success"));
-            keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
+            keyboard
+                .text(ctx.t("utils.shared.buttons.create"), `mainCreateText:${ctx.session.sendout.id}`).style("success")
+                .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`).row()
+            ;
         }
         else {
             text.unshift(ctx.t("handlers.states.addingText.error"));
-            keyboard.text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`);
+            keyboard
+                .url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin)
+                .text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`).row()
+            ;
         }
     }
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };

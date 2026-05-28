@@ -15,7 +15,7 @@ export default function help(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .url(ctx.t("modules.commands.settings.help.buttons.contactAdmin"), constants.link.tgAdmin)
+        .url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin)
         .row().text(ctx.t("utils.shared.buttons.back"), "mainSettings")
     ;
     return { text: format.escapeMarkdown(text), keyboard }

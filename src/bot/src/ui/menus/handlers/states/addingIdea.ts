@@ -2,22 +2,27 @@ import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
+import constants from '@common/constants';
 
 /**
  * Результат добавления идеи
  */
 export default function addingIdea(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = [
-        result ?
-            ctx.t("handlers.states.addingIdea.success") :
-            ctx.t("handlers.states.addingIdea.error")
-        ,
         ctx.t("handlers.states.addingIdea.path")
-    ].join('\n\n');
+    ];
 
-    const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.commands.settings.help.buttons.contactAdmin"), "...").row()
-        .text(ctx.t("utils.shared.buttons.back"), "mainIdea")
-        ;
-    return { text: format.escapeMarkdown(text), keyboard }
+    const keyboard = new InlineKeyboard();
+
+    if (result) {
+        text.unshift(ctx.t("handlers.states.addingIdea.success"));
+        keyboard.text(ctx.t("modules.commands.settings.idea.main.buttons.add"), "addIdea").style("success");
+    }
+    else {
+        text.unshift(ctx.t("handlers.states.addingIdea.error"));
+        keyboard.url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin);
+    }
+
+    keyboard.text(ctx.t("utils.shared.buttons.back"), "mainIdea").row();
+    return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 };

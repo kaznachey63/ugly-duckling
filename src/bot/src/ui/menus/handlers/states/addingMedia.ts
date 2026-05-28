@@ -2,21 +2,29 @@ import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
+import constants from '@common/constants';
 
 /**
- * Результат добавления медиац
+ * Результат добавления медиа
  */
 export default function addingMedia(ctx: MyContext, validate: boolean, result?: boolean): Menu<InlineKeyboard> {
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}-none`);
+    const keyboard = new InlineKeyboard();
     const text = [
         ctx.t("handlers.states.addingMedia.path", { call: ctx.session.sendout.call,  menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ];
 
     if (!validate) text.unshift(ctx.t("utils.shared.titles"));
     else {
-        if (result) text.unshift(ctx.t("handlers.states.addingMedia.success"));
-        else text.unshift(ctx.t("handlers.states.addingMedia.error"));
-    }
+        if (result) {
+            text.unshift(ctx.t("handlers.states.addingMedia.success"));
+            if (ctx.session.message.media?.length! < 5) keyboard.text(ctx.t("modules.shared.sendout.view.message.view.main.buttons.addMedia"), `addMedia:${ctx.session.sendout.id}#${ctx.session.message.id}`).style("success");
+        }
+        else {
+            text.unshift(ctx.t("handlers.states.addingMedia.error"));
+            keyboard.url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin)
 
+        }
+    }
+    keyboard.text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}-none`).row();
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard };
 };
