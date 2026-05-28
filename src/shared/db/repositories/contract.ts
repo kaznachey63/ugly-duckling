@@ -93,6 +93,7 @@ async function insert(contract: Contract) {
                 date_start: contract.date_start,
                 date_end: contract.date_end,
                 price: contract.price,
+                price_text: contract.price_text
             }
         });
 

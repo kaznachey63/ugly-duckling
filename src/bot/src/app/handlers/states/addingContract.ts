@@ -13,8 +13,6 @@ export default async function addingContract(ctx: MyContext) {
     }
     else {
         const contract = formatContract(ctx);
-        console.log(contract);
-        
         const resultContract = await db.contract.insert(contract);
 
         if (!resultContract) menu = menuAddingContract(ctx, false, true);
@@ -51,13 +49,7 @@ function validateContract(text: string): boolean {
 function formatContract(ctx: MyContext): Contract {
     const contractInText = ctx.message?.text?.trim()!;
     const [dateStart, dateEnd] = contractInText.split('\n');
-    console.log(constants.price.days30, ctx.session.contract.sendout?.length!);
-    console.log(
-         constants.priceText,
-         ctx.session.contract.sendout?.length,
-          constants.priceText[ctx.session.contract.sendout?.length]!
-    );
-    
+
     return {
         date_start: dateStart === '-' ? null : new Date(dateStart!),
         date_end: dateEnd === '-' ? null : new Date(dateEnd!),
