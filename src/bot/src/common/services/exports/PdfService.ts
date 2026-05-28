@@ -15,7 +15,7 @@ export class PdfService {
     async execRender(data: ContractExport): Promise<Uint8Array<ArrayBufferLike>> {
         try {
             // const dataName = this.determineData(data);
-            const pdfDoc = await PDFDocument.load(await fs.readFile(path.resolve('src', 'common', 'services', 'exports', 'docs', 'contract.pdf')));
+            const pdfDoc = await PDFDocument.load(await fs.readFile(path.resolve('src', 'bot', 'src', 'common', 'services', 'exports', 'docs', 'contract.pdf')));
 
             if (!pdfDoc) {
                 throw new Error('Невалидный тип данных');
