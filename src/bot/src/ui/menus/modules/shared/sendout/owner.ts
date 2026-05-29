@@ -54,7 +54,9 @@ function update(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
             )
             .url(
                 constants.emoji.profile,
-                constants.link.chatByNumber + CryptoService.decrypt(user.phone!)
+                user.telegram_id ? 
+                    constants.link.profileById + user.telegram_id
+                    : constants.link.chatByNumber + CryptoService.decrypt(user.phone!)
             )
         .row();
     });
