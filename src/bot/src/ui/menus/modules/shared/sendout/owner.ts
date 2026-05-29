@@ -3,6 +3,7 @@ import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import type { User } from "@shared/types/DB";
 import formatting from "@utils/formatting";
+import { CryptoService } from "@common/services/CryptoService";
 
 /**
  * Меню просмотра владельца рассылки
@@ -14,20 +15,19 @@ function main(ctx: MyContext, user: User | undefined): Menu<InlineKeyboard> {
         ctx.t("modules.shared.sendout.view.owner.main.path", { call: ctx.session.sendout.call }),
     ];
 
-    const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.shared.sendout.view.owner.main.buttons.change"), `mainChangeOwner:${sendoutId}`).row()
-        .text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`)
-    ;
+    const keyboard = new InlineKeyboard();
         
     if (user) {
         text.unshift(
             ctx.t("modules.shared.sendout.view.owner.main.title"),
             ctx.t("modules.shared.sendout.view.owner.main.name", { name: user.name }),
-            ctx.t("modules.shared.sendout.view.owner.main.phone", { phone: user.phone }),
+            ctx.t("modules.shared.sendout.view.owner.main.phone", { phone: CryptoService.decrypt(user.phone!) }),
         );
+
+        if (!ctx.session.sendout.contract_id) keyboard.text(ctx.t("modules.shared.sendout.view.owner.main.buttons.change"), `mainChangeOwner:${sendoutId}`);
     }
     else text.unshift(ctx.t("modules.shared.sendout.view.owner.main.empty"));
-        
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`);
     return { text: formatting.escapeMarkdown(text.join('\n')), keyboard }
 }
 

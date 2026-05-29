@@ -52,7 +52,7 @@ function validateUser(text: string): boolean {
 
 function formatUser(userInText: string): User {
     const [telegramId, name, username, phone, language, roleCode] = userInText.split('\n');
-    const itogRoleCode: RoleCode = roleCode === '-' ? "unknown" : roleCode! as RoleCode;
+    const itogRoleCode: RoleCode = roleCode === '-' ? "customer" : roleCode! as RoleCode;
 
     return {
         telegram_id: telegramId === '-' ? null : BigInt(telegramId!),
