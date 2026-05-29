@@ -46,10 +46,16 @@ function update(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard().text(ctx.t("modules.shared.sendout.view.owner.update.main.noOwner"), `mainAppointOwner:${ctx.session.sendout.id}=0`).row();
         
     users.forEach(user => {
-        keyboard.text(
-            user.name!, 
-            `mainAppointOwner:${ctx.session.sendout.id}=${user.id}`
-        ).row();
+        keyboard
+            .text(
+                user.name!, 
+                `mainAppointOwner:${ctx.session.sendout.id}=${user.id}`
+            )
+            .url(
+                "🥷",
+                "79277225099"
+            )
+        .row();
     });
     keyboard.text(ctx.t("utils.shared.buttons.back"), `mainOwner:${ctx.session.sendout.id}`)
     return { text: formatting.escapeMarkdown(text.join('\n\n')), keyboard }
