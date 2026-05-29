@@ -21,7 +21,16 @@ ownerComposer.callbackQuery(/^mainOwner:/, async (ctx: MyContext) => {
 
 ownerComposer.callbackQuery(/^mainChangeOwner:/, async (ctx: MyContext) => {
     try {
-        const users = await db.user.gets();
+        let users = await db.user.gets();
+
+        users = users
+            .filter(u => u.role_id === 2)
+            .map(u => {
+                u.name ??= ctx.t("utils.shared.buttons.nameless");
+                return u;
+            })
+        ;
+
         const menu = menuOwner.update(ctx, users);
 
         await ctx.editMessageText(menu.text, {

@@ -45,7 +45,7 @@ function updateName(ctx: MyContext): Menu<InlineKeyboard> {
 function updatePhone(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("modules.commands.panel.data.user.view.control.update.phone.title"),
-        ctx.t("modules.commands.panel.data.user.view.control.update.phone.path", { userName: ctx.session.userForUpdate.name ??  ctx.t("utils.shared.buttons.nameless") })
+        ctx.t("modules.commands.panel.data.user.view.control.update.phone.path", { userName: ctx.session.userForUpdate.name ?? ctx.t("utils.shared.buttons.nameless") })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainUser");
