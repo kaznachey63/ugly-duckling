@@ -3,6 +3,7 @@ import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
+import constants from '@common/constants';
 
 function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
@@ -33,15 +34,26 @@ function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     users =  users.filter(u => u.role_id != 3);
     users.forEach(user => {
         if (user.id == ctx.session.contract.user_id)
-            keyboard.text(
+            keyboard
+            .text(
                 user.name! + ' ☑️', 
                 `pickUser#${user.id}`
-            ).row();
+            )
+            .url(
+                ctx.t("utils.shared.buttons.information"), 
+                constants.link.profileById + user.telegram_id
+            )
+            .row();
         else
             keyboard.text(
                 user.name!, 
                 `pickUser#${user.id}`
-            ).row();
+            )
+            .url(
+                ctx.t("utils.shared.buttons.information"), 
+                constants.link.profileById + user.telegram_id
+            )
+            .row();
     });
 
     keyboard

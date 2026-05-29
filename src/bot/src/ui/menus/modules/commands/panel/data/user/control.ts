@@ -1,6 +1,5 @@
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
-import type { User } from '@shared/types/DB';
 import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
 

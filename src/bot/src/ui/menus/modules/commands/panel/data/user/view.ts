@@ -4,6 +4,7 @@ import type { User } from '@shared/types/DB';
 import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
 import { CryptoService } from '@common/services/CryptoService';
+import constants from '@common/constants';
 
 function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {   
     const text = [
@@ -32,7 +33,7 @@ function viewUser(ctx: MyContext): Menu<InlineKeyboard> {
 
     const keyboard = new InlineKeyboard();
     user.telegram_id ? 
-        keyboard.url(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: user.telegram_id }), `tg://user?id=${user.telegram_id}`).row()
+        keyboard.url(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: user.telegram_id }), constants.link.profileById + user.telegram_id).row()
         : keyboard.text(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: ctx.t("utils.shared.buttons.miss") }), '#').row()
     ;
     
