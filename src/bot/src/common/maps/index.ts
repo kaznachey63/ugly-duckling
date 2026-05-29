@@ -53,6 +53,12 @@ const countryFlags: Record<LanguagesALlowed, string> = {
     "nl": "🇳🇱",
     "el": "🇬🇷",
     "cs": "🇨🇿",
+    "ro": "🇷🇴",
+    "hu": "🇭🇺",
+    "bg": "🇧🇬",
+    "sk": "🇸🇰",
+    "hr": "🇭🇷",
+    "sl": "🇸🇮",
 };
 
 export default {

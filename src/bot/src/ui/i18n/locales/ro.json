@@ -1,0 +1,701 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Procesare...",
+            "cabinet": "🪴 Cont personal",
+            "buttons": {
+                "export": "📧 Exportă",
+                "nameless": "Fără nume",
+                "back": "🔙 Înapoi",
+                "remove": "🗑 Șterge",
+                "miss": "Lipsește",
+                "create": "➕ Creează",
+                "update": "✍ Editează",
+                "clear": "🗑 Curăță",
+                "view": "👁 Vizualizează",
+                "contract": "📜 Contracte",
+                "sendout": "📢 Trimitere",
+                "chat": "🗯 Grupuri",
+                "contactAdmin": "👨 Administrator"
+            },
+            "titles": {
+                "validate": "⚠ Datele de intrare au un format incorect. Trimite din nou",
+                "cabinet": "Cont",
+                "panel": "Panou → Date",
+                "amount": "Cantitate: {{amount}}",
+                "sendoutActive": "Trimiterea este activă momentan, încearcă să gestionezi datele mai târziu"
+            }
+        },
+        "maintenace": "🚧 În prezent au loc lucrări de întreținere. Utilizarea serviciului este temporar limitată.\nDe îndată ce terminăm, vă vom anunța imediat!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Administrator",
+            "customer": "Client",
+            "unknown": "Necunoscut"
+        },
+        "languages": {
+            "ru": "Rusă",
+            "zh": "Chineză",
+            "en": "Engleză",
+            "sr": "Sârbă",
+            "ro": "Română",
+            "hu": "Maghiară",
+            "bg": "Bulgară",
+            "sk": "Slovacă",
+            "hr": "Croată",
+            "sl": "Slovenă"
+        },
+        "commands": {
+            "cabinet": "Cont",
+            "settings": "Setări",
+            "panel": "Panou admin"
+        },
+        "chart": {
+            "labelMonth": "Statistica numărului de grupuri care au primit trimiterea. {{month}} {{year}}",
+            "labelWeek": "Statistica numărului de grupuri care au primit trimiterea. Săptămână",
+            "amountSms": "Numărul de mesaje",
+            "noLogs": "În perioada selectată nu a avut loc nicio trimitere!",
+            "daysOfWeek": {
+                "Mon": "Lun",
+                "Tue": "Mar",
+                "Wed": "Mie",
+                "Thu": "Joi",
+                "Fri": "Vin",
+                "Sat": "Sâm",
+                "Sun": "Dum"
+            },
+            "months": {
+                "january": "Ianuarie",
+                "february": "Februarie",
+                "march": "Martie",
+                "april": "Aprilie",
+                "may": "Mai",
+                "june": "Iunie",
+                "july": "Iulie",
+                "august": "August",
+                "september": "Septembrie",
+                "october": "Octombrie",
+                "november": "Noiembrie",
+                "december": "Decembrie"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Ianuarie",
+                "1": "Februarie",
+                "2": "Martie",
+                "3": "Aprilie",
+                "4": "Mai",
+                "5": "Iunie",
+                "6": "Iulie",
+                "7": "August",
+                "8": "Septembrie",
+                "9": "Octombrie",
+                "10": "Noiembrie",
+                "11": "Decembrie"
+            },
+            "days": {
+                "0": "Lun",
+                "1": "Mar",
+                "2": "Mie",
+                "3": "Joi",
+                "4": "Vin",
+                "5": "Sâm",
+                "6": "Dum"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Parser",
+            "sendout": "Trimitere"
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Eroare la procesarea numărului de telefon!\nÎncearcă din nou!",
+                "accessDenied": "Acces interzis. Pentru a utiliza serviciul de trimitere, folosește comanda '/settings', secțiunea 'Ajutor'"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Text salvat!",
+                "error": "❌ Text nesalvat!\nContactează administratorul",
+                "path": "[📍 Cale: {{menu}} → Meniu «{{call}}» → Mesaje → *Creare text*]"
+            },
+            "generatingText": {
+                "result": "Mesajul generat este prezentat mai jos.\nFolosește butoanele de sub mesaje pentru a decide soarta textului.",
+                "pathChoose": "[📍 Cale: {{menu}} → Meniu «{{call}}» → Mesaje → Generare text → *Soarta textului*]",
+                "buttons": {
+                    "save": "✔ Salvează",
+                    "cancel": "❌ Nu salva"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Text modificat!",
+                "error": "❌ Text nemodificat!\nContactează administratorul",
+                "path": "[📍 Cale: {{menu}} → Meniu «{{call}}» → Mesaje → *Editare text*]"
+            },
+            "addingMedia": {
+                "error": "💀 Eroare la salvarea media!\nContactează administratorul",
+                "invalidType": "Tipul media nu a fost recunoscut! Încearcă din nou",
+                "bigSize": "Fișierul este prea mare. Dimensiunea maximă {{size}} MB.",
+                "documentsWTMedia": "Nu pot procesa documente care nu conțin: fotografie / video / gif",
+                "success": "✅ Media salvată!",
+                "error2": "❌ Media nesalvată!\nContactează administratorul",
+                "path": "[📍 Cale: {{menu}} → Meniu «{{call}}» → Mesaje → *Adăugare media*]"
+            },
+            "addingTime": {
+                "success": "✅ Oră salvată!",
+                "error": "❌ Ora nu a fost modificată!\nContactează administratorul",
+                "path": "[📍 Cale: Panou → Meniu «{{call}}» → Program → Vizualizare → *Adăugare*]"
+            },
+            "updatingTime": {
+                "success": "✅ Oră modificată!",
+                "error": "❌ Ora nu a fost modificată!\nContactează administratorul",
+                "path": "[📍 Cale: Panou → Meniu «{{call}}» → Program → Vizualizare → *Editare*]"
+            },
+            "addingIdea": {
+                "success": "✅ Idee adăugată cu succes, mulțumesc!",
+                "error": "❌ Ideea nu a fost adăugată!\nÎncearcă din nou sau contactează administratorul!",
+                "path": "[📍 Cale: Setări → Idei → *Adăugare*]"
+            },
+            "addingUser": {
+                "success": "✅ Utilizator creat cu succes!",
+                "error": "❌ Utilizatorul nu a fost creat!\nÎncearcă mai târziu.",
+                "path": "[📍 Cale: Panou → Date → Utilizatori → *Creare*]"
+            },
+            "addingContract": {
+                "success": "✅ Contract creat cu succes!",
+                "error": "❌ Contractul nu a fost creat!\nÎncearcă mai târziu.",
+                "path": "[📍 Cale: Panou → Contracte → *Creare*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Indicatorul actualizat cu succes!",
+                "error": "❌ Indicatorul nu a fost actualizat!\nÎncearcă mai târziu.",
+                "path": "[📍 Cale: Panou → Trimitere → Vizualizare → Meniu «{{call}}» → Nume → *Actualizare*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Nume actualizat cu succes!",
+                "error": "❌ Numele nu a fost actualizat!\nÎncearcă mai târziu.",
+                "path": "[📍 Cale: Panou → Date → Utilizatori → Vizualizare → {{userName}} → *Editare nume*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Telefon actualizat cu succes!",
+                "error": "❌ Telefonul nu a fost actualizat!\nÎncearcă mai târziu.",
+                "path": "[📍 Cale: Panou → Date → Utilizatori → Vizualizare → {{userName}} → *Editare număr*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "Bun venit! Sunt un bot de Telegram, asistent pentru trimiteri.\n\nRecomand cu tărie să te familiarizezi cu întregul registru al comenzilor mele apăsând butonul oval 'Meniu' din colțul din stânga jos al ecranului.\nDupă ce ai citit mai întâi manualul de utilizare, apelat cu comanda '/settings', în secțiunea 'Despre bot'."
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Setări",
+                    "buttons": {
+                        "about": "ℹ Despre serviciu",
+                        "help": "❓ Ajutor",
+                        "idea": "💡 Idei",
+                        "language": "🌐 Limbă"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Alege o limbă.",
+                        "path": "[📍 Cale: Setări → *Limbă*]"
+                    },
+                    "change": {
+                        "good": "Limba a fost schimbată!",
+                        "error": "Această limbă este deja selectată!"
+                    }
+                },
+                "help": {
+                    "title": "Ai întâmpinat o problemă?\nAi întrebări?\nDorești să lauzi serviciul?\nAi idei pentru îmbunătățirea serviciului?",
+                    "interest": "Sau ești interesat de produs?\nCompletează chestionarul de mai jos și noi te vom contacta!",
+                    "path": "[📍 Cale: Setări → *Ajutor*]"
+                },
+                "about": {
+                    "title": "Serviciul a fost dezvoltat pentru a automatiza publicitatea (postări, trimiteri) a produselor (ofertelor) tale în cadrul grupurilor / chat-urilor / canalelor.\n\nInstrucțiuni de utilizare a Botului - cu butonul de mai jos!",
+                    "instruction": "📖 Instrucțiuni",
+                    "path": "[📍 Cale: Setări → *Despre serviciu*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Meniu secțiune Idei.\nAici poți propune ideea ta pentru dezvoltarea serviciului.",
+                        "path": "[📍 Cale: Setări → *Idei*]",
+                        "buttons": {
+                            "add": "🗳 Propune",
+                            "see": "🔍 Explorează"
+                        }
+                    },
+                    "add": {
+                        "title": "Trimite-mi media/audio/text etc. Fără limite!",
+                        "path": "[📍 Cale: Setări → Idei → *Adăugare*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {                        
+                        "logout": "🚪 Deconectare",
+                        "login": "🔑 Autentificare"
+                    }
+                },
+                "auth": {
+                    "login": {
+                        "buttons": {
+                            "cancel": "❌ Anulează",
+                            "phone": "📞 Partajează"
+                        },
+                        "unknownMessage": "Acțiune nerecunoscută, încearcă din nou să folosești butoanele 'Partajează' și 'Anulează'",
+                        "manyAttempts": "Numărul de încercări de autentificare utilizate înainte de limita de o oră: {{actualAttempts}} din {{maxAttempts}}",
+                        "stop": "Autorizarea este limitată. Restricțiile vor fi ridicate după: {{dateTime}}",
+                        "canceled": "Autorizarea a fost oprită cu succes!",
+                        "title": "Pentru a intra în panoul de trimitere, trebuie să îmi partajezi numărul tău de telefon.\n\nButonul ar trebui să apară lângă tastatură, cu inscripția '📞 Partajează'.",
+                        "good": "Te-ai autentificat cu succes în sistem!",
+                        "already": "Ești deja autentificat în sistem!",
+                        "bad": "Eroare la autentificarea în sistem.\nContactează administratorul!",
+                        "path": "[📍 Cale: Cont → *Autorizare*"
+                    },
+                    "logout": {
+                        "good": "Te-ai deconectat cu succes din sistem. Datele tale au fost șterse!",
+                        "bad": "Eroare la deconectarea din sistem.\nContactează administratorul!",
+                        "path": "[📍 Cale: Cont → *Deconectare*]"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "title": "👨‍💻 Panou de administrare",
+                    "buttons": {
+                        "data": "🗂 Date",
+                        "system": "⚡ Sistem "
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Gestionarea datelor",
+                        "path": "[📍 Cale: Panou → *Date*]",
+                        "buttons": {
+                            "user": "👥 Utilizatori"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Gestionarea grupurilor",
+                            "amount": "Cantitate: {{amount}}",
+                            "path": "[📍 Cale: Panou → Date → *Grupuri*]",
+                            "buttons": {
+                                "reupload": "🔁 Reîmprospătează"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Grupuri actualizate!",
+                            "error": "❌ Eroare la actualizarea grupurilor\nContactează administratorul",
+                            "path": "[📍 Cale: Panou → Date → Grupuri → *Actualizare*]"
+                        },
+                        "clear": {
+                            "success": "✅ Grupuri curățate!",
+                            "error": "❌ Eroare la curățarea grupurilor\nContactează administratorul",
+                            "path": "[📍 Cale: Panou → Date → Grupuri → *Curățare*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Gestionarea utilizatorilor",
+                            "amount": "Cantitate: {{amount}}",
+                            "path": "[📍 Cale: Panou → Date → *Utilizatori*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Lista utilizatorilor.",
+                                "path": "[📍 Cale: Panou → Date → Utilizatori → *Vizualizare*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Gestionare utilizator",
+                                    "path": "[📍 Cale: Panou → Date → Utilizatori → Vizualizare → *{{userName}}*]",
+                                    "telegramId": "ID Tg: {{telegramId}}",
+                                    "name": "Nume: {{name}}",
+                                    "username": "Nume utilizator: @{{username}}",
+                                    "phone": "Telefon: +{{phone}}",
+                                    "language": "Limbă: {{language}}",
+                                    "role": "Rol: {{role}}"
+                                },
+                                "remove": {
+                                    "success":"✅ Utilizator șters cu succes!",
+                                    "error": "❌ Utilizatorul nu a fost șters!\nÎncearcă mai târziu",
+                                    "path": "[📍 Cale: Panou → Date → Utilizatori → Vizualizare → {{userName}} → *Ștergere*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Schimbăm telefonul!\nTrimite aici.",
+                                        "path": "[📍 Cale: Panou → Date → Utilizatori → Vizualizare → {{userName}} → *Editare număr*]"
+                                    },
+                                    "name": {
+                                        "title": "Schimbăm numele!\nTrimite aici.",
+                                        "path": "[📍 Cale: Panou → Date → Utilizatori → Vizualizare → {{userName}} → *Editare nume*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Creăm utilizator! Înainte de a începe, citește instrucțiunile pentru crearea corectă.",
+                            "path": "[📍 Cale: Panou → Date → Utilizatori → *Creare*]"
+                        }   
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Gestionarea sistemului",
+                        "path": "[📍 Cale: Panou → *Sistem*]",
+                        "buttons": {
+                            "server": "📟 Server",
+                            "maintenace": "🛠️ Întreținere"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Categorii de procese",
+                            "path": "[📍 Cale: Panou → Sistem → *Server*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Analizor"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Selectează un proces",
+                                "path": "[📍 Cale: Panou → Sistem → Server → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Gestionarea procesului",
+                                    "path": "[📍 Cale: Panou → Sistem → Server → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Stare",
+                                        "log": "📋 Jurnale"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Cale: Panou → Sistem → Server → {{processType}} → {{processName}} → *Stare*]",
+                                    "status": {
+                                        "active": "✅ Procesul este activ.\nPentru a-l opri, apasă butonul de mai jos",
+                                        "inactive": "❌ Procesul este inactiv.\nPentru a-l porni, apasă butonul de mai jos",
+                                        "failed": "💀 Procesul a murit.\nContactează programatorul.",
+                                        "error": "Problemă cu procesul. Contactează programatorul."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Oprește",
+                                        "start": "▶️ Pornește",
+                                        "restart": "🔁 Repornește"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Vizualizare jurnale",
+                                    "path": "[📍 Cale: Panou → Sistem → Server → {{processType}} → {{processName}} → *Jurnale*]",
+                                    "sort": "Sortare: {{sortType}}",
+                                    "sortType": {
+                                        "new": "de la noi la vechi",
+                                        "old": "de la vechi la noi"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Lista trimiterilor active în acest moment.",
+                    "path": "[📍 Cale: {{menu}} → Trimitere → *Vizualizare*]",
+                    "empty": "Nu s-au configurat încă trimiteri! Revino mai târziu."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Meniu trimitere «{{call}}»",
+                        "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → *Meniu «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Program",
+                            "message": "💬 Mesaje",
+                            "statistic": "📈 Statistici",
+                            "owner": "👑 Proprietar",
+                            "call": "🏷️ Nume"
+                        }
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Eroare la primirea mesajelor!\nContactează administratorul",
+                            "empty": "Nu există mesaje!\nPentru a adăuga un text, apasă butonul de mai jos",
+                            "title": "Meniu secțiune Mesaje. Cantitate: {{amount}}",
+                            "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → *Mesaje*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Selectează tipul de adăugare a textului.",
+                                "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → *Mod de adăugare*]",
+                                "buttons": {
+                                    "generate": "🔮 Generează",
+                                    "hand": "✍ Introducere manuală"
+                                }
+                            },
+                            "generate": {
+                                "title": "Voi genera un text de vânzare! \nTrimite textul sursă aici. Nu se poate trimite un teanc de texte.",
+                                "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → *Generare*]",
+                                "save": "✅ Text salvat!",
+                                "cancel": "❌ Text nesalvat!",
+                                "pathSave": "[📍 Cale: {{menu}} → Meniu «{{call}}» → Mesaje → Generare → *Salvare*]",
+                                "pathCancel": "[📍 Cale: {{menu}} → Meniu «{{call}}» → Mesaje → Generare → *Anulare*]"
+                            },
+                            "hand": {
+                                "title": "Adăugăm text!\nTrimite textul sau redirecționează-l aici. Nu se poate trimite un teanc de texte.",
+                                "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → *Adăugare text*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Toate mesajele au fost curățate!",
+                            "error": "❌ Mesajele nu au fost curățate!\nContactează administratorul",
+                            "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → *Curățare*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Mesajul nr. {{number}}.",
+                                "amountMedia": "Număr de fișiere media: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → *Vizualizare*]",
+                                "buttons": {
+                                    "updateText": "✍️ Editează text",
+                                    "addMedia": "🖼 Adaugă media",
+                                    "clearAllMedia": "🗑 Curăță media"    
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Modificăm textul!\nTrimite textul sau redirecționează-l aici. Nu se poate trimite un teanc de texte.",
+                                    "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → *Editare text*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Mesaj șters!",
+                                    "error": "❌ Textul nu a fost șters!\nContactează administratorul",
+                                    "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → *Ștergere text*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Adăugăm fișiere media!\nTrimite fișiere media în cantitate de 1 bucată.",
+                                    "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → *Adăugare media*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Toate fișierele media au fost curățate!",
+                                    "error": "❌ Fișierele media nu au fost curățate!\nContactează administratorul",
+                                    "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → *Curățare media*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Salt rapid la mesaj după număr",
+                                "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → Vizualizare → *Selectare mesaj*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Alege formatul în care va fi salvată lista de mesaje",
+                                "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → *Alegerea formatului de export*]"
+                            },
+                            "result": {
+                                "error": "❌ Eroare la exportarea mesajelor\nContactează administratorul",
+                                "caption": "Lista de mesaje în format {{exportType}} este gata!",
+                                "path": "\n[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Mesaje → *Exportă în {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Programul nu a fost încă configurat!",
+                            "title": "Meniu secțiune Program. Numărul de ore în program: {{amount}}",
+                            "path": "\n[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → *Program*]"
+                        },
+                        "create": {
+                            "title": "Adăugăm oră!",
+                            "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Program → *Adăugare*]"
+                        },
+                        "clear": {
+                            "success": "✅ Program curățat!",
+                            "error": "❌ Programul nu a fost curățat!\nContactează administratorul",
+                            "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Program → *Curățare*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Programul de trimitere este prezentat mai jos sub formă de butoane.",
+                                "path": "\n[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Program → *Vizualizare*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Modificăm ora!",
+                                    "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Program → Vizualizare → *Editare oră*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Oră ștearsă!",
+                                    "error": "❌ Ora nu a fost ștearsă! Contactează administratorul",
+                                    "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Program → Vizualizare → *Ștergere oră*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Ora selectată:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Program → Vizualizare → *Alegerea acțiunii*]"
+                                }
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Alege formatul statisticilor dorite.",
+                            "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → *Statistici*]",
+                            "buttons": {
+                                "selective": "📅 Selectivă",
+                                "comparative": "📊 Comparativă"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "În prezent, la această secțiune se efectuează lucrări de întreținere.",
+                                "noData": "Nu s-a găsit niciun rezultat pentru data selectată!",
+                                "noAccess": "Butonul apăsat nu este disponibil!",
+                                "title": "Statistică selectivă.\nMai jos este un calendar cu date. Pentru a vedea rezultatul trimiterii pentru o anumită zi, doar dă clic pe ea!\n\nDacă trimiterea: \n*nu a avut loc, \n*nu a existat, \n*nu a fost programată, \n*sau altceva\n- va fi afișat un mesaj cu contextul corespunzător, nu te speria.",
+                                "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Statistici → *Selectivă*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Rezultatul trimiterii pentru {{date}}.",
+                                    "time": "Oră: {{time}}",
+                                    "success": "Trimitere reușită: {{success}}",
+                                    "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Statistici → Selectivă → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "amount":"Cantitate: {{amount}}",
+                                    "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Statistici → Selectivă → {{date}} → *Grupuri*]"    
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Alege tipul statisticii comparative.",
+                                "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Statistici → *Comparativă*]",
+                                "buttons": {
+                                    "week": "Săptămână",
+                                    "month": "Lună"
+                                }
+                            },
+                            "week": {
+                                "title": "Statistică comparativă. (Săptămână)",
+                                "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Statistici → Comparativă → *Săptămână*]"
+                            },
+                            "month": {
+                                "title": "Statistică comparativă. (Lună)",
+                                "path": "[📍 Cale: {{menu}} → Trimitere → Vizualizare → Meniu «{{call}}» → Statistici → Comparativă → *Lună*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Proprietarul trimiterii.",
+                            "empty": "Trimiterea nu are proprietar!",
+                            "name": "Nume: {{name}}",
+                            "phone": "Telefon: +{{phone}}",
+                            "path": "[📍 Cale: Panou → Trimitere → Vizualizare → Meniu «{{call}}» → *Proprietar*]",
+                            "buttons": {
+                                "change": "🪧 Reatribuie"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Selectează un utilizator pentru a-l numi proprietar al acestei trimiteri.",
+                                "path": "[📍 Cale: Panou → Trimitere → Vizualizare → Meniu «{{call}}» → Proprietar → *Selectare*]",
+                                "noOwner": "Fără proprietar"
+                            },
+                            "action": {
+                                "success": "✅ Proprietar reatribuit cu succes!",
+                                "error": "❌ Proprietarul nu a fost reatribuit! \nÎncearcă mai târziu!",
+                                "path": "[📍 Cale: Panou → Trimitere → Vizualizare → Meniu «{{call}}» → Proprietar → {{owner}} → *Atribuire*]"
+                            }
+                        }
+                    },
+                    "call": {
+                        "main": {
+                            "title": "Numele (indicatorul) trimiterii: {{call}}",
+                            "empty": "Trimiterea nu are nume!",
+                            "path": "[📍 Cale: Panou → Trimitere → Vizualizare → Meniu «{{call}}» → *Nume*]"
+                        },
+                        "update": {
+                            "title": "Schimbăm indicatorul trimiterii! Trimite noul nume al trimiterii.",
+                            "path": "[📍 Cale: Panou → Trimitere → Vizualizare → Meniu «{{call}}» → Nume → *Actualizare*]"
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Gestionarea contractelor",
+                    "amount": "Cantitate: {{amount}}",
+                    "path": "[📍 Cale: {{menu}} → *Contracte*]",
+                    "empty": "Nu s-au configurat încă contracte! Revino mai târziu.",
+                    "contractName": "{{userName}}: din {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Lista contractelor.",
+                        "path": "[📍 Cale: {{menu}} → Contracte → *Vizualizare*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Contract din {{dateStart}}.",
+                            "sendouts": "Trimiterile incluse în contract: {{sendouts}}",
+                            "noSendouts": "gol.",
+                            "userName": "Client: {{userName}}",
+                            "dateStart": "Data începerii: {{dateStart}}",
+                            "dateEnd": "Data încheierii: {{dateEnd}}",
+                            "price": "Cost: {{price}}",
+                            "priceText": "Cost (text): {{priceText}}",
+                            "error": "Eroare la primirea contractului. Contactează administratorul",
+                            "path": "\n[📍 Cale: {{menu}} → Contracte → Vizualizare → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success":"✅ Contract șters cu succes!",
+                            "error": "❌ Contractul nu a fost șters!\nÎncearcă mai târziu",
+                            "path": "[📍 Cale: Panou → Contracte → Vizualizare → {{dateStart}} → *Ștergere*]"
+                        },
+                        "create": {
+                            "step": "Pasul: {{number}} / 3",
+                            "noUser": "Pentru a trece la pasul nr. 2, trebuie să efectuezi pasul nr. 1!",
+                            "noSendouts": "Pentru a trece la pasul nr. 3, trebuie să efectuezi pasul nr. 2!",
+                            "noFreeSendouts": "Clientul nu are trimiteri libere (fără contract)!",
+                            "data": {
+                                "user": "Selectează utilizatorul pentru care va fi întocmit contractul",
+                                "sendout": "Selectează trimiterile care vor fi incluse în contract",
+                                "contract": "Trimite datele referitoare la contract"
+                            },
+                            "title": "Creăm contract! Familiarizează-te cu instrucțiunile pentru crearea corectă.",
+                            "path": "[📍 Cale: Panou → Contracte → *Creare*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Alege formatul în care va fi salvat contractul",
+                                "path": "[📍 Cale: {{menu}} → Contracte → Vizualizare → {{dateStart}} → *Alegerea formatului de export*]"
+                            },
+                            "result": {
+                                "error": "❌ Eroare la exportarea contractului\nContactează administratorul",
+                                "caption": "Contractul în format {{exportType}} este gata!",
+                                "path": "\n[📍 Cale: {{menu}} → Contracte → Vizualizare → {{dateStart}} → *Exportă în {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "title": "Creăm contract! Înainte de a începe, citește instrucțiunile pentru crearea corectă.",
+                    "path": "[📍 Cale: Panou → Contracte → *Creare*]"
+                }
+            }
+        }
+    }
+}

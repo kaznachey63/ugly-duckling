@@ -1,2 +1,2 @@
-export type LanguagesALlowed = 'ru' | 'en' | 'zh' | 'sr' | 'es' | 'hi' | 'ar' | 'ja' | 'fr' | 'de' | 'pt' | 'it' | 'ko' | 'tr' | 'pl' | 'nl' | 'el' | 'cs'
+export type LanguagesALlowed = 'ru' | 'en' | 'zh' | 'sr' | 'es' | 'hi' | 'ar' | 'ja' | 'fr' | 'de' | 'pt' | 'it' | 'ko' | 'tr' | 'pl' | 'nl' | 'el' | 'cs' | 'ro' | 'hu' | 'bg' | 'sk' | 'hr' | 'sl'
 ;

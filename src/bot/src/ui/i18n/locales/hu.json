@@ -1,0 +1,701 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Feldolgozás...",
+            "cabinet": "🪴 Személyes fiók",
+            "buttons": {
+                "export": "📧 Exportálás",
+                "nameless": "Névtelen",
+                "back": "🔙 Vissza",
+                "remove": "🗑 Törlés",
+                "miss": "Hiányzik",
+                "create": "➕ Létrehozás",
+                "update": "✍ Szerkesztés",
+                "clear": "🗑 Törlés",
+                "view": "👁 Megtekintés",
+                "contract": "📜 Szerződések",
+                "sendout": "📢 Küldemények",
+                "chat": "🗯 Csoportok",
+                "contactAdmin": "👨 Adminisztrátor"
+            },
+            "titles": {
+                "validate": "⚠ A bemeneti adatok formátuma érvénytelen volt. Küldje újra",
+                "cabinet": "Fiók",
+                "panel": "Panel → Adatok",
+                "amount": "Mennyiség: {{amount}}",
+                "sendoutActive": "A küldemény jelenleg aktív, próbálja meg később kezelni az adatokat"
+            }
+        },
+        "maintenace": "🚧 Jelenleg karbantartási munkálatok folynak. A szolgáltatás használata ideiglenesen korlátozott.\nAmint végzünk, azonnal értesítjük!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Adminisztrátor",
+            "customer": "Ügyfél",
+            "unknown": "Ismeretlen"
+        },
+        "languages": {
+            "ru": "Orosz",
+            "zh": "Kínai",
+            "en": "Angol",
+            "sr": "Szerb",
+            "ro": "Román",
+            "hu": "Magyar",
+            "bg": "Bolgár",
+            "sk": "Szlovák",
+            "hr": "Horvát",
+            "sl": "Szlovén"
+        },
+        "commands": {
+            "cabinet": "Fiók",
+            "settings": "Beállítások",
+            "panel": "Admin panel"
+        },
+        "chart": {
+            "labelMonth": "A küldeményt kapott csoportok számának statisztikája. {{month}} {{year}}",
+            "labelWeek": "A küldeményt kapott csoportok számának statisztikája. Hét",
+            "amountSms": "Üzenetek száma",
+            "noLogs": "A kiválasztott időszakban még nem történt küldemény!",
+            "daysOfWeek": {
+                "Mon": "Hé",
+                "Tue": "Ke",
+                "Wed": "Sze",
+                "Thu": "Csü",
+                "Fri": "Pé",
+                "Sat": "Szo",
+                "Sun": "Vas"
+            },
+            "months": {
+                "january": "Január",
+                "february": "Február",
+                "march": "Március",
+                "april": "Április",
+                "may": "Május",
+                "june": "Június",
+                "july": "Július",
+                "august": "Augusztus",
+                "september": "Szeptember",
+                "october": "Október",
+                "november": "November",
+                "december": "December"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Január",
+                "1": "Február",
+                "2": "Március",
+                "3": "Április",
+                "4": "Május",
+                "5": "Június",
+                "6": "Július",
+                "7": "Augusztus",
+                "8": "Szeptember",
+                "9": "Október",
+                "10": "November",
+                "11": "December"
+            },
+            "days": {
+                "0": "Hé",
+                "1": "Ke",
+                "2": "Sze",
+                "3": "Csü",
+                "4": "Pé",
+                "5": "Szo",
+                "6": "Vas"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Elemző",
+            "sendout": "Küldemények"
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Hiba a telefonszám feldolgozásakor!\nPróbálja újra!",
+                "accessDenied": "Hozzáférés megtagadva. A küldemény szolgáltatás használatához használja a '/settings' parancsot, 'Súgó' szakasz"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Szöveg mentve!",
+                "error": "❌ Szöveg nem mentve!\nLépjen kapcsolatba az adminisztrátorral",
+                "path": "[📍 Útvonal: {{menu}} → Menü «{{call}}» → Üzenetek → *Szöveg létrehozása*]"
+            },
+            "generatingText": {
+                "result": "A generált üzenet alább látható.\nHasználja az üzenetek alatti gombokat a szöveg sorsának eldöntéséhez.",
+                "pathChoose": "[📍 Útvonal: {{menu}} → Menü «{{call}}» → Üzenetek → Szöveggenerálás → *Szöveg sorsa*]",
+                "buttons": {
+                    "save": "✔ Mentés",
+                    "cancel": "❌ Ne mentse"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Szöveg módosítva!",
+                "error": "❌ Szöveg nem módosítva!\nLépjen kapcsolatba az adminisztrátorral",
+                "path": "[📍 Útvonal: {{menu}} → Menü «{{call}}» → Üzenetek → *Szöveg szerkesztése*]"
+            },
+            "addingMedia": {
+                "error": "💀 Hiba a média mentésekor!\nLépjen kapcsolatba az adminisztrátorral",
+                "invalidType": "A médiatípus nem felismerhető! Próbálja újra",
+                "bigSize": "A fájl túl nagy. Maximális méret {{size}} MB.",
+                "documentsWTMedia": "Nem tudok olyan dokumentumokat feldolgozni, amelyek nem tartalmaznak: fényképet / videót / gif-et",
+                "success": "✅ Média mentve!",
+                "error2": "❌ Média nem mentve!\nLépjen kapcsolatba az adminisztrátorral",
+                "path": "[📍 Útvonal: {{menu}} → Menü «{{call}}» → Üzenetek → *Média hozzáadása*]"
+            },
+            "addingTime": {
+                "success": "✅ Időpont mentve!",
+                "error": "❌ Időpont nem módosítva!\nLépjen kapcsolatba az adminisztrátorral",
+                "path": "[📍 Útvonal: Panel → Menü «{{call}}» → Ütemterv → Megtekintés → *Hozzáadás*]"
+            },
+            "updatingTime": {
+                "success": "✅ Időpont módosítva!",
+                "error": "❌ Időpont nem módosítva!\nLépjen kapcsolatba az adminisztrátorral",
+                "path": "[📍 Útvonal: Panel → Menü «{{call}}» → Ütemterv → Megtekintés → *Szerkesztés*]"
+            },
+            "addingIdea": {
+                "success": "✅ Ötlet sikeresen hozzáadva, köszönjük!",
+                "error": "❌ Ötlet nem hozzáadva!\nPróbálja újra, vagy lépjen kapcsolatba az adminisztrátorral!",
+                "path": "[📍 Útvonal: Beállítások → Ötletek → *Hozzáadás*]"
+            },
+            "addingUser": {
+                "success": "✅ Felhasználó sikeresen létrehozva!",
+                "error": "❌ Felhasználó nem létrehozva!\nPróbálja később.",
+                "path": "[📍 Útvonal: Panel → Adatok → Felhasználók → *Létrehozás*]"
+            },
+            "addingContract": {
+                "success": "✅ Szerződés sikeresen létrehozva!",
+                "error": "❌ Szerződés nem létrehozva!\nPróbálja később.",
+                "path": "[📍 Útvonal: Panel → Szerződések → *Létrehozás*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Hívójel sikeresen frissítve!",
+                "error": "❌ Hívójel nem frissítve!\nPróbálja később.",
+                "path": "[📍 Útvonal: Panel → Küldemények → Megtekintés → Menü «{{call}}» → Név → *Frissítés*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Név sikeresen frissítve!",
+                "error": "❌ Név nem frissítve!\nPróbálja később.",
+                "path": "[📍 Útvonal: Panel → Adatok → Felhasználók → Megtekintés → {{userName}} → *Név szerkesztése*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Telefonszám sikeresen frissítve!",
+                "error": "❌ Telefonszám nem frissítve!\nPróbálja később.",
+                "path": "[📍 Útvonal: Panel → Adatok → Felhasználók → Megtekintés → {{userName}} → *Szám szerkesztése*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "Üdvözlöm! Én egy Telegram-bot vagyok, küldemények segédje.\n\nErősen ajánlom, hogy ismerkedjen meg az összes parancsommal a képernyő bal alsó sarkában lévő ovális 'Menü' gomb megnyomásával.\nMiután elolvasta a használati útmutatót, amelyet a '/settings' paranccsal hívhat elő, a 'Botról' szakaszban."
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Beállítások",
+                    "buttons": {
+                        "about": "ℹ A szolgáltatásról",
+                        "help": "❓ Súgó",
+                        "idea": "💡 Ötletek",
+                        "language": "🌐 Nyelv"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Válasszon nyelvet.",
+                        "path": "[📍 Útvonal: Beállítások → *Nyelv*]"
+                    },
+                    "change": {
+                        "good": "Nyelv megváltoztatva!",
+                        "error": "Ez a nyelv már ki van választva!"
+                    }
+                },
+                "help": {
+                    "title": "Problémába ütközött?\nKérdése van?\nDicsérni szeretné a szolgáltatást?\nVannak ötletei a szolgáltatás fejlesztésére?",
+                    "interest": "Vagy érdekli a termék?\nTöltse ki az alábbi kérdőívet, és felvesszük Önnel a kapcsolatot!",
+                    "path": "[📍 Útvonal: Beállítások → *Súgó*]"
+                },
+                "about": {
+                    "title": "A szolgáltatást a termékei (ajánlatai) hirdetésének (bejegyzések, küldemények) automatizálására fejlesztették ki csoportok / csevegések / csatornák között.\n\nA Bot használati útmutatója - az alábbi gombbal!",
+                    "instruction": "📖 Útmutató",
+                    "path": "[📍 Útvonal: Beállítások → *A szolgáltatásról*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Ötletek szakasz menü.\nItt javasolhatja ötletét a szolgáltatás fejlesztéséhez.",
+                        "path": "[📍 Útvonal: Beállítások → *Ötletek*]",
+                        "buttons": {
+                            "add": "🗳 Javaslat",
+                            "see": "🔍 Felfedezés"
+                        }
+                    },
+                    "add": {
+                        "title": "Küldjön nekem médiát / hanganyagot / szöveget stb. Nincsenek korlátozások!",
+                        "path": "[📍 Útvonal: Beállítások → Ötletek → *Hozzáadás*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {                        
+                        "logout": "🚪 Kijelentkezés",
+                        "login": "🔑 Bejelentkezés"
+                    }
+                },
+                "auth": {
+                    "login": {
+                        "buttons": {
+                            "cancel": "❌ Mégse",
+                            "phone": "📞 Megosztás"
+                        },
+                        "unknownMessage": "A művelet nem felismerhető, próbálja újra a 'Megosztás' és a 'Mégse' gombok használatát",
+                        "manyAttempts": "Az egyórás korlát előtt felhasznált hitelesítési kísérletek száma: {{actualAttempts}} / {{maxAttempts}}",
+                        "stop": "A hitelesítés korlátozott. A korlátozások feloldása: {{dateTime}} után",
+                        "canceled": "A hitelesítés sikeresen leállítva!",
+                        "title": "A küldemény panelbe való belépéshez meg kell osztania velem a telefonszámát.\n\nA gombnak a billentyűzet mellett kell megjelennie '📞 Megosztás' felirattal.",
+                        "good": "Sikeresen hitelesítette magát a rendszerben!",
+                        "already": "Már hitelesítve van a rendszerben!",
+                        "bad": "Hiba a rendszerbe való hitelesítéskor.\nLépjen kapcsolatba az adminisztrátorral!",
+                        "path": "[📍 Útvonal: Fiók → *Hitelesítés*"
+                    },
+                    "logout": {
+                        "good": "Sikeresen kijelentkezett a rendszerből. Az Ön adatai törlődtek!",
+                        "bad": "Hiba a kijelentkezéskor.\nLépjen kapcsolatba az adminisztrátorral!",
+                        "path": "[📍 Útvonal: Fiók → *Kijelentkezés*]"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "title": "👨‍💻 Adminisztrátori panel",
+                    "buttons": {
+                        "data": "🗂 Adatok",
+                        "system": "⚡ Rendszer "
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Adatkezelés",
+                        "path": "[📍 Útvonal: Panel → *Adatok*]",
+                        "buttons": {
+                            "user": "👥 Felhasználók"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Csoportkezelés",
+                            "amount": "Mennyiség: {{amount}}",
+                            "path": "[📍 Útvonal: Panel → Adatok → *Csoportok*]",
+                            "buttons": {
+                                "reupload": "🔁 Frissítés"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Csoportok frissítve!",
+                            "error": "❌ Hiba a csoportok frissítésekor\nLépjen kapcsolatba az adminisztrátorral",
+                            "path": "[📍 Útvonal: Panel → Adatok → Csoportok → *Frissítés*]"
+                        },
+                        "clear": {
+                            "success": "✅ Csoportok törölve!",
+                            "error": "❌ Hiba a csoportok törlésekor\nLépjen kapcsolatba az adminisztrátorral",
+                            "path": "[📍 Útvonal: Panel → Adatok → Csoportok → *Törlés*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Felhasználókezelés",
+                            "amount": "Mennyiség: {{amount}}",
+                            "path": "[📍 Útvonal: Panel → Adatok → *Felhasználók*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Felhasználók listája.",
+                                "path": "[📍 Útvonal: Panel → Adatok → Felhasználók → *Megtekintés*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Felhasználó kezelése",
+                                    "path": "[📍 Útvonal: Panel → Adatok → Felhasználók → Megtekintés → *{{userName}}*]",
+                                    "telegramId": "Tg azonosító: {{telegramId}}",
+                                    "name": "Név: {{name}}",
+                                    "username": "Felhasználónév: @{{username}}",
+                                    "phone": "Telefon: +{{phone}}",
+                                    "language": "Nyelv: {{language}}",
+                                    "role": "Szerepkör: {{role}}"
+                                },
+                                "remove": {
+                                    "success":"✅ Felhasználó sikeresen törölve!",
+                                    "error": "❌ Felhasználó nem törölve!\nPróbálja később",
+                                    "path": "[📍 Útvonal: Panel → Adatok → Felhasználók → Megtekintés → {{userName}} → *Törlés*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Telefonszám módosítása!\nKüldje ide.",
+                                        "path": "[📍 Útvonal: Panel → Adatok → Felhasználók → Megtekintés → {{userName}} → *Szám szerkesztése*]"
+                                    },
+                                    "name": {
+                                        "title": "Név módosítása!\nKüldje ide.",
+                                        "path": "[📍 Útvonal: Panel → Adatok → Felhasználók → Megtekintés → {{userName}} → *Név szerkesztése*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Felhasználó létrehozása! A kezdés előtt olvassa el a helyes létrehozásra vonatkozó utasításokat.",
+                            "path": "[📍 Útvonal: Panel → Adatok → Felhasználók → *Létrehozás*]"
+                        }   
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Rendszerkezelés",
+                        "path": "[📍 Útvonal: Panel → *Rendszer*]",
+                        "buttons": {
+                            "server": "📟 Szerver",
+                            "maintenace": "🛠️ Karbantartás"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Folyamatkategóriák",
+                            "path": "[📍 Útvonal: Panel → Rendszer → *Szerver*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Elemző"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Válasszon egy folyamatot",
+                                "path": "[📍 Útvonal: Panel → Rendszer → Szerver → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Folyamat kezelése",
+                                    "path": "[📍 Útvonal: Panel → Rendszer → Szerver → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Állapot",
+                                        "log": "📋 Naplók"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Útvonal: Panel → Rendszer → Szerver → {{processType}} → {{processName}} → *Állapot*]",
+                                    "status": {
+                                        "active": "✅ A folyamat aktív.\nA leállításhoz nyomja meg az alábbi gombot",
+                                        "inactive": "❌ A folyamat inaktív.\nAz indításhoz nyomja meg az alábbi gombot",
+                                        "failed": "💀 A folyamat meghalt.\nLépjen kapcsolatba a programozóval.",
+                                        "error": "Probléma van a folyamattal. Lépjen kapcsolatba a programozóval."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Leállítás",
+                                        "start": "▶️ Indítás",
+                                        "restart": "🔁 Újraindítás"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Naplók megtekintése",
+                                    "path": "[📍 Útvonal: Panel → Rendszer → Szerver → {{processType}} → {{processName}} → *Naplók*]",
+                                    "sort": "Rendezés: {{sortType}}",
+                                    "sortType": {
+                                        "new": "újaktól a régiék felé",
+                                        "old": "régitől az új felé"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "A jelenleg aktív küldemények listája.",
+                    "path": "[📍 Útvonal: {{menu}} → Küldemények → *Megtekintés*]",
+                    "empty": "Még nincsenek beállítva küldemények! Térjen vissza később."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Küldemény menü «{{call}}»",
+                        "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → *Menü «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Ütemterv",
+                            "message": "💬 Üzenetek",
+                            "statistic": "📈 Statisztika",
+                            "owner": "👑 Tulajdonos",
+                            "call": "🏷️ Név"
+                        }
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Hiba az üzenetek fogadásakor!\nLépjen kapcsolatba az adminisztrátorral",
+                            "empty": "Nincsenek üzenetek!\nSzöveg hozzáadásához nyomja meg az alábbi gombot",
+                            "title": "Üzenetek szakasz menü. Mennyiség: {{amount}}",
+                            "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → *Üzenetek*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Válassza ki a szöveg hozzáadásának típusát.",
+                                "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → *Hozzáadási mód*]",
+                                "buttons": {
+                                    "generate": "🔮 Generálás",
+                                    "hand": "✍ Kézi bevitel"
+                                }
+                            },
+                            "generate": {
+                                "title": "Generálok egy eladási szöveget! \nKüldje ide a forrásszöveget. Szöveghalmaz nem küldhető.",
+                                "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → *Generálás*]",
+                                "save": "✅ Szöveg mentve!",
+                                "cancel": "❌ Szöveg nem mentve!",
+                                "pathSave": "[📍 Útvonal: {{menu}} → Menü «{{call}}» → Üzenetek → Generálás → *Mentés*]",
+                                "pathCancel": "[📍 Útvonal: {{menu}} → Menü «{{call}}» → Üzenetek → Generálás → *Mégse*]"
+                            },
+                            "hand": {
+                                "title": "Szöveg hozzáadása!\nKüldje el a szöveget, vagy irányítsa át ide. Szöveghalmaz nem küldhető.",
+                                "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → *Szöveg hozzáadása*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Az összes üzenet törölve!",
+                            "error": "❌ Az üzenetek nem lettek törölve!\nLépjen kapcsolatba az adminisztrátorral",
+                            "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → *Törlés*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "{{number}}. üzenet.",
+                                "amountMedia": "Médiák száma: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → *Megtekintés*]",
+                                "buttons": {
+                                    "updateText": "✍️ Szöveg szerkesztése",
+                                    "addMedia": "🖼 Média hozzáadása",
+                                    "clearAllMedia": "🗑 Média törlése"    
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Szöveg módosítása!\nKüldje el a szöveget, vagy irányítsa át ide. Szöveghalmaz nem küldhető.",
+                                    "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → *Szöveg szerkesztése*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Üzenet törölve!",
+                                    "error": "❌ Szöveg nem törölve!\nLépjen kapcsolatba az adminisztrátorral",
+                                    "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → *Szöveg törlése*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Média hozzáadása!\nKüldjön médiát 1 darab mennyiségben.",
+                                    "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → *Média hozzáadása*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Az összes média törölve!",
+                                    "error": "❌ Média nem törölve!\nLépjen kapcsolatba az adminisztrátorral",
+                                    "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → *Média törlése*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Gyors ugrás az üzenethez sorszám alapján",
+                                "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → Megtekintés → *Üzenet kiválasztása*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Válassza ki a formátumot, amelyben az üzenetlista mentésre kerül",
+                                "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → *Exportálási formátum kiválasztása*]"
+                            },
+                            "result": {
+                                "error": "❌ Hiba az üzenetek exportálásakor\nLépjen kapcsolatba az adminisztrátorral",
+                                "caption": "Az üzenetlista {{exportType}} formátumban kész!",
+                                "path": "\n[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Üzenetek → *Exportálás {{exportType}} formátumba*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Az ütemterv még nincs beállítva!",
+                            "title": "Ütemterv szakasz menü. Az ütemtervben szereplő időpontok száma: {{amount}}",
+                            "path": "\n[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → *Ütemterv*]"
+                        },
+                        "create": {
+                            "title": "Időpont hozzáadása!",
+                            "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Ütemterv → *Hozzáadás*]"
+                        },
+                        "clear": {
+                            "success": "✅ Ütemterv törölve!",
+                            "error": "❌ Ütemterv nem törölve!\nLépjen kapcsolatba az adminisztrátorral",
+                            "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Ütemterv → *Törlés*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "A küldemény ütemterve az alábbiakban gombok formájában található.",
+                                "path": "\n[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Ütemterv → *Megtekintés*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Időpont módosítása!",
+                                    "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Ütemterv → Megtekintés → *Időpont szerkesztése*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Időpont törölve!",
+                                    "error": "❌ Időpont nem törölve! Lépjen kapcsolatba az adminisztrátorral",
+                                    "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Ütemterv → Megtekintés → *Időpont törlése*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Kiválasztott időpont:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Ütemterv → Megtekintés → *Művelet kiválasztása*]"
+                                }
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Válassza ki a kívánt statisztika formátumát.",
+                            "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → *Statisztika*]",
+                            "buttons": {
+                                "selective": "📅 Szelektív",
+                                "comparative": "📊 Összehasonlító"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Jelenleg karbantartási munkálatok folynak ezen a szakaszon.",
+                                "noData": "Nem található eredmény a kiválasztott dátumra!",
+                                "noAccess": "A megnyomott gomb nem elérhető!",
+                                "title": "Szelektív statisztika.\nAlább egy naptár látható dátumokkal. Egy adott napi küldemény eredményének megtekintéséhez egyszerűen kattintson rá!\n\nHa a küldemény: \n*nem történt meg, \n*nem volt, \n*nincs ütemezve, \n*vagy más\n- megjelenik egy üzenet a megfelelő kontextussal, ne ijedjen meg.",
+                                "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Statisztika → *Szelektív*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Küldemény eredménye {{date}}.",
+                                    "time": "Időpont: {{time}}",
+                                    "success": "Sikeres küldések: {{success}}",
+                                    "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Statisztika → Szelektív → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "amount":"Mennyiség: {{amount}}",
+                                    "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Statisztika → Szelektív → {{date}} → *Csoportok*]"    
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Válassza ki az összehasonlító statisztika típusát.",
+                                "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Statisztika → *Összehasonlító*]",
+                                "buttons": {
+                                    "week": "Hét",
+                                    "month": "Hónap"
+                                }
+                            },
+                            "week": {
+                                "title": "Összehasonlító statisztika. (Hét)",
+                                "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Statisztika → Összehasonlító → *Hét*]"
+                            },
+                            "month": {
+                                "title": "Összehasonlító statisztika. (Hónap)",
+                                "path": "[📍 Útvonal: {{menu}} → Küldemények → Megtekintés → Menü «{{call}}» → Statisztika → Összehasonlító → *Hónap*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Küldemény tulajdonosa.",
+                            "empty": "A küldeménynek nincs tulajdonosa!",
+                            "name": "Név: {{name}}",
+                            "phone": "Telefon: +{{phone}}",
+                            "path": "[📍 Útvonal: Panel → Küldemények → Megtekintés → Menü «{{call}}» → *Tulajdonos*]",
+                            "buttons": {
+                                "change": "🪧 Újra hozzárendelés"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Válasszon egy felhasználót, akit a küldemény tulajdonosává szeretne kinevezni.",
+                                "path": "[📍 Útvonal: Panel → Küldemények → Megtekintés → Menü «{{call}}» → Tulajdonos → *Kiválasztás*]",
+                                "noOwner": "Tulajdonos nélkül"
+                            },
+                            "action": {
+                                "success": "✅ Tulajdonos sikeresen újra hozzárendelve!",
+                                "error": "❌ Tulajdonos nem lett újra hozzárendelve! \nPróbálja később!",
+                                "path": "[📍 Útvonal: Panel → Küldemények → Megtekintés → Menü «{{call}}» → Tulajdonos → {{owner}} → *Hozzárendelés*]"
+                            }
+                        }
+                    },
+                    "call": {
+                        "main": {
+                            "title": "Küldemény neve (hívójele): {{call}}",
+                            "empty": "A küldeménynek nincs neve!",
+                            "path": "[📍 Útvonal: Panel → Küldemények → Megtekintés → Menü «{{call}}» → *Név*]"
+                        },
+                        "update": {
+                            "title": "A küldemény hívójelének módosítása! Küldje el a küldemény új nevét.",
+                            "path": "[📍 Útvonal: Panel → Küldemények → Megtekintés → Menü «{{call}}» → Név → *Frissítés*]"
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Szerződéskezelés",
+                    "amount": "Mennyiség: {{amount}}",
+                    "path": "[📍 Útvonal: {{menu}} → *Szerződések*]",
+                    "empty": "Még nincsenek beállítva szerződések! Térjen vissza később.",
+                    "contractName": "{{userName}}: {{dateStart}}-tól"
+                },
+                "view": {
+                    "main": {
+                        "title": "Szerződések listája.",
+                        "path": "[📍 Útvonal: {{menu}} → Szerződések → *Megtekintés*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Szerződés {{dateStart}}-tól.",
+                            "sendouts": "A szerződésben szereplő küldemények: {{sendouts}}",
+                            "noSendouts": "üres.",
+                            "userName": "Ügyfél: {{userName}}",
+                            "dateStart": "Kezdő dátum: {{dateStart}}",
+                            "dateEnd": "Befejező dátum: {{dateEnd}}",
+                            "price": "Ár: {{price}}",
+                            "priceText": "Ár (szöveg): {{priceText}}",
+                            "error": "Hiba a szerződés fogadásakor. Lépjen kapcsolatba az adminisztrátorral",
+                            "path": "\n[📍 Útvonal: {{menu}} → Szerződések → Megtekintés → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success":"✅ Szerződés sikeresen törölve!",
+                            "error": "❌ Szerződés nem törölve!\nPróbálja később",
+                            "path": "[📍 Útvonal: Panel → Szerződések → Megtekintés → {{dateStart}} → *Törlés*]"
+                        },
+                        "create": {
+                            "step": "Lépés: {{number}} / 3",
+                            "noUser": "A 2. lépéshez végre kell hajtania az 1. lépést!",
+                            "noSendouts": "A 3. lépéshez végre kell hajtania a 2. lépést!",
+                            "noFreeSendouts": "Az ügyfélnek nincs szabad (szerződés nélküli) küldeménye!",
+                            "data": {
+                                "user": "Válassza ki a felhasználót, akire a szerződést kiállítják",
+                                "sendout": "Válassza ki a szerződésbe foglalandó küldeményeket",
+                                "contract": "Küldje el a szerződéssel kapcsolatos adatokat"
+                            },
+                            "title": "Szerződés létrehozása! Ismerkedjen meg a helyes létrehozásra vonatkozó utasításokkal.",
+                            "path": "[📍 Útvonal: Panel → Szerződések → *Létrehozás*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Válassza ki a formátumot, amelyben a szerződés mentésre kerül",
+                                "path": "[📍 Útvonal: {{menu}} → Szerződések → Megtekintés → {{dateStart}} → *Exportálási formátum kiválasztása*]"
+                            },
+                            "result": {
+                                "error": "❌ Hiba a szerződés exportálásakor\nLépjen kapcsolatba az adminisztrátorral",
+                                "caption": "A szerződés {{exportType}} formátumban kész!",
+                                "path": "\n[📍 Útvonal: {{menu}} → Szerződések → Megtekintés → {{dateStart}} → *Exportálás {{exportType}} formátumba*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "title": "Szerződés létrehozása! A kezdés előtt olvassa el a helyes létrehozásra vonatkozó utasításokat.",
+                    "path": "[📍 Útvonal: Panel → Szerződések → *Létrehozás*]"
+                }
+            }
+        }
+    }
+}
