@@ -53,7 +53,7 @@ function update(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
             )
             .url(
                 "🥷",
-                "79277225099"
+                "https://t.me/+79277225099"
             )
         .row();
     });
