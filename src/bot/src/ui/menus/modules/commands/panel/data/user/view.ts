@@ -34,17 +34,23 @@ function viewUser(ctx: MyContext): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
     user.telegram_id ? 
         keyboard.url(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: user.telegram_id }), constants.link.profileById + user.telegram_id).row()
-        : keyboard.text(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: ctx.t("utils.shared.buttons.miss") }), '#').row()
+        : keyboard.url(ctx.t('', { telegramId: user.telegram_id }), constants.link.profileById + user.telegram_id).row()
     ;
-    
+        
     keyboard
+        .text(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: ctx.t("utils.shared.buttons.miss") }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.name", { name: user.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateUserName#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.username", { username: user.username ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
-        .text(ctx.t("modules.commands.panel.data.user.view.control.main.phone", { phone: CryptoService.decrypt(user.phone!) ?? ctx.t("utils.shared.buttons.miss") }), `updateUserPhone#${user.id}`).row()
+        .url(ctx.t("modules.commands.panel.data.user.view.control.main.phone", { phone: CryptoService.decrypt(user.phone!) }), `updateUserPhone#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.language", { language: ctx.t(`utils.languages.${user.language}`) }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.role", { role:  ctx.t(`utils.roleCodes.${user.role?.code}`) }), `updateUserRole#${user.id}`).row()
-        .text(ctx.t("utils.shared.buttons.remove"), `removeUser#${user.id}`).style("danger").row()
-        .text(ctx.t("utils.shared.buttons.back"), "viewUsers");
+        
+        user.telegram_id ? 
+            keyboard.url('🥷', constants.link.profileById + user.telegram_id)
+            : keyboard.url('🥷', constants.link.chatByNumber + CryptoService.decrypt(user.phone!))
+    
+        .text(ctx.t("utils.shared.buttons.remove"), `removeUser#${user.id}`).style("danger")
+        .row().text(ctx.t("utils.shared.buttons.back"), "viewUsers");
     ; 
     return { text: format.escapeMarkdown(text), keyboard }
 }

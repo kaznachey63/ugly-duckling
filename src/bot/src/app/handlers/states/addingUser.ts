@@ -58,7 +58,7 @@ function formatUser(userInText: string): User {
         telegram_id: telegramId === '-' ? null : BigInt(telegramId!),
         name: name === '-' ? null : name!,
         username: username === '-' ? null : username!,
-        phone: phone === '-' ? null : CryptoService.encrypt(phone!),
+        phone: CryptoService.encrypt(phone!),
         language: language === '-' ? 'ru' : (language as LanguageCode),
         role: {
             id: localization.getRoleId(itogRoleCode),

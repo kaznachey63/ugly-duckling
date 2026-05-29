@@ -39,7 +39,7 @@ function formatCronTime(time: string): string {
 }
 
 function validatePhone(phone: string): boolean {
-    return phone === '-' || (!isNaN(Number(phone)) && phone.length === 11);
+    return (!isNaN(Number(phone)) && phone.length === 11);
 }
 
 export default {

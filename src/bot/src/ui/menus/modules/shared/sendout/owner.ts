@@ -54,7 +54,7 @@ function update(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
             )
             .url(
                 "🥷",
-                constants.link.profileByNumber + CryptoService.decrypt(user.phone!)
+                constants.link.chatByNumber + CryptoService.decrypt(user.phone!)
             )
         .row();
     });
