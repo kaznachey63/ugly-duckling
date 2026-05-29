@@ -32,18 +32,6 @@
             "customer": "Client",
             "unknown": "Necunoscut"
         },
-        "languages": {
-            "ru": "Rusă",
-            "zh": "Chineză",
-            "en": "Engleză",
-            "sr": "Sârbă",
-            "ro": "Română",
-            "hu": "Maghiară",
-            "bg": "Bulgară",
-            "sk": "Slovacă",
-            "hr": "Croată",
-            "sl": "Slovenă"
-        },
         "commands": {
             "cabinet": "Cont",
             "settings": "Setări",

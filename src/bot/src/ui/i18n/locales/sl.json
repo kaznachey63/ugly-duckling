@@ -32,18 +32,6 @@
             "customer": "Stranka",
             "unknown": "Neznan"
         },
-        "languages": {
-            "ru": "Ruščina",
-            "zh": "Kitajščina",
-            "en": "Angleščina",
-            "sr": "Srbščina",
-            "ro": "Romunščina",
-            "hu": "Madžarščina",
-            "bg": "Bolgarščina",
-            "sk": "Slovaščina",
-            "hr": "Hrvaščina",
-            "sl": "Slovenščina"
-        },
         "commands": {
             "cabinet": "Račun",
             "settings": "Nastavitve",

@@ -32,18 +32,6 @@
             "customer": "Kupac",
             "unknown": "Nepoznat"
         },
-        "languages": {
-            "ru": "Ruski",
-            "zh": "Kineski",
-            "en": "Engleski",
-            "sr": "Srpski",
-            "ro": "Rumunjski",
-            "hu": "Mađarski",
-            "bg": "Bugarski",
-            "sk": "Slovački",
-            "hr": "Hrvatski",
-            "sl": "Slovenski"
-        },
         "commands": {
             "cabinet": "Račun",
             "settings": "Postavke",

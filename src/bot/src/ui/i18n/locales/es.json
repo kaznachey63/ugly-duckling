@@ -32,12 +32,6 @@
             "customer": "Cliente",
             "unknown": "Desconocido"
         },
-        "languages": {
-            "ru": "Ruso",
-            "zh": "Chino",
-            "en": "Inglés",
-            "sr": "Serbio"
-        },
         "commands": {
             "cabinet": "Panel",
             "settings": "Ajustes",

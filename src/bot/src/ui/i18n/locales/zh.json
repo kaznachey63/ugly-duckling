@@ -32,12 +32,6 @@
             "customer": "客户",
             "unknown": "未知"
         },
-        "languages": {
-            "ru": "俄语",
-            "zh": "中文",
-            "en": "英语",
-            "sr": "塞尔维亚语"
-        },
         "commands": {
             "cabinet": "个人中心",
             "settings": "设置",

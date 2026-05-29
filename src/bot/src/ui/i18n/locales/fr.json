@@ -32,12 +32,6 @@
             "customer": "Client",
             "unknown": "Inconnu"
         },
-        "languages": {
-            "ru": "Russe",
-            "zh": "Chinois",
-            "en": "Anglais",
-            "sr": "Serbe"
-        },
         "commands": {
             "cabinet": "Espace",
             "settings": "Paramètres",

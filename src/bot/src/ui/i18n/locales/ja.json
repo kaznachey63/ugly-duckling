@@ -32,12 +32,6 @@
             "customer": "顧客",
             "unknown": "不明"
         },
-        "languages": {
-            "ru": "ロシア語",
-            "zh": "中国語",
-            "en": "英語",
-            "sr": "セルビア語"
-        },
         "commands": {
             "cabinet": "マイページ",
             "settings": "設定",

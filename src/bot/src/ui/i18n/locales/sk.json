@@ -32,18 +32,6 @@
             "customer": "Zákazník",
             "unknown": "Neznámy"
         },
-        "languages": {
-            "ru": "Ruština",
-            "zh": "Čínština",
-            "en": "Angličtina",
-            "sr": "Srbčina",
-            "ro": "Rumunčina",
-            "hu": "Maďarčina",
-            "bg": "Bulharčina",
-            "sk": "Slovenčina",
-            "hr": "Chorvátčina",
-            "sl": "Slovinčina"
-        },
         "commands": {
             "cabinet": "Účet",
             "settings": "Nastavenia",

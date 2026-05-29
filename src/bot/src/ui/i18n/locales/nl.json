@@ -32,19 +32,6 @@
             "customer": "Klant",
             "unknown": "Onbekend"
         },
-        "languages": {
-            "ru": "Russisch",
-            "zh": "Chinees",
-            "en": "Engels",
-            "sr": "Servisch",
-            "it": "Italiaans",
-            "ko": "Koreaans",
-            "tr": "Turks",
-            "pl": "Pools",
-            "nl": "Nederlands",
-            "el": "Grieks",
-            "cs": "Tsjechisch"
-        },
         "commands": {
             "cabinet": "Ruimte",
             "settings": "Instellingen",

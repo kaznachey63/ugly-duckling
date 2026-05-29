@@ -32,18 +32,6 @@
             "customer": "Ügyfél",
             "unknown": "Ismeretlen"
         },
-        "languages": {
-            "ru": "Orosz",
-            "zh": "Kínai",
-            "en": "Angol",
-            "sr": "Szerb",
-            "ro": "Román",
-            "hu": "Magyar",
-            "bg": "Bolgár",
-            "sk": "Szlovák",
-            "hr": "Horvát",
-            "sl": "Szlovén"
-        },
         "commands": {
             "cabinet": "Fiók",
             "settings": "Beállítások",

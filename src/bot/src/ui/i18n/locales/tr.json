@@ -32,19 +32,6 @@
             "customer": "Müşteri",
             "unknown": "Bilinmiyor"
         },
-        "languages": {
-            "ru": "Rusça",
-            "zh": "Çince",
-            "en": "İngilizce",
-            "sr": "Sırpça",
-            "it": "İtalyanca",
-            "ko": "Korece",
-            "tr": "Türkçe",
-            "pl": "Lehçe",
-            "nl": "Hollandaca",
-            "el": "Yunanca",
-            "cs": "Çekçe"
-        },
         "commands": {
             "cabinet": "Hesap",
             "settings": "Ayarlar",

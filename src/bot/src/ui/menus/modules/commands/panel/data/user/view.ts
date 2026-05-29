@@ -5,6 +5,7 @@ import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
 import { CryptoService } from '@common/services/CryptoService';
 import constants from '@common/constants';
+import localization from '@utils/localization';
 
 function viewUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {   
     const text = [
@@ -31,18 +32,13 @@ function viewUser(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.panel.data.user.view.control.main.path", { userName: user.name ?? ctx.t("utils.shared.buttons.nameless") }),
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard();
-    user.telegram_id ? 
-        keyboard.url(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: user.telegram_id }), constants.link.profileById + user.telegram_id).row()
-        : keyboard.url(ctx.t('', { telegramId: user.telegram_id }), constants.link.profileById + user.telegram_id).row()
-    ;
-        
-    keyboard
+    const keyboard = new InlineKeyboard()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: ctx.t("utils.shared.buttons.miss") }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.name", { name: user.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateUserName#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.username", { username: user.username ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.phone", { phone: CryptoService.decrypt(user.phone!) }), `updateUserPhone#${user.id}`).row()
-        .text(ctx.t("modules.commands.panel.data.user.view.control.main.language", { language: ctx.t(`utils.languages.${user.language}`) }), '#').row()
+        // @ts-ignore
+        .text(ctx.t("modules.commands.panel.data.user.view.control.main.language", { language: localization.getContryFlagOfCode(user.language) }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.role", { role:  ctx.t(`utils.roleCodes.${user.role?.code}`) }), `updateUserRole#${user.id}`).row()    
     ; 
     

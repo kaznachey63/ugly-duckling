@@ -32,19 +32,6 @@
             "customer": "Klient",
             "unknown": "Nieznany"
         },
-        "languages": {
-            "ru": "Rosyjski",
-            "zh": "Chiński",
-            "en": "Angielski",
-            "sr": "Serbski",
-            "it": "Włoski",
-            "ko": "Koreański",
-            "tr": "Turecki",
-            "pl": "Polski",
-            "nl": "Holenderski",
-            "el": "Grecki",
-            "cs": "Czeski"
-        },
         "commands": {
             "cabinet": "Panel",
             "settings": "Ustawienia",

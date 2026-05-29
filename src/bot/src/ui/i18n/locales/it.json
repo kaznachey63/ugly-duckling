@@ -32,19 +32,6 @@
             "customer": "Cliente",
             "unknown": "Sconosciuto"
         },
-        "languages": {
-            "ru": "Russo",
-            "zh": "Cinese",
-            "en": "Inglese",
-            "sr": "Serbo",
-            "it": "Italiano",
-            "ko": "Coreano",
-            "tr": "Turco",
-            "pl": "Polacco",
-            "nl": "Olandese",
-            "el": "Greco",
-            "cs": "Ceco"
-        },
         "commands": {
             "cabinet": "Area personale",
             "settings": "Impostazioni",
