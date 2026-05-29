@@ -32,17 +32,6 @@
             "customer": "Khách hàng",
             "unknown": "Không xác định"
         },
-        "languages": {
-            "ru": "Tiếng Nga",
-            "zh": "Tiếng Trung",
-            "en": "Tiếng Anh",
-            "sr": "Tiếng Serbia",
-            "vi": "Tiếng Việt",
-            "th": "Tiếng Thái",
-            "id": "Tiếng Indonesia",
-            "bn": "Tiếng Bengal",
-            "fa": "Tiếng Ba Tư"
-        },
         "commands": {
             "cabinet": "Tài khoản",
             "settings": "Cài đặt",

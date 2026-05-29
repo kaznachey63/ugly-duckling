@@ -32,17 +32,6 @@
             "customer": "Pelanggan",
             "unknown": "Tidak dikenal"
         },
-        "languages": {
-            "ru": "Rusia",
-            "zh": "China",
-            "en": "Inggris",
-            "sr": "Serbia",
-            "vi": "Vietnam",
-            "th": "Thailand",
-            "id": "Indonesia",
-            "bn": "Bengali",
-            "fa": "Persia"
-        },
         "commands": {
             "cabinet": "Akun",
             "settings": "Pengaturan",
