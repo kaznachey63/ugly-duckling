@@ -41,7 +41,7 @@ function viewUser(ctx: MyContext): Menu<InlineKeyboard> {
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: ctx.t("utils.shared.buttons.miss") }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.name", { name: user.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateUserName#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.username", { username: user.username ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
-        .url(ctx.t("modules.commands.panel.data.user.view.control.main.phone", { phone: CryptoService.decrypt(user.phone!) }), `updateUserPhone#${user.id}`).row()
+        .text(ctx.t("modules.commands.panel.data.user.view.control.main.phone", { phone: CryptoService.decrypt(user.phone!) }), `updateUserPhone#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.language", { language: ctx.t(`utils.languages.${user.language}`) }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.role", { role:  ctx.t(`utils.roleCodes.${user.role?.code}`) }), `updateUserRole#${user.id}`).row()
         
