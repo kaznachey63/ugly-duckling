@@ -94,7 +94,7 @@ const adminData = {
 }
 
 const allowLanguages: LanguagesALlowed[] = [
-    'ru', 'en', 'zh', 'sr', 'es', 'hi', 'ar', 'fr', 'pt', 'ja', 'de'
+    'ru', 'en', 'zh', 'sr', 'es', 'hi', 'ar', 'fr', 'pt', 'ja', 'de', 'it', 'ko', 'tr', 'pl', 'nl', 'el', 'cs',
 ];
 
 const roles: RoleCode[] = [

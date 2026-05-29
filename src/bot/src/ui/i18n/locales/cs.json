@@ -1,0 +1,702 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Zpracování...",
+            "cabinet": "🪴 Osobní účet",
+            "buttons": {
+                "export": "📧 Exportovat",
+                "nameless": "Bezejmenný",
+                "back": "🔙 Zpět",
+                "remove": "🗑 Smazat",
+                "miss": "Chybí",
+                "create": "➕ Vytvořit",
+                "update": "✍ Upravit",
+                "clear": "🗑 Vyčistit",
+                "view": "👁 Zobrazit",
+                "contract": "📜 Smlouvy",
+                "sendout": "📢 Odeslání",
+                "chat": "🗯 Skupiny",
+                "contactAdmin": "👨 Administrátor"
+            },
+            "titles": {
+                "validate": "⚠ Vstupní data měla neplatný formát. Odešlete znovu",
+                "cabinet": "Účet",
+                "panel": "Panel → Data",
+                "amount": "Množství: {{amount}}",
+                "sendoutActive": "Odeslání je v tuto chvíli aktivní, zkuste data spravovat později"
+            }
+        },
+        "maintenace": "🚧 Právě probíhají technické práce. Používání služby je dočasně omezeno.\nJakmile skončíme, hned vás upozorníme!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Administrátor",
+            "customer": "Zákazník",
+            "unknown": "Neznámý"
+        },
+        "languages": {
+            "ru": "Ruština",
+            "zh": "Čínština",
+            "en": "Angličtina",
+            "sr": "Srbština",
+            "it": "Italština",
+            "ko": "Korejština",
+            "tr": "Turečtina",
+            "pl": "Polština",
+            "nl": "Nizozemština",
+            "el": "Řečtina",
+            "cs": "Čeština"
+        },
+        "commands": {
+            "cabinet": "Účet",
+            "settings": "Nastavení",
+            "panel": "Admin panel"
+        },
+        "chart": {
+            "labelMonth": "Statistika počtu skupin, které obdržely odeslání. {{month}} {{year}}",
+            "labelWeek": "Statistika počtu skupin, které obdržely odeslání. Týden",
+            "amountSms": "Počet zpráv",
+            "noLogs": "Ve vybraném období ještě nedošlo k žádnému odeslání!",
+            "daysOfWeek": {
+                "Mon": "Po",
+                "Tue": "Út",
+                "Wed": "St",
+                "Thu": "Čt",
+                "Fri": "Pá",
+                "Sat": "So",
+                "Sun": "Ne"
+            },
+            "months": {
+                "january": "Leden",
+                "february": "Únor",
+                "march": "Březen",
+                "april": "Duben",
+                "may": "Květen",
+                "june": "Červen",
+                "july": "Červenec",
+                "august": "Srpen",
+                "september": "Září",
+                "october": "Říjen",
+                "november": "Listopad",
+                "december": "Prosinec"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Leden",
+                "1": "Únor",
+                "2": "Březen",
+                "3": "Duben",
+                "4": "Květen",
+                "5": "Červen",
+                "6": "Červenec",
+                "7": "Srpen",
+                "8": "Září",
+                "9": "Říjen",
+                "10": "Listopad",
+                "11": "Prosinec"
+            },
+            "days": {
+                "0": "Po",
+                "1": "Út",
+                "2": "St",
+                "3": "Čt",
+                "4": "Pá",
+                "5": "So",
+                "6": "Ne"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Parser",
+            "sendout": "Odeslání"
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Chyba při zpracování telefonního čísla!\nZkuste to znovu!",
+                "accessDenied": "Přístup zakázán. Chcete‑li využít službu odeslání, použijte příkaz '/settings', sekce 'Nápověda'"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Text uložen!",
+                "error": "❌ Text nebyl uložen!\nKontaktujte správce",
+                "path": "[📍 Cesta: {{menu}} → Menu «{{call}}» → Zprávy → *Vytvoření textu*]"
+            },
+            "generatingText": {
+                "result": "Vygenerovaná zpráva je uvedena níže.\nPomocí tlačítek pod zprávami rozhodněte o osudu textu.",
+                "pathChoose": "[📍 Cesta: {{menu}} → Menu «{{call}}» → Zprávy → Generování textu → *Osud textu*]",
+                "buttons": {
+                    "save": "✔ Uložit",
+                    "cancel": "❌ Neukládat"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Text změněn!",
+                "error": "❌ Text nebyl změněn!\nKontaktujte správce",
+                "path": "[📍 Cesta: {{menu}} → Menu «{{call}}» → Zprávy → *Úprava textu*]"
+            },
+            "addingMedia": {
+                "error": "💀 Chyba při ukládání médií!\nKontaktujte správce",
+                "invalidType": "Typ média nebyl rozpoznán! Zkuste to znovu",
+                "bigSize": "Soubor je příliš velký. Maximální velikost {{size}} MB.",
+                "documentsWTMedia": "Neumím zpracovávat dokumenty, které neobsahují: foto / video / gif",
+                "success": "✅ Média uložena!",
+                "error2": "❌ Média nebyla uložena!\nKontaktujte správce",
+                "path": "[📍 Cesta: {{menu}} → Menu «{{call}}» → Zprávy → *Přidání médií*]"
+            },
+            "addingTime": {
+                "success": "✅ Čas uložen!",
+                "error": "❌ Čas nebyl změněn!\nKontaktujte správce",
+                "path": "[📍 Cesta: Panel → Menu «{{call}}» → Harmonogram → Zobrazit → *Přidání*]"
+            },
+            "updatingTime": {
+                "success": "✅ Čas změněn!",
+                "error": "❌ Čas nebyl změněn!\nKontaktujte správce",
+                "path": "[📍 Cesta: Panel → Menu «{{call}}» → Harmonogram → Zobrazit → *Úprava*]"
+            },
+            "addingIdea": {
+                "success": "✅ Nápad byl úspěšně přidán, děkujeme!",
+                "error": "❌ Nápad nebyl přidán!\nZkuste to znovu nebo kontaktujte správce!",
+                "path": "[📍 Cesta: Nastavení → Nápady → *Přidání*]"
+            },
+            "addingUser": {
+                "success": "✅ Uživatel byl úspěšně vytvořen!",
+                "error": "❌ Uživatel nebyl vytvořen!\nZkuste to později.",
+                "path": "[📍 Cesta: Panel → Data → Uživatelé → *Vytvoření*]"
+            },
+            "addingContract": {
+                "success": "✅ Smlouva byla úspěšně vytvořena!",
+                "error": "❌ Smlouva nebyla vytvořena!\nZkuste to později.",
+                "path": "[📍 Cesta: Panel → Smlouvy → *Vytvoření*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Volací znak byl úspěšně aktualizován!",
+                "error": "❌ Volací znak nebyl aktualizován!\nZkuste to později.",
+                "path": "[📍 Cesta: Panel → Odeslání → Zobrazit → Menu «{{call}}» → Název → *Aktualizace*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Jméno bylo úspěšně aktualizováno!",
+                "error": "❌ Jméno nebylo aktualizováno!\nZkuste to později.",
+                "path": "[📍 Cesta: Panel → Data → Uživatelé → Zobrazit → {{userName}} → *Úprava jména*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Telefon byl úspěšně aktualizován!",
+                "error": "❌ Telefon nebyl aktualizován!\nZkuste to později.",
+                "path": "[📍 Cesta: Panel → Data → Uživatelé → Zobrazit → {{userName}} → *Úprava čísla*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "Vítejte! Jsem Telegramový bot, pomocník pro odesílání.\n\nDůrazně doporučuji seznámit se s celým registrem mých příkazů stisknutím oválného tlačítka 'Menu' v levém dolním rohu obrazovky.\nPo přečtení návodu k použití, vyvolaného příkazem '/settings', v sekci 'O botovi'."
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Nastavení",
+                    "buttons": {
+                        "about": "ℹ O službě",
+                        "help": "❓ Nápověda",
+                        "idea": "💡 Nápady",
+                        "language": "🌐 Jazyk"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Vyberte jazyk.",
+                        "path": "[📍 Cesta: Nastavení → *Jazyk*]"
+                    },
+                    "change": {
+                        "good": "Jazyk změněn!",
+                        "error": "Tento jazyk je již vybrán!"
+                    }
+                },
+                "help": {
+                    "title": "Narazili jste na problém?\nMáte dotazy?\nChcete službu pochválit?\nMáte nápady na vylepšení služby?",
+                    "interest": "Nebo vás produkt zajímá?\nVyplňte níže uvedený dotazník a my vás budeme kontaktovat!",
+                    "path": "[📍 Cesta: Nastavení → *Nápověda*]"
+                },
+                "about": {
+                    "title": "Služba byla vyvinuta pro automatizaci reklamy (příspěvků, odeslání) vašich produktů (nabídek) v rámci skupin / chatů / kanálů.\n\nNávod k použití Bota - pomocí tlačítka níže!",
+                    "instruction": "📖 Návod",
+                    "path": "[📍 Cesta: Nastavení → *O službě*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Menu sekce Nápady. \nZde můžete navrhnout svůj nápad na rozvoj služby.",
+                        "path": "[📍 Cesta: Nastavení → *Nápady*]",
+                        "buttons": {
+                            "add": "🗳 Navrhnout",
+                            "see": "🔍 Prozkoumat"
+                        }
+                    },
+                    "add": {
+                        "title": "Pošlete mi média / audio / text atd. Žádná omezení!",
+                        "path": "[📍 Cesta: Nastavení → Nápady → *Přidání*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {                        
+                        "logout": "🚪 Odhlásit se",
+                        "login": "🔑 Přihlásit se"
+                    }
+                },
+                "auth": {
+                    "login": {
+                        "buttons": {
+                            "cancel": "❌ Zrušit",
+                            "phone": "📞 Sdílet"
+                        },
+                        "unknownMessage": "Akce nebyla rozpoznána, zkuste znovu použít tlačítka 'Sdílet' a 'Zrušit'",
+                        "manyAttempts": "Počet použitých pokusů o ověření před hodinovým limitem: {{actualAttempts}} z {{maxAttempts}}",
+                        "stop": "Autorizace je omezena. Omezení budou zrušena po: {{dateTime}}",
+                        "canceled": "Autorizace byla úspěšně zastavena!",
+                        "title": "Pro vstup do panelu odeslání se se mnou musíte podělit o své telefonní číslo.\n\nTlačítko by se mělo objevit vedle klávesnice s nápisem '📞 Sdílet'.",
+                        "good": "Úspěšně jste se autorizovali v systému!",
+                        "already": "Již jste v systému autorizováni!",
+                        "bad": "Chyba při autorizaci v systému. \nKontaktujte správce!",
+                        "path": "[📍 Cesta: Účet → *Autorizace*"
+                    },
+                    "logout": {
+                        "good": "Úspěšně jste se odhlásili ze systému. Vaše data byla vymazána!",
+                        "bad": "Chyba při odhlašování ze systému. \nKontaktujte správce!",
+                        "path": "[📍 Cesta: Účet → *Odhlášení*]"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "title": "👨‍💻 Administrátorský panel",
+                    "buttons": {
+                        "data": "🗂 Data",
+                        "system": "⚡ Systém "
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Správa dat",
+                        "path": "[📍 Cesta: Panel → *Data*]",
+                        "buttons": {
+                            "user": "👥 Uživatelé"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Správa skupin",
+                            "amount": "Množství: {{amount}}",
+                            "path": "[📍 Cesta: Panel → Data → *Skupiny*]",
+                            "buttons": {
+                                "reupload": "🔁 Obnovit"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Skupiny aktualizovány!",
+                            "error": "❌ Chyba při aktualizaci skupin\nKontaktujte správce",
+                            "path": "[📍 Cesta: Panel → Data → Skupiny → *Aktualizace*]"
+                        },
+                        "clear": {
+                            "success": "✅ Skupiny vyčištěny!",
+                            "error": "❌ Chyba při čištění skupin\nKontaktujte správce",
+                            "path": "[📍 Cesta: Panel → Data → Skupiny → *Vyčištění*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Správa uživatelů",
+                            "amount": "Množství: {{amount}}",
+                            "path": "[📍 Cesta: Panel → Data → *Uživatelé*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Seznam uživatelů.",
+                                "path": "[📍 Cesta: Panel → Data → Uživatelé → *Zobrazit*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Správa uživatele",
+                                    "path": "[📍 Cesta: Panel → Data → Uživatelé → Zobrazit → *{{userName}}*]",
+                                    "telegramId": "Tg ID: {{telegramId}}",
+                                    "name": "Jméno: {{name}}",
+                                    "username": "Uživatelské jméno: @{{username}}",
+                                    "phone": "Telefon: +{{phone}}",
+                                    "language": "Jazyk: {{language}}",
+                                    "role": "Role: {{role}}"
+                                },
+                                "remove": {
+                                    "success":"✅ Uživatel úspěšně smazán!",
+                                    "error": "❌ Uživatel nebyl smazán!\nZkuste to později",
+                                    "path": "[📍 Cesta: Panel → Data → Uživatelé → Zobrazit → {{userName}} → *Smazání*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Měníme telefon!\nPošlete to sem.",
+                                        "path": "[📍 Cesta: Panel → Data → Uživatelé → Zobrazit → {{userName}} → *Úprava čísla*]"
+                                    },
+                                    "name": {
+                                        "title": "Měníme jméno!\nPošlete to sem.",
+                                        "path": "[📍 Cesta: Panel → Data → Uživatelé → Zobrazit → {{userName}} → *Úprava jména*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Vytváříme uživatele! Před zahájením si přečtěte pokyny pro správné vytvoření.",
+                            "path": "[📍 Cesta: Panel → Data → Uživatelé → *Vytvoření*]"
+                        }   
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Správa systému",
+                        "path": "[📍 Cesta: Panel → *Systém*]",
+                        "buttons": {
+                            "server": "📟 Server",
+                            "maintenace": "🛠️ Údržba"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Kategorie procesů",
+                            "path": "[📍 Cesta: Panel → Systém → *Server*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Analyzátor"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Vyberte proces",
+                                "path": "[📍 Cesta: Panel → Systém → Server → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Správa procesu",
+                                    "path": "[📍 Cesta: Panel → Systém → Server → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Stav",
+                                        "log": "📋 Logy"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Cesta: Panel → Systém → Server → {{processType}} → {{processName}} → *Stav*]",
+                                    "status": {
+                                        "active": "✅ Proces je aktivní.\nChcete-li jej zastavit, stiskněte tlačítko níže",
+                                        "inactive": "❌ Proces je neaktivní.\nChcete-li jej spustit, stiskněte tlačítko níže",
+                                        "failed": "💀 Proces zemřel.\nKontaktujte programátora.",
+                                        "error": "Problém s procesem. Kontaktujte programátora."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Zastavit",
+                                        "start": "▶️ Spustit",
+                                        "restart": "🔁 Restartovat"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Zobrazení logů",
+                                    "path": "[📍 Cesta: Panel → Systém → Server → {{processType}} → {{processName}} → *Logy*]",
+                                    "sort": "Řazení: {{sortType}}",
+                                    "sortType": {
+                                        "new": "od nejnovějších po nejstarší",
+                                        "old": "od nejstarších po nejnovější"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Seznam aktuálně aktivních odeslání.",
+                    "path": "[📍 Cesta: {{menu}} → Odeslání → *Zobrazit*]",
+                    "empty": "Zatím nejsou nastavena žádná odeslání! Vraťte se později."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Menu odeslání «{{call}}»",
+                        "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → *Menu «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Harmonogram",
+                            "message": "💬 Zprávy",
+                            "statistic": "📈 Statistika",
+                            "owner": "👑 Vlastník",
+                            "call": "🏷️ Název"
+                        }
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Chyba při přijímání zpráv!\nKontaktujte správce",
+                            "empty": "Žádné zprávy!\nChcete-li přidat text, stiskněte tlačítko níže",
+                            "title": "Menu sekce Zprávy. Množství: {{amount}}",
+                            "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → *Zprávy*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Vyberte typ přidání textu.",
+                                "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → *Režim přidání*]",
+                                "buttons": {
+                                    "generate": "🔮 Generovat",
+                                    "hand": "✍ Ruční zadání"
+                                }
+                            },
+                            "generate": {
+                                "title": "Vygeneruji prodejní text! \nPošlete sem zdrojový text. Nelze poslat hromadu textů.",
+                                "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → *Generování*]",
+                                "save": "✅ Text uložen!",
+                                "cancel": "❌ Text nebyl uložen!",
+                                "pathSave": "[📍 Cesta: {{menu}} → Menu «{{call}}» → Zprávy → Generování → *Uložení*]",
+                                "pathCancel": "[📍 Cesta: {{menu}} → Menu «{{call}}» → Zprávy → Generování → *Zrušení*]"
+                            },
+                            "hand": {
+                                "title": "Přidáváme text!\nPošlete text nebo jej přepošlete sem. Nelze poslat hromadu textů.",
+                                "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → *Přidání textu*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Všechny zprávy vyčištěny!",
+                            "error": "❌ Zprávy nebyly vyčištěny!\nKontaktujte správce",
+                            "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → *Vyčištění*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Zpráva č. {{number}}.",
+                                "amountMedia": "Počet médií: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → *Zobrazit*]",
+                                "buttons": {
+                                    "updateText": "✍️ Upravit text",
+                                    "addMedia": "🖼 Přidat média",
+                                    "clearAllMedia": "🗑 Vyčistit média"    
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Měníme text!\nPošlete text nebo jej přepošlete sem. Nelze poslat hromadu textů.",
+                                    "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → *Úprava textu*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Zpráva smazána!",
+                                    "error": "❌ Text nebyl smazán!\nKontaktujte správce",
+                                    "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → *Smazání textu*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Přidáváme média!\nPošlete média v množství 1 kus.",
+                                    "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → *Přidání médií*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Všechna média vyčištěna!",
+                                    "error": "❌ Média nebyla vyčištěna!\nKontaktujte správce",
+                                    "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → *Vyčištění médií*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Rychlý přechod na zprávu podle čísla",
+                                "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → Zobrazit → *Výběr zprávy*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Vyberte formát, ve kterém bude seznam zpráv uložen",
+                                "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → *Výběr formátu exportu*]"
+                            },
+                            "result": {
+                                "error": "❌ Chyba při exportu zpráv\nKontaktujte správce",
+                                "caption": "Seznam zpráv ve formátu {{exportType}} je připraven!",
+                                "path": "\n[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Zprávy → *Export do {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Harmonogram zatím není nastaven!",
+                            "title": "Menu sekce Harmonogram. Počet časů v harmonogramu: {{amount}}",
+                            "path": "\n[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → *Harmonogram*]"
+                        },
+                        "create": {
+                            "title": "Přidáváme čas!",
+                            "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Harmonogram → *Přidání*]"
+                        },
+                        "clear": {
+                            "success": "✅ Harmonogram vyčištěn!",
+                            "error": "❌ Harmonogram nebyl vyčištěn!\nKontaktujte správce",
+                            "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Harmonogram → *Vyčištění*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Harmonogram odeslání je uveden níže ve formě tlačítek.",
+                                "path": "\n[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Harmonogram → *Zobrazit*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Měníme čas!",
+                                    "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Harmonogram → Zobrazit → *Úprava času*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Čas smazán!",
+                                    "error": "❌ Čas nebyl smazán! Kontaktujte správce",
+                                    "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Harmonogram → Zobrazit → *Smazání času*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Vybraný čas:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Harmonogram → Zobrazit → *Výběr akce*]"
+                                }
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Vyberte formát požadované statistiky.",
+                            "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → *Statistika*]",
+                            "buttons": {
+                                "selective": "📅 Výběrová",
+                                "comparative": "📊 Srovnávací"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "V současné době probíhají na této sekci technické práce.",
+                                "noData": "Pro vybrané datum nebyl nalezen žádný výsledek!",
+                                "noAccess": "Stisknuté tlačítko není k dispozici!",
+                                "title": "Výběrová statistika.\nNíže je kalendář s daty. Chcete-li zobrazit výsledek odeslání za určitý den, jednoduše na něj klikněte!\n\nPokud odeslání: \n*neproběhlo, \n*nebylo, \n*není naplánováno, \n*nebo něco jiného\n- zobrazí se zpráva s odpovídajícím kontextem, nelekejte se.",
+                                "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Statistika → *Výběrová*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Výsledek odeslání za {{date}}.",
+                                    "time": "Čas: {{time}}",
+                                    "success": "Úspěšných odeslání: {{success}}",
+                                    "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Statistika → Výběrová → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "amount":"Množství: {{amount}}",
+                                    "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Statistika → Výběrová → {{date}} → *Skupiny*]"    
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Vyberte typ srovnávací statistiky.",
+                                "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Statistika → *Srovnávací*]",
+                                "buttons": {
+                                    "week": "Týden",
+                                    "month": "Měsíc"
+                                }
+                            },
+                            "week": {
+                                "title": "Srovnávací statistika. (Týden)",
+                                "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Statistika → Srovnávací → *Týden*]"
+                            },
+                            "month": {
+                                "title": "Srovnávací statistika. (Měsíc)",
+                                "path": "[📍 Cesta: {{menu}} → Odeslání → Zobrazit → Menu «{{call}}» → Statistika → Srovnávací → *Měsíc*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Vlastník odeslání.",
+                            "empty": "Odeslání nemá vlastníka!",
+                            "name": "Jméno: {{name}}",
+                            "phone": "Telefon: +{{phone}}",
+                            "path": "[📍 Cesta: Panel → Odeslání → Zobrazit → Menu «{{call}}» → *Vlastník*]",
+                            "buttons": {
+                                "change": "🪧 Přiřadit jiného"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Vyberte uživatele, kterého chcete přiřadit jako vlastníka tohoto odeslání.",
+                                "path": "[📍 Cesta: Panel → Odeslání → Zobrazit → Menu «{{call}}» → Vlastník → *Výběr*]",
+                                "noOwner": "Bez vlastníka"
+                            },
+                            "action": {
+                                "success": "✅ Vlastník byl úspěšně změněn!",
+                                "error": "❌ Vlastník nebyl změněn! \nZkuste to později!",
+                                "path": "[📍 Cesta: Panel → Odeslání → Zobrazit → Menu «{{call}}» → Vlastník → {{owner}} → *Přiřazení*]"
+                            }
+                        }
+                    },
+                    "call": {
+                        "main": {
+                            "title": "Název (volací znak) odeslání: {{call}}",
+                            "empty": "Odeslání nemá název!",
+                            "path": "[📍 Cesta: Panel → Odeslání → Zobrazit → Menu «{{call}}» → *Název*]"
+                        },
+                        "update": {
+                            "title": "Měníme volací znak odeslání! Pošlete nový název odeslání.",
+                            "path": "[📍 Cesta: Panel → Odeslání → Zobrazit → Menu «{{call}}» → Název → *Aktualizace*]"
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Správa smluv",
+                    "amount": "Množství: {{amount}}",
+                    "path": "[📍 Cesta: {{menu}} → *Smlouvy*]",
+                    "empty": "Zatím nejsou nastaveny žádné smlouvy! Vraťte se později.",
+                    "contractName": "{{userName}}: od {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Seznam smluv.",
+                        "path": "[📍 Cesta: {{menu}} → Smlouvy → *Zobrazit*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Smlouva z {{dateStart}}.",
+                            "sendouts": "Odeslání zahrnutá ve smlouvě: {{sendouts}}",
+                            "noSendouts": "prázdné.",
+                            "userName": "Zákazník: {{userName}}",
+                            "dateStart": "Datum zahájení: {{dateStart}}",
+                            "dateEnd": "Datum ukončení: {{dateEnd}}",
+                            "price": "Cena: {{price}}",
+                            "priceText": "Cena (text): {{priceText}}",
+                            "error": "Chyba při přijímání smlouvy. Kontaktujte správce",
+                            "path": "\n[📍 Cesta: {{menu}} → Smlouvy → Zobrazit → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success":"✅ Smlouva úspěšně smazána!",
+                            "error": "❌ Smlouva nebyla smazána!\nZkuste to později",
+                            "path": "[📍 Cesta: Panel → Smlouvy → Zobrazit → {{dateStart}} → *Smazání*]"
+                        },
+                        "create": {
+                            "step": "Krok: {{number}} / 3",
+                            "noUser": "Chcete-li přejít ke kroku č. 2, musíte provést krok č. 1!",
+                            "noSendouts": "Chcete-li přejít ke kroku č. 3, musíte provést krok č. 2!",
+                            "noFreeSendouts": "Zákazník nemá žádná volná odeslání (bez smlouvy)!",
+                            "data": {
+                                "user": "Vyberte uživatele, na kterého bude smlouva sepsána",
+                                "sendout": "Vyberte odeslání, která budou zahrnuta do smlouvy",
+                                "contract": "Pošlete údaje týkající se smlouvy"
+                            },
+                            "title": "Vytváříme smlouvu! Seznamte se s pokyny pro správné vytvoření.",
+                            "path": "[📍 Cesta: Panel → Smlouvy → *Vytvoření*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Vyberte formát, ve kterém bude smlouva uložena",
+                                "path": "[📍 Cesta: {{menu}} → Smlouvy → Zobrazit → {{dateStart}} → *Výběr formátu exportu*]"
+                            },
+                            "result": {
+                                "error": "❌ Chyba při exportu smlouvy\nKontaktujte správce",
+                                "caption": "Smlouva ve formátu {{exportType}} je připravena!",
+                                "path": "\n[📍 Cesta: {{menu}} → Smlouvy → Zobrazit → {{dateStart}} → *Export do {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "title": "Vytváříme smlouvu! Před zahájením si přečtěte pokyny pro správné vytvoření.",
+                    "path": "[📍 Cesta: Panel → Smlouvy → *Vytvoření*]"
+                }
+            }
+        }
+    }
+}

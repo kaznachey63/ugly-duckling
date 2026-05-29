@@ -1,0 +1,702 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Verwerking...",
+            "cabinet": "🪴 Persoonlijke ruimte",
+            "buttons": {
+                "export": "📧 Exporteren",
+                "nameless": "Naamloos",
+                "back": "🔙 Terug",
+                "remove": "🗑 Verwijderen",
+                "miss": "Ontbreekt",
+                "create": "➕ Maken",
+                "update": "✍ Bewerken",
+                "clear": "🗑 Wissen",
+                "view": "👁 Bekijken",
+                "contract": "📜 Contracten",
+                "sendout": "📢 Verzendingen",
+                "chat": "🗯 Groepen",
+                "contactAdmin": "👨 Beheerder"
+            },
+            "titles": {
+                "validate": "⚠ Invoergegevens hadden een ongeldig formaat. Opnieuw verzenden",
+                "cabinet": "Ruimte",
+                "panel": "Paneel → Gegevens",
+                "amount": "Aantal: {{amount}}",
+                "sendoutActive": "De verzending is momenteel actief, probeer gegevens later te beheren"
+            }
+        },
+        "maintenace": "🚧 Er worden momenteel technische werkzaamheden uitgevoerd. Het gebruik van de dienst is tijdelijk beperkt.\nZodra we klaar zijn, laten we het je meteen weten!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Beheerder",
+            "customer": "Klant",
+            "unknown": "Onbekend"
+        },
+        "languages": {
+            "ru": "Russisch",
+            "zh": "Chinees",
+            "en": "Engels",
+            "sr": "Servisch",
+            "it": "Italiaans",
+            "ko": "Koreaans",
+            "tr": "Turks",
+            "pl": "Pools",
+            "nl": "Nederlands",
+            "el": "Grieks",
+            "cs": "Tsjechisch"
+        },
+        "commands": {
+            "cabinet": "Ruimte",
+            "settings": "Instellingen",
+            "panel": "Adminpaneel"
+        },
+        "chart": {
+            "labelMonth": "Statistiek van het aantal groepen dat de verzending heeft ontvangen. {{month}} {{year}}",
+            "labelWeek": "Statistiek van het aantal groepen dat de verzending heeft ontvangen. Week",
+            "amountSms": "Aantal berichten",
+            "noLogs": "In de geselecteerde periode heeft nog geen verzending plaatsgevonden!",
+            "daysOfWeek": {
+                "Mon": "Ma",
+                "Tue": "Di",
+                "Wed": "Wo",
+                "Thu": "Do",
+                "Fri": "Vr",
+                "Sat": "Za",
+                "Sun": "Zo"
+            },
+            "months": {
+                "january": "Januari",
+                "february": "Februari",
+                "march": "Maart",
+                "april": "April",
+                "may": "Mei",
+                "june": "Juni",
+                "july": "Juli",
+                "august": "Augustus",
+                "september": "September",
+                "october": "Oktober",
+                "november": "November",
+                "december": "December"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Januari",
+                "1": "Februari",
+                "2": "Maart",
+                "3": "April",
+                "4": "Mei",
+                "5": "Juni",
+                "6": "Juli",
+                "7": "Augustus",
+                "8": "September",
+                "9": "Oktober",
+                "10": "November",
+                "11": "December"
+            },
+            "days": {
+                "0": "Ma",
+                "1": "Di",
+                "2": "Wo",
+                "3": "Do",
+                "4": "Vr",
+                "5": "Za",
+                "6": "Zo"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Parser",
+            "sendout": "Verzendingen"
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Fout bij het verwerken van het telefoonnummer!\nProbeer opnieuw!",
+                "accessDenied": "Toegang geweigerd. Gebruik het commando '/settings', sectie 'Hulp' om gebruik te maken van de verzendingsdienst"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Tekst opgeslagen!",
+                "error": "❌ Tekst niet opgeslagen!\nNeem contact op met de beheerder",
+                "path": "[📍 Pad: {{menu}} → Menu «{{call}}» → Berichten → *Tekst aanmaken*]"
+            },
+            "generatingText": {
+                "result": "Het gegenereerde bericht wordt hieronder weergegeven.\nGebruik de knoppen onder de berichten om over het lot van de tekst te beslissen.",
+                "pathChoose": "[📍 Pad: {{menu}} → Menu «{{call}}» → Berichten → Tekstgeneratie → *Lot van de tekst*]",
+                "buttons": {
+                    "save": "✔ Opslaan",
+                    "cancel": "❌ Niet opslaan"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Tekst bewerkt!",
+                "error": "❌ Tekst niet bewerkt!\nNeem contact op met de beheerder",
+                "path": "[📍 Pad: {{menu}} → Menu «{{call}}» → Berichten → *Tekst bewerken*]"
+            },
+            "addingMedia": {
+                "error": "💀 Fout bij het opslaan van media!\nNeem contact op met de beheerder",
+                "invalidType": "Mediatype niet herkend! Probeer opnieuw",
+                "bigSize": "Bestand te groot. Maximale grootte {{size}} MB.",
+                "documentsWTMedia": "Ik kan geen documenten verwerken die geen foto / video / gif bevatten",
+                "success": "✅ Media opgeslagen!",
+                "error2": "❌ Media niet opgeslagen!\nNeem contact op met de beheerder",
+                "path": "[📍 Pad: {{menu}} → Menu «{{call}}» → Berichten → *Media toevoegen*]"
+            },
+            "addingTime": {
+                "success": "✅ Tijd opgeslagen!",
+                "error": "❌ Tijd niet bewerkt!\nNeem contact op met de beheerder",
+                "path": "[📍 Pad: Paneel → Menu «{{call}}» → Schema → Bekijken → *Toevoegen*]"
+            },
+            "updatingTime": {
+                "success": "✅ Tijd bewerkt!",
+                "error": "❌ Tijd niet bewerkt!\nNeem contact op met de beheerder",
+                "path": "[📍 Pad: Paneel → Menu «{{call}}» → Schema → Bekijken → *Bewerken*]"
+            },
+            "addingIdea": {
+                "success": "✅ Idee succesvol toegevoegd, bedankt!",
+                "error": "❌ Idee niet toegevoegd!\nProbeer opnieuw of neem contact op met de beheerder!",
+                "path": "[📍 Pad: Instellingen → Ideeën → *Toevoegen*]"
+            },
+            "addingUser": {
+                "success": "✅ Gebruiker succesvol aangemaakt!",
+                "error": "❌ Gebruiker niet aangemaakt!\nProbeer het later opnieuw.",
+                "path": "[📍 Pad: Paneel → Gegevens → Gebruikers → *Aanmaken*]"
+            },
+            "addingContract": {
+                "success": "✅ Contract succesvol aangemaakt!",
+                "error": "❌ Contract niet aangemaakt!\nProbeer het later opnieuw.",
+                "path": "[📍 Pad: Paneel → Contracten → *Aanmaken*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Roepnaam succesvol bijgewerkt!",
+                "error": "❌ Roepnaam niet bijgewerkt!\nProbeer het later opnieuw.",
+                "path": "[📍 Pad: Paneel → Verzendingen → Bekijken → Menu «{{call}}» → Naam → *Bijwerken*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Naam succesvol bijgewerkt!",
+                "error": "❌ Naam niet bijgewerkt!\nProbeer het later opnieuw.",
+                "path": "[📍 Pad: Paneel → Gegevens → Gebruikers → Bekijken → {{userName}} → *Naam bewerken*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Telefoon succesvol bijgewerkt!",
+                "error": "❌ Telefoon niet bijgewerkt!\nProbeer het later opnieuw.",
+                "path": "[📍 Pad: Paneel → Gegevens → Gebruikers → Bekijken → {{userName}} → *Nummer bewerken*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "Welkom! Ik ben een Telegram-bot, assistent voor verzendingen.\n\nIk raad je ten zeerste aan om vertrouwd te raken met het volledige register van mijn commando's door op de ovale knop 'Menu' in de linkeronderhoek van het scherm te drukken.\nNa het lezen van de gebruikershandleiding, die wordt opgeroepen met het commando '/settings', in de sectie 'Over de bot'."
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Instellingen",
+                    "buttons": {
+                        "about": "ℹ Over de dienst",
+                        "help": "❓ Hulp",
+                        "idea": "💡 Ideeën",
+                        "language": "🌐 Taal"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Kies een taal.",
+                        "path": "[📍 Pad: Instellingen → *Taal*]"
+                    },
+                    "change": {
+                        "good": "Taal gewijzigd!",
+                        "error": "Deze taal is al geselecteerd!"
+                    }
+                },
+                "help": {
+                    "title": "Een probleem tegengekomen?\nVragen?\nDe dienst prijzen?\nIdeeën om de dienst te verbeteren?",
+                    "interest": "Of geïnteresseerd in het product?\nVul onderstaande vragenlijst in en we nemen contact met je op!",
+                    "path": "[📍 Pad: Instellingen → *Hulp*]"
+                },
+                "about": {
+                    "title": "De dienst is ontwikkeld om reclame (berichten, verzendingen) van uw producten (aanbiedingen) binnen groepen / chats / kanalen te automatiseren.\n\nInstructies voor het gebruik van de Bot - via de onderstaande knop!",
+                    "instruction": "📖 Instructies",
+                    "path": "[📍 Pad: Instellingen → *Over de dienst*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Menu van de sectie Ideeën.\nHier kun je je idee voor de ontwikkeling van de dienst voorstellen.",
+                        "path": "[📍 Pad: Instellingen → *Ideeën*]",
+                        "buttons": {
+                            "add": "🗳 Voorstellen",
+                            "see": "🔍 Verkennen"
+                        }
+                    },
+                    "add": {
+                        "title": "Stuur me media/audio/tekst enz. Geen beperkingen!",
+                        "path": "[📍 Pad: Instellingen → Ideeën → *Toevoegen*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {                        
+                        "logout": "🚪 Uitloggen",
+                        "login": "🔑 Inloggen"
+                    }
+                },
+                "auth": {
+                    "login": {
+                        "buttons": {
+                            "cancel": "❌ Annuleren",
+                            "phone": "📞 Delen"
+                        },
+                        "unknownMessage": "Actie niet herkend, probeer opnieuw de knoppen 'Delen' en 'Annuleren' te gebruiken",
+                        "manyAttempts": "Aantal gebruikte authenticatiepogingen voor de limiet van een uur: {{actualAttempts}} van {{maxAttempts}}",
+                        "stop": "Autorisatie beperkt. Beperkingen worden opgeheven na: {{dateTime}}",
+                        "canceled": "Autorisatie succesvol gestopt!",
+                        "title": "Om in te loggen op het verzendingspaneel, moet je je telefoonnummer met me delen.\n\nDe knop zou naast het toetsenbord moeten verschijnen met het label '📞 Delen'.",
+                        "good": "Je bent succesvol geautoriseerd in het systeem!",
+                        "already": "Je bent al geautoriseerd in het systeem!",
+                        "bad": "Fout bij autorisatie in het systeem.\nNeem contact op met de beheerder!",
+                        "path": "[📍 Pad: Ruimte → *Autorisatie*"
+                    },
+                    "logout": {
+                        "good": "Je bent succesvol uitgelogd uit het systeem. Je gegevens zijn gewist!",
+                        "bad": "Fout bij het uitloggen uit het systeem.\nNeem contact op met de beheerder!",
+                        "path": "[📍 Pad: Ruimte → *Uitloggen*]"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "title": "👨‍💻 Beheerderspaneel",
+                    "buttons": {
+                        "data": "🗂 Gegevens",
+                        "system": "⚡ Systeem "
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Gegevensbeheer",
+                        "path": "[📍 Pad: Paneel → *Gegevens*]",
+                        "buttons": {
+                            "user": "👥 Gebruikers"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Groepsbeheer",
+                            "amount": "Aantal: {{amount}}",
+                            "path": "[📍 Pad: Paneel → Gegevens → *Groepen*]",
+                            "buttons": {
+                                "reupload": "🔁 Vernieuwen"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Groepen bijgewerkt!",
+                            "error": "❌ Fout bij het bijwerken van groepen\nNeem contact op met de beheerder",
+                            "path": "[📍 Pad: Paneel → Gegevens → Groepen → *Bijwerken*]"
+                        },
+                        "clear": {
+                            "success": "✅ Groepen gewist!",
+                            "error": "❌ Fout bij het wissen van groepen\nNeem contact op met de beheerder",
+                            "path": "[📍 Pad: Paneel → Gegevens → Groepen → *Wissen*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Gebruikersbeheer",
+                            "amount": "Aantal: {{amount}}",
+                            "path": "[📍 Pad: Paneel → Gegevens → *Gebruikers*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Lijst van gebruikers.",
+                                "path": "[📍 Pad: Paneel → Gegevens → Gebruikers → *Bekijken*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Gebruikersbeheer",
+                                    "path": "[📍 Pad: Paneel → Gegevens → Gebruikers → Bekijken → *{{userName}}*]",
+                                    "telegramId": "Tg-ID: {{telegramId}}",
+                                    "name": "Naam: {{name}}",
+                                    "username": "Gebruikersnaam: @{{username}}",
+                                    "phone": "Telefoon: +{{phone}}",
+                                    "language": "Taal: {{language}}",
+                                    "role": "Rol: {{role}}"
+                                },
+                                "remove": {
+                                    "success":"✅ Gebruiker succesvol verwijderd!",
+                                    "error": "❌ Gebruiker niet verwijderd!\nProbeer het later opnieuw",
+                                    "path": "[📍 Pad: Paneel → Gegevens → Gebruikers → Bekijken → {{userName}} → *Verwijderen*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Telefoon wordt gewijzigd!\nStuur het hier.",
+                                        "path": "[📍 Pad: Paneel → Gegevens → Gebruikers → Bekijken → {{userName}} → *Nummer bewerken*]"
+                                    },
+                                    "name": {
+                                        "title": "Naam wordt gewijzigd!\nStuur het hier.",
+                                        "path": "[📍 Pad: Paneel → Gegevens → Gebruikers → Bekijken → {{userName}} → *Naam bewerken*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Gebruiker aanmaken! Lees voor het begin de instructies voor correct aanmaken.",
+                            "path": "[📍 Pad: Paneel → Gegevens → Gebruikers → *Aanmaken*]"
+                        }   
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Systeembeheer",
+                        "path": "[📍 Pad: Paneel → *Systeem*]",
+                        "buttons": {
+                            "server": "📟 Server",
+                            "maintenace": "🛠️ Onderhoud"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Procescategorieën",
+                            "path": "[📍 Pad: Paneel → Systeem → *Server*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Parser"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Selecteer een proces",
+                                "path": "[📍 Pad: Paneel → Systeem → Server → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Procesbeheer",
+                                    "path": "[📍 Pad: Paneel → Systeem → Server → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Status",
+                                        "log": "📋 Logboeken"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Pad: Paneel → Systeem → Server → {{processType}} → {{processName}} → *Status*]",
+                                    "status": {
+                                        "active": "✅ Proces is actief.\nOm te stoppen, klik op de onderstaande knop",
+                                        "inactive": "❌ Proces is inactief.\nOm te starten, klik op de onderstaande knop",
+                                        "failed": "💀 Proces is gestorven.\nNeem contact op met de programmeur.",
+                                        "error": "Probleem met het proces. Neem contact op met de programmeur."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Stoppen",
+                                        "start": "▶️ Starten",
+                                        "restart": "🔁 Herstarten"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Logboeken bekijken",
+                                    "path": "[📍 Pad: Paneel → Systeem → Server → {{processType}} → {{processName}} → *Logboeken*]",
+                                    "sort": "Sortering: {{sortType}}",
+                                    "sortType": {
+                                        "new": "nieuw naar oud",
+                                        "old": "oud naar nieuw"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Lijst van momenteel actieve verzendingen.",
+                    "path": "[📍 Pad: {{menu}} → Verzendingen → *Bekijken*]",
+                    "empty": "Er zijn nog geen verzendingen ingesteld! Kom later terug."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Verzendingsmenu «{{call}}»",
+                        "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → *Menu «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Schema",
+                            "message": "💬 Berichten",
+                            "statistic": "📈 Statistieken",
+                            "owner": "👑 Eigenaar",
+                            "call": "🏷️ Naam"
+                        }
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Fout bij het ontvangen van berichten!\nNeem contact op met de beheerder",
+                            "empty": "Geen berichten!\nOm een tekst toe te voegen, klik op de onderstaande knop",
+                            "title": "Menu van de sectie Berichten. Aantal: {{amount}}",
+                            "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → *Berichten*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Selecteer het type teksttoevoeging.",
+                                "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → *Toevoegmodus*]",
+                                "buttons": {
+                                    "generate": "🔮 Genereren",
+                                    "hand": "✍ Handmatige invoer"
+                                }
+                            },
+                            "generate": {
+                                "title": "Ik genereer een verkooptekst! \nStuur de brontekst hier. Geen stapels tekst.",
+                                "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → *Generatie*]",
+                                "save": "✅ Tekst opgeslagen!",
+                                "cancel": "❌ Tekst niet opgeslagen!",
+                                "pathSave": "[📍 Pad: {{menu}} → Menu «{{call}}» → Berichten → Generatie → *Opslaan*]",
+                                "pathCancel": "[📍 Pad: {{menu}} → Menu «{{call}}» → Berichten → Generatie → *Annuleren*]"
+                            },
+                            "hand": {
+                                "title": "Tekst toevoegen!\nStuur de tekst of stuur hem hier door. Geen stapels tekst.",
+                                "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → *Tekst toevoegen*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Alle berichten gewist!",
+                            "error": "❌ Berichten niet gewist!\nNeem contact op met de beheerder",
+                            "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → *Wissen*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Bericht nr. {{number}}.",
+                                "amountMedia": "Aantal media: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → *Bekijken*]",
+                                "buttons": {
+                                    "updateText": "✍️ Tekst bewerken",
+                                    "addMedia": "🖼 Media toevoegen",
+                                    "clearAllMedia": "🗑 Media wissen"    
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Tekst wijzigen!\nStuur de tekst of stuur hem hier door. Geen stapels tekst.",
+                                    "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → *Tekst bewerken*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Bericht verwijderd!",
+                                    "error": "❌ Tekst niet verwijderd!\nNeem contact op met de beheerder",
+                                    "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → *Tekst verwijderen*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Media toevoegen!\nStuur media in een hoeveelheid van 1 stuk.",
+                                    "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → *Media toevoegen*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Alle media gewist!",
+                                    "error": "❌ Media niet gewist!\nNeem contact op met de beheerder",
+                                    "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → *Media wissen*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Snel naar bericht op nummer",
+                                "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → Bekijken → *Bericht selecteren*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Kies het formaat waarin de berichtenlijst wordt opgeslagen",
+                                "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → *Exportformaat kiezen*]"
+                            },
+                            "result": {
+                                "error": "❌ Fout bij het exporteren van berichten\nNeem contact op met de beheerder",
+                                "caption": "Berichtenlijst in {{exportType}}-formaat is klaar!",
+                                "path": "\n[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Berichten → *Exporteren naar {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Schema nog niet ingesteld!",
+                            "title": "Menu van de sectie Schema. Aantal tijden in schema: {{amount}}",
+                            "path": "\n[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → *Schema*]"
+                        },
+                        "create": {
+                            "title": "Tijd toevoegen!",
+                            "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Schema → *Toevoegen*]"
+                        },
+                        "clear": {
+                            "success": "✅ Schema gewist!",
+                            "error": "❌ Schema niet gewist!\nNeem contact op met de beheerder",
+                            "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Schema → *Wissen*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Het verzendingsschema wordt hieronder weergegeven als knoppen.",
+                                "path": "\n[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Schema → *Bekijken*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Tijd wijzigen!",
+                                    "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Schema → Bekijken → *Tijd bewerken*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Tijd verwijderd!",
+                                    "error": "❌ Tijd niet verwijderd! Neem contact op met de beheerder",
+                                    "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Schema → Bekijken → *Tijd verwijderen*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Geselecteerde tijd:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Schema → Bekijken → *Actie kiezen*]"
+                                }
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Kies het formaat van de gewenste statistieken.",
+                            "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → *Statistieken*]",
+                            "buttons": {
+                                "selective": "📅 Selectief",
+                                "comparative": "📊 Vergelijkend"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Er worden momenteel technische werkzaamheden aan deze sectie uitgevoerd.",
+                                "noData": "Geen resultaat gevonden voor de geselecteerde datum!",
+                                "noAccess": "De ingedrukte knop is niet beschikbaar!",
+                                "title": "Selectieve statistiek.\nHieronder is een kalender met datums. Om het resultaat van de verzending voor een bepaalde dag te bekijken, klik er gewoon op!\n\nAls de verzending: \n*niet heeft plaatsgevonden, \n*er geen was, \n*niet is gepland, \n*of iets anders\n- wordt er een bericht met de bijbehorende context weergegeven, schrik niet.",
+                                "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Statistieken → *Selectief*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Verzendingsresultaat voor {{date}}.",
+                                    "time": "Tijd: {{time}}",
+                                    "success": "Succesvolle verzendingen: {{success}}",
+                                    "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Statistieken → Selectief → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "amount":"Aantal: {{amount}}",
+                                    "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Statistieken → Selectief → {{date}} → *Groepen*]"    
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Kies het type vergelijkende statistiek.",
+                                "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Statistieken → *Vergelijkend*]",
+                                "buttons": {
+                                    "week": "Week",
+                                    "month": "Maand"
+                                }
+                            },
+                            "week": {
+                                "title": "Vergelijkende statistiek. (Week)",
+                                "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Statistieken → Vergelijkend → *Week*]"
+                            },
+                            "month": {
+                                "title": "Vergelijkende statistiek. (Maand)",
+                                "path": "[📍 Pad: {{menu}} → Verzendingen → Bekijken → Menu «{{call}}» → Statistieken → Vergelijkend → *Maand*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Eigenaar van de verzending.",
+                            "empty": "De verzending heeft geen eigenaar!",
+                            "name": "Naam: {{name}}",
+                            "phone": "Telefoon: +{{phone}}",
+                            "path": "[📍 Pad: Paneel → Verzendingen → Bekijken → Menu «{{call}}» → *Eigenaar*]",
+                            "buttons": {
+                                "change": "🪧 Her toewijzen"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Selecteer een gebruiker om hem als eigenaar van deze verzending aan te wijzen.",
+                                "path": "[📍 Pad: Paneel → Verzendingen → Bekijken → Menu «{{call}}» → Eigenaar → *Selectie*]",
+                                "noOwner": "Zonder eigenaar"
+                            },
+                            "action": {
+                                "success": "✅ Eigenaar succesvol her toegewezen!",
+                                "error": "❌ Eigenaar niet her toegewezen!\nProbeer het later opnieuw!",
+                                "path": "[📍 Pad: Paneel → Verzendingen → Bekijken → Menu «{{call}}» → Eigenaar → {{owner}} → *Toewijzing*]"
+                            }
+                        }
+                    },
+                    "call": {
+                        "main": {
+                            "title": "Naam (roepnaam) van de verzending: {{call}}",
+                            "empty": "De verzending heeft geen naam!",
+                            "path": "[📍 Pad: Paneel → Verzendingen → Bekijken → Menu «{{call}}» → *Naam*]"
+                        },
+                        "update": {
+                            "title": "De roepnaam van de verzending wijzigen! Stuur de nieuwe naam van de verzending.",
+                            "path": "[📍 Pad: Paneel → Verzendingen → Bekijken → Menu «{{call}}» → Naam → *Bijwerken*]"
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Contractbeheer",
+                    "amount": "Aantal: {{amount}}",
+                    "path": "[📍 Pad: {{menu}} → *Contracten*]",
+                    "empty": "Er zijn nog geen contracten ingesteld! Kom later terug.",
+                    "contractName": "{{userName}}: vanaf {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Lijst van contracten.",
+                        "path": "[📍 Pad: {{menu}} → Contracten → *Bekijken*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Contract van {{dateStart}}.",
+                            "sendouts": "Verzendingen in het contract: {{sendouts}}",
+                            "noSendouts": "leeg.",
+                            "userName": "Klant: {{userName}}",
+                            "dateStart": "Startdatum: {{dateStart}}",
+                            "dateEnd": "Einddatum: {{dateEnd}}",
+                            "price": "Prijs: {{price}}",
+                            "priceText": "Prijs (tekst): {{priceText}}",
+                            "error": "Fout bij het ontvangen van het contract. Neem contact op met de beheerder",
+                            "path": "\n[📍 Pad: {{menu}} → Contracten → Bekijken → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success":"✅ Contract succesvol verwijderd!",
+                            "error": "❌ Contract niet verwijderd!\nProbeer het later opnieuw",
+                            "path": "[📍 Pad: Paneel → Contracten → Bekijken → {{dateStart}} → *Verwijderen*]"
+                        },
+                        "create": {
+                            "step": "Stap: {{number}} / 3",
+                            "noUser": "Om naar stap #2 te gaan, moet je stap #1 uitvoeren!",
+                            "noSendouts": "Om naar stap #3 te gaan, moet je stap #2 uitvoeren!",
+                            "noFreeSendouts": "De klant heeft geen vrije verzendingen (zonder contract)!",
+                            "data": {
+                                "user": "Selecteer de gebruiker voor wie het contract wordt opgesteld",
+                                "sendout": "Selecteer de verzendingen die in het contract worden opgenomen",
+                                "contract": "Stuur de gegevens met betrekking tot het contract"
+                            },
+                            "title": "Contract aanmaken! Lees de instructies voor correct aanmaken.",
+                            "path": "[📍 Pad: Paneel → Contracten → *Aanmaken*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Kies het formaat waarin het contract wordt opgeslagen",
+                                "path": "[📍 Pad: {{menu}} → Contracten → Bekijken → {{dateStart}} → *Exportformaat kiezen*]"
+                            },
+                            "result": {
+                                "error": "❌ Fout bij het exporteren van het contract\nNeem contact op met de beheerder",
+                                "caption": "Contract in {{exportType}}-formaat is klaar!",
+                                "path": "\n[📍 Pad: {{menu}} → Contracten → Bekijken → {{dateStart}} → *Exporteren naar {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "title": "Contract aanmaken! Lees voor het begin de instructies voor correct aanmaken.",
+                    "path": "[📍 Pad: Paneel → Contracten → *Aanmaken*]"
+                }
+            }
+        }
+    }
+}
