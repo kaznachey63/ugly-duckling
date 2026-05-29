@@ -1,0 +1,700 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Đang xử lý...",
+            "cabinet": "🪴 Tài khoản cá nhân",
+            "buttons": {
+                "export": "📧 Xuất",
+                "nameless": "Không tên",
+                "back": "🔙 Quay lại",
+                "remove": "🗑 Xóa",
+                "miss": "Thiếu",
+                "create": "➕ Tạo",
+                "update": "✍ Sửa",
+                "clear": "🗑 Xóa sạch",
+                "view": "👁 Xem",
+                "contract": "📜 Hợp đồng",
+                "sendout": "📢 Gửi hàng loạt",
+                "chat": "🗯 Nhóm",
+                "contactAdmin": "👨 Quản trị viên"
+            },
+            "titles": {
+                "validate": "⚠ Dữ liệu đầu vào có định dạng không hợp lệ. Vui lòng gửi lại",
+                "cabinet": "Tài khoản",
+                "panel": "Bảng điều khiển → Dữ liệu",
+                "amount": "Số lượng: {{amount}}",
+                "sendoutActive": "Hiện tại đang có gửi hàng loạt hoạt động, vui lòng thử quản lý dữ liệu sau"
+            }
+        },
+        "maintenace": "🚧 Hiện đang bảo trì kỹ thuật. Việc sử dụng dịch vụ tạm thời bị giới hạn.\nNgay khi hoàn tất, chúng tôi sẽ thông báo ngay!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Quản trị viên",
+            "customer": "Khách hàng",
+            "unknown": "Không xác định"
+        },
+        "languages": {
+            "ru": "Tiếng Nga",
+            "zh": "Tiếng Trung",
+            "en": "Tiếng Anh",
+            "sr": "Tiếng Serbia",
+            "vi": "Tiếng Việt",
+            "th": "Tiếng Thái",
+            "id": "Tiếng Indonesia",
+            "bn": "Tiếng Bengal",
+            "fa": "Tiếng Ba Tư"
+        },
+        "commands": {
+            "cabinet": "Tài khoản",
+            "settings": "Cài đặt",
+            "panel": "Bảng quản trị"
+        },
+        "chart": {
+            "labelMonth": "Thống kê số nhóm đã nhận được gửi hàng loạt. {{month}} {{year}}",
+            "labelWeek": "Thống kê số nhóm đã nhận được gửi hàng loạt. Tuần",
+            "amountSms": "Số lượng tin nhắn",
+            "noLogs": "Chưa có gửi hàng loạt nào trong khoảng thời gian đã chọn!",
+            "daysOfWeek": {
+                "Mon": "Thứ 2",
+                "Tue": "Thứ 3",
+                "Wed": "Thứ 4",
+                "Thu": "Thứ 5",
+                "Fri": "Thứ 6",
+                "Sat": "Thứ 7",
+                "Sun": "CN"
+            },
+            "months": {
+                "january": "Tháng 1",
+                "february": "Tháng 2",
+                "march": "Tháng 3",
+                "april": "Tháng 4",
+                "may": "Tháng 5",
+                "june": "Tháng 6",
+                "july": "Tháng 7",
+                "august": "Tháng 8",
+                "september": "Tháng 9",
+                "october": "Tháng 10",
+                "november": "Tháng 11",
+                "december": "Tháng 12"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Tháng 1",
+                "1": "Tháng 2",
+                "2": "Tháng 3",
+                "3": "Tháng 4",
+                "4": "Tháng 5",
+                "5": "Tháng 6",
+                "6": "Tháng 7",
+                "7": "Tháng 8",
+                "8": "Tháng 9",
+                "9": "Tháng 10",
+                "10": "Tháng 11",
+                "11": "Tháng 12"
+            },
+            "days": {
+                "0": "Thứ 2",
+                "1": "Thứ 3",
+                "2": "Thứ 4",
+                "3": "Thứ 5",
+                "4": "Thứ 6",
+                "5": "Thứ 7",
+                "6": "CN"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Trình phân tích",
+            "sendout": "Gửi hàng loạt"
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Lỗi khi xử lý số điện thoại!\nVui lòng thử lại!",
+                "accessDenied": "Truy cập bị từ chối. Để sử dụng dịch vụ gửi hàng loạt, hãy dùng lệnh '/settings', phần 'Trợ giúp'"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Đã lưu văn bản!",
+                "error": "❌ Không lưu được văn bản!\nVui lòng liên hệ quản trị viên",
+                "path": "[📍 Đường dẫn: {{menu}} → Menu «{{call}}» → Tin nhắn → *Tạo văn bản*]"
+            },
+            "generatingText": {
+                "result": "Tin nhắn đã tạo được hiển thị bên dưới.\nSử dụng các nút dưới tin nhắn để quyết định số phận của văn bản.",
+                "pathChoose": "[📍 Đường dẫn: {{menu}} → Menu «{{call}}» → Tin nhắn → Tạo văn bản → *Số phận văn bản*]",
+                "buttons": {
+                    "save": "✔ Lưu",
+                    "cancel": "❌ Không lưu"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Đã sửa văn bản!",
+                "error": "❌ Không sửa được văn bản!\nVui lòng liên hệ quản trị viên",
+                "path": "[📍 Đường dẫn: {{menu}} → Menu «{{call}}» → Tin nhắn → *Sửa văn bản*]"
+            },
+            "addingMedia": {
+                "error": "💀 Lỗi khi lưu media!\nVui lòng liên hệ quản trị viên",
+                "invalidType": "Loại media không được nhận dạng! Hãy thử lại",
+                "bigSize": "Tệp quá lớn. Kích thước tối đa {{size}} MB.",
+                "documentsWTMedia": "Tôi không thể xử lý tài liệu không chứa: ảnh / video / gif",
+                "success": "✅ Đã lưu media!",
+                "error2": "❌ Không lưu được media!\nVui lòng liên hệ quản trị viên",
+                "path": "[📍 Đường dẫn: {{menu}} → Menu «{{call}}» → Tin nhắn → *Thêm media*]"
+            },
+            "addingTime": {
+                "success": "✅ Đã lưu thời gian!",
+                "error": "❌ Không sửa được thời gian!\nVui lòng liên hệ quản trị viên",
+                "path": "[📍 Đường dẫn: Bảng điều khiển → Menu «{{call}}» → Lịch trình → Xem → *Thêm*]"
+            },
+            "updatingTime": {
+                "success": "✅ Đã sửa thời gian!",
+                "error": "❌ Không sửa được thời gian!\nVui lòng liên hệ quản trị viên",
+                "path": "[📍 Đường dẫn: Bảng điều khiển → Menu «{{call}}» → Lịch trình → Xem → *Sửa*]"
+            },
+            "addingIdea": {
+                "success": "✅ Ý tưởng đã được thêm thành công, cảm ơn!",
+                "error": "❌ Không thêm được ý tưởng!\nHãy thử lại hoặc liên hệ quản trị viên!",
+                "path": "[📍 Đường dẫn: Cài đặt → Ý tưởng → *Thêm*]"
+            },
+            "addingUser": {
+                "success": "✅ Người dùng đã được tạo thành công!",
+                "error": "❌ Không tạo được người dùng!\nVui lòng thử lại sau.",
+                "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → Người dùng → *Tạo*]"
+            },
+            "addingContract": {
+                "success": "✅ Hợp đồng đã được tạo thành công!",
+                "error": "❌ Không tạo được hợp đồng!\nVui lòng thử lại sau.",
+                "path": "[📍 Đường dẫn: Bảng điều khiển → Hợp đồng → *Tạo*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Tín hiệu gọi đã được cập nhật thành công!",
+                "error": "❌ Không cập nhật được tín hiệu gọi!\nVui lòng thử lại sau.",
+                "path": "[📍 Đường dẫn: Bảng điều khiển → Gửi hàng loạt → Xem → Menu «{{call}}» → Tên → *Cập nhật*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Tên đã được cập nhật thành công!",
+                "error": "❌ Không cập nhật được tên!\nVui lòng thử lại sau.",
+                "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → Người dùng → Xem → {{userName}} → *Sửa tên*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Số điện thoại đã được cập nhật thành công!",
+                "error": "❌ Không cập nhật được số điện thoại!\nVui lòng thử lại sau.",
+                "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → Người dùng → Xem → {{userName}} → *Sửa số*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "Xin chào! Tôi là bot Telegram, trợ lý gửi hàng loạt.\n\nTôi thực sự khuyên bạn nên làm quen với tất cả các lệnh của tôi bằng cách nhấn nút bầu dục 'Menu' ở góc dưới bên trái màn hình.\nSau khi đọc hướng dẫn sử dụng, được gọi bằng lệnh '/settings', trong phần 'Về bot'."
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Cài đặt",
+                    "buttons": {
+                        "about": "ℹ Về dịch vụ",
+                        "help": "❓ Trợ giúp",
+                        "idea": "💡 Ý tưởng",
+                        "language": "🌐 Ngôn ngữ"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Chọn ngôn ngữ.",
+                        "path": "[📍 Đường dẫn: Cài đặt → *Ngôn ngữ*]"
+                    },
+                    "change": {
+                        "good": "Đã thay đổi ngôn ngữ!",
+                        "error": "Ngôn ngữ này đã được chọn!"
+                    }
+                },
+                "help": {
+                    "title": "Gặp sự cố?\nCó câu hỏi?\nMuốn khen ngợi dịch vụ?\nCó ý tưởng cải thiện dịch vụ?",
+                    "interest": "Hoặc quan tâm đến sản phẩm?\nHãy điền bảng câu hỏi bên dưới và chúng tôi sẽ liên hệ với bạn!",
+                    "path": "[📍 Đường dẫn: Cài đặt → *Trợ giúp*]"
+                },
+                "about": {
+                    "title": "Dịch vụ được phát triển để tự động hóa quảng cáo (bài đăng, gửi hàng loạt) sản phẩm (ưu đãi) của bạn trong các nhóm / cuộc trò chuyện / kênh.\n\nHướng dẫn sử dụng Bot - qua nút bên dưới!",
+                    "instruction": "📖 Hướng dẫn",
+                    "path": "[📍 Đường dẫn: Cài đặt → *Về dịch vụ*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Menu phần Ý tưởng.\nTại đây bạn có thể đề xuất ý tưởng phát triển dịch vụ.",
+                        "path": "[📍 Đường dẫn: Cài đặt → *Ý tưởng*]",
+                        "buttons": {
+                            "add": "🗳 Đề xuất",
+                            "see": "🔍 Khám phá"
+                        }
+                    },
+                    "add": {
+                        "title": "Hãy gửi cho tôi media/âm thanh/văn bản, v.v. Không giới hạn!",
+                        "path": "[📍 Đường dẫn: Cài đặt → Ý tưởng → *Thêm*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {                        
+                        "logout": "🚪 Đăng xuất",
+                        "login": "🔑 Đăng nhập"
+                    }
+                },
+                "auth": {
+                    "login": {
+                        "buttons": {
+                            "cancel": "❌ Hủy",
+                            "phone": "📞 Chia sẻ"
+                        },
+                        "unknownMessage": "Hành động không được nhận dạng, vui lòng thử lại bằng các nút 'Chia sẻ' và 'Hủy'",
+                        "manyAttempts": "Số lần thử xác thực đã sử dụng trước giới hạn một giờ: {{actualAttempts}} trên {{maxAttempts}}",
+                        "stop": "Xác thực bị giới hạn. Giới hạn sẽ được dỡ bỏ sau: {{dateTime}}",
+                        "canceled": "Đã dừng xác thực thành công!",
+                        "title": "Để vào bảng điều khiển gửi hàng loạt, bạn cần chia sẻ số điện thoại với tôi.\n\nNút sẽ xuất hiện cạnh bàn phím, có nhãn '📞 Chia sẻ'.",
+                        "good": "Bạn đã xác thực thành công vào hệ thống!",
+                        "already": "Bạn đã được xác thực trong hệ thống!",
+                        "bad": "Lỗi khi xác thực vào hệ thống.\nVui lòng liên hệ quản trị viên!",
+                        "path": "[📍 Đường dẫn: Tài khoản → *Xác thực*"
+                    },
+                    "logout": {
+                        "good": "Bạn đã đăng xuất khỏi hệ thống thành công. Dữ liệu của bạn đã bị xóa!",
+                        "bad": "Lỗi khi đăng xuất khỏi hệ thống.\nVui lòng liên hệ quản trị viên!",
+                        "path": "[📍 Đường dẫn: Tài khoản → *Đăng xuất*]"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "title": "👨‍💻 Bảng quản trị viên",
+                    "buttons": {
+                        "data": "🗂 Dữ liệu",
+                        "system": "⚡ Hệ thống "
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Quản lý dữ liệu",
+                        "path": "[📍 Đường dẫn: Bảng điều khiển → *Dữ liệu*]",
+                        "buttons": {
+                            "user": "👥 Người dùng"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Quản lý nhóm",
+                            "amount": "Số lượng: {{amount}}",
+                            "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → *Nhóm*]",
+                            "buttons": {
+                                "reupload": "🔁 Làm mới"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Đã cập nhật nhóm!",
+                            "error": "❌ Lỗi khi cập nhật nhóm\nVui lòng liên hệ quản trị viên",
+                            "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → Nhóm → *Cập nhật*]"
+                        },
+                        "clear": {
+                            "success": "✅ Đã xóa sạch nhóm!",
+                            "error": "❌ Lỗi khi xóa sạch nhóm\nVui lòng liên hệ quản trị viên",
+                            "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → Nhóm → *Xóa sạch*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Quản lý người dùng",
+                            "amount": "Số lượng: {{amount}}",
+                            "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → *Người dùng*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Danh sách người dùng.",
+                                "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → Người dùng → *Xem*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Quản lý người dùng",
+                                    "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → Người dùng → Xem → *{{userName}}*]",
+                                    "telegramId": "ID Tg: {{telegramId}}",
+                                    "name": "Tên: {{name}}",
+                                    "username": "Tên người dùng: @{{username}}",
+                                    "phone": "Điện thoại: +{{phone}}",
+                                    "language": "Ngôn ngữ: {{language}}",
+                                    "role": "Vai trò: {{role}}"
+                                },
+                                "remove": {
+                                    "success":"✅ Đã xóa người dùng thành công!",
+                                    "error": "❌ Không xóa được người dùng!\nVui lòng thử lại sau",
+                                    "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → Người dùng → Xem → {{userName}} → *Xóa*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Đang thay đổi số điện thoại!\nHãy gửi vào đây.",
+                                        "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → Người dùng → Xem → {{userName}} → *Sửa số*]"
+                                    },
+                                    "name": {
+                                        "title": "Đang thay đổi tên!\nHãy gửi vào đây.",
+                                        "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → Người dùng → Xem → {{userName}} → *Sửa tên*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Đang tạo người dùng! Trước khi bắt đầu, hãy đọc hướng dẫn tạo đúng cách.",
+                            "path": "[📍 Đường dẫn: Bảng điều khiển → Dữ liệu → Người dùng → *Tạo*]"
+                        }   
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Quản lý hệ thống",
+                        "path": "[📍 Đường dẫn: Bảng điều khiển → *Hệ thống*]",
+                        "buttons": {
+                            "server": "📟 Máy chủ",
+                            "maintenace": "🛠️ Bảo trì"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Danh mục quy trình",
+                            "path": "[📍 Đường dẫn: Bảng điều khiển → Hệ thống → *Máy chủ*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Trình phân tích"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Chọn quy trình",
+                                "path": "[📍 Đường dẫn: Bảng điều khiển → Hệ thống → Máy chủ → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Quản lý quy trình",
+                                    "path": "[📍 Đường dẫn: Bảng điều khiển → Hệ thống → Máy chủ → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Trạng thái",
+                                        "log": "📋 Nhật ký"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Đường dẫn: Bảng điều khiển → Hệ thống → Máy chủ → {{processType}} → {{processName}} → *Trạng thái*]",
+                                    "status": {
+                                        "active": "✅ Quy trình đang hoạt động.\nĐể dừng, hãy nhấn nút bên dưới",
+                                        "inactive": "❌ Quy trình không hoạt động.\nĐể khởi động, hãy nhấn nút bên dưới",
+                                        "failed": "💀 Quy trình đã chết.\nVui lòng liên hệ lập trình viên.",
+                                        "error": "Vấn đề với quy trình. Vui lòng liên hệ lập trình viên."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Dừng",
+                                        "start": "▶️ Khởi động",
+                                        "restart": "🔁 Khởi động lại"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Xem nhật ký",
+                                    "path": "[📍 Đường dẫn: Bảng điều khiển → Hệ thống → Máy chủ → {{processType}} → {{processName}} → *Nhật ký*]",
+                                    "sort": "Sắp xếp: {{sortType}}",
+                                    "sortType": {
+                                        "new": "từ mới đến cũ",
+                                        "old": "từ cũ đến mới"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Danh sách các đợt gửi hàng loạt đang hoạt động hiện tại.",
+                    "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → *Xem*]",
+                    "empty": "Chưa có đợt gửi hàng loạt nào được thiết lập! Hãy quay lại sau."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Menu gửi hàng loạt «{{call}}»",
+                        "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → *Menu «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Lịch trình",
+                            "message": "💬 Tin nhắn",
+                            "statistic": "📈 Thống kê",
+                            "owner": "👑 Chủ sở hữu",
+                            "call": "🏷️ Tên"
+                        }
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Lỗi khi nhận tin nhắn!\nVui lòng liên hệ quản trị viên",
+                            "empty": "Không có tin nhắn!\nĐể thêm văn bản, hãy nhấn nút bên dưới",
+                            "title": "Menu phần Tin nhắn. Số lượng: {{amount}}",
+                            "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → *Tin nhắn*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Chọn loại thêm văn bản.",
+                                "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → *Chế độ thêm*]",
+                                "buttons": {
+                                    "generate": "🔮 Tạo",
+                                    "hand": "✍ Nhập thủ công"
+                                }
+                            },
+                            "generate": {
+                                "title": "Tôi sẽ tạo văn bản bán hàng! \nHãy gửi văn bản nguồn vào đây. Không được gửi cả đống văn bản.",
+                                "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → *Tạo*]",
+                                "save": "✅ Đã lưu văn bản!",
+                                "cancel": "❌ Không lưu văn bản!",
+                                "pathSave": "[📍 Đường dẫn: {{menu}} → Menu «{{call}}» → Tin nhắn → Tạo → *Lưu*]",
+                                "pathCancel": "[📍 Đường dẫn: {{menu}} → Menu «{{call}}» → Tin nhắn → Tạo → *Hủy*]"
+                            },
+                            "hand": {
+                                "title": "Đang thêm văn bản!\nHãy gửi văn bản hoặc chuyển tiếp nó vào đây. Không được gửi cả đống văn bản.",
+                                "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → *Thêm văn bản*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Đã xóa sạch tất cả tin nhắn!",
+                            "error": "❌ Không xóa được tin nhắn!\nVui lòng liên hệ quản trị viên",
+                            "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → *Xóa sạch*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Tin nhắn số {{number}}.",
+                                "amountMedia": "Số lượng media: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → *Xem*]",
+                                "buttons": {
+                                    "updateText": "✍️ Sửa văn bản",
+                                    "addMedia": "🖼 Thêm media",
+                                    "clearAllMedia": "🗑 Xóa sạch media"    
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Đang sửa văn bản!\nHãy gửi văn bản hoặc chuyển tiếp nó vào đây. Không được gửi cả đống văn bản.",
+                                    "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → *Sửa văn bản*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Đã xóa tin nhắn!",
+                                    "error": "❌ Không xóa được văn bản!\nVui lòng liên hệ quản trị viên",
+                                    "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → *Xóa văn bản*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Đang thêm media!\nHãy gửi 1 media.",
+                                    "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → *Thêm media*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Đã xóa sạch tất cả media!",
+                                    "error": "❌ Không xóa được media!\nVui lòng liên hệ quản trị viên",
+                                    "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → *Xóa sạch media*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Chuyển nhanh đến tin nhắn theo số",
+                                "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → Xem → *Chọn tin nhắn*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Chọn định dạng để lưu danh sách tin nhắn",
+                                "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → *Chọn định dạng xuất*]"
+                            },
+                            "result": {
+                                "error": "❌ Lỗi khi xuất tin nhắn\nVui lòng liên hệ quản trị viên",
+                                "caption": "Danh sách tin nhắn ở định dạng {{exportType}} đã sẵn sàng!",
+                                "path": "\n[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Tin nhắn → *Xuất sang {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Lịch trình chưa được thiết lập!",
+                            "title": "Menu phần Lịch trình. Số lượng thời gian trong lịch trình: {{amount}}",
+                            "path": "\n[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → *Lịch trình*]"
+                        },
+                        "create": {
+                            "title": "Đang thêm thời gian!",
+                            "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Lịch trình → *Thêm*]"
+                        },
+                        "clear": {
+                            "success": "✅ Đã xóa sạch lịch trình!",
+                            "error": "❌ Không xóa được lịch trình!\nVui lòng liên hệ quản trị viên",
+                            "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Lịch trình → *Xóa sạch*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Lịch trình gửi hàng loạt được hiển thị bên dưới dưới dạng các nút.",
+                                "path": "\n[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Lịch trình → *Xem*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Đang sửa thời gian!",
+                                    "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Lịch trình → Xem → *Sửa thời gian*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Đã xóa thời gian!",
+                                    "error": "❌ Không xóa được thời gian! Vui lòng liên hệ quản trị viên",
+                                    "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Lịch trình → Xem → *Xóa thời gian*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Thời gian đã chọn:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Lịch trình → Xem → *Chọn hành động*]"
+                                }
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Chọn định dạng thống kê mong muốn.",
+                            "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → *Thống kê*]",
+                            "buttons": {
+                                "selective": "📅 Chọn lọc",
+                                "comparative": "📊 So sánh"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Hiện tại phần này đang được bảo trì kỹ thuật.",
+                                "noData": "Không tìm thấy kết quả cho ngày đã chọn!",
+                                "noAccess": "Nút đã nhấn không khả dụng!",
+                                "title": "Thống kê chọn lọc.\nDưới đây là lịch với các ngày. Để xem kết quả gửi hàng loạt của một ngày nào đó, chỉ cần nhấp vào ngày đó!\n\nNếu việc gửi hàng loạt:\n*không xảy ra,\n*không có,\n*không được lên lịch,\n*hoặc điều khác\n- sẽ hiển thị thông báo với ngữ cảnh tương ứng, đừng lo lắng.",
+                                "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Thống kê → *Chọn lọc*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Kết quả gửi hàng loạt cho ngày {{date}}.",
+                                    "time": "Thời gian: {{time}}",
+                                    "success": "Số lần gửi thành công: {{success}}",
+                                    "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Thống kê → Chọn lọc → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "amount":"Số lượng: {{amount}}",
+                                    "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Thống kê → Chọn lọc → {{date}} → *Nhóm*]"    
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Chọn loại thống kê so sánh.",
+                                "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Thống kê → *So sánh*]",
+                                "buttons": {
+                                    "week": "Tuần",
+                                    "month": "Tháng"
+                                }
+                            },
+                            "week": {
+                                "title": "Thống kê so sánh. (Tuần)",
+                                "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Thống kê → So sánh → *Tuần*]"
+                            },
+                            "month": {
+                                "title": "Thống kê so sánh. (Tháng)",
+                                "path": "[📍 Đường dẫn: {{menu}} → Gửi hàng loạt → Xem → Menu «{{call}}» → Thống kê → So sánh → *Tháng*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Chủ sở hữu đợt gửi hàng loạt.",
+                            "empty": "Đợt gửi hàng loạt không có chủ sở hữu!",
+                            "name": "Tên: {{name}}",
+                            "phone": "Điện thoại: +{{phone}}",
+                            "path": "[📍 Đường dẫn: Bảng điều khiển → Gửi hàng loạt → Xem → Menu «{{call}}» → *Chủ sở hữu*]",
+                            "buttons": {
+                                "change": "🪧 Chỉ định lại"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Chọn người dùng để chỉ định làm chủ sở hữu của đợt gửi hàng loạt này.",
+                                "path": "[📍 Đường dẫn: Bảng điều khiển → Gửi hàng loạt → Xem → Menu «{{call}}» → Chủ sở hữu → *Chọn*]",
+                                "noOwner": "Không có chủ sở hữu"
+                            },
+                            "action": {
+                                "success": "✅ Đã chỉ định lại chủ sở hữu thành công!",
+                                "error": "❌ Không chỉ định lại được chủ sở hữu! \nVui lòng thử lại sau!",
+                                "path": "[📍 Đường dẫn: Bảng điều khiển → Gửi hàng loạt → Xem → Menu «{{call}}» → Chủ sở hữu → {{owner}} → *Chỉ định*]"
+                            }
+                        }
+                    },
+                    "call": {
+                        "main": {
+                            "title": "Tên (tín hiệu gọi) của đợt gửi hàng loạt: {{call}}",
+                            "empty": "Đợt gửi hàng loạt không có tên!",
+                            "path": "[📍 Đường dẫn: Bảng điều khiển → Gửi hàng loạt → Xem → Menu «{{call}}» → *Tên*]"
+                        },
+                        "update": {
+                            "title": "Đang thay đổi tín hiệu gọi của đợt gửi hàng loạt! Hãy gửi tên mới của đợt gửi hàng loạt.",
+                            "path": "[📍 Đường dẫn: Bảng điều khiển → Gửi hàng loạt → Xem → Menu «{{call}}» → Tên → *Cập nhật*]"
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Quản lý hợp đồng",
+                    "amount": "Số lượng: {{amount}}",
+                    "path": "[📍 Đường dẫn: {{menu}} → *Hợp đồng*]",
+                    "empty": "Chưa có hợp đồng nào được thiết lập! Hãy quay lại sau.",
+                    "contractName": "{{userName}}: từ {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Danh sách hợp đồng.",
+                        "path": "[📍 Đường dẫn: {{menu}} → Hợp đồng → *Xem*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Hợp đồng từ {{dateStart}}.",
+                            "sendouts": "Các đợt gửi hàng loạt bao gồm trong hợp đồng: {{sendouts}}",
+                            "noSendouts": "trống.",
+                            "userName": "Khách hàng: {{userName}}",
+                            "dateStart": "Ngày bắt đầu: {{dateStart}}",
+                            "dateEnd": "Ngày kết thúc: {{dateEnd}}",
+                            "price": "Giá: {{price}}",
+                            "priceText": "Giá (văn bản): {{priceText}}",
+                            "error": "Lỗi khi nhận hợp đồng. Vui lòng liên hệ quản trị viên",
+                            "path": "\n[📍 Đường dẫn: {{menu}} → Hợp đồng → Xem → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success":"✅ Đã xóa hợp đồng thành công!",
+                            "error": "❌ Không xóa được hợp đồng!\nVui lòng thử lại sau",
+                            "path": "[📍 Đường dẫn: Bảng điều khiển → Hợp đồng → Xem → {{dateStart}} → *Xóa*]"
+                        },
+                        "create": {
+                            "step": "Bước: {{number}} / 3",
+                            "noUser": "Để chuyển sang bước số 2, bạn cần thực hiện bước số 1!",
+                            "noSendouts": "Để chuyển sang bước số 3, bạn cần thực hiện bước số 2!",
+                            "noFreeSendouts": "Khách hàng không có đợt gửi hàng loạt nào tự do (không có hợp đồng)!",
+                            "data": {
+                                "user": "Chọn người dùng mà hợp đồng sẽ được lập",
+                                "sendout": "Chọn các đợt gửi hàng loạt sẽ được đưa vào hợp đồng",
+                                "contract": "Gửi dữ liệu liên quan đến hợp đồng"
+                            },
+                            "title": "Đang tạo hợp đồng! Hãy đọc hướng dẫn tạo đúng cách.",
+                            "path": "[📍 Đường dẫn: Bảng điều khiển → Hợp đồng → *Tạo*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Chọn định dạng để lưu hợp đồng",
+                                "path": "[📍 Đường dẫn: {{menu}} → Hợp đồng → Xem → {{dateStart}} → *Chọn định dạng xuất*]"
+                            },
+                            "result": {
+                                "error": "❌ Lỗi khi xuất hợp đồng\nVui lòng liên hệ quản trị viên",
+                                "caption": "Hợp đồng ở định dạng {{exportType}} đã sẵn sàng!",
+                                "path": "\n[📍 Đường dẫn: {{menu}} → Hợp đồng → Xem → {{dateStart}} → *Xuất sang {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "title": "Đang tạo hợp đồng! Trước khi bắt đầu, hãy đọc hướng dẫn tạo đúng cách.",
+                    "path": "[📍 Đường dẫn: Bảng điều khiển → Hợp đồng → *Tạo*]"
+                }
+            }
+        }
+    }
+}
