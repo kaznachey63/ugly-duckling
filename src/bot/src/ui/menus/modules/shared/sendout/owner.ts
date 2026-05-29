@@ -4,6 +4,7 @@ import type { Menu } from "@shared/types/Menu";
 import type { User } from "@shared/types/DB";
 import formatting from "@utils/formatting";
 import { CryptoService } from "@common/services/CryptoService";
+import constants from "@common/constants";
 
 /**
  * Меню просмотра владельца рассылки
@@ -53,7 +54,19 @@ function update(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
             )
             .url(
                 "🥷",
-                "https://t.me/+79277225099"
+                constants.link.profileByNumber + user.phone
+            )
+            .url(
+                "🥷",
+                constants.link.profileByNumber1 + user.phone
+            )
+            .url(
+                "🥷",
+                constants.link.profileByNumber2 + user.phone
+            )
+            .url(
+                "🥷",
+                constants.link.profileByNumber3 + user.phone
             )
         .row();
     });
