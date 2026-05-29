@@ -26,7 +26,10 @@ function main(ctx: MyContext, user: User | undefined): Menu<InlineKeyboard> {
 
         if (!ctx.session.sendout.contract_id) keyboard.text(ctx.t("modules.shared.sendout.view.owner.main.buttons.change"), `mainChangeOwner:${sendoutId}`);
     }
-    else text.unshift(ctx.t("modules.shared.sendout.view.owner.main.empty"));
+    else {
+        text.unshift(ctx.t("modules.shared.sendout.view.owner.main.empty"));
+        keyboard.text(ctx.t("modules.shared.sendout.view.owner.main.buttons.change"), `mainChangeOwner:${sendoutId}`);
+    }
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`);
     return { text: formatting.escapeMarkdown(text.join('\n')), keyboard }
 }
