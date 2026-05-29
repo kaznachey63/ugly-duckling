@@ -53,7 +53,7 @@ function update(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
                 `mainAppointOwner:${ctx.session.sendout.id}=${user.id}`
             )
             .url(
-                "🥷",
+                constants.emoji.profile,
                 constants.link.chatByNumber + CryptoService.decrypt(user.phone!)
             )
         .row();

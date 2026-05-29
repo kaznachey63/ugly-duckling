@@ -46,8 +46,8 @@ function viewUser(ctx: MyContext): Menu<InlineKeyboard> {
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.role", { role:  ctx.t(`utils.roleCodes.${user.role?.code}`) }), `updateUserRole#${user.id}`).row()
         
         user.telegram_id ? 
-            keyboard.url('🥷', constants.link.profileById + user.telegram_id)
-            : keyboard.url('🥷', constants.link.chatByNumber + CryptoService.decrypt(user.phone!))
+            keyboard.url(constants.emoji.profile, constants.link.profileById + user.telegram_id)
+            : keyboard.url(constants.emoji.profile, constants.link.chatByNumber + CryptoService.decrypt(user.phone!))
     
         .text(ctx.t("utils.shared.buttons.remove"), `removeUser#${user.id}`).style("danger")
         .row().text(ctx.t("utils.shared.buttons.back"), "viewUsers");

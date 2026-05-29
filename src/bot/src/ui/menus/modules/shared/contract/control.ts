@@ -40,7 +40,7 @@ function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
                 `pickUser#${user.id}`
             )
             .url(
-                ctx.t("utils.shared.buttons.information"), 
+                constants.emoji.profile, 
                 constants.link.profileById + user.telegram_id
             )
             .row();
@@ -50,7 +50,7 @@ function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
                 `pickUser#${user.id}`
             )
             .url(
-                ctx.t("utils.shared.buttons.information"), 
+                constants.emoji.profile, 
                 constants.link.profileById + user.telegram_id
             )
             .row();

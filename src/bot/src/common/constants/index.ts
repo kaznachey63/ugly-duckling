@@ -139,6 +139,10 @@ const limit = {
     commandsTime: 1500
 };
 
+const emoji = {
+    profile: '🥷'
+};
+
 export default {
     shared,
     link,
@@ -157,4 +161,5 @@ export default {
     priceText,
     crypto,
     limit,
+    emoji,
 }
