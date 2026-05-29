@@ -54,19 +54,19 @@ function update(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
             )
             .url(
                 "🥷",
-                constants.link.profileByNumber + user.phone
+                constants.link.profileByNumber + CryptoService.decrypt(user.phone!)
             )
             .url(
                 "🥷",
-                constants.link.profileByNumber1 + user.phone
+                constants.link.profileByNumber1 + CryptoService.decrypt(user.phone!)
             )
             .url(
                 "🥷",
-                constants.link.profileByNumber2 + user.phone
+                constants.link.profileByNumber2 + CryptoService.decrypt(user.phone!)
             )
             .url(
                 "🥷",
-                constants.link.profileByNumber3 + user.phone
+                constants.link.profileByNumber3 + CryptoService.decrypt(user.phone!)
             )
         .row();
     });
