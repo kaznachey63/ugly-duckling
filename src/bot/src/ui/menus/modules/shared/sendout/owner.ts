@@ -56,18 +56,6 @@ function update(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
                 "🥷",
                 constants.link.profileByNumber + CryptoService.decrypt(user.phone!)
             )
-            .url(
-                "🥷",
-                constants.link.profileByNumber1 + CryptoService.decrypt(user.phone!)
-            )
-            .url(
-                "🥷",
-                constants.link.profileByNumber2 + CryptoService.decrypt(user.phone!)
-            )
-            .url(
-                "🥷",
-                constants.link.profileByNumber3 + CryptoService.decrypt(user.phone!)
-            )
         .row();
     });
     keyboard.text(ctx.t("utils.shared.buttons.back"), `mainOwner:${ctx.session.sendout.id}`)

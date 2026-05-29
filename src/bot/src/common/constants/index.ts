@@ -11,10 +11,7 @@ const link = {
     ideasChat: "https://t.me/c/3760118458/81/",
     profileById: "tg://user?id=",
     chatByNumber: "https://t.me/+",
-    profileByNumber: "tg://user?phone=",
-    profileByNumber1: "tg://user?number=+",
-    profileByNumber2: "tg://user?number_phone=+",
-    profileByNumber3: "tg://user?phone_number=+"
+    profileByNumber: "tg://resolve?phone=+",
 }
 
 const calendar = {
