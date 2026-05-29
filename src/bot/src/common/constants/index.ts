@@ -12,9 +12,9 @@ const link = {
     profileById: "tg://user?id=",
     chatByNumber: "https://t.me/+",
     profileByNumber: "tg://user?phone=",
-    profileByNumber1: "tg://user?number=",
-    profileByNumber2: "tg://user?number_phone=",
-    profileByNumber3: "tg://user?phone_number="
+    profileByNumber1: "tg://user?number=+",
+    profileByNumber2: "tg://user?number_phone=+",
+    profileByNumber3: "tg://user?phone_number=+"
 }
 
 const calendar = {
