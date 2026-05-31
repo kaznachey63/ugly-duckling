@@ -1,7 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import menuCabinet from '@menus/modules/commands/cabinet/main';
-import db from '@shared/db';
 
 const cabinetComposer = new Composer<MyContext>();
 
