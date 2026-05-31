@@ -41,7 +41,7 @@ async function login(ctx: MyContext) {
         reply_markup: menu.keyboard,
         parse_mode: 'MarkdownV2'
     });
-    
+    ctx.session.other.ids.cash = [];
     ctx.session.other.ids.cash.push(msg?.message_id);
 }
 
