@@ -56,9 +56,15 @@ async function checkLogin(ctx: MyContext) {
         if (infoAboutAuth.blocked_until) {
             if (infoAboutAuth.blocked_until.getTime() >= Date.now()) {
                 menu = menuAuth.stop(ctx);
-                await ctx.editMessageText(menu.text, {
-                    parse_mode: 'MarkdownV2'
-                });
+                try {
+                    await ctx.editMessageText(menu.text, {
+                        parse_mode: 'MarkdownV2'
+                    });
+                } catch {
+                    await ctx.reply(menu.text, {
+                        parse_mode: 'MarkdownV2'
+                    });
+                }
             }
             else {
                 const authLimit: AuthLimit = {

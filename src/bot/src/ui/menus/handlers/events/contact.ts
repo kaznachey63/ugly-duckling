@@ -19,6 +19,5 @@ export default function contact(ctx: MyContext): Menu<InlineKeyboard> {
         keyboard.text(ctx.t("modules.commands.cabinet.auth.login.buttons.again"), "loginAuth");
     }
     
-
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }
