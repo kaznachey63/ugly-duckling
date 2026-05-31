@@ -59,7 +59,7 @@ function logout(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
         result ? 
             ctx.t("modules.commands.cabinet.auth.logout.good") :
             ctx.t("modules.commands.cabinet.auth.logout.bad")
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
+    const keyboard = new InlineKeyboard();
 
     return { text: format.escapeMarkdown(text), keyboard }
 }
