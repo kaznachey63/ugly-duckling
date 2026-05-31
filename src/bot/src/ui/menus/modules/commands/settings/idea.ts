@@ -5,7 +5,7 @@ import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
 
 /**
- * Меню команды idea
+ * Меню раздела idea
  */
 function main(ctx: MyContext, lastMessageId: string): Menu<InlineKeyboard> {
     const text = [

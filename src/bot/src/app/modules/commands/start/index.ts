@@ -1,12 +1,16 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-
+import menuStart from '@menus/modules/commands/start/main';
 const startComposer = new Composer<MyContext>();
 
 // Команда /start
 startComposer.command('start', async (ctx: MyContext) => {
     try {
-        await ctx.reply(ctx.t("modules.commands.start.title"));
+        const menu = menuStart(ctx);
+        await ctx.reply(menu.text, {
+            reply_markup: menu.keyboard,
+            parse_mode: "MarkdownV2"
+        });
     } catch (error) {
         console.error("Ошибка в команде start:", error);
     }

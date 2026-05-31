@@ -4,7 +4,7 @@ import utils from '@utils';
 import { InlineKeyboard } from 'grammy';
 
 /**
- * Меню команды help
+ * Меню команды settings
  */
 export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = ctx.t("modules.commands.settings.main.title");

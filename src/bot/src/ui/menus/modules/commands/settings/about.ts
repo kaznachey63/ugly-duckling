@@ -5,7 +5,7 @@ import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
 
 /**
- * Меню команды about
+ * Меню раздела about
  */
 export default function about(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
@@ -13,7 +13,7 @@ export default function about(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.settings.about.path")
     ].join('\n\n');
     const keyboard = new InlineKeyboard()
-        .url(ctx.t("modules.commands.settings.about.instruction"), constants.link.instructionAboutCommands).row()
+        .url(ctx.t("modules.commands.settings.about.instruction"), constants.link.instruction.service).row()
         .text(ctx.t("utils.shared.buttons.back"), "mainSettings")
     ;
     return { text: format.escapeMarkdown(text), keyboard }

@@ -5,7 +5,7 @@ import format from '@utils/formatting';
 import constants from '@constants';
 
 /**
- * Меню команды help
+ * Меню раздела help
  */
 export default function help(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
