@@ -10,7 +10,7 @@ panelComposer.command('panel', async (ctx: MyContext) => {
     if (ctx.session.isAdmin) {
         const menu = menuPanel(ctx);
         await ctx.reply(menu.text, {
-            reply_markup: menu.keyboard,
+            reply_markup: menu.keyboard ?? null,
             parse_mode: 'MarkdownV2'
         });
     }
@@ -20,7 +20,7 @@ panelComposer.callbackQuery("mainPanel", async (ctx: MyContext) => {
     try {
         const menu = menuPanel(ctx);
         await ctx.editMessageText(menu.text, {
-            reply_markup: menu.keyboard,
+            reply_markup: menu.keyboard ?? null,
             parse_mode: 'MarkdownV2'
         });
     } catch (error) {
