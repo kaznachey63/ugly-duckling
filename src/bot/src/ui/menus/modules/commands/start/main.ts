@@ -11,6 +11,7 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("modules.commands.start.title"),
         ctx.t("modules.commands.start.commands"),
+        ctx.t("modules.commands.start.uAdmin"),
         ctx.t("modules.commands.start.link"),
     ].join('\n\n');
 
