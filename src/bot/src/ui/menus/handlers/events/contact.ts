@@ -12,11 +12,14 @@ export default function contact(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("handlers.events.contact.accessDenied"),
         ctx.t("modules.commands.cabinet.auth.login.path")
     ];
+    const keyboard = new InlineKeyboard();
 
     if (ctx.session.authLimit.failed_attempts == 3) text.splice(1, 0, ctx.t("modules.commands.cabinet.auth.login.stop", { dateTime: ctx.session.authLimit.blocked_until?.toLocaleString('ru-RU') }));
-    else if (ctx.session.authLimit.failed_attempts! > 0) text.splice(1, 0, ctx.t("modules.commands.cabinet.auth.login.manyAttempts", { actualAttempts: ctx.session.authLimit.failed_attempts, maxAttempts: constants.limit.authMaxAttempts }));
+    else if (ctx.session.authLimit.failed_attempts! > 0) {
+        text.splice(1, 0, ctx.t("modules.commands.cabinet.auth.login.manyAttempts", { actualAttempts: ctx.session.authLimit.failed_attempts, maxAttempts: constants.limit.authMaxAttempts }));
+        keyboard.text(ctx.t("modules.commands.cabinet.auth.login.buttons.again"));
+    }
     
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
 
     return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
 }
