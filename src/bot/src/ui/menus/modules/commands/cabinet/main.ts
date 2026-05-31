@@ -24,7 +24,7 @@ console.log(ctx.session.user.role_id);
             ;
             text.push(ctx.t("utils.shared.cabinet"));
         }
-        case 3: {
+        default: {
             text.push(ctx.t("utils.shared.titles.accessDenied.all"));
             break;
         }

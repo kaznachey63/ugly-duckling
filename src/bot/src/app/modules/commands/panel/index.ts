@@ -7,13 +7,11 @@ import dataComposer from "./features/data";
 const panelComposer = new Composer<MyContext>();
 
 panelComposer.command('panel', async (ctx: MyContext) => {
-    if (ctx.session.isAdmin) {
-        const menu = menuPanel(ctx);
-        await ctx.reply(menu.text, {
-            reply_markup: menu.keyboard ?? null,
-            parse_mode: 'MarkdownV2'
-        });
-    }
+    const menu = menuPanel(ctx);
+    await ctx.reply(menu.text, {
+        reply_markup: menu.keyboard ?? null,
+        parse_mode: 'MarkdownV2'
+    });
 });
 
 panelComposer.callbackQuery("mainPanel", async (ctx: MyContext) => {
