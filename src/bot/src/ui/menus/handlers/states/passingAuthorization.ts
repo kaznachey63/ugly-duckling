@@ -11,6 +11,6 @@ export default function passingAuthorization(ctx: MyContext) {
         ctx.t("modules.commands.cabinet.auth.login.path")
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"),  ctx.session.isAdmin ? "mainPanel" : "mainCabinet");
+    const keyboard = new InlineKeyboard();
     return { text: format.escapeMarkdown(text), keyboard }
 };
