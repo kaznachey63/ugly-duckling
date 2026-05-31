@@ -2,7 +2,7 @@ import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import menuContact from "@menus/handlers/events/contact";
-import menuAuth from '@menus/modules/commands/cabinet/auth';
+import menuAuth from '@menus/modules/commands/auth/main';
 import type { User } from '@shared/types/DB';
 import localization from '@utils/localization';
 import common from '@utils/common';

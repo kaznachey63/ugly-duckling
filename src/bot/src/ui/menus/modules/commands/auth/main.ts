@@ -12,7 +12,6 @@ function login(ctx: MyContext): Menu<Keyboard> {
     const text = [ 
         attempts > 0 ? ctx.t("modules.commands.cabinet.auth.login.manyAttempts", { actualAttempts: attempts, maxAttempts: constants.limit.authMaxAttempts }) : '',
         ctx.t("modules.commands.cabinet.auth.login.title"),
-        ctx.t("modules.commands.cabinet.auth.login.path")
     ].filter(Boolean).join('\n\n');
     
     const keyboard = new Keyboard()
@@ -28,12 +27,8 @@ function login(ctx: MyContext): Menu<Keyboard> {
  * Запрет к авторизации
  */
 function stop(ctx: MyContext): Menu<InlineKeyboard> {
-    const text = [ 
-        ctx.t("modules.commands.cabinet.auth.login.stop", { dateTime: ctx.session.authLimit.blocked_until?.toLocaleString('ru-RU') }),
-        ctx.t("modules.commands.cabinet.auth.login.path")
-    ].join('\n\n');
-    
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
+    const text = ctx.t("modules.commands.cabinet.auth.login.stop", { dateTime: ctx.session.authLimit.blocked_until?.toLocaleString('ru-RU') });
+    const keyboard = new InlineKeyboard();
     
     return { text: format.escapeMarkdown(text), keyboard }
 }
@@ -42,36 +37,28 @@ function stop(ctx: MyContext): Menu<InlineKeyboard> {
  * Обработка кнопки войти
  */
 function processLogin(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
-    let text = [];
+    const text = 
+        result ?
+            ctx.t("modules.commands.cabinet.auth.login.good") :
+            ctx.t("modules.commands.cabinet.auth.login.bad")
+    ;
 
-    if (result) {
-        text.push(
-            ctx.t("modules.commands.cabinet.auth.login.good"),
-            ctx.t("modules.commands.cabinet.auth.login.path")
-        );
-    }
-    else {
-        text.push(
-            ctx.t("modules.commands.cabinet.auth.login.bad"),
-            ctx.t("modules.commands.cabinet.auth.login.path")
-        );
-    }
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
+    const keyboard = new InlineKeyboard();
+    
+    if (ctx.session.isAdmin) keyboard.text(ctx.t("utils.shared.panel"), "mainPanel");
+    else keyboard.text(ctx.t("modules.commands.cabinet"), "mainCabinet");
 
-    return { text: format.escapeMarkdown(text.join('\n\n')), keyboard }
+    return { text: format.escapeMarkdown(text), keyboard }
 }
 
 /**
  * Меню кнопки выйти
  */
 function logout(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
-    const text = [ 
+    const text = 
         result ? 
             ctx.t("modules.commands.cabinet.auth.logout.good") :
             ctx.t("modules.commands.cabinet.auth.logout.bad")
-        ,
-        ctx.t("modules.commands.cabinet.auth.logout.path")
-    ].join('\n\n');
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainCabinet");
 
     return { text: format.escapeMarkdown(text), keyboard }

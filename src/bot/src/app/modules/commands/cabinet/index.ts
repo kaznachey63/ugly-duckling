@@ -1,7 +1,6 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import menuCabinet from '@menus/modules/commands/cabinet/main';
-import authComposer from './auth';
 import db from '@shared/db';
 
 const cabinetComposer = new Composer<MyContext>();
@@ -21,7 +20,5 @@ cabinetComposer.callbackQuery("mainCabinet", async (ctx: MyContext) => {
         parse_mode: "MarkdownV2" 
     });    
 });
-
-cabinetComposer.use(authComposer);
 
 export default cabinetComposer;
