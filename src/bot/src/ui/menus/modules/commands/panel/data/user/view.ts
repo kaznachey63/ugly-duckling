@@ -33,7 +33,7 @@ function viewUser(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: ctx.t("utils.shared.buttons.miss") }), '#').row()
+        .text(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: user.telegram_id ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.name", { name: user.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateUserName#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.username", { username: user.username ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.phone", { phone: CryptoService.decrypt(user.phone!) }), `updateUserPhone#${user.id}`).row()
