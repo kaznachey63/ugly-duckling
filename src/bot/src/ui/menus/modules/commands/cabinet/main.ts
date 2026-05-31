@@ -23,7 +23,7 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
             ;
             text.push(ctx.t("utils.shared.cabinet"));
         }
-        case 3: {
+        default: {
             text.push(ctx.t("utils.shared.titles.accessDenied.all"));
             break;
         }
