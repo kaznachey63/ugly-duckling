@@ -36,20 +36,13 @@ async function login(ctx: MyContext) {
     const menu = menuAuth.login(ctx);
         
     ctx.session.state.passingAuthorization = true;
-    // await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId!);
-    let msg;
-    try {
-        msg = await ctx.reply(menu.text, {
-                reply_markup: menu.keyboard,
-                parse_mode: 'MarkdownV2'
-        });
-    } catch {
-            msg = await ctx.reply(menu.text, {
-                reply_markup: menu.keyboard,
-                parse_mode: 'MarkdownV2'
-            });
-    }
-    ctx.session.other.ids.cash.push(msg?.message_id!);
+    if (ctx.callbackQuery?.data) await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId!);
+    const msg = await ctx.reply(menu.text, {
+        reply_markup: menu.keyboard,
+        parse_mode: 'MarkdownV2'
+    });
+    
+    ctx.session.other.ids.cash.push(msg?.message_id);
 }
 
 /**
