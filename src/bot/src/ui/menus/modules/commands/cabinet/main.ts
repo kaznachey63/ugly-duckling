@@ -9,7 +9,6 @@ import format from '@utils/formatting';
 export default function main(ctx: MyContext): Menu<InlineKeyboard> {
     let text: string[] = [];
     const keyboard = new InlineKeyboard();
-console.log(ctx.session.user.role_id);
 
     switch (ctx.session.user.role_id) {
         case 1: {

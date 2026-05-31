@@ -58,6 +58,7 @@ async function checkLogin(ctx: MyContext) {
                 menu = menuAuth.stop(ctx);
                 try {
                     await ctx.editMessageText(menu.text, {
+                        reply_markup: menu.keyboard ?? null,
                         parse_mode: 'MarkdownV2'
                     });
                 } catch {
