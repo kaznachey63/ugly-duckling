@@ -7,7 +7,7 @@ import format from '@utils/formatting';
  * Меню команды cabinet
  */
 export default function main(ctx: MyContext): Menu<InlineKeyboard> {
-    const text: string[] = [];
+    let text: string[] = [];
     const keyboard = new InlineKeyboard();
 
     switch (ctx.session.user.role_id) {
@@ -23,7 +23,7 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
             ;
             text.push(ctx.t("utils.shared.cabinet"));
         }
-        default: {
+        case 3: {
             text.push(ctx.t("utils.shared.titles.accessDenied.all"));
             break;
         }
