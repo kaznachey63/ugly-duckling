@@ -10,7 +10,6 @@ import constants from '@common/constants';
 export default function contact(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [ 
         ctx.t("handlers.events.contact.accessDenied"),
-        ctx.t("modules.commands.cabinet.auth.login.path")
     ];
     const keyboard = new InlineKeyboard();
 
