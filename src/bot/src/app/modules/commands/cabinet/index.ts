@@ -6,17 +6,17 @@ import db from '@shared/db';
 const cabinetComposer = new Composer<MyContext>();
 
 cabinetComposer.command('cabinet', async (ctx: MyContext) => {
-    const menu = menuCabinet(ctx, await db.user.exists(BigInt(ctx.from?.id!)), ctx.session.isAdmin);
+    const menu = menuCabinet(ctx);
         await ctx.reply(menu.text, { 
-        reply_markup: menu.keyboard, 
+        reply_markup: menu.keyboard ?? null, 
         parse_mode: "MarkdownV2" 
     });    
 });
 
 cabinetComposer.callbackQuery("mainCabinet", async (ctx: MyContext) => {
-    const menu = menuCabinet(ctx, await db.user.exists(BigInt(ctx.from?.id!)), ctx.session.isAdmin);
+    const menu = menuCabinet(ctx);
     await ctx.editMessageText(menu.text, { 
-        reply_markup: menu.keyboard, 
+        reply_markup: menu.keyboard ?? null, 
         parse_mode: "MarkdownV2" 
     });    
 });
