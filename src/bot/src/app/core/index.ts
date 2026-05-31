@@ -32,8 +32,11 @@ bot.use(i18nMiddleware);
  * Корневая инициализация обработки сообщений
  */
 bot.on('message', async (ctx: MyContext, next: NextFunction) => {
+    // проверка на состояние
+    const isIdle = Object.values(ctx.session.state).every((value) => value === false);
+    
     // проверка на команду
-    if (ctx.message?.text?.startsWith('/')) {
+    if (!isIdle && !ctx.session.state.passingAuthorization && ctx.message?.text?.startsWith('/')) {
         if (!utils.init.rateLimitCommands(ctx, commandCooldowns)) return; // если спам командами
         await ctx.api.sendChatAction(ctx.chat?.id!, "typing"); // бот "печатает"
         common.resetSessionStates(ctx.session); // сброс состояний сессии
