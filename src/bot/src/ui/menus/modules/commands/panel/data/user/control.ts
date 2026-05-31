@@ -37,7 +37,7 @@ function updateName(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.panel.data.user.view.control.update.name.path", { userName: ctx.session.userForUpdate.name ?? ctx.t("utils.shared.buttons.nameless")})
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainUser");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewUser#${ctx.session.userForUpdate.id}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
@@ -47,7 +47,7 @@ function updatePhone(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.panel.data.user.view.control.update.phone.path", { userName: ctx.session.userForUpdate.name ?? ctx.t("utils.shared.buttons.nameless") })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainUser");
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewUser#${ctx.session.userForUpdate.id}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 
