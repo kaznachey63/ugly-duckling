@@ -30,13 +30,13 @@ authComposer.callbackQuery("logoutAuth", async (ctx: MyContext) => {
 });
 
 /**
- * Осуществление авторизации при успехе
+ * Осуществление авторизации
  */
 async function login(ctx: MyContext) {
     const menu = menuAuth.login(ctx);
         
     ctx.session.state.passingAuthorization = true;
-    await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId!);
+    // await ctx.api.deleteMessage(ctx.chatId!, ctx.msgId!);
     
     const msg = await ctx.reply(menu.text, {
         reply_markup: menu.keyboard,
