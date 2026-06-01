@@ -22,6 +22,7 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
                 .row().text(ctx.t("modules.commands.cabinet.main.buttons.logout"), "logoutAuth");
             ;
             text.push(ctx.t("utils.shared.cabinet"));
+            break;
         }
         default: {
             text.push(ctx.t("utils.shared.titles.accessDenied.all"));
