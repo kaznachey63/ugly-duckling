@@ -17,12 +17,11 @@ export default function addingMedia(ctx: MyContext, validate: boolean, result?: 
     else {
         if (result) {
             text.unshift(ctx.t("handlers.states.addingMedia.success"));
-            // if (ctx.session.message.media?.length! <= 3) keyboard.text(ctx.t("modules.shared.sendout.view.message.view.main.buttons.addMedia"), `addMedia:${ctx.session.sendout.id}#${ctx.session.message.id}`).style("success");
+            if (ctx.session.message.media?.length! <= 3) keyboard.text(ctx.t("modules.shared.sendout.view.message.view.main.buttons.addMedia"), `addMedia:${ctx.session.sendout.id}#${ctx.session.message.id}`).style("success");
         }
         else {
             text.unshift(ctx.t("handlers.states.addingMedia.error"));
             keyboard.url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin)
-
         }
     }
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}-none`);

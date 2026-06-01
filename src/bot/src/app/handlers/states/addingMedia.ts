@@ -82,15 +82,24 @@ export default async function addingMedia(ctx: MyContext) {
         // Добавление медиа
         const media: Media = {
             message_id: message!.id!,
-            name: nameFile
+            name: nameFile!
         };
+
+        message!.media!.push({ 
+            message_id: message!.id ?? null, 
+            name: nameFile ?? null,
+            id: 0,
+            position: null 
+        });
+
+        ctx.session.message = message!;
 
         await db.media.add(media);
 
         await sleep(250);
         const server = new ServerManager();
-        utils.common.resetSessionStates(ctx.session);
         await editMessage(ctx, true, await server.restartProcessOrNot(ctx.session.sendout?.name!, true));
+        utils.common.resetSessionStates(ctx.session);
     } catch (error) {
         console.error("Ошибка при сохранении медиа:", error);
         utils.common.resetSessionStates(ctx.session);
