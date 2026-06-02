@@ -46,7 +46,7 @@ function processLogin(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
     
     if (ctx.session.isAdmin) keyboard.text(ctx.t("utils.shared.panel"), "mainPanel");
-    else keyboard.text(ctx.t("modules.commands.cabinet"), "mainCabinet");
+    else keyboard.text(ctx.t("utils.shared.cabinet"), "mainCabinet");
 
     return { text: format.escapeMarkdown(text), keyboard }
 }
