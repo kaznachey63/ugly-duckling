@@ -41,6 +41,8 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         const phoneNumberHashed = CryptoService.encrypt(phoneNumber);
         const matchNumberCustomer = await db.user.matchPhoneNumber(phoneNumberHashed);
 
+        console.log(phoneNumber, '\n', phoneNumberHashed, '\n', matchNumberCustomer, '\n', await db.user.gets());
+
         if (await db.user.exists(BigInt(ctx!.from!.id!))) {
             await ctx.reply(ctx.t("modules.commands.cabinet.auth.login.already"), { 
                 parse_mode: "MarkdownV2" 
