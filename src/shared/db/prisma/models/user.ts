@@ -46,6 +46,7 @@ export type UserMinAggregateOutputType = {
   phone: string | null
   language: string | null
   role_id: number | null
+  phone_index: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -56,6 +57,7 @@ export type UserMaxAggregateOutputType = {
   phone: string | null
   language: string | null
   role_id: number | null
+  phone_index: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -66,6 +68,7 @@ export type UserCountAggregateOutputType = {
   phone: number
   language: number
   role_id: number
+  phone_index: number
   _all: number
 }
 
@@ -90,6 +93,7 @@ export type UserMinAggregateInputType = {
   phone?: true
   language?: true
   role_id?: true
+  phone_index?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -100,6 +104,7 @@ export type UserMaxAggregateInputType = {
   phone?: true
   language?: true
   role_id?: true
+  phone_index?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -110,6 +115,7 @@ export type UserCountAggregateInputType = {
   phone?: true
   language?: true
   role_id?: true
+  phone_index?: true
   _all?: true
 }
 
@@ -207,6 +213,7 @@ export type UserGroupByOutputType = {
   phone: string | null
   language: string | null
   role_id: number | null
+  phone_index: string | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -240,6 +247,7 @@ export type userWhereInput = {
   phone?: Prisma.StringNullableFilter<"user"> | string | null
   language?: Prisma.StringNullableFilter<"user"> | string | null
   role_id?: Prisma.IntNullableFilter<"user"> | number | null
+  phone_index?: Prisma.StringNullableFilter<"user"> | string | null
   contract?: Prisma.ContractListRelationFilter
   sendout?: Prisma.SendoutListRelationFilter
   role?: Prisma.XOR<Prisma.RoleNullableScalarRelationFilter, Prisma.roleWhereInput> | null
@@ -253,6 +261,7 @@ export type userOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   language?: Prisma.SortOrderInput | Prisma.SortOrder
   role_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone_index?: Prisma.SortOrderInput | Prisma.SortOrder
   contract?: Prisma.contractOrderByRelationAggregateInput
   sendout?: Prisma.sendoutOrderByRelationAggregateInput
   role?: Prisma.roleOrderByWithRelationInput
@@ -269,6 +278,7 @@ export type userWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringNullableFilter<"user"> | string | null
   language?: Prisma.StringNullableFilter<"user"> | string | null
   role_id?: Prisma.IntNullableFilter<"user"> | number | null
+  phone_index?: Prisma.StringNullableFilter<"user"> | string | null
   contract?: Prisma.ContractListRelationFilter
   sendout?: Prisma.SendoutListRelationFilter
   role?: Prisma.XOR<Prisma.RoleNullableScalarRelationFilter, Prisma.roleWhereInput> | null
@@ -282,6 +292,7 @@ export type userOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   language?: Prisma.SortOrderInput | Prisma.SortOrder
   role_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone_index?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.userCountOrderByAggregateInput
   _avg?: Prisma.userAvgOrderByAggregateInput
   _max?: Prisma.userMaxOrderByAggregateInput
@@ -300,6 +311,7 @@ export type userScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"user"> | string | null
   language?: Prisma.StringNullableWithAggregatesFilter<"user"> | string | null
   role_id?: Prisma.IntNullableWithAggregatesFilter<"user"> | number | null
+  phone_index?: Prisma.StringNullableWithAggregatesFilter<"user"> | string | null
 }
 
 export type userCreateInput = {
@@ -308,6 +320,7 @@ export type userCreateInput = {
   username?: string | null
   phone?: string | null
   language?: string | null
+  phone_index?: string | null
   contract?: Prisma.contractCreateNestedManyWithoutUserInput
   sendout?: Prisma.sendoutCreateNestedManyWithoutUserInput
   role?: Prisma.roleCreateNestedOneWithoutUserInput
@@ -321,6 +334,7 @@ export type userUncheckedCreateInput = {
   phone?: string | null
   language?: string | null
   role_id?: number | null
+  phone_index?: string | null
   contract?: Prisma.contractUncheckedCreateNestedManyWithoutUserInput
   sendout?: Prisma.sendoutUncheckedCreateNestedManyWithoutUserInput
 }
@@ -331,6 +345,7 @@ export type userUpdateInput = {
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone_index?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contract?: Prisma.contractUpdateManyWithoutUserNestedInput
   sendout?: Prisma.sendoutUpdateManyWithoutUserNestedInput
   role?: Prisma.roleUpdateOneWithoutUserNestedInput
@@ -344,6 +359,7 @@ export type userUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone_index?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contract?: Prisma.contractUncheckedUpdateManyWithoutUserNestedInput
   sendout?: Prisma.sendoutUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -356,6 +372,7 @@ export type userCreateManyInput = {
   phone?: string | null
   language?: string | null
   role_id?: number | null
+  phone_index?: string | null
 }
 
 export type userUpdateManyMutationInput = {
@@ -364,6 +381,7 @@ export type userUpdateManyMutationInput = {
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone_index?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type userUncheckedUpdateManyInput = {
@@ -374,6 +392,7 @@ export type userUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone_index?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserNullableScalarRelationFilter = {
@@ -399,6 +418,7 @@ export type userCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   language?: Prisma.SortOrder
   role_id?: Prisma.SortOrder
+  phone_index?: Prisma.SortOrder
 }
 
 export type userAvgOrderByAggregateInput = {
@@ -415,6 +435,7 @@ export type userMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   language?: Prisma.SortOrder
   role_id?: Prisma.SortOrder
+  phone_index?: Prisma.SortOrder
 }
 
 export type userMinOrderByAggregateInput = {
@@ -425,6 +446,7 @@ export type userMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   language?: Prisma.SortOrder
   role_id?: Prisma.SortOrder
+  phone_index?: Prisma.SortOrder
 }
 
 export type userSumOrderByAggregateInput = {
@@ -513,6 +535,7 @@ export type userCreateWithoutContractInput = {
   username?: string | null
   phone?: string | null
   language?: string | null
+  phone_index?: string | null
   sendout?: Prisma.sendoutCreateNestedManyWithoutUserInput
   role?: Prisma.roleCreateNestedOneWithoutUserInput
 }
@@ -525,6 +548,7 @@ export type userUncheckedCreateWithoutContractInput = {
   phone?: string | null
   language?: string | null
   role_id?: number | null
+  phone_index?: string | null
   sendout?: Prisma.sendoutUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -550,6 +574,7 @@ export type userUpdateWithoutContractInput = {
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone_index?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sendout?: Prisma.sendoutUpdateManyWithoutUserNestedInput
   role?: Prisma.roleUpdateOneWithoutUserNestedInput
 }
@@ -562,6 +587,7 @@ export type userUncheckedUpdateWithoutContractInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone_index?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sendout?: Prisma.sendoutUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -571,6 +597,7 @@ export type userCreateWithoutRoleInput = {
   username?: string | null
   phone?: string | null
   language?: string | null
+  phone_index?: string | null
   contract?: Prisma.contractCreateNestedManyWithoutUserInput
   sendout?: Prisma.sendoutCreateNestedManyWithoutUserInput
 }
@@ -582,6 +609,7 @@ export type userUncheckedCreateWithoutRoleInput = {
   username?: string | null
   phone?: string | null
   language?: string | null
+  phone_index?: string | null
   contract?: Prisma.contractUncheckedCreateNestedManyWithoutUserInput
   sendout?: Prisma.sendoutUncheckedCreateNestedManyWithoutUserInput
 }
@@ -623,6 +651,7 @@ export type userScalarWhereInput = {
   phone?: Prisma.StringNullableFilter<"user"> | string | null
   language?: Prisma.StringNullableFilter<"user"> | string | null
   role_id?: Prisma.IntNullableFilter<"user"> | number | null
+  phone_index?: Prisma.StringNullableFilter<"user"> | string | null
 }
 
 export type userCreateWithoutSendoutInput = {
@@ -631,6 +660,7 @@ export type userCreateWithoutSendoutInput = {
   username?: string | null
   phone?: string | null
   language?: string | null
+  phone_index?: string | null
   contract?: Prisma.contractCreateNestedManyWithoutUserInput
   role?: Prisma.roleCreateNestedOneWithoutUserInput
 }
@@ -643,6 +673,7 @@ export type userUncheckedCreateWithoutSendoutInput = {
   phone?: string | null
   language?: string | null
   role_id?: number | null
+  phone_index?: string | null
   contract?: Prisma.contractUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -668,6 +699,7 @@ export type userUpdateWithoutSendoutInput = {
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone_index?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contract?: Prisma.contractUpdateManyWithoutUserNestedInput
   role?: Prisma.roleUpdateOneWithoutUserNestedInput
 }
@@ -680,6 +712,7 @@ export type userUncheckedUpdateWithoutSendoutInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone_index?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contract?: Prisma.contractUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -690,6 +723,7 @@ export type userCreateManyRoleInput = {
   username?: string | null
   phone?: string | null
   language?: string | null
+  phone_index?: string | null
 }
 
 export type userUpdateWithoutRoleInput = {
@@ -698,6 +732,7 @@ export type userUpdateWithoutRoleInput = {
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone_index?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contract?: Prisma.contractUpdateManyWithoutUserNestedInput
   sendout?: Prisma.sendoutUpdateManyWithoutUserNestedInput
 }
@@ -709,6 +744,7 @@ export type userUncheckedUpdateWithoutRoleInput = {
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone_index?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contract?: Prisma.contractUncheckedUpdateManyWithoutUserNestedInput
   sendout?: Prisma.sendoutUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -720,6 +756,7 @@ export type userUncheckedUpdateManyWithoutRoleInput = {
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone_index?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -770,6 +807,7 @@ export type userSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   phone?: boolean
   language?: boolean
   role_id?: boolean
+  phone_index?: boolean
   contract?: boolean | Prisma.user$contractArgs<ExtArgs>
   sendout?: boolean | Prisma.user$sendoutArgs<ExtArgs>
   role?: boolean | Prisma.user$roleArgs<ExtArgs>
@@ -784,6 +822,7 @@ export type userSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   language?: boolean
   role_id?: boolean
+  phone_index?: boolean
   role?: boolean | Prisma.user$roleArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -795,6 +834,7 @@ export type userSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   language?: boolean
   role_id?: boolean
+  phone_index?: boolean
   role?: boolean | Prisma.user$roleArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -806,9 +846,10 @@ export type userSelectScalar = {
   phone?: boolean
   language?: boolean
   role_id?: boolean
+  phone_index?: boolean
 }
 
-export type userOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "telegram_id" | "name" | "username" | "phone" | "language" | "role_id", ExtArgs["result"]["user"]>
+export type userOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "telegram_id" | "name" | "username" | "phone" | "language" | "role_id" | "phone_index", ExtArgs["result"]["user"]>
 export type userInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contract?: boolean | Prisma.user$contractArgs<ExtArgs>
   sendout?: boolean | Prisma.user$sendoutArgs<ExtArgs>
@@ -837,6 +878,7 @@ export type $userPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     phone: string | null
     language: string | null
     role_id: number | null
+    phone_index: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1270,6 +1312,7 @@ export interface userFieldRefs {
   readonly phone: Prisma.FieldRef<"user", 'String'>
   readonly language: Prisma.FieldRef<"user", 'String'>
   readonly role_id: Prisma.FieldRef<"user", 'Int'>
+  readonly phone_index: Prisma.FieldRef<"user", 'String'>
 }
     
 

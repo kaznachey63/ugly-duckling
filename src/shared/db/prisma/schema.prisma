@@ -117,6 +117,7 @@ model user {
   phone       String?    @unique
   language    String?    @default("ru")
   role_id     Int?       @default(3)
+  phone_index String?
   contract    contract[]
   sendout     sendout[]
   role        role?      @relation(fields: [role_id], references: [id], onUpdate: NoAction, map: "user_role_id")

@@ -12,6 +12,22 @@ async function getIds(): Promise<UserIds[]> {
 }
 
 /**
+ * Получение данных о пользователях
+ */
+async function gets(): Promise<User[]> {
+    try {
+        return await prisma.user.findMany({
+            include: {
+                role: true
+            }
+        });
+    } catch (error) {
+        console.error("Ошибка при получении пользователей", error);
+        return [];
+    }
+}
+
+/**
  * Получение данных о пользователе
  * @param value - значение для поиска (ID или телефон или тг.айди)
  */
@@ -36,22 +52,6 @@ async function get(value: string | bigint | number): Promise<User | undefined> {
     } catch (error) {
         console.error("Ошибка при получении пользователя", error);
         return undefined;
-    }
-}
-
-/**
- * Получение данных о пользователях
- */
-async function gets(): Promise<User[]> {
-    try {
-        return await prisma.user.findMany({
-            include: {
-                role: true
-            }
-        });
-    } catch (error) {
-        console.error("Ошибка при получении пользователей", error);
-        return [];
     }
 }
 
@@ -89,6 +89,7 @@ async function insert(user: User): Promise<boolean> {
                 name: user.name,
                 username: user.username,
                 phone: user.phone,
+                phone_index: user.phone_index,
                 language: user.language,
                 role_id: user.role?.id
             }
@@ -118,6 +119,28 @@ async function exists(userId: bigint): Promise<boolean> {
     } catch (error) {
         console.error("Ошибка при проверке пользователя", error);
         return false;
+    }
+}
+
+
+/**
+ * Проверка номера телефона на существование в БД
+ */
+async function matchPhoneNumber(searchIndex: string): Promise<User | undefined> {
+    try {
+        const user = await prisma.user.findFirst({
+            where: {
+                phone_index: searchIndex
+            },
+            include: {
+                role: true
+            }
+        });
+
+        return user ?? undefined;
+
+    } catch {
+        return undefined;
     }
 }
 
@@ -167,25 +190,6 @@ async function removeFromSystem(value: number | bigint): Promise<boolean> {
         return true;
     } catch (error) {
         console.error("Ошибка при удалении пользователя", error);
-        return false;
-    }
-}
-
-/**
- * Проверка номера телефона на существование в БД
- */
-async function matchPhoneNumber(phoneNumberHashed: string): Promise<boolean> {
-    try {
-        const user = await prisma.user.findFirst({
-            where: {
-                phone: phoneNumberHashed
-            },
-            select: {
-                id: true
-            }
-        });
-        return user !== null;
-    } catch (error) {
         return false;
     }
 }

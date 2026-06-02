@@ -59,6 +59,7 @@ function formatUser(userInText: string): User {
         name: name === '-' ? null : name!,
         username: username === '-' ? null : username!,
         phone: CryptoService.encrypt(phone!),
+        phone_index: CryptoService.makeSearchIndex(phone!),
         language: language === '-' ? 'ru' : (language as LanguageCode),
         role: {
             id: localization.getRoleId(itogRoleCode),

@@ -38,19 +38,18 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
 
         const isAdminPhone = common.isAdminPhone(phoneNumber);
         ctx.session.isAdmin = isAdminPhone;
-        const phoneNumberHashed = CryptoService.encrypt(phoneNumber);
-        const matchNumberCustomer = await db.user.matchPhoneNumber(phoneNumberHashed);
-
-        console.log(phoneNumber, '\n', phoneNumberHashed, '\n', matchNumberCustomer, '\n', await db.user.gets());
+        const searchIndex = CryptoService.makeSearchIndex(phoneNumber);
+        const customer = await db.user.matchPhoneNumber(searchIndex);
 
         if (await db.user.exists(BigInt(ctx!.from!.id!))) {
             await ctx.reply(ctx.t("modules.commands.cabinet.auth.login.already"), { 
                 parse_mode: "MarkdownV2" 
             });  
         }
-        else if (matchNumberCustomer || isAdminPhone) { 
-            ctx.session.user.phone = phoneNumberHashed;
-            
+        else if (customer || isAdminPhone) { 
+            ctx.session.user.phone = isAdminPhone ? CryptoService.encrypt(phoneNumber) : customer!.phone!;
+            ctx.session.user.phone_index = searchIndex;
+
             // 3. Удаляем, передавая ID сообщения обработки
             await common.deleteCashMessages(ctx);
 
@@ -120,6 +119,7 @@ function formatUser(ctx: MyContext): User {
         username: ctx.from?.username!,
         name: lastName ? `${firstName} ${lastName}` : firstName,
         phone: phone,
+        phone_index: ctx.session.user.phone_index!,
         language: ctx.session.user.language!,
         role: {
             id: roleId,
