@@ -36,14 +36,12 @@ export default async function addingMedia(ctx: MyContext) {
     switch (mediaType) {
         case 'document': {
             if (!isDocumentAllowed(msg)) {
-                utils.common.resetSessionStates(ctx.session);
                 await editMessage(ctx, false);
                 return;
             }
             break;
         }
         case 'unknown': {
-            utils.common.resetSessionStates(ctx.session);
             await editMessage(ctx, false);
             return;
         }
@@ -52,7 +50,6 @@ export default async function addingMedia(ctx: MyContext) {
     // Валидация (размер + mime)
     const mediaData = extractMediaData(msg, mediaType);
     if (!mediaData || !validateMedia(mediaData)) {
-        utils.common.resetSessionStates(ctx.session);
         await editMessage(ctx, false);
         return;
     }
@@ -84,7 +81,9 @@ export default async function addingMedia(ctx: MyContext) {
             message_id: message!.id!,
             name: nameFile!
         };
-
+        
+        if (!message!.media) message!.media = [];
+        
         message!.media!.push({ 
             message_id: message!.id ?? null, 
             name: nameFile ?? null,

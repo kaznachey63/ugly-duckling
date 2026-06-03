@@ -23,12 +23,12 @@ const link = {
             add: "https://telegra.ph/Dobavlenie-mediafajlov-06-03",
         },
         contract: { 
-            add: "",
+            add: "https://telegra.ph/Dobavlenie-dogovora-06-03",
         },
         text: {
             add: {
-                hand: "",
-                giga: "",
+                hand: "https://telegra.ph/Dobavlenie-soobshcheniya-teksta-vruchnuyu-06-03",
+                giga: "https://telegra.ph/Dobavlenie-soobshcheniya-teksta-s-pomoshchyu-Nejroseti-06-03",
             },
         },
     },
