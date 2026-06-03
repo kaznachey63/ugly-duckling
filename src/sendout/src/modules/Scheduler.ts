@@ -23,7 +23,7 @@ export class Scheduler {
     async start() {
         const times = await db.schedule.get(this.sendout.id!);
         const messages = await db.message.getMessages(this.sendout.id!);
-        const chats = this.sendout.mode_test ? ["-1003760118458"] : await db.chat.get();
+        const chats = this.sendout.mode_test ? [ { chat_id: "-1003760118458"} ] : await db.chat.get();
         
         if (!chats || !chats.length) {
             console.log('⚠️  Нет чатов для рассылки');
@@ -39,11 +39,11 @@ export class Scheduler {
             console.log('⚠️  Нет сообщений для рассылки');
             return;
         }
-        this.getSendingStats(chats as any); // из-за тестового чата
+        this.getSendingStats(chats); // из-за тестового чата
         times.forEach((time) => {
             cron.schedule(time.cron!, async () => {
                 await db.sendout.setModeActive(this.sendout.id!, true);
-                await this.execute(new Date(), time.id!, messages, chats as any);
+                await this.execute(new Date(), time.id!, messages, chats);
             }, { timezone: "Europe/Moscow" });
         });
     }

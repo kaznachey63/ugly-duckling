@@ -14,7 +14,7 @@ export class Sender {
     constructor(private readonly client: TelegramClient) { }
 
     async send(chat: Chat, message: Message, counter: Counter, sendout: Sendout) {
-        const { chat_id: chatId, title: chatName = "Тестовый чат" } = chat;
+        const { chat_id: chatId, title: chatName = "Неизвестный чат" } = chat;
         try {
             // Получаем правильный объект сущности (InputPeer)
             const entity = await this.client.getInputEntity(chatId!);
