@@ -14,28 +14,28 @@ function validateText(text: string): boolean {
 }
 
 function validateTime(time: string): boolean {
-    const trimmed = time.trim();
-    const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5]?[0-9]$/;
+    const parts = time.trim().split(/\s+/);
 
-    if (timeRegex.test(trimmed)) {
-        return true;
+    if (parts.length !== 5) return false;
+
+    const [minute, hour, day, month, weekDay] = parts;
+
+    const isNum = (v: string) => /^\d+$/.test(v);
+
+    if (
+        !isNum(minute!) || +minute! < 0 || +minute! > 59 ||
+        !isNum(hour!) || +hour! < 0 || +hour! > 23
+    ) {
+        return false;
     }
 
-    const parts = trimmed.split(/\s+/);
-    return parts.length === 5;
+    return [day, month, weekDay].every(v => v === '*' || isNum(v!));
 }
 
 function formatCronTime(time: string): string {
-    const trimmed = time.trim();
-    const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5]?[0-9]$/;
+    const [minute, hour, day, month, weekDay] = time.trim().split(/\s+/);
 
-    if (timeRegex.test(trimmed)) {
-        const [hour, minute] = trimmed.split(':');
-        return `${minute!.padStart(2, '0')} ${hour!.padStart(2, '0')} * * *`;
-    }
-
-    const [minute, hour, day, month, week_day] = trimmed.split(/\s+/);
-    return `${minute!.padStart(2, '0')} ${hour!.padStart(2, '0')} ${day} ${month} ${week_day}`;
+    return `${minute!.padStart(2, '0')} ${hour!.padStart(2, '0')} ${day} ${month} ${weekDay}`;
 }
 
 function validatePhone(phone: string): boolean {

@@ -65,6 +65,24 @@ async function create(schedule: Schedule) {
 }
 
 /**
+ * Добавление большого количества времени для рассылки
+ */
+async function createMany(times: Schedule[]) {
+    try {
+        await prisma.schedule.createMany({
+            data: await Promise.all(times.map(async (schedule) => ({
+                cron: schedule.cron,
+                label: schedule.label,
+                position: await shared.getPosition(schedule.sendout_id!, 'schedule'),
+                sendout_id: schedule.sendout_id
+            })))
+        });
+    } catch (error) {
+        console.log("Ошибка при добавлении времени", error);
+    }
+}
+
+/**
  * Обновление времени в графике
  */
 async function update(schedule: Schedule) {
@@ -120,5 +138,6 @@ export default {
     remove,
     create,
     update,
-    clear
+    clear,
+    createMany,
 };

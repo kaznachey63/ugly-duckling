@@ -8,21 +8,31 @@ import type { Schedule } from '@shared/types/DB';
 import shared from './shared';
 
 export default async function addingTime(ctx: MyContext) {
-    let menu;
-    if (!shared.validateTime(ctx.message?.text!)) {
-        menu = menuAddingTime(ctx, false, false);
-    }
-    else {
-        const formattedCronTime = shared.formatCronTime(ctx.message?.text!);
-        const formattedTime: Schedule = {
-            cron: shared.formatCronTime(ctx.message?.text!),
-            label: utils.local.formatTimeToRu(formattedCronTime)!,
-            sendout_id: ctx.session.sendout.id!
-        };
+    const text = ctx.message?.text?.trim() ?? '';
+    const lines = text.split('\n').map(line => line.trim()).filter(Boolean);
 
-        await db.schedule.create(formattedTime);
+    let menu;
+
+    if (!lines.length || lines.some(line => !shared.validateTime(line))) {
+        menu = menuAddingTime(ctx, false, false);
+    } else {
+        const times: Schedule[] = lines.map(line => {
+            const cron = shared.formatCronTime(line);
+
+            return {
+                cron,
+                label: utils.local.formatTimeToRu(cron)!,
+                sendout_id: ctx.session.sendout.id!
+            };
+        });
+
+        await db.schedule.createMany(times);
+
         const server = new ServerManager();
-        menu = menuAddingTime(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true), true);
+        const restartState = await server.restartProcessOrNot(ctx.session.sendout.name!, true);
+
+        menu = menuAddingTime(ctx, restartState, true);
+
         common.resetSessionStates(ctx.session);
     }
 
