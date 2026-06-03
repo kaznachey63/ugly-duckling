@@ -14,21 +14,27 @@ function validateText(text: string): boolean {
 }
 
 function validateTime(time: string): boolean {
-    const parts = time.trim().split(/\s+/);
+    const clean = time
+        .replace(/\u200B/g, '') // zero-width
+        .replace(/\uFEFF/g, '') // BOM
+        .replace(/\r/g, '')
+        .trim();
+
+    const parts = clean.split(/\s+/);
 
     if (parts.length !== 5) return false;
 
     const [minute, hour, day, month, weekDay] = parts;
 
-    const isNum = (v: string) => /^\d+$/.test(v);
-
-    if (!isNum(minute!) || !isNum(hour!)) return false;
+    if (!/^\d+$/.test(minute!) || !/^\d+$/.test(hour!)) return false;
 
     const m = Number(minute);
     const h = Number(hour);
 
     if (m < 0 || m > 59) return false;
     if (h < 0 || h > 23) return false;
+
+    const isNum = (v: string) => /^\d+$/.test(v);
 
     return [day, month, weekDay].every(v => v === '*' || isNum(v!));
 }
