@@ -23,7 +23,7 @@ export class Scheduler {
     async start() {
         const times = await db.schedule.get(this.sendout.id!);
         const messages = await db.message.getMessages(this.sendout.id!);
-        const chats = this.sendout.mode_test ? [ { chat_id: "-1003760118458"} ] : await db.chat.get();
+        const chats = this.sendout.mode_test ? [ { id: 0, title: "Тестовый чат", chat_id: "-1003760118458", link: "https://t.me/c/3760118458/1"} ] as Chat[]: await db.chat.get();
         
         if (!chats || !chats.length) {
             console.log('⚠️  Нет чатов для рассылки');
