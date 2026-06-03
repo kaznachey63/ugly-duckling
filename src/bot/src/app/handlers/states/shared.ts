@@ -12,22 +12,22 @@ function validateText(text: string): boolean {
 
     return true;
 }
-
 export function validateTime(time: string): boolean {
+    if (!time || typeof time !== 'string') return false;
+
     const clean = time
-        .replace(/\u200B/g, '')
-        .replace(/\uFEFF/g, '')
+        .replace(/\u200B/g, '')   // zero-width
+        .replace(/\uFEFF/g, '')   // BOM
         .replace(/\t/g, ' ')
         .trim();
 
     const parts = clean.split(/\s+/).filter(Boolean);
 
-    // Строго 5 полей в одной строке
     if (parts.length !== 5) return false;
 
     const [minute, hour, day, month, weekDay] = parts;
 
-    if (!/^\d+$/.test(minute!) || !/^\d+$/.test(hour!)) return false;
+    if (!/^\d+$/.test(minute) || !/^\d+$/.test(hour)) return false;
 
     const m = Number(minute);
     const h = Number(hour);
@@ -40,13 +40,17 @@ export function validateTime(time: string): boolean {
 }
 
 export function formatCronTime(time: string): string {
-    const parts = time.trim().split(/\s+/).filter(Boolean);
-    
+    const clean = time
+        .replace(/\t/g, ' ')
+        .trim();
+
+    const parts = clean.split(/\s+/).filter(Boolean);
+
     const [minute, hour, day, month, weekDay] = parts;
 
     return [
-        minute!.padStart(2, '0'),
-        hour!.padStart(2, '0'),
+        minute.padStart(2, '0'),
+        hour.padStart(2, '0'),
         day,
         month,
         weekDay

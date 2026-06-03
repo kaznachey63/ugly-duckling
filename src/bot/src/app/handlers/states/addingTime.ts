@@ -18,11 +18,13 @@ export default async function addingTime(ctx: MyContext) {
 
     let menu;
 
+    // Проверка на пустоту и валидацию
     if (!lines.length || lines.some(line => !shared.validateTime(line))) {
-        menu = menuAddingTime(ctx, false, false); // ошибка
+        menu = menuAddingTime(ctx, false, false);
     } else {
         const times: Schedule[] = lines.map(line => {
             const cron = shared.formatCronTime(line);
+
             return {
                 cron,
                 label: utils.local.formatTimeToRu(cron)!,
@@ -36,11 +38,17 @@ export default async function addingTime(ctx: MyContext) {
         const restartState = await server.restartProcessOrNot(ctx.session.sendout.name!, true);
 
         menu = menuAddingTime(ctx, restartState, true);
+
         common.resetSessionStates(ctx.session);
     }
 
-    await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState, menu.text, {
-        reply_markup: menu.keyboard,
-        parse_mode: "MarkdownV2"
-    });
+    await ctx.api.editMessageText(
+        ctx.chatId!, 
+        ctx.session.other.ids.idForUpdateMessageFromState, 
+        menu.text, 
+        {
+            reply_markup: menu.keyboard,
+            parse_mode: "MarkdownV2"
+        }
+    );
 }
