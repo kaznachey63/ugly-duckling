@@ -12,8 +12,26 @@ const link = {
     chatByNumber: "https://t.me/+",
     instruction: {
         commands: "https://telegra.ph/Komandy-Rassylka-bot-11-29-2",
-        service: ""
-    }
+        service: "",
+        time: {
+            add: "https://telegra.ph/Dobavlenie-vremeni-06-03"
+        },
+        user: {
+            add: "https://telegra.ph/Dobavlenie-polzovatelya-06-02",
+        },
+        media: {
+            add: "",
+        },
+        contract: { 
+            add: "",
+        },
+        text: {
+            add: {
+                hand: "",
+                giga: "",
+            },
+        },
+    },
 }
 
 const calendar = {
