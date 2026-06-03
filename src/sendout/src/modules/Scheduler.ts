@@ -39,7 +39,7 @@ export class Scheduler {
             console.log('⚠️  Нет сообщений для рассылки');
             return;
         }
-        this.getSendingStats(chats); // из-за тестового чата
+        this.getSendingStats(chats);
         times.forEach((time) => {
             cron.schedule(time.cron!, async () => {
                 await db.sendout.setModeActive(this.sendout.id!, true);
@@ -85,7 +85,7 @@ export class Scheduler {
                 accessibleIds.add(String(`-100${entity?.id}`));
             }
         }
-        return allChats.filter(chat => accessibleIds.has(String(chat.id)));
+        return allChats.filter(chat => accessibleIds.has(String(chat.chat_id)));
     }
 
     private async checkWritePermissionsSilent(chats: Chat[]): Promise<ChatWithPermission[]> {

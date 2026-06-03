@@ -26,13 +26,12 @@ type MediaType = 'photo' | 'video' | 'animation' | 'document' | 'unknown';
  */
 export default async function addingMedia(ctx: MyContext) {
     const sendoutId = ctx.session.sendout!.id!;
-    const positionId = ctx.session.message?.position;
     const msg = ctx.message;
-    let menu;
 
     if (!msg) return;
     const mediaType = determineMediaType(msg);
 
+    // 1. Проверка типа и валидация (без сброса сессии!)
     switch (mediaType) {
         case 'document': {
             if (!isDocumentAllowed(msg)) {
@@ -47,7 +46,6 @@ export default async function addingMedia(ctx: MyContext) {
         }
     }
 
-    // Валидация (размер + mime)
     const mediaData = extractMediaData(msg, mediaType);
     if (!mediaData || !validateMedia(mediaData)) {
         await editMessage(ctx, false);
@@ -60,7 +58,8 @@ export default async function addingMedia(ctx: MyContext) {
     const pathMedia = path.resolve("..", "sendout", "resources");
     const nameFile = generateFileName(fileName!, mediaType);
 
-      try {
+    try {
+        // 2. Скачивание файла
         const file = await ctx.api.getFile(file_id);
         const url = `https://api.telegram.org/file/bot${process.env.BOT_TOKEN}/${file.file_path}`;
         const response = await fetch(url);
@@ -70,26 +69,22 @@ export default async function addingMedia(ctx: MyContext) {
         await fileService.createDir(pathMedia);
         await fileService.writeBuffer(path.join(pathMedia, nameFile), buffer);
         
-        // Получение сообщений
-        const messages = await db.message.getMessages(sendoutId);
-        if (!messages) return;
-
-        // ✅ ПРОВЕРКА: существует ли сообщение по этому индексу
-        const message = messages[positionId!];
-        if (!message) {
-            console.error(`Ошибка: Сообщение с индексом ${positionId} не найдено в рассылке ${sendoutId}`);
+        // 3. ✅ БЕРЕМ СООБЩЕНИЕ НАПРЯМУЮ ИЗ СЕССИИ (никаких лишних запросов и поисков по индексу)
+        const message = ctx.session.message;
+        if (!message || !message.id) {
+            console.error("Ошибка: Сообщение не найдено в сессии");
             utils.common.resetSessionStates(ctx.session);
             await editMessage(ctx, false); 
             return;
         }
 
-        // Добавление медиа
+        // 4. Добавление медиа
         const media: Media = {
-            message_id: message.id!,
+            message_id: message.id,
             name: nameFile!
         };
         
-        // ✅ Безопасная инициализация массива
+        // ✅ Безопасная инициализация массива (спасает от краша при первом медиа)
         if (!message.media) {
             message.media = [];
         }
@@ -101,13 +96,18 @@ export default async function addingMedia(ctx: MyContext) {
             position: null 
         });
 
+        // Обновляем сессию, чтобы в меню отобразился новый счетчик (1/4, 2/4...)
         ctx.session.message = message;
 
+        // Сохраняем связку в БД
         await db.media.add(media);
 
+        // 5. Финал
         await sleep(250);
         const server = new ServerManager();
         await editMessage(ctx, true, await server.restartProcessOrNot(ctx.session.sendout?.name!, true));
+        
+        // Сбрасываем состояние ТОЛЬКО после успешного добавления
         utils.common.resetSessionStates(ctx.session);
     } catch (error) {
         console.error("Ошибка при сохранении медиа:", error);
@@ -121,11 +121,18 @@ async function editMessage(ctx: MyContext, validate: boolean, result?: boolean) 
     const res = result ? result : false;
     const menu = menuAddingMedia(ctx, validate, res);
 
-    await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
-        menu.text, {
-        reply_markup: menu.keyboard,
-        parse_mode: "MarkdownV2"
-    });
+    try {
+        await ctx.api.editMessageText(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState,
+            menu.text, {
+            reply_markup: menu.keyboard,
+            parse_mode: "MarkdownV2"
+        });
+    } catch (error) {
+        // ✅ Игнорируем ошибку, если текст сообщения не изменился (спасает от зависания при спаме)
+        if (!(error instanceof Error && error.message.includes('message is not modified'))) {
+            console.error("Ошибка при редактировании сообщения:", error);
+        }
+    }
 }
 
 // Определение типа медиа
@@ -146,14 +153,10 @@ function isDocumentAllowed(msg: Message): boolean {
 
 // Валидация: размер + mime
 function validateMedia(mediaData: MediaValidationData): boolean {
-    // Проверка размера
     if (mediaData.fileSize && mediaData.fileSize > consts.media.maxSizeFile) {
         return false;
     }
-
-    // Чек mime
     if (mediaData.mimeType && !utils.local.isSupportedMediaType(mediaData.mimeType)) return false;
-
     return true;
 }
 
