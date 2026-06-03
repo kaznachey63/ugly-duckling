@@ -13,15 +13,16 @@ function validateText(text: string): boolean {
     return true;
 }
 
-function validateTime(time: string): boolean {
+export function validateTime(time: string): boolean {
     const clean = time
-        .replace(/\u200B/g, '') // zero-width
-        .replace(/\uFEFF/g, '') // BOM
-        .replace(/\r/g, '')
+        .replace(/\u200B/g, '')
+        .replace(/\uFEFF/g, '')
+        .replace(/\t/g, ' ')
         .trim();
 
-    const parts = clean.split(/\s+/);
+    const parts = clean.split(/\s+/).filter(Boolean);
 
+    // Строго 5 полей в одной строке
     if (parts.length !== 5) return false;
 
     const [minute, hour, day, month, weekDay] = parts;
@@ -31,18 +32,25 @@ function validateTime(time: string): boolean {
     const m = Number(minute);
     const h = Number(hour);
 
-    if (m < 0 || m > 59) return false;
-    if (h < 0 || h > 23) return false;
+    if (m < 0 || m > 59 || h < 0 || h > 23) return false;
 
-    const isNum = (v: string) => /^\d+$/.test(v);
+    const isValid = (v: string) => v === '*' || /^\d+$/.test(v);
 
-    return [day, month, weekDay].every(v => v === '*' || isNum(v!));
+    return [day, month, weekDay].every(isValid);
 }
 
-function formatCronTime(time: string): string {
-    const [minute, hour, day, month, weekDay] = time.trim().split(/\s+/);
+export function formatCronTime(time: string): string {
+    const parts = time.trim().split(/\s+/).filter(Boolean);
+    
+    const [minute, hour, day, month, weekDay] = parts;
 
-    return `${minute!.padStart(2, '0')} ${hour!.padStart(2, '0')} ${day} ${month} ${weekDay}`;
+    return [
+        minute!.padStart(2, '0'),
+        hour!.padStart(2, '0'),
+        day,
+        month,
+        weekDay
+    ].join(' ');
 }
 
 function validatePhone(phone: string): boolean {
