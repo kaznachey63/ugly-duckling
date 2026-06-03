@@ -30,19 +30,29 @@ async function updateIdeaLastMessageId(messageId: number) {
 }
 
 /**
- * Получение режима разработки
+ * Получение режима разработки (для бота)
  */
-async function maintenace(): Promise<boolean> {
+async function getModeMaintenace(): Promise<boolean> {
     const result = await prisma.general.findFirst({
-        select: { maintenace: true }
+        select: { mode_maintenace: true }
     });
-    return result?.maintenace!;
+    return result?.mode_maintenace!;
+}
+
+/**
+ * Получение режима тестирования (для рассылки)
+ */
+async function getModeTest(): Promise<boolean> {
+    const result = await prisma.general.findFirst({
+        select: { mode_test: true }
+    });
+    return result?.mode_test!;
 }
 
 /**
  * Смена режима разработки
  */
-async function setMaintenace(mode: boolean) {
+async function setModeMaintenace(mode: boolean) {
     const row = await prisma.general.findFirst({
         select: { id: true }
     });
@@ -53,7 +63,26 @@ async function setMaintenace(mode: boolean) {
             id: row.id 
         },
         data: {
-            maintenace: mode
+            mode_maintenace: mode
+        }
+    });
+}
+
+/**
+ * Смена режима тестирования
+ */
+async function setModeTest(mode: boolean) {
+    const row = await prisma.general.findFirst({
+        select: { id: true }
+    });
+    if (!row) return;
+
+    await prisma.general.update({
+        where: { 
+            id: row.id 
+        },
+        data: {
+            mode_test: mode
         }
     });
 }
@@ -61,6 +90,8 @@ async function setMaintenace(mode: boolean) {
 export default {
     getIdeaLastMessageId,
     updateIdeaLastMessageId,
-    maintenace,
-    setMaintenace
+    getModeMaintenace,
+    setModeMaintenace,
+    setModeTest,
+    getModeTest,
 }

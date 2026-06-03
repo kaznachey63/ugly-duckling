@@ -9,7 +9,7 @@ const systemComposer = new Composer<MyContext>();
 
 systemComposer.callbackQuery("mainSystem", async (ctx: MyContext) => {
     try {
-        const menu = menuSystem(ctx, await db.general.maintenace());
+        const menu = menuSystem(ctx, await db.general.getModeMaintenace());
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'

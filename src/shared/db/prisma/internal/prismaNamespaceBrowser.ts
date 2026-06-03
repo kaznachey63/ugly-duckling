@@ -196,7 +196,9 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const GeneralScalarFieldEnum = {
   id: 'id',
   last_idea_id: 'last_idea_id',
-  maintenace: 'maintenace'
+  mode_maintenace: 'mode_maintenace',
+  chat_test_id: 'chat_test_id',
+  mode_test: 'mode_test'
 } as const
 
 export type GeneralScalarFieldEnum = (typeof GeneralScalarFieldEnum)[keyof typeof GeneralScalarFieldEnum]

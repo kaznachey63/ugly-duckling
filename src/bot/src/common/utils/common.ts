@@ -46,7 +46,7 @@ async function setPrimaryValuesSession(ctx: MyContext) {
  * Проверка на тех. режим
  */
 async function checkMaintenace(ctx: MyContext): Promise<boolean> {
-    if (await db.general.maintenace() && !ctx.session.isAdmin) {
+    if (await db.general.getModeMaintenace() && !ctx.session.isAdmin) {
         if (ctx && ctx.callbackQuery?.data) {
             try {
                 await ctx.editMessageText(ctx.t("utils.maintenace"));

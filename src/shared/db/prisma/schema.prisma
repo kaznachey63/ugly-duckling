@@ -127,9 +127,11 @@ model user {
 }
 
 model general {
-  id           Int      @id(map: "general_id") @default(autoincrement())
-  last_idea_id Int?     @unique(map: "general_last_idea_id")
-  maintenace   Boolean?
+  id              Int      @id(map: "general_id") @default(autoincrement())
+  last_idea_id    Int?
+  mode_maintenace Boolean?
+  chat_test_id    Int?
+  mode_test       Boolean?
 }
 
 model auth_limit {

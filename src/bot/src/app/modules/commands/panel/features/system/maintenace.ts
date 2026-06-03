@@ -6,9 +6,9 @@ import { Composer } from "grammy";
 const maintenaceComposer = new Composer<MyContext>();
 
 maintenaceComposer.callbackQuery("mainMaintenace", async (ctx: MyContext) => {
-    const nextMode = !await db.general.maintenace();
+    const nextMode = !await db.general.getModeMaintenace();
     
-    await db.general.setMaintenace(nextMode);
+    await db.general.setModeMaintenace(nextMode);
     
     const menu = menuSystem(ctx, nextMode);
     await ctx.editMessageReplyMarkup({ reply_markup: menu.keyboard });
