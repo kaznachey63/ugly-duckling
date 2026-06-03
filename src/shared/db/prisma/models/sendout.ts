@@ -51,7 +51,8 @@ export type SendoutMinAggregateOutputType = {
   user_id: number | null
   contract_id: number | null
   telegram_topic_id: number | null
-  active: boolean | null
+  mode_active: boolean | null
+  mode_test: boolean | null
 }
 
 export type SendoutMaxAggregateOutputType = {
@@ -63,7 +64,8 @@ export type SendoutMaxAggregateOutputType = {
   user_id: number | null
   contract_id: number | null
   telegram_topic_id: number | null
-  active: boolean | null
+  mode_active: boolean | null
+  mode_test: boolean | null
 }
 
 export type SendoutCountAggregateOutputType = {
@@ -75,7 +77,8 @@ export type SendoutCountAggregateOutputType = {
   user_id: number
   contract_id: number
   telegram_topic_id: number
-  active: number
+  mode_active: number
+  mode_test: number
   _all: number
 }
 
@@ -105,7 +108,8 @@ export type SendoutMinAggregateInputType = {
   user_id?: true
   contract_id?: true
   telegram_topic_id?: true
-  active?: true
+  mode_active?: true
+  mode_test?: true
 }
 
 export type SendoutMaxAggregateInputType = {
@@ -117,7 +121,8 @@ export type SendoutMaxAggregateInputType = {
   user_id?: true
   contract_id?: true
   telegram_topic_id?: true
-  active?: true
+  mode_active?: true
+  mode_test?: true
 }
 
 export type SendoutCountAggregateInputType = {
@@ -129,7 +134,8 @@ export type SendoutCountAggregateInputType = {
   user_id?: true
   contract_id?: true
   telegram_topic_id?: true
-  active?: true
+  mode_active?: true
+  mode_test?: true
   _all?: true
 }
 
@@ -228,7 +234,8 @@ export type SendoutGroupByOutputType = {
   user_id: number | null
   contract_id: number | null
   telegram_topic_id: number | null
-  active: boolean | null
+  mode_active: boolean | null
+  mode_test: boolean | null
   _count: SendoutCountAggregateOutputType | null
   _avg: SendoutAvgAggregateOutputType | null
   _sum: SendoutSumAggregateOutputType | null
@@ -263,7 +270,8 @@ export type sendoutWhereInput = {
   user_id?: Prisma.IntNullableFilter<"sendout"> | number | null
   contract_id?: Prisma.IntNullableFilter<"sendout"> | number | null
   telegram_topic_id?: Prisma.IntNullableFilter<"sendout"> | number | null
-  active?: Prisma.BoolNullableFilter<"sendout"> | boolean | null
+  mode_active?: Prisma.BoolNullableFilter<"sendout"> | boolean | null
+  mode_test?: Prisma.BoolNullableFilter<"sendout"> | boolean | null
   message?: Prisma.MessageListRelationFilter
   result?: Prisma.ResultListRelationFilter
   schedule?: Prisma.ScheduleListRelationFilter
@@ -281,7 +289,8 @@ export type sendoutOrderByWithRelationInput = {
   user_id?: Prisma.SortOrderInput | Prisma.SortOrder
   contract_id?: Prisma.SortOrderInput | Prisma.SortOrder
   telegram_topic_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  active?: Prisma.SortOrderInput | Prisma.SortOrder
+  mode_active?: Prisma.SortOrderInput | Prisma.SortOrder
+  mode_test?: Prisma.SortOrderInput | Prisma.SortOrder
   message?: Prisma.messageOrderByRelationAggregateInput
   result?: Prisma.resultOrderByRelationAggregateInput
   schedule?: Prisma.scheduleOrderByRelationAggregateInput
@@ -302,7 +311,8 @@ export type sendoutWhereUniqueInput = Prisma.AtLeast<{
   user_id?: Prisma.IntNullableFilter<"sendout"> | number | null
   contract_id?: Prisma.IntNullableFilter<"sendout"> | number | null
   telegram_topic_id?: Prisma.IntNullableFilter<"sendout"> | number | null
-  active?: Prisma.BoolNullableFilter<"sendout"> | boolean | null
+  mode_active?: Prisma.BoolNullableFilter<"sendout"> | boolean | null
+  mode_test?: Prisma.BoolNullableFilter<"sendout"> | boolean | null
   message?: Prisma.MessageListRelationFilter
   result?: Prisma.ResultListRelationFilter
   schedule?: Prisma.ScheduleListRelationFilter
@@ -320,7 +330,8 @@ export type sendoutOrderByWithAggregationInput = {
   user_id?: Prisma.SortOrderInput | Prisma.SortOrder
   contract_id?: Prisma.SortOrderInput | Prisma.SortOrder
   telegram_topic_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  active?: Prisma.SortOrderInput | Prisma.SortOrder
+  mode_active?: Prisma.SortOrderInput | Prisma.SortOrder
+  mode_test?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.sendoutCountOrderByAggregateInput
   _avg?: Prisma.sendoutAvgOrderByAggregateInput
   _max?: Prisma.sendoutMaxOrderByAggregateInput
@@ -340,7 +351,8 @@ export type sendoutScalarWhereWithAggregatesInput = {
   user_id?: Prisma.IntNullableWithAggregatesFilter<"sendout"> | number | null
   contract_id?: Prisma.IntNullableWithAggregatesFilter<"sendout"> | number | null
   telegram_topic_id?: Prisma.IntNullableWithAggregatesFilter<"sendout"> | number | null
-  active?: Prisma.BoolNullableWithAggregatesFilter<"sendout"> | boolean | null
+  mode_active?: Prisma.BoolNullableWithAggregatesFilter<"sendout"> | boolean | null
+  mode_test?: Prisma.BoolNullableWithAggregatesFilter<"sendout"> | boolean | null
 }
 
 export type sendoutCreateInput = {
@@ -348,7 +360,8 @@ export type sendoutCreateInput = {
   label?: string | null
   call?: string | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageCreateNestedManyWithoutSendoutInput
   result?: Prisma.resultCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
@@ -366,7 +379,8 @@ export type sendoutUncheckedCreateInput = {
   user_id?: number | null
   contract_id?: number | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
   result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
@@ -377,7 +391,8 @@ export type sendoutUpdateInput = {
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
   result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
@@ -395,7 +410,8 @@ export type sendoutUncheckedUpdateInput = {
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
   result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
@@ -410,7 +426,8 @@ export type sendoutCreateManyInput = {
   user_id?: number | null
   contract_id?: number | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
 }
 
 export type sendoutUpdateManyMutationInput = {
@@ -418,7 +435,8 @@ export type sendoutUpdateManyMutationInput = {
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type sendoutUncheckedUpdateManyInput = {
@@ -430,7 +448,8 @@ export type sendoutUncheckedUpdateManyInput = {
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type SendoutListRelationFilter = {
@@ -457,7 +476,8 @@ export type sendoutCountOrderByAggregateInput = {
   user_id?: Prisma.SortOrder
   contract_id?: Prisma.SortOrder
   telegram_topic_id?: Prisma.SortOrder
-  active?: Prisma.SortOrder
+  mode_active?: Prisma.SortOrder
+  mode_test?: Prisma.SortOrder
 }
 
 export type sendoutAvgOrderByAggregateInput = {
@@ -477,7 +497,8 @@ export type sendoutMaxOrderByAggregateInput = {
   user_id?: Prisma.SortOrder
   contract_id?: Prisma.SortOrder
   telegram_topic_id?: Prisma.SortOrder
-  active?: Prisma.SortOrder
+  mode_active?: Prisma.SortOrder
+  mode_test?: Prisma.SortOrder
 }
 
 export type sendoutMinOrderByAggregateInput = {
@@ -489,7 +510,8 @@ export type sendoutMinOrderByAggregateInput = {
   user_id?: Prisma.SortOrder
   contract_id?: Prisma.SortOrder
   telegram_topic_id?: Prisma.SortOrder
-  active?: Prisma.SortOrder
+  mode_active?: Prisma.SortOrder
+  mode_test?: Prisma.SortOrder
 }
 
 export type sendoutSumOrderByAggregateInput = {
@@ -673,7 +695,8 @@ export type sendoutCreateWithoutContractInput = {
   label?: string | null
   call?: string | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageCreateNestedManyWithoutSendoutInput
   result?: Prisma.resultCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
@@ -689,7 +712,8 @@ export type sendoutUncheckedCreateWithoutContractInput = {
   credential_id?: number | null
   user_id?: number | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
   result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
@@ -733,7 +757,8 @@ export type sendoutScalarWhereInput = {
   user_id?: Prisma.IntNullableFilter<"sendout"> | number | null
   contract_id?: Prisma.IntNullableFilter<"sendout"> | number | null
   telegram_topic_id?: Prisma.IntNullableFilter<"sendout"> | number | null
-  active?: Prisma.BoolNullableFilter<"sendout"> | boolean | null
+  mode_active?: Prisma.BoolNullableFilter<"sendout"> | boolean | null
+  mode_test?: Prisma.BoolNullableFilter<"sendout"> | boolean | null
 }
 
 export type sendoutCreateWithoutCredentialInput = {
@@ -741,7 +766,8 @@ export type sendoutCreateWithoutCredentialInput = {
   label?: string | null
   call?: string | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageCreateNestedManyWithoutSendoutInput
   result?: Prisma.resultCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
@@ -757,7 +783,8 @@ export type sendoutUncheckedCreateWithoutCredentialInput = {
   user_id?: number | null
   contract_id?: number | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
   result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
@@ -784,7 +811,8 @@ export type sendoutUpdateWithoutCredentialInput = {
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
   result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
@@ -800,7 +828,8 @@ export type sendoutUncheckedUpdateWithoutCredentialInput = {
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
   result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
@@ -811,7 +840,8 @@ export type sendoutCreateWithoutMessageInput = {
   label?: string | null
   call?: string | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   result?: Prisma.resultCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
   contract?: Prisma.contractCreateNestedOneWithoutSendoutInput
@@ -828,7 +858,8 @@ export type sendoutUncheckedCreateWithoutMessageInput = {
   user_id?: number | null
   contract_id?: number | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
 }
@@ -854,7 +885,8 @@ export type sendoutUpdateWithoutMessageInput = {
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
   contract?: Prisma.contractUpdateOneWithoutSendoutNestedInput
@@ -871,7 +903,8 @@ export type sendoutUncheckedUpdateWithoutMessageInput = {
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
 }
@@ -881,7 +914,8 @@ export type sendoutCreateWithoutResultInput = {
   label?: string | null
   call?: string | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
   contract?: Prisma.contractCreateNestedOneWithoutSendoutInput
@@ -898,7 +932,8 @@ export type sendoutUncheckedCreateWithoutResultInput = {
   user_id?: number | null
   contract_id?: number | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
 }
@@ -924,7 +959,8 @@ export type sendoutUpdateWithoutResultInput = {
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
   contract?: Prisma.contractUpdateOneWithoutSendoutNestedInput
@@ -941,7 +977,8 @@ export type sendoutUncheckedUpdateWithoutResultInput = {
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
 }
@@ -951,7 +988,8 @@ export type sendoutCreateWithoutScheduleInput = {
   label?: string | null
   call?: string | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageCreateNestedManyWithoutSendoutInput
   result?: Prisma.resultCreateNestedManyWithoutSendoutInput
   contract?: Prisma.contractCreateNestedOneWithoutSendoutInput
@@ -968,7 +1006,8 @@ export type sendoutUncheckedCreateWithoutScheduleInput = {
   user_id?: number | null
   contract_id?: number | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
   result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
 }
@@ -994,7 +1033,8 @@ export type sendoutUpdateWithoutScheduleInput = {
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
   result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
   contract?: Prisma.contractUpdateOneWithoutSendoutNestedInput
@@ -1011,7 +1051,8 @@ export type sendoutUncheckedUpdateWithoutScheduleInput = {
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
   result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
 }
@@ -1021,7 +1062,8 @@ export type sendoutCreateWithoutUserInput = {
   label?: string | null
   call?: string | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageCreateNestedManyWithoutSendoutInput
   result?: Prisma.resultCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleCreateNestedManyWithoutSendoutInput
@@ -1037,7 +1079,8 @@ export type sendoutUncheckedCreateWithoutUserInput = {
   credential_id?: number | null
   contract_id?: number | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
   message?: Prisma.messageUncheckedCreateNestedManyWithoutSendoutInput
   result?: Prisma.resultUncheckedCreateNestedManyWithoutSendoutInput
   schedule?: Prisma.scheduleUncheckedCreateNestedManyWithoutSendoutInput
@@ -1077,7 +1120,8 @@ export type sendoutCreateManyContractInput = {
   credential_id?: number | null
   user_id?: number | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
 }
 
 export type sendoutUpdateWithoutContractInput = {
@@ -1085,7 +1129,8 @@ export type sendoutUpdateWithoutContractInput = {
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
   result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
@@ -1101,7 +1146,8 @@ export type sendoutUncheckedUpdateWithoutContractInput = {
   credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
   result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
@@ -1115,7 +1161,8 @@ export type sendoutUncheckedUpdateManyWithoutContractInput = {
   credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type sendoutCreateManyUserInput = {
@@ -1126,7 +1173,8 @@ export type sendoutCreateManyUserInput = {
   credential_id?: number | null
   contract_id?: number | null
   telegram_topic_id?: number | null
-  active?: boolean | null
+  mode_active?: boolean | null
+  mode_test?: boolean | null
 }
 
 export type sendoutUpdateWithoutUserInput = {
@@ -1134,7 +1182,8 @@ export type sendoutUpdateWithoutUserInput = {
   label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   call?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUpdateManyWithoutSendoutNestedInput
   result?: Prisma.resultUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUpdateManyWithoutSendoutNestedInput
@@ -1150,7 +1199,8 @@ export type sendoutUncheckedUpdateWithoutUserInput = {
   credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   message?: Prisma.messageUncheckedUpdateManyWithoutSendoutNestedInput
   result?: Prisma.resultUncheckedUpdateManyWithoutSendoutNestedInput
   schedule?: Prisma.scheduleUncheckedUpdateManyWithoutSendoutNestedInput
@@ -1164,7 +1214,8 @@ export type sendoutUncheckedUpdateManyWithoutUserInput = {
   credential_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contract_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   telegram_topic_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mode_test?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 
@@ -1225,7 +1276,8 @@ export type sendoutSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   user_id?: boolean
   contract_id?: boolean
   telegram_topic_id?: boolean
-  active?: boolean
+  mode_active?: boolean
+  mode_test?: boolean
   message?: boolean | Prisma.sendout$messageArgs<ExtArgs>
   result?: boolean | Prisma.sendout$resultArgs<ExtArgs>
   schedule?: boolean | Prisma.sendout$scheduleArgs<ExtArgs>
@@ -1244,7 +1296,8 @@ export type sendoutSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   user_id?: boolean
   contract_id?: boolean
   telegram_topic_id?: boolean
-  active?: boolean
+  mode_active?: boolean
+  mode_test?: boolean
   contract?: boolean | Prisma.sendout$contractArgs<ExtArgs>
   credential?: boolean | Prisma.sendout$credentialArgs<ExtArgs>
   user?: boolean | Prisma.sendout$userArgs<ExtArgs>
@@ -1259,7 +1312,8 @@ export type sendoutSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   user_id?: boolean
   contract_id?: boolean
   telegram_topic_id?: boolean
-  active?: boolean
+  mode_active?: boolean
+  mode_test?: boolean
   contract?: boolean | Prisma.sendout$contractArgs<ExtArgs>
   credential?: boolean | Prisma.sendout$credentialArgs<ExtArgs>
   user?: boolean | Prisma.sendout$userArgs<ExtArgs>
@@ -1274,10 +1328,11 @@ export type sendoutSelectScalar = {
   user_id?: boolean
   contract_id?: boolean
   telegram_topic_id?: boolean
-  active?: boolean
+  mode_active?: boolean
+  mode_test?: boolean
 }
 
-export type sendoutOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "label" | "call" | "credential_id" | "user_id" | "contract_id" | "telegram_topic_id" | "active", ExtArgs["result"]["sendout"]>
+export type sendoutOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "label" | "call" | "credential_id" | "user_id" | "contract_id" | "telegram_topic_id" | "mode_active" | "mode_test", ExtArgs["result"]["sendout"]>
 export type sendoutInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   message?: boolean | Prisma.sendout$messageArgs<ExtArgs>
   result?: boolean | Prisma.sendout$resultArgs<ExtArgs>
@@ -1317,7 +1372,8 @@ export type $sendoutPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     user_id: number | null
     contract_id: number | null
     telegram_topic_id: number | null
-    active: boolean | null
+    mode_active: boolean | null
+    mode_test: boolean | null
   }, ExtArgs["result"]["sendout"]>
   composites: {}
 }
@@ -1755,7 +1811,8 @@ export interface sendoutFieldRefs {
   readonly user_id: Prisma.FieldRef<"sendout", 'Int'>
   readonly contract_id: Prisma.FieldRef<"sendout", 'Int'>
   readonly telegram_topic_id: Prisma.FieldRef<"sendout", 'Int'>
-  readonly active: Prisma.FieldRef<"sendout", 'Boolean'>
+  readonly mode_active: Prisma.FieldRef<"sendout", 'Boolean'>
+  readonly mode_test: Prisma.FieldRef<"sendout", 'Boolean'>
 }
     
 

@@ -1,7 +1,7 @@
 import type { MyContext } from "@shared/types/SessionData";
 import { Composer } from "grammy";
 import menuSystem from "@menus/modules/commands/panel/system/main";
-import maintenaceComposer from "./maintenace";
+import modeMaintenaceComposer from "./maintenace";
 import db from "@shared/db";
 import serverComposer from "./server";
 
@@ -19,7 +19,7 @@ systemComposer.callbackQuery("mainSystem", async (ctx: MyContext) => {
     }
 });
 
-systemComposer.use(maintenaceComposer);
+systemComposer.use(modeMaintenaceComposer);
 systemComposer.use(serverComposer);
 
 export default systemComposer;

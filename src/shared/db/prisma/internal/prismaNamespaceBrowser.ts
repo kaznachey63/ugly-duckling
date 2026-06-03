@@ -173,7 +173,8 @@ export const SendoutScalarFieldEnum = {
   user_id: 'user_id',
   contract_id: 'contract_id',
   telegram_topic_id: 'telegram_topic_id',
-  active: 'active'
+  mode_active: 'mode_active',
+  mode_test: 'mode_test'
 } as const
 
 export type SendoutScalarFieldEnum = (typeof SendoutScalarFieldEnum)[keyof typeof SendoutScalarFieldEnum]
@@ -196,9 +197,7 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const GeneralScalarFieldEnum = {
   id: 'id',
   last_idea_id: 'last_idea_id',
-  mode_maintenace: 'mode_maintenace',
-  chat_test_id: 'chat_test_id',
-  mode_test: 'mode_test'
+  mode_maintenace: 'mode_maintenace'
 } as const
 
 export type GeneralScalarFieldEnum = (typeof GeneralScalarFieldEnum)[keyof typeof GeneralScalarFieldEnum]

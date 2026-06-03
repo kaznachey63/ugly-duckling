@@ -19,8 +19,9 @@
     "start:sendout": "dotenvx run -- tsx --tsconfig src/sendout/tsconfig.json src/sendout/src/core/index.ts",
     "dotenv:encrypt": "dotenvx encrypt",
     "dotenv:decrypt": "dotenvx decrypt",
-    "prisma:pull": "dotenvx run -- npx prisma db pull",
-    "prisma:generate": "dotenvx run -- npx prisma generate"
+    "prisma:pull": "dotenvx run -- ",
+    "prisma:generate": "dotenvx run -- npx prisma generate",
+    "prisma:pull:generate": "dotenvx run -- npx prisma db pull && npx prisma generate"  
   },
   "keywords": [],
   "author": "",

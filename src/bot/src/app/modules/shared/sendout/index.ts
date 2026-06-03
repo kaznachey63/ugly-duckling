@@ -9,6 +9,7 @@ import type { Sendout } from '@shared/types/DB';
 import ownerComposer from './owner';
 import callComposer from './call';
 import viewComposer from './view';
+import testComposer from './test';
 
 const sendoutComposer = new Composer<MyContext>();
 
@@ -59,5 +60,6 @@ sendoutComposer.use(scheduleComposer);
 sendoutComposer.use(statisticsComposer);
 sendoutComposer.use(ownerComposer);
 sendoutComposer.use(callComposer);
+sendoutComposer.use(testComposer);
 
 export default sendoutComposer;

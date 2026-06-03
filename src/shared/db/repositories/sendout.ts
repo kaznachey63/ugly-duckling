@@ -4,13 +4,13 @@ import type { Sendout, User } from '@shared/types/DB';
 /**
  * Задание режима активности рассылки
  */
-async function setActive(sendoutId: number, active: boolean) {
+async function setModeActive(sendoutId: number, mode: boolean) {
     await prisma.sendout.update({
         where: {
             id: sendoutId
         },
         data: {
-            active: active
+            mode_active: mode
         }
     });
 }
@@ -32,7 +32,7 @@ async function getSendoutsInfoWithCredentials(): Promise<Sendout[] | undefined> 
 }
 
 /**
- * Получение информации о рассылке по имени
+ * Получение информации о рассылке по айди
  */
 async function getSendoutInfo(sendoutId: number): Promise<Sendout | undefined> {
     try {
@@ -180,6 +180,25 @@ async function updateManyOfIds(contractId: number, sendouts: number[]): Promise<
     }
 }
 
+/**
+ * Смена режима тестирования
+ */
+async function setModeTest(sendoutId: number, mode: boolean) {
+    const row = await prisma.general.findFirst({
+        select: { id: true }
+    });
+    if (!row) return;
+
+    await prisma.sendout.update({
+        where: { 
+            id: sendoutId 
+        },
+        data: {
+            mode_test: mode
+        }
+    });
+}
+
 export default {
     getSendoutsInfoWithCredentials,
     getSendoutInfo,
@@ -191,5 +210,6 @@ export default {
     updateCall,
     updateManyOfIds,
     getSendoutsOfUserIdAndNotInContract,
-    setActive,
+    setModeActive,
+    setModeTest,
 };

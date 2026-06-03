@@ -20,8 +20,14 @@ export default function view(ctx: MyContext): Menu<InlineKeyboard> {
     ;
     
     if (ctx.session.isAdmin) {
-        keyboard.text(ctx.t("modules.shared.sendout.view.main.buttons.owner"), `mainOwner:${sendoutId}`).row()
-        keyboard.text(ctx.t("modules.shared.sendout.view.main.buttons.call"), `mainSendoutCall:${sendoutId}`).row()
+        keyboard
+            .text(ctx.t("modules.shared.sendout.view.main.buttons.owner"), `mainOwner:${sendoutId}`).row()
+            .text(ctx.t("modules.shared.sendout.view.main.buttons.call"), `mainSendoutCall:${sendoutId}`).row()
+            .text(
+                ctx.session.sendout.mode_test ? ctx.t("modules.shared.sendout.view.main.buttons.test") + ' ✔️' : ctx.t("modules.shared.sendout.view.main.buttons.test") + ' 🔘', 
+                "mainModeTest"
+            ).row()
+        ;
     }
     
     keyboard.text(ctx.t("utils.shared.buttons.back"), "mainSendout");

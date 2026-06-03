@@ -40,16 +40,6 @@ async function getModeMaintenace(): Promise<boolean> {
 }
 
 /**
- * Получение режима тестирования (для рассылки)
- */
-async function getModeTest(): Promise<boolean> {
-    const result = await prisma.general.findFirst({
-        select: { mode_test: true }
-    });
-    return result?.mode_test!;
-}
-
-/**
  * Смена режима разработки
  */
 async function setModeMaintenace(mode: boolean) {
@@ -68,30 +58,9 @@ async function setModeMaintenace(mode: boolean) {
     });
 }
 
-/**
- * Смена режима тестирования
- */
-async function setModeTest(mode: boolean) {
-    const row = await prisma.general.findFirst({
-        select: { id: true }
-    });
-    if (!row) return;
-
-    await prisma.general.update({
-        where: { 
-            id: row.id 
-        },
-        data: {
-            mode_test: mode
-        }
-    });
-}
-
 export default {
     getIdeaLastMessageId,
     updateIdeaLastMessageId,
     getModeMaintenace,
     setModeMaintenace,
-    setModeTest,
-    getModeTest,
 }

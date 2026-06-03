@@ -45,7 +45,8 @@ function createDefaultSession(): SessionData {
             label: "",
             name: "",
             user_id: 0,
-            active: false
+            mode_active: false,
+            mode_test: false,
         },
         message: {
             caption: "",
@@ -63,7 +64,8 @@ function createDefaultSession(): SessionData {
                 label: "",
                 name: "",
                 user_id: 0,
-                active: false,
+                mode_active: false,
+                mode_test: false,
             }
         },
         schedule: {
@@ -81,7 +83,8 @@ function createDefaultSession(): SessionData {
                 label: "",
                 name: "",
                 user_id: 0,
-                active: false
+                mode_active: false,
+                mode_test: false,
             }
         },
         contract: {
@@ -102,7 +105,8 @@ function createDefaultSession(): SessionData {
                     code: "unknown"
                 },
                 id: 0,
-                role_id: 0
+                role_id: 0,
+                phone_index: ""
             }
         },
         authLimit: {

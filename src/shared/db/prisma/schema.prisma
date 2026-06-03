@@ -94,7 +94,8 @@ model sendout {
   user_id           Int?
   contract_id       Int?
   telegram_topic_id Int?
-  active            Boolean?
+  mode_active       Boolean?    @default(false)
+  mode_test         Boolean?    @default(false)
   message           message[]
   result            result[]
   schedule          schedule[]
@@ -130,8 +131,6 @@ model general {
   id              Int      @id(map: "general_id") @default(autoincrement())
   last_idea_id    Int?
   mode_maintenace Boolean?
-  chat_test_id    Int?
-  mode_test       Boolean?
 }
 
 model auth_limit {

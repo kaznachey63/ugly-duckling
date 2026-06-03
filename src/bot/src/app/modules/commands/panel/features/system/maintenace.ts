@@ -3,9 +3,9 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuSystem from "@menus/modules/commands/panel/system/main";
 import { Composer } from "grammy";
 
-const maintenaceComposer = new Composer<MyContext>();
+const modeMaintenaceComposer = new Composer<MyContext>();
 
-maintenaceComposer.callbackQuery("mainMaintenace", async (ctx: MyContext) => {
+modeMaintenaceComposer.callbackQuery("mainModeMaintenace", async (ctx: MyContext) => {
     const nextMode = !await db.general.getModeMaintenace();
     
     await db.general.setModeMaintenace(nextMode);
@@ -14,4 +14,4 @@ maintenaceComposer.callbackQuery("mainMaintenace", async (ctx: MyContext) => {
     await ctx.editMessageReplyMarkup({ reply_markup: menu.keyboard });
 });
 
-export default maintenaceComposer;
+export default modeMaintenaceComposer;

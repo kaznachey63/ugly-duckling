@@ -16,7 +16,7 @@ export default function main(ctx: MyContext, maintenace: boolean): Menu<InlineKe
         .text(ctx.t("modules.commands.panel.system.main.buttons.server"), "mainServer").row()
         .text(
             maintenace ? ctx.t("modules.commands.panel.system.main.buttons.maintenace") + ' ✔️' : ctx.t("modules.commands.panel.system.main.buttons.maintenace") + ' 🔘', 
-            "mainMaintenace"
+            "mainModeMaintenace"
         ).row()
         .text(ctx.t("utils.shared.buttons.back"), "mainPanel")
     ;

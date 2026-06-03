@@ -1,10 +1,11 @@
 import type { Counter } from '@shared/types/Counter';
-import type { Chat, Media, Message } from '@shared/types/DB';
+import type { Chat, Media, Message, Sendout } from '@shared/types/DB';
 import utils from '../utils';
 import fs from 'fs/promises';
 import path from 'path';
 import { TelegramClient } from 'telegram';
 import type { JsonArray } from '@shared/db/prisma/internal/prismaNamespace';
+import db from '@shared/db';
 
 /**
  * Отправка сообщения
@@ -12,8 +13,8 @@ import type { JsonArray } from '@shared/db/prisma/internal/prismaNamespace';
 export class Sender {
     constructor(private readonly client: TelegramClient) { }
 
-    async send(chat: Chat, message: Message, counter: Counter) {
-        const { chat_id: chatId, title: chatName, link } = chat;
+    async send(chat: Chat, message: Message, counter: Counter, sendout: Sendout) {
+        const { chat_id: chatId, title: chatName = "Тестовый чат" } = chat;
         try {
             // Получаем правильный объект сущности (InputPeer)
             const entity = await this.client.getInputEntity(chatId!);
@@ -24,10 +25,19 @@ export class Sender {
                 // Передаём entity, а не строку
                 result = await this.sendMedia(entity, message, htmlCaption);                
             } else {
-                result = await this.client.sendMessage(entity, {
-                    message: htmlCaption,
-                    parseMode: 'html',
-                });
+                result = sendout.mode_test ? 
+                    await this.client.sendMessage(entity, {
+                        message: htmlCaption,
+                        parseMode: 'html',
+                    }) 
+                    :
+                    await this.client.sendMessage(chatId!, { 
+                        message: htmlCaption, 
+                        parseMode: 'html',
+                        replyTo: sendout.telegram_topic_id!,
+                        topMsgId: sendout.telegram_topic_id!,
+                    })
+                ;       
             }
 
             let isSuccess = false;
