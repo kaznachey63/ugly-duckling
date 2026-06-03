@@ -26,6 +26,7 @@ export default function condition(ctx: MyContext, status: ProcessStatus): Menu<I
             ;
             break;
         }
+        case "failed":
         case "inactive": {
             keyboard.text(
                 ctx.t("modules.commands.panel.system.server.process.control.condition.buttons.start"),
