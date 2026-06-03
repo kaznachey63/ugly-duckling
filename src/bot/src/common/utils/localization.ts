@@ -6,10 +6,9 @@ import type { LanguagesALlowed } from '@shared/types/LanguagesAllowed';
 /**
  * Преобразует один объект Time в человекочитаемую строку
  * @param time объект Time из базы данных
- * @param index опциональный номер элемента для отображения (например, 1.)
- * @returns строка вида "Вторник - 12:30" или "1. Вторник - 12:30"
+ * @returns строка вида "Вторник - 12:30"
  */ 
-function formatTimeToRu(cronTime: string, index?: number): string | null {
+function formatTimeToRu(cronTime: string): string | null {
     const [ minute, hour, day, month, weekDay ] = cronTime.split(' ');
 
     // Проверяем наличие обязательных полей
@@ -26,8 +25,7 @@ function formatTimeToRu(cronTime: string, index?: number): string | null {
     const formattedMinute = String(minute).padStart(2, '0');
 
     // Формируем итоговую строку
-    const prefix = index !== undefined ? `${index}. ` : '';
-    return `${prefix}${dayName} - ${formattedHour}:${formattedMinute}`;
+    return `${dayName} - ${formattedHour}:${formattedMinute}`;
 }
 
 /**
