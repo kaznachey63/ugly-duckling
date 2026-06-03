@@ -96,7 +96,7 @@ export class Scheduler {
             let reason = '';
 
             try {
-                const entity = await this.client.getInputEntity(chat.id!);
+                const entity = await this.client.getInputEntity(chat.chat_id!);
                 if (entity instanceof Api.InputPeerChannel) {
                     const result = await this.client.invoke(
                         new Api.channels.GetParticipant({
