@@ -11,7 +11,7 @@ export default function addingMedia(ctx: MyContext, validate: boolean, result?: 
     const keyboard = new InlineKeyboard();
     let text = [];
 
-    if (!validate) text.push(ctx.t("utils.shared.titles"));
+    if (!validate) text.push(ctx.t("utils.shared.titles.validate"));
     else {
         if (result) {
             text.push(ctx.t("handlers.states.addingMedia.success"));

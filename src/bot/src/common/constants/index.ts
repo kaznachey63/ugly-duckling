@@ -20,7 +20,7 @@ const link = {
             add: "https://telegra.ph/Dobavlenie-polzovatelya-06-02",
         },
         media: {
-            add: "",
+            add: "https://telegra.ph/Dobavlenie-mediafajlov-06-03",
         },
         contract: { 
             add: "",
