@@ -25,7 +25,7 @@ export default function view(ctx: MyContext): Menu<InlineKeyboard> {
             .text(ctx.t("modules.shared.sendout.view.main.buttons.call"), `mainSendoutCall:${sendoutId}`).row()
             .text(
                 ctx.session.sendout.mode_test ? ctx.t("modules.shared.sendout.view.main.buttons.test") + ' ✔️' : ctx.t("modules.shared.sendout.view.main.buttons.test") + ' 🔘', 
-                `mainModeTest${sendoutId}`
+                `mainModeTest:${sendoutId}`
             ).row()
         ;
     }
