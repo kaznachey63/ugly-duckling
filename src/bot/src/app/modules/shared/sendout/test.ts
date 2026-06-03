@@ -6,7 +6,7 @@ import { Composer } from "grammy";
 const modeTestComposer = new Composer<MyContext>();
 
 modeTestComposer.callbackQuery(/^mainModeTest:/, async (ctx: MyContext) => {
-    if (ctx.session.sendout.mode_active) return await ctx.answerCallbackQuery({ show_alert: true, text: ctx.t("modeules.shared.sendout.view.test.alert") });
+    if (ctx.session.sendout.mode_active) return await ctx.answerCallbackQuery({ show_alert: true, text: ctx.t("modules.shared.sendout.view.test.alert") });
 
     ctx.session.sendout.mode_test = !ctx.session.sendout.mode_test;
     await db.sendout.setModeTest(ctx.session.sendout.id!, ctx.session.sendout.mode_test);
