@@ -10,8 +10,10 @@ import shared from './shared';
 export default async function addingTime(ctx: MyContext) {
     const text = ctx.message?.text?.trim() ?? '';
 const lines = (ctx.message?.text ?? '')
+    .replace(/\r/g, '')
+    .replace(/\t/g, ' ')
     .split('\n')
-    .map(l => l.trim().replace(/\r/g, ''))
+    .map(l => l.trim())
     .filter(Boolean);
     let menu;
 

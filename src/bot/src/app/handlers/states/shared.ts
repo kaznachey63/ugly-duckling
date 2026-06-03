@@ -22,8 +22,13 @@ function validateTime(time: string): boolean {
 
     const isNum = (v: string) => /^\d+$/.test(v);
 
-    if (!isNum(minute!) || +minute! < 0 || +minute! > 59) return false;
-    if (!isNum(hour!) || +hour! < 0 || +hour! > 23) return false;
+    if (!isNum(minute!) || !isNum(hour!)) return false;
+
+    const m = Number(minute);
+    const h = Number(hour);
+
+    if (m < 0 || m > 59) return false;
+    if (h < 0 || h > 23) return false;
 
     return [day, month, weekDay].every(v => v === '*' || isNum(v!));
 }
