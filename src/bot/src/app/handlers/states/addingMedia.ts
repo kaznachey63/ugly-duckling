@@ -60,7 +60,7 @@ export default async function addingMedia(ctx: MyContext) {
     const pathMedia = path.resolve("..", "sendout", "resources");
     const nameFile = generateFileName(fileName!, mediaType);
 
-    try {
+      try {
         const file = await ctx.api.getFile(file_id);
         const url = `https://api.telegram.org/file/bot${process.env.BOT_TOKEN}/${file.file_path}`;
         const response = await fetch(url);
@@ -74,24 +74,34 @@ export default async function addingMedia(ctx: MyContext) {
         const messages = await db.message.getMessages(sendoutId);
         if (!messages) return;
 
+        // ✅ ПРОВЕРКА: существует ли сообщение по этому индексу
         const message = messages[positionId!];
+        if (!message) {
+            console.error(`Ошибка: Сообщение с индексом ${positionId} не найдено в рассылке ${sendoutId}`);
+            utils.common.resetSessionStates(ctx.session);
+            await editMessage(ctx, false); 
+            return;
+        }
 
         // Добавление медиа
         const media: Media = {
-            message_id: message!.id!,
+            message_id: message.id!,
             name: nameFile!
         };
         
-        if (!message!.media) message!.media = [];
-        
-        message!.media!.push({ 
-            message_id: message!.id ?? null, 
+        // ✅ Безопасная инициализация массива
+        if (!message.media) {
+            message.media = [];
+        }
+
+        message.media.push({ 
+            message_id: message.id ?? null, 
             name: nameFile ?? null,
             id: 0,
             position: null 
         });
 
-        ctx.session.message = message!;
+        ctx.session.message = message;
 
         await db.media.add(media);
 
