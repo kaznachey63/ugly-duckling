@@ -9,8 +9,10 @@ import shared from './shared';
 
 export default async function addingTime(ctx: MyContext) {
     const text = ctx.message?.text?.trim() ?? '';
-    const lines = text.split('\n').map(line => line.trim()).filter(Boolean);
-
+const lines = (ctx.message?.text ?? '')
+    .split('\n')
+    .map(l => l.trim().replace(/\r/g, ''))
+    .filter(Boolean);
     let menu;
 
     if (!lines.length || lines.some(line => !shared.validateTime(line))) {
