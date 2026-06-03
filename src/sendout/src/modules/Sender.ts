@@ -26,17 +26,17 @@ export class Sender {
                 result = await this.sendMedia(entity, message, htmlCaption);                
             } else {
                 result = sendout.mode_test ? 
-                    await this.client.sendMessage(entity, {
-                        message: htmlCaption,
-                        parseMode: 'html',
-                    }) 
-                    :
-                    await this.client.sendMessage(chatId!, { 
-                        message: htmlCaption, 
-                        parseMode: 'html',
-                        replyTo: sendout.telegram_topic_id!,
-                        topMsgId: sendout.telegram_topic_id!,
-                    })
+                await this.client.sendMessage(chatId!, { 
+                    message: htmlCaption, 
+                    parseMode: 'html',
+                    replyTo: sendout.telegram_topic_id!,
+                    topMsgId: sendout.telegram_topic_id!,
+                })
+                :
+                await this.client.sendMessage(entity, {
+                    message: htmlCaption,
+                    parseMode: 'html',
+                }) 
                 ;       
             }
 
