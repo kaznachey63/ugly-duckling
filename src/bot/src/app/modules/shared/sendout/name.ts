@@ -40,7 +40,7 @@ callComposer.callbackQuery(/^mainUpdateSendoutCall:/, async (ctx: MyContext) => 
 
 callComposer.callbackQuery(/^mainUpdateSendoutLabel:/, async (ctx: MyContext) => {
     try {
-       await ctx.answerCallbackQuery({ show_alert: true, text: ctx.t("modules.shared.sendout.view.name.update.label.akert")})
+       await ctx.answerCallbackQuery({ show_alert: true, text: ctx.t("modules.shared.sendout.view.name.update.label.alert")})
     } catch (error) {
         console.error('Ошибка в mainUpdateSendoutLabel:', error);
     }
@@ -48,7 +48,7 @@ callComposer.callbackQuery(/^mainUpdateSendoutLabel:/, async (ctx: MyContext) =>
 
 callComposer.callbackQuery(/^mainUpdateSendoutName:/, async (ctx: MyContext) => {
     try {
-       await ctx.answerCallbackQuery({ show_alert: true, text: ctx.t("modules.shared.sendout.view.name.update.name.akert")})
+       await ctx.answerCallbackQuery({ show_alert: true, text: ctx.t("modules.shared.sendout.view.name.update.name.alert")})
     } catch (error) {
         console.error('Ошибка в mainUpdateSendoutName:', error);
     }

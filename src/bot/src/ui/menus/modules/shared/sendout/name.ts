@@ -30,8 +30,8 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
  */
 function updateCall(ctx: MyContext): Menu<InlineKeyboard> {
     const text: string[] = [
-        ctx.t("modules.shared.sendout.view.call.update.title"),
-        ctx.t("modules.shared.sendout.view.call.update.path", { call: ctx.session.sendout.call }),
+        ctx.t("modules.shared.sendout.view.name.update.call.title"),
+        ctx.t("modules.shared.sendout.view.name.update.call.path", { call: ctx.session.sendout.call }),
     ];
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainSendoutNames:${ctx.session.sendout.id}`);
