@@ -11,6 +11,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text: string[] = [
         ctx.t("modules.shared.sendout.view.name.main.title"),
         ctx.t("modules.shared.sendout.view.name.main.about"),
+        '\n',
         ctx.t("modules.shared.sendout.view.name.main.path", { call: ctx.session.sendout.call }),
     ];
 
@@ -21,7 +22,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
         .text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`)
     ;
 
-    return { text: formatting.escapeMarkdown(text.join('\n\n')), keyboard }
+    return { text: formatting.escapeMarkdown(text.join('\n')), keyboard }
 }
 
 /**
