@@ -26,17 +26,17 @@ export class Sender {
                 result = await this.sendMedia(entity, message, htmlCaption);                
             } else {
                 result = sendout.mode_test ? 
-                await this.client.sendMessage(chatId!, { 
-                    message: htmlCaption, 
-                    parseMode: 'html',
-                    replyTo: sendout.telegram_topic_id!,
-                    topMsgId: sendout.telegram_topic_id!,
-                })
-                :
-                await this.client.sendMessage(entity, {
-                    message: htmlCaption,
-                    parseMode: 'html',
-                }) 
+                    await this.client.sendMessage(entity, { 
+                        message: htmlCaption, 
+                        parseMode: 'html',
+                        replyTo: sendout.telegram_topic_id!,
+                        topMsgId: sendout.telegram_topic_id!,
+                    })
+                    :
+                    await this.client.sendMessage(entity, {
+                        message: htmlCaption,
+                        parseMode: 'html',
+                    }) 
                 ;       
             }
 
@@ -71,8 +71,11 @@ export class Sender {
                 console.log(`⚠️  Нет подтверждения: "${chatName}" (${chatId}) — ${details} | Счётчик: ${counter.good}`);
             }
         } catch (error: any) {
-            const reason = utils.error.errorSmsHandler(error);
-            console.log(`❌ Неудачно: "${chatName}" (${chatId}) — ${reason} | Счётчик: ${counter.good}`);
+            console.error('RAW ERROR:', error); 
+            
+            // Используем твой метод, а не utils.error.errorSmsHandler
+            const analyzed = this.analyzeError(error);
+            console.log(`❌ Неудачно: "${chatName}" (${chatId}) — ${analyzed.message} | Счётчик: ${counter.good}`);
         }
     }
 
