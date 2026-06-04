@@ -174,6 +174,11 @@ export class Scheduler {
             return [0, 1, 3, 5].includes(day) ? sortedMessages[0] : sortedMessages[1];
         }
 
+        if (sortedMessages.length >= 2 && sortedMessages.length < 6) {
+            const index = (day === 0 ? 6 : day - 1) % sortedMessages.length;
+            return sortedMessages[index];
+        }
+        
         if (sortedMessages.length >= 6) {
             const index = day === 0 ? 5 : day - 1;
             return sortedMessages[index] || sortedMessages[0];
