@@ -167,12 +167,19 @@ export class Scheduler {
     }
 
     private selectMessage(messages: Message[], scheduleId: number): Message {
-        if (messages.length === 1) return messages[0]!;
-        if (messages.length === 2) {
-            const day = new Date().getDay();
-            return [1, 3, 5, 7].includes(day) ? messages[0]! : messages[1]!;
+        const sortedMessages = [...messages].sort((a, b) => a!.position! - b.position!);
+        const day = new Date().getDay();
+
+        if (sortedMessages.length === 2) {
+            return [0, 1, 3, 5].includes(day) ? sortedMessages[0] : sortedMessages[1];
         }
-        return messages[scheduleId] || messages[0]!;
+
+        if (sortedMessages.length >= 6) {
+            const index = day === 0 ? 5 : day - 1;
+            return sortedMessages[index] || sortedMessages[0];
+        }
+
+        return sortedMessages[0];
     }
 
     private async logResults(dateTime: Date, counter: Counter) {
