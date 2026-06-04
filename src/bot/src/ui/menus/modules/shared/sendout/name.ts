@@ -16,10 +16,10 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     ];
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.session.sendout.call ?? ctx.t("utils.shared.nameless"), `mainUpdateSendoutCall:${sendoutId}`).row()
-        .text(ctx.session.sendout.label!, `mainUpdateSendoutLabel:${sendoutId}`).row()
-        .text(ctx.session.sendout.name!, `mainUpdateSendoutName:${sendoutId}`).row()
-        .text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`)
+        .text(ctx.session.sendout.label!, `mainUpdateSendoutLabel:${sendoutId}`)
+        .text(ctx.session.sendout.name!, `mainUpdateSendoutName:${sendoutId}`)
+        .row().text(ctx.session.sendout.call ?? ctx.t("utils.shared.nameless"), `mainUpdateSendoutCall:${sendoutId}`)
+        .row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`)
     ;
 
     return { text: formatting.escapeMarkdown(text.join('\n')), keyboard }
