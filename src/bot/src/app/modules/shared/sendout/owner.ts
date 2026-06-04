@@ -26,7 +26,7 @@ ownerComposer.callbackQuery(/^mainChangeOwner:/, async (ctx: MyContext) => {
         users = users
             .filter(u => u.role_id === 2)
             .map(u => {
-                u.name ??= ctx.t("utils.shared.buttons.nameless");
+                u.name ??= ctx.t("utils.shared.nameless");
                 return u;
             })
         ;

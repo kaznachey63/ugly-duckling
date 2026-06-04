@@ -17,7 +17,7 @@ function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const user = ctx.session.userForUpdate;
     const keyboard = new InlineKeyboard();
     let text = [
-        ctx.t("modules.commands.panel.data.user.view.control.remove.path", { userName: user.name ?? ctx.t("utils.shared.buttons.nameless") }),
+        ctx.t("modules.commands.panel.data.user.view.control.remove.path", { userName: user.name ?? ctx.t("utils.shared.nameless") }),
     ];
 
     if (result) {
@@ -34,7 +34,7 @@ function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 function updateName(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("modules.commands.panel.data.user.view.control.update.name.title"),
-        ctx.t("modules.commands.panel.data.user.view.control.update.name.path", { userName: ctx.session.userForUpdate.name ?? ctx.t("utils.shared.buttons.nameless")})
+        ctx.t("modules.commands.panel.data.user.view.control.update.name.path", { userName: ctx.session.userForUpdate.name ?? ctx.t("utils.shared.nameless")})
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewUser#${ctx.session.userForUpdate.id}`);
@@ -44,7 +44,7 @@ function updateName(ctx: MyContext): Menu<InlineKeyboard> {
 function updatePhone(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("modules.commands.panel.data.user.view.control.update.phone.title"),
-        ctx.t("modules.commands.panel.data.user.view.control.update.phone.path", { userName: ctx.session.userForUpdate.name ?? ctx.t("utils.shared.buttons.nameless") })
+        ctx.t("modules.commands.panel.data.user.view.control.update.phone.path", { userName: ctx.session.userForUpdate.name ?? ctx.t("utils.shared.nameless") })
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewUser#${ctx.session.userForUpdate.id}`);

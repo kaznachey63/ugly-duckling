@@ -29,9 +29,9 @@ function control(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.commands.panel.system.server.process.control.main.buttons.condition"), "mainCondition").row()
-        .text(ctx.t("modules.commands.panel.system.server.process.control.main.buttons.log"), "mainLog").row()
-        .text(ctx.t("utils.shared.buttons.back"), `mainProcess-${ctx.session.server.processType}`);
+        .text(ctx.t("modules.commands.panel.system.server.process.control.main.buttons.condition"), "mainCondition")
+        .text(ctx.t("modules.commands.panel.system.server.process.control.main.buttons.log"), "mainLog")
+        .row().text(ctx.t("utils.shared.buttons.back"), `mainProcess-${ctx.session.server.processType}`);
     ;
     
     return { text: utils.formatting.escapeMarkdown(text), keyboard }

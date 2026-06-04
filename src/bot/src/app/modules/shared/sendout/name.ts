@@ -1,28 +1,28 @@
 import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
-import menuCall from '@menus/modules/shared/sendout/call';
+import menuName from '@menus/modules/shared/sendout/name';
 import common from '@utils/common';
 
 const callComposer = new Composer<MyContext>();
 
-callComposer.callbackQuery(/^mainSendoutCall:/, async (ctx: MyContext) => {
+callComposer.callbackQuery(/^mainSendoutNames:/, async (ctx: MyContext) => {
     try {    
         common.resetSessionStates(ctx.session);
-        const menu = menuCall.main(ctx);
+        const menu = menuName.main(ctx);
 
         await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'
         });
     } catch (error) {
-        console.error('Ошибка в mainSendoutCall:', error);
+        console.error('Ошибка в mainSendoutNames:', error);
     } 
 });
 
 callComposer.callbackQuery(/^mainUpdateSendoutCall:/, async (ctx: MyContext) => {
     try {
         ctx.session.state.updatingSendoutCall = true;
-        const menu = menuCall.update(ctx);
+        const menu = menuName.updateCall(ctx);
 
         const msg = await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
@@ -35,6 +35,22 @@ callComposer.callbackQuery(/^mainUpdateSendoutCall:/, async (ctx: MyContext) => 
         }
     } catch (error) {
         console.error('Ошибка в mainUpdateSendoutCall:', error);
+    }
+});
+
+callComposer.callbackQuery(/^mainUpdateSendoutLabel:/, async (ctx: MyContext) => {
+    try {
+       await ctx.answerCallbackQuery({ show_alert: true, text: ctx.t("modules.shared.sendout.view.name.update.label.akert")})
+    } catch (error) {
+        console.error('Ошибка в mainUpdateSendoutLabel:', error);
+    }
+});
+
+callComposer.callbackQuery(/^mainUpdateSendoutName:/, async (ctx: MyContext) => {
+    try {
+       await ctx.answerCallbackQuery({ show_alert: true, text: ctx.t("modules.shared.sendout.view.name.update.name.akert")})
+    } catch (error) {
+        console.error('Ошибка в mainUpdateSendoutName:', error);
     }
 });
 

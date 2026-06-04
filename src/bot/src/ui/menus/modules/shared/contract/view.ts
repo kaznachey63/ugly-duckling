@@ -16,7 +16,7 @@ function contracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboard> 
     contracts.forEach((contract) => {
         keyboard.text(
             ctx.t("modules.shared.contract.main.contractName", { 
-                userName: contract.user?.name ?? ctx.t("utils.shared.buttons.nameless"),
+                userName: contract.user?.name ?? ctx.t("utils.shared.nameless"),
                 dateStart: new Date(contract.date_start!).toLocaleDateString('ru-RU')
             }),
             `viewContract#${contract.id}`
@@ -38,7 +38,7 @@ function contract(ctx: MyContext, sendoutsCall: string): Menu<InlineKeyboard> {
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
-        .text(ctx.t("modules.shared.contract.view.contract.main.userName", { userName: ctx.session.contract.user?.name ?? ctx.t("utils.shared.buttons.nameless") }), `updateOrRemoveContractUser#${ctx.session.contract.id}`).row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.userName", { userName: ctx.session.contract.user?.name ?? ctx.t("utils.shared.nameless") }), `updateOrRemoveContractUser#${ctx.session.contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateStart#${ctx.session.contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: new Date(ctx.session.contract.date_end!).toLocaleDateString('ru-RU') ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractDateEnd#${ctx.session.contract.id}`).row()
         .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: ctx.session.contract.price ?? ctx.t("utils.shared.buttons.miss") }), `updateOrRemoveContractPrice#${ctx.session.contract.id}`).row()

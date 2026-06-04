@@ -7,7 +7,7 @@ import messageComposer from './message';
 import db from '@shared/db';
 import type { Sendout } from '@shared/types/DB';
 import ownerComposer from './owner';
-import callComposer from './call';
+import callComposer from './name';
 import viewComposer from './view';
 import testComposer from './test';
 
