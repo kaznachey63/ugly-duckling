@@ -43,7 +43,7 @@ export class Scheduler {
         times.forEach((time) => {
             cron.schedule(time.cron!, async () => {
                 await db.sendout.setModeActive(this.sendout.id!, true);
-                await this.execute(new Date(), time.id!, messages, chats);
+                await this.execute(new Date(), messages, chats);
             }, { timezone: "Europe/Moscow" });
         });
     }
@@ -131,7 +131,7 @@ export class Scheduler {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    private async execute(dateTime: Date, scheduleId: number, messages: Message[], chats: Chat[]) {
+    private async execute(dateTime: Date, messages: Message[], chats: Chat[]) {
         try {
             if (!this.client.connected) {
                 await this.client.connect();
@@ -146,8 +146,14 @@ export class Scheduler {
             }
 
             const counter = { good: 0, chats: [] };
-            const message = this.selectMessage(messages, scheduleId);
+            const message = this.selectMessage(messages);
 
+            if (!message) {
+                console.log('⛔ Воскресенье — рассылка пропущена');
+                await db.sendout.setModeActive(this.sendout.id!, false); 
+                return;
+            }
+            
             for (let i = 0; i < accessibleChats.length; i++) {
                 const chat = accessibleChats[i];
 
@@ -155,7 +161,7 @@ export class Scheduler {
                     await new Promise(resolve => setTimeout(resolve, 400));
                 }
 
-                await this.sender.send(chat, message, counter, this.sendout);
+                await this.sender.send(chat, message!, counter, this.sendout);
             }
             
             await this.logResults(dateTime, counter);
@@ -166,21 +172,23 @@ export class Scheduler {
         }
     }
 
-    private selectMessage(messages: Message[], scheduleId: number): Message {
+    private selectMessage(messages: Message[]): Message | null {
         const sortedMessages = [...messages].sort((a, b) => a!.position! - b.position!);
         const day = new Date().getDay();
 
+        if (day === 0 || day === 7) return null; // Воскресенье — выходной
+
         if (sortedMessages.length === 2) {
-            return [0, 1, 3, 5].includes(day) ? sortedMessages[0] : sortedMessages[1];
+            return [1, 3, 5].includes(day) ? sortedMessages[0] : sortedMessages[1];
         }
 
         if (sortedMessages.length >= 2 && sortedMessages.length < 6) {
-            const index = (day === 0 ? 6 : day - 1) % sortedMessages.length;
+            const index = (day - 1) % sortedMessages.length;
             return sortedMessages[index];
         }
         
         if (sortedMessages.length >= 6) {
-            const index = day === 0 ? 5 : day - 1;
+            const index = day - 1;
             return sortedMessages[index] || sortedMessages[0];
         }
 
