@@ -12,7 +12,7 @@ export default function updatingSendoutCall(ctx: MyContext, result: boolean, val
         ctx.t("handlers.states.updatingSendoutCall.path", { call: ctx.session.sendout.call }),
     ];
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainSendoutCall:${ctx.session.sendout.id}`);
+    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainSendoutNames:${ctx.session.sendout.id}`);
 
     if (!validate) text.unshift(ctx.t("utils.shared.titles.validate"));
     else {

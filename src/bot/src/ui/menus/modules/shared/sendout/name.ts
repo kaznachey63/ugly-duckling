@@ -11,7 +11,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text: string[] = [
         ctx.t("modules.shared.sendout.view.name.main.title"),
         ctx.t("modules.shared.sendout.view.name.main.about"),
-        '\n',
+        '',
         ctx.t("modules.shared.sendout.view.name.main.path", { call: ctx.session.sendout.call }),
     ];
 
