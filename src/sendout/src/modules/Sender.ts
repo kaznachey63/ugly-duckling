@@ -95,7 +95,7 @@ export class Sender {
     private async prepareMedia(mediaItems: Media[]): Promise<string[]> {
         const files: string[] = [];
         for (const item of mediaItems) {
-            const filePath = path.resolve('resources', item.name!);
+            const filePath = path.resolve('src', 'sendout', 'resources', item.name!);
             await fs.access(filePath);
             files.push(filePath);
         }
