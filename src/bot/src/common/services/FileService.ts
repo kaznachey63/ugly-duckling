@@ -5,9 +5,7 @@ export class FileService {
     private readonly resourcesDir: string;
 
     constructor() {
-        this.resourcesDir = path.join(process.cwd(), 'sendout', 'resources');
-        console.log(this.resourcesDir);
-        
+        this.resourcesDir = path.join(process.cwd(), 'src', 'sendout', 'resources');        
     }
 
     async saveFile(data: string, fileName: string): Promise<void> {
