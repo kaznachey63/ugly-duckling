@@ -3,6 +3,8 @@ import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import menuAuth from '@menus/modules/commands/auth/main';
 import type { AuthLimit } from '@shared/types/DB';
+import common from '@utils/common';
+import initialize from '@utils/initialize';
 
 const authComposer = new Composer<MyContext>();
 
@@ -24,6 +26,7 @@ authComposer.callbackQuery("logoutAuth", async (ctx: MyContext) => {
             reply_markup: menu.keyboard ?? null,
             parse_mode: 'MarkdownV2'
         });
+        initialize.createDefaultSession();
     } catch (error) {
         console.error("Ошибка при выходе из системы", error);
     }
