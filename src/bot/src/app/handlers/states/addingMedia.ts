@@ -55,8 +55,7 @@ export default async function addingMedia(ctx: MyContext) {
     const { file_id, fileName } = mediaData;
     if (!fileName || !file_id) return;
 
-    const pathMedia = path.resolve("..", "sendout", "resources");
-    console.log(pathMedia);
+    const pathMedia = path.resolve('src', "sendout", "resources");
     
     const nameFile = generateFileName(fileName!, mediaType);
 

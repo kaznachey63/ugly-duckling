@@ -6,6 +6,8 @@ export class FileService {
 
     constructor() {
         this.resourcesDir = path.join(process.cwd(), 'sendout', 'resources');
+        console.log(this.resourcesDir);
+        
     }
 
     async saveFile(data: string, fileName: string): Promise<void> {
