@@ -176,14 +176,6 @@ const exportt = {
         pdf: 'PDF',
         docx: 'Word'
     },
-    fileName: {
-        message: "Сообщения",
-        contract: {
-            name: "Договор",
-            from: "от",
-        },
-        schedule: "График",
-    }
 };
 
 export default {
