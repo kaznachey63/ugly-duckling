@@ -42,7 +42,7 @@ contactComposer.on('message:contact', async (ctx: MyContext) => {
         const customer = await db.user.matchPhoneNumber(searchIndex);
 
         if (await db.user.exists(BigInt(ctx!.from!.id!))) {
-            await ctx.reply(ctx.t("modules.commands.cabinet.auth.login.already"), { 
+            await ctx.reply(ctx.t("modules.commands.auth.login.already"), { 
                 parse_mode: "MarkdownV2" 
             });  
         }

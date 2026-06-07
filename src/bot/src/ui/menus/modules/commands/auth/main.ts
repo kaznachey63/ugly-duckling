@@ -10,13 +10,13 @@ import constants from '@common/constants';
 function login(ctx: MyContext): Menu<Keyboard> {
     const attempts = ctx.session.authLimit.failed_attempts!;
     const text = [ 
-        attempts > 0 ? ctx.t("modules.commands.cabinet.auth.login.manyAttempts", { actualAttempts: attempts, maxAttempts: constants.limit.authMaxAttempts }) : '',
-        ctx.t("modules.commands.cabinet.auth.login.title"),
+        attempts > 0 ? ctx.t("modules.commands.auth.login.manyAttempts", { actualAttempts: attempts, maxAttempts: constants.limit.authMaxAttempts }) : '',
+        ctx.t("modules.commands.auth.login.title"),
     ].filter(Boolean).join('\n\n');
     
     const keyboard = new Keyboard()
-        .requestContact(ctx.t("modules.commands.cabinet.auth.login.buttons.phone"))
-        .text(ctx.t("modules.commands.cabinet.auth.login.buttons.cancel"))
+        .requestContact(ctx.t("modules.commands.auth.login.buttons.phone"))
+        .text(ctx.t("modules.commands.auth.login.buttons.cancel"))
         .resized().oneTime()
     ;
     
@@ -27,7 +27,7 @@ function login(ctx: MyContext): Menu<Keyboard> {
  * Запрет к авторизации
  */
 function stop(ctx: MyContext): Menu<InlineKeyboard> {
-    const text = ctx.t("modules.commands.cabinet.auth.login.stop", { dateTime: ctx.session.authLimit.blocked_until?.toLocaleString('ru-RU') });
+    const text = ctx.t("modules.commands.auth.login.stop", { dateTime: ctx.session.authLimit.blocked_until?.toLocaleString('ru-RU') });
     const keyboard = new InlineKeyboard();
     
     return { text: format.escapeMarkdown(text), keyboard }
@@ -39,8 +39,8 @@ function stop(ctx: MyContext): Menu<InlineKeyboard> {
 function processLogin(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = 
         result ?
-            ctx.t("modules.commands.cabinet.auth.login.good") :
-            ctx.t("modules.commands.cabinet.auth.login.bad")
+            ctx.t("modules.commands.auth.login.good") :
+            ctx.t("modules.commands.auth.login.bad")
     ;
 
     const keyboard = new InlineKeyboard();
@@ -57,8 +57,8 @@ function processLogin(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 function logout(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const text = 
         result ? 
-            ctx.t("modules.commands.cabinet.auth.logout.good") :
-            ctx.t("modules.commands.cabinet.auth.logout.bad")
+            ctx.t("modules.commands.auth.logout.good") :
+            ctx.t("modules.commands.auth.logout.bad")
     const keyboard = new InlineKeyboard();
 
     return { text: format.escapeMarkdown(text), keyboard }
