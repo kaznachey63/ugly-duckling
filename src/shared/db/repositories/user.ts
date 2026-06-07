@@ -180,11 +180,13 @@ async function removeFromSystem(value: number | bigint): Promise<boolean> {
         }
 
         if (telegramId) {
-            await prisma.auth_limit.delete({
-                where: {
-                    telegram_id: telegramId
-                }
-            });
+            try {
+                await prisma.auth_limit.delete({
+                    where: {
+                        telegram_id: telegramId
+                    }
+                });
+            } catch {}
         }
 
         return true;
