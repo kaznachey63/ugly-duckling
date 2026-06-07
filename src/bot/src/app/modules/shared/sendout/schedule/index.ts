@@ -11,17 +11,31 @@ import exportComposer from './export';
 const scheduleComposer = new Composer<MyContext>();
 
 scheduleComposer.callbackQuery(/^mainSchedule:/, async (ctx: MyContext) => {
-    try {
-        common.resetSessionStates(ctx.session);
-        const schedule = await db.schedule.get(ctx.session.sendout.id!);
-        const menu = menuSchedule(ctx, schedule?.length!);
+    common.resetSessionStates(ctx.session);
+    const schedule = await db.schedule.get(ctx.session.sendout.id!);
+    const menu = menuSchedule(ctx, schedule?.length!);
 
-        await ctx.editMessageText(menu.text, {
+    try {
+        const msg = await ctx.editMessageText(menu.text, {
             reply_markup: menu.keyboard,
             parse_mode: 'MarkdownV2'
         });
+        
+        // Сохранение айди для последующего редактирования этого же сообщения
+        if (typeof msg !== "boolean" && "message_id" in msg) {
+            ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+        }
     } catch (error) {
-        console.error('Ошибка в mainSchedule:', error);
+        await ctx.api.deleteMessage(ctx.chatId!, ctx.session.other.ids.idForUpdateMessageFromState);
+        const msg = await ctx.reply(menu.text, {
+            parse_mode: 'MarkdownV2',
+            reply_markup: menu.keyboard
+        });
+
+        // Сохранение айди для последующего редактирования этого же сообщения
+        if (typeof msg !== "boolean" && "message_id" in msg) {
+            ctx.session.other.ids.idForUpdateMessageFromState = msg.message_id;
+        }    
     }
 });
 

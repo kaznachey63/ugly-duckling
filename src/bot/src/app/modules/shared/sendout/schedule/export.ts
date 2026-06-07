@@ -7,7 +7,6 @@ import { PdfService } from '@common/services/exports/PdfService';
 import constants from '@common/constants';
 import { WordService } from '@common/services/exports/WordService';
 import { FileService } from '@common/services/FileService';
-import { t } from 'i18next';
 
 const exportComposer = new Composer<MyContext>();
 
