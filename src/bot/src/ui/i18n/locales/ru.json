@@ -101,6 +101,14 @@
             "bot": "Бот",
             "parser": "Парсер",
             "sendout": "Рассылки"
+        },
+        "exportFileName": {
+            "message": "Сообщения",
+            "contract": {
+                "name": "Договор"
+            },
+            "from": "от",
+            "schedule": "График"
         }
     },
     "handlers": {
