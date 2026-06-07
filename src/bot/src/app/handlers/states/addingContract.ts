@@ -46,13 +46,18 @@ function validateContract(text: string): boolean {
     return true;
 }
 
+function parseDate(input: string): Date {
+    const [day, month, year] = input.split('-').map(Number);
+    return new Date(year!, month! - 1, day);
+}
+
 function formatContract(ctx: MyContext): Contract {
     const contractInText = ctx.message?.text?.trim()!;
     const [dateStart, dateEnd] = contractInText.split('\n');
 
     return {
-        date_start: dateStart === '-' ? null : new Date(dateStart!),
-        date_end: dateEnd === '-' ? null : new Date(dateEnd!),
+        date_start: dateStart === '-' ? null : parseDate(dateStart!),
+        date_end: dateEnd === '-' ? null : parseDate(dateEnd!),
         price: constants.price.days30 * ctx.session.contract.sendout?.length!,
         // @ts-ignore
         price_text: constants.priceText[ctx.session.contract.sendout?.length]!,
