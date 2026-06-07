@@ -177,9 +177,12 @@ const exportt = {
         docx: 'Word'
     },
     fileName: {
-        message: "messages",
-        contract: "contract",
-        schedule: "schedule",
+        message: "Сообщения",
+        contract: {
+            name: "Договор",
+            from: "от",
+        },
+        schedule: "График",
     }
 };
 

@@ -46,7 +46,7 @@ exportComposer.callbackQuery(/^exportSchedule:/, async (ctx: MyContext) => {
         const schedule = await db.schedule.get(ctx.session.sendout.id!);
         const scheduleBlock = schedule?.map(s => s.label).join('\n');
         const cronBlock = schedule?.map(s => s.cron).join('\n');
-        const data = ctx.session.isAdmin ? `${scheduleBlock}\n\n──────────────\n\nCRON\n${cronBlock}` : scheduleBlock;  
+        const data = ctx.session.isAdmin ? `${scheduleBlock}\n\n─────CRON────\n\n${cronBlock}` : scheduleBlock;  
 
         switch (exportType) {
             case 'pdf': {
