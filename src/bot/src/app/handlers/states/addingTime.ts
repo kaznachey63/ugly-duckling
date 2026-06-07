@@ -24,7 +24,7 @@ export default async function addingTime(ctx: MyContext) {
         const cron = shared.formatCronTime(line);
         return {
             cron,
-            label: utils.local.formatTimeToRu(cron)!,
+            label: utils.local.formatTimeToRu(ctx, cron)!,
             sendout_id: ctx.session.sendout.id!
         };
     });

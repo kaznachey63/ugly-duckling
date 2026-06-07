@@ -107,6 +107,13 @@
             "contract": "Договор",
             "from": "от",
             "schedule": "График"
+        },
+        "localization": {
+            "schedule": {
+                "number": "",
+                "everyDay": "",
+                "unknownDay": ""
+            }
         }
     },
     "handlers": {

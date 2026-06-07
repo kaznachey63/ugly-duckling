@@ -2,30 +2,40 @@ import type { LanguageCode } from 'grammy/types';
 import map from '../maps';
 import type { RoleCode } from '@shared/types/RoleCode';
 import type { LanguagesALlowed } from '@shared/types/LanguagesAllowed';
+import type { MyContext } from '@shared/types/SessionData';
 
 /**
  * Преобразует один объект Time в человекочитаемую строку
- * @param time объект Time из базы данных
  * @returns строка вида "Вторник - 12:30"
  */ 
-function formatTimeToRu(cronTime: string): string | null {
-    const [ minute, hour, day, month, weekDay ] = cronTime.split(' ');
+function formatTimeToRu(ctx: MyContext, cronTime: string): string | null {
+    const [minute, hour, day, month, weekDay] = cronTime.split(' ');
 
-    // Проверяем наличие обязательных полей
-    if (!minute || !hour || !weekDay) {
-        console.warn(`Пропущены данные в записи`);
+    if (!minute || !hour || day === undefined || month === undefined || weekDay === undefined) {
         return null;
     }
 
-    // Получаем название дня недели
-    const dayName = map.dayWeekMap[weekDay] || 'Неизвестный день';
-
-    // Форматируем часы и минуты (добавляем ведущий ноль)
     const formattedHour = String(hour).padStart(2, '0');
     const formattedMinute = String(minute).padStart(2, '0');
+    const time = `${formattedHour}:${formattedMinute}`;
 
-    // Формируем итоговую строку
-    return `${dayName} - ${formattedHour}:${formattedMinute}`;
+    // Конкретная дата
+    if (day !== '*' && month !== '*') {
+        return `${String(day).padStart(2, '0')}.${String(month).padStart(2, '0')} - ${time}`;
+    }
+
+    // День месяца
+    if (day !== '*' && month === '*') {
+        return `${day} ${ctx.t("utils.localization.schedule.number")} - ${time}`;
+    }
+
+    // День недели
+    if (weekDay !== '*') {
+        return `${map.dayWeekMap[weekDay] ?? ctx.t("utils.localization.schedule.unknownDay")} - ${time}`;
+    }
+
+    // Каждый день
+    return `${ctx.t("utils.localization.schedule.everyDay")} - ${time}`;
 }
 
 /**

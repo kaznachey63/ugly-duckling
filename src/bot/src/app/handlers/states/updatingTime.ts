@@ -18,7 +18,7 @@ export default async function updatingTime(ctx: MyContext) {
         const formattedCronTime = shared.formatCronTime(ctx.message?.text!);
         const formattedTime: Schedule = {
             cron: shared.formatCronTime(ctx.message?.text!),
-            label: utils.local.formatTimeToRu(formattedCronTime)!,
+            label: utils.local.formatTimeToRu(ctx, formattedCronTime)!,
             id: ctx.session.schedule.id!,
             sendout_id: ctx.session.sendout.id!
         };
