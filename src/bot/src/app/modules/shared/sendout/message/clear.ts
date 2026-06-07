@@ -17,8 +17,7 @@ clearComposer.callbackQuery(/^clearMessages:/, async (ctx: MyContext) => {
     if (!messages) return;
 
     await db.message.clear(ctx.session.sendout.id!);
-    const server = new ServerManager();
-    const menu = menuClear(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true));
+    const menu = menuClear(ctx, await ServerManager.restartProcessOrNot(ctx.session.sendout.name!, true));
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"

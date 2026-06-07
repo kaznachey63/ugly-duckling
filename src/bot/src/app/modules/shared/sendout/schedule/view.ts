@@ -87,8 +87,7 @@ viewComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
         if ((await db.schedule.get(sendoutId!))?.length == 0) {
             await db.schedule.clear(sendoutId!);
         }
-        const server = new ServerManager();
-        const menu = menuView.remove(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true));
+        const menu = menuView.remove(ctx, await ServerManager.restartProcessOrNot(ctx.session.sendout.name!, true));
     
         await ctx.editMessageText(menu.text, {
             parse_mode: 'MarkdownV2',

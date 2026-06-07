@@ -16,8 +16,7 @@ messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
     const message = await db.message.getById(Number(ctx.callbackQuery?.data?.split(':')[1]!.split('#')[1]));
 
     await db.message.remove(message?.id!);
-    const server = new ServerManager();
-    const menu = menuView.removeMessage(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true));
+    const menu = menuView.removeMessage(ctx, await ServerManager.restartProcessOrNot(ctx.session.sendout.name!, true));
 
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,

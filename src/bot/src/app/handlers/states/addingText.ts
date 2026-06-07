@@ -21,8 +21,7 @@ export default async function addingText(ctx: MyContext) {
         
         await db.message.create(message);
 
-        const server = new ServerManager();
-        menu = menuAddingText(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true), true);
+        menu = menuAddingText(ctx, await ServerManager.restartProcessOrNot(ctx.session.sendout.name!, true), true);
         common.resetSessionStates(ctx.session);
     }
    

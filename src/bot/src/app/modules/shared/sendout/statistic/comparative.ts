@@ -54,8 +54,7 @@ async function handlerComparativeStatistika(ctx: MyContext, typeStat: StatisticT
     }
 
     await ctx.api.sendChatAction(ctx.chat?.id!, 'upload_photo');
-    const chart = new QuickChartService()
-    const myChart = chart.createChart(ctx, data);
+    const myChart = QuickChartService.createChart(ctx, data);
     const menu = menuStatistic.handlerComparative(ctx, typeStat);
 
     await ctx.replyWithPhoto(await myChart.getShortUrl(), {

@@ -105,8 +105,7 @@ export default async function addingMedia(ctx: MyContext) {
 
         // 5. Финал
         await sleep(250);
-        const server = new ServerManager();
-        await editMessage(ctx, true, await server.restartProcessOrNot(ctx.session.sendout?.name!, true));
+        await editMessage(ctx, true, await ServerManager.restartProcessOrNot(ctx.session.sendout?.name!, true));
         
         // Сбрасываем состояние ТОЛЬКО после успешного добавления
         utils.common.resetSessionStates(ctx.session);

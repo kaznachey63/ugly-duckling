@@ -19,8 +19,7 @@ export default async function updatingText(ctx: MyContext) {
 
         await db.message.update(formatMessage);
 
-        const server = new ServerManager();
-        menu = menuUpdatingText(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true), true);
+        menu = menuUpdatingText(ctx, await ServerManager.restartProcessOrNot(ctx.session.sendout.name!, true), true);
         common.resetSessionStates(ctx.session);
     }
 

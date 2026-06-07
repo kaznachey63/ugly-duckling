@@ -48,7 +48,6 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     const media = await db.media.get(ctx.session.message.id!);
 
     if (!media) return;
-    const server = new ServerManager();
 
     // 🔥 УДАЛЯЕМ ФАЙЛЫ ИЗ ФАЙЛОВОЙ СИСТЕМЫ
     for (const file of media!) {
@@ -66,7 +65,7 @@ mediaComposer.callbackQuery(/^clearAllMedia:/, async (ctx: MyContext) => {
     // 🔥 ОБНУЛЯЕМ МЕДИА В БД
     await db.media.clear(ctx.session.message.id!);
     
-    const menu = menuView.clearAllMedia(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true));
+    const menu = menuView.clearAllMedia(ctx, await ServerManager.restartProcessOrNot(ctx.session.sendout.name!, true));
     await ctx.editMessageText(menu.text, {
         reply_markup: menu.keyboard,
         parse_mode: "MarkdownV2"

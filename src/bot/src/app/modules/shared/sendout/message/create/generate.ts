@@ -28,8 +28,7 @@ genereteComposer.callbackQuery(/^generateText:.+-(true|false)$/, async (ctx: MyC
         };
 
         await db.message.create(message);
-        const server = new ServerManager();
-        menu = menuCreate.saveOrCancelGenerateText(ctx, action, await server.restartProcessOrNot(ctx.session.sendout.name!, true));
+        menu = menuCreate.saveOrCancelGenerateText(ctx, action, await ServerManager.restartProcessOrNot(ctx.session.sendout.name!, true));
         common.resetSessionStates(ctx.session);
     }
     else {

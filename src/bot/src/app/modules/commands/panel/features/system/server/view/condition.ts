@@ -9,8 +9,7 @@ const conditionComposer = new Composer<MyContext>();
 
 conditionComposer.callbackQuery("mainCondition", async (ctx: MyContext) => {
     try {
-        const server = new ServerManager();
-        const status = await server.getProcessStatus(ctx.session.server.processName);
+        const status = await ServerManager.getProcessStatus(ctx.session.server.processName);
         const menu = menuCondition(ctx, status);
 
         await ctx.editMessageText(menu.text, {
@@ -25,10 +24,9 @@ conditionComposer.callbackQuery("mainCondition", async (ctx: MyContext) => {
 conditionComposer.callbackQuery("startProcess", async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
-        const server = new ServerManager();
-        await server.startProcess(ctx.session.server.processName);
+        await ServerManager.startProcess(ctx.session.server.processName);
         await sleep(250);
-        const status = await server.getProcessStatus(ctx.session.server.processName);
+        const status = await ServerManager.getProcessStatus(ctx.session.server.processName);
         const menu = menuCondition(ctx, status);
 
         await ctx.editMessageText(menu.text, {
@@ -43,10 +41,9 @@ conditionComposer.callbackQuery("startProcess", async (ctx: MyContext) => {
 conditionComposer.callbackQuery("stopProcess", async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
-        const server = new ServerManager();
-        await server.stopProcess(ctx.session.server.processName);
+        await ServerManager.stopProcess(ctx.session.server.processName);
         await sleep(250);
-        const status = await server.getProcessStatus(ctx.session.server.processName);
+        const status = await ServerManager.getProcessStatus(ctx.session.server.processName);
         const menu = menuCondition(ctx, status);
 
         await ctx.editMessageText(menu.text, {
@@ -61,10 +58,9 @@ conditionComposer.callbackQuery("stopProcess", async (ctx: MyContext) => {
 conditionComposer.callbackQuery("restartProcess", async (ctx: MyContext) => {
     try {
         await ctx.editMessageText(ctx.t("utils.shared.processing"));
-        const server = new ServerManager();
-        await server.restartProcess(ctx.session.server.processName);
+        await ServerManager.restartProcess(ctx.session.server.processName);
         await sleep(250);
-        const status = await server.getProcessStatus(ctx.session.server.processName);
+        const status = await ServerManager.getProcessStatus(ctx.session.server.processName);
         const menu = menuCondition(ctx, status);
 
         await ctx.editMessageText(menu.text, {

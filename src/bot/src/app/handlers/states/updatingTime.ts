@@ -8,8 +8,6 @@ import type { Schedule } from '@shared/types/DB';
 import shared from './shared';
 
 export default async function updatingTime(ctx: MyContext) {
-    const server = new ServerManager();
-
     let menu;
     if (!shared.validateTime(ctx.message?.text!)) {
         menu = menuUpdatingTime(ctx, false, false);
@@ -24,7 +22,7 @@ export default async function updatingTime(ctx: MyContext) {
         };
 
         await db.schedule.update(formattedTime);
-        menu = menuUpdatingTime(ctx, await server.restartProcessOrNot(ctx.session.sendout.name!, true), true);
+        menu = menuUpdatingTime(ctx, await ServerManager.restartProcessOrNot(ctx.session.sendout.name!, true), true);
         common.resetSessionStates(ctx.session);
     }
 

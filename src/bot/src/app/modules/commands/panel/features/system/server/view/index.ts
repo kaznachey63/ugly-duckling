@@ -12,8 +12,7 @@ viewCopmoser.callbackQuery(/^mainProcess-/, async (ctx: MyContext) => {
     try {
         const processType = ctx.callbackQuery?.data?.split('-')[1] as ProcessType;
         ctx.session.server.processType = processType;
-        const server = new ServerManager();
-        const processes = await server.getProcessesByProcessType(processType);
+        const processes = await ServerManager.getProcessesByProcessType(processType);
         
         const menu = menuView.process(ctx, processes);
 

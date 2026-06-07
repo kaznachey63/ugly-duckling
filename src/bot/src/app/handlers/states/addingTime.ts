@@ -31,8 +31,7 @@ export default async function addingTime(ctx: MyContext) {
 
     await db.schedule.createMany(times);
 
-    const server = new ServerManager();
-    const restartState = await server.restartProcessOrNot(ctx.session.sendout.name!, true);
+    const restartState = await ServerManager.restartProcessOrNot(ctx.session.sendout.name!, true);
 
     const menu = menuAddingTime(ctx, restartState, true);
     common.resetSessionStates(ctx.session);

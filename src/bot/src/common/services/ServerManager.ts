@@ -7,7 +7,7 @@ export class ServerManager {
     /**
      * Выполнение запроса на сервере с укзанаием команды и задержки
      */
-    private async execute(cmd: string, timeoutMs = 30000): Promise<{ stdout: string; stderr: string }> {
+    private static async execute(cmd: string, timeoutMs = 30000): Promise<{ stdout: string; stderr: string }> {
         return new Promise((resolve, reject) => {
             exec(cmd, {
                 timeout: timeoutMs,
@@ -31,7 +31,7 @@ export class ServerManager {
     /**
      * Проверка на необходимость перезапуска процесса
      */
-    async restartProcessOrNot(name: string, isSendout = false): Promise<boolean> {
+    static async restartProcessOrNot(name: string, isSendout = false): Promise<boolean> {
         const processName = isSendout ? `uglyduckling-sendout@${name}.service` : name;
         const wasActive = await this.isProcessActive(processName);
         if (wasActive) {
@@ -45,14 +45,14 @@ export class ServerManager {
     /**
      * Проверка процесса на активность
      */ 
-    async isProcessActive(name: string): Promise<boolean> {
+    static async isProcessActive(name: string): Promise<boolean> {
         return (await this.getProcessStatus(name)) === 'active';
     }
 
     /**
      * Получение кода выполнения
      */
-    async getProcessExitCode(name: string): Promise<number> {
+    static async getProcessExitCode(name: string): Promise<number> {
         const { stdout } = await this.execute(`sudo systemctl show ${name} --property=ExecMainStatus`, 5000);
         const value = stdout.split('=')[1]!;
         const code = parseInt(value, 10);
@@ -62,28 +62,28 @@ export class ServerManager {
     /**
      * Перезапуск процесса по имени
      */
-    async restartProcess(name: string): Promise<void> {
+    static async restartProcess(name: string): Promise<void> {
         await this.execute(`sudo systemctl restart ${name}`, 30000);
     }
 
     /**
      * Остановка процесса по имени
      */
-    async stopProcess(name: string): Promise<void> {
+    static async stopProcess(name: string): Promise<void> {
         await this.execute(`sudo systemctl stop ${name}`, 30000);
     }
 
     /**
      * Запуск процесса по имени
      */
-    async startProcess(name: string): Promise<void> {
+    static async startProcess(name: string): Promise<void> {
         await this.execute(`sudo systemctl start ${name}`, 30000);
     }
 
     /**
      * Получение статуса процесса по имени
      */
-    async getProcessStatus(name: string): Promise<ProcessStatus> {
+    static async getProcessStatus(name: string): Promise<ProcessStatus> {
         const { stdout } = await this.execute(`sudo systemctl is-active ${name}`, 5000);
         const state = stdout.toLowerCase() as ProcessStatus;
         return state;
@@ -92,7 +92,7 @@ export class ServerManager {
     /**
      * Получение списка процессов по типу процесса
      */
-    async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
+    static async getProcessesByProcessType(processType: ProcessType): Promise<string[]> {
         const { stdout } = await this.execute("systemctl list-unit-files --type=service --no-legend --no-pager", 5000);
         if (processType == 'sendout') {
             const sendouts = await db.sendout.getSendouts();
@@ -110,7 +110,7 @@ export class ServerManager {
     /**
      * Получение логов по имени процесса
      */
-    async getLogsByProcessName(name: string): Promise<string> {
+    static async getLogsByProcessName(name: string): Promise<string> {
         const { stdout } = await this.execute(`journalctl -u ${name} --no-pager`, 10000);
         return stdout;
     }

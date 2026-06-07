@@ -10,8 +10,7 @@ logComposer.callbackQuery("mainLog", async (ctx: MyContext) => {
     try {
         ctx.session.server.logPage = 0;
 
-        const server = new ServerManager();
-        const logs = await server.getLogsByProcessName(ctx.session.server.processName);        
+        const logs = await ServerManager.getLogsByProcessName(ctx.session.server.processName);        
 
         const menu = menuLog(ctx, logs);
 
@@ -29,9 +28,8 @@ logComposer.callbackQuery(/^sortLog-/, async (ctx: MyContext) => {
     try {
         ctx.session.server.logPage = 0;
 
-        const server = new ServerManager();
         ctx.session.server.logSort = ctx.callbackQuery?.data?.split('-')[1] as LogSortType;
-        const logs = await server.getLogsByProcessName(ctx.session.server.processName);
+        const logs = await ServerManager.getLogsByProcessName(ctx.session.server.processName);
 
         const menu = menuLog(ctx, logs);
 
@@ -49,8 +47,7 @@ logComposer.callbackQuery(/^logPage-(\d+)$/, async (ctx: MyContext) => {
     try {
         ctx.session.server.logPage = Number(ctx.match![1]!);
 
-        const server = new ServerManager();
-        const logs = await server.getLogsByProcessName(ctx.session.server.processName);
+        const logs = await ServerManager.getLogsByProcessName(ctx.session.server.processName);
 
         const menu = menuLog(ctx, logs);
 
