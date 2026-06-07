@@ -42,31 +42,31 @@ exportComposer.callbackQuery(/^exportMessages:/, async (ctx: MyContext) => {
     let menu;
     let fileName;
     try {
-        const exportInfo = `─────\nЭкспорт: ${common.getCurrentDate()} | ${common.getCurrentTime()}`;
+        const exportInfo = `─────\n${ctx.t("utils.export.text")}: ${common.getCurrentDate()} | ${common.getCurrentTime()}`;
 
         const messages = await db.message.getMessages(ctx.session.sendout.id!);
 
         const data = `${messages!
-            .map((m, i) => `Сообщение №${i + 1}\n${m.caption}`)
+            .map((m, i) => `${ctx.t("modules.shared.sendout.view.message.view.main.messageNumber", {number: i + 1})}\n${m.caption}`)
             .join('\n\n')}\n${exportInfo}`
         ;
         switch (exportType) {
             case 'pdf': {
                 const pdf = new PdfService();
                 buffer = await pdf.write(data);
-                fileName = `${ctx.t("utils.exportFileName.message")} ${ctx.t("utils.exportFileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.pdf}`;
+                fileName = `${ctx.t("utils.export.fileName.message")} ${ctx.t("utils.export.fileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.pdf}`;
                 break;
             }
             case 'word': {
                 const word = new WordService();
                 buffer = await word.write(data);
-                fileName = `${ctx.t("utils.exportFileName.message")} ${ctx.t("utils.exportFileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.docx}`;
+                fileName = `${ctx.t("utils.export.fileName.message")} ${ctx.t("utils.export.fileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.docx}`;
                 break;
             }
             case 'txt': {
                 const file = new FileService();
                 buffer = file.getBuffer(data);
-                fileName = `${ctx.t("utils.exportFileName.message")} ${ctx.t("utils.exportFileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.txt}`
+                fileName = `${ctx.t("utils.export.fileName.message")} ${ctx.t("utils.export.fileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.txt}`
                 break;
             }
         }

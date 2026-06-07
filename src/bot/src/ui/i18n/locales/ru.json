@@ -102,11 +102,14 @@
             "parser": "Парсер",
             "sendout": "Рассылки"
         },
-        "exportFileName": {
-            "message": "Сообщения",
-            "contract": "Договор",
-            "from": "от",
-            "schedule": "График"
+        "export": {
+            "fileName": {
+                "schedule": "График",
+                "message": "Сообщения",
+                "contract": "Договор"
+            },
+            "text": "Экспорт",
+            "from": "от"
         },
         "localization": {
             "schedule": {

@@ -46,7 +46,7 @@ exportComposer.callbackQuery(/^exportSchedule:/, async (ctx: MyContext) => {
         const schedule = await db.schedule.get(ctx.session.sendout.id!);
         const scheduleBlock = schedule?.map(s => s.label).join('\n');
         const cronBlock = schedule?.map(s => s.cron).join('\n');
-        const exportInfo = `─────\nЭкспорт: ${common.getCurrentDate()} | ${common.getCurrentTime()}`;
+        const exportInfo = `─────\n${ctx.t("utils.export.text")}: ${common.getCurrentDate()} | ${common.getCurrentTime()}`;
         const data = ctx.session.isAdmin
             ? `${scheduleBlock}\n\n─────CRON─────\n${cronBlock}\n${exportInfo}`
             : `${scheduleBlock}\n${exportInfo}`
@@ -56,19 +56,19 @@ exportComposer.callbackQuery(/^exportSchedule:/, async (ctx: MyContext) => {
             case 'pdf': {
                 const pdf = new PdfService();
                 buffer = await pdf.write(data!);
-                fileName = `${ctx.t("utils.exportFileName.schedule")} ${ctx.t("utils.exportFileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.pdf}`;
+                fileName = `${ctx.t("utils.export.fileName.schedule")} ${ctx.t("utils.export.fileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.pdf}`;
                 break;
             }
             case 'word': {
                 const word = new WordService();
                 buffer = await word.write(data!);
-                fileName = `${ctx.t("utils.exportFileName.schedule")} ${ctx.t("utils.exportFileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.docx}`;
+                fileName = `${ctx.t("utils.export.fileName.schedule")} ${ctx.t("utils.export.fileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.docx}`;
                 break;
             }
             case 'txt': {
                 const file = new FileService();
                 buffer = file.getBuffer(data!);
-                fileName = `${ctx.t("utils.exportFileName.schedule")} ${ctx.t("utils.exportFileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.txt}`
+                fileName = `${ctx.t("utils.export.fileName.schedule")} ${ctx.t("utils.export.fileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.txt}`
                 break;
             }
         }
