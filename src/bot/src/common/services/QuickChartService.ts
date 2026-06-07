@@ -4,7 +4,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import constants from '@constants';
 
 export class QuickChartService {
-    static createChart(ctx: MyContext, data: ChartData): QuickChart {
+    createChart(ctx: MyContext, data: ChartData): QuickChart {
         const qc = new QuickChart();
         const isWeek = data.type === 'week';
         const isMonth = data.type === 'month';
@@ -19,6 +19,7 @@ export class QuickChartService {
             data: {
                 labels: data.labels,
                 datasets: [{
+                    // label: ctx.t("utils.chart.label"),
                     data: data.groups,
                     borderWidth: constants.chart.dataset.borderWidth,
                     tension: isMonth ? constants.chart.dataset.tensionMonth : constants.chart.dataset.tensionWeek,
@@ -28,46 +29,38 @@ export class QuickChartService {
                 }]
             },
             options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: data.type === 'month'
-                            ? ctx.t("utils.chart.labelMonth", { month: monthName, year: year.toString() })
-                            : ctx.t("utils.chart.labelWeek")
-                    },
-                    legend: { display: false },
-                    datalabels: {
-                        ...constants.chart.datalabels,
-                        anchor: 'end',
-                        align: 'top',
-                        offset: 4,
-                        clip: false,
-                        formatter: (value: number) => value === 0 ? null : value
-                    } as any
+                title: {
+                    display: true,
+                    text: data.type == "month" ? ctx.t("utils.chart.labelMonth", { month: monthName, year: year.toString() }) : ctx.t("utils.chart.labelWeek")
                 },
                 scales: {
-                    x: {
-                        title: {
-                            display: true
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        min: constants.chart.axis.yMin,
-                        suggestedMax: constants.chart.axis.yMax,
+                    xAxes: [{ scaleLabel: { display: true } }],
+                    yAxes: [{
                         ticks: {
+                            beginAtZero: true,
+                            min: constants.chart.axis.yMin,
+                            suggestedMax: constants.chart.axis.yMax,
                             stepSize: constants.chart.axis.stepSize
                         },
-                        title: {
+                        scaleLabel: {
                             display: true,
-                            text: ctx.t("utils.chart.amountSms"),
-                            font: {
-                                size: constants.chart.axis.fontSize
-                            }
+                            labelString: ctx.t("utils.chart.amountSms"),
+                            fontSize: constants.chart.axis.fontSize
                         }
+                    }]
+                },
+                plugins: {
+                    datalabels: {
+                        ...constants.chart.datalabels,
+                        anchor: 'end',      
+                        align: 'top',         
+                        offset: 4,            
+                        clip: false,          
+                        formatter: (value: number) => value === 0 ? null : value
                     }
-                }
-            } as any
+                },
+                legend: { display: false }
+            }
         });
 
         qc.setWidth(isWeek ? constants.chart.canvas.week.width : constants.chart.canvas.month.width);

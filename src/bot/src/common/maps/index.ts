@@ -11,17 +11,6 @@ const mimeType: Record<string, string[]> = {
     "video": ["mp4", "x-msvideo", "quicktime", "x-ms-wmv", "x-flv", "x-matroska", "webm", "x-m4v", "3gpp", "mpeg"]
 };
 
-const dayWeekMap: Record<string, string> = {
-    '1': 'Понедельник',
-    '2': 'Вторник',
-    '3': 'Среда',
-    '4': 'Четверг',
-    '5': 'Пятница',
-    '6': 'Суббота',
-    '7': 'Воскресенье',
-    '*': 'Каждый день'
-};
-
 const roleCodes: Record<RoleCode, number> = {
     "admin": 1,
     "customer": 2,
@@ -73,7 +62,6 @@ const countryFlags: Record<LanguagesALlowed, string> = {
 export default {
     fileFormat,
     mimeType,
-    dayWeekMap,
     roleCodes,
     rolesIds,
     countryFlags,

@@ -31,7 +31,7 @@ function formatTimeToRu(ctx: MyContext, cronTime: string): string | null {
 
     // День недели
     if (weekDay !== '*') {
-        return `${map.dayWeekMap[weekDay] ?? ctx.t("utils.localization.schedule.unknownDay")} - ${time}`;
+        return `${ctx.t(`utils.localization.${weekDay}`) ?? ctx.t("utils.localization.schedule.unknownDay")} - ${time}`;
     }
 
     // Каждый день

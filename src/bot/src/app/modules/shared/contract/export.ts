@@ -39,13 +39,13 @@ exportComposer.callbackQuery(/^exportContract#/, async (ctx: MyContext) => {
             case 'pdf': {
                 const pdf = new PdfService();
                 buffer = await pdf.execRender(contractData);
-                fileName = `${ctx.t("utils.export.fileName.contract")} ${ctx.t("utils.export.fileName.from")} ${common.getCurrentDate(ctx.session.contract.date_start!)}${constants.exportt.extension.pdf}`;
+                fileName = `${ctx.t("utils.export.fileName.contract")} ${ctx.t("utils.export.from")} ${common.getCurrentDate(ctx.session.contract.date_start!)}${constants.exportt.extension.pdf}`;
                 break;
             }
             case 'word': {
                 const word = new WordService();
                 buffer = await word.execRender(contractData);
-                fileName = `${ctx.t("utils.export.fileName.contract")} ${ctx.t("utils.export.fileName.from")} ${common.getCurrentDate(ctx.session.contract.date_start!)}${constants.exportt.extension.docx}`;
+                fileName = `${ctx.t("utils.export.fileName.contract")} ${ctx.t("utils.export.from")} ${common.getCurrentDate(ctx.session.contract.date_start!)}${constants.exportt.extension.docx}`;
                 break;
             }
         }

@@ -54,19 +54,19 @@ exportComposer.callbackQuery(/^exportMessages:/, async (ctx: MyContext) => {
             case 'pdf': {
                 const pdf = new PdfService();
                 buffer = await pdf.write(data);
-                fileName = `${ctx.t("utils.export.fileName.message")} ${ctx.t("utils.export.fileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.pdf}`;
+                fileName = `${ctx.t("utils.export.fileName.message")} ${ctx.t("utils.export.from")} ${ctx.session.sendout.call}${constants.exportt.extension.pdf}`;
                 break;
             }
             case 'word': {
                 const word = new WordService();
                 buffer = await word.write(data);
-                fileName = `${ctx.t("utils.export.fileName.message")} ${ctx.t("utils.export.fileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.docx}`;
+                fileName = `${ctx.t("utils.export.fileName.message")} ${ctx.t("utils.export.from")} ${ctx.session.sendout.call}${constants.exportt.extension.docx}`;
                 break;
             }
             case 'txt': {
                 const file = new FileService();
                 buffer = file.getBuffer(data);
-                fileName = `${ctx.t("utils.export.fileName.message")} ${ctx.t("utils.export.fileName.from")} ${ctx.session.sendout.call}${constants.exportt.extension.txt}`
+                fileName = `${ctx.t("utils.export.fileName.message")} ${ctx.t("utils.export.from")} ${ctx.session.sendout.call}${constants.exportt.extension.txt}`
                 break;
             }
         }
