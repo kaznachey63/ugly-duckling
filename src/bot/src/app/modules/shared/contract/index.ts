@@ -44,7 +44,8 @@ function clearContract(ctx: MyContext) {
                 code: "unknown"
             },
             id: 0,
-            role_id: 0
+            role_id: 0,
+            phone_index: ""
         }
     }
 }

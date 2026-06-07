@@ -8,11 +8,9 @@ import { InlineKeyboard } from 'grammy';
  */
 export default function main(ctx: MyContext, amountOfUsers: number): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("modules.commands.panel.data.user.main.title"),
-        ctx.t("modules.commands.panel.data.user.main.amount", { amount: amountOfUsers }),
-        "",
+        ctx.t("modules.commands.panel.data.user.main.title", { amount: amountOfUsers }),
         ctx.t("modules.commands.panel.data.user.main.path")
-    ].join('\n');
+    ].join('\n\n');
     
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.create"), "createUser").style("success");
     

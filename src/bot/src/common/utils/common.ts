@@ -90,6 +90,14 @@ async function alertSendoutIsActive(ctx: MyContext) {
     return await ctx.answerCallbackQuery({ text: ctx.t("utils.shared.titles.sendoutActive"), show_alert: true })
 }
 
+function getCurrentDate(date?: Date): string {
+    return new Date(date ?? Date.now()).toLocaleDateString('ru-RU');
+}
+
+function getCurrentTime(): string {
+    return new Date().toLocaleTimeString('ru-RU');
+}
+
 export default {
     resetSessionStates,
     setPrimaryValuesSession,
@@ -97,5 +105,7 @@ export default {
     checkMaintenace,
     checkCancelButton,
     alertSendoutIsActive,
-    deleteCashMessages
+    deleteCashMessages,
+    getCurrentDate,
+    getCurrentTime,
 };

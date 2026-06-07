@@ -4,13 +4,14 @@ import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
 import constants from "@common/constants";
+import common from '@utils/common';
 
 function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
         ctx.t("modules.shared.contract.view.contract.export.main.title"),
         ctx.t("modules.shared.contract.view.contract.export.main.path",  { 
             menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), 
-            dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') 
+            dateStart: common.getCurrentDate(ctx.session.contract.date_start!) 
         }),
     ].join('\n\n');
     
@@ -34,7 +35,7 @@ function action(ctx: MyContext, exportType: ExportType, result: boolean): Menu<I
             call: ctx.session.sendout.call, 
             exportType: exportType, 
             menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), 
-            dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU')
+            dateStart: common.getCurrentDate(ctx.session.contract.date_start!)
         }),
     ].join('\n');
 

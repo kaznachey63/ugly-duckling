@@ -7,6 +7,7 @@ import { WordService } from '@common/services/exports/WordService';
 import { FileService } from '@common/services/FileService';
 import db from '@shared/db';
 import constants from '@common/constants';
+import common from '@utils/common';
 const exportComposer = new Composer<MyContext>();
 
 exportComposer.callbackQuery(/^mainExportMessages:/, async (ctx: MyContext) => {
@@ -41,9 +42,14 @@ exportComposer.callbackQuery(/^exportMessages:/, async (ctx: MyContext) => {
     let menu;
     let fileName;
     try {
-        const messages = await db.message.getMessages(ctx.session.sendout.id!);
-        const data = messages!.map((m, i) => `Сообщение №${i + 1}\n${m.caption}`).join('\n\n');
+        const exportInfo = `─────\nЭкспорт: ${common.getCurrentDate()} | ${common.getCurrentTime()}`;
 
+        const messages = await db.message.getMessages(ctx.session.sendout.id!);
+
+        const data = `${messages!
+            .map((m, i) => `Сообщение №${i + 1}\n${m.caption}`)
+            .join('\n\n')}\n${exportInfo}`
+        ;
         switch (exportType) {
             case 'pdf': {
                 const pdf = new PdfService();

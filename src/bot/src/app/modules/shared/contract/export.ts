@@ -7,6 +7,7 @@ import { WordService } from "@common/services/exports/WordService";
 import type { Contract } from "@shared/types/DB";
 import type { ContractExport } from "@shared/types/ContractExport";
 import constants from '@common/constants';
+import common from '@utils/common';
 
 const exportComposer = new Composer<MyContext>();
 
@@ -38,13 +39,13 @@ exportComposer.callbackQuery(/^exportContract#/, async (ctx: MyContext) => {
             case 'pdf': {
                 const pdf = new PdfService();
                 buffer = await pdf.execRender(contractData);
-                fileName = `${ctx.t("utils.exportFileName.contract")} ${ctx.t("utils.exportFileName.from")} ${new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU')}${constants.exportt.extension.pdf}`;
+                fileName = `${ctx.t("utils.exportFileName.contract")} ${ctx.t("utils.exportFileName.from")} ${common.getCurrentDate(ctx.session.contract.date_start!)}${constants.exportt.extension.pdf}`;
                 break;
             }
             case 'word': {
                 const word = new WordService();
                 buffer = await word.execRender(contractData);
-                fileName = `${ctx.t("utils.exportFileName.contract")} ${ctx.t("utils.exportFileName.from")} ${new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU')}${constants.exportt.extension.docx}`;
+                fileName = `${ctx.t("utils.exportFileName.contract")} ${ctx.t("utils.exportFileName.from")} ${common.getCurrentDate(ctx.session.contract.date_start!)}${constants.exportt.extension.docx}`;
                 break;
             }
         }

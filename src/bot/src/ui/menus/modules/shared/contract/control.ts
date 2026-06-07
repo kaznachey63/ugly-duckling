@@ -4,11 +4,12 @@ import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
 import constants from '@common/constants';
+import common from '@utils/common';
 
 function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
     let text = [
-        ctx.t("modules.shared.contract.view.contract.remove.path", { dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') })
+        ctx.t("modules.shared.contract.view.contract.remove.path", { dateStart: common.getCurrentDate(ctx.session.contract.date_start!) })
     ];
 
     if (result) {
