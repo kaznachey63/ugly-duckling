@@ -4,7 +4,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import constants from '@constants';
 
 export class QuickChartService {
-    createChart(ctx: MyContext, data: ChartData): QuickChart {
+    static createChart(ctx: MyContext, data: ChartData): QuickChart {
         const qc = new QuickChart();
         const isWeek = data.type === 'week';
         const isMonth = data.type === 'month';
