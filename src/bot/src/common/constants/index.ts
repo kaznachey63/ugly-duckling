@@ -1,5 +1,6 @@
 import type { LanguagesALlowed } from "@shared/types/LanguagesAllowed"
 import type { RoleCode } from "@shared/types/RoleCode"
+
 const shared = {
     utf8: 'utf8',
 };
@@ -157,11 +158,24 @@ const crypto = {
 
 const limit = {
     authMaxAttempts: 3,
-    commandsTime: 1500
+    commandsTime: 1700
 };
 
 const emoji = {
     profile: '🥷'
+};
+
+const exportt = {
+    extensions: {
+        txt: ".txt",
+        pdf: ".pdf",
+        docx: ".docx",
+    },
+    fileName: {
+        message: "messages",
+        contract: "contract",
+        schedule: "schedule",
+    }
 };
 
 export default {
@@ -183,4 +197,5 @@ export default {
     crypto,
     limit,
     emoji,
+    exportt,
 }

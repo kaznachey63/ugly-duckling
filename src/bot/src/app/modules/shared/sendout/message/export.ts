@@ -6,6 +6,7 @@ import { PdfService } from '@common/services/exports/PdfService';
 import { WordService } from '@common/services/exports/WordService';
 import { FileService } from '@common/services/FileService';
 import db from '@shared/db';
+import constants from '@common/constants';
 const exportComposer = new Composer<MyContext>();
 
 exportComposer.callbackQuery(/^mainExportMessages:/, async (ctx: MyContext) => {
@@ -47,19 +48,19 @@ exportComposer.callbackQuery(/^exportMessages:/, async (ctx: MyContext) => {
             case 'pdf': {
                 const pdf = new PdfService();
                 buffer = await pdf.write(data);
-                fileName = "messages.pdf";
+                fileName = `${constants.exportt.fileName.message}_${ctx.session.sendout.call}${constants.exportt.extensions.pdf}`;
                 break;
             }
             case 'word': {
                 const word = new WordService();
                 buffer = await word.write(data);
-                fileName = "messages.docx";
+                fileName = `${constants.exportt.fileName.message}_${ctx.session.sendout.call}${constants.exportt.extensions.docx}`;
                 break;
             }
             case 'txt': {
                 const file = new FileService();
                 buffer = file.getBuffer(data);
-                fileName = "messages.txt"
+                fileName = `${constants.exportt.fileName.message}_${ctx.session.sendout.call}${constants.exportt.extensions.txt}`
                 break;
             }
         }

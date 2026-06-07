@@ -6,7 +6,7 @@ import common from '@utils/common';
 const createComposer = new Composer<MyContext>();
 
 createComposer.callbackQuery(/^createTime:/, async (ctx: MyContext) => {
-    if (ctx.session.sendout.active) {
+    if (ctx.session.sendout.mode_active) {
         await common.alertSendoutIsActive(ctx);
         return;
     }   

@@ -27,7 +27,8 @@ viewComposer.callbackQuery(/^viewSchedule:/, async (ctx: MyContext) => {
 });
 
 viewComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) => {
-    if (ctx.session.sendout.active) {
+    if (!ctx.session.isAdmin) return;
+    if (ctx.session.sendout.mode_active) {
         await common.alertSendoutIsActive(ctx);
         return;
     }
@@ -49,7 +50,7 @@ viewComposer.callbackQuery(/^updateOrRemoveTime:/, async (ctx: MyContext) => {
 });
 
 viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
-    if (ctx.session.sendout.active) {
+    if (ctx.session.sendout.mode_active) {
         await common.alertSendoutIsActive(ctx);
         return;
     }
@@ -73,7 +74,7 @@ viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
 });
 
 viewComposer.callbackQuery(/^removeTime:/, async (ctx: MyContext) => {
-    if (ctx.session.sendout.active) {
+    if (ctx.session.sendout.mode_active) {
         await common.alertSendoutIsActive(ctx);
         return;
     }

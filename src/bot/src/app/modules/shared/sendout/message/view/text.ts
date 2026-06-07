@@ -7,7 +7,7 @@ import common from '@utils/common';
 const textComposer = new Composer<MyContext>();
 
 textComposer.callbackQuery(/^updateText:/, async (ctx: MyContext) => {
-    if (ctx.session.sendout.active) {
+    if (ctx.session.sendout.mode_active) {
         await common.alertSendoutIsActive(ctx);
         return;
     }

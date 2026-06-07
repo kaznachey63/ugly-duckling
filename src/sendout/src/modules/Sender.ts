@@ -22,7 +22,7 @@ export class Sender {
             let result;
             if (message.media?.length) {
                 // Передаём entity, а не строку
-                result = await this.sendMedia(entity, message, htmlCaption);                
+                result = await this.sendMedia(entity, message, htmlCaption, sendout);                
             } else {
                 result = sendout.mode_test ? 
                     await this.client.sendMessage(entity, { 
@@ -78,15 +78,26 @@ export class Sender {
         }
     }
 
-    private async sendMedia(entity: any, message: Message, htmlCaption: string) {
+    private async sendMedia(entity: any, message: Message, htmlCaption: string, sendout: Sendout) {
         const files = await this.prepareMedia(message.media!);
         
         // Используем entity вместо chatId
-        return await this.client.sendFile(entity, {
-            file: files,
-            caption: htmlCaption,
-            parseMode: 'html',
-        });
+        return sendout.mode_test
+            ?
+            await this.client.sendFile(entity, {
+                file: files,
+                caption: htmlCaption,
+                parseMode: 'html',
+                topMsgId: sendout.telegram_topic_id!,
+                replyTo: sendout.telegram_topic_id!,
+            })
+            :
+            await this.client.sendFile(entity, {
+                file: files,
+                caption: htmlCaption,
+                parseMode: 'html',
+            })
+        ;
     }
     
     /**

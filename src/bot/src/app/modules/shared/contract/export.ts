@@ -6,6 +6,7 @@ import { PdfService } from "@common/services/exports/PdfService";
 import { WordService } from "@common/services/exports/WordService";
 import type { Contract } from "@shared/types/DB";
 import type { ContractExport } from "@shared/types/ContractExport";
+import constants from '@common/constants';
 
 const exportComposer = new Composer<MyContext>();
 
@@ -37,13 +38,13 @@ exportComposer.callbackQuery(/^exportContract#/, async (ctx: MyContext) => {
             case 'pdf': {
                 const pdf = new PdfService();
                 buffer = await pdf.execRender(contractData);
-                fileName = "contract.pdf";
+                fileName = `${constants.exportt.fileName.contract}_${new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU')}${constants.exportt.extensions.pdf}`;
                 break;
             }
             case 'word': {
                 const word = new WordService();
                 buffer = await word.execRender(contractData);
-                fileName = "contract.docx";
+                fileName = `${constants.exportt.fileName.contract}_${new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU')}${constants.exportt.extensions.docx}`;
                 break;
             }
         }

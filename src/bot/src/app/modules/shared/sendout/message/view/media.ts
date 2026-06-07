@@ -12,7 +12,7 @@ const mediaComposer = new Composer<MyContext>();
  * Оповещение пользователя о добавлении медиа. Ожидание медиа.
  */
 mediaComposer.callbackQuery(/^addMedia:/, async (ctx: MyContext) => {
-    if (ctx.session.sendout.active) {
+    if (ctx.session.sendout.mode_active) {
         await common.alertSendoutIsActive(ctx);
         return;
     }

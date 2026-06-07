@@ -10,7 +10,7 @@ const genereteComposer = new Composer<MyContext>();
 
 // этот обработчик превее нинего т.к. соответсвие на последние значения
 genereteComposer.callbackQuery(/^generateText:.+-(true|false)$/, async (ctx: MyContext) => {
-    if (ctx.session.sendout.active) {
+    if (ctx.session.sendout.mode_active) {
         await common.alertSendoutIsActive(ctx);
         return;
     }
@@ -48,7 +48,7 @@ genereteComposer.callbackQuery(/^generateText:.+-(true|false)$/, async (ctx: MyC
 });
 
 genereteComposer.callbackQuery(/^generateText:/, async (ctx: MyContext) => {
-    if (ctx.session.sendout.active) {
+    if (ctx.session.sendout.mode_active) {
         await common.alertSendoutIsActive(ctx);
         return;
     }

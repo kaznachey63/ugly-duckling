@@ -8,7 +8,7 @@ import common from '@utils/common';
 const messageComposer = new Composer<MyContext>();
 
 messageComposer.callbackQuery(/^removeMessage:/, async (ctx: MyContext) => {
-    if (ctx.session.sendout.active) {
+    if (ctx.session.sendout.mode_active) {
         await common.alertSendoutIsActive(ctx);
         return;
     }

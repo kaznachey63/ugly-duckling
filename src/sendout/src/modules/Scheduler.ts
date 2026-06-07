@@ -164,9 +164,9 @@ export class Scheduler {
                 await this.sender.send(chat, message!, counter, this.sendout);
             }
             
-            await this.logResults(dateTime, counter);
             console.log(`Рассылка завершена! Успешно: ${counter.good} из ${accessibleChats.length}\n`);
             await db.sendout.setModeActive(this.sendout.id!, false); 
+            await (counter.good > 1 ? this.logResults(dateTime, counter) : Promise.resolve());
         } catch (error) {
             console.error('💀 Ошибка выполнения рассылки:', error);
         }
