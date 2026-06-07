@@ -166,10 +166,15 @@ const emoji = {
 };
 
 const exportt = {
-    extensions: {
+    extension: {
         txt: ".txt",
         pdf: ".pdf",
         docx: ".docx",
+    },
+    type: {
+        txt: 'Txt',
+        pdf: 'PDF',
+        docx: 'Word'
     },
     fileName: {
         message: "messages",

@@ -3,6 +3,7 @@ import type { Menu } from "@shared/types/Menu";
 import type { MyContext } from "@shared/types/SessionData";
 import { InlineKeyboard } from "grammy";
 import format from '@utils/formatting';
+import constants from "@common/constants";
 
 function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
@@ -11,9 +12,9 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text("PDF", `exportMessages:${ctx.session.sendout.id}-pdf`)
-        .text("Word", `exportMessages:${ctx.session.sendout.id}-word`)   
-        .text("Txt", `exportMessages:${ctx.session.sendout.id}-txt`)   
+        .text(constants.exportt.type.pdf, `exportMessages:${ctx.session.sendout.id}-pdf`)
+        .text(constants.exportt.type.docx, `exportMessages:${ctx.session.sendout.id}-word`)   
+        .text(constants.exportt.type.txt, `exportMessages:${ctx.session.sendout.id}-txt`)   
         .row().text(ctx.t("utils.shared.buttons.back"), `mainMessage:${ctx.session.sendout.id}`)
     ;
     

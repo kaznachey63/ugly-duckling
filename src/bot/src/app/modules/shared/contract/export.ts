@@ -38,13 +38,13 @@ exportComposer.callbackQuery(/^exportContract#/, async (ctx: MyContext) => {
             case 'pdf': {
                 const pdf = new PdfService();
                 buffer = await pdf.execRender(contractData);
-                fileName = `${constants.exportt.fileName.contract}_${new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU')}${constants.exportt.extensions.pdf}`;
+                fileName = `${constants.exportt.fileName.contract}_${new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU')}${constants.exportt.extension.pdf}`;
                 break;
             }
             case 'word': {
                 const word = new WordService();
                 buffer = await word.execRender(contractData);
-                fileName = `${constants.exportt.fileName.contract}_${new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU')}${constants.exportt.extensions.docx}`;
+                fileName = `${constants.exportt.fileName.contract}_${new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU')}${constants.exportt.extension.docx}`;
                 break;
             }
         }

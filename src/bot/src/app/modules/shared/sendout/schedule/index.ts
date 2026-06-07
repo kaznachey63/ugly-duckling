@@ -6,6 +6,7 @@ import menuSchedule from '@menus/modules/shared/sendout/schedule/main';
 import createComposer from './create';
 import clearComposer from './clear';
 import viewComposer from './view';
+import exportComposer from './export';
 
 const scheduleComposer = new Composer<MyContext>();
 
@@ -27,5 +28,6 @@ scheduleComposer.callbackQuery(/^mainSchedule:/, async (ctx: MyContext) => {
 scheduleComposer.use(createComposer);
 scheduleComposer.use(clearComposer);
 scheduleComposer.use(viewComposer);
+scheduleComposer.use(exportComposer);
 
 export default scheduleComposer;

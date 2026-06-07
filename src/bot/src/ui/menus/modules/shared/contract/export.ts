@@ -3,6 +3,7 @@ import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
+import constants from "@common/constants";
 
 function main(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
@@ -14,8 +15,8 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
     
     const keyboard = new InlineKeyboard()
-        .text("PDF", `exportContract#${ctx.session.contract.id}-pdf`)
-        .text("Word", `exportContract#${ctx.session.contract.id}-word`)   
+        .text(constants.exportt.type.pdf, `exportContract#${ctx.session.contract.id}-pdf`)
+        .text(constants.exportt.type.docx, `exportContract#${ctx.session.contract.id}-word`)   
         .row().text(ctx.t("utils.shared.buttons.back"), `viewContract#${ctx.session.contract.id}`)
     ;
     

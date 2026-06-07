@@ -48,19 +48,19 @@ exportComposer.callbackQuery(/^exportMessages:/, async (ctx: MyContext) => {
             case 'pdf': {
                 const pdf = new PdfService();
                 buffer = await pdf.write(data);
-                fileName = `${constants.exportt.fileName.message}_${ctx.session.sendout.call}${constants.exportt.extensions.pdf}`;
+                fileName = `${constants.exportt.fileName.message}_${ctx.session.sendout.call}${constants.exportt.extension.pdf}`;
                 break;
             }
             case 'word': {
                 const word = new WordService();
                 buffer = await word.write(data);
-                fileName = `${constants.exportt.fileName.message}_${ctx.session.sendout.call}${constants.exportt.extensions.docx}`;
+                fileName = `${constants.exportt.fileName.message}_${ctx.session.sendout.call}${constants.exportt.extension.docx}`;
                 break;
             }
             case 'txt': {
                 const file = new FileService();
                 buffer = file.getBuffer(data);
-                fileName = `${constants.exportt.fileName.message}_${ctx.session.sendout.call}${constants.exportt.extensions.txt}`
+                fileName = `${constants.exportt.fileName.message}_${ctx.session.sendout.call}${constants.exportt.extension.txt}`
                 break;
             }
         }
