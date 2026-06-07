@@ -18,7 +18,7 @@ export default function main(ctx: MyContext, sendouts: Sendout[]): Menu<InlineKe
         text.unshift(ctx.t("modules.shared.sendout.main.title"));
         sendouts.forEach((sendout) => {
             keyboard.text(
-                sendout.call! ?? sendout.label,
+                sendout.mode_active ? '🟢 ' + (sendout.call! ?? sendout.label) : (sendout.call! ?? sendout.label),
                 `viewSendout:${sendout.id}`
             ).row();
         }); 
