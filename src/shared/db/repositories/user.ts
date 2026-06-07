@@ -149,47 +149,26 @@ async function matchPhoneNumber(searchIndex: string): Promise<User | undefined> 
  * @param value number - бд айди, бигинт - тг айди
  */
 async function removeFromSystem(value: number | bigint): Promise<boolean> {
-    const typeOfValue = typeof value;
-    let whereField: string;
-
-    switch (typeOfValue) {
-        case 'number': whereField = 'id'; break;
-        case 'bigint': whereField = 'telegram_id'; break;
-    }
-
     try {
-        await prisma.user.deleteMany({
-            where: {
-                [whereField!]: value
-            }
-        });
+        let deletedUser;
 
-        let telegramId: bigint | null = null;
-
-        if (typeOfValue == 'bigint') {
-            telegramId = value as bigint;
-        }
-        else {
-            const user = await prisma.user.findFirst({
-                where: {
-                    id: value as number
-                }
+        if (typeof value === 'bigint') {
+            deletedUser = await prisma.user.deleteMany({
+                where: { telegram_id: value }
             });
-
-            telegramId = user?.telegram_id ?? null;
+        } else {
+            deletedUser = await prisma.user.deleteMany({
+                where: { id: value }
+            });
         }
 
-        if (telegramId) {
-            try {
-                await prisma.auth_limit.delete({
-                    where: {
-                        telegram_id: telegramId
-                    }
-                });
-            } catch {}
+        if (deletedUser.count === 0) {
+            console.warn("Ничего не удалено — пользователь не найден");
+            return false;
         }
 
         return true;
+
     } catch (error) {
         console.error("Ошибка при удалении пользователя", error);
         return false;
