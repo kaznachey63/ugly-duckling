@@ -58,7 +58,7 @@ async function create(schedule: Schedule) {
                 position: await shared.getPosition(schedule.sendout_id!, 'schedule'),
                 sendout_id: schedule.sendout_id
             }
-        });
+        }); 
     } catch (error) {
         console.log("Ошибка при добавлении времени", error);
     }
@@ -69,16 +69,19 @@ async function create(schedule: Schedule) {
  */
 async function createMany(times: Schedule[]) {
     try {
+        let position = await shared.getPosition(times[0]!.sendout_id!, 'schedule');
+
         await prisma.schedule.createMany({
-            data: await Promise.all(times.map(async (schedule) => ({
+            data: times.map(schedule => ({
                 cron: schedule.cron,
                 label: schedule.label,
-                position: await shared.getPosition(schedule.sendout_id!, 'schedule'),
+                position: position++,
                 sendout_id: schedule.sendout_id
-            })))
+            }))
         });
+
     } catch (error) {
-        console.log("Ошибка при добавлении времени", error);
+        console.log(error);
     }
 }
 
