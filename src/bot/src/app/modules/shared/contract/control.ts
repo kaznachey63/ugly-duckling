@@ -41,7 +41,7 @@ controlComposer.callbackQuery(/^pickUser#/, async (ctx: MyContext) => {
     if (userId == ctx.session.contract.user_id) return;
     
     if (!(await db.sendout.getSendoutsOfUserIdAndNotInContract(userId)).length) {
-        return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.shared.contract.create.noFreeSendouts"), show_alert: true });
+        return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.contract.create.noFreeSendouts"), show_alert: true });
     }
 
     ctx.session.contract.user_id = userId;      
@@ -59,7 +59,7 @@ controlComposer.callbackQuery(/^pickUser#/, async (ctx: MyContext) => {
  */
 controlComposer.callbackQuery("chooseSendouts", async (ctx: MyContext) => {
     if (ctx.session.contract.user_id! <= 0) {
-        return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.shared.contract.create.noUser"), show_alert: true });
+        return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.contract.create.noUser"), show_alert: true });
     }
 
     const sendouts = await db.sendout.getSendoutsOfUserIdAndNotInContract(ctx.session.contract.user_id!);
@@ -101,7 +101,7 @@ controlComposer.callbackQuery(/^pickSendout#/, async (ctx: MyContext) => {
  */
 controlComposer.callbackQuery("inputContractData", async (ctx: MyContext) => {
     if (!ctx.session.contract.sendout?.length! || ctx.session.contract.sendout?.length! <= 0) {
-        return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.shared.contract.create.noSendouts"), show_alert: true });
+        return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.contract.create.noSendouts"), show_alert: true });
     }
     
     ctx.session.state.addingContract = true;

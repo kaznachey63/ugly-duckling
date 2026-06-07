@@ -24,10 +24,10 @@ function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
 
 function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     const text: string[] = [
-        ctx.t("modules.shared.shared.contract.create.title"),
-        ctx.t("modules.shared.shared.contract.create.data.user"),
+        ctx.t("modules.shared.contract.create.title"),
+        ctx.t("modules.shared.contract.create.data.user"),
         '',
-        ctx.t("modules.shared.shared.contract.create.path"),
+        ctx.t("modules.shared.contract.create.path"),
     ];
 
     const keyboard = new InlineKeyboard();
@@ -57,7 +57,7 @@ function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     });
 
     keyboard
-        .text(ctx.t("modules.shared.shared.contract.create.step", { number: 1 }), "amountSteps")
+        .text(ctx.t("modules.shared.contract.create.step", { number: 1 }), "amountSteps")
         .text('➡', "chooseSendouts")   
         .row().text(ctx.t("utils.shared.buttons.back"), "mainContract")
     ;
@@ -66,10 +66,10 @@ function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
 
 function chooseSendouts(ctx: MyContext, sendouts: Sendout[]) {
     const text: string[] = [
-        ctx.t("modules.shared.shared.contract.create.title"),
-        ctx.t("modules.shared.shared.contract.create.data.sendout"),
+        ctx.t("modules.shared.contract.create.title"),
+        ctx.t("modules.shared.contract.create.data.sendout"),
         '',
-        ctx.t("modules.shared.shared.contract.create.path"),
+        ctx.t("modules.shared.contract.create.path"),
     ];
 
     const keyboard = new InlineKeyboard();
@@ -89,7 +89,7 @@ function chooseSendouts(ctx: MyContext, sendouts: Sendout[]) {
 
     keyboard
         .text('⬅', "chooseUsers")
-        .text(ctx.t("modules.shared.shared.contract.create.step", { number: 2 }), "amountSteps")
+        .text(ctx.t("modules.shared.contract.create.step", { number: 2 }), "amountSteps")
         .text('➡', "inputContractData")
         .row().text(ctx.t("utils.shared.buttons.back"), "mainContract")
     ;
@@ -99,15 +99,15 @@ function chooseSendouts(ctx: MyContext, sendouts: Sendout[]) {
 
 function inputData(ctx: MyContext): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("modules.shared.shared.contract.create.title"), 
-        ctx.t("modules.shared.shared.contract.create.data.contract"),
+        ctx.t("modules.shared.contract.create.title"), 
+        ctx.t("modules.shared.contract.create.data.contract"),
         '',   
-        ctx.t("modules.shared.shared.contract.create.path")
+        ctx.t("modules.shared.contract.create.path")
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
         .text('⬅', "chooseSendouts")
-        .text(ctx.t("modules.shared.shared.contract.create.step", { number: 3 }), "amountSteps")
+        .text(ctx.t("modules.shared.contract.create.step", { number: 3 }), "amountSteps")
         .row().text(ctx.t("utils.shared.buttons.back"), "mainContract")
     ;
     
