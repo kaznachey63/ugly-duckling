@@ -26,7 +26,7 @@ authComposer.callbackQuery("logoutAuth", async (ctx: MyContext) => {
             reply_markup: menu.keyboard ?? null,
             parse_mode: 'MarkdownV2'
         });
-        initialize.createDefaultSession();
+        ctx.session = initialize.createDefaultSession();
     } catch (error) {
         console.error("Ошибка при выходе из системы", error);
     }
