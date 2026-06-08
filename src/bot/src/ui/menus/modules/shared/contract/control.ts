@@ -109,7 +109,7 @@ function inputData(ctx: MyContext): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard()
         .text('⬅', "chooseSendouts")
         .text(ctx.t("modules.shared.contract.create.step", { number: 3 }), "amountSteps")
-        .url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.contract.add).row()
+        .url(ctx.t("utils.shared.buttons.instruction"), constants.link.instruction.contract.add).row()
         .row().text(ctx.t("utils.shared.buttons.back"), "mainContract")
     ;
     

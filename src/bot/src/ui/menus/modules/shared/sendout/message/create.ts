@@ -75,7 +75,7 @@ function hand(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.text.add.hand).row()
+        .url(ctx.t("utils.shared.buttons.instruction"), constants.link.instruction.text.add.hand).row()
         .text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${ctx.session.sendout.id}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }

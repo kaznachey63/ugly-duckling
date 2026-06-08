@@ -16,7 +16,7 @@ export default function addingText(ctx: MyContext, result: boolean, validate: bo
 
     if (!validate) {
         text.unshift(ctx.t("utils.shared.titles.validate"));
-        keyboard.url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.text.add.hand);
+        keyboard.url(ctx.t("utils.shared.buttons.instruction"), constants.link.instruction.text.add.hand);
     }
     else {
         if (result) {

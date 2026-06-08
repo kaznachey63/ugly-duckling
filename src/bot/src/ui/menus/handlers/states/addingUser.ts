@@ -14,7 +14,7 @@ export default function addingUser(ctx: MyContext, result: boolean, validate: bo
     if (!validate){
         text.unshift(ctx.t("utils.shared.titles.validate"));
         keyboard
-            .url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.user.add).row()
+            .url(ctx.t("utils.shared.buttons.instruction"), constants.link.instruction.user.add).row()
             .text(ctx.t("utils.shared.buttons.back"), "mainUser")
         ;
     } 

@@ -16,7 +16,7 @@ export default function addingTime(ctx: MyContext, result: boolean, validate: bo
     if (!validate) {
         text.unshift(ctx.t("utils.shared.titles.validate"));
         keyboard
-            .url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.time.add).row()
+            .url(ctx.t("utils.shared.buttons.instruction"), constants.link.instruction.time.add).row()
             .text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${ctx.session.sendout.id}`)
         ;            
     }

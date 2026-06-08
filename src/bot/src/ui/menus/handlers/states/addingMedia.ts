@@ -13,7 +13,7 @@ export default function addingMedia(ctx: MyContext, validate: boolean, result?: 
 
     if (!validate) {
         text.push(ctx.t("utils.shared.titles.validate"));
-        keyboard.url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.media.add);
+        keyboard.url(ctx.t("utils.shared.buttons.instruction"), constants.link.instruction.media.add);
     }
     else {
         if (result) {

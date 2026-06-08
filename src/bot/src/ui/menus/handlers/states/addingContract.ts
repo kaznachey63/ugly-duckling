@@ -14,7 +14,7 @@ export default function addingContract(ctx: MyContext, result: boolean, validate
     if (!validate){
         text.unshift(ctx.t("utils.shared.titles.validate"));
         keyboard
-            .url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.contract.add).row()
+            .url(ctx.t("utils.shared.buttons.instruction"), constants.link.instruction.contract.add).row()
             .text(ctx.t("utils.shared.buttons.back"), "mainContract")
         ;
     } 

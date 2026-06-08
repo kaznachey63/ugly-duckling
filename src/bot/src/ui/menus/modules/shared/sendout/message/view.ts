@@ -106,7 +106,7 @@ function addMedia(ctx: MyContext): Menu<InlineKeyboard> {
     ].join('\n\n');
 
     const keyboard = new InlineKeyboard()
-        .url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.media.add).row()
+        .url(ctx.t("utils.shared.buttons.instruction"), constants.link.instruction.media.add).row()
         .text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}-none`)
     ;
     return { text: format.escapeMarkdown(text), keyboard }
