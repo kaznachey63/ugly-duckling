@@ -34,21 +34,38 @@ export default async function addingContract(ctx: MyContext) {
 }
 
 function validateContract(text: string): boolean {
-    if (typeof text !== 'string' || text.trim().length === 0) return false;    
+    if (typeof text !== 'string' || text.trim().length === 0) return false;
     if (text.split('\n').length !== 2) return false;
-    
-    const [dateStart, dateEnd] = text.split('\n');
-        
-    if (dateStart !== '-' && isNaN(Date.parse(dateStart!))) return false;
-    
-    if (dateEnd !== '-' && isNaN(Date.parse(dateEnd!))) return false;
-        
+
+    const [dateStart, dateEnd] = text.split('\n').map(s => s.trim());
+
+    if (dateStart !== '-' && !isValidDateInput(dateStart!)) return false;
+    if (dateEnd !== '-' && !isValidDateInput(dateEnd!)) return false;
+
     return true;
+}
+
+function isValidDateInput(input: string): boolean {
+    const match = input.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+    if (!match) return false;
+
+    const [, dd, mm, yyyy] = match;
+    const day = Number(dd);
+    const month = Number(mm);
+    const year = Number(yyyy);
+
+    const date = new Date(Date.UTC(year, month - 1, day));
+
+    return (
+        date.getUTCFullYear() === year &&
+        date.getUTCMonth() === month - 1 &&
+        date.getUTCDate() === day
+    );
 }
 
 function parseDate(input: string): Date {
     const [day, month, year] = input.split('-').map(Number);
-    return new Date(year!, month! - 1, day);
+    return new Date(Date.UTC(year!, month! - 1, day));
 }
 
 function formatContract(ctx: MyContext): Contract {
