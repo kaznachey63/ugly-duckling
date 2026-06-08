@@ -8,7 +8,7 @@ import format from '@utils/formatting';
  */
 export default function menuUpdatingUserName(ctx: MyContext, validate: boolean, result?: boolean): Menu<InlineKeyboard> {
     const text = [
-        ctx.t("handlers.states.updatingUserName.path", { userName: ctx.session.userForUpdate.name })
+        ctx.t("handlers.states.updatingUserName.path", { userName: ctx.session.userForUpdate.name ?? ctx.t("utils.shared.nameless") })
     ];
     const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewUser#${ctx.session.userForUpdate.id}`);
 

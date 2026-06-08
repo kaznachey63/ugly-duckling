@@ -14,13 +14,11 @@ export default function main(ctx: MyContext, amountOfChats: number): Menu<Inline
     
     const keyboard = new InlineKeyboard();
     
+    
+    keyboard.text(ctx.t("modules.commands.panel.data.chat.main.buttons.reupload"), "reuploadChats").style("success");
     if (amountOfChats > 0) {
         keyboard.text(ctx.t("utils.shared.buttons.clear"), "clearChats").style("danger");
     }
-    
-    keyboard
-        .text(ctx.t("modules.commands.panel.data.chat.main.buttons.reupload"), "reuploadChats").style("success").row()
-        .text(ctx.t("utils.shared.buttons.back"), "mainData")
-    ;
+    keyboard.row().text(ctx.t("utils.shared.buttons.back"), "mainData");
     return { text: format.escapeMarkdown(text), keyboard }
 };
