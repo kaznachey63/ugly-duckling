@@ -13,7 +13,10 @@ export default function addingUser(ctx: MyContext, result: boolean, validate: bo
 
     if (!validate){
         text.unshift(ctx.t("utils.shared.titles.validate"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), "mainUser");
+        keyboard
+            .url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.user.add).row()
+            .text(ctx.t("utils.shared.buttons.back"), "mainUser")
+        ;
     } 
     else {
         if (result) {
@@ -27,7 +30,8 @@ export default function addingUser(ctx: MyContext, result: boolean, validate: bo
             text.unshift(ctx.t("handlers.states.addingUser.error"));
             keyboard
                 .url(ctx.t("utils.shared.buttons.contactAdmin"), constants.link.tgAdmin)
-                .row().text(ctx.t("utils.shared.buttons.back"), "viewUser");
+                .row().text(ctx.t("utils.shared.buttons.back"), "viewUser")
+            ;
         }
     }
 

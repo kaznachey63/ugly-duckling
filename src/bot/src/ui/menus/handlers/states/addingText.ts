@@ -14,7 +14,10 @@ export default function addingText(ctx: MyContext, result: boolean, validate: bo
 
     const keyboard = new InlineKeyboard();
 
-    if (!validate) text.unshift(ctx.t("utils.shared.titles.validate"));
+    if (!validate) {
+        text.unshift(ctx.t("utils.shared.titles.validate"));
+        keyboard.url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.text.add.hand);
+    }
     else {
         if (result) {
             text.unshift(ctx.t("handlers.states.addingText.success"));

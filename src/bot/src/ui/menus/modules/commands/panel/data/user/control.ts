@@ -1,3 +1,4 @@
+import constants from '@common/constants';
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';
@@ -9,7 +10,10 @@ function create(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.panel.data.user.create.path")
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), "mainUser");
+    const keyboard = new InlineKeyboard()
+        .url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.contract.add).row()
+        .text(ctx.t("utils.shared.buttons.back"), "mainUser")
+    ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
 

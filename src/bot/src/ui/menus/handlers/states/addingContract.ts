@@ -13,7 +13,10 @@ export default function addingContract(ctx: MyContext, result: boolean, validate
 
     if (!validate){
         text.unshift(ctx.t("utils.shared.titles.validate"));
-        keyboard.text(ctx.t("utils.shared.buttons.back"), "mainContract");
+        keyboard
+            .url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.contract.add).row()
+            .text(ctx.t("utils.shared.buttons.back"), "mainContract")
+        ;
     } 
     else {
         if (result) {

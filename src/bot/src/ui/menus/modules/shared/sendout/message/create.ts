@@ -2,6 +2,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
+import constants from '@common/constants';
 
 function main(ctx: MyContext): Menu<InlineKeyboard> {
     const sendoutId = ctx.session.sendout.id;
@@ -73,7 +74,9 @@ function hand(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.shared.sendout.view.message.create.hand.path", { call: ctx.session.sendout.call,  menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${ctx.session.sendout.id}`);
+    const keyboard = new InlineKeyboard()
+        .url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.text.add.hand).row()
+        .text(ctx.t("utils.shared.buttons.back"), `mainCreateText:${ctx.session.sendout.id}`);
     return { text: format.escapeMarkdown(text), keyboard }
 }
 

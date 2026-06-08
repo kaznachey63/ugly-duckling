@@ -105,7 +105,10 @@ function addMedia(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.shared.sendout.view.message.view.media.add.path", { call: ctx.session.sendout.call, menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") })
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}-none`);
+    const keyboard = new InlineKeyboard()
+        .url(ctx.t("utils.shared.buttons.insrtruction"), constants.link.instruction.media.add).row()
+        .text(ctx.t("utils.shared.buttons.back"), `viewMessage:${ctx.session.sendout.id}#${ctx.session.message.position}-none`)
+    ;
     return { text: format.escapeMarkdown(text), keyboard }
 }
 

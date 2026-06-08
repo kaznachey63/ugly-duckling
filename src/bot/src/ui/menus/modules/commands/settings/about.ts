@@ -13,7 +13,7 @@ export default function about(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.settings.about.path")
     ].join('\n\n');
     const keyboard = new InlineKeyboard()
-        .url(ctx.t("modules.commands.settings.about.instruction"), constants.link.instruction.service).row()
+        .url(ctx.t("utils.shared.buttons.instruction"), constants.link.instruction.service).row()
         .text(ctx.t("utils.shared.buttons.back"), "mainSettings")
     ;
     return { text: format.escapeMarkdown(text), keyboard }
