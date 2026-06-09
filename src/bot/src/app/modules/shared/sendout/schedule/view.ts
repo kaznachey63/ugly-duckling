@@ -57,7 +57,7 @@ viewComposer.callbackQuery(/^updateTime:/, async (ctx: MyContext) => {
 
     try {
         ctx.session.state.updatingTime = true;
-        ctx.session.schedule.id = Number(ctx.callbackQuery?.data!.split(/#/)[1]);
+        ctx.session.schedule = (await db.schedule.getTime(Number(ctx.callbackQuery?.data!.split(/#/)[1])))!;
         const menu = menuView.update(ctx);
 
         const msg = await ctx.editMessageText(menu.text, {
