@@ -22,13 +22,13 @@ export default function main(ctx: MyContext, scheduleLength: number): Menu<Inlin
         text.push(ctx.t("modules.shared.sendout.view.schedule.main.title", { amount: scheduleLength }));
 
         if (ctx.session.isAdmin) {
-            keyboard
-                .text(ctx.t("utils.shared.buttons.clear"), `clearSchedule:${sendoutId}`).style("danger")
-                .row().text(ctx.t("utils.shared.buttons.export"), `mainExportSchedule:${sendoutId}`)
-            ;
+            keyboard.text(ctx.t("utils.shared.buttons.clear"), `clearSchedule:${sendoutId}`).style("danger").row();
         }
-        
-        keyboard.text(ctx.t("utils.shared.buttons.view"), `viewSchedule:${sendoutId}`).style("primary")
+            
+        keyboard
+            .text(ctx.t("utils.shared.buttons.export"), `mainExportSchedule:${sendoutId}`)
+            .text(ctx.t("utils.shared.buttons.view"), `viewSchedule:${sendoutId}`).style("primary")
+        ;
     }
     
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`);

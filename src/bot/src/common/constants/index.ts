@@ -178,8 +178,13 @@ const exportt = {
     },
 };
 
+const time = {
+    timeZone: 'Europe/Moscow'
+};
+
 export default {
     shared,
+    time,
     link,
     calendar,
     google,

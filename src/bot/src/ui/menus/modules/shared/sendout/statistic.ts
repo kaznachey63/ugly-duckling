@@ -53,9 +53,15 @@ function targetDateOnCalendar(ctx: MyContext): Menu<InlineKeyboard> {
     const date = ctx.session.result.date_time?.toLocaleDateString('ru-RU', {
         day: '2-digit',
         month: '2-digit',
-        year: 'numeric'
+        year: 'numeric',
+        timeZone: constants.time.timeZone
     }); 
-    const time = ctx.session.result.date_time?.toISOString().split('T')[1]!.slice(0, 5);
+    
+    const time = ctx.session.result.date_time?.toLocaleTimeString('ru-RU', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: constants.time.timeZone
+    });
 
     const text = [
         ctx.t(`modules.shared.sendout.view.statistic.selective.targetDate.main.title`, { date: date }),
