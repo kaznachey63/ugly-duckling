@@ -32,7 +32,7 @@ function update(ctx: MyContext): Menu<InlineKeyboard> {
         menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") 
     }));
 
-    const text = `${safeTitle}\n\n\`\`\`\n${cronValue}\n\`\`\`\n\n${safePath}`;
+    const text = `${safeTitle}\n\`\`\`\n${cronValue}\n\`\`\`\n\n${safePath}`;
 
     const keyboard = new InlineKeyboard().text(
         ctx.t("utils.shared.buttons.back"), 
