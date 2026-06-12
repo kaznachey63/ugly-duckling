@@ -33,15 +33,12 @@ bot.use(i18nMiddleware);
  * Проверка существования пользователя
  */
 bot.use(async (ctx: MyContext, next: NextFunction) => {
-    const exists = await db.user.exists(BigInt(ctx?.from!.id!));
-
-    if (!exists) {
+    if (!await db.user.exists(BigInt(ctx!.from!.id))) {
         ctx.session = utils.init.createDefaultSession();
-        return;
     }
 
     await next();
-});
+}); 
 
 /**
  * Корневая инициализация обработки сообщений
