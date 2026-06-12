@@ -5,6 +5,7 @@ import utils from '@utils';
 import modulesComposer from '@modules';
 import eventsComposer from '@events';
 import common from '@utils/common';
+import db from '@shared/db';
 
 const bot = new Bot<MyContext>(process.env.BOT_TOKEN!);
 const commandCooldowns = new Map<number, number>();
@@ -27,6 +28,20 @@ bot.use(session({ initial: utils.init.createDefaultSession }));
  * Инициалицация многоязычности
  */
 bot.use(i18nMiddleware);
+
+/**
+ * Проверка существования пользователя
+ */
+bot.use(async (ctx: MyContext, next: NextFunction) => {
+    const exists = await db.user.exists(BigInt(ctx?.from!.id!));
+
+    if (!exists) {
+        ctx.session = utils.init.createDefaultSession();
+        return;
+    }
+
+    await next();
+});
 
 /**
  * Корневая инициализация обработки сообщений
