@@ -33,8 +33,8 @@ bot.use(i18nMiddleware);
  * Проверка существования пользователя
  */
 bot.use(async (ctx: MyContext, next: NextFunction) => {
-    // Пользователь не авторизован — пропускаем
-    if (!ctx.session.user) {
+    // Неавторизованный пользователь
+    if (ctx.session.user.id === 0) {
         return next();
     }
 
