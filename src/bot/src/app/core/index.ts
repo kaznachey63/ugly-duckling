@@ -33,12 +33,19 @@ bot.use(i18nMiddleware);
  * Проверка существования пользователя
  */
 bot.use(async (ctx: MyContext, next: NextFunction) => {
-    if (!await db.user.exists(BigInt(ctx!.from!.id))) {
+    // Пользователь не авторизован — пропускаем
+    if (!ctx.session.user) {
+        return next();
+    }
+
+    const exists = await db.user.exists(BigInt(ctx.from!.id));
+
+    if (!exists) {
         ctx.session = utils.init.createDefaultSession();
     }
 
     await next();
-}); 
+});
 
 /**
  * Корневая инициализация обработки сообщений
