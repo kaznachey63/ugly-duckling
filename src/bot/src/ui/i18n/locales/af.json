@@ -1,0 +1,738 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Besig om te verwerk...",
+            "cabinet": "🪴 Persoonlike kabinet",
+            "panel": "👨‍💻 Admin-paneel",
+            "nameless": "Naamloos",
+            "buttons": {
+                "export": "📧 Uitvoer",
+                "back": "🔙 Terug",
+                "remove": "🗑 Verwyder",
+                "miss": "Ontbreek",
+                "create": "➕ Skep",
+                "update": "✍ Verander",
+                "instruction": "📖 Instruksie",
+                "clear": "🗑 Maak skoon",
+                "view": "👁 Beeld",
+                "contract": "📜 Kontrakte",
+                "sendout": "📢 Massa-uitsendings",
+                "chat": "🗯 Groepe",
+                "contactAdmin": "� Admin"
+            },
+            "titles": {
+                "validate": "⚠ Invoerdata het 'n ongeldige formaat gehad. Stuur weer",
+                "cabinet": "Kabinet",
+                "panel": "Paneel → Data",
+                "amount": "Aantal: {{amount}}",
+                "sendoutActive": "Die massa-uitsending is tans aktief, probeer later om data te bestuur",
+                "accessDenied": {
+                    "all": "Toegang geweier. Outoriseer eers met die opdrag /auth",
+                    "admin": "Toegang geweier. Hierdie afdeling is vir kliënte",
+                    "customer": "Toegang geweier. Hierdie afdeling is vir administrateurs"
+                }
+            }
+        },
+        "maintenace": "🚧 Tegniese werk is tans aan die gang. Gebruik van die diens is tydelik beperk.\nSodra ons klaar is, sal ons dadelik laat weet!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Administrateur",
+            "customer": "Kliënt",
+            "unknown": "Onbekend"
+        },
+        "commands": {
+            "cabinet": "Kabinet",
+            "settings": "Instellings",
+            "panel": "Admin-paneel"
+        },
+        "chart": {
+            "labelMonth": "Statistiek van die aantal groepe wat die uitsending ontvang het. {{month}} {{year}}",
+            "labelWeek": "Statistiek van die aantal groepe wat die uitsending ontvang het. Week",
+            "amountSms": "Aantal boodskappe",
+            "noLogs": "Geen uitsending het in die geselekteerde tydperk plaasgevind nie!",
+            "daysOfWeek": {
+                "Mon": "Maan",
+                "Tue": "Dins",
+                "Wed": "Woen",
+                "Thu": "Dond",
+                "Fri": "Vry",
+                "Sat": "Sater",
+                "Sun": "Sond"
+            },
+            "months": {
+                "january": "Januarie",
+                "february": "Februarie",
+                "march": "Maart",
+                "april": "April",
+                "may": "Mei",
+                "june": "Junie",
+                "july": "Julie",
+                "august": "Augustus",
+                "september": "September",
+                "october": "Oktober",
+                "november": "November",
+                "december": "Desember"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Januarie",
+                "1": "Februarie",
+                "2": "Maart",
+                "3": "April",
+                "4": "Mei",
+                "5": "Junie",
+                "6": "Julie",
+                "7": "Augustus",
+                "8": "September",
+                "9": "Oktober",
+                "10": "November",
+                "11": "Desember"
+            },
+            "days": {
+                "0": "Maan",
+                "1": "Dins",
+                "2": "Woen",
+                "3": "Dond",
+                "4": "Vry",
+                "5": "Sater",
+                "6": "Sond"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Parseerder",
+            "sendout": "Uitsendings"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Rooster",
+                "message": "Boodskappe",
+                "contract": "Kontrak"
+            },
+            "text": "Uitvoer",
+            "from": "van"
+        },
+        "localization": {
+            "schedule": {
+                "number": "dag",
+                "everyDay": "Elke dag",
+                "unknownDay": "Onbekende dag",
+                "dayWeek": {
+                    "1": "Maandag",
+                    "2": "Dinsdag",
+                    "3": "Woensdag",
+                    "4": "Donderdag",
+                    "5": "Vrydag",
+                    "6": "Saterdag",
+                    "7": "Sondag",
+                    "*": "Elke dag"
+                }
+            }
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Fout tydens verwerking van telefoonnommer!\nProbeer weer!",
+                "accessDenied": "Toegang geweier. Om die massa-uitsendingdiens te gebruik, gebruik die opdrag '/settings', afdeling 'Hulp'"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Teks gestoor!",
+                "error": "❌ Teks nie gestoor nie!\nKontak die administrateur",
+                "path": "[📍 Roete: {{menu}} → Spyskaart «{{call}}» → Boodskappe → *Skep teks*]"
+            },
+            "generatingText": {
+                "result": "Die gegenereerde boodskap word hieronder vertoon. Gebruik die knoppies onder die boodskappe om die lot van die teks te bepaal.",
+                "pathChoose": "[📍 Roete: {{menu}} → Spyskaart «{{call}}» → Boodskappe → Teksgenerering → *Lot van die teks*]",
+                "buttons": {
+                    "save": "✔ Stoor",
+                    "cancel": "❌ Moenie stoor nie"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Teks verander!",
+                "error": "❌ Teks nie verander nie!\nKontak die administrateur",
+                "path": "[📍 Roete: {{menu}} → Spyskaart «{{call}}» → Boodskappe → *Verander teks*]"
+            },
+            "addingMedia": {
+                "error": "💀 Fout tydens stoor van media!\nKontak die administrateur",
+                "invalidType": "Mediatipe nie herken nie! Probeer weer",
+                "bigSize": "Lêer te groot. Maksimum grootte {{size}} MB.",
+                "documentsWTMedia": "Ek kan nie dokumente verwerk wat nie foto / video / gif bevat nie",
+                "success": "✅ Media gestoor!",
+                "error2": "❌ Media nie gestoor nie!\nKontak die administrateur",
+                "path": "[📍 Roete: {{menu}} → Spyskaart «{{call}}» → Boodskappe → *Voeg media by*]",
+                "amount": "Aantal media in boodskap: {{now}} uit {{all}}"
+            },
+            "addingTime": {
+                "success": "✅ Tyd gestoor!",
+                "error": "❌ Tyd nie verander nie!\nKontak die administrateur",
+                "path": "[📍 Roete: Paneel → Spyskaart «{{call}}» → Rooster → Beeld → *Voeg by*]"
+            },
+            "updatingTime": {
+                "success": "✅ Tyd verander!",
+                "error": "❌ Tyd nie verander nie!\nKontak die administrateur",
+                "path": "[📍 Roete: Paneel → Spyskaart «{{call}}» → Rooster → Beeld → *Verander*]"
+            },
+            "addingIdea": {
+                "success": "✅ Idee suksesvol bygevoeg, dankie!",
+                "error": "❌ Idee nie bygevoeg nie!\nProbeer weer of kontak die administrateur!",
+                "path": "[📍 Roete: Instellings → Idees → *Voeg by*]"
+            },
+            "addingUser": {
+                "success": "✅ Gebruiker suksesvol geskep!",
+                "error": "❌ Gebruiker nie geskep nie!\nProbeer later weer.",
+                "path": "[📍 Roete: Paneel → Data → Gebruikers → *Skep*]"
+            },
+            "addingContract": {
+                "success": "✅ Kontrak suksesvol geskep!",
+                "error": "❌ Kontrak nie geskep nie!\nProbeer later weer.",
+                "path": "[📍 Roete: Paneel → Kontrakte → *Skep*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Roepsein suksesvol bygewerk!",
+                "error": "❌ Roepsein nie bygewerk nie!\nProbeer later weer.",
+                "path": "[📍 Roete: Paneel → Uitsendings → Spyskaart «{{call}}» → Name → Roepsein → *Werk by*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Naam suksesvol bygewerk!",
+                "error": "❌ Naam nie bygewerk nie!\nProbeer later weer.",
+                "path": "[📍 Roete: Paneel → Data → Gebruikers → Beeld → {{userName}} → *Verander naam*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Telefoon suksesvol bygewerk!",
+                "error": "❌ Telefoon nie bygewerk nie!\nProbeer later weer.",
+                "path": "[📍 Roete: Paneel → Data → Gebruikers → Beeld → {{userName}} → *Verander nommer*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "☀ Groete! Ek is die Telegram-bot Lelike eendjie, assistent vir massa-uitsendings.",
+                "commands": "Hieronder is 'n kort beskrywing van opdragte om met my te kommunikeer:\n/start - aktiveer bot en opdraglys\n/auth - outorisering\n/cabinet - bestuur persoonlike kabinet\n/settings - bestuur bot-instellings",
+                "uAdmin": "❓ Is jy 'n administrateur?\n/panel - admin-paneel",
+                "link": "Jy kan meer gedetailleerde instruksies oor die meganisme om my te beheer deur die knoppie hieronder te gebruik."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Kanselleer",
+                        "phone": "📞 Deel",
+                        "again": "🔄 Probeer weer"
+                    },
+                    "unknownMessage": "Aksie nie herken nie, probeer weer met die knoppies: '📞 Deel' en '❌ Kanselleer'",
+                    "manyAttempts": "Aantal outoriseringpogings wat gebruik is voor die een-uur-limiet: {{actualAttempts}} uit {{maxAttempts}}",
+                    "stop": "Outorisering is beperk. Beperkings sal opgehef word na: {{dateTime}}",
+                    "canceled": "Outorisering suksesvol gestop!",
+                    "title": "Om die massa-uitsendingspaneel binne te gaan, moet jy jou telefoonnommer met my deel.\n\nDie knoppie moet langs die sleutelbord verskyn met die teks '📞 Deel'",
+                    "good": "Jy is suksesvol in die stelsel geoutoriseer!",
+                    "already": "Jy is reeds in die stelsel geoutoriseer!",
+                    "bad": "Fout tydens outorisering. Kontak die administrateur!"
+                },
+                "logout": {
+                    "good": "Jy is suksesvol uitgeteken. Jou data is uitgevee!",
+                    "bad": "Fout tydens uittekening. Kontak die administrateur!"
+                }
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Instellings",
+                    "buttons": {
+                        "about": "ℹ Oor die Diens",
+                        "help": "❓ Hulp",
+                        "idea": "💡 Idees",
+                        "language": "🌐 Taal"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Kies taal.",
+                        "path": "[📍 Roete: Instellings → *Taal*]"
+                    },
+                    "change": {
+                        "good": "Taal verander!",
+                        "error": "Hierdie taal is reeds gekies!"
+                    }
+                },
+                "help": {
+                    "title": "Het jy 'n probleem ervaar?\nHet jy vrae?\nWil jy die diens prys?\nHet jy idees vir verbetering?",
+                    "interest": "Of is jy in die produk belanggestel?\nVul die onderstaande vraelys in en ons sal jou kontak!",
+                    "path": "[📍 Roete: Instellings → *Hulp*]"
+                },
+                "about": {
+                    "title": "Die diens is ontwikkel om advertensies (plasings, massa-uitsendings) van jou produkte (aanbiedinge) binne groepe / kletskamers / kanale te outomatiseer.\n\nInstruksies vir die gebruik van die Bot - op die knoppie hieronder!",
+                    "path": "[📍 Roete: Instellings → *Oor die diens*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Spyskaart van die Idees-afdeling. Hier kan jy jou idee vir die ontwikkeling van die diens voorstel.",
+                        "path": "[📍 Roete: Instellings → *Idees*]",
+                        "buttons": {
+                            "add": "🗳 Stel voor",
+                            "see": "🔍 Verken"
+                        }
+                    },
+                    "add": {
+                        "title": "Stuur vir my media/klank/teks, ens. Geen beperkings nie!",
+                        "path": "[📍 Roete: Instellings → Idees → *Voeg by*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {
+                        "logout": "🚪 Teken uit",
+                        "login": "🔑 Teken in"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "buttons": {
+                        "data": "🗂 Data",
+                        "system": "⚡ Stelsel"
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Databestuur",
+                        "path": "[📍 Roete: Paneel → *Data*]",
+                        "buttons": {
+                            "user": "👥 Gebruikers"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Bestuur groepe. Aantal: {{amount}}",
+                            "path": "[📍 Roete: Paneel → Data → *Groepe*]",
+                            "buttons": {
+                                "reupload": "🔁 Verfris"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Groepe bygewerk!",
+                            "error": "❌ Fout tydens bywerking van groepe\nKontak die administrateur",
+                            "path": "[📍 Roete: Paneel → Data → Groepe → *Werk by*]"
+                        },
+                        "clear": {
+                            "success": "✅ Groepe skoongemaak!",
+                            "error": "❌ Fout tydens skoonmaak van groepe\nKontak die administrateur",
+                            "path": "[📍 Roete: Paneel → Data → Groepe → *Maak skoon*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Bestuur gebruikers. Aantal: {{amount}}",
+                            "path": "[📍 Roete: Paneel → Data → *Gebruikers*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Lys van gebruikers.",
+                                "path": "[📍 Roete: Paneel → Data → Gebruikers → *Beeld*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Bestuur gebruiker",
+                                    "path": "[📍 Roete: Paneel → Data → Gebruikers → Beeld → *{{userName}}*]",
+                                    "telegramId": "Tg. ID: {{telegramId}}",
+                                    "name": "Naam: {{name}}",
+                                    "username": "Gebruikersnaam: @{{username}}",
+                                    "phone": "Telefoon: +{{phone}}",
+                                    "language": "Taal: {{language}}",
+                                    "role": "Rol: {{role}}"
+                                },
+                                "remove": {
+                                    "success": "✅ Gebruiker suksesvol verwyder!",
+                                    "error": "❌ Gebruiker nie verwyder nie!\nProbeer later weer",
+                                    "path": "[📍 Roete: Paneel → Data → Gebruikers → Beeld → {{userName}} → *Verwyder*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Verander telefoon!\nStuur hierheen.",
+                                        "path": "[📍 Roete: Paneel → Data → Gebruikers → Beeld → {{userName}} → *Verander nommer*]"
+                                    },
+                                    "name": {
+                                        "title": "Verander naam!\nStuur hierheen.",
+                                        "path": "[📍 Roete: Paneel → Data → Gebruikers → Beeld → {{userName}} → *Verander naam*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Skep gebruiker!",
+                            "path": "[📍 Roete: Paneel → Data → Gebruikers → *Skep*]"
+                        }
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Stelselbestuur",
+                        "path": "[📍 Roete: Paneel → *Stelsel*]",
+                        "buttons": {
+                            "server": "📟 Bediener",
+                            "maintenace": "🛠️ Instandhouding"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Proseskategorieë",
+                            "path": "[📍 Roete: Paneel → Stelsel → *Bediener*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Parseerder"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Kies 'n proses",
+                                "path": "[📍 Roete: Paneel → Stelsel → Bediener → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Bestuur proses",
+                                    "path": "[📍 Roete: Paneel → Stelsel → Bediener → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Toestand",
+                                        "log": "📋 Logs"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Roete: Paneel → Stelsel → Bediener → {{processType}} → {{processName}} → *Toestand*]",
+                                    "status": {
+                                        "active": "✅ Proses is aktief.\nOm te stop, druk die knoppie hieronder",
+                                        "inactive": "❌ Proses is onaktief.\nOm te begin, druk die knoppie hieronder",
+                                        "failed": "❌ Proses is onaktief.\nOm te begin, druk die knoppie hieronder",
+                                        "error": "Probleem met proses. Kontak die programmeerder."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Stop",
+                                        "start": "▶️ Begin",
+                                        "restart": "🔁 Herbegin"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Bekyk logs",
+                                    "path": "[📍 Roete: Paneel → Stelsel → Bediener → {{processType}} → {{processName}} → *Logs*]",
+                                    "sort": "Sortering: {{sortType}}",
+                                    "sortType": {
+                                        "new": "van nuut na oud",
+                                        "old": "van oud na nuut"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Lys van huidige aktiewe massa-uitsendings.",
+                    "path": "[📍 Roete: {{menu}} → *Uitsendings*]",
+                    "empty": "Geen uitsendings is nog ingestel nie! Kom later terug."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Spyskaart van uitsending «{{call}}»",
+                        "path": "[📍 Roete: {{menu}} → Uitsendings → *Spyskaart «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Rooster",
+                            "message": "💬 Boodskappe",
+                            "statistic": "📈 Statistiek",
+                            "owner": "👑 Eienaar",
+                            "name": "🏷️ Name",
+                            "test": "🎛️ Toetsing"
+                        }
+                    },
+                    "test": {
+                        "alert": "Kan nie toetsmodus aanskakel terwyl die uitsending aktief is nie!"
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Fout tydens kry van boodskappe!\nKontak die administrateur",
+                            "empty": "Geen boodskappe nie!\nOm teks by te voeg, druk die knoppie hieronder",
+                            "title": "Spyskaart van die Boodskappe-afdeling. Aantal: {{amount}}",
+                            "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → *Boodskappe*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Kies die tipe teksbyvoeging.",
+                                "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → *Byvoegingsmodus*]",
+                                "buttons": {
+                                    "generate": "🔮 Genereer",
+                                    "hand": "✍ Handmatige invoer"
+                                }
+                            },
+                            "generate": {
+                                "title": "Ek sal bemarkingsteks genereer! Stuur die bron hierheen. Kan nie bondels tekste stuur nie.",
+                                "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → *Generering*]",
+                                "save": "✅ Teks gestoor!",
+                                "cancel": "❌ Teks nie gestoor nie!",
+                                "pathSave": "[📍 Roete: {{menu}} → Spyskaart «{{call}}» → Boodskappe → Generering → *Stoor*]",
+                                "pathCancel": "[📍 Roete: {{menu}} → Spyskaart «{{call}}» → Boodskappe → Generering → *Kanselleer*]"
+                            },
+                            "hand": {
+                                "title": "Voeg teks by!\nStuur teks of stuur dit hierheen aan. Kan nie bondels tekste stuur nie.",
+                                "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → *Voeg teks by*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Alle boodskappe skoongemaak!",
+                            "error": "❌ Boodskappe nie skoongemaak nie!\nKontak die administrateur",
+                            "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → *Maak skoon*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Boodskap №{{number}}.",
+                                "amountMedia": "Aantal media: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → *Beeld*]",
+                                "buttons": {
+                                    "updateText": "✍️ Verander teks",
+                                    "addMedia": "🖼 Voeg media by",
+                                    "clearAllMedia": "🗑 Maak media skoon"
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Verander teks!\nStuur teks of stuur dit hierheen aan. Kan nie bondels tekste stuur nie.",
+                                    "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → *Verander teks*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Boodskap verwyder!",
+                                    "error": "❌ Teks nie verwyder nie!\nKontak die administrateur",
+                                    "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → *Verwyder teks*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Voeg media by!\nStuur media in hoeveelheid van 1 stuk.",
+                                    "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → *Voeg media by*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Alle media skoongemaak!",
+                                    "error": "❌ Media nie skoongemaak nie!\nKontak die administrateur",
+                                    "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → *Maak media skoon*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Vinnige sprong na boodskap volgens nommer",
+                                "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → Beeld → *Kies boodskap*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Kies die formaat waarin die boodskappelys gestoor sal word",
+                                "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → *Kies uitvoerformaat*]"
+                            },
+                            "result": {
+                                "error": "❌ Fout tydens uitvoer van boodskappe\nKontak die administrateur",
+                                "caption": "Boodskappelys in {{exportType}}-formaat is gereed!",
+                                "path": "\n[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Boodskappe → *Uitvoer na {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Rooster is nog nie ingestel nie!",
+                            "title": "Spyskaart van die Rooster-afdeling. Aantal tye in die rooster: {{amount}}",
+                            "path": "\n[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → *Rooster*]"
+                        },
+                        "create": {
+                            "title": "Voeg tyd by!",
+                            "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Rooster → *Voeg by*]"
+                        },
+                        "clear": {
+                            "success": "✅ Rooster skoongemaak!",
+                            "error": "❌ Rooster nie skoongemaak nie!\nKontak die administrateur",
+                            "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Rooster → *Maak skoon*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Die uitsending se rooster word hieronder as knoppies vertoon.",
+                                "path": "\n[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Rooster → *Beeld*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Verander tyd!",
+                                    "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Rooster → Beeld → *Verander tyd*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Tyd verwyder!",
+                                    "error": "❌ Tyd nie verwyder nie! Kontak die administrateur",
+                                    "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Rooster → Beeld → *Verwyder tyd*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Geselekteerde tyd:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Rooster → Beeld → *Kies aksie*]"
+                                }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Kies die formaat waarin die uitsending se rooster gestoor sal word",
+                                "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Rooster → *Kies uitvoerformaat*]"
+                            },
+                            "result": {
+                                "error": "❌ Fout tydens uitvoer van rooster\nKontak die administrateur",
+                                "caption": "Rooster in {{exportType}}-formaat is gereed!",
+                                "path": "\n[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Rooster → *Uitvoer na {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Kies die gewenste statistiekformaat.",
+                            "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → *Statistiek*]",
+                            "buttons": {
+                                "selective": "📅 Selektief",
+                                "comparative": "📊 Vergelykend"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Tans word tegniese werk aan hierdie afdeling gedoen.",
+                                "noData": "Geen resultaat gevind vir die geselekteerde datum nie!",
+                                "noAccess": "Die gedrukte knoppie is nie beskikbaar nie!",
+                                "title": "Selektiewe statistiek.\nHieronder is 'n kalender met datums. Om die resultaat van die uitsending vir 'n spesifieke dag te sien, klik net daarop!\n\nAs die uitsending:\n*nie plaasgevind het nie,\n*nie bestaan het nie,\n*nie geskeduleer was nie,\n*of iets anders\n- sal 'n boodskap met die toepaslike konteks vertoon word, moenie skrik nie.",
+                                "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Statistiek → *Selektief*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Resultaat van uitsending vir {{date}}.",
+                                    "time": "Tyd: {{time}}",
+                                    "success": "Suksesvolle uitstuur: {{success}}",
+                                    "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Statistiek → Selektief → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Statistiek → Selektief → {{date}} → *Groepe*]"
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Kies die tipe vergelykende statistiek.",
+                                "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Statistiek → *Vergelykend*]",
+                                "buttons": {
+                                    "week": "Week",
+                                    "month": "Maand"
+                                }
+                            },
+                            "week": {
+                                "title": "Vergelykende statistiek (Week)",
+                                "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Statistiek → Vergelykend → *Week*]"
+                            },
+                            "month": {
+                                "title": "Vergelykende statistiek (Maand)",
+                                "path": "[📍 Roete: {{menu}} → Uitsendings → Spyskaart «{{call}}» → Statistiek → Vergelykend → *Maand*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Eienaar van die uitsending.",
+                            "empty": "Die uitsending het geen eienaar nie!",
+                            "name": "Naam: {{name}}",
+                            "phone": "Telefoon: +{{phone}}",
+                            "path": "[📍 Roete: Paneel → Uitsendings → Spyskaart «{{call}}» → *Eienaar*]",
+                            "buttons": {
+                                "change": "🪧 Herken"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Kies 'n gebruiker om as eienaar van hierdie uitsending aan te stel.",
+                                "path": "[📍 Roete: Paneel → Uitsendings → Spyskaart «{{call}}» → Eienaar → *Kies*]",
+                                "noOwner": "Sonder eienaar"
+                            },
+                            "action": {
+                                "success": "✅ Eienaar suksesvol herken!",
+                                "error": "❌ Eienaar nie herken nie! Probeer later weer!",
+                                "path": "[📍 Roete: Paneel → Uitsendings → Spyskaart «{{call}}» → Eienaar → {{owner}} → *Stel aan*]"
+                            }
+                        }
+                    },
+                    "name": {
+                        "main": {
+                            "title": "Name van die uitsending:",
+                            "about": "1 - handtekening (ou benaming)\n2 - naam van die entiteit\n3 - roepsein (vertoonde naam in die bot)",
+                            "path": "[📍 Roete: Paneel → Uitsendings → Spyskaart «{{call}}» → *Name*]"
+                        },
+                        "update": {
+                            "call": {
+                                "title": "Verander die uitsending se roepsein!",
+                                "path": "[📍 Roete: Paneel → Uitsendings → Spyskaart «{{call}}» → Name → Roepsein → *Werk by*]"
+                            },
+                            "label": {
+                                "alert": "Die uitsending se handtekening kan nie verander word nie!"
+                            },
+                            "name": {
+                                "alert": "Die uitsending se naam kan nie verander word nie!"
+                            }
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Bestuur kontrakte. Aantal: {{amount}}",
+                    "path": "[📍 Roete: {{menu}} → *Kontrakte*]",
+                    "empty": "Geen kontrakte is nog ingestel nie! Kom later terug.",
+                    "contractName": "{{userName}}: van {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Lys van kontrakte.",
+                        "path": "[📍 Roete: {{menu}} → Kontrakte → *Beeld*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Kontrak van {{dateStart}}.",
+                            "sendouts": "Uitsendings wat by die kontrak ingesluit is: {{sendouts}}",
+                            "noSendouts": "leeg.",
+                            "userName": "Kliënt: {{userName}}",
+                            "dateStart": "Begindatum: {{dateStart}}",
+                            "dateEnd": "Einddatum: {{dateEnd}}",
+                            "price": "Prys: {{price}}",
+                            "priceText": "Prys (teks): {{priceText}}",
+                            "error": "Fout tydens kry van kontrak. Kontak die administrateur",
+                            "path": "\n[📍 Roete: {{menu}} → Kontrakte → Beeld → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success": "✅ Kontrak suksesvol verwyder!",
+                            "error": "❌ Kontrak nie verwyder nie!\nProbeer later weer",
+                            "path": "[📍 Roete: Paneel → Kontrakte → Beeld → {{dateStart}} → *Verwyder*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Kies die formaat waarin die kontrak gestoor sal word",
+                                "path": "[📍 Roete: {{menu}} → Kontrakte → Beeld → {{dateStart}} → *Kies uitvoerformaat*]"
+                            },
+                            "result": {
+                                "error": "❌ Fout tydens uitvoer van kontrak\nKontak die administrateur",
+                                "caption": "Kontrak in {{exportType}}-formaat is gereed!",
+                                "path": "\n[📍 Roete: {{menu}} → Kontrakte → Beeld → {{dateStart}} → *Uitvoer na {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "step": "Stap: {{number}} / 3",
+                    "noUser": "Om na stap #2 te gaan, moet jy stap #1 voltooi!",
+                    "noSendouts": "Om na stap #3 te gaan, moet jy stap #2 voltooi!",
+                    "noFreeSendouts": "Die kliënt het geen vrye uitsendings (sonder kontrak) nie!",
+                    "data": {
+                        "user": "Kies die gebruiker vir wie die kontrak opgestel sal word",
+                        "sendout": "Kies die uitsendings wat by die kontrak ingesluit sal word",
+                        "contract": "Stuur die data rakende die kontrak"
+                    },
+                    "title": "Skep kontrak!",
+                    "path": "[📍 Roete: Paneel → Kontrakte → *Skep*]"
+                }
+            }
+        }
+    }
+}

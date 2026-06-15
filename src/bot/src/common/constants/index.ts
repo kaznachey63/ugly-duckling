@@ -159,7 +159,7 @@ const crypto = {
 
 const limit = {
     authMaxAttempts: 3,
-    commandsTime: 1700
+    commandsTime: 1200
 };
 
 const emoji = {

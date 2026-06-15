@@ -1,0 +1,738 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Processant...",
+            "cabinet": "🪴 Gabinet personal",
+            "panel": "👨‍💻 Panell d'administrador",
+            "nameless": "Sense nom",
+            "buttons": {
+                "export": "📧 Exportar",
+                "back": "🔙 Enrere",
+                "remove": "🗑 Eliminar",
+                "miss": "Falta",
+                "create": "➕ Crear",
+                "update": "✍ Modificar",
+                "instruction": "📖 Instrucció",
+                "clear": "🗑 Netejar",
+                "view": "👁 Veure",
+                "contract": "📜 Contractes",
+                "sendout": "📢 Enviaments massius",
+                "chat": "🗯 Grups",
+                "contactAdmin": "👨 Administrador"
+            },
+            "titles": {
+                "validate": "⚠ Les dades d'entrada tenien un format incorrecte. Torneu a enviar",
+                "cabinet": "Gabinet",
+                "panel": "Panell → Dades",
+                "amount": "Quantitat: {{amount}}",
+                "sendoutActive": "L'enviament està actiu actualment, proveu de gestionar les dades més tard",
+                "accessDenied": {
+                    "all": "Accés denegat. Primer autoritzeu-vos utilitzant la comanda /auth",
+                    "admin": "Accés denegat. Aquesta secció és per a clients",
+                    "customer": "Accés denegat. Aquesta secció és per a administradors"
+                }
+            }
+        },
+        "maintenace": "🚧 Actualment s'estan realitzant treballs tècnics. L'ús del servei està temporalment limitat.\nTan bon punt acabem, us ho comunicarem!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Administrador",
+            "customer": "Client",
+            "unknown": "Desconegut"
+        },
+        "commands": {
+            "cabinet": "Gabinet",
+            "settings": "Configuració",
+            "panel": "Panell admin"
+        },
+        "chart": {
+            "labelMonth": "Estadística del nombre de grups que van rebre l'enviament. {{month}} {{year}}",
+            "labelWeek": "Estadística del nombre de grups que van rebre l'enviament. Setmana",
+            "amountSms": "Nombre de missatges",
+            "noLogs": "No s'ha produït cap enviament en el període seleccionat!",
+            "daysOfWeek": {
+                "Mon": "Dl",
+                "Tue": "Dt",
+                "Wed": "Dc",
+                "Thu": "Dj",
+                "Fri": "Dv",
+                "Sat": "Ds",
+                "Sun": "Dg"
+            },
+            "months": {
+                "january": "Gener",
+                "february": "Febrer",
+                "march": "Març",
+                "april": "Abril",
+                "may": "Maig",
+                "june": "Juny",
+                "july": "Juliol",
+                "august": "Agost",
+                "september": "Setembre",
+                "october": "Octubre",
+                "november": "Novembre",
+                "december": "Desembre"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Gener",
+                "1": "Febrer",
+                "2": "Març",
+                "3": "Abril",
+                "4": "Maig",
+                "5": "Juny",
+                "6": "Juliol",
+                "7": "Agost",
+                "8": "Setembre",
+                "9": "Octubre",
+                "10": "Novembre",
+                "11": "Desembre"
+            },
+            "days": {
+                "0": "Dl",
+                "1": "Dt",
+                "2": "Dc",
+                "3": "Dj",
+                "4": "Dv",
+                "5": "Ds",
+                "6": "Dg"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Analitzador",
+            "sendout": "Enviaments"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Horari",
+                "message": "Missatges",
+                "contract": "Contracte"
+            },
+            "text": "Exportar",
+            "from": "de"
+        },
+        "localization": {
+            "schedule": {
+                "number": "dia",
+                "everyDay": "Cada dia",
+                "unknownDay": "Dia desconegut",
+                "dayWeek": {
+                    "1": "Dilluns",
+                    "2": "Dimarts",
+                    "3": "Dimecres",
+                    "4": "Dijous",
+                    "5": "Divendres",
+                    "6": "Dissabte",
+                    "7": "Diumenge",
+                    "*": "Cada dia"
+                }
+            }
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Error en processar el número de telèfon!\nTorneu-ho a provar!",
+                "accessDenied": "Accés denegat. Per utilitzar el servei d'enviament, utilitzeu la comanda '/settings', secció 'Ajuda'"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Text guardat!",
+                "error": "❌ Text no guardat!\nContacteu amb l'administrador",
+                "path": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Missatges → *Crear text*]"
+            },
+            "generatingText": {
+                "result": "El missatge generat es mostra a continuació. Utilitzeu els botons sota els missatges per decidir el destí del text.",
+                "pathChoose": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Missatges → Generació de text → *Destí del text*]",
+                "buttons": {
+                    "save": "✔ Guardar",
+                    "cancel": "❌ No guardar"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Text modificat!",
+                "error": "❌ Text no modificat!\nContacteu amb l'administrador",
+                "path": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Missatges → *Modificar text*]"
+            },
+            "addingMedia": {
+                "error": "💀 Error en guardar el multimèdia!\nContacteu amb l'administrador",
+                "invalidType": "Tipus de multimèdia no reconegut! Torneu-ho a provar",
+                "bigSize": "Fitxer massa gran. Mida màxima {{size}} MB.",
+                "documentsWTMedia": "No puc processar documents que no continguin: foto / vídeo / gif",
+                "success": "✅ Multimèdia guardat!",
+                "error2": "❌ Multimèdia no guardat!\nContacteu amb l'administrador",
+                "path": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Missatges → *Afegir multimèdia*]",
+                "amount": "Quantitat de multimèdia al missatge: {{now}} de {{all}}"
+            },
+            "addingTime": {
+                "success": "✅ Hora guardada!",
+                "error": "❌ Hora no modificada!\nContacteu amb l'administrador",
+                "path": "[📍 Ruta: Panell → Menú «{{call}}» → Horari → Veure → *Afegir*]"
+            },
+            "updatingTime": {
+                "success": "✅ Hora modificada!",
+                "error": "❌ Hora no modificada!\nContacteu amb l'administrador",
+                "path": "[📍 Ruta: Panell → Menú «{{call}}» → Horari → Veure → *Modificar*]"
+            },
+            "addingIdea": {
+                "success": "✅ Idea afegida correctament, gràcies!",
+                "error": "❌ Idea no afegida!\nTorneu-ho a provar o contacteu amb l'administrador!",
+                "path": "[📍 Ruta: Configuració → Idees → *Afegir*]"
+            },
+            "addingUser": {
+                "success": "✅ Usuari creat correctament!",
+                "error": "❌ Usuari no creat!\nTorneu-ho a provar més tard.",
+                "path": "[📍 Ruta: Panell → Dades → Usuaris → *Crear*]"
+            },
+            "addingContract": {
+                "success": "✅ Contracte creat correctament!",
+                "error": "❌ Contracte no creat!\nTorneu-ho a provar més tard.",
+                "path": "[📍 Ruta: Panell → Contractes → *Crear*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Indicatiu actualitzat correctament!",
+                "error": "❌ Indicatiu no actualitzat!\nTorneu-ho a provar més tard.",
+                "path": "[📍 Ruta: Panell → Enviaments → Menú «{{call}}» → Noms → Indicatiu → *Actualitzar*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Nom actualitzat correctament!",
+                "error": "❌ Nom no actualitzat!\nTorneu-ho a provar més tard.",
+                "path": "[📍 Ruta: Panell → Dades → Usuaris → Veure → {{userName}} → *Modificar nom*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Telèfon actualitzat correctament!",
+                "error": "❌ Telèfon no actualitzat!\nTorneu-ho a provar més tard.",
+                "path": "[📍 Ruta: Panell → Dades → Usuaris → Veure → {{userName}} → *Modificar número*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "☀ Benvingut! Sóc el bot de Telegram Ànec lleig, ajudant per a enviaments massius.",
+                "commands": "A continuació es mostra una breu descripció de les ordres per interactuar amb mi:\n/start - activar el bot i el registre d'ordres\n/auth - autorització\n/cabinet - gestionar el gabinet personal\n/settings - gestionar la configuració del bot",
+                "uAdmin": "❓ Sou administrador?\n/panel - panell d'administrador",
+                "link": "Podeu consultar una instrucció més detallada sobre el mecanisme de control mitjançant el botó següent."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Cancel·lar",
+                        "phone": "📞 Compartir",
+                        "again": "🔄 Tornar a provar"
+                    },
+                    "unknownMessage": "Acció no reconeguda, torneu a provar amb els botons: '📞 Compartir' i '❌ Cancel·lar'",
+                    "manyAttempts": "Nombre d'intents d'autorització utilitzats abans del límit d'una hora: {{actualAttempts}} de {{maxAttempts}}",
+                    "stop": "L'autorització està restringida. Les restriccions s'aixecaran després de: {{dateTime}}",
+                    "canceled": "Autorització aturada correctament!",
+                    "title": "Per entrar al panell d'enviament, heu de compartir el vostre número de telèfon amb mi.\n\nEl botó hauria d'aparèixer al costat del teclat, amb el text '📞 Compartir'",
+                    "good": "Us heu autoritzat correctament al sistema!",
+                    "already": "Ja esteu autoritzat al sistema!",
+                    "bad": "Error durant l'autorització. Contacteu amb l'administrador!"
+                },
+                "logout": {
+                    "good": "Heu tancat la sessió correctament. Les vostres dades s'han esborrat!",
+                    "bad": "Error en tancar la sessió. Contacteu amb l'administrador!"
+                }
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Configuració",
+                    "buttons": {
+                        "about": "ℹ Sobre el servei",
+                        "help": "❓ Ajuda",
+                        "idea": "💡 Idees",
+                        "language": "🌐 Idioma"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Seleccioneu l'idioma.",
+                        "path": "[📍 Ruta: Configuració → *Idioma*]"
+                    },
+                    "change": {
+                        "good": "Idioma canviat!",
+                        "error": "Aquest idioma ja està seleccionat!"
+                    }
+                },
+                "help": {
+                    "title": "Heu tingut algun problema?\nTeniu preguntes?\nVoleu lloar el servei?\nTeniu idees per millorar?",
+                    "interest": "O esteu interessats en el producte?\nOmpliu el qüestionari següent i ens posarem en contacte amb vosaltres!",
+                    "path": "[📍 Ruta: Configuració → *Ajuda*]"
+                },
+                "about": {
+                    "title": "El servei està dissenyat per automatitzar la publicitat (publicacions, enviaments massius) dels vostres productes (ofertes) dins de grups / xats / canals.\n\nInstruccions d'ús del Bot - al botó següent!",
+                    "path": "[📍 Ruta: Configuració → *Sobre el servei*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Menú de la secció Idees. Aquí podeu suggerir la vostra idea per al desenvolupament del servei.",
+                        "path": "[📍 Ruta: Configuració → *Idees*]",
+                        "buttons": {
+                            "add": "🗳 Suggerir",
+                            "see": "🔍 Explorar"
+                        }
+                    },
+                    "add": {
+                        "title": "Envieu-me multimèdia/àudio/text, etc. Sense límits!",
+                        "path": "[📍 Ruta: Configuració → Idees → *Afegir*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {
+                        "logout": "🚪 Sortir",
+                        "login": "🔑 Iniciar sessió"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "buttons": {
+                        "data": "🗂 Dades",
+                        "system": "⚡ Sistema"
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Gestió de dades",
+                        "path": "[📍 Ruta: Panell → *Dades*]",
+                        "buttons": {
+                            "user": "👥 Usuaris"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Gestionar grups. Quantitat: {{amount}}",
+                            "path": "[📍 Ruta: Panell → Dades → *Grups*]",
+                            "buttons": {
+                                "reupload": "🔁 Actualitzar"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Grups actualitzats!",
+                            "error": "❌ Error en actualitzar els grups\nContacteu amb l'administrador",
+                            "path": "[📍 Ruta: Panell → Dades → Grups → *Actualització*]"
+                        },
+                        "clear": {
+                            "success": "✅ Grups netejats!",
+                            "error": "❌ Error en netejar els grups\nContacteu amb l'administrador",
+                            "path": "[📍 Ruta: Panell → Dades → Grups → *Neteja*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Gestionar usuaris. Quantitat: {{amount}}",
+                            "path": "[📍 Ruta: Panell → Dades → *Usuaris*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Llista d'usuaris.",
+                                "path": "[📍 Ruta: Panell → Dades → Usuaris → *Veure*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Gestionar usuari",
+                                    "path": "[📍 Ruta: Panell → Dades → Usuaris → Veure → *{{userName}}*]",
+                                    "telegramId": "ID Tg: {{telegramId}}",
+                                    "name": "Nom: {{name}}",
+                                    "username": "Nom d'usuari: @{{username}}",
+                                    "phone": "Telèfon: +{{phone}}",
+                                    "language": "Idioma: {{language}}",
+                                    "role": "Rol: {{role}}"
+                                },
+                                "remove": {
+                                    "success": "✅ Usuari eliminat correctament!",
+                                    "error": "❌ Usuari no eliminat!\nTorneu-ho a provar més tard",
+                                    "path": "[📍 Ruta: Panell → Dades → Usuaris → Veure → {{userName}} → *Eliminació*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Canviem el telèfon!\nEnvieu-lo aquí.",
+                                        "path": "[📍 Ruta: Panell → Dades → Usuaris → Veure → {{userName}} → *Modificar número*]"
+                                    },
+                                    "name": {
+                                        "title": "Canviem el nom!\nEnvieu-lo aquí.",
+                                        "path": "[📍 Ruta: Panell → Dades → Usuaris → Veure → {{userName}} → *Modificar nom*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Creem un usuari!",
+                            "path": "[📍 Ruta: Panell → Dades → Usuaris → *Crear*]"
+                        }
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Gestió del sistema",
+                        "path": "[📍 Ruta: Panell → *Sistema*]",
+                        "buttons": {
+                            "server": "📟 Servidor",
+                            "maintenace": "🛠️ Manteniment"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Categories de processos",
+                            "path": "[📍 Ruta: Panell → Sistema → *Servidor*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Analitzador"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Seleccioneu un procés",
+                                "path": "[📍 Ruta: Panell → Sistema → Servidor → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Gestionar procés",
+                                    "path": "[📍 Ruta: Panell → Sistema → Servidor → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Estat",
+                                        "log": "📋 Registres"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Ruta: Panell → Sistema → Servidor → {{processType}} → {{processName}} → *Estat*]",
+                                    "status": {
+                                        "active": "✅ Procés actiu.\nPer aturar-lo, premeu el botó següent",
+                                        "inactive": "❌ Procés inactiu.\nPer iniciar-lo, premeu el botó següent",
+                                        "failed": "❌ Procés inactiu.\nPer iniciar-lo, premeu el botó següent",
+                                        "error": "Problema amb el procés. Contacteu amb el programador."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Aturar",
+                                        "start": "▶️ Iniciar",
+                                        "restart": "🔁 Reiniciar"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Veure registres",
+                                    "path": "[📍 Ruta: Panell → Sistema → Servidor → {{processType}} → {{processName}} → *Registres*]",
+                                    "sort": "Ordenació: {{sortType}}",
+                                    "sortType": {
+                                        "new": "dels més nous als més antics",
+                                        "old": "dels més antics als més nous"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Llista dels enviaments actius actualment.",
+                    "path": "[📍 Ruta: {{menu}} → *Enviaments*]",
+                    "empty": "No hi ha enviaments configurats encara! Torneu més tard."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Menú de l'enviament «{{call}}»",
+                        "path": "[📍 Ruta: {{menu}} → Enviaments → *Menú «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Horari",
+                            "message": "💬 Missatges",
+                            "statistic": "📈 Estadístiques",
+                            "owner": "👑 Propietari",
+                            "name": "🏷️ Noms",
+                            "test": "🎛️ Proves"
+                        }
+                    },
+                    "test": {
+                        "alert": "No es pot activar el mode de prova mentre l'enviament estigui actiu!"
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Error en obtenir els missatges!\nContacteu amb l'administrador",
+                            "empty": "No hi ha missatges!\nPer afegir text, premeu el botó següent",
+                            "title": "Menú de la secció Missatges. Quantitat: {{amount}}",
+                            "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → *Missatges*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Seleccioneu el tipus d'addició de text.",
+                                "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → *Mode d'addició*]",
+                                "buttons": {
+                                    "generate": "🔮 Generar",
+                                    "hand": "✍ Entrada manual"
+                                }
+                            },
+                            "generate": {
+                                "title": "Generaré un text de venda! Envieu la font aquí. No es poden enviar munts de textos.",
+                                "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → *Generació*]",
+                                "save": "✅ Text guardat!",
+                                "cancel": "❌ Text no guardat!",
+                                "pathSave": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Missatges → Generació → *Guardar*]",
+                                "pathCancel": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Missatges → Generació → *Cancel·lar*]"
+                            },
+                            "hand": {
+                                "title": "Afegint text!\nEnvieu text o reenvieu-lo aquí. No es poden enviar munts de textos.",
+                                "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → *Afegir text*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Tots els missatges netejats!",
+                            "error": "❌ Els missatges no s'han netejat!\nContacteu amb l'administrador",
+                            "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → *Neteja*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Missatge №{{number}}.",
+                                "amountMedia": "Quantitat de multimèdia: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → *Veure*]",
+                                "buttons": {
+                                    "updateText": "✍️ Modificar text",
+                                    "addMedia": "🖼 Afegir multimèdia",
+                                    "clearAllMedia": "🗑 Netejar multimèdia"
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Modificant text!\nEnvieu text o reenvieu-lo aquí. No es poden enviar munts de textos.",
+                                    "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → *Modificar text*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Missatge eliminat!",
+                                    "error": "❌ Text no eliminat!\nContacteu amb l'administrador",
+                                    "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → *Eliminar text*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Afegint multimèdia!\nEnvieu multimèdia en quantitat d'1 unitat.",
+                                    "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → *Afegir multimèdia*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Tot el multimèdia netejat!",
+                                    "error": "❌ El multimèdia no s'ha netejat!\nContacteu amb l'administrador",
+                                    "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → *Netejar multimèdia*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Salt ràpid al missatge per número",
+                                "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → Veure → *Seleccionar missatge*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Seleccioneu el format en què es desarà la llista de missatges",
+                                "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → *Selecció de format d'exportació*]"
+                            },
+                            "result": {
+                                "error": "❌ Error en exportar els missatges\nContacteu amb l'administrador",
+                                "caption": "Llista de missatges en format {{exportType}} preparada!",
+                                "path": "\n[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Missatges → *Exportar a {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "L'horari encara no està configurat!",
+                            "title": "Menú de la secció Horari. Nombre d'hores a l'horari: {{amount}}",
+                            "path": "\n[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → *Horari*]"
+                        },
+                        "create": {
+                            "title": "Afegint hora!",
+                            "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Horari → *Afegir*]"
+                        },
+                        "clear": {
+                            "success": "✅ Horari netejat!",
+                            "error": "❌ Horari no netejat!\nContacteu amb l'administrador",
+                            "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Horari → *Neteja*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "L'horari de l'enviament es mostra a continuació en forma de botons.",
+                                "path": "\n[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Horari → *Veure*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Modificant hora!",
+                                    "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Horari → Veure → *Modificar hora*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Hora eliminada!",
+                                    "error": "❌ Hora no eliminada! Contacteu amb l'administrador",
+                                    "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Horari → Veure → *Eliminar hora*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Hora seleccionada:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Horari → Veure → *Seleccionar acció*]"
+                                }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Seleccioneu el format en què es desarà l'horari de l'enviament",
+                                "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Horari → *Selecció de format d'exportació*]"
+                            },
+                            "result": {
+                                "error": "❌ Error en exportar l'horari\nContacteu amb l'administrador",
+                                "caption": "Horari en format {{exportType}} preparat!",
+                                "path": "\n[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Horari → *Exportar a {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Seleccioneu el format d'estadística desitjat.",
+                            "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → *Estadístiques*]",
+                            "buttons": {
+                                "selective": "📅 Selectiva",
+                                "comparative": "📊 Comparativa"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Actualment s'estan realitzant treballs tècnics en aquesta secció.",
+                                "noData": "No s'ha trobat cap resultat per a la data seleccionada!",
+                                "noAccess": "El botó premut no està disponible!",
+                                "title": "Estadística selectiva.\nA continuació hi ha un calendari amb dates. Per veure el resultat de l'enviament per a un dia concret, només cal que hi feu clic!\n\nSi l'enviament:\n*no es va produir,\n*no existia,\n*no estava programat,\n*o una altra cosa\n- es mostrarà un missatge amb el context adequat, no us espanteu.",
+                                "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Estadístiques → *Selectiva*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Resultat de l'enviament del {{date}}.",
+                                    "time": "Hora: {{time}}",
+                                    "success": "Enviaments amb èxit: {{success}}",
+                                    "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Estadístiques → Selectiva → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Estadístiques → Selectiva → {{date}} → *Grups*]"
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Seleccioneu el tipus d'estadística comparativa.",
+                                "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Estadístiques → *Comparativa*]",
+                                "buttons": {
+                                    "week": "Setmana",
+                                    "month": "Mes"
+                                }
+                            },
+                            "week": {
+                                "title": "Estadística comparativa (Setmana)",
+                                "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Estadístiques → Comparativa → *Setmana*]"
+                            },
+                            "month": {
+                                "title": "Estadística comparativa (Mes)",
+                                "path": "[📍 Ruta: {{menu}} → Enviaments → Menú «{{call}}» → Estadístiques → Comparativa → *Mes*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Propietari de l'enviament.",
+                            "empty": "L'enviament no té propietari!",
+                            "name": "Nom: {{name}}",
+                            "phone": "Telèfon: +{{phone}}",
+                            "path": "[📍 Ruta: Panell → Enviaments → Menú «{{call}}» → *Propietari*]",
+                            "buttons": {
+                                "change": "🪧 Reassignar"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Seleccioneu un usuari per assignar-lo com a propietari d'aquest enviament.",
+                                "path": "[📍 Ruta: Panell → Enviaments → Menú «{{call}}» → Propietari → *Selecció*]",
+                                "noOwner": "Sense propietari"
+                            },
+                            "action": {
+                                "success": "✅ Propietari reassignat correctament!",
+                                "error": "❌ Propietari no reassignat! Torneu-ho a provar més tard!",
+                                "path": "[📍 Ruta: Panell → Enviaments → Menú «{{call}}» → Propietari → {{owner}} → *Assignar*]"
+                            }
+                        }
+                    },
+                    "name": {
+                        "main": {
+                            "title": "Noms de l'enviament:",
+                            "about": "1 - signatura (denominació antiga)\n2 - nom de l'entitat\n3 - indicatiu (nom que es mostra al bot)",
+                            "path": "[📍 Ruta: Panell → Enviaments → Menú «{{call}}» → *Noms*]"
+                        },
+                        "update": {
+                            "call": {
+                                "title": "Canviem l'indicatiu de l'enviament!",
+                                "path": "[📍 Ruta: Panell → Enviaments → Menú «{{call}}» → Noms → Indicatiu → *Actualitzar*]"
+                            },
+                            "label": {
+                                "alert": "La signatura de l'enviament no es pot canviar!"
+                            },
+                            "name": {
+                                "alert": "El nom de l'enviament no es pot canviar!"
+                            }
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Gestionar contractes. Quantitat: {{amount}}",
+                    "path": "[📍 Ruta: {{menu}} → *Contractes*]",
+                    "empty": "No hi ha contractes configurats encara! Torneu més tard.",
+                    "contractName": "{{userName}}: de {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Llista de contractes.",
+                        "path": "[📍 Ruta: {{menu}} → Contractes → *Veure*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Contracte de {{dateStart}}.",
+                            "sendouts": "Enviaments inclosos en el contracte: {{sendouts}}",
+                            "noSendouts": "buit.",
+                            "userName": "Client: {{userName}}",
+                            "dateStart": "Data d'inici: {{dateStart}}",
+                            "dateEnd": "Data de finalització: {{dateEnd}}",
+                            "price": "Preu: {{price}}",
+                            "priceText": "Preu (text): {{priceText}}",
+                            "error": "Error en obtenir el contracte. Contacteu amb l'administrador",
+                            "path": "\n[📍 Ruta: {{menu}} → Contractes → Veure → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success": "✅ Contracte eliminat correctament!",
+                            "error": "❌ Contracte no eliminat!\nTorneu-ho a provar més tard",
+                            "path": "[📍 Ruta: Panell → Contractes → Veure → {{dateStart}} → *Eliminació*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Seleccioneu el format en què es desarà el contracte",
+                                "path": "[📍 Ruta: {{menu}} → Contractes → Veure → {{dateStart}} → *Selecció de format d'exportació*]"
+                            },
+                            "result": {
+                                "error": "❌ Error en exportar el contracte\nContacteu amb l'administrador",
+                                "caption": "Contracte en format {{exportType}} preparat!",
+                                "path": "\n[📍 Ruta: {{menu}} → Contractes → Veure → {{dateStart}} → *Exportar a {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "step": "Pas: {{number}} / 3",
+                    "noUser": "Per començar el pas núm. 2, cal fer el pas núm. 1!",
+                    "noSendouts": "Per començar el pas núm. 3, cal fer el pas núm. 2!",
+                    "noFreeSendouts": "El client no té enviaments lliures (sense contracte)!",
+                    "data": {
+                        "user": "Seleccioneu l'usuari per al qual es redactarà el contracte",
+                        "sendout": "Seleccioneu els enviaments que s'inclouran en el contracte",
+                        "contract": "Envieu les dades relatives al contracte"
+                    },
+                    "title": "Creem un contracte!",
+                    "path": "[📍 Ruta: Panell → Contractes → *Crear*]"
+                }
+            }
+        }
+    }
+}
