@@ -1,131 +1,131 @@
 {
     "utils": {
         "shared": {
-            "processing": "⏳ Töötlemine...",
-            "cabinet": "🪴 Isiklik kabinet",
-            "panel": "👨‍💻 Adminipaneel",
-            "nameless": "Nimetu",
+            "processing": "⏳ Apstrāde...",
+            "cabinet": "🪴 Personīgais kabinets",
+            "panel": "👨‍💻 Administratora panelis",
+            "nameless": "Bezvārda",
             "buttons": {
-                "export": "📧 Ekspordi",
-                "back": "🔙 Tagasi",
-                "remove": "🗑 Eemalda",
-                "miss": "Puudub",
-                "create": "➕ Loo",
-                "update": "✍ Muuda",
-                "instruction": "📖 Juhend",
-                "clear": "🗑 Puhasta",
-                "view": "👁 Vaata",
-                "contract": "📜 Lepingud",
-                "sendout": "📢 Masssaadetised",
-                "chat": "🗯 Grupid",
-                "contactAdmin": "👨 Administraator"
+                "export": "📧 Eksportēt",
+                "back": "🔙 Atpakaļ",
+                "remove": "🗑 Dzēst",
+                "miss": "Trūkst",
+                "create": "➕ Izveidot",
+                "update": "✍ Mainīt",
+                "instruction": "📖 Instrukcija",
+                "clear": "🗑 Notīrīt",
+                "view": "👁 Skatīt",
+                "contract": "📜 Līgumi",
+                "sendout": "📢 Sūtījumi",
+                "chat": "🗯 Grupas",
+                "contactAdmin": "👨 Administrators"
             },
             "titles": {
-                "validate": "⚠ Sisendandmetel oli sobimatu vorming. Saatke uuesti",
-                "cabinet": "Kabinet",
-                "panel": "Paneel → Andmed",
-                "amount": "Kogus: {{amount}}",
-                "sendoutActive": "Masssaadetis on praegu aktiivne, proovige andmeid hiljem hallata",
+                "validate": "⚠ Ievaddatiem bija nederīgs formāts. Nosūtiet vēlreiz",
+                "cabinet": "Kabinets",
+                "panel": "Panelis → Dati",
+                "amount": "Daudzums: {{amount}}",
+                "sendoutActive": "Šobrīd sūtījums ir aktīvs, mēģiniet pārvaldīt datus vēlāk",
                 "accessDenied": {
-                    "all": "Ligipääs keelatud. Esmalt autoriseerige end käsuga /auth",
-                    "admin": "Ligipääs keelatud. See osa on mõeldud klientidele",
-                    "customer": "Ligipääs keelatud. See osa on mõeldud administraatoritele"
+                    "all": "Piekļuve liegta. Vispirms autorizējieties, izmantojot komandu /auth",
+                    "admin": "Piekļuve liegta. Šī sadaļa ir paredzēta klientiem",
+                    "customer": "Piekļuve liegta. Šī sadaļa ir paredzēta administratoriem"
                 }
             }
         },
-        "maintenace": "🚧 Praegu tehakse tehnilisi töid. Teenuse kasutamine on ajutiselt piiratud.\nNiipea kui valmis saame, anname teada!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "maintenace": "🚧 Pašlaik tiek veikti tehniskie darbi. Pakalpojuma izmantošana ir īslaicīgi ierobežota.\nTiklīdz pabeigsim, nekavējoties paziņosim!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
         "roleCodes": {
-            "admin": "Administraator",
-            "customer": "Klient",
-            "unknown": "Tundmatu"
+            "admin": "Administrators",
+            "customer": "Klients",
+            "unknown": "Nezināms"
         },
         "commands": {
-            "cabinet": "Kabinet",
-            "settings": "Seaded",
-            "panel": "Adminipaneel"
+            "cabinet": "Kabinets",
+            "settings": "Iestatījumi",
+            "panel": "Admin panelis"
         },
         "chart": {
-            "labelMonth": "Masssaadetise saanud gruppide arvu statistika. {{month}} {{year}}",
-            "labelWeek": "Masssaadetise saanud gruppide arvu statistika. Nädal",
-            "amountSms": "Sõnumite arv",
-            "noLogs": "Valitud ajavahemikus pole veel masssaadetist toimunud!",
+            "labelMonth": "Sūtījumu saņēmušo grupu skaita statistika. {{month}} {{year}}",
+            "labelWeek": "Sūtījumu saņēmušo grupu skaita statistika. Nedēļa",
+            "amountSms": "Ziņojumu skaits",
+            "noLogs": "Izvēlētajā periodā vēl nav bijis sūtījumu!",
             "daysOfWeek": {
-                "Mon": "E",
-                "Tue": "T",
-                "Wed": "K",
-                "Thu": "N",
-                "Fri": "R",
-                "Sat": "L",
-                "Sun": "P"
+                "Mon": "Pir",
+                "Tue": "Otr",
+                "Wed": "Tre",
+                "Thu": "Cet",
+                "Fri": "Pie",
+                "Sat": "Ses",
+                "Sun": "Svē"
             },
             "months": {
-                "january": "Jaanuar",
-                "february": "Veebruar",
-                "march": "Märts",
-                "april": "Aprill",
-                "may": "Mai",
-                "june": "Juuni",
-                "july": "Juuli",
-                "august": "August",
-                "september": "September",
-                "october": "Oktoober",
-                "november": "November",
-                "december": "Detsember"
+                "january": "Janvāris",
+                "february": "Februāris",
+                "march": "Marts",
+                "april": "Aprīlis",
+                "may": "Maijs",
+                "june": "Jūnijs",
+                "july": "Jūlijs",
+                "august": "Augusts",
+                "september": "Septembris",
+                "october": "Oktobris",
+                "november": "Novembris",
+                "december": "Decembris"
             }
         },
         "calendar": {
             "months": {
-                "0": "Jaanuar",
-                "1": "Veebruar",
-                "2": "Märts",
-                "3": "Aprill",
-                "4": "Mai",
-                "5": "Juuni",
-                "6": "Juuli",
-                "7": "August",
-                "8": "September",
-                "9": "Oktoober",
-                "10": "November",
-                "11": "Detsember"
+                "0": "Janvāris",
+                "1": "Februāris",
+                "2": "Marts",
+                "3": "Aprīlis",
+                "4": "Maijs",
+                "5": "Jūnijs",
+                "6": "Jūlijs",
+                "7": "Augusts",
+                "8": "Septembris",
+                "9": "Oktobris",
+                "10": "Novembris",
+                "11": "Decembris"
             },
             "days": {
-                "0": "E",
-                "1": "T",
-                "2": "K",
-                "3": "N",
-                "4": "R",
-                "5": "L",
-                "6": "P"
+                "0": "Pir",
+                "1": "Otr",
+                "2": "Tre",
+                "3": "Cet",
+                "4": "Pie",
+                "5": "Ses",
+                "6": "Svē"
             }
         },
         "processType": {
-            "bot": "Bot",
-            "parser": "Parser",
-            "sendout": "Masssaadetised"
+            "bot": "Bots",
+            "parser": "Parsētājs",
+            "sendout": "Sūtījumi"
         },
         "export": {
             "fileName": {
-                "schedule": "Ajagraafik",
-                "message": "Sõnumid",
-                "contract": "Leping"
+                "schedule": "Grafiks",
+                "message": "Ziņojumi",
+                "contract": "Līgums"
             },
-            "text": "Ekspordi",
-            "from": "alates"
+            "text": "Eksportēt",
+            "from": "no"
         },
         "localization": {
             "schedule": {
-                "number": "kuupäev",
-                "everyDay": "Iga päev",
-                "unknownDay": "Tundmatu päev",
+                "number": "dienu",
+                "everyDay": "Katru dienu",
+                "unknownDay": "Nezināma diena",
                 "dayWeek": {
-                    "1": "Esmaspäev",
-                    "2": "Teisipäev",
-                    "3": "Kolmapäev",
-                    "4": "Neljapäev",
-                    "5": "Reede",
-                    "6": "Laupäev",
-                    "7": "Pühapäev",
-                    "*": "Iga päev"
+                    "1": "Pirmdiena",
+                    "2": "Otrdiena",
+                    "3": "Trešdiena",
+                    "4": "Ceturtdiena",
+                    "5": "Piektdiena",
+                    "6": "Sestdiena",
+                    "7": "Svētdiena",
+                    "*": "Katru dienu"
                 }
             }
         }
@@ -133,293 +133,293 @@
     "handlers": {
         "events": {
             "contact": {
-                "numberIsNull": "Viga telefoninumbri töötlemisel!\nProovige uuesti!",
-                "accessDenied": "Ligipääs keelatud. Masssaadetise teenuse kasutamiseks kasutage käsku '/settings', jaotist 'Abi'"
+                "numberIsNull": "Kļūda apstrādājot tālruņa numuru!\nMēģiniet vēlreiz!",
+                "accessDenied": "Piekļuve liegta. Lai izmantotu sūtījumu pakalpojumu, izmantojiet komandu '/settings', sadaļu 'Palīdzība'"
             }
         },
         "states": {
             "addingText": {
-                "success": "✅ Tekst salvestatud!",
-                "error": "❌ Teksti ei salvestatud!\nVõtke ühendust administraatoriga",
-                "path": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → *Teksti loomine*]"
+                "success": "✅ Teksts saglabāts!",
+                "error": "❌ Teksts nav saglabāts!\nSazinieties ar administratoru",
+                "path": "[📍 Ceļš: {{menu}} → Izvēlne «{{call}}» → Ziņojumi → *Teksta izveide*]"
             },
             "generatingText": {
-                "result": "Loodud sõnum on allpool. Kasutage sõnumite all olevaid nuppe, et otsustada teksti saatus.",
-                "pathChoose": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → Teksti genereerimine → *Teksti saatus*]",
+                "result": "Ģenerētais ziņojums ir parādīts zemāk. Izmantojiet pogas zem ziņojumiem, lai izlemtu par teksta likteni.",
+                "pathChoose": "[📍 Ceļš: {{menu}} → Izvēlne «{{call}}» → Ziņojumi → Teksta ģenerēšana → *Teksta liktenis*]",
                 "buttons": {
-                    "save": "✔ Salvesta",
-                    "cancel": "❌ Ära salvesta"
+                    "save": "✔ Saglabāt",
+                    "cancel": "❌ Nesaglabāt"
                 }
             },
             "updatingText": {
-                "success": "✅ Teksti muudetud!",
-                "error": "❌ Teksti ei muudetud!\nVõtke ühendust administraatoriga",
-                "path": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → *Teksti muutmine*]"
+                "success": "✅ Teksts mainīts!",
+                "error": "❌ Teksts nav mainīts!\nSazinieties ar administratoru",
+                "path": "[📍 Ceļš: {{menu}} → Izvēlne «{{call}}» → Ziņojumi → *Teksta maiņa*]"
             },
             "addingMedia": {
-                "error": "💀 Viga meedia salvestamisel!\nVõtke ühendust administraatoriga",
-                "invalidType": "Meediatüüpi ei tuvastatud! Proovige uuesti",
-                "bigSize": "Fail on liiga suur. Maksimaalne suurus {{size}} MB.",
-                "documentsWTMedia": "Ma ei oska töödelda dokumente, mis ei sisalda: pilt / video / gif",
-                "success": "✅ Meedia salvestatud!",
-                "error2": "❌ Meediat ei salvestatud!\nVõtke ühendust administraatoriga",
-                "path": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → *Meedia lisamine*]",
-                "amount": "Meedia arv sõnumis: {{now}} / {{all}}"
+                "error": "💀 Kļūda saglabājot mediju!\nSazinieties ar administratoru",
+                "invalidType": "Medija tips nav atpazīts! Mēģiniet vēlreiz",
+                "bigSize": "Fails ir pārāk liels. Maksimālais izmērs {{size}} MB.",
+                "documentsWTMedia": "Es neprotu apstrādāt dokumentus, kas nesatur: foto / video / gif",
+                "success": "✅ Medijs saglabāts!",
+                "error2": "❌ Medijs nav saglabāts!\nSazinieties ar administratoru",
+                "path": "[📍 Ceļš: {{menu}} → Izvēlne «{{call}}» → Ziņojumi → *Medija pievienošana*]",
+                "amount": "Mediju skaits ziņojumā: {{now}} no {{all}}"
             },
             "addingTime": {
-                "success": "✅ Aeg salvestatud!",
-                "error": "❌ Aega ei muudetud!\nVõtke ühendust administraatoriga",
-                "path": "[📍 Tee: Paneel → Menüü «{{call}}» → Ajagraafik → Vaata → *Lisa*]"
+                "success": "✅ Laiks saglabāts!",
+                "error": "❌ Laiks nav mainīts!\nSazinieties ar administratoru",
+                "path": "[📍 Ceļš: Panelis → Izvēlne «{{call}}» → Grafiks → Skatīt → *Pievienot*]"
             },
             "updatingTime": {
-                "success": "✅ Aega muudetud!",
-                "error": "❌ Aega ei muudetud!\nVõtke ühendust administraatoriga",
-                "path": "[📍 Tee: Paneel → Menüü «{{call}}» → Ajagraafik → Vaata → *Muuda*]"
+                "success": "✅ Laiks mainīts!",
+                "error": "❌ Laiks nav mainīts!\nSazinieties ar administratoru",
+                "path": "[📍 Ceļš: Panelis → Izvēlne «{{call}}» → Grafiks → Skatīt → *Mainīt*]"
             },
             "addingIdea": {
-                "success": "✅ Idee edukalt lisatud, aitäh!",
-                "error": "❌ Ideed ei lisatud!\nProovige uuesti või võtke ühendust administraatoriga!",
-                "path": "[📍 Tee: Seaded → Ideed → *Lisa*]"
+                "success": "✅ Ideja veiksmīgi pievienota, paldies!",
+                "error": "❌ Ideja nav pievienota!\nMēģiniet vēlreiz vai sazinieties ar administratoru!",
+                "path": "[📍 Ceļš: Iestatījumi → Idejas → *Pievienot*]"
             },
             "addingUser": {
-                "success": "✅ Kasutaja edukalt loodud!",
-                "error": "❌ Kasutajat ei loodud!\nProovige hiljem uuesti.",
-                "path": "[📍 Tee: Paneel → Andmed → Kasutajad → *Loo*]"
+                "success": "✅ Lietotājs veiksmīgi izveidots!",
+                "error": "❌ Lietotājs nav izveidots!\nMēģiniet vēlāk.",
+                "path": "[📍 Ceļš: Panelis → Dati → Lietotāji → *Izveidot*]"
             },
             "addingContract": {
-                "success": "✅ Leping edukalt loodud!",
-                "error": "❌ Lepingut ei loodud!\nProovige hiljem uuesti.",
-                "path": "[📍 Tee: Paneel → Lepingud → *Loo*]"
+                "success": "✅ Līgums veiksmīgi izveidots!",
+                "error": "❌ Līgums nav izveidots!\nMēģiniet vēlāk.",
+                "path": "[📍 Ceļš: Panelis → Līgumi → *Izveidot*]"
             },
             "updatingSendoutCall": {
-                "success": "✅ Kutsung edukalt uuendatud!",
-                "error": "❌ Kutsungit ei uuendatud!\nProovige hiljem uuesti.",
-                "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → Nimed → Kutsung → *Uuenda*]"
+                "success": "✅ Izsaukuma signāls veiksmīgi atjaunināts!",
+                "error": "❌ Izsaukuma signāls nav atjaunināts!\nMēģiniet vēlāk.",
+                "path": "[📍 Ceļš: Panelis → Sūtījumi → Izvēlne «{{call}}» → Vārdi → Izsaukuma signāls → *Atjaunināt*]"
             },
             "updatingUserName": {
-                "success": "✅ Nimi edukalt uuendatud!",
-                "error": "❌ Nime ei uuendatud!\nProovige hiljem uuesti.",
-                "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → {{userName}} → *Nime muutmine*]"
+                "success": "✅ Vārds veiksmīgi atjaunināts!",
+                "error": "❌ Vārds nav atjaunināts!\nMēģiniet vēlāk.",
+                "path": "[📍 Ceļš: Panelis → Dati → Lietotāji → Skatīt → {{userName}} → *Vārda maiņa*]"
             },
             "updatingUserPhone": {
-                "success": "✅ Telefon edukalt uuendatud!",
-                "error": "❌ Telefoni ei uuendatud!\nProovige hiljem uuesti.",
-                "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → {{userName}} → *Numbri muutmine*]"
+                "success": "✅ Tālrunis veiksmīgi atjaunināts!",
+                "error": "❌ Tālrunis nav atjaunināts!\nMēģiniet vēlāk.",
+                "path": "[📍 Ceļš: Panelis → Dati → Lietotāji → Skatīt → {{userName}} → *Numura maiņa*]"
             }
         }
     },
     "modules": {
         "commands": {
             "start": {
-                "title": "☀ Tere! Ma olen Telegrammi bot Inetu pardipoeg, masssaadetiste assistent.",
-                "commands": "Allpool on lühike kirjeldus käskudest minuga suhtlemiseks:\n/start - boti aktiveerimine ja käskude loend\n/auth - autoriseerimine\n/cabinet - isikliku kabineti haldamine\n/settings - boti seadete haldamine",
-                "uAdmin": "❓ Kas olete administraator?\n/panel - adminipaneel",
-                "link": "Üksikasjalikumat juhendit minu juhtimise mehhanismi kohta saate vaadata alloleva nupu abil."
+                "title": "☀ Sveicināti! Es esmu Telegram bots Neglītais pīlēns, palīgs sūtījumiem.",
+                "commands": "Zemāk ir īss komandu apraksts mijiedarbībai ar mani:\n/start - bota aktivizēšana un komandu saraksts\n/auth - autorizācija\n/cabinet - personīgā kabineta pārvaldība\n/settings - bota iestatījumu pārvaldība",
+                "uAdmin": "❓ Vai esat administrators?\n/panel - administratora panelis",
+                "link": "Detalizētākus norādījumus par to, kā mani vadīt, varat apskatīt, izmantojot zemāk esošo pogu."
             },
             "auth": {
                 "login": {
                     "buttons": {
-                        "cancel": "❌ Tühista",
-                        "phone": "📞 Jaga",
-                        "again": "🔄 Proovi uuesti"
+                        "cancel": "❌ Atcelt",
+                        "phone": "📞 Dalīties",
+                        "again": "🔄 Mēģināt vēlreiz"
                     },
-                    "unknownMessage": "Tegevust ei tuvastatud, proovige uuesti nuppe: '📞 Jaga' ja '❌ Tühista'",
-                    "manyAttempts": "Enne ühetunnist piirangut kasutatud autoriseerimiskatsete arv: {{actualAttempts}} / {{maxAttempts}}",
-                    "stop": "Autoriseerimine on piiratud. Piirangud tühistatakse pärast: {{dateTime}}",
-                    "canceled": "Autoriseerimine edukalt peatatud!",
-                    "title": "Masssaadetiste paneelile sisenemiseks peate minuga jagama oma telefoninumbri.\n\nNupp peaks ilmuma klaviatuuri kõrvale kirjaga '📞 Jaga'",
-                    "good": "Olete süsteemis edukalt autoriseeritud!",
-                    "already": "Olete juba süsteemis autoriseeritud!",
-                    "bad": "Viga autoriseerimisel. Võtke ühendust administraatoriga!"
+                    "unknownMessage": "Darbība nav atpazīta, mēģiniet vēlreiz izmantojot pogas: '📞 Dalīties' un '❌ Atcelt'",
+                    "manyAttempts": "Pirms stundas limita izmantoto autorizācijas mēģinājumu skaits: {{actualAttempts}} no {{maxAttempts}}",
+                    "stop": "Autorizācija ir ierobežota. Ierobežojumi tiks atcelti pēc: {{dateTime}}",
+                    "canceled": "Autorizācija veiksmīgi apturēta!",
+                    "title": "Lai ievadītu sūtījumu paneli, jums ir jādalās ar manu tālruņa numuru.\n\nPogai vajadzētu parādīties blakus tastatūrai ar uzrakstu '📞 Dalīties'",
+                    "good": "Jūs esat veiksmīgi autorizējies sistēmā!",
+                    "already": "Jūs jau esat autorizēts sistēmā!",
+                    "bad": "Kļūda autorizācijas laikā. Sazinieties ar administratoru!"
                 },
                 "logout": {
-                    "good": "Olete edukalt välja loginud. Teie andmed on kustutatud!",
-                    "bad": "Viga väljalogimisel. Võtke ühendust administraatoriga!"
+                    "good": "Jūs esat veiksmīgi izrakstījies. Jūsu dati ir dzēsti!",
+                    "bad": "Kļūda izrakstīšanās laikā. Sazinieties ar administratoru!"
                 }
             },
             "settings": {
                 "main": {
-                    "title": "⚙️ Seaded",
+                    "title": "⚙️ Iestatījumi",
                     "buttons": {
-                        "about": "ℹ Teenusest",
-                        "help": "❓ Abi",
-                        "idea": "💡 Ideed",
-                        "language": "🌐 Keel"
+                        "about": "ℹ Par pakalpojumu",
+                        "help": "❓ Palīdzība",
+                        "idea": "💡 Idejas",
+                        "language": "🌐 Valoda"
                     }
                 },
                 "language": {
                     "main": {
-                        "title": "Valige keel.",
-                        "path": "[📍 Tee: Seaded → *Keel*]"
+                        "title": "Izvēlieties valodu.",
+                        "path": "[📍 Ceļš: Iestatījumi → *Valoda*]"
                     },
                     "change": {
-                        "good": "Keel muudetud!",
-                        "error": "See keel on juba valitud!"
+                        "good": "Valoda mainīta!",
+                        "error": "Šī valoda jau ir izvēlēta!"
                     }
                 },
                 "help": {
-                    "title": "Kas teil on probleem?\nKas teil on küsimusi?\nKas soovite teenust kiita?\nKas teil on ideid teenuse parendamiseks?",
-                    "interest": "Või olete tootest huvitatud?\nTäitke allolev küsimustik ja võtame teiega ühendust!",
-                    "path": "[📍 Tee: Seaded → *Abi*]"
+                    "title": "Saskārāties ar problēmu?\nVai jums ir jautājumi?\nVēlaties uzslavēt pakalpojumu?\nVai jums ir idejas uzlabojumiem?",
+                    "interest": "Vai jūs interesē produkts?\nAizpildiet zemāk esošo anketu, un mēs ar jums sazināsimies!",
+                    "path": "[📍 Ceļš: Iestatījumi → *Palīdzība*]"
                 },
                 "about": {
-                    "title": "Teenus on välja töötatud teie toodete (pakkumiste) reklaami (postituste, masssaadetiste) automatiseerimiseks gruppides / vestlustes / kanalites.\n\nBoti kasutamise juhend - alloleval nupul!",
-                    "path": "[📍 Tee: Seaded → *Teenusest*]"
+                    "title": "Pakalpojums ir izstrādāts, lai automatizētu savu produktu (piedāvājumu) reklāmu (ierakstus, sūtījumus) grupās / tērzētavās / kanālos.\n\nNorādījumi par bota lietošanu - zemāk esošajā pogā!",
+                    "path": "[📍 Ceļš: Iestatījumi → *Par pakalpojumu*]"
                 },
                 "idea": {
                     "main": {
-                        "title": "Ideede jaotise menüü. Siin saate esitada oma idee teenuse arendamiseks.",
-                        "path": "[📍 Tee: Seaded → *Ideed*]",
+                        "title": "Ideju sadaļas izvēlne. Šeit jūs varat ieteikt savu ideju pakalpojuma attīstībai.",
+                        "path": "[📍 Ceļš: Iestatījumi → *Idejas*]",
                         "buttons": {
-                            "add": "🗳 Paku välja",
-                            "see": "🔍 Uuri"
+                            "add": "🗳 Ieteikt",
+                            "see": "🔍 Izpētīt"
                         }
                     },
                     "add": {
-                        "title": "Saadke mulle meediat / heli / teksti jne. Piiranguid pole!",
-                        "path": "[📍 Tee: Seaded → Ideed → *Lisa*]"
+                        "title": "Sūtiet man medijus/audio/tekstu utt. Ierobežojumu nav!",
+                        "path": "[📍 Ceļš: Iestatījumi → Idejas → *Pievienot*]"
                     }
                 }
             },
             "cabinet": {
                 "main": {
                     "buttons": {
-                        "logout": "🚪 Logi välja",
-                        "login": "🔑 Logi sisse"
+                        "logout": "🚪 Izrakstīties",
+                        "login": "🔑 Pierakstīties"
                     }
                 }
             },
             "panel": {
                 "main": {
                     "buttons": {
-                        "data": "🗂 Andmed",
-                        "system": "⚡ Süsteem"
+                        "data": "🗂 Dati",
+                        "system": "⚡ Sistēma"
                     }
                 },
                 "data": {
                     "main": {
-                        "title": "Andmete haldamine",
-                        "path": "[📍 Tee: Paneel → *Andmed*]",
+                        "title": "Datu pārvaldība",
+                        "path": "[📍 Ceļš: Panelis → *Dati*]",
                         "buttons": {
-                            "user": "👥 Kasutajad"
+                            "user": "👥 Lietotāji"
                         }
                     },
                     "chat": {
                         "main": {
-                            "title": "Gruppide haldamine. Kogus: {{amount}}",
-                            "path": "[📍 Tee: Paneel → Andmed → *Grupid*]",
+                            "title": "Grupas pārvaldība. Daudzums: {{amount}}",
+                            "path": "[📍 Ceļš: Panelis → Dati → *Grupas*]",
                             "buttons": {
-                                "reupload": "🔁 Värskenda"
+                                "reupload": "🔁 Atjaunināt"
                             }
                         },
                         "reupload": {
-                            "success": "✅ Grupid uuendatud!",
-                            "error": "❌ Viga gruppide uuendamisel\nVõtke ühendust administraatoriga",
-                            "path": "[📍 Tee: Paneel → Andmed → Grupid → *Uuendamine*]"
+                            "success": "✅ Grupas atjauninātas!",
+                            "error": "❌ Kļūda atjauninot grupas\nSazinieties ar administratoru",
+                            "path": "[📍 Ceļš: Panelis → Dati → Grupas → *Atjaunināšana*]"
                         },
                         "clear": {
-                            "success": "✅ Grupid puhastatud!",
-                            "error": "❌ Viga gruppide puhastamisel\nVõtke ühendust administraatoriga",
-                            "path": "[📍 Tee: Paneel → Andmed → Grupid → *Puhastamine*]"
+                            "success": "✅ Grupas notīrītas!",
+                            "error": "❌ Kļūda notīrot grupas\nSazinieties ar administratoru",
+                            "path": "[📍 Ceļš: Panelis → Dati → Grupas → *Tīrīšana*]"
                         }
                     },
                     "user": {
                         "main": {
-                            "title": "Kasutajate haldamine. Kogus: {{amount}}",
-                            "path": "[📍 Tee: Paneel → Andmed → *Kasutajad*]"
+                            "title": "Lietotāju pārvaldība. Daudzums: {{amount}}",
+                            "path": "[📍 Ceļš: Panelis → Dati → *Lietotāji*]"
                         },
                         "view": {
                             "main": {
-                                "title": "Kasutajate nimekiri.",
-                                "path": "[📍 Tee: Paneel → Andmed → Kasutajad → *Vaata*]"
+                                "title": "Lietotāju saraksts.",
+                                "path": "[📍 Ceļš: Panelis → Dati → Lietotāji → *Skatīt*]"
                             },
                             "control": {
                                 "main": {
-                                    "title": "Kasutaja haldamine",
-                                    "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → *{{userName}}*]",
+                                    "title": "Lietotāja pārvaldība",
+                                    "path": "[📍 Ceļš: Panelis → Dati → Lietotāji → Skatīt → *{{userName}}*]",
                                     "telegramId": "Tg. id: {{telegramId}}",
-                                    "name": "Nimi: {{name}}",
-                                    "username": "Kasutajanimi: @{{username}}",
-                                    "phone": "Telefon: +{{phone}}",
-                                    "language": "Keel: {{language}}",
-                                    "role": "Roll: {{role}}"
+                                    "name": "Vārds: {{name}}",
+                                    "username": "Lietotājvārds: @{{username}}",
+                                    "phone": "Tālrunis: +{{phone}}",
+                                    "language": "Valoda: {{language}}",
+                                    "role": "Loma: {{role}}"
                                 },
                                 "remove": {
-                                    "success": "✅ Kasutaja edukalt eemaldatud!",
-                                    "error": "❌ Kasutajat ei eemaldatud!\nProovige hiljem uuesti",
-                                    "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → {{userName}} → *Eemaldamine*]"
+                                    "success": "✅ Lietotājs veiksmīgi dzēsts!",
+                                    "error": "❌ Lietotājs nav dzēsts!\nMēģiniet vēlāk",
+                                    "path": "[📍 Ceļš: Panelis → Dati → Lietotāji → Skatīt → {{userName}} → *Dzēšana*]"
                                 },
                                 "update": {
                                     "phone": {
-                                        "title": "Muudame telefoni!\nSaatke siia.",
-                                        "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → {{userName}} → *Numbri muutmine*]"
+                                        "title": "Mainām tālruni!\nSūtiet šeit.",
+                                        "path": "[📍 Ceļš: Panelis → Dati → Lietotāji → Skatīt → {{userName}} → *Numura maiņa*]"
                                     },
                                     "name": {
-                                        "title": "Muudame nime!\nSaatke siia.",
-                                        "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → {{userName}} → *Nime muutmine*]"
+                                        "title": "Mainām vārdu!\nSūtiet šeit.",
+                                        "path": "[📍 Ceļš: Panelis → Dati → Lietotāji → Skatīt → {{userName}} → *Vārda maiņa*]"
                                     }
                                 }
                             }
                         },
                         "create": {
-                            "title": "Loome kasutajat!",
-                            "path": "[📍 Tee: Paneel → Andmed → Kasutajad → *Loo*]"
+                            "title": "Veidojam lietotāju!",
+                            "path": "[📍 Ceļš: Panelis → Dati → Lietotāji → *Izveidot*]"
                         }
                     }
                 },
                 "system": {
                     "main": {
-                        "title": "Süsteemi haldamine",
-                        "path": "[📍 Tee: Paneel → *Süsteem*]",
+                        "title": "Sistēmas pārvaldība",
+                        "path": "[📍 Ceļš: Panelis → *Sistēma*]",
                         "buttons": {
-                            "server": "📟 Server",
-                            "maintenace": "🛠️ Hooldus"
+                            "server": "📟 Serveris",
+                            "maintenace": "🛠️ Tehniskā apkope"
                         }
                     },
                     "server": {
                         "main": {
-                            "title": "Protsesside kategooriad",
-                            "path": "[📍 Tee: Paneel → Süsteem → *Server*]",
+                            "title": "Procesu kategorijas",
+                            "path": "[📍 Ceļš: Panelis → Sistēma → *Serveris*]",
                             "buttons": {
-                                "bot": "🤖 Bot",
-                                "parser": "🧲 Parser"
+                                "bot": "🤖 Bots",
+                                "parser": "🧲 Parsētājs"
                             }
                         },
                         "process": {
                             "main": {
-                                "title": "Valige protsess",
-                                "path": "[📍 Tee: Paneel → Süsteem → Server → *{{processType}}*]"
+                                "title": "Izvēlieties procesu",
+                                "path": "[📍 Ceļš: Panelis → Sistēma → Serveris → *{{processType}}*]"
                             },
                             "control": {
                                 "main": {
-                                    "title": "Protsessi haldamine",
-                                    "path": "[📍 Tee: Paneel → Süsteem → Server → {{processType}} → *{{processName}}*]",
+                                    "title": "Procesa pārvaldība",
+                                    "path": "[📍 Ceļš: Panelis → Sistēma → Serveris → {{processType}} → *{{processName}}*]",
                                     "buttons": {
-                                        "condition": "🩻 Olek",
-                                        "log": "📋 Logid"
+                                        "condition": "🩻 Stāvoklis",
+                                        "log": "📋 Žurnāli"
                                     }
                                 },
                                 "condition": {
-                                    "path": "[📍 Tee: Paneel → Süsteem → Server → {{processType}} → {{processName}} → *Olek*]",
+                                    "path": "[📍 Ceļš: Panelis → Sistēma → Serveris → {{processType}} → {{processName}} → *Stāvoklis*]",
                                     "status": {
-                                        "active": "✅ Protsess on aktiivne.\nPeatamiseks vajutage allolevat nuppu",
-                                        "inactive": "❌ Protsess on passiivne.\nKäivitamiseks vajutage allolevat nuppu",
-                                        "failed": "❌ Protsess on passiivne.\nKäivitamiseks vajutage allolevat nuppu",
-                                        "error": "Probleem protsessiga. Võtke ühendust programmeerijaga."
+                                        "active": "✅ Process ir aktīvs.\nLai apturētu, nospiediet pogu zemāk",
+                                        "inactive": "❌ Process ir neaktīvs.\nLai palaistu, nospiediet pogu zemāk",
+                                        "failed": "❌ Process ir neaktīvs.\nLai palaistu, nospiediet pogu zemāk",
+                                        "error": "Problēma ar procesu. Sazinieties ar programmētāju."
                                     },
                                     "buttons": {
-                                        "stop": "🛑 Peata",
-                                        "start": "▶️ Käivita",
-                                        "restart": "🔁 Käivita uuesti"
+                                        "stop": "🛑 Apturēt",
+                                        "start": "▶️ Palaist",
+                                        "restart": "🔁 Palaist no jauna"
                                     }
                                 },
                                 "log": {
-                                    "title": "Logide vaatamine",
-                                    "path": "[📍 Tee: Paneel → Süsteem → Server → {{processType}} → {{processName}} → *Logid*]",
-                                    "sort": "Sorteerimine: {{sortType}}",
+                                    "title": "Žurnālu skatīšana",
+                                    "path": "[📍 Ceļš: Panelis → Sistēma → Serveris → {{processType}} → {{processName}} → *Žurnāli*]",
+                                    "sort": "Kārtošana: {{sortType}}",
                                     "sortType": {
-                                        "new": "uuest vanemale",
-                                        "old": "vanast uuele"
+                                        "new": "no jaunākajiem uz vecākajiem",
+                                        "old": "no vecākajiem uz jaunākajiem"
                                     }
                                 }
                             }
@@ -431,246 +431,246 @@
         "shared": {
             "sendout": {
                 "main": {
-                    "title": "Praegu aktiivsete masssaadetiste nimekiri.",
-                    "path": "[📍 Tee: {{menu}} → *Masssaadetised*]",
-                    "empty": "Masssaadetised pole veel seadistatud! Tulge hiljem tagasi."
+                    "title": "Pašlaik aktīvo sūtījumu saraksts.",
+                    "path": "[📍 Ceļš: {{menu}} → *Sūtījumi*]",
+                    "empty": "Sūtījumi vēl nav konfigurēti! Atgriezieties vēlāk."
                 },
                 "view": {
                     "main": {
-                        "title": "📣 Masssaadetise «{{call}}» menüü",
-                        "path": "[📍 Tee: {{menu}} → Masssaadetised → *Menüü «{{call}}»*]",
+                        "title": "📣 Sūtījuma «{{call}}» izvēlne",
+                        "path": "[📍 Ceļš: {{menu}} → Sūtījumi → *Izvēlne «{{call}}»*]",
                         "buttons": {
-                            "schedule": "🕰️ Ajagraafik",
-                            "message": "💬 Sõnumid",
+                            "schedule": "🕰️ Grafiks",
+                            "message": "💬 Ziņojumi",
                             "statistic": "📈 Statistika",
-                            "owner": "👑 Omanik",
-                            "name": "🏷️ Nimed",
-                            "test": "🎛️ Testimine"
+                            "owner": "👑 Īpašnieks",
+                            "name": "🏷️ Vārdi",
+                            "test": "🎛️ Testēšana"
                         }
                     },
                     "test": {
-                        "alert": "Testrežiimi ei saa sisse lülitada, kui masssaadetis on aktiivne!"
+                        "alert": "Nevar ieslēgt testēšanas režīmu, kamēr sūtījums ir aktīvs!"
                     },
                     "message": {
                         "main": {
-                            "error": "Viga sõnumite hankimisel!\nVõtke ühendust administraatoriga",
-                            "empty": "Sõnumeid pole!\nTeksti lisamiseks vajutage allolevat nuppu",
-                            "title": "Sõnumite jaotise menüü. Kogus: {{amount}}",
-                            "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → *Sõnumid*]"
+                            "error": "Kļūda saņemot ziņojumus!\nSazinieties ar administratoru",
+                            "empty": "Ziņojumu nav!\nLai pievienotu tekstu, nospiediet pogu zemāk",
+                            "title": "Ziņojumu sadaļas izvēlne. Daudzums: {{amount}}",
+                            "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → *Ziņojumi*]"
                         },
                         "create": {
                             "main": {
-                                "title": "Valige teksti lisamise tüüp.",
-                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Lisamise režiim*]",
+                                "title": "Izvēlieties teksta pievienošanas veidu.",
+                                "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → *Pievienošanas režīms*]",
                                 "buttons": {
-                                    "generate": "🔮 Genereeri",
-                                    "hand": "✍ Käsitsi sisestus"
+                                    "generate": "🔮 Ģenerēt",
+                                    "hand": "✍ Manuāla ievade"
                                 }
                             },
                             "generate": {
-                                "title": "Ma genereerin müügiteksti! Saatke lähtetekst siia. Tekstikuhjasid ei saa saata.",
-                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Genereerimine*]",
-                                "save": "✅ Tekst salvestatud!",
-                                "cancel": "❌ Teksti ei salvestatud!",
-                                "pathSave": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → Genereerimine → *Salvestamine*]",
-                                "pathCancel": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → Genereerimine → *Tühista*]"
+                                "title": "Es ģenerēšu pārdošanas tekstu! Sūtiet avotu šeit. Nedrīkst sūtīt tekstu kaudzes.",
+                                "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → *Ģenerēšana*]",
+                                "save": "✅ Teksts saglabāts!",
+                                "cancel": "❌ Teksts nav saglabāts!",
+                                "pathSave": "[📍 Ceļš: {{menu}} → Izvēlne «{{call}}» → Ziņojumi → Ģenerēšana → *Saglabāšana*]",
+                                "pathCancel": "[📍 Ceļš: {{menu}} → Izvēlne «{{call}}» → Ziņojumi → Ģenerēšana → *Atcelšana*]"
                             },
                             "hand": {
-                                "title": "Lisame teksti!\nSaatke tekst või suunake see siia. Tekstikuhjasid ei saa saata.",
-                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Teksti lisamine*]"
+                                "title": "Pievienojam tekstu!\nSūtiet tekstu vai pāradresējiet to šeit. Nedrīkst sūtīt tekstu kaudzes.",
+                                "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → *Teksta pievienošana*]"
                             }
                         },
                         "clear": {
-                            "success": "✅ Kõik sõnumid puhastatud!",
-                            "error": "❌ Sõnumeid ei puhastatud!\nVõtke ühendust administraatoriga",
-                            "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Puhastamine*]"
+                            "success": "✅ Visi ziņojumi notīrīti!",
+                            "error": "❌ Ziņojumi nav notīrīti!\nSazinieties ar administratoru",
+                            "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → *Tīrīšana*]"
                         },
                         "view": {
                             "main": {
-                                "messageNumber": "Sõnum №{{number}}.",
-                                "amountMedia": "Meedia arv: {{amount}} / {{maxMedia}}.",
-                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Vaata*]",
+                                "messageNumber": "Ziņojums №{{number}}.",
+                                "amountMedia": "Mediju skaits: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → *Skatīt*]",
                                 "buttons": {
-                                    "updateText": "✍️ Muuda teksti",
-                                    "addMedia": "🖼 Lisa meedia",
-                                    "clearAllMedia": "🗑 Puhasta meedia"
+                                    "updateText": "✍️ Mainīt tekstu",
+                                    "addMedia": "🖼 Pievienot mediju",
+                                    "clearAllMedia": "🗑 Notīrīt medijus"
                                 }
                             },
                             "text": {
                                 "update": {
-                                    "title": "Muudame teksti!\nSaatke tekst või suunake see siia. Tekstikuhjasid ei saa saata.",
-                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Teksti muutmine*]"
+                                    "title": "Mainām tekstu!\nSūtiet tekstu vai pāradresējiet to šeit. Nedrīkst sūtīt tekstu kaudzes.",
+                                    "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → *Teksta maiņa*]"
                                 },
                                 "remove": {
-                                    "success": "✅ Sõnum eemaldatud!",
-                                    "error": "❌ Teksti ei eemaldatud!\nVõtke ühendust administraatoriga",
-                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Teksti eemaldamine*]"
+                                    "success": "✅ Ziņojums dzēsts!",
+                                    "error": "❌ Teksts nav dzēsts!\nSazinieties ar administratoru",
+                                    "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → *Teksta dzēšana*]"
                                 }
                             },
                             "media": {
                                 "add": {
-                                    "title": "Lisame meediat!\nSaatke meedia 1 kaupa.",
-                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Meedia lisamine*]"
+                                    "title": "Pievienojam mediju!\nSūtiet medijus pa 1 gabalam.",
+                                    "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → *Medija pievienošana*]"
                                 },
                                 "clearAll": {
-                                    "success": "✅ Kogu meedia puhastatud!",
-                                    "error": "❌ Meediat ei puhastatud!\nVõtke ühendust administraatoriga",
-                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Meedia puhastamine*]"
+                                    "success": "✅ Visi mediji notīrīti!",
+                                    "error": "❌ Mediji nav notīrīti!\nSazinieties ar administratoru",
+                                    "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → *Mediju tīrīšana*]"
                                 }
                             },
                             "pagination": {
-                                "title": "Kiire hüpe sõnumile numbri järgi",
-                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → Vaata → *Sõnumi valik*]"
+                                "title": "Ātra pāreja uz ziņojumu pēc numura",
+                                "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → Skatīt → *Ziņojuma izvēle*]"
                             }
                         },
                         "export": {
                             "main": {
-                                "title": "Valige vorming, milles sõnumite loend salvestatakse",
-                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Ekspordi vormingu valik*]"
+                                "title": "Izvēlieties formātu, kādā tiks saglabāts ziņojumu saraksts",
+                                "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → *Eksporta formāta izvēle*]"
                             },
                             "result": {
-                                "error": "❌ Viga sõnumite eksportimisel\nVõtke ühendust administraatoriga",
-                                "caption": "Sõnumite loend vormingus {{exportType}} on valmis!",
-                                "path": "\n[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Ekspordi {{exportType}} formaati*]"
+                                "error": "❌ Kļūda eksportējot ziņojumus\nSazinieties ar administratoru",
+                                "caption": "Ziņojumu saraksts {{exportType}} formātā ir gatavs!",
+                                "path": "\n[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Ziņojumi → *Eksportēt uz {{exportType}}*]"
                             }
                         }
                     },
                     "schedule": {
                         "main": {
-                            "empty": "Ajagraafik pole veel seadistatud!",
-                            "title": "Ajagraafiku jaotise menüü. Aegade arv ajagraafikus: {{amount}}",
-                            "path": "\n[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → *Ajagraafik*]"
+                            "empty": "Grafiks vēl nav konfigurēts!",
+                            "title": "Grafika sadaļas izvēlne. Laiku skaits grafikā: {{amount}}",
+                            "path": "\n[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → *Grafiks*]"
                         },
                         "create": {
-                            "title": "Lisame aega!",
-                            "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → *Lisa*]"
+                            "title": "Pievienojam laiku!",
+                            "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Grafiks → *Pievienot*]"
                         },
                         "clear": {
-                            "success": "✅ Ajagraafik puhastatud!",
-                            "error": "❌ Ajagraafikut ei puhastatud!\nVõtke ühendust administraatoriga",
-                            "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → *Puhastamine*]"
+                            "success": "✅ Grafiks notīrīts!",
+                            "error": "❌ Grafiks nav notīrīts!\nSazinieties ar administratoru",
+                            "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Grafiks → *Tīrīšana*]"
                         },
                         "view": {
                             "main": {
-                                "title": "Masssaadetise ajagraafik on allpool nuppudena esitatud.",
-                                "path": "\n[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → *Vaata*]"
+                                "title": "Sūtījuma grafiks ir parādīts zemāk pogu veidā.",
+                                "path": "\n[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Grafiks → *Skatīt*]"
                             },
                             "time": {
                                 "update": {
-                                    "title": "Muudame aega!",
-                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → Vaata → *Aja muutmine*]"
+                                    "title": "Mainām laiku!",
+                                    "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Grafiks → Skatīt → *Laika maiņa*]"
                                 },
                                 "remove": {
-                                    "success": "✅ Aeg eemaldatud!",
-                                    "error": "❌ Aega ei eemaldatud! Võtke ühendust administraatoriga",
-                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → Vaata → *Aja eemaldamine*]"
+                                    "success": "✅ Laiks dzēsts!",
+                                    "error": "❌ Laiks nav dzēsts! Sazinieties ar administratoru",
+                                    "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Grafiks → Skatīt → *Laika dzēšana*]"
                                 },
                                 "updateOrRemove": {
-                                    "title": "Valitud aeg:\n→ *{{targetTime}}*.\n",
-                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → Vaata → *Tegevuse valik*]"
+                                    "title": "Izvēlētais laiks:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Grafiks → Skatīt → *Darbības izvēle*]"
                                 }
                             }
                         },
                         "export": {
                             "main": {
-                                "title": "Valige vorming, milles masssaadetise ajagraafik salvestatakse",
-                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → *Ekspordi vormingu valik*]"
+                                "title": "Izvēlieties formātu, kādā tiks saglabāts sūtījuma grafiks",
+                                "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Grafiks → *Eksporta formāta izvēle*]"
                             },
                             "result": {
-                                "error": "❌ Viga ajagraafiku eksportimisel\nVõtke ühendust administraatoriga",
-                                "caption": "Ajagraafik vormingus {{exportType}} on valmis!",
-                                "path": "\n[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → *Ekspordi {{exportType}} formaati*]"
+                                "error": "❌ Kļūda eksportējot grafiku\nSazinieties ar administratoru",
+                                "caption": "Grafiks {{exportType}} formātā ir gatavs!",
+                                "path": "\n[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Grafiks → *Eksportēt uz {{exportType}}*]"
                             }
                         }
                     },
                     "statistic": {
                         "main": {
-                            "title": "Valige soovitud statistika vorming.",
-                            "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → *Statistika*]",
+                            "title": "Izvēlieties vēlamo statistikas formātu.",
+                            "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → *Statistika*]",
                             "buttons": {
-                                "selective": "📅 Valikuline",
-                                "comparative": "📊 Võrdlev"
+                                "selective": "📅 Atlases",
+                                "comparative": "📊 Salīdzinošā"
                             }
                         },
                         "selective": {
                             "main": {
-                                "notDone": "Praegu tehakse sellel jaotisel tehnilisi töid.",
-                                "noData": "Valitud kuupäeva kohta tulemust ei leitud!",
-                                "noAccess": "Vajutatud nupp pole saadaval!",
-                                "title": "Valikuline statistika.\nAllpool on kalender kuupäevadega. Konkreetse päeva masssaadetise tulemuse vaatamiseks klõpsake sellel!\n\nKui masssaadetis:\n*ei toimunud,\n*puudus,\n*polnud planeeritud,\n*või midagi muud\n- kuvatakse vastava kontekstiga sõnum, ärge kartke.",
-                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → *Valikuline*]"
+                                "notDone": "Pašlaik šajā sadaļā tiek veikti tehniskie darbi.",
+                                "noData": "Izvēlētajam datumam rezultāts netika atrasts!",
+                                "noAccess": "Nospiestā poga nav pieejama!",
+                                "title": "Atlases statistika.\nZemāk ir kalendārs ar datumiem. Lai skatītu sūtījuma rezultātu kādā dienā, vienkārši noklikšķiniet uz tās!\n\nJa sūtījums:\n*nenotika,\n*nebija,\n*tika ieplānots,\n*vai kas cits\n- tiks parādīts ziņojums ar atbilstošu kontekstu, nebaidieties.",
+                                "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Statistika → *Atlases*]"
                             },
                             "targetDate": {
                                 "main": {
-                                    "title": "Masssaadetise tulemus kuupäeval {{date}}.",
-                                    "time": "Aeg: {{time}}",
-                                    "success": "Edukaid saatmisi: {{success}}",
-                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → Valikuline → *{{date}}*]"
+                                    "title": "Sūtījuma rezultāts {{date}}.",
+                                    "time": "Laiks: {{time}}",
+                                    "success": "Veiksmīgu nosūtījumu skaits: {{success}}",
+                                    "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Statistika → Atlases → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → Valikuline → {{date}} → *Grupid*]"
+                                    "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Statistika → Atlases → {{date}} → *Grupas*]"
                                 }
                             }
                         },
                         "comparative": {
                             "main": {
-                                "title": "Valige võrdleva statistika tüüp.",
-                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → *Võrdlev*]",
+                                "title": "Izvēlieties salīdzinošās statistikas veidu.",
+                                "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Statistika → *Salīdzinošā*]",
                                 "buttons": {
-                                    "week": "Nädal",
-                                    "month": "Kuu"
+                                    "week": "Nedēļa",
+                                    "month": "Mēnesis"
                                 }
                             },
                             "week": {
-                                "title": "Võrdlev statistika (Nädal)",
-                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → Võrdlev → *Nädal*]"
+                                "title": "Salīdzinošā statistika (Nedēļa)",
+                                "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Statistika → Salīdzinošā → *Nedēļa*]"
                             },
                             "month": {
-                                "title": "Võrdlev statistika (Kuu)",
-                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → Võrdlev → *Kuu*]"
+                                "title": "Salīdzinošā statistika (Mēnesis)",
+                                "path": "[📍 Ceļš: {{menu}} → Sūtījumi → Izvēlne «{{call}}» → Statistika → Salīdzinošā → *Mēnesis*]"
                             }
                         }
                     },
                     "owner": {
                         "main": {
-                            "title": "Masssaadetise omanik.",
-                            "empty": "Masssaadetisel pole omanikku!",
-                            "name": "Nimi: {{name}}",
-                            "phone": "Telefon: +{{phone}}",
-                            "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → *Omanik*]",
+                            "title": "Sūtījuma īpašnieks.",
+                            "empty": "Sūtījumam nav īpašnieka!",
+                            "name": "Vārds: {{name}}",
+                            "phone": "Tālrunis: +{{phone}}",
+                            "path": "[📍 Ceļš: Panelis → Sūtījumi → Izvēlne «{{call}}» → *Īpašnieks*]",
                             "buttons": {
-                                "change": "🪧 Määra ümber"
+                                "change": "🪧 Pārcelt"
                             }
                         },
                         "update": {
                             "main": {
-                                "title": "Valige kasutaja, kelle soovite määrata selle masssaadetise omanikuks.",
-                                "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → Omanik → *Valik*]",
-                                "noOwner": "Ilma omanikuta"
+                                "title": "Izvēlieties lietotāju, ko iecelt par šī sūtījuma īpašnieku.",
+                                "path": "[📍 Ceļš: Panelis → Sūtījumi → Izvēlne «{{call}}» → Īpašnieks → *Izvēle*]",
+                                "noOwner": "Bez īpašnieka"
                             },
                             "action": {
-                                "success": "✅ Omanik edukalt ümber määratud!",
-                                "error": "❌ Omanikku ei määratud ümber! Proovige hiljem uuesti!",
-                                "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → Omanik → {{owner}} → *Määramine*]"
+                                "success": "✅ Īpašnieks veiksmīgi pārcelts!",
+                                "error": "❌ Īpašnieks nav pārcelts! Mēģiniet vēlāk!",
+                                "path": "[📍 Ceļš: Panelis → Sūtījumi → Izvēlne «{{call}}» → Īpašnieks → {{owner}} → *Iecelšana*]"
                             }
                         }
                     },
                     "name": {
                         "main": {
-                            "title": "Masssaadetise nimed:",
-                            "about": "1 - allkiri (vana nimetus)\n2 - üksuse nimi\n3 - kutsung (botis kuvatav nimi)",
-                            "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → *Nimed*]"
+                            "title": "Sūtījuma vārdi:",
+                            "about": "1 - paraksts (vecais nosaukums)\n2 - vienības nosaukums\n3 - izsaukuma signāls (botā redzamais vārds)",
+                            "path": "[📍 Ceļš: Panelis → Sūtījumi → Izvēlne «{{call}}» → *Vārdi*]"
                         },
                         "update": {
                             "call": {
-                                "title": "Muudame masssaadetise kutsungit!",
-                                "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → Nimed → Kutsung → *Uuenda*]"
+                                "title": "Mainām sūtījuma izsaukuma signālu!",
+                                "path": "[📍 Ceļš: Panelis → Sūtījumi → Izvēlne «{{call}}» → Vārdi → Izsaukuma signāls → *Atjaunināt*]"
                             },
                             "label": {
-                                "alert": "Masssaadetise allkirja ei saa muuta!"
+                                "alert": "Sūtījuma parakstu nevar mainīt!"
                             },
                             "name": {
-                                "alert": "Masssaadetise nime ei saa muuta!"
+                                "alert": "Sūtījuma nosaukumu nevar mainīt!"
                             }
                         }
                     }
@@ -678,59 +678,59 @@
             },
             "contract": {
                 "main": {
-                    "title": "Lepingute haldamine. Kogus: {{amount}}",
-                    "path": "[📍 Tee: {{menu}} → *Lepingud*]",
-                    "empty": "Lepingud pole veel seadistatud! Tulge hiljem tagasi.",
-                    "contractName": "{{userName}}: alates {{dateStart}}"
+                    "title": "Līgumu pārvaldība. Daudzums: {{amount}}",
+                    "path": "[📍 Ceļš: {{menu}} → *Līgumi*]",
+                    "empty": "Līgumi vēl nav konfigurēti! Atgriezieties vēlāk.",
+                    "contractName": "{{userName}}: no {{dateStart}}"
                 },
                 "view": {
                     "main": {
-                        "title": "Lepingute nimekiri.",
-                        "path": "[📍 Tee: {{menu}} → Lepingud → *Vaata*]"
+                        "title": "Līgumu saraksts.",
+                        "path": "[📍 Ceļš: {{menu}} → Līgumi → *Skatīt*]"
                     },
                     "contract": {
                         "main": {
-                            "title": "Leping alates {{dateStart}}.",
-                            "sendouts": "Lepingusse lisatud masssaadetised: {{sendouts}}",
-                            "noSendouts": "tühi.",
-                            "userName": "Klient: {{userName}}",
-                            "dateStart": "Alguskuupäev: {{dateStart}}",
-                            "dateEnd": "Lõpukuupäev: {{dateEnd}}",
-                            "price": "Hind: {{price}}",
-                            "priceText": "Hind (tekst): {{priceText}}",
-                            "error": "Viga lepingu hankimisel. Võtke ühendust administraatoriga",
-                            "path": "\n[📍 Tee: {{menu}} → Lepingud → Vaata → *{{dateStart}}*]"
+                            "title": "Līgums no {{dateStart}}.",
+                            "sendouts": "Līgumā iekļautie sūtījumi: {{sendouts}}",
+                            "noSendouts": "tukšs.",
+                            "userName": "Klients: {{userName}}",
+                            "dateStart": "Sākuma datums: {{dateStart}}",
+                            "dateEnd": "Beigu datums: {{dateEnd}}",
+                            "price": "Cena: {{price}}",
+                            "priceText": "Cena (teksts): {{priceText}}",
+                            "error": "Kļūda saņemot līgumu. Sazinieties ar administratoru",
+                            "path": "\n[📍 Ceļš: {{menu}} → Līgumi → Skatīt → *{{dateStart}}*]"
                         },
                         "remove": {
-                            "success": "✅ Leping edukalt eemaldatud!",
-                            "error": "❌ Lepingut ei eemaldatud!\nProovige hiljem uuesti",
-                            "path": "[📍 Tee: Paneel → Lepingud → Vaata → {{dateStart}} → *Eemaldamine*]"
+                            "success": "✅ Līgums veiksmīgi dzēsts!",
+                            "error": "❌ Līgums nav dzēsts!\nMēģiniet vēlāk",
+                            "path": "[📍 Ceļš: Panelis → Līgumi → Skatīt → {{dateStart}} → *Dzēšana*]"
                         },
                         "export": {
                             "main": {
-                                "title": "Valige vorming, milles leping salvestatakse",
-                                "path": "[📍 Tee: {{menu}} → Lepingud → Vaata → {{dateStart}} → *Ekspordi vormingu valik*]"
+                                "title": "Izvēlieties formātu, kādā līgums tiks saglabāts",
+                                "path": "[📍 Ceļš: {{menu}} → Līgumi → Skatīt → {{dateStart}} → *Eksporta formāta izvēle*]"
                             },
                             "result": {
-                                "error": "❌ Viga lepingu eksportimisel\nVõtke ühendust administraatoriga",
-                                "caption": "Leping vormingus {{exportType}} on valmis!",
-                                "path": "\n[📍 Tee: {{menu}} → Lepingud → Vaata → {{dateStart}} → *Ekspordi {{exportType}} formaati*]"
+                                "error": "❌ Kļūda eksportējot līgumu\nSazinieties ar administratoru",
+                                "caption": "Līgums {{exportType}} formātā ir gatavs!",
+                                "path": "\n[📍 Ceļš: {{menu}} → Līgumi → Skatīt → {{dateStart}} → *Eksportēt uz {{exportType}}*]"
                             }
                         }
                     }
                 },
                 "create": {
-                    "step": "Samm: {{number}} / 3",
-                    "noUser": "2. sammu juurde minekuks peate täitma 1. sammu!",
-                    "noSendouts": "3. sammu juurde minekuks peate täitma 2. sammu!",
-                    "noFreeSendouts": "Kliendil pole vabu masssaadetisi (lepinguta)!",
+                    "step": "Solis: {{number}} / 3",
+                    "noUser": "Lai pārietu uz 2. soli, jums jāveic 1. solis!",
+                    "noSendouts": "Lai pārietu uz 3. soli, jums jāveic 2. solis!",
+                    "noFreeSendouts": "Klientam nav brīvu sūtījumu (bez līguma)!",
                     "data": {
-                        "user": "Valige kasutaja, kellele leping koostatakse",
-                        "sendout": "Valige masssaadetised, mis lepingusse lisatakse",
-                        "contract": "Saatke lepinguga seotud andmed"
+                        "user": "Izvēlieties lietotāju, kuram tiks sastādīts līgums",
+                        "sendout": "Izvēlieties sūtījumus, kas tiks iekļauti līgumā",
+                        "contract": "Nosūtiet datus par līgumu"
                     },
-                    "title": "Loome lepingut!",
-                    "path": "[📍 Tee: Paneel → Lepingud → *Loo*]"
+                    "title": "Veidojam līgumu!",
+                    "path": "[📍 Ceļš: Panelis → Līgumi → *Izveidot*]"
                 }
             }
         }

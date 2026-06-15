@@ -1,0 +1,738 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Töötlemine...",
+            "cabinet": "🪴 Isiklik kabinet",
+            "panel": "👨‍💻 Adminipaneel",
+            "nameless": "Nimetu",
+            "buttons": {
+                "export": "📧 Ekspordi",
+                "back": "🔙 Tagasi",
+                "remove": "🗑 Eemalda",
+                "miss": "Puudub",
+                "create": "➕ Loo",
+                "update": "✍ Muuda",
+                "instruction": "📖 Juhend",
+                "clear": "🗑 Puhasta",
+                "view": "👁 Vaata",
+                "contract": "📜 Lepingud",
+                "sendout": "📢 Masssaadetised",
+                "chat": "🗯 Grupid",
+                "contactAdmin": "👨 Administraator"
+            },
+            "titles": {
+                "validate": "⚠ Sisendandmetel oli sobimatu vorming. Saatke uuesti",
+                "cabinet": "Kabinet",
+                "panel": "Paneel → Andmed",
+                "amount": "Kogus: {{amount}}",
+                "sendoutActive": "Masssaadetis on praegu aktiivne, proovige andmeid hiljem hallata",
+                "accessDenied": {
+                    "all": "Ligipääs keelatud. Esmalt autoriseerige end käsuga /auth",
+                    "admin": "Ligipääs keelatud. See osa on mõeldud klientidele",
+                    "customer": "Ligipääs keelatud. See osa on mõeldud administraatoritele"
+                }
+            }
+        },
+        "maintenace": "🚧 Praegu tehakse tehnilisi töid. Teenuse kasutamine on ajutiselt piiratud.\nNiipea kui valmis saame, anname teada!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Administraator",
+            "customer": "Klient",
+            "unknown": "Tundmatu"
+        },
+        "commands": {
+            "cabinet": "Kabinet",
+            "settings": "Seaded",
+            "panel": "Adminipaneel"
+        },
+        "chart": {
+            "labelMonth": "Masssaadetise saanud gruppide arvu statistika. {{month}} {{year}}",
+            "labelWeek": "Masssaadetise saanud gruppide arvu statistika. Nädal",
+            "amountSms": "Sõnumite arv",
+            "noLogs": "Valitud ajavahemikus pole veel masssaadetist toimunud!",
+            "daysOfWeek": {
+                "Mon": "E",
+                "Tue": "T",
+                "Wed": "K",
+                "Thu": "N",
+                "Fri": "R",
+                "Sat": "L",
+                "Sun": "P"
+            },
+            "months": {
+                "january": "Jaanuar",
+                "february": "Veebruar",
+                "march": "Märts",
+                "april": "Aprill",
+                "may": "Mai",
+                "june": "Juuni",
+                "july": "Juuli",
+                "august": "August",
+                "september": "September",
+                "october": "Oktoober",
+                "november": "November",
+                "december": "Detsember"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Jaanuar",
+                "1": "Veebruar",
+                "2": "Märts",
+                "3": "Aprill",
+                "4": "Mai",
+                "5": "Juuni",
+                "6": "Juuli",
+                "7": "August",
+                "8": "September",
+                "9": "Oktoober",
+                "10": "November",
+                "11": "Detsember"
+            },
+            "days": {
+                "0": "E",
+                "1": "T",
+                "2": "K",
+                "3": "N",
+                "4": "R",
+                "5": "L",
+                "6": "P"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Parser",
+            "sendout": "Masssaadetised"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Ajagraafik",
+                "message": "Sõnumid",
+                "contract": "Leping"
+            },
+            "text": "Ekspordi",
+            "from": "alates"
+        },
+        "localization": {
+            "schedule": {
+                "number": "kuupäev",
+                "everyDay": "Iga päev",
+                "unknownDay": "Tundmatu päev",
+                "dayWeek": {
+                    "1": "Esmaspäev",
+                    "2": "Teisipäev",
+                    "3": "Kolmapäev",
+                    "4": "Neljapäev",
+                    "5": "Reede",
+                    "6": "Laupäev",
+                    "7": "Pühapäev",
+                    "*": "Iga päev"
+                }
+            }
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Viga telefoninumbri töötlemisel!\nProovige uuesti!",
+                "accessDenied": "Ligipääs keelatud. Masssaadetise teenuse kasutamiseks kasutage käsku '/settings', jaotist 'Abi'"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Tekst salvestatud!",
+                "error": "❌ Teksti ei salvestatud!\nVõtke ühendust administraatoriga",
+                "path": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → *Teksti loomine*]"
+            },
+            "generatingText": {
+                "result": "Loodud sõnum on allpool. Kasutage sõnumite all olevaid nuppe, et otsustada teksti saatus.",
+                "pathChoose": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → Teksti genereerimine → *Teksti saatus*]",
+                "buttons": {
+                    "save": "✔ Salvesta",
+                    "cancel": "❌ Ära salvesta"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Teksti muudetud!",
+                "error": "❌ Teksti ei muudetud!\nVõtke ühendust administraatoriga",
+                "path": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → *Teksti muutmine*]"
+            },
+            "addingMedia": {
+                "error": "💀 Viga meedia salvestamisel!\nVõtke ühendust administraatoriga",
+                "invalidType": "Meediatüüpi ei tuvastatud! Proovige uuesti",
+                "bigSize": "Fail on liiga suur. Maksimaalne suurus {{size}} MB.",
+                "documentsWTMedia": "Ma ei oska töödelda dokumente, mis ei sisalda: pilt / video / gif",
+                "success": "✅ Meedia salvestatud!",
+                "error2": "❌ Meediat ei salvestatud!\nVõtke ühendust administraatoriga",
+                "path": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → *Meedia lisamine*]",
+                "amount": "Meedia arv sõnumis: {{now}} / {{all}}"
+            },
+            "addingTime": {
+                "success": "✅ Aeg salvestatud!",
+                "error": "❌ Aega ei muudetud!\nVõtke ühendust administraatoriga",
+                "path": "[📍 Tee: Paneel → Menüü «{{call}}» → Ajagraafik → Vaata → *Lisa*]"
+            },
+            "updatingTime": {
+                "success": "✅ Aega muudetud!",
+                "error": "❌ Aega ei muudetud!\nVõtke ühendust administraatoriga",
+                "path": "[📍 Tee: Paneel → Menüü «{{call}}» → Ajagraafik → Vaata → *Muuda*]"
+            },
+            "addingIdea": {
+                "success": "✅ Idee edukalt lisatud, aitäh!",
+                "error": "❌ Ideed ei lisatud!\nProovige uuesti või võtke ühendust administraatoriga!",
+                "path": "[📍 Tee: Seaded → Ideed → *Lisa*]"
+            },
+            "addingUser": {
+                "success": "✅ Kasutaja edukalt loodud!",
+                "error": "❌ Kasutajat ei loodud!\nProovige hiljem uuesti.",
+                "path": "[📍 Tee: Paneel → Andmed → Kasutajad → *Loo*]"
+            },
+            "addingContract": {
+                "success": "✅ Leping edukalt loodud!",
+                "error": "❌ Lepingut ei loodud!\nProovige hiljem uuesti.",
+                "path": "[📍 Tee: Paneel → Lepingud → *Loo*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Kutsung edukalt uuendatud!",
+                "error": "❌ Kutsungit ei uuendatud!\nProovige hiljem uuesti.",
+                "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → Nimed → Kutsung → *Uuenda*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Nimi edukalt uuendatud!",
+                "error": "❌ Nime ei uuendatud!\nProovige hiljem uuesti.",
+                "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → {{userName}} → *Nime muutmine*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Telefon edukalt uuendatud!",
+                "error": "❌ Telefoni ei uuendatud!\nProovige hiljem uuesti.",
+                "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → {{userName}} → *Numbri muutmine*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "☀ Tere! Ma olen Telegrammi bot Inetu pardipoeg, masssaadetiste assistent.",
+                "commands": "Allpool on lühike kirjeldus käskudest minuga suhtlemiseks:\n/start - boti aktiveerimine ja käskude loend\n/auth - autoriseerimine\n/cabinet - isikliku kabineti haldamine\n/settings - boti seadete haldamine",
+                "uAdmin": "❓ Kas olete administraator?\n/panel - adminipaneel",
+                "link": "Üksikasjalikumat juhendit minu juhtimise mehhanismi kohta saate vaadata alloleva nupu abil."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Tühista",
+                        "phone": "📞 Jaga",
+                        "again": "🔄 Proovi uuesti"
+                    },
+                    "unknownMessage": "Tegevust ei tuvastatud, proovige uuesti nuppe: '📞 Jaga' ja '❌ Tühista'",
+                    "manyAttempts": "Enne ühetunnist piirangut kasutatud autoriseerimiskatsete arv: {{actualAttempts}} / {{maxAttempts}}",
+                    "stop": "Autoriseerimine on piiratud. Piirangud tühistatakse pärast: {{dateTime}}",
+                    "canceled": "Autoriseerimine edukalt peatatud!",
+                    "title": "Masssaadetiste paneelile sisenemiseks peate minuga jagama oma telefoninumbri.\n\nNupp peaks ilmuma klaviatuuri kõrvale kirjaga '📞 Jaga'",
+                    "good": "Olete süsteemis edukalt autoriseeritud!",
+                    "already": "Olete juba süsteemis autoriseeritud!",
+                    "bad": "Viga autoriseerimisel. Võtke ühendust administraatoriga!"
+                },
+                "logout": {
+                    "good": "Olete edukalt välja loginud. Teie andmed on kustutatud!",
+                    "bad": "Viga väljalogimisel. Võtke ühendust administraatoriga!"
+                }
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Seaded",
+                    "buttons": {
+                        "about": "ℹ Teenusest",
+                        "help": "❓ Abi",
+                        "idea": "💡 Ideed",
+                        "language": "🌐 Keel"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Valige keel.",
+                        "path": "[📍 Tee: Seaded → *Keel*]"
+                    },
+                    "change": {
+                        "good": "Keel muudetud!",
+                        "error": "See keel on juba valitud!"
+                    }
+                },
+                "help": {
+                    "title": "Kas teil on probleem?\nKas teil on küsimusi?\nKas soovite teenust kiita?\nKas teil on ideid teenuse parendamiseks?",
+                    "interest": "Või olete tootest huvitatud?\nTäitke allolev küsimustik ja võtame teiega ühendust!",
+                    "path": "[📍 Tee: Seaded → *Abi*]"
+                },
+                "about": {
+                    "title": "Teenus on välja töötatud teie toodete (pakkumiste) reklaami (postituste, masssaadetiste) automatiseerimiseks gruppides / vestlustes / kanalites.\n\nBoti kasutamise juhend - alloleval nupul!",
+                    "path": "[📍 Tee: Seaded → *Teenusest*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Ideede jaotise menüü. Siin saate esitada oma idee teenuse arendamiseks.",
+                        "path": "[📍 Tee: Seaded → *Ideed*]",
+                        "buttons": {
+                            "add": "🗳 Paku välja",
+                            "see": "🔍 Uuri"
+                        }
+                    },
+                    "add": {
+                        "title": "Saadke mulle meediat / heli / teksti jne. Piiranguid pole!",
+                        "path": "[📍 Tee: Seaded → Ideed → *Lisa*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {
+                        "logout": "🚪 Logi välja",
+                        "login": "🔑 Logi sisse"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "buttons": {
+                        "data": "🗂 Andmed",
+                        "system": "⚡ Süsteem"
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Andmete haldamine",
+                        "path": "[📍 Tee: Paneel → *Andmed*]",
+                        "buttons": {
+                            "user": "👥 Kasutajad"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Gruppide haldamine. Kogus: {{amount}}",
+                            "path": "[📍 Tee: Paneel → Andmed → *Grupid*]",
+                            "buttons": {
+                                "reupload": "🔁 Värskenda"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Grupid uuendatud!",
+                            "error": "❌ Viga gruppide uuendamisel\nVõtke ühendust administraatoriga",
+                            "path": "[📍 Tee: Paneel → Andmed → Grupid → *Uuendamine*]"
+                        },
+                        "clear": {
+                            "success": "✅ Grupid puhastatud!",
+                            "error": "❌ Viga gruppide puhastamisel\nVõtke ühendust administraatoriga",
+                            "path": "[📍 Tee: Paneel → Andmed → Grupid → *Puhastamine*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Kasutajate haldamine. Kogus: {{amount}}",
+                            "path": "[📍 Tee: Paneel → Andmed → *Kasutajad*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Kasutajate nimekiri.",
+                                "path": "[📍 Tee: Paneel → Andmed → Kasutajad → *Vaata*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Kasutaja haldamine",
+                                    "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → *{{userName}}*]",
+                                    "telegramId": "Tg. id: {{telegramId}}",
+                                    "name": "Nimi: {{name}}",
+                                    "username": "Kasutajanimi: @{{username}}",
+                                    "phone": "Telefon: +{{phone}}",
+                                    "language": "Keel: {{language}}",
+                                    "role": "Roll: {{role}}"
+                                },
+                                "remove": {
+                                    "success": "✅ Kasutaja edukalt eemaldatud!",
+                                    "error": "❌ Kasutajat ei eemaldatud!\nProovige hiljem uuesti",
+                                    "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → {{userName}} → *Eemaldamine*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Muudame telefoni!\nSaatke siia.",
+                                        "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → {{userName}} → *Numbri muutmine*]"
+                                    },
+                                    "name": {
+                                        "title": "Muudame nime!\nSaatke siia.",
+                                        "path": "[📍 Tee: Paneel → Andmed → Kasutajad → Vaata → {{userName}} → *Nime muutmine*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Loome kasutajat!",
+                            "path": "[📍 Tee: Paneel → Andmed → Kasutajad → *Loo*]"
+                        }
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Süsteemi haldamine",
+                        "path": "[📍 Tee: Paneel → *Süsteem*]",
+                        "buttons": {
+                            "server": "📟 Server",
+                            "maintenace": "🛠️ Hooldus"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Protsesside kategooriad",
+                            "path": "[📍 Tee: Paneel → Süsteem → *Server*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Parser"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Valige protsess",
+                                "path": "[📍 Tee: Paneel → Süsteem → Server → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Protsessi haldamine",
+                                    "path": "[📍 Tee: Paneel → Süsteem → Server → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Olek",
+                                        "log": "📋 Logid"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Tee: Paneel → Süsteem → Server → {{processType}} → {{processName}} → *Olek*]",
+                                    "status": {
+                                        "active": "✅ Protsess on aktiivne.\nPeatamiseks vajutage allolevat nuppu",
+                                        "inactive": "❌ Protsess on passiivne.\nKäivitamiseks vajutage allolevat nuppu",
+                                        "failed": "❌ Protsess on passiivne.\nKäivitamiseks vajutage allolevat nuppu",
+                                        "error": "Probleem protsessiga. Võtke ühendust programmeerijaga."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Peata",
+                                        "start": "▶️ Käivita",
+                                        "restart": "🔁 Käivita uuesti"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Logide vaatamine",
+                                    "path": "[📍 Tee: Paneel → Süsteem → Server → {{processType}} → {{processName}} → *Logid*]",
+                                    "sort": "Sorteerimine: {{sortType}}",
+                                    "sortType": {
+                                        "new": "uuest vanemale",
+                                        "old": "vanast uuele"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Praegu aktiivsete masssaadetiste nimekiri.",
+                    "path": "[📍 Tee: {{menu}} → *Masssaadetised*]",
+                    "empty": "Masssaadetised pole veel seadistatud! Tulge hiljem tagasi."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Masssaadetise «{{call}}» menüü",
+                        "path": "[📍 Tee: {{menu}} → Masssaadetised → *Menüü «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Ajagraafik",
+                            "message": "💬 Sõnumid",
+                            "statistic": "📈 Statistika",
+                            "owner": "👑 Omanik",
+                            "name": "🏷️ Nimed",
+                            "test": "🎛️ Testimine"
+                        }
+                    },
+                    "test": {
+                        "alert": "Testrežiimi ei saa sisse lülitada, kui masssaadetis on aktiivne!"
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Viga sõnumite hankimisel!\nVõtke ühendust administraatoriga",
+                            "empty": "Sõnumeid pole!\nTeksti lisamiseks vajutage allolevat nuppu",
+                            "title": "Sõnumite jaotise menüü. Kogus: {{amount}}",
+                            "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → *Sõnumid*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Valige teksti lisamise tüüp.",
+                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Lisamise režiim*]",
+                                "buttons": {
+                                    "generate": "🔮 Genereeri",
+                                    "hand": "✍ Käsitsi sisestus"
+                                }
+                            },
+                            "generate": {
+                                "title": "Ma genereerin müügiteksti! Saatke lähtetekst siia. Tekstikuhjasid ei saa saata.",
+                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Genereerimine*]",
+                                "save": "✅ Tekst salvestatud!",
+                                "cancel": "❌ Teksti ei salvestatud!",
+                                "pathSave": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → Genereerimine → *Salvestamine*]",
+                                "pathCancel": "[📍 Tee: {{menu}} → Menüü «{{call}}» → Sõnumid → Genereerimine → *Tühista*]"
+                            },
+                            "hand": {
+                                "title": "Lisame teksti!\nSaatke tekst või suunake see siia. Tekstikuhjasid ei saa saata.",
+                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Teksti lisamine*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Kõik sõnumid puhastatud!",
+                            "error": "❌ Sõnumeid ei puhastatud!\nVõtke ühendust administraatoriga",
+                            "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Puhastamine*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Sõnum №{{number}}.",
+                                "amountMedia": "Meedia arv: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Vaata*]",
+                                "buttons": {
+                                    "updateText": "✍️ Muuda teksti",
+                                    "addMedia": "🖼 Lisa meedia",
+                                    "clearAllMedia": "🗑 Puhasta meedia"
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Muudame teksti!\nSaatke tekst või suunake see siia. Tekstikuhjasid ei saa saata.",
+                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Teksti muutmine*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Sõnum eemaldatud!",
+                                    "error": "❌ Teksti ei eemaldatud!\nVõtke ühendust administraatoriga",
+                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Teksti eemaldamine*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Lisame meediat!\nSaatke meedia 1 kaupa.",
+                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Meedia lisamine*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Kogu meedia puhastatud!",
+                                    "error": "❌ Meediat ei puhastatud!\nVõtke ühendust administraatoriga",
+                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Meedia puhastamine*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Kiire hüpe sõnumile numbri järgi",
+                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → Vaata → *Sõnumi valik*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Valige vorming, milles sõnumite loend salvestatakse",
+                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Ekspordi vormingu valik*]"
+                            },
+                            "result": {
+                                "error": "❌ Viga sõnumite eksportimisel\nVõtke ühendust administraatoriga",
+                                "caption": "Sõnumite loend vormingus {{exportType}} on valmis!",
+                                "path": "\n[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Sõnumid → *Ekspordi {{exportType}} formaati*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Ajagraafik pole veel seadistatud!",
+                            "title": "Ajagraafiku jaotise menüü. Aegade arv ajagraafikus: {{amount}}",
+                            "path": "\n[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → *Ajagraafik*]"
+                        },
+                        "create": {
+                            "title": "Lisame aega!",
+                            "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → *Lisa*]"
+                        },
+                        "clear": {
+                            "success": "✅ Ajagraafik puhastatud!",
+                            "error": "❌ Ajagraafikut ei puhastatud!\nVõtke ühendust administraatoriga",
+                            "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → *Puhastamine*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Masssaadetise ajagraafik on allpool nuppudena esitatud.",
+                                "path": "\n[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → *Vaata*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Muudame aega!",
+                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → Vaata → *Aja muutmine*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Aeg eemaldatud!",
+                                    "error": "❌ Aega ei eemaldatud! Võtke ühendust administraatoriga",
+                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → Vaata → *Aja eemaldamine*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Valitud aeg:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → Vaata → *Tegevuse valik*]"
+                                }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Valige vorming, milles masssaadetise ajagraafik salvestatakse",
+                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → *Ekspordi vormingu valik*]"
+                            },
+                            "result": {
+                                "error": "❌ Viga ajagraafiku eksportimisel\nVõtke ühendust administraatoriga",
+                                "caption": "Ajagraafik vormingus {{exportType}} on valmis!",
+                                "path": "\n[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Ajagraafik → *Ekspordi {{exportType}} formaati*]"
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Valige soovitud statistika vorming.",
+                            "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → *Statistika*]",
+                            "buttons": {
+                                "selective": "📅 Valikuline",
+                                "comparative": "📊 Võrdlev"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Praegu tehakse sellel jaotisel tehnilisi töid.",
+                                "noData": "Valitud kuupäeva kohta tulemust ei leitud!",
+                                "noAccess": "Vajutatud nupp pole saadaval!",
+                                "title": "Valikuline statistika.\nAllpool on kalender kuupäevadega. Konkreetse päeva masssaadetise tulemuse vaatamiseks klõpsake sellel!\n\nKui masssaadetis:\n*ei toimunud,\n*puudus,\n*polnud planeeritud,\n*või midagi muud\n- kuvatakse vastava kontekstiga sõnum, ärge kartke.",
+                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → *Valikuline*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Masssaadetise tulemus kuupäeval {{date}}.",
+                                    "time": "Aeg: {{time}}",
+                                    "success": "Edukaid saatmisi: {{success}}",
+                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → Valikuline → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → Valikuline → {{date}} → *Grupid*]"
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Valige võrdleva statistika tüüp.",
+                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → *Võrdlev*]",
+                                "buttons": {
+                                    "week": "Nädal",
+                                    "month": "Kuu"
+                                }
+                            },
+                            "week": {
+                                "title": "Võrdlev statistika (Nädal)",
+                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → Võrdlev → *Nädal*]"
+                            },
+                            "month": {
+                                "title": "Võrdlev statistika (Kuu)",
+                                "path": "[📍 Tee: {{menu}} → Masssaadetised → Menüü «{{call}}» → Statistika → Võrdlev → *Kuu*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Masssaadetise omanik.",
+                            "empty": "Masssaadetisel pole omanikku!",
+                            "name": "Nimi: {{name}}",
+                            "phone": "Telefon: +{{phone}}",
+                            "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → *Omanik*]",
+                            "buttons": {
+                                "change": "🪧 Määra ümber"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Valige kasutaja, kelle soovite määrata selle masssaadetise omanikuks.",
+                                "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → Omanik → *Valik*]",
+                                "noOwner": "Ilma omanikuta"
+                            },
+                            "action": {
+                                "success": "✅ Omanik edukalt ümber määratud!",
+                                "error": "❌ Omanikku ei määratud ümber! Proovige hiljem uuesti!",
+                                "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → Omanik → {{owner}} → *Määramine*]"
+                            }
+                        }
+                    },
+                    "name": {
+                        "main": {
+                            "title": "Masssaadetise nimed:",
+                            "about": "1 - allkiri (vana nimetus)\n2 - üksuse nimi\n3 - kutsung (botis kuvatav nimi)",
+                            "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → *Nimed*]"
+                        },
+                        "update": {
+                            "call": {
+                                "title": "Muudame masssaadetise kutsungit!",
+                                "path": "[📍 Tee: Paneel → Masssaadetised → Menüü «{{call}}» → Nimed → Kutsung → *Uuenda*]"
+                            },
+                            "label": {
+                                "alert": "Masssaadetise allkirja ei saa muuta!"
+                            },
+                            "name": {
+                                "alert": "Masssaadetise nime ei saa muuta!"
+                            }
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Lepingute haldamine. Kogus: {{amount}}",
+                    "path": "[📍 Tee: {{menu}} → *Lepingud*]",
+                    "empty": "Lepingud pole veel seadistatud! Tulge hiljem tagasi.",
+                    "contractName": "{{userName}}: alates {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Lepingute nimekiri.",
+                        "path": "[📍 Tee: {{menu}} → Lepingud → *Vaata*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Leping alates {{dateStart}}.",
+                            "sendouts": "Lepingusse lisatud masssaadetised: {{sendouts}}",
+                            "noSendouts": "tühi.",
+                            "userName": "Klient: {{userName}}",
+                            "dateStart": "Alguskuupäev: {{dateStart}}",
+                            "dateEnd": "Lõpukuupäev: {{dateEnd}}",
+                            "price": "Hind: {{price}}",
+                            "priceText": "Hind (tekst): {{priceText}}",
+                            "error": "Viga lepingu hankimisel. Võtke ühendust administraatoriga",
+                            "path": "\n[📍 Tee: {{menu}} → Lepingud → Vaata → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success": "✅ Leping edukalt eemaldatud!",
+                            "error": "❌ Lepingut ei eemaldatud!\nProovige hiljem uuesti",
+                            "path": "[📍 Tee: Paneel → Lepingud → Vaata → {{dateStart}} → *Eemaldamine*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Valige vorming, milles leping salvestatakse",
+                                "path": "[📍 Tee: {{menu}} → Lepingud → Vaata → {{dateStart}} → *Ekspordi vormingu valik*]"
+                            },
+                            "result": {
+                                "error": "❌ Viga lepingu eksportimisel\nVõtke ühendust administraatoriga",
+                                "caption": "Leping vormingus {{exportType}} on valmis!",
+                                "path": "\n[📍 Tee: {{menu}} → Lepingud → Vaata → {{dateStart}} → *Ekspordi {{exportType}} formaati*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "step": "Samm: {{number}} / 3",
+                    "noUser": "2. sammu juurde minekuks peate täitma 1. sammu!",
+                    "noSendouts": "3. sammu juurde minekuks peate täitma 2. sammu!",
+                    "noFreeSendouts": "Kliendil pole vabu masssaadetisi (lepinguta)!",
+                    "data": {
+                        "user": "Valige kasutaja, kellele leping koostatakse",
+                        "sendout": "Valige masssaadetised, mis lepingusse lisatakse",
+                        "contract": "Saatke lepinguga seotud andmed"
+                    },
+                    "title": "Loome lepingut!",
+                    "path": "[📍 Tee: Paneel → Lepingud → *Loo*]"
+                }
+            }
+        }
+    }
+}
