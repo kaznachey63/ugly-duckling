@@ -1,0 +1,738 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Ishlov berilmoqda...",
+            "cabinet": "🪴 Shaxsiy kabinet",
+            "panel": "👨‍💻 Administrator paneli",
+            "nameless": "Nomsiz",
+            "buttons": {
+                "export": "📧 Eksport",
+                "back": "🔙 Orqaga",
+                "remove": "🗑 O'chirish",
+                "miss": "Mavjud emas",
+                "create": "➕ Yaratish",
+                "update": "✍ O'zgartirish",
+                "instruction": "📖 Ko'rsatma",
+                "clear": "🗑 Tozalash",
+                "view": "👁 Ko'rish",
+                "contract": "📜 Shartnomalar",
+                "sendout": "📢 Ommaviy yuborishlar",
+                "chat": "🗯 Guruhlar",
+                "contactAdmin": "👨 Administrator"
+            },
+            "titles": {
+                "validate": "⚠ Kirish ma'lumotlari noto'g'ri formatda edi. Qayta yuboring",
+                "cabinet": "Kabinet",
+                "panel": "Panel → Ma'lumotlar",
+                "amount": "Miqdori: {{amount}}",
+                "sendoutActive": "Hozirda ommaviy yuborish faol, ma'lumotlarni keyinroq boshqarishga urinib ko'ring",
+                "accessDenied": {
+                    "all": "Kirish taqiqlangan. Iltimos, avval /auth buyrug'i bilan ruxsat oling",
+                    "admin": "Kirish taqiqlangan. Ushbu bo'lim mijozlar uchun",
+                    "customer": "Kirish taqiqlangan. Ushbu bo'lim administratorlar uchun"
+                }
+            }
+        },
+        "maintenace": "🚧 Hozirda texnik ishlar olib borilmoqda. Xizmatdan foydalanish vaqtincha cheklangan.\nIsh tugagach darhol xabar beramiz!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Administrator",
+            "customer": "Mijoz",
+            "unknown": "Noma'lum"
+        },
+        "commands": {
+            "cabinet": "Kabinet",
+            "settings": "Sozlamalar",
+            "panel": "Admin paneli"
+        },
+        "chart": {
+            "labelMonth": "Ommaviy yuborishni olgan guruhlar soni statistikasi. {{month}} {{year}}",
+            "labelWeek": "Ommaviy yuborishni olgan guruhlar soni statistikasi. Hafta",
+            "amountSms": "Xabarlar soni",
+            "noLogs": "Tanlangan davrda hali ommaviy yuborish bo'lmagan!",
+            "daysOfWeek": {
+                "Mon": "Dush",
+                "Tue": "Sesh",
+                "Wed": "Chor",
+                "Thu": "Pay",
+                "Fri": "Juma",
+                "Sat": "Shan",
+                "Sun": "Yak"
+            },
+            "months": {
+                "january": "Yanvar",
+                "february": "Fevral",
+                "march": "Mart",
+                "april": "Aprel",
+                "may": "May",
+                "june": "Iyun",
+                "july": "Iyul",
+                "august": "Avgust",
+                "september": "Sentabr",
+                "october": "Oktabr",
+                "november": "Noyabr",
+                "december": "Dekabr"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Yanvar",
+                "1": "Fevral",
+                "2": "Mart",
+                "3": "Aprel",
+                "4": "May",
+                "5": "Iyun",
+                "6": "Iyul",
+                "7": "Avgust",
+                "8": "Sentabr",
+                "9": "Oktabr",
+                "10": "Noyabr",
+                "11": "Dekabr"
+            },
+            "days": {
+                "0": "Dush",
+                "1": "Sesh",
+                "2": "Chor",
+                "3": "Pay",
+                "4": "Juma",
+                "5": "Shan",
+                "6": "Yak"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Parser",
+            "sendout": "Ommaviy yuborishlar"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Jadval",
+                "message": "Xabarlar",
+                "contract": "Shartnoma"
+            },
+            "text": "Eksport",
+            "from": "dan"
+        },
+        "localization": {
+            "schedule": {
+                "number": "kuni",
+                "everyDay": "Har kuni",
+                "unknownDay": "Noma'lum kun",
+                "dayWeek": {
+                    "1": "Dushanba",
+                    "2": "Seshanba",
+                    "3": "Chorshanba",
+                    "4": "Payshanba",
+                    "5": "Juma",
+                    "6": "Shanba",
+                    "7": "Yakshanba",
+                    "*": "Har kuni"
+                }
+            }
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Telefon raqamini qayta ishlashda xato!\nQayta urinib ko'ring!",
+                "accessDenied": "Kirish taqiqlangan. Ommaviy yuborish xizmatidan foydalanish uchun '/settings' buyrug'ining 'Yordam' bo'limidan foydalaning"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Matn saqlandi!",
+                "error": "❌ Matn saqlanmadi!\nAdministratorga murojaat qiling",
+                "path": "[📍 Yo'l: {{menu}} → Menyu «{{call}}» → Xabarlar → *Matn yaratish*]"
+            },
+            "generatingText": {
+                "result": "Yaratilgan xabar quyida keltirilgan. Matnning taqdirini hal qilish uchun xabarlar ostidagi tugmalardan foydalaning.",
+                "pathChoose": "[📍 Yo'l: {{menu}} → Menyu «{{call}}» → Xabarlar → Matn yaratish → *Matnning taqdiri*]",
+                "buttons": {
+                    "save": "✔ Saqlash",
+                    "cancel": "❌ Saqlash"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Matn o'zgartirildi!",
+                "error": "❌ Matn o'zgartirilmadi!\nAdministratorga murojaat qiling",
+                "path": "[📍 Yo'l: {{menu}} → Menyu «{{call}}» → Xabarlar → *Matnni o'zgartirish*]"
+            },
+            "addingMedia": {
+                "error": "💀 Mediani saqlashda xato!\nAdministratorga murojaat qiling",
+                "invalidType": "Media turi tanilmadi! Qayta urinib ko'ring",
+                "bigSize": "Fayl juda katta. Maksimal hajmi {{size}} MB.",
+                "documentsWTMedia": "Tarkibida: rasm / video / gif bo'lmagan hujjatlarni qayta ishlay olmayman",
+                "success": "✅ Media saqlandi!",
+                "error2": "❌ Media saqlanmadi!\nAdministratorga murojaat qiling",
+                "path": "[📍 Yo'l: {{menu}} → Menyu «{{call}}» → Xabarlar → *Media qo'shish*]",
+                "amount": "Xabardagi media soni: {{now}} / {{all}}"
+            },
+            "addingTime": {
+                "success": "✅ Vaqt saqlandi!",
+                "error": "❌ Vaqt o'zgartirilmadi!\nAdministratorga murojaat qiling",
+                "path": "[📍 Yo'l: Panel → Menyu «{{call}}» → Jadval → Ko'rish → *Qo'shish*]"
+            },
+            "updatingTime": {
+                "success": "✅ Vaqt o'zgartirildi!",
+                "error": "❌ Vaqt o'zgartirilmadi!\nAdministratorga murojaat qiling",
+                "path": "[📍 Yo'l: Panel → Menyu «{{call}}» → Jadval → Ko'rish → *O'zgartirish*]"
+            },
+            "addingIdea": {
+                "success": "✅ G'oya muvaffaqiyatli qo'shildi, rahmat!",
+                "error": "❌ G'oya qo'shilmadi!\nQayta urinib ko'ring yoki administratorga murojaat qiling!",
+                "path": "[📍 Yo'l: Sozlamalar → G'oyalar → *Qo'shish*]"
+            },
+            "addingUser": {
+                "success": "✅ Foydalanuvchi muvaffaqiyatli yaratildi!",
+                "error": "❌ Foydalanuvchi yaratilmadi!\nKeyinroq urinib ko'ring.",
+                "path": "[📍 Yo'l: Panel → Ma'lumotlar → Foydalanuvchilar → *Yaratish*]"
+            },
+            "addingContract": {
+                "success": "✅ Shartnoma muvaffaqiyatli yaratildi!",
+                "error": "❌ Shartnoma yaratilmadi!\nKeyinroq urinib ko'ring.",
+                "path": "[📍 Yo'l: Panel → Shartnomalar → *Yaratish*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Chaqiruv belgisi muvaffaqiyatli yangilandi!",
+                "error": "❌ Chaqiruv belgisi yangilanmadi!\nKeyinroq urinib ko'ring.",
+                "path": "[📍 Yo'l: Panel → Ommaviy yuborishlar → Menyu «{{call}}» → Ismlar → Chaqiruv belgisi → *Yangilash*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Ism muvaffaqiyatli yangilandi!",
+                "error": "❌ Ism yangilanmadi!\nKeyinroq urinib ko'ring.",
+                "path": "[📍 Yo'l: Panel → Ma'lumotlar → Foydalanuvchilar → Ko'rish → {{userName}} → *Ismni o'zgartirish*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Telefon muvaffaqiyatli yangilandi!",
+                "error": "❌ Telefon yangilanmadi!\nKeyinroq urinib ko'ring.",
+                "path": "[📍 Yo'l: Panel → Ma'lumotlar → Foydalanuvchilar → Ko'rish → {{userName}} → *Raqamni o'zgartirish*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "☀ Salom! Men Telegram boti Xunuk o'rdakcha, ommaviy yuborishlar bo'yicha yordamchi.",
+                "commands": "Quyida men bilan aloqa qilish uchun buyruqlarning qisqacha tavsifi keltirilgan:\n/start - botni faollashtirish va buyruqlar ro'yxati\n/auth - ruxsat olish\n/cabinet - shaxsiy kabinetni boshqarish\n/settings - bot sozlamalarini boshqarish",
+                "uAdmin": "❓ Siz administratormisiz?\n/panel - admin paneli",
+                "link": "Meni boshqarish mexanizmi bo'yicha batafsil ko'rsatmani quyidagi tugma yordamida ko'rishingiz mumkin."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Bekor qilish",
+                        "phone": "📞 Ulashish",
+                        "again": "🔄 Qayta urinish"
+                    },
+                    "unknownMessage": "Harakat tanilmadi, '📞 Ulashish' va '❌ Bekor qilish' tugmalaridan foydalanib qayta urinib ko'ring",
+                    "manyAttempts": "Bir soatlik cheklovdan oldin ishlatilgan ruxsat olish urinishlari soni: {{actualAttempts}} / {{maxAttempts}}",
+                    "stop": "Ruxsat olish cheklangan. Cheklovlar quyidagi vaqtdan keyin olib tashlanadi: {{dateTime}}",
+                    "canceled": "Ruxsat olish muvaffaqiyatli to'xtatildi!",
+                    "title": "Ommaviy yuborish paneliga kirish uchun siz telefon raqamingizni men bilan ulashishingiz kerak.\n\nTugma klaviatura yonida '📞 Ulashish' yozuvi bilan paydo bo'lishi kerak",
+                    "good": "Siz tizimga muvaffaqiyatli ruxsat oldingiz!",
+                    "already": "Siz allaqachon tizimga ruxsat olgansiz!",
+                    "bad": "Ruxsat olishda xato. Administratorga murojaat qiling!"
+                },
+                "logout": {
+                    "good": "Siz muvaffaqiyatli tizimdan chiqdingiz. Siz haqingizdagi ma'lumotlar o'chirildi!",
+                    "bad": "Tizimdan chiqishda xato. Administratorga murojaat qiling!"
+                }
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Sozlamalar",
+                    "buttons": {
+                        "about": "ℹ Xizmat haqida",
+                        "help": "❓ Yordam",
+                        "idea": "💡 G'oyalar",
+                        "language": "🌐 Til"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Tilni tanlang.",
+                        "path": "[📍 Yo'l: Sozlamalar → *Til*]"
+                    },
+                    "change": {
+                        "good": "Til o'zgartirildi!",
+                        "error": "Bu til allaqachon tanlangan!"
+                    }
+                },
+                "help": {
+                    "title": "Muammoga duch keldingizmi?\nSavollaringiz bormi?\nXizmatni maqtamoqchimisiz?\nYaxshilash bo'yicha fikrlaringiz bormi?",
+                    "interest": "Yoki mahsulotga qiziqasizmi?\nQuyidagi anknetani to'ldiring, biz siz bilan bog'lanamiz!",
+                    "path": "[📍 Yo'l: Sozlamalar → *Yordam*]"
+                },
+                "about": {
+                    "title": "Xizmat sizning mahsulotlaringiz (takliflaringiz) reklamasini (postlar, ommaviy yuborishlar) guruhlar / suhbatlar / kanallar ichida avtomatlashtirish uchun ishlab chiqilgan.\n\nBotdan foydalanish bo'yicha ko'rsatma - quyidagi tugmada!",
+                    "path": "[📍 Yo'l: Sozlamalar → *Xizmat haqida*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "G'oyalar bo'limi menyusi. Bu erda xizmatni rivojlantirish bo'yicha o'z g'oyangizni taklif qilishingiz mumkin.",
+                        "path": "[📍 Yo'l: Sozlamalar → *G'oyalar*]",
+                        "buttons": {
+                            "add": "🗳 Taklif qilish",
+                            "see": "🔍 O'rganish"
+                        }
+                    },
+                    "add": {
+                        "title": "Menga media/audio/matn va h.k. yuboring. Hech qanday cheklovlar yo'q!",
+                        "path": "[📍 Yo'l: Sozlamalar → G'oyalar → *Qo'shish*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {
+                        "logout": "🚪 Chiqish",
+                        "login": "🔑 Kirish"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "buttons": {
+                        "data": "🗂 Ma'lumotlar",
+                        "system": "⚡ Tizim"
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Ma'lumotlarni boshqarish",
+                        "path": "[📍 Yo'l: Panel → *Ma'lumotlar*]",
+                        "buttons": {
+                            "user": "👥 Foydalanuvchilar"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Guruhlarni boshqarish. Miqdori: {{amount}}",
+                            "path": "[📍 Yo'l: Panel → Ma'lumotlar → *Guruhlar*]",
+                            "buttons": {
+                                "reupload": "🔁 Yangilash"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Guruhlar yangilandi!",
+                            "error": "❌ Guruhlarni yangilashda xato\nAdministratorga murojaat qiling",
+                            "path": "[📍 Yo'l: Panel → Ma'lumotlar → Guruhlar → *Yangilash*]"
+                        },
+                        "clear": {
+                            "success": "✅ Guruhlar tozalandi!",
+                            "error": "❌ Guruhlarni tozalashda xato\nAdministratorga murojaat qiling",
+                            "path": "[📍 Yo'l: Panel → Ma'lumotlar → Guruhlar → *Tozalash*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Foydalanuvchilarni boshqarish. Miqdori: {{amount}}",
+                            "path": "[📍 Yo'l: Panel → Ma'lumotlar → *Foydalanuvchilar*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Foydalanuvchilar ro'yxati.",
+                                "path": "[📍 Yo'l: Panel → Ma'lumotlar → Foydalanuvchilar → *Ko'rish*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Foydalanuvchini boshqarish",
+                                    "path": "[📍 Yo'l: Panel → Ma'lumotlar → Foydalanuvchilar → Ko'rish → *{{userName}}*]",
+                                    "telegramId": "Tg. ID: {{telegramId}}",
+                                    "name": "Ism: {{name}}",
+                                    "username": "Foydalanuvchi nomi: @{{username}}",
+                                    "phone": "Telefon: +{{phone}}",
+                                    "language": "Til: {{language}}",
+                                    "role": "Rol: {{role}}"
+                                },
+                                "remove": {
+                                    "success": "✅ Foydalanuvchi muvaffaqiyatli o'chirildi!",
+                                    "error": "❌ Foydalanuvchi o'chirilmadi!\nKeyinroq urinib ko'ring",
+                                    "path": "[📍 Yo'l: Panel → Ma'lumotlar → Foydalanuvchilar → Ko'rish → {{userName}} → *O'chirish*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Telefonni o'zgartirmoqdamiz!\nBu yerga yuboring.",
+                                        "path": "[📍 Yo'l: Panel → Ma'lumotlar → Foydalanuvchilar → Ko'rish → {{userName}} → *Raqamni o'zgartirish*]"
+                                    },
+                                    "name": {
+                                        "title": "Ismni o'zgartirmoqdamiz!\nBu yerga yuboring.",
+                                        "path": "[📍 Yo'l: Panel → Ma'lumotlar → Foydalanuvchilar → Ko'rish → {{userName}} → *Ismni o'zgartirish*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Foydalanuvchi yaratmoqdamiz!",
+                            "path": "[📍 Yo'l: Panel → Ma'lumotlar → Foydalanuvchilar → *Yaratish*]"
+                        }
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Tizimni boshqarish",
+                        "path": "[📍 Yo'l: Panel → *Tizim*]",
+                        "buttons": {
+                            "server": "📟 Server",
+                            "maintenace": "🛠️ Texnik xizmat"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Jarayonlar toifalari",
+                            "path": "[📍 Yo'l: Panel → Tizim → *Server*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Parser"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Jarayonni tanlang",
+                                "path": "[📍 Yo'l: Panel → Tizim → Server → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Jarayonni boshqarish",
+                                    "path": "[📍 Yo'l: Panel → Tizim → Server → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Holat",
+                                        "log": "📋 Jurnallar"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Yo'l: Panel → Tizim → Server → {{processType}} → {{processName}} → *Holat*]",
+                                    "status": {
+                                        "active": "✅ Jarayon faol.\nTo'xtatish uchun quyidagi tugmani bosing",
+                                        "inactive": "❌ Jarayon nofaol.\nIshga tushirish uchun quyidagi tugmani bosing",
+                                        "failed": "❌ Jarayon nofaol.\nIshga tushirish uchun quyidagi tugmani bosing",
+                                        "error": "Jarayon bilan bog'liq muammo. Dasturchiga murojaat qiling."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 To'xtatish",
+                                        "start": "▶️ Ishga tushirish",
+                                        "restart": "🔁 Qayta ishga tushirish"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Jurnallarni ko'rish",
+                                    "path": "[📍 Yo'l: Panel → Tizim → Server → {{processType}} → {{processName}} → *Jurnallar*]",
+                                    "sort": "Saralash: {{sortType}}",
+                                    "sortType": {
+                                        "new": "yangidan eskiga",
+                                        "old": "eskidan yangiga"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Hozirda faol ommaviy yuborishlar ro'yxati.",
+                    "path": "[📍 Yo'l: {{menu}} → *Ommaviy yuborishlar*]",
+                    "empty": "Hali ommaviy yuborishlar sozlanmagan! Keyinroq qaytib keling."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 «{{call}}» ommaviy yuborish menyusi",
+                        "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → *Menyu «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Jadval",
+                            "message": "💬 Xabarlar",
+                            "statistic": "📈 Statistika",
+                            "owner": "👑 Egasi",
+                            "name": "🏷️ Ismlar",
+                            "test": "🎛️ Sinov"
+                        }
+                    },
+                    "test": {
+                        "alert": "Ommaviy yuborish faol bo'lgan vaqtda test rejimini yoqish mumkin emas!"
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Xabarlarni olishda xato!\nAdministratorga murojaat qiling",
+                            "empty": "Xabarlar yo'q!\nMatn qo'shish uchun quyidagi tugmani bosing",
+                            "title": "Xabarlar bo'limi menyusi. Miqdori: {{amount}}",
+                            "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → *Xabarlar*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Matn qo'shish turini tanlang.",
+                                "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → *Qo'shish rejimi*]",
+                                "buttons": {
+                                    "generate": "🔮 Yaratish",
+                                    "hand": "✍ Qo'lda kiritish"
+                                }
+                            },
+                            "generate": {
+                                "title": "Men sotuv matnini yarataman! Asl nusxani bu yerga yuboring. Matn to'dasini yuborish mumkin emas.",
+                                "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → *Yaratish*]",
+                                "save": "✅ Matn saqlandi!",
+                                "cancel": "❌ Matn saqlanmadi!",
+                                "pathSave": "[📍 Yo'l: {{menu}} → Menyu «{{call}}» → Xabarlar → Yaratish → *Saqlash*]",
+                                "pathCancel": "[📍 Yo'l: {{menu}} → Menyu «{{call}}» → Xabarlar → Yaratish → *Bekor qilish*]"
+                            },
+                            "hand": {
+                                "title": "Matn qo'shyapmiz!\nMatnni yuboring yoki bu yerga yo'naltiring. Matn to'dasini yuborish mumkin emas.",
+                                "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → *Matn qo'shish*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Barcha xabarlar tozalandi!",
+                            "error": "❌ Xabarlar tozalanmadi!\nAdministratorga murojaat qiling",
+                            "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → *Tozalash*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Xabar №{{number}}.",
+                                "amountMedia": "Media soni: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → *Ko'rish*]",
+                                "buttons": {
+                                    "updateText": "✍️ Matnni o'zgartirish",
+                                    "addMedia": "🖼 Media qo'shish",
+                                    "clearAllMedia": "🗑 Mediani tozalash"
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Matnni o'zgartirmoqdamiz!\nMatnni yuboring yoki bu yerga yo'naltiring. Matn to'dasini yuborish mumkin emas.",
+                                    "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → *Matnni o'zgartirish*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Xabar o'chirildi!",
+                                    "error": "❌ Matn o'chirilmadi!\nAdministratorga murojaat qiling",
+                                    "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → *Matnni o'chirish*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Media qo'shyapmiz!\nMediani 1 dona qilib yuboring.",
+                                    "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → *Media qo'shish*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Barcha media tozalandi!",
+                                    "error": "❌ Media tozalanmadi!\nAdministratorga murojaat qiling",
+                                    "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → *Mediani tozalash*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Raqam bo'yicha xabarga tez o'tish",
+                                "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → Ko'rish → *Xabar tanlash*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Xabarlar ro'yxati saqlanadigan formatni tanlang",
+                                "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → *Eksport formatini tanlash*]"
+                            },
+                            "result": {
+                                "error": "❌ Xabarlarni eksport qilishda xato\nAdministratorga murojaat qiling",
+                                "caption": "Xabarlar ro'yxati {{exportType}} formatida tayyor!",
+                                "path": "\n[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Xabarlar → *{{exportType}} formatida eksport*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Jadval hali sozlanmagan!",
+                            "title": "Jadval bo'limi menyusi. Jadvaldagi vaqtlar soni: {{amount}}",
+                            "path": "\n[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → *Jadval*]"
+                        },
+                        "create": {
+                            "title": "Vaqt qo'shyapmiz!",
+                            "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Jadval → *Qo'shish*]"
+                        },
+                        "clear": {
+                            "success": "✅ Jadval tozalandi!",
+                            "error": "❌ Jadval tozalanmadi!\nAdministratorga murojaat qiling",
+                            "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Jadval → *Tozalash*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Ommaviy yuborish jadvali quyida tugmalar shaklida keltirilgan.",
+                                "path": "\n[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Jadval → *Ko'rish*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Vaqtni o'zgartirmoqdamiz!",
+                                    "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Jadval → Ko'rish → *Vaqtni o'zgartirish*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Vaqt o'chirildi!",
+                                    "error": "❌ Vaqt o'chirilmadi! Administratorga murojaat qiling",
+                                    "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Jadval → Ko'rish → *Vaqtni o'chirish*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Tanlangan vaqt:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Jadval → Ko'rish → *Harakat tanlash*]"
+                                }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Ommaviy yuborish jadvali saqlanadigan formatni tanlang",
+                                "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Jadval → *Eksport formatini tanlash*]"
+                            },
+                            "result": {
+                                "error": "❌ Jadvalni eksport qilishda xato\nAdministratorga murojaat qiling",
+                                "caption": "Jadval {{exportType}} formatida tayyor!",
+                                "path": "\n[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Jadval → *{{exportType}} formatida eksport*]"
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Istalgan statistika formatini tanlang.",
+                            "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → *Statistika*]",
+                            "buttons": {
+                                "selective": "📅 Tanlovli",
+                                "comparative": "📊 Qiyosiy"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Hozirda ushbu bo'limda texnik ishlar olib borilmoqda.",
+                                "noData": "Tanlangan sana uchun natija topilmadi!",
+                                "noAccess": "Bosilgan tugma mavjud emas!",
+                                "title": "Tanlovli statistika.\nQuyida sanalar bilan kalendar keltirilgan. Muayyan kun uchun ommaviy yuborish natijasini ko'rish uchun shunchaki ustiga bosing!\n\nAgar ommaviy yuborish:\n*bo'lmagan bo'lsa,\n*mavjud bo'lmasa,\n*rejalashtirilmagan bo'lsa,\n*yoki boshqa narsa bo'lsa\n- tegishli kontekstli xabar ko'rsatiladi, qo'rqmang.",
+                                "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Statistika → *Tanlovli*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "{{date}} sanasi uchun ommaviy yuborish natijasi.",
+                                    "time": "Vaqt: {{time}}",
+                                    "success": "Muvaffaqiyatli yuborishlar: {{success}}",
+                                    "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Statistika → Tanlovli → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Statistika → Tanlovli → {{date}} → *Guruhlar*]"
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Qiyosiy statistika turini tanlang.",
+                                "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Statistika → *Qiyosiy*]",
+                                "buttons": {
+                                    "week": "Hafta",
+                                    "month": "Oy"
+                                }
+                            },
+                            "week": {
+                                "title": "Qiyosiy statistika (Hafta)",
+                                "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Statistika → Qiyosiy → *Hafta*]"
+                            },
+                            "month": {
+                                "title": "Qiyosiy statistika (Oy)",
+                                "path": "[📍 Yo'l: {{menu}} → Ommaviy yuborishlar → Menyu «{{call}}» → Statistika → Qiyosiy → *Oy*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Ommaviy yuborish egasi.",
+                            "empty": "Ommaviy yuborishning egasi yo'q!",
+                            "name": "Ism: {{name}}",
+                            "phone": "Telefon: +{{phone}}",
+                            "path": "[📍 Yo'l: Panel → Ommaviy yuborishlar → Menyu «{{call}}» → *Egasi*]",
+                            "buttons": {
+                                "change": "🪧 Qayta tayinlash"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Ushbu ommaviy yuborishning egasi qilib tayinlash uchun foydalanuvchini tanlang.",
+                                "path": "[📍 Yo'l: Panel → Ommaviy yuborishlar → Menyu «{{call}}» → Egasi → *Tanlash*]",
+                                "noOwner": "Egasisiz"
+                            },
+                            "action": {
+                                "success": "✅ Egasi muvaffaqiyatli qayta tayinlandi!",
+                                "error": "❌ Egasi qayta tayinlanmadi! Keyinroq urinib ko'ring!",
+                                "path": "[📍 Yo'l: Panel → Ommaviy yuborishlar → Menyu «{{call}}» → Egasi → {{owner}} → *Tayinlash*]"
+                            }
+                        }
+                    },
+                    "name": {
+                        "main": {
+                            "title": "Ommaviy yuborish nomlari:",
+                            "about": "1 - imzo (eski nomlash)\n2 - ob'ekt nomi\n3 - chaqiruv belgisi (botda ko'rsatiladigan nom)",
+                            "path": "[📍 Yo'l: Panel → Ommaviy yuborishlar → Menyu «{{call}}» → *Ismlar*]"
+                        },
+                        "update": {
+                            "call": {
+                                "title": "Ommaviy yuborishning chaqiruv belgisini o'zgartirmoqdamiz!",
+                                "path": "[📍 Yo'l: Panel → Ommaviy yuborishlar → Menyu «{{call}}» → Ismlar → Chaqiruv belgisi → *Yangilash*]"
+                            },
+                            "label": {
+                                "alert": "Ommaviy yuborishning imzosini o'zgartirish mumkin emas!"
+                            },
+                            "name": {
+                                "alert": "Ommaviy yuborishning nomini o'zgartirish mumkin emas!"
+                            }
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Shartnomalarni boshqarish. Miqdori: {{amount}}",
+                    "path": "[📍 Yo'l: {{menu}} → *Shartnomalar*]",
+                    "empty": "Hali shartnomalar sozlanmagan! Keyinroq qaytib keling.",
+                    "contractName": "{{userName}}: {{dateStart}} dan"
+                },
+                "view": {
+                    "main": {
+                        "title": "Shartnomalar ro'yxati.",
+                        "path": "[📍 Yo'l: {{menu}} → Shartnomalar → *Ko'rish*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "{{dateStart}} dan shartnoma.",
+                            "sendouts": "Shartnomaga kiritilgan ommaviy yuborishlar: {{sendouts}}",
+                            "noSendouts": "bo'sh.",
+                            "userName": "Mijoz: {{userName}}",
+                            "dateStart": "Boshlanish sanasi: {{dateStart}}",
+                            "dateEnd": "Tugash sanasi: {{dateEnd}}",
+                            "price": "Narxi: {{price}}",
+                            "priceText": "Narxi (matn): {{priceText}}",
+                            "error": "Shartnomani olishda xato. Administratorga murojaat qiling",
+                            "path": "\n[📍 Yo'l: {{menu}} → Shartnomalar → Ko'rish → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success": "✅ Shartnoma muvaffaqiyatli o'chirildi!",
+                            "error": "❌ Shartnoma o'chirilmadi!\nKeyinroq urinib ko'ring",
+                            "path": "[📍 Yo'l: Panel → Shartnomalar → Ko'rish → {{dateStart}} → *O'chirish*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Shartnoma saqlanadigan formatni tanlang",
+                                "path": "[📍 Yo'l: {{menu}} → Shartnomalar → Ko'rish → {{dateStart}} → *Eksport formatini tanlash*]"
+                            },
+                            "result": {
+                                "error": "❌ Shartnomani eksport qilishda xato\nAdministratorga murojaat qiling",
+                                "caption": "Shartnoma {{exportType}} formatida tayyor!",
+                                "path": "\n[📍 Yo'l: {{menu}} → Shartnomalar → Ko'rish → {{dateStart}} → *{{exportType}} formatida eksport*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "step": "Qadam: {{number}} / 3",
+                    "noUser": "№2 qadamga o'tish uchun №1 qadamni bajarishingiz kerak!",
+                    "noSendouts": "№3 qadamga o'tish uchun №2 qadamni bajarishingiz kerak!",
+                    "noFreeSendouts": "Mijozning bo'sh (shartnomasiz) ommaviy yuborishlari yo'q!",
+                    "data": {
+                        "user": "Shartnoma tuziladigan foydalanuvchini tanlang",
+                        "sendout": "Shartnomaga kiritiladigan ommaviy yuborishlarni tanlang",
+                        "contract": "Shartnomaga oid ma'lumotlarni yuboring"
+                    },
+                    "title": "Shartnoma yaratmoqdamiz!",
+                    "path": "[📍 Yo'l: Panel → Shartnomalar → *Yaratish*]"
+                }
+            }
+        }
+    }
+}

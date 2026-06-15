@@ -1,0 +1,738 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Apdorojama...",
+            "cabinet": "🪴 Asmeninis kabinetas",
+            "panel": "👨‍💻 Administratoriaus skydelis",
+            "nameless": "Bevardis",
+            "buttons": {
+                "export": "📧 Eksportuoti",
+                "back": "🔙 Atgal",
+                "remove": "🗑 Pašalinti",
+                "miss": "Trūksta",
+                "create": "➕ Sukurti",
+                "update": "✍ Keisti",
+                "instruction": "📖 Instrukcija",
+                "clear": "🗑 Išvalyti",
+                "view": "👁 Peržiūrėti",
+                "contract": "📜 Sutartys",
+                "sendout": "📢 Siuntimai",
+                "chat": "🗯 Grupės",
+                "contactAdmin": "👨 Administratorius"
+            },
+            "titles": {
+                "validate": "⚠ Įvesties duomenys buvo neteisingo formato. Siųskite dar kartą",
+                "cabinet": "Kabinetas",
+                "panel": "Skydelis → Duomenys",
+                "amount": "Kiekis: {{amount}}",
+                "sendoutActive": "Šiuo metu siuntimas aktyvus, pabandykite tvarkyti duomenis vėliau",
+                "accessDenied": {
+                    "all": "Prieiga uždrausta. Pirmiausia autorizuokitės naudodami komandą /auth",
+                    "admin": "Prieiga uždrausta. Šis skyrius skirtas klientams",
+                    "customer": "Prieiga uždrausta. Šis skyrius skirtas administratoriams"
+                }
+            }
+        },
+        "maintenace": "🚧 Šiuo metu atliekami techniniai darbai. Paslaugos naudojimas laikinai apribotas.\nKai baigsime - iš karto pranešime!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Administratorius",
+            "customer": "Klientas",
+            "unknown": "Nežinomas"
+        },
+        "commands": {
+            "cabinet": "Kabinetas",
+            "settings": "Nustatymai",
+            "panel": "Admin skydelis"
+        },
+        "chart": {
+            "labelMonth": "Siuntimą gavusių grupių skaičiaus statistika. {{month}} {{year}}",
+            "labelWeek": "Siuntimą gavusių grupių skaičiaus statistika. Savaitė",
+            "amountSms": "Pranešimų skaičius",
+            "noLogs": "Pasirinktu laikotarpiu dar nebuvo siuntimo!",
+            "daysOfWeek": {
+                "Mon": "Pir",
+                "Tue": "Ant",
+                "Wed": "Tre",
+                "Thu": "Ket",
+                "Fri": "Pen",
+                "Sat": "Šeš",
+                "Sun": "Sek"
+            },
+            "months": {
+                "january": "Sausis",
+                "february": "Vasaris",
+                "march": "Kovas",
+                "april": "Balandis",
+                "may": "Gegužė",
+                "june": "Birželis",
+                "july": "Liepa",
+                "august": "Rugpjūtis",
+                "september": "Rugsėjis",
+                "october": "Spalis",
+                "november": "Lapkritis",
+                "december": "Gruodis"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Sausis",
+                "1": "Vasaris",
+                "2": "Kovas",
+                "3": "Balandis",
+                "4": "Gegužė",
+                "5": "Birželis",
+                "6": "Liepa",
+                "7": "Rugpjūtis",
+                "8": "Rugsėjis",
+                "9": "Spalis",
+                "10": "Lapkritis",
+                "11": "Gruodis"
+            },
+            "days": {
+                "0": "Pir",
+                "1": "Ant",
+                "2": "Tre",
+                "3": "Ket",
+                "4": "Pen",
+                "5": "Šeš",
+                "6": "Sek"
+            }
+        },
+        "processType": {
+            "bot": "Botas",
+            "parser": "Parseris",
+            "sendout": "Siuntimai"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Grafikas",
+                "message": "Pranešimai",
+                "contract": "Sutartis"
+            },
+            "text": "Eksportuoti",
+            "from": "nuo"
+        },
+        "localization": {
+            "schedule": {
+                "number": "dieną",
+                "everyDay": "Kiekvieną dieną",
+                "unknownDay": "Nežinoma diena",
+                "dayWeek": {
+                    "1": "Pirmadienis",
+                    "2": "Antradienis",
+                    "3": "Trečiadienis",
+                    "4": "Ketvirtadienis",
+                    "5": "Penktadienis",
+                    "6": "Šeštadienis",
+                    "7": "Sekmadienis",
+                    "*": "Kiekvieną dieną"
+                }
+            }
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Klaida apdorojant telefono numerį!\nBandykite dar kartą!",
+                "accessDenied": "Prieiga uždrausta. Norėdami naudotis siuntimo paslauga, naudokite komandą '/settings', skyrių 'Pagalba'"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Tekstas išsaugotas!",
+                "error": "❌ Tekstas neišsaugotas!\nKreipkitės į administratorių",
+                "path": "[📍 Kelias: {{menu}} → Meniu «{{call}}» → Pranešimai → *Teksto kūrimas*]"
+            },
+            "generatingText": {
+                "result": "Sugeneruotas pranešimas pateikiamas žemiau. Naudokite mygtukus po pranešimais, kad nuspręstumėte teksto likimą.",
+                "pathChoose": "[📍 Kelias: {{menu}} → Meniu «{{call}}» → Pranešimai → Teksto generavimas → *Teksto likimas*]",
+                "buttons": {
+                    "save": "✔ Išsaugoti",
+                    "cancel": "❌ Neišsaugoti"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Tekstas pakeistas!",
+                "error": "❌ Tekstas nepakeistas!\nKreipkitės į administratorių",
+                "path": "[📍 Kelias: {{menu}} → Meniu «{{call}}» → Pranešimai → *Teksto keitimas*]"
+            },
+            "addingMedia": {
+                "error": "💀 Klaida išsaugant mediją!\nKreipkitės į administratorių",
+                "invalidType": "Medijos tipas neatpažintas! Bandykite dar kartą",
+                "bigSize": "Failas per didelis. Maksimalus dydis {{size}} MB.",
+                "documentsWTMedia": "Nemoku apdoroti dokumentų, kuriuose nėra: nuotraukos / vaizdo / gif",
+                "success": "✅ Medija išsaugota!",
+                "error2": "❌ Medija neišsaugota!\nKreipkitės į administratorių",
+                "path": "[📍 Kelias: {{menu}} → Meniu «{{call}}» → Pranešimai → *Medijos pridėjimas*]",
+                "amount": "Medijos kiekis pranešime: {{now}} iš {{all}}"
+            },
+            "addingTime": {
+                "success": "✅ Laikas išsaugotas!",
+                "error": "❌ Laikas nepakeistas!\nKreipkitės į administratorių",
+                "path": "[📍 Kelias: Skydelis → Meniu «{{call}}» → Grafikas → Peržiūra → *Pridėti*]"
+            },
+            "updatingTime": {
+                "success": "✅ Laikas pakeistas!",
+                "error": "❌ Laikas nepakeistas!\nKreipkitės į administratorių",
+                "path": "[📍 Kelias: Skydelis → Meniu «{{call}}» → Grafikas → Peržiūra → *Keisti*]"
+            },
+            "addingIdea": {
+                "success": "✅ Idėja sėkmingai pridėta, ačiū!",
+                "error": "❌ Idėja nepridėta!\nBandykite dar kartą arba kreipkitės į administratorių!",
+                "path": "[📍 Kelias: Nustatymai → Idėjos → *Pridėti*]"
+            },
+            "addingUser": {
+                "success": "✅ Vartotojas sėkmingai sukurtas!",
+                "error": "❌ Vartotojas nesukurtas!\nBandykite vėliau.",
+                "path": "[📍 Kelias: Skydelis → Duomenys → Vartotojai → *Sukurti*]"
+            },
+            "addingContract": {
+                "success": "✅ Sutartis sėkmingai sukurta!",
+                "error": "❌ Sutartis nesukurta!\nBandykite vėliau.",
+                "path": "[📍 Kelias: Skydelis → Sutartys → *Sukurti*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Šaukinys sėkmingai atnaujintas!",
+                "error": "❌ Šaukinys neatnaujintas!\nBandykite vėliau.",
+                "path": "[📍 Kelias: Skydelis → Siuntimai → Meniu «{{call}}» → Vardai → Šaukinys → *Atnaujinti*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Vardas sėkmingai atnaujintas!",
+                "error": "❌ Vardas neatnaujintas!\nBandykite vėliau.",
+                "path": "[📍 Kelias: Skydelis → Duomenys → Vartotojai → Peržiūra → {{userName}} → *Vardo keitimas*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Telefonas sėkmingai atnaujintas!",
+                "error": "❌ Telefonas neatnaujintas!\nBandykite vėliau.",
+                "path": "[📍 Kelias: Skydelis → Duomenys → Vartotojai → Peržiūra → {{userName}} → *Numerio keitimas*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "☀ Sveiki! Aš - Telegram botas Bjaurusis ančiukas, siuntimų asistentas.",
+                "commands": "Žemiau pateikiamas trumpas komandų aprašymas sąveikai su manimi:\n/start - boto aktyvavimas ir komandų sąrašas\n/auth - autorizacija\n/cabinet - asmeninio kabineto valdymas\n/settings - boto nustatymų valdymas",
+                "uAdmin": "❓ Ar esate administratorius?\n/panel - administratoriaus skydelis",
+                "link": "Galite susipažinti su išsamesne instrukcija, kaip mane valdyti, naudodami žemiau esantį mygtuką."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Atšaukti",
+                        "phone": "📞 Dalintis",
+                        "again": "🔄 Bandyti dar kartą"
+                    },
+                    "unknownMessage": "Veiksmas neatpažintas, bandykite dar kartą naudodami mygtukus: '📞 Dalintis' ir '❌ Atšaukti'",
+                    "manyAttempts": "Panaudotų autorizacijos bandymų skaičius prieš valandos limitą: {{actualAttempts}} iš {{maxAttempts}}",
+                    "stop": "Autorizacija apribota. Apribojimai bus panaikinti po: {{dateTime}}",
+                    "canceled": "Autorizacija sėkmingai sustabdyta!",
+                    "title": "Norėdami patekti į siuntimo skydelį, turite pasidalinti su manimi savo telefono numeriu.\n\nMygtukas turėtų pasirodyti šalia klaviatūros su užrašu '📞 Dalintis'",
+                    "good": "Jūs sėkmingai autorizavotės sistemoje!",
+                    "already": "Jūs jau esate autorizuotas sistemoje!",
+                    "bad": "Klaida autorizuojantis. Kreipkitės į administratorių!"
+                },
+                "logout": {
+                    "good": "Jūs sėkmingai atsijungėte. Duomenys apie jus ištrinti!",
+                    "bad": "Klaida atsijungiant. Kreipkitės į administratorių!"
+                }
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Nustatymai",
+                    "buttons": {
+                        "about": "ℹ Apie paslaugą",
+                        "help": "❓ Pagalba",
+                        "idea": "💡 Idėjos",
+                        "language": "🌐 Kalba"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Pasirinkite kalbą.",
+                        "path": "[📍 Kelias: Nustatymai → *Kalba*]"
+                    },
+                    "change": {
+                        "good": "Kalba pakeista!",
+                        "error": "Ši kalba jau pasirinkta!"
+                    }
+                },
+                "help": {
+                    "title": "Susidūrėte su problema?\nTurite klausimų?\nNorite pagirti paslaugą?\nTurite minčių, kaip pagerinti paslaugą?",
+                    "interest": "Arba jus domina produktas?\nUžpildykite žemiau esančią anketą ir mes su jumis susisieksime!",
+                    "path": "[📍 Kelias: Nustatymai → *Pagalba*]"
+                },
+                "about": {
+                    "title": "Paslauga sukurta automatizuoti savo produktų (pasiūlymų) reklamą (įrašus, siuntimus) grupėse / pokalbiuose / kanaluose.\n\nBoto naudojimo instrukcija - žemiau esančiame mygtuke!",
+                    "path": "[📍 Kelias: Nustatymai → *Apie paslaugą*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Idėjų skyriaus meniu. Čia galite pasiūlyti savo idėją paslaugos plėtrai.",
+                        "path": "[📍 Kelias: Nustatymai → *Idėjos*]",
+                        "buttons": {
+                            "add": "🗳 Pasiūlyti",
+                            "see": "🔍 Ištirti"
+                        }
+                    },
+                    "add": {
+                        "title": "Siųskite man mediją / garsą / tekstą ir pan. Jokių apribojimų!",
+                        "path": "[📍 Kelias: Nustatymai → Idėjos → *Pridėti*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {
+                        "logout": "🚪 Atsijungti",
+                        "login": "🔑 Prisijungti"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "buttons": {
+                        "data": "🗂 Duomenys",
+                        "system": "⚡ Sistema"
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Duomenų valdymas",
+                        "path": "[📍 Kelias: Skydelis → *Duomenys*]",
+                        "buttons": {
+                            "user": "👥 Vartotojai"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Grupės valdymas. Kiekis: {{amount}}",
+                            "path": "[📍 Kelias: Skydelis → Duomenys → *Grupės*]",
+                            "buttons": {
+                                "reupload": "🔁 Atnaujinti"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Grupės atnaujintos!",
+                            "error": "❌ Klaida atnaujinant grupes\nKreipkitės į administratorių",
+                            "path": "[📍 Kelias: Skydelis → Duomenys → Grupės → *Atnaujinimas*]"
+                        },
+                        "clear": {
+                            "success": "✅ Grupės išvalytos!",
+                            "error": "❌ Klaida valant grupes\nKreipkitės į administratorių",
+                            "path": "[📍 Kelias: Skydelis → Duomenys → Grupės → *Valymas*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Vartotojų valdymas. Kiekis: {{amount}}",
+                            "path": "[📍 Kelias: Skydelis → Duomenys → *Vartotojai*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Vartotojų sąrašas.",
+                                "path": "[📍 Kelias: Skydelis → Duomenys → Vartotojai → *Peržiūra*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Vartotojo valdymas",
+                                    "path": "[📍 Kelias: Skydelis → Duomenys → Vartotojai → Peržiūra → *{{userName}}*]",
+                                    "telegramId": "Tg. id: {{telegramId}}",
+                                    "name": "Vardas: {{name}}",
+                                    "username": "Vartotojo vardas: @{{username}}",
+                                    "phone": "Telefonas: +{{phone}}",
+                                    "language": "Kalba: {{language}}",
+                                    "role": "Vaidmuo: {{role}}"
+                                },
+                                "remove": {
+                                    "success": "✅ Vartotojas sėkmingai pašalintas!",
+                                    "error": "❌ Vartotojas nepašalintas!\nBandykite vėliau",
+                                    "path": "[📍 Kelias: Skydelis → Duomenys → Vartotojai → Peržiūra → {{userName}} → *Šalinimas*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Keičiame telefoną!\nSiųskite čia.",
+                                        "path": "[📍 Kelias: Skydelis → Duomenys → Vartotojai → Peržiūra → {{userName}} → *Numerio keitimas*]"
+                                    },
+                                    "name": {
+                                        "title": "Keičiame vardą!\nSiųskite čia.",
+                                        "path": "[📍 Kelias: Skydelis → Duomenys → Vartotojai → Peržiūra → {{userName}} → *Vardo keitimas*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Kuriame vartotoją!",
+                            "path": "[📍 Kelias: Skydelis → Duomenys → Vartotojai → *Sukurti*]"
+                        }
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Sistemos valdymas",
+                        "path": "[📍 Kelias: Skydelis → *Sistema*]",
+                        "buttons": {
+                            "server": "📟 Serveris",
+                            "maintenace": "🛠️ Techninė priežiūra"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Procesų kategorijos",
+                            "path": "[📍 Kelias: Skydelis → Sistema → *Serveris*]",
+                            "buttons": {
+                                "bot": "🤖 Botas",
+                                "parser": "🧲 Parseris"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Pasirinkite procesą",
+                                "path": "[📍 Kelias: Skydelis → Sistema → Serveris → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Proceso valdymas",
+                                    "path": "[📍 Kelias: Skydelis → Sistema → Serveris → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Būsena",
+                                        "log": "📋 Žurnalai"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Kelias: Skydelis → Sistema → Serveris → {{processType}} → {{processName}} → *Būsena*]",
+                                    "status": {
+                                        "active": "✅ Procesas aktyvus.\nNorėdami sustabdyti, paspauskite mygtuką žemiau",
+                                        "inactive": "❌ Procesas neaktyvus.\nNorėdami paleisti, paspauskite mygtuką žemiau",
+                                        "failed": "❌ Procesas neaktyvus.\nNorėdami paleisti, paspauskite mygtuką žemiau",
+                                        "error": "Problema su procesu. Kreipkitės į programuotoją."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Sustabdyti",
+                                        "start": "▶️ Paleisti",
+                                        "restart": "🔁 Paleisti iš naujo"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Žurnalų peržiūra",
+                                    "path": "[📍 Kelias: Skydelis → Sistema → Serveris → {{processType}} → {{processName}} → *Žurnalai*]",
+                                    "sort": "Rikiavimas: {{sortType}}",
+                                    "sortType": {
+                                        "new": "nuo naujų iki senų",
+                                        "old": "nuo senų iki naujų"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Šiuo metu aktyvių siuntimų sąrašas.",
+                    "path": "[📍 Kelias: {{menu}} → *Siuntimai*]",
+                    "empty": "Siuntimai dar nesukonfigūruoti! Grįžkite vėliau."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Siuntimo «{{call}}» meniu",
+                        "path": "[📍 Kelias: {{menu}} → Siuntimai → *Meniu «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Grafikas",
+                            "message": "💬 Pranešimai",
+                            "statistic": "📈 Statistika",
+                            "owner": "👑 Savininkas",
+                            "name": "🏷️ Vardai",
+                            "test": "🎛️ Testavimas"
+                        }
+                    },
+                    "test": {
+                        "alert": "Negalima įjungti testavimo režimo, kol siuntimas aktyvus!"
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Klaida gaunant pranešimus!\nKreipkitės į administratorių",
+                            "empty": "Pranešimų nėra!\nNorėdami pridėti tekstą, paspauskite mygtuką žemiau",
+                            "title": "Pranešimų skyriaus meniu. Kiekis: {{amount}}",
+                            "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → *Pranešimai*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Pasirinkite teksto pridėjimo tipą.",
+                                "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → *Pridėjimo režimas*]",
+                                "buttons": {
+                                    "generate": "🔮 Generuoti",
+                                    "hand": "✍ Rankinis įvedimas"
+                                }
+                            },
+                            "generate": {
+                                "title": "Sugeneruosiu pardavimo tekstą! Siųskite šaltinį čia. Negalima siųsti tekstų krūvos.",
+                                "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → *Generavimas*]",
+                                "save": "✅ Tekstas išsaugotas!",
+                                "cancel": "❌ Tekstas neišsaugotas!",
+                                "pathSave": "[📍 Kelias: {{menu}} → Meniu «{{call}}» → Pranešimai → Generavimas → *Išsaugojimas*]",
+                                "pathCancel": "[📍 Kelias: {{menu}} → Meniu «{{call}}» → Pranešimai → Generavimas → *Atšaukimas*]"
+                            },
+                            "hand": {
+                                "title": "Pridedame tekstą!\nSiųskite tekstą arba peradresuokite jį čia. Negalima siųsti tekstų krūvos.",
+                                "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → *Teksto pridėjimas*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Visi pranešimai išvalyti!",
+                            "error": "❌ Pranešimai neišvalyti!\nKreipkitės į administratorių",
+                            "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → *Valymas*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Pranešimas Nr.{{number}}.",
+                                "amountMedia": "Medijos kiekis: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → *Peržiūra*]",
+                                "buttons": {
+                                    "updateText": "✍️ Keisti tekstą",
+                                    "addMedia": "🖼 Pridėti mediją",
+                                    "clearAllMedia": "🗑 Išvalyti mediją"
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Keičiame tekstą!\nSiųskite tekstą arba peradresuokite jį čia. Negalima siųsti tekstų krūvos.",
+                                    "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → *Teksto keitimas*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Pranešimas pašalintas!",
+                                    "error": "❌ Tekstas nepašalintas!\nKreipkitės į administratorių",
+                                    "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → *Teksto šalinimas*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Pridedame mediją!\nSiųskite mediją po 1 vnt.",
+                                    "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → *Medijos pridėjimas*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Visa medija išvalyta!",
+                                    "error": "❌ Medija neišvalyta!\nKreipkitės į administratorių",
+                                    "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → *Medijos valymas*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Greitas perėjimas prie pranešimo pagal numerį",
+                                "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → Peržiūra → *Pranešimo pasirinkimas*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Pasirinkite formatą, kuriuo bus išsaugotas pranešimų sąrašas",
+                                "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → *Eksporto formato pasirinkimas*]"
+                            },
+                            "result": {
+                                "error": "❌ Klaida eksportuojant pranešimus\nKreipkitės į administratorių",
+                                "caption": "Pranešimų sąrašas {{exportType}} formatu paruoštas!",
+                                "path": "\n[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Pranešimai → *Eksportuoti į {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Grafikas dar nesukonfigūruotas!",
+                            "title": "Grafiko skyriaus meniu. Laikų skaičius grafike: {{amount}}",
+                            "path": "\n[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → *Grafikas*]"
+                        },
+                        "create": {
+                            "title": "Pridedame laiką!",
+                            "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Grafikas → *Pridėti*]"
+                        },
+                        "clear": {
+                            "success": "✅ Grafikas išvalytas!",
+                            "error": "❌ Grafikas neišvalytas!\nKreipkitės į administratorių",
+                            "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Grafikas → *Valymas*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Siuntimo grafikas pateikiamas žemiau mygtukų pavidalu.",
+                                "path": "\n[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Grafikas → *Peržiūra*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Keičiame laiką!",
+                                    "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Grafikas → Peržiūra → *Laiko keitimas*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Laikas pašalintas!",
+                                    "error": "❌ Laikas nepašalintas! Kreipkitės į administratorių",
+                                    "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Grafikas → Peržiūra → *Laiko šalinimas*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Pasirinktas laikas:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Grafikas → Peržiūra → *Veiksmo pasirinkimas*]"
+                                }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Pasirinkite formatą, kuriuo bus išsaugotas siuntimo grafikas",
+                                "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Grafikas → *Eksporto formato pasirinkimas*]"
+                            },
+                            "result": {
+                                "error": "❌ Klaida eksportuojant grafiką\nKreipkitės į administratorių",
+                                "caption": "Grafikas {{exportType}} formatu paruoštas!",
+                                "path": "\n[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Grafikas → *Eksportuoti į {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Pasirinkite norimos statistikos formatą.",
+                            "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → *Statistika*]",
+                            "buttons": {
+                                "selective": "📅 Atrankinė",
+                                "comparative": "📊 Lyginamoji"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Šiuo metu šiame skyriuje atliekami techniniai darbai.",
+                                "noData": "Nerasta rezultato pasirinktai datai!",
+                                "noAccess": "Paspaustas mygtukas nepasiekiamas!",
+                                "title": "Atrankinė statistika.\nŽemiau yra kalendorius su datomis. Norėdami peržiūrėti siuntimo rezultatą tam tikrą dieną, tiesiog spustelėkite jį!\n\nJei siuntimas:\n*neįvyko,\n*nebuvo,\n*nebuvo suplanuotas,\n*ar kita\n- bus rodomas pranešimas su atitinkamu kontekstu, neišsigąskite.",
+                                "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Statistika → *Atrankinė*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Siuntimo rezultatas {{date}}.",
+                                    "time": "Laikas: {{time}}",
+                                    "success": "Sėkmingų išsiuntimų: {{success}}",
+                                    "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Statistika → Atrankinė → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Statistika → Atrankinė → {{date}} → *Grupės*]"
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Pasirinkite lyginamosios statistikos tipą.",
+                                "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Statistika → *Lyginamoji*]",
+                                "buttons": {
+                                    "week": "Savaitė",
+                                    "month": "Mėnuo"
+                                }
+                            },
+                            "week": {
+                                "title": "Lyginamoji statistika (Savaitė)",
+                                "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Statistika → Lyginamoji → *Savaitė*]"
+                            },
+                            "month": {
+                                "title": "Lyginamoji statistika (Mėnuo)",
+                                "path": "[📍 Kelias: {{menu}} → Siuntimai → Meniu «{{call}}» → Statistika → Lyginamoji → *Mėnuo*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Siuntimo savininkas.",
+                            "empty": "Siuntimas neturi savininko!",
+                            "name": "Vardas: {{name}}",
+                            "phone": "Telefonas: +{{phone}}",
+                            "path": "[📍 Kelias: Skydelis → Siuntimai → Meniu «{{call}}» → *Savininkas*]",
+                            "buttons": {
+                                "change": "🪧 Pervesti"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Pasirinkite vartotoją, kurį norite paskirti šio siuntimo savininku.",
+                                "path": "[📍 Kelias: Skydelis → Siuntimai → Meniu «{{call}}» → Savininkas → *Pasirinkimas*]",
+                                "noOwner": "Be savininko"
+                            },
+                            "action": {
+                                "success": "✅ Savininkas sėkmingai performuotas!",
+                                "error": "❌ Savininkas neperformuotas! Bandykite vėliau!",
+                                "path": "[📍 Kelias: Skydelis → Siuntimai → Meniu «{{call}}» → Savininkas → {{owner}} → *Paskyrimas*]"
+                            }
+                        }
+                    },
+                    "name": {
+                        "main": {
+                            "title": "Siuntimo vardai:",
+                            "about": "1 - parašas (senas pavadinimas)\n2 - subjekto pavadinimas\n3 - šaukinys (rodomas vardas bot'e)",
+                            "path": "[📍 Kelias: Skydelis → Siuntimai → Meniu «{{call}}» → *Vardai*]"
+                        },
+                        "update": {
+                            "call": {
+                                "title": "Keičiame siuntimo šaukinį!",
+                                "path": "[📍 Kelias: Skydelis → Siuntimai → Meniu «{{call}}» → Vardai → Šaukinys → *Atnaujinti*]"
+                            },
+                            "label": {
+                                "alert": "Siuntimo parašo pakeisti negalima!"
+                            },
+                            "name": {
+                                "alert": "Siuntimo pavadinimo pakeisti negalima!"
+                            }
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Sutarčių valdymas. Kiekis: {{amount}}",
+                    "path": "[📍 Kelias: {{menu}} → *Sutartys*]",
+                    "empty": "Sutartys dar nesukonfigūruotos! Grįžkite vėliau.",
+                    "contractName": "{{userName}}: nuo {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Sutarčių sąrašas.",
+                        "path": "[📍 Kelias: {{menu}} → Sutartys → *Peržiūra*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Sutartis nuo {{dateStart}}.",
+                            "sendouts": "Į sutartį įtraukti siuntimai: {{sendouts}}",
+                            "noSendouts": "tuščia.",
+                            "userName": "Klientas: {{userName}}",
+                            "dateStart": "Pradžios data: {{dateStart}}",
+                            "dateEnd": "Pabaigos data: {{dateEnd}}",
+                            "price": "Kaina: {{price}}",
+                            "priceText": "Kaina (tekstas): {{priceText}}",
+                            "error": "Klaida gaunant sutartį. Kreipkitės į administratorių",
+                            "path": "\n[📍 Kelias: {{menu}} → Sutartys → Peržiūra → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success": "✅ Sutartis sėkmingai pašalinta!",
+                            "error": "❌ Sutartis nepašalinta!\nBandykite vėliau",
+                            "path": "[📍 Kelias: Skydelis → Sutartys → Peržiūra → {{dateStart}} → *Šalinimas*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Pasirinkite formatą, kuriuo bus išsaugota sutartis",
+                                "path": "[📍 Kelias: {{menu}} → Sutartys → Peržiūra → {{dateStart}} → *Eksporto formato pasirinkimas*]"
+                            },
+                            "result": {
+                                "error": "❌ Klaida eksportuojant sutartį\nKreipkitės į administratorių",
+                                "caption": "Sutartis {{exportType}} formatu paruošta!",
+                                "path": "\n[📍 Kelias: {{menu}} → Sutartys → Peržiūra → {{dateStart}} → *Eksportuoti į {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "step": "Žingsnis: {{number}} / 3",
+                    "noUser": "Norėdami pereiti prie 2 veiksmo, turite atlikti 1 veiksmą!",
+                    "noSendouts": "Norėdami pereiti prie 3 veiksmo, turite atlikti 2 veiksmą!",
+                    "noFreeSendouts": "Klientas neturi laisvų siuntimų (esančių be sutarties)!",
+                    "data": {
+                        "user": "Pasirinkite vartotoją, kuriam bus sudaryta sutartis",
+                        "sendout": "Pasirinkite siuntimus, kurie bus įtraukti į sutartį",
+                        "contract": "Atsiųskite duomenis apie sutartį"
+                    },
+                    "title": "Kuriame sutartį!",
+                    "path": "[📍 Kelias: Skydelis → Sutartys → *Sukurti*]"
+                }
+            }
+        }
+    }
+}

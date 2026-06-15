@@ -57,6 +57,21 @@ const countryFlags: Record<LanguagesALlowed, string> = {
     "sv": "🇸🇪",
     "ms": "🇲🇾",
     "ur": "🇵🇰",
+    "be": "🇧🇾",
+    "mn": "🇲🇳",
+    "da": "🇩🇰",
+    "fi": "🇫🇮",
+    "no": "🇳🇴",
+    "lt": "🇱🇹",
+    "lv": "🇱🇻",
+    "et": "🇪🇪",
+    "ka": "🇬🇪",
+    "hy": "🇦🇲",
+    "az": "🇦🇿",
+    "uz": "🇺🇿",
+    "tl": "🇵🇭",
+    "sw": "🇹🇿",
+    "km": "🇰🇭",
 };
 
 export default {

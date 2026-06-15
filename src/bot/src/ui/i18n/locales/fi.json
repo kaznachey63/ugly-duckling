@@ -1,0 +1,738 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Käsitellään...",
+            "cabinet": "🪴 Henkilökohtainen kansio",
+            "panel": "👨‍💻 Ylläpitopaneeli",
+            "nameless": "Nimetön",
+            "buttons": {
+                "export": "📧 Vie",
+                "back": "🔙 Takaisin",
+                "remove": "🗑 Poista",
+                "miss": "Puuttuu",
+                "create": "➕ Luo",
+                "update": "✍ Muokkaa",
+                "instruction": "📖 Ohje",
+                "clear": "🗑 Tyhjennä",
+                "view": "👁 Näytä",
+                "contract": "📜 Sopimukset",
+                "sendout": "📢 Joukkolähetykset",
+                "chat": "🗯 Ryhmät",
+                "contactAdmin": "👨 Ylläpitäjä"
+            },
+            "titles": {
+                "validate": "⚠ Syötetyillä tiedoilla oli virheellinen muoto. Lähetä uudelleen",
+                "cabinet": "Kansio",
+                "panel": "Paneeli → Tiedot",
+                "amount": "Määrä: {{amount}}",
+                "sendoutActive": "Joukkolähetys on parhaillaan aktiivinen, yritä hallita tietoja myöhemmin",
+                "accessDenied": {
+                    "all": "Pääsy evätty. Valtuuta ensin itsesi komennolla /auth",
+                    "admin": "Pääsy evätty. Tämä osio on asiakkaille",
+                    "customer": "Pääsy evätty. Tämä osio on ylläpitäjille"
+                }
+            }
+        },
+        "maintenace": "🚧 Teknisiä töitä on parhaillaan käynnissä. Palvelun käyttö on tilapäisesti rajoitettua.\nIlmoitamme heti kun olemme valmiita!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Ylläpitäjä",
+            "customer": "Asiakas",
+            "unknown": "Tuntematon"
+        },
+        "commands": {
+            "cabinet": "Kansio",
+            "settings": "Asetukset",
+            "panel": "Ylläpitopaneeli"
+        },
+        "chart": {
+            "labelMonth": "Tilasto joukkolähetyksen vastaanottaneiden ryhmien määrästä. {{month}} {{year}}",
+            "labelWeek": "Tilasto joukkolähetyksen vastaanottaneiden ryhmien määrästä. Viikko",
+            "amountSms": "Viestien määrä",
+            "noLogs": "Valitulla ajanjaksolla ei ole vielä tapahtunut joukkolähetystä!",
+            "daysOfWeek": {
+                "Mon": "Ma",
+                "Tue": "Ti",
+                "Wed": "Ke",
+                "Thu": "To",
+                "Fri": "Pe",
+                "Sat": "La",
+                "Sun": "Su"
+            },
+            "months": {
+                "january": "Tammikuu",
+                "february": "Helmikuu",
+                "march": "Maaliskuu",
+                "april": "Huhtikuu",
+                "may": "Toukokuu",
+                "june": "Kesäkuu",
+                "july": "Heinäkuu",
+                "august": "Elokuu",
+                "september": "Syyskuu",
+                "october": "Lokakuu",
+                "november": "Marraskuu",
+                "december": "Joulukuu"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Tammikuu",
+                "1": "Helmikuu",
+                "2": "Maaliskuu",
+                "3": "Huhtikuu",
+                "4": "Toukokuu",
+                "5": "Kesäkuu",
+                "6": "Heinäkuu",
+                "7": "Elokuu",
+                "8": "Syyskuu",
+                "9": "Lokakuu",
+                "10": "Marraskuu",
+                "11": "Joulukuu"
+            },
+            "days": {
+                "0": "Ma",
+                "1": "Ti",
+                "2": "Ke",
+                "3": "To",
+                "4": "Pe",
+                "5": "La",
+                "6": "Su"
+            }
+        },
+        "processType": {
+            "bot": "Botti",
+            "parser": "Jäsennin",
+            "sendout": "Joukkolähetykset"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Aikataulu",
+                "message": "Viestit",
+                "contract": "Sopimus"
+            },
+            "text": "Vie",
+            "from": "alkaen"
+        },
+        "localization": {
+            "schedule": {
+                "number": "päivä",
+                "everyDay": "Joka päivä",
+                "unknownDay": "Tuntematon päivä",
+                "dayWeek": {
+                    "1": "Maanantai",
+                    "2": "Tiistai",
+                    "3": "Keskiviikko",
+                    "4": "Torstai",
+                    "5": "Perjantai",
+                    "6": "Lauantai",
+                    "7": "Sunnuntai",
+                    "*": "Joka päivä"
+                }
+            }
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Virhe puhelinnumeroa käsiteltäessä!\nYritä uudelleen!",
+                "accessDenied": "Pääsy evätty. Käyttääksesi joukkolähetyspalvelua, käytä komentoa '/settings', 'Ohje'-osio"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Teksti tallennettu!",
+                "error": "❌ Tekstiä ei tallennettu!\nOta yhteyttä ylläpitäjään",
+                "path": "[📍 Polku: {{menu}} → Valikko «{{call}}» → Viestit → *Luo teksti*]"
+            },
+            "generatingText": {
+                "result": "Luotu viesti näkyy alla. Käytä viestien alla olevia painikkeita päättääksesi tekstin kohtalosta.",
+                "pathChoose": "[📍 Polku: {{menu}} → Valikko «{{call}}» → Viestit → Tekstin luonti → *Tekstin kohtalo*]",
+                "buttons": {
+                    "save": "✔ Tallenna",
+                    "cancel": "❌ Älä tallenna"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Tekstiä muokattu!",
+                "error": "❌ Tekstiä ei muokattu!\nOta yhteyttä ylläpitäjään",
+                "path": "[📍 Polku: {{menu}} → Valikko «{{call}}» → Viestit → *Muokkaa tekstiä*]"
+            },
+            "addingMedia": {
+                "error": "💀 Virhe tallennettaessa mediaa!\nOta yhteyttä ylläpitäjään",
+                "invalidType": "Mediatyyppiä ei tunnistettu! Yritä uudelleen",
+                "bigSize": "Tiedosto on liian suuri. Suurin sallittu koko {{size}} Mt.",
+                "documentsWTMedia": "En osaa käsitellä asiakirjoja, jotka eivät sisällä: valokuva / video / gif",
+                "success": "✅ Media tallennettu!",
+                "error2": "❌ Mediaa ei tallennettu!\nOta yhteyttä ylläpitäjään",
+                "path": "[📍 Polku: {{menu}} → Valikko «{{call}}» → Viestit → *Lisää media*]",
+                "amount": "Medioiden määrä viestissä: {{now}} / {{all}}"
+            },
+            "addingTime": {
+                "success": "✅ Aika tallennettu!",
+                "error": "❌ Aikaa ei muokattu!\nOta yhteyttä ylläpitäjään",
+                "path": "[📍 Polku: Paneeli → Valikko «{{call}}» → Aikataulu → Näytä → *Lisää*]"
+            },
+            "updatingTime": {
+                "success": "✅ Aikaa muokattu!",
+                "error": "❌ Aikaa ei muokattu!\nOta yhteyttä ylläpitäjään",
+                "path": "[📍 Polku: Paneeli → Valikko «{{call}}» → Aikataulu → Näytä → *Muokkaa*]"
+            },
+            "addingIdea": {
+                "success": "✅ Idea lisätty onnistuneesti, kiitos!",
+                "error": "❌ Ideaa ei lisätty!\nYritä uudelleen tai ota yhteyttä ylläpitäjään!",
+                "path": "[📍 Polku: Asetukset → Ideat → *Lisää*]"
+            },
+            "addingUser": {
+                "success": "✅ Käyttäjä luotu onnistuneesti!",
+                "error": "❌ Käyttäjää ei luotu!\nYritä myöhemmin uudelleen.",
+                "path": "[📍 Polku: Paneeli → Tiedot → Käyttäjät → *Luo*]"
+            },
+            "addingContract": {
+                "success": "✅ Sopimus luotu onnistuneesti!",
+                "error": "❌ Sopimusta ei luotu!\nYritä myöhemmin uudelleen.",
+                "path": "[📍 Polku: Paneeli → Sopimukset → *Luo*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Kutsumerkki päivitetty onnistuneesti!",
+                "error": "❌ Kutsumerkkiä ei päivitetty!\nYritä myöhemmin uudelleen.",
+                "path": "[📍 Polku: Paneeli → Joukkolähetykset → Valikko «{{call}}» → Nimet → Kutsumerkki → *Päivitä*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Nimi päivitetty onnistuneesti!",
+                "error": "❌ Nimeä ei päivitetty!\nYritä myöhemmin uudelleen.",
+                "path": "[📍 Polku: Paneeli → Tiedot → Käyttäjät → Näytä → {{userName}} → *Muokkaa nimeä*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Puhelin päivitetty onnistuneesti!",
+                "error": "❌ Puhelinta ei päivitetty!\nYritä myöhemmin uudelleen.",
+                "path": "[📍 Polku: Paneeli → Tiedot → Käyttäjät → Näytä → {{userName}} → *Muokkaa numeroa*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "☀ Tervehdys! Olen Telegram-botti Ruma ankanpoikanen, joukkolähetysten avustaja.",
+                "commands": "Alla on lyhyt kuvaus komennoista, joilla voit olla vuorovaikutuksessa kanssani:\n/start - aktivoi botti ja komentoluettelo\n/auth - valtuutus\n/cabinet - hallitse henkilökohtaista kansiota\n/settings - hallitse botin asetuksia",
+                "uAdmin": "❓ Oletko ylläpitäjä?\n/panel - ylläpitopaneeli",
+                "link": "Voit tutustua tarkempiin ohjeisiin minun hallitsemisekseni alla olevan painikkeen avulla."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Peruuta",
+                        "phone": "📞 Jaa",
+                        "again": "🔄 Yritä uudelleen"
+                    },
+                    "unknownMessage": "Toimintoa ei tunnistettu, yritä uudelleen painikkeilla: '📞 Jaa' ja '❌ Peruuta'",
+                    "manyAttempts": "Ennen tunnin rajoitusta käytettyjen valtuutusyritysten määrä: {{actualAttempts}} / {{maxAttempts}}",
+                    "stop": "Valtuutus on rajoitettu. Rajoitukset poistetaan: {{dateTime}} jälkeen",
+                    "canceled": "Valtuutus pysäytetty onnistuneesti!",
+                    "title": "Jotta voit siirtyä joukkolähetyspaneeliin, sinun on jaettava puhelinnumerosi kanssani.\n\nPainikkeen pitäisi ilmestyä näppäimistön viereen tekstillä '📞 Jaa'",
+                    "good": "Olet valtuutettu järjestelmään onnistuneesti!",
+                    "already": "Olet jo valtuutettu järjestelmään!",
+                    "bad": "Virhe valtuutuksen aikana. Ota yhteyttä ylläpitäjään!"
+                },
+                "logout": {
+                    "good": "Olet kirjautunut ulos onnistuneesti. Tietosi on poistettu!",
+                    "bad": "Virhe uloskirjautumisen aikana. Ota yhteyttä ylläpitäjään!"
+                }
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Asetukset",
+                    "buttons": {
+                        "about": "ℹ Tietoa palvelusta",
+                        "help": "❓ Ohje",
+                        "idea": "💡 Ideat",
+                        "language": "🌐 Kieli"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Valitse kieli.",
+                        "path": "[📍 Polku: Asetukset → *Kieli*]"
+                    },
+                    "change": {
+                        "good": "Kieli vaihdettu!",
+                        "error": "Tämä kieli on jo valittu!"
+                    }
+                },
+                "help": {
+                    "title": "Kohtasitko ongelman?\nOnko sinulla kysyttävää?\nHaluatko kehua palvelua?\nOnko sinulla ideoita parannuksia varten?",
+                    "interest": "Vai oletko kiinnostunut tuotteesta?\nTäytä alla oleva kyselylomake, niin otamme sinuun yhteyttä!",
+                    "path": "[📍 Polku: Asetukset → *Ohje*]"
+                },
+                "about": {
+                    "title": "Palvelu on kehitetty mainonnan (julkaisut, joukkolähetykset) automatisointiin tuotteillesi (tarjouksillesi) ryhmien / chatien / kanavien sisällä.\n\nBotin käyttöohjeet - alla olevassa painikkeessa!",
+                    "path": "[📍 Polku: Asetukset → *Tietoa palvelusta*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Ideat-osion valikko. Täällä voit ehdottaa ideaasi palvelun kehittämiseksi.",
+                        "path": "[📍 Polku: Asetukset → *Ideat*]",
+                        "buttons": {
+                            "add": "🗳 Ehdota",
+                            "see": "🔍 Tutki"
+                        }
+                    },
+                    "add": {
+                        "title": "Lähetä minulle mediaa/ääntä/tekstiä jne. Ei rajoituksia!",
+                        "path": "[📍 Polku: Asetukset → Ideat → *Lisää*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {
+                        "logout": "🚪 Kirjaudu ulos",
+                        "login": "🔑 Kirjaudu sisään"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "buttons": {
+                        "data": "🗂 Tiedot",
+                        "system": "⚡ Järjestelmä"
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Tietojen hallinta",
+                        "path": "[📍 Polku: Paneeli → *Tiedot*]",
+                        "buttons": {
+                            "user": "👥 Käyttäjät"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Hallitse ryhmiä. Määrä: {{amount}}",
+                            "path": "[📍 Polku: Paneeli → Tiedot → *Ryhmät*]",
+                            "buttons": {
+                                "reupload": "🔁 Päivitä"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Ryhmät päivitetty!",
+                            "error": "❌ Virhe päivitettäessä ryhmiä\nOta yhteyttä ylläpitäjään",
+                            "path": "[📍 Polku: Paneeli → Tiedot → Ryhmät → *Päivitä*]"
+                        },
+                        "clear": {
+                            "success": "✅ Ryhmät tyhjennetty!",
+                            "error": "❌ Virhe tyhjennettäessä ryhmiä\nOta yhteyttä ylläpitäjään",
+                            "path": "[📍 Polku: Paneeli → Tiedot → Ryhmät → *Tyhjennä*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Hallitse käyttäjiä. Määrä: {{amount}}",
+                            "path": "[📍 Polku: Paneeli → Tiedot → *Käyttäjät*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Käyttäjäluettelo.",
+                                "path": "[📍 Polku: Paneeli → Tiedot → Käyttäjät → *Näytä*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Hallitse käyttäjää",
+                                    "path": "[📍 Polku: Paneeli → Tiedot → Käyttäjät → Näytä → *{{userName}}*]",
+                                    "telegramId": "Tg-tunnus: {{telegramId}}",
+                                    "name": "Nimi: {{name}}",
+                                    "username": "Käyttäjätunnus: @{{username}}",
+                                    "phone": "Puhelin: +{{phone}}",
+                                    "language": "Kieli: {{language}}",
+                                    "role": "Rooli: {{role}}"
+                                },
+                                "remove": {
+                                    "success": "✅ Käyttäjä poistettu onnistuneesti!",
+                                    "error": "❌ Käyttäjää ei poistettu!\nYritä myöhemmin uudelleen",
+                                    "path": "[📍 Polku: Paneeli → Tiedot → Käyttäjät → Näytä → {{userName}} → *Poista*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Muutetaan puhelinta!\nLähetä tähän.",
+                                        "path": "[📍 Polku: Paneeli → Tiedot → Käyttäjät → Näytä → {{userName}} → *Muokkaa numeroa*]"
+                                    },
+                                    "name": {
+                                        "title": "Muutetaan nimeä!\nLähetä tähän.",
+                                        "path": "[📍 Polku: Paneeli → Tiedot → Käyttäjät → Näytä → {{userName}} → *Muokkaa nimeä*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Luodaan käyttäjä!",
+                            "path": "[📍 Polku: Paneeli → Tiedot → Käyttäjät → *Luo*]"
+                        }
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Järjestelmän hallinta",
+                        "path": "[📍 Polku: Paneeli → *Järjestelmä*]",
+                        "buttons": {
+                            "server": "📟 Palvelin",
+                            "maintenace": "🛠️ Huolto"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Prosessiluokat",
+                            "path": "[📍 Polku: Paneeli → Järjestelmä → *Palvelin*]",
+                            "buttons": {
+                                "bot": "🤖 Botti",
+                                "parser": "🧲 Jäsennin"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Valitse prosessi",
+                                "path": "[📍 Polku: Paneeli → Järjestelmä → Palvelin → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Hallitse prosessia",
+                                    "path": "[📍 Polku: Paneeli → Järjestelmä → Palvelin → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Tila",
+                                        "log": "📋 Lokit"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Polku: Paneeli → Järjestelmä → Palvelin → {{processType}} → {{processName}} → *Tila*]",
+                                    "status": {
+                                        "active": "✅ Prosessi on aktiivinen.\nPysäyttääksesi, paina alla olevaa painiketta",
+                                        "inactive": "❌ Prosessi on epäaktiivinen.\nKäynnistääksesi, paina alla olevaa painiketta",
+                                        "failed": "❌ Prosessi on epäaktiivinen.\nKäynnistääksesi, paina alla olevaa painiketta",
+                                        "error": "Ongelma prosessissa. Ota yhteyttä ohjelmoijaan."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Pysäytä",
+                                        "start": "▶️ Käynnistä",
+                                        "restart": "🔁 Käynnistä uudelleen"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Näytä lokit",
+                                    "path": "[📍 Polku: Paneeli → Järjestelmä → Palvelin → {{processType}} → {{processName}} → *Lokit*]",
+                                    "sort": "Lajittelu: {{sortType}}",
+                                    "sortType": {
+                                        "new": "uusimmasta vanhimpaan",
+                                        "old": "vanhimmasta uusimpaan"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Luettelo tällä hetkellä aktiivisista joukkolähetyksistä.",
+                    "path": "[📍 Polku: {{menu}} → *Joukkolähetykset*]",
+                    "empty": "Joukkolähetyksiä ei ole vielä määritetty! Palaa myöhemmin."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Joukkolähetyksen «{{call}}» valikko",
+                        "path": "[📍 Polku: {{menu}} → Joukkolähetykset → *Valikko «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Aikataulu",
+                            "message": "💬 Viestit",
+                            "statistic": "📈 Tilastot",
+                            "owner": "👑 Omistaja",
+                            "name": "🏷️ Nimet",
+                            "test": "🎛️ Testaus"
+                        }
+                    },
+                    "test": {
+                        "alert": "Testitilaa ei voi kytkeä päälle, kun joukkolähetys on aktiivinen!"
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Virhe viestejä noudettaessa!\nOta yhteyttä ylläpitäjään",
+                            "empty": "Viestit puuttuvat!\nLisätäksesi tekstiä, paina alla olevaa painiketta",
+                            "title": "Viestit-osion valikko. Määrä: {{amount}}",
+                            "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → *Viestit*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Valitse tekstin lisäystapa.",
+                                "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → *Lisäystila*]",
+                                "buttons": {
+                                    "generate": "🔮 Luo",
+                                    "hand": "✍ Manuaalinen syöttö"
+                                }
+                            },
+                            "generate": {
+                                "title": "Luo myyntiteksti! Lähetä lähde tähän. Tekstikasoja ei voi lähettää.",
+                                "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → *Luonti*]",
+                                "save": "✅ Teksti tallennettu!",
+                                "cancel": "❌ Tekstiä ei tallennettu!",
+                                "pathSave": "[📍 Polku: {{menu}} → Valikko «{{call}}» → Viestit → Luonti → *Tallenna*]",
+                                "pathCancel": "[📍 Polku: {{menu}} → Valikko «{{call}}» → Viestit → Luonti → *Peruuta*]"
+                            },
+                            "hand": {
+                                "title": "Lisätään tekstiä!\nLähetä teksti tai välitä se tähän. Tekstikasoja ei voi lähettää.",
+                                "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → *Lisää teksti*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Kaikki viestit tyhjennetty!",
+                            "error": "❌ Viestit eivät tyhjentyneet!\nOta yhteyttä ylläpitäjään",
+                            "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → *Tyhjennä*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Viesti nro {{number}}.",
+                                "amountMedia": "Medioiden määrä: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → *Näytä*]",
+                                "buttons": {
+                                    "updateText": "✍️ Muokkaa tekstiä",
+                                    "addMedia": "🖼 Lisää media",
+                                    "clearAllMedia": "🗑 Tyhjennä mediat"
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Muokataan tekstiä!\nLähetä teksti tai välitä se tähän. Tekstikasoja ei voi lähettää.",
+                                    "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → *Muokkaa tekstiä*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Viesti poistettu!",
+                                    "error": "❌ Tekstiä ei poistettu!\nOta yhteyttä ylläpitäjään",
+                                    "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → *Poista teksti*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Lisätään mediaa!\nLähetä mediat yksitellen.",
+                                    "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → *Lisää media*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Kaikki mediat tyhjennetty!",
+                                    "error": "❌ Medioita ei tyhjennetty!\nOta yhteyttä ylläpitäjään",
+                                    "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → *Tyhjennä mediat*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Nopea siirtyminen viestiin numeron perusteella",
+                                "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → Näytä → *Valitse viesti*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Valitse muoto, johon viestiluettelo tallennetaan",
+                                "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → *Valitse vientimuoto*]"
+                            },
+                            "result": {
+                                "error": "❌ Virhe viestejä vietäessä\nOta yhteyttä ylläpitäjään",
+                                "caption": "Viestiluettelo muodossa {{exportType}} on valmis!",
+                                "path": "\n[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Viestit → *Vie muotoon {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Aikataulua ei ole vielä määritetty!",
+                            "title": "Aikataulu-osion valikko. Aikataulussa olevien aikojen määrä: {{amount}}",
+                            "path": "\n[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → *Aikataulu*]"
+                        },
+                        "create": {
+                            "title": "Lisätään aika!",
+                            "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Aikataulu → *Lisää*]"
+                        },
+                        "clear": {
+                            "success": "✅ Aikataulu tyhjennetty!",
+                            "error": "❌ Aikataulua ei tyhjennetty!\nOta yhteyttä ylläpitäjään",
+                            "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Aikataulu → *Tyhjennä*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Joukkolähetyksen aikataulu esitetään alla painikkeina.",
+                                "path": "\n[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Aikataulu → *Näytä*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Muokataan aikaa!",
+                                    "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Aikataulu → Näytä → *Muokkaa aikaa*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Aika poistettu!",
+                                    "error": "❌ Aikaa ei poistettu! Ota yhteyttä ylläpitäjään",
+                                    "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Aikataulu → Näytä → *Poista aika*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Valittu aika:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Aikataulu → Näytä → *Valitse toiminto*]"
+                                }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Valitse muoto, johon joukkolähetyksen aikataulu tallennetaan",
+                                "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Aikataulu → *Valitse vientimuoto*]"
+                            },
+                            "result": {
+                                "error": "❌ Virhe aikataulua vietäessä\nOta yhteyttä ylläpitäjään",
+                                "caption": "Aikataulu muodossa {{exportType}} on valmis!",
+                                "path": "\n[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Aikataulu → *Vie muotoon {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Valitse haluamasi tilastomuoto.",
+                            "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → *Tilastot*]",
+                            "buttons": {
+                                "selective": "📅 Valikoiva",
+                                "comparative": "📊 Vertaileva"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Tällä osiolla tehdään parhaillaan teknisiä töitä.",
+                                "noData": "Tulosta ei löytynyt valitulle päivämäärälle!",
+                                "noAccess": "Painettu painike ei ole käytettävissä!",
+                                "title": "Valikoiva tilasto.\nAlla on kalenteri päivämäärineen. Jos haluat nähdä joukkolähetyksen tuloksen tietylle päivälle, napsauta sitä!\n\nJos joukkolähetys:\n*ei tapahtunut,\n*ei ollut,\n*ei ollut suunniteltu,\n*tai jotain muuta\n- näytetään viesti asianmukaisella kontekstilla, älä pelästy.",
+                                "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Tilastot → *Valikoiva*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Joukkolähetyksen tulos päivämäärällä {{date}}.",
+                                    "time": "Aika: {{time}}",
+                                    "success": "Onnistuneita lähetyksiä: {{success}}",
+                                    "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Tilastot → Valikoiva → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Tilastot → Valikoiva → {{date}} → *Ryhmät*]"
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Valitse vertailevan tilaston tyyppi.",
+                                "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Tilastot → *Vertaileva*]",
+                                "buttons": {
+                                    "week": "Viikko",
+                                    "month": "Kuukausi"
+                                }
+                            },
+                            "week": {
+                                "title": "Vertaileva tilasto (Viikko)",
+                                "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Tilastot → Vertaileva → *Viikko*]"
+                            },
+                            "month": {
+                                "title": "Vertaileva tilasto (Kuukausi)",
+                                "path": "[📍 Polku: {{menu}} → Joukkolähetykset → Valikko «{{call}}» → Tilastot → Vertaileva → *Kuukausi*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Joukkolähetyksen omistaja.",
+                            "empty": "Joukkolähetyksellä ei ole omistajaa!",
+                            "name": "Nimi: {{name}}",
+                            "phone": "Puhelin: +{{phone}}",
+                            "path": "[📍 Polku: Paneeli → Joukkolähetykset → Valikko «{{call}}» → *Omistaja*]",
+                            "buttons": {
+                                "change": "🪧 Uudelleennimeä"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Valitse käyttäjä, joka nimetään tämän joukkolähetyksen omistajaksi.",
+                                "path": "[📍 Polku: Paneeli → Joukkolähetykset → Valikko «{{call}}» → Omistaja → *Valitse*]",
+                                "noOwner": "Ei omistajaa"
+                            },
+                            "action": {
+                                "success": "✅ Omistaja on nimetty uudelleen onnistuneesti!",
+                                "error": "❌ Omistajaa ei nimetty uudelleen! Yritä myöhemmin uudelleen!",
+                                "path": "[📍 Polku: Paneeli → Joukkolähetykset → Valikko «{{call}}» → Omistaja → {{owner}} → *Nimeä*]"
+                            }
+                        }
+                    },
+                    "name": {
+                        "main": {
+                            "title": "Joukkolähetyksen nimet:",
+                            "about": "1 - allekirjoitus (vanha nimitys)\n2 - kokonaisuuden nimi\n3 - kutsumerkki (botissa näkyvä nimi)",
+                            "path": "[📍 Polku: Paneeli → Joukkolähetykset → Valikko «{{call}}» → *Nimet*]"
+                        },
+                        "update": {
+                            "call": {
+                                "title": "Muutetaan joukkolähetyksen kutsumerkkiä!",
+                                "path": "[📍 Polku: Paneeli → Joukkolähetykset → Valikko «{{call}}» → Nimet → Kutsumerkki → *Päivitä*]"
+                            },
+                            "label": {
+                                "alert": "Joukkolähetyksen allekirjoitusta ei voi muuttaa!"
+                            },
+                            "name": {
+                                "alert": "Joukkolähetyksen nimeä ei voi muuttaa!"
+                            }
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Hallitse sopimuksia. Määrä: {{amount}}",
+                    "path": "[📍 Polku: {{menu}} → *Sopimukset*]",
+                    "empty": "Sopimuksia ei ole vielä määritetty! Palaa myöhemmin.",
+                    "contractName": "{{userName}}: alkaen {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Sopimusluettelo.",
+                        "path": "[📍 Polku: {{menu}} → Sopimukset → *Näytä*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Sopimus alkaen {{dateStart}}.",
+                            "sendouts": "Sopimukseen sisältyvät joukkolähetykset: {{sendouts}}",
+                            "noSendouts": "tyhjä.",
+                            "userName": "Asiakas: {{userName}}",
+                            "dateStart": "Alkamispäivä: {{dateStart}}",
+                            "dateEnd": "Päättymispäivä: {{dateEnd}}",
+                            "price": "Hinta: {{price}}",
+                            "priceText": "Hinta (teksti): {{priceText}}",
+                            "error": "Virhe sopimusta noudettaessa. Ota yhteyttä ylläpitäjään",
+                            "path": "\n[📍 Polku: {{menu}} → Sopimukset → Näytä → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success": "✅ Sopimus poistettu onnistuneesti!",
+                            "error": "❌ Sopimusta ei poistettu!\nYritä myöhemmin uudelleen",
+                            "path": "[📍 Polku: Paneeli → Sopimukset → Näytä → {{dateStart}} → *Poista*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Valitse muoto, johon sopimus tallennetaan",
+                                "path": "[📍 Polku: {{menu}} → Sopimukset → Näytä → {{dateStart}} → *Valitse vientimuoto*]"
+                            },
+                            "result": {
+                                "error": "❌ Virhe sopimusta vietäessä\nOta yhteyttä ylläpitäjään",
+                                "caption": "Sopimus muodossa {{exportType}} on valmis!",
+                                "path": "\n[📍 Polku: {{menu}} → Sopimukset → Näytä → {{dateStart}} → *Vie muotoon {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "step": "Vaihe: {{number}} / 3",
+                    "noUser": "Jotta voit siirtyä vaiheeseen nro 2, sinun on suoritettava vaihe nro 1!",
+                    "noSendouts": "Jotta voit siirtyä vaiheeseen nro 3, sinun on suoritettava vaihe nro 2!",
+                    "noFreeSendouts": "Asiakkaalla ei ole vapaita joukkolähetyksiä (ilman sopimusta)!",
+                    "data": {
+                        "user": "Valitse käyttäjä, jolle sopimus laaditaan",
+                        "sendout": "Valitse joukkolähetykset, jotka sisällytetään sopimukseen",
+                        "contract": "Lähetä sopimusta koskevat tiedot"
+                    },
+                    "title": "Luodaan sopimus!",
+                    "path": "[📍 Polku: Paneeli → Sopimukset → *Luo*]"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,738 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Inachakatwa...",
+            "cabinet": "🪴 Kabati la kibinafsi",
+            "panel": "👨‍💻 Paneli ya msimamizi",
+            "nameless": "Bila jina",
+            "buttons": {
+                "export": "📧 Hamisha",
+                "back": "🔙 Rudi",
+                "remove": "🗑 Ondoa",
+                "miss": "Haipo",
+                "create": "➕ Unda",
+                "update": "✍ Badilisha",
+                "instruction": "📖 Maelekezo",
+                "clear": "🗑 Safisha",
+                "view": "👁 Tazama",
+                "contract": "📜 Mikataba",
+                "sendout": "📢 Ujumbe kwa wingi",
+                "chat": "🗯 Makundi",
+                "contactAdmin": "👨 Msimamizi"
+            },
+            "titles": {
+                "validate": "⚠ Data ya kuingiza ilikuwa na muundo batili. Tuma tena",
+                "cabinet": "Kabati",
+                "panel": "Paneli → Data",
+                "amount": "Idadi: {{amount}}",
+                "sendoutActive": "Kwa sasa ujumbe wa wingi unafanya kazi, jaribu kusimamia data baadaye",
+                "accessDenied": {
+                    "all": "Ufikiaji umekataliwa. Tafadhali jidhinishie kwanza kwa kutumia amri /auth",
+                    "admin": "Ufikiaji umekataliwa. Sehemu hii ni kwa wateja",
+                    "customer": "Ufikiaji umekataliwa. Sehemu hii ni kwa wasimamizi"
+                }
+            }
+        },
+        "maintenace": "🚧 Kwa sasa kazi za kiufundi zinafanyika. Matumizi ya huduma yamezuiliwa kwa muda.\nTukimaliza tutaarifu mara moja!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Msimamizi",
+            "customer": "Mteja",
+            "unknown": "Haijulikani"
+        },
+        "commands": {
+            "cabinet": "Kabati",
+            "settings": "Mipangilio",
+            "panel": "Paneli ya msimamizi"
+        },
+        "chart": {
+            "labelMonth": "Takwimu za idadi ya makundi yaliyopokea ujumbe wa wingi. {{month}} {{year}}",
+            "labelWeek": "Takwimu za idadi ya makundi yaliyopokea ujumbe wa wingi. Wiki",
+            "amountSms": "Idadi ya jumbe",
+            "noLogs": "Hakuna ujumbe wa wingi uliotokea katika kipindi kilichochaguliwa!",
+            "daysOfWeek": {
+                "Mon": "Jumatatu",
+                "Tue": "Jumanne",
+                "Wed": "Jumatano",
+                "Thu": "Alhamisi",
+                "Fri": "Ijumaa",
+                "Sat": "Jumamosi",
+                "Sun": "Jumapili"
+            },
+            "months": {
+                "january": "Januari",
+                "february": "Februari",
+                "march": "Machi",
+                "april": "Aprili",
+                "may": "Mei",
+                "june": "Juni",
+                "july": "Julai",
+                "august": "Agosti",
+                "september": "Septemba",
+                "october": "Oktoba",
+                "november": "Novemba",
+                "december": "Desemba"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Januari",
+                "1": "Februari",
+                "2": "Machi",
+                "3": "Aprili",
+                "4": "Mei",
+                "5": "Juni",
+                "6": "Julai",
+                "7": "Agosti",
+                "8": "Septemba",
+                "9": "Oktoba",
+                "10": "Novemba",
+                "11": "Desemba"
+            },
+            "days": {
+                "0": "Jumatatu",
+                "1": "Jumanne",
+                "2": "Jumatano",
+                "3": "Alhamisi",
+                "4": "Ijumaa",
+                "5": "Jumamosi",
+                "6": "Jumapili"
+            }
+        },
+        "processType": {
+            "bot": "Boti",
+            "parser": "Kichanganuzi",
+            "sendout": "Ujumbe kwa wingi"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Ratiba",
+                "message": "Jumbe",
+                "contract": "Mkataba"
+            },
+            "text": "Hamisha",
+            "from": "kutoka"
+        },
+        "localization": {
+            "schedule": {
+                "number": "siku",
+                "everyDay": "Kila siku",
+                "unknownDay": "Siku isiyojulikana",
+                "dayWeek": {
+                    "1": "Jumatatu",
+                    "2": "Jumanne",
+                    "3": "Jumatano",
+                    "4": "Alhamisi",
+                    "5": "Ijumaa",
+                    "6": "Jumamosi",
+                    "7": "Jumapili",
+                    "*": "Kila siku"
+                }
+            }
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Hitilafu katika kuchakata namba ya simu!\nJaribu tena!",
+                "accessDenied": "Ufikiaji umekataliwa. Kutumia huduma ya ujumbe wa wingi, tumia amri '/settings', sehemu ya 'Msaada'"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Maandishi yamehifadhiwa!",
+                "error": "❌ Maandishi hayajahifadhiwa!\nWasiliana na msimamizi",
+                "path": "[📍 Njia: {{menu}} → Menyu «{{call}}» → Jumbe → *Unda maandishi*]"
+            },
+            "generatingText": {
+                "result": "Ujumbe uliozaliwa umewasilishwa hapa chini. Tumia vifungo vilivyo chini ya jumbe kuamua hatima ya maandishi.",
+                "pathChoose": "[📍 Njia: {{menu}} → Menyu «{{call}}» → Jumbe → Uzalishaji wa maandishi → *Hatima ya maandishi*]",
+                "buttons": {
+                    "save": "✔ Hifadhi",
+                    "cancel": "❌ Usihifadhi"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Maandishi yamebadilishwa!",
+                "error": "❌ Maandishi hayajabadilishwa!\nWasiliana na msimamizi",
+                "path": "[📍 Njia: {{menu}} → Menyu «{{call}}» → Jumbe → *Badilisha maandishi*]"
+            },
+            "addingMedia": {
+                "error": "💀 Hitilafu katika kuhifadhi media!\nWasiliana na msimamizi",
+                "invalidType": "Aina ya media haikutambuliwa! Jaribu tena",
+                "bigSize": "Faili kubwa mno. Ukubwa wa juu {{size}} MB.",
+                "documentsWTMedia": "Siwezi kuchakata hati ambazo hazina: picha / video / gif",
+                "success": "✅ Media imehifadhiwa!",
+                "error2": "❌ Media haijahifadhiwa!\nWasiliana na msimamizi",
+                "path": "[📍 Njia: {{menu}} → Menyu «{{call}}» → Jumbe → *Ongeza media*]",
+                "amount": "Idadi ya media kwenye ujumbe: {{now}} kati ya {{all}}"
+            },
+            "addingTime": {
+                "success": "✅ Muda umehifadhiwa!",
+                "error": "❌ Muda haujabadilishwa!\nWasiliana na msimamizi",
+                "path": "[📍 Njia: Paneli → Menyu «{{call}}» → Ratiba → Tazama → *Ongeza*]"
+            },
+            "updatingTime": {
+                "success": "✅ Muda umebadilishwa!",
+                "error": "❌ Muda haujabadilishwa!\nWasiliana na msimamizi",
+                "path": "[📍 Njia: Paneli → Menyu «{{call}}» → Ratiba → Tazama → *Badilisha*]"
+            },
+            "addingIdea": {
+                "success": "✅ Wazo limeongezwa kwa mafanikio, asante!",
+                "error": "❌ Wazo halijaongezwa!\nJaribu tena au wasiliana na msimamizi!",
+                "path": "[📍 Njia: Mipangilio → Mawazo → *Ongeza*]"
+            },
+            "addingUser": {
+                "success": "✅ Mtumiaji ameundwa kwa mafanikio!",
+                "error": "❌ Mtumiaji hakuundwa!\nJaribu tena baadaye.",
+                "path": "[📍 Njia: Paneli → Data → Watumiaji → *Unda*]"
+            },
+            "addingContract": {
+                "success": "✅ Mkataba umeundwa kwa mafanikio!",
+                "error": "❌ Mkataba haukuundwa!\nJaribu tena baadaye.",
+                "path": "[📍 Njia: Paneli → Mikataba → *Unda*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Ishara ya mwito imesasishwa kwa mafanikio!",
+                "error": "❌ Ishara ya mwito haijasasishwa!\nJaribu tena baadaye.",
+                "path": "[📍 Njia: Paneli → Ujumbe kwa wingi → Menyu «{{call}}» → Majina → Ishara ya mwito → *Sasisha*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Jina limesasishwa kwa mafanikio!",
+                "error": "❌ Jina halijasasishwa!\nJaribu tena baadaye.",
+                "path": "[📍 Njia: Paneli → Data → Watumiaji → Tazama → {{userName}} → *Badilisha jina*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Simu imesasishwa kwa mafanikio!",
+                "error": "❌ Simu haijasasishwa!\nJaribu tena baadaye.",
+                "path": "[📍 Njia: Paneli → Data → Watumiaji → Tazama → {{userName}} → *Badilisha namba*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "☀ Karibu! Mimi ni boti ya Telegram Bata Mbaya, msaidizi wa ujumbe kwa wingi.",
+                "commands": "Hapo chini ni maelezo mafupi ya amri za kuingiliana nami:\n/start - kuamsha boti na orodha ya amri\n/auth - kujidhinisha\n/cabinet - kusimamia kabati la kibinafsi\n/settings - kusimamia mipangilio ya boti",
+                "uAdmin": "❓ Je, wewe ni msimamizi?\n/panel - paneli ya msimamizi",
+                "link": "Unaweza kusoma maelekezo ya kina zaidi kuhusu utaratibu wa kunidhibiti kwa kutumia kifungo hapa chini."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Ghairi",
+                        "phone": "📞 Shiriki",
+                        "again": "🔄 Jaribu tena"
+                    },
+                    "unknownMessage": "Kitendo hakikutambuliwa, jaribu tena kwa kutumia vifungo: '📞 Shiriki' na '❌ Ghairi'",
+                    "manyAttempts": "Idadi ya majaribio ya kujidhinisha yaliyotumika kabla ya kikomo cha saa moja: {{actualAttempts}} kati ya {{maxAttempts}}",
+                    "stop": "Uidhinishaji umezuiwa. Vizuizi vitaondolewa baada ya: {{dateTime}}",
+                    "canceled": "Uidhinishaji umesitishwa kwa mafanikio!",
+                    "title": "Ili kuingia kwenye paneli ya ujumbe wa wingi, unahitaji kushiriki namba yako ya simu nami.\n\nKifungo kinapaswa kuonekana karibu na kibodi, kikiwa na maandishi '📞 Shiriki'",
+                    "good": "Umejidhinisha kwa mafanikio katika mfumo!",
+                    "already": "Tayari umejidhinisha katika mfumo!",
+                    "bad": "Hitilafu wakati wa kujidhinisha. Wasiliana na msimamizi!"
+                },
+                "logout": {
+                    "good": "Umetoka nje kwa mafanikio. Data yako imefutwa!",
+                    "bad": "Hitilafu wakati wa kutoka nje. Wasiliana na msimamizi!"
+                }
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Mipangilio",
+                    "buttons": {
+                        "about": "ℹ Kuhusu Huduma",
+                        "help": "❓ Msaada",
+                        "idea": "💡 Mawazo",
+                        "language": "🌐 Lugha"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Chagua lugha.",
+                        "path": "[📍 Njia: Mipangilio → *Lugha*]"
+                    },
+                    "change": {
+                        "good": "Lugha imebadilishwa!",
+                        "error": "Lugha hii tayari imechaguliwa!"
+                    }
+                },
+                "help": {
+                    "title": "Umekumbana na tatizo?\nUna maswali?\nUnataka kusifia huduma?\nUna mawazo ya kuboresha?",
+                    "interest": "Au unavutiwa na bidhaa?\nJaza fomu iliyo hapa chini na tutawasiliana nawe!",
+                    "path": "[📍 Njia: Mipangilio → *Msaada*]"
+                },
+                "about": {
+                    "title": "Huduma imeundwa kwa ajili ya kuboresha matangazo (posti, ujumbe kwa wingi) ya bidhaa zako (ofaa) ndani ya makundi / mazungumzo / chaneli.\n\nMaelekezo ya kutumia Boti - kwenye kifungo hapa chini!",
+                    "path": "[📍 Njia: Mipangilio → *Kuhusu huduma*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Menyu ya sehemu ya Mawazo. Hapa unaweza kupendekeza wazo lako kwa ajili ya maendeleo ya huduma.",
+                        "path": "[📍 Njia: Mipangilio → *Mawazo*]",
+                        "buttons": {
+                            "add": "🗳 Pendekeza",
+                            "see": "🔍 Chunguza"
+                        }
+                    },
+                    "add": {
+                        "title": "Nitumie media/sauti/maandishi n.k. Hakuna vikwazo!",
+                        "path": "[📍 Njia: Mipangilio → Mawazo → *Ongeza*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {
+                        "logout": "🚪 Toka",
+                        "login": "🔑 Ingia"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "buttons": {
+                        "data": "🗂 Data",
+                        "system": "⚡ Mfumo"
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Usimamizi wa data",
+                        "path": "[📍 Njia: Paneli → *Data*]",
+                        "buttons": {
+                            "user": "👥 Watumiaji"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Simamia makundi. Idadi: {{amount}}",
+                            "path": "[📍 Njia: Paneli → Data → *Makundi*]",
+                            "buttons": {
+                                "reupload": "🔁 Onyesha upya"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Makundi yamesasishwa!",
+                            "error": "❌ Hitilafu katika kusasisha makundi\nWasiliana na msimamizi",
+                            "path": "[📍 Njia: Paneli → Data → Makundi → *Sasisha*]"
+                        },
+                        "clear": {
+                            "success": "✅ Makundi yamesafishwa!",
+                            "error": "❌ Hitilafu katika kusafisha makundi\nWasiliana na msimamizi",
+                            "path": "[📍 Njia: Paneli → Data → Makundi → *Safisha*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Simamia watumiaji. Idadi: {{amount}}",
+                            "path": "[📍 Njia: Paneli → Data → *Watumiaji*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Orodha ya watumiaji.",
+                                "path": "[📍 Njia: Paneli → Data → Watumiaji → *Tazama*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Simamia mtumiaji",
+                                    "path": "[📍 Njia: Paneli → Data → Watumiaji → Tazama → *{{userName}}*]",
+                                    "telegramId": "Tg. kitambulisho: {{telegramId}}",
+                                    "name": "Jina: {{name}}",
+                                    "username": "Jina la mtumiaji: @{{username}}",
+                                    "phone": "Simu: +{{phone}}",
+                                    "language": "Lugha: {{language}}",
+                                    "role": "Nafasi: {{role}}"
+                                },
+                                "remove": {
+                                    "success": "✅ Mtumiaji ameondolewa kwa mafanikio!",
+                                    "error": "❌ Mtumiaji hakuondolewa!\nJaribu tena baadaye",
+                                    "path": "[📍 Njia: Paneli → Data → Watumiaji → Tazama → {{userName}} → *Ondoa*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Tunabadilisha simu!\nTuma hapa.",
+                                        "path": "[📍 Njia: Paneli → Data → Watumiaji → Tazama → {{userName}} → *Badilisha namba*]"
+                                    },
+                                    "name": {
+                                        "title": "Tunabadilisha jina!\nTuma hapa.",
+                                        "path": "[📍 Njia: Paneli → Data → Watumiaji → Tazama → {{userName}} → *Badilisha jina*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Tunaunda mtumiaji!",
+                            "path": "[📍 Njia: Paneli → Data → Watumiaji → *Unda*]"
+                        }
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Usimamizi wa mfumo",
+                        "path": "[📍 Njia: Paneli → *Mfumo*]",
+                        "buttons": {
+                            "server": "📟 Seva",
+                            "maintenace": "🛠️ Matengenezo"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Kategoria za michakato",
+                            "path": "[📍 Njia: Paneli → Mfumo → *Seva*]",
+                            "buttons": {
+                                "bot": "🤖 Boti",
+                                "parser": "🧲 Kichanganuzi"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Chagua mchakato",
+                                "path": "[📍 Njia: Paneli → Mfumo → Seva → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Simamia mchakato",
+                                    "path": "[📍 Njia: Paneli → Mfumo → Seva → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Hali",
+                                        "log": "📋 Kumbukumbu"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Njia: Paneli → Mfumo → Seva → {{processType}} → {{processName}} → *Hali*]",
+                                    "status": {
+                                        "active": "✅ Mchakato unafanya kazi.\nIli kusimamisha, bonyeza kifungo hapa chini",
+                                        "inactive": "❌ Mchakato haufanyi kazi.\nIli kuanza, bonyeza kifungo hapa chini",
+                                        "failed": "❌ Mchakato haufanyi kazi.\nIli kuanza, bonyeza kifungo hapa chini",
+                                        "error": "Tatizo la mchakato. Wasiliana na programu."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Simamisha",
+                                        "start": "▶️ Anza",
+                                        "restart": "🔁 Anzisha upya"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Tazama kumbukumbu",
+                                    "path": "[📍 Njia: Paneli → Mfumo → Seva → {{processType}} → {{processName}} → *Kumbukumbu*]",
+                                    "sort": "Kupanga: {{sortType}}",
+                                    "sortType": {
+                                        "new": "kutoka kipya hadi kikale",
+                                        "old": "kutoka kale hadi kipya"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Orodha ya ujumbe wa wingi unaofanya kazi kwa sasa.",
+                    "path": "[📍 Njia: {{menu}} → *Ujumbe kwa wingi*]",
+                    "empty": "Hakuna ujumbe wa wingi uliosanidiwa bado! Rudi baadaye."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Menyu ya ujumbe wa wingi «{{call}}»",
+                        "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → *Menyu «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Ratiba",
+                            "message": "💬 Jumbe",
+                            "statistic": "📈 Takwimu",
+                            "owner": "👑 Mmiliki",
+                            "name": "🏷️ Majina",
+                            "test": "🎛️ Majaribio"
+                        }
+                    },
+                    "test": {
+                        "alert": "Haiwezekani kuwasha hali ya majaribio wakati ujumbe wa wingi unafanya kazi!"
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Hitilafu katika kupata jumbe!\nWasiliana na msimamizi",
+                            "empty": "Hakuna jumbe!\nIli kuongeza maandishi, bonyeza kifungo hapa chini",
+                            "title": "Menyu ya sehemu ya Jumbe. Idadi: {{amount}}",
+                            "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → *Jumbe*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Chagua aina ya kuongeza maandishi.",
+                                "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → *Hali ya kuongeza*]",
+                                "buttons": {
+                                    "generate": "🔮 Zali",
+                                    "hand": "✍ Ingizo la mikono"
+                                }
+                            },
+                            "generate": {
+                                "title": "Nitazalisha maandishi ya kuuza! Tuma chanzo hapa. Hairuhusiwi kutuma rundo la maandishi.",
+                                "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → *Uzalishaji*]",
+                                "save": "✅ Maandishi yamehifadhiwa!",
+                                "cancel": "❌ Maandishi hayajahifadhiwa!",
+                                "pathSave": "[📍 Njia: {{menu}} → Menyu «{{call}}» → Jumbe → Uzalishaji → *Hifadhi*]",
+                                "pathCancel": "[📍 Njia: {{menu}} → Menyu «{{call}}» → Jumbe → Uzalishaji → *Ghairi*]"
+                            },
+                            "hand": {
+                                "title": "Tunaongeza maandishi!\nTuma maandishi au uyaelekeze hapa. Hairuhusiwi kutuma rundo la maandishi.",
+                                "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → *Ongeza maandishi*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Jumbe zote zimesafishwa!",
+                            "error": "❌ Jumbe hazijasafishwa!\nWasiliana na msimamizi",
+                            "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → *Safisha*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Ujumbe №{{number}}.",
+                                "amountMedia": "Idadi ya media: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → *Tazama*]",
+                                "buttons": {
+                                    "updateText": "✍️ Badilisha maandishi",
+                                    "addMedia": "🖼 Ongeza media",
+                                    "clearAllMedia": "🗑 Safisha media"
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Tunabadilisha maandishi!\nTuma maandishi au uyaelekeze hapa. Hairuhusiwi kutuma rundo la maandishi.",
+                                    "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → *Badilisha maandishi*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Ujumbe umeondolewa!",
+                                    "error": "❌ Maandishi hayakuondolewa!\nWasiliana na msimamizi",
+                                    "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → *Ondoa maandishi*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Tunaongeza media!\nTuma media moja kwa wakati.",
+                                    "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → *Ongeza media*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Media zote zimesafishwa!",
+                                    "error": "❌ Media haijasafishwa!\nWasiliana na msimamizi",
+                                    "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → *Safisha media*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Rukia haraka kwa ujumbe kwa namba",
+                                "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → Tazama → *Chagua ujumbe*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Chagua umbizo ambalo orodha ya jumbe itahifadhiwa",
+                                "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → *Chagua umbizo la usafirishaji*]"
+                            },
+                            "result": {
+                                "error": "❌ Hitilafu katika kusafirisha jumbe\nWasiliana na msimamizi",
+                                "caption": "Orodha ya jumbe katika umbizo la {{exportType}} iko tayari!",
+                                "path": "\n[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Jumbe → *Safirisha kwa {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Ratiba bado haijasanidiwa!",
+                            "title": "Menyu ya sehemu ya Ratiba. Idadi ya nyakati kwenye ratiba: {{amount}}",
+                            "path": "\n[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → *Ratiba*]"
+                        },
+                        "create": {
+                            "title": "Tunaongeza muda!",
+                            "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Ratiba → *Ongeza*]"
+                        },
+                        "clear": {
+                            "success": "✅ Ratiba imesafishwa!",
+                            "error": "❌ Ratiba haijasafishwa!\nWasiliana na msimamizi",
+                            "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Ratiba → *Safisha*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Ratiba ya ujumbe wa wingi imewasilishwa hapa chini kama vifungo.",
+                                "path": "\n[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Ratiba → *Tazama*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Tunabadilisha muda!",
+                                    "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Ratiba → Tazama → *Badilisha muda*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Muda umeondolewa!",
+                                    "error": "❌ Muda haukuondolewa! Wasiliana na msimamizi",
+                                    "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Ratiba → Tazama → *Ondoa muda*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Muda uliochaguliwa:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Ratiba → Tazama → *Chagua kitendo*]"
+                                }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Chagua umbizo ambalo ratiba ya ujumbe wa wingi itahifadhiwa",
+                                "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Ratiba → *Chagua umbizo la usafirishaji*]"
+                            },
+                            "result": {
+                                "error": "❌ Hitilafu katika kusafirisha ratiba\nWasiliana na msimamizi",
+                                "caption": "Ratiba katika umbizo la {{exportType}} iko tayari!",
+                                "path": "\n[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Ratiba → *Safirisha kwa {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Chagua umbizo la takwimu unalotaka.",
+                            "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → *Takwimu*]",
+                            "buttons": {
+                                "selective": "📅 Teule",
+                                "comparative": "📊 Ulinganishi"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Kwa sasa kazi za kiufundi zinafanyika kwenye sehemu hii.",
+                                "noData": "Hakuna matokeo yaliyopatikana kwa tarehe iliyochaguliwa!",
+                                "noAccess": "Kifungo kilichobonyezwa hakipatikani!",
+                                "title": "Takwimu teule.\nHapo chini kuna kalenda yenye tarehe. Ili kuona matokeo ya ujumbe wa wingi kwa siku fulani, bonyeza tu!\n\nIkiwa ujumbe wa wingi:\n*haukutokea,\n*haukuwepo,\n*haukupangwa,\n*au kitu kingine\n- ujumbe wenye muktadha unaofaa utaonyeshwa, usiogope.",
+                                "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Takwimu → *Teule*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Matokeo ya ujumbe wa wingi kwa {{date}}.",
+                                    "time": "Muda: {{time}}",
+                                    "success": "Utumaji uliofaulu: {{success}}",
+                                    "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Takwimu → Teule → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Takwimu → Teule → {{date}} → *Makundi*]"
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Chagua aina ya takwimu za kulinganisha.",
+                                "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Takwimu → *Ulinganishi*]",
+                                "buttons": {
+                                    "week": "Wiki",
+                                    "month": "Mwezi"
+                                }
+                            },
+                            "week": {
+                                "title": "Takwimu za kulinganisha (Wiki)",
+                                "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Takwimu → Ulinganishi → *Wiki*]"
+                            },
+                            "month": {
+                                "title": "Takwimu za kulinganisha (Mwezi)",
+                                "path": "[📍 Njia: {{menu}} → Ujumbe kwa wingi → Menyu «{{call}}» → Takwimu → Ulinganishi → *Mwezi*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Mmiliki wa ujumbe wa wingi.",
+                            "empty": "Ujumbe wa wingi hauna mmiliki!",
+                            "name": "Jina: {{name}}",
+                            "phone": "Simu: +{{phone}}",
+                            "path": "[📍 Njia: Paneli → Ujumbe kwa wingi → Menyu «{{call}}» → *Mmiliki*]",
+                            "buttons": {
+                                "change": "🪧 Kagua upya"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Chagua mtumiaji wa kumteua kuwa mmiliki wa ujumbe huu wa wingi.",
+                                "path": "[📍 Njia: Paneli → Ujumbe kwa wingi → Menyu «{{call}}» → Mmiliki → *Chagua*]",
+                                "noOwner": "Bila mmiliki"
+                            },
+                            "action": {
+                                "success": "✅ Mmiliki amekaguliwa upya kwa mafanikio!",
+                                "error": "❌ Mmiliki hakukaguliwa upya! Jaribu tena baadaye!",
+                                "path": "[📍 Njia: Paneli → Ujumbe kwa wingi → Menyu «{{call}}» → Mmiliki → {{owner}} → *Teua*]"
+                            }
+                        }
+                    },
+                    "name": {
+                        "main": {
+                            "title": "Majina ya ujumbe wa wingi:",
+                            "about": "1 - sahihi (jina la zamani)\n2 - jina la huluki\n3 - ishara ya mwito (jina linaloonekana kwenye boti)",
+                            "path": "[📍 Njia: Paneli → Ujumbe kwa wingi → Menyu «{{call}}» → *Majina*]"
+                        },
+                        "update": {
+                            "call": {
+                                "title": "Tunabadilisha ishara ya mwito ya ujumbe wa wingi!",
+                                "path": "[📍 Njia: Paneli → Ujumbe kwa wingi → Menyu «{{call}}» → Majina → Ishara ya mwito → *Sasisha*]"
+                            },
+                            "label": {
+                                "alert": "Sahihi ya ujumbe wa wingi haiwezi kubadilishwa!"
+                            },
+                            "name": {
+                                "alert": "Jina la ujumbe wa wingi haliwezi kubadilishwa!"
+                            }
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Simamia mikataba. Idadi: {{amount}}",
+                    "path": "[📍 Njia: {{menu}} → *Mikataba*]",
+                    "empty": "Hakuna mikataba iliyosanidiwa bado! Rudi baadaye.",
+                    "contractName": "{{userName}}: kutoka {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Orodha ya mikataba.",
+                        "path": "[📍 Njia: {{menu}} → Mikataba → *Tazama*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Mkataba kutoka {{dateStart}}.",
+                            "sendouts": "Ujumbe wa wingi uliojumuishwa kwenye mkataba: {{sendouts}}",
+                            "noSendouts": "tupu.",
+                            "userName": "Mteja: {{userName}}",
+                            "dateStart": "Tarehe ya kuanza: {{dateStart}}",
+                            "dateEnd": "Tarehe ya mwisho: {{dateEnd}}",
+                            "price": "Bei: {{price}}",
+                            "priceText": "Bei (maandishi): {{priceText}}",
+                            "error": "Hitilafu katika kupata mkataba. Wasiliana na msimamizi",
+                            "path": "\n[📍 Njia: {{menu}} → Mikataba → Tazama → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success": "✅ Mkataba umeondolewa kwa mafanikio!",
+                            "error": "❌ Mkataba haukuondolewa!\nJaribu tena baadaye",
+                            "path": "[📍 Njia: Paneli → Mikataba → Tazama → {{dateStart}} → *Ondoa*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Chagua umbizo ambalo mkataba utahifadhiwa",
+                                "path": "[📍 Njia: {{menu}} → Mikataba → Tazama → {{dateStart}} → *Chagua umbizo la usafirishaji*]"
+                            },
+                            "result": {
+                                "error": "❌ Hitilafu katika kusafirisha mkataba\nWasiliana na msimamizi",
+                                "caption": "Mkataba katika umbizo la {{exportType}} uko tayari!",
+                                "path": "\n[📍 Njia: {{menu}} → Mikataba → Tazama → {{dateStart}} → *Safirisha kwa {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "step": "Hatua: {{number}} / 3",
+                    "noUser": "Ili kuendelea kwa hatua #2, unahitaji kukamilisha hatua #1!",
+                    "noSendouts": "Ili kuendelea kwa hatua #3, unahitaji kukamilisha hatua #2!",
+                    "noFreeSendouts": "Mteja hana ujumbe wa wingi huru (bila mkataba)!",
+                    "data": {
+                        "user": "Chagua mtumiaji ambaye mkataba utaandaliwa",
+                        "sendout": "Chagua ujumbe wa wingi utakaojumuishwa kwenye mkataba",
+                        "contract": "Tuma data kuhusu mkataba"
+                    },
+                    "title": "Tunaunda mkataba!",
+                    "path": "[📍 Njia: Paneli → Mikataba → *Unda*]"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,738 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Emal edilir...",
+            "cabinet": "🪴 Şəxsi kabinet",
+            "panel": "👨‍💻 Admin paneli",
+            "nameless": "Adsız",
+            "buttons": {
+                "export": "📧 İxrac",
+                "back": "🔙 Geri",
+                "remove": "🗑 Sil",
+                "miss": "Yoxdur",
+                "create": "➕ Yarat",
+                "update": "✍ Dəyiş",
+                "instruction": "📖 Təlimat",
+                "clear": "🗑 Təmizlə",
+                "view": "👁 Bax",
+                "contract": "📜 Müqavilələr",
+                "sendout": "📢 Kütləvi göndərişlər",
+                "chat": "🗯 Qruplar",
+                "contactAdmin": "👨 Administrator"
+            },
+            "titles": {
+                "validate": "⚠ Giriş məlumatları düzgün olmayan formatda idi. Yenidən göndərin",
+                "cabinet": "Kabinet",
+                "panel": "Panel → Məlumatlar",
+                "amount": "Miqdar: {{amount}}",
+                "sendoutActive": "Hazırda kütləvi göndəriş aktivdir, məlumatları daha sonra idarə etməyə çalışın",
+                "accessDenied": {
+                    "all": "Giriş qadağandır. Əvvəlcə /auth əmri ilə icazə alın",
+                    "admin": "Giriş qadağandır. Bu bölmə müştərilər üçündür",
+                    "customer": "Giriş qadağandır. Bu bölmə administratorlar üçündür"
+                }
+            }
+        },
+        "maintenace": "🚧 Hal-hazırda texniki işlər aparılır. Xidmətdən istifadə müvəqqəti məhdudlaşdırılıb.\nBitən kimi dərhal xəbər verəcəyik!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Administrator",
+            "customer": "Müştəri",
+            "unknown": "Naməlum"
+        },
+        "commands": {
+            "cabinet": "Kabinet",
+            "settings": "Parametrlər",
+            "panel": "Admin paneli"
+        },
+        "chart": {
+            "labelMonth": "Kütləvi göndərişi alan qrupların sayı statistikası. {{month}} {{year}}",
+            "labelWeek": "Kütləvi göndərişi alan qrupların sayı statistikası. Həftə",
+            "amountSms": "Mesajların sayı",
+            "noLogs": "Seçilmiş dövrdə hələ kütləvi göndəriş olmayıb!",
+            "daysOfWeek": {
+                "Mon": "B.e",
+                "Tue": "Ç.a",
+                "Wed": "Ç",
+                "Thu": "C.a",
+                "Fri": "C",
+                "Sat": "Ş",
+                "Sun": "B"
+            },
+            "months": {
+                "january": "Yanvar",
+                "february": "Fevral",
+                "march": "Mart",
+                "april": "Aprel",
+                "may": "May",
+                "june": "İyun",
+                "july": "İyul",
+                "august": "Avqust",
+                "september": "Sentyabr",
+                "october": "Oktyabr",
+                "november": "Noyabr",
+                "december": "Dekabr"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Yanvar",
+                "1": "Fevral",
+                "2": "Mart",
+                "3": "Aprel",
+                "4": "May",
+                "5": "İyun",
+                "6": "İyul",
+                "7": "Avqust",
+                "8": "Sentyabr",
+                "9": "Oktyabr",
+                "10": "Noyabr",
+                "11": "Dekabr"
+            },
+            "days": {
+                "0": "B.e",
+                "1": "Ç.a",
+                "2": "Ç",
+                "3": "C.a",
+                "4": "C",
+                "5": "Ş",
+                "6": "B"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Parser",
+            "sendout": "Kütləvi göndərişlər"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Cədvəl",
+                "message": "Mesajlar",
+                "contract": "Müqavilə"
+            },
+            "text": "İxrac",
+            "from": "dan"
+        },
+        "localization": {
+            "schedule": {
+                "number": "tarix",
+                "everyDay": "Hər gün",
+                "unknownDay": "Naməlum gün",
+                "dayWeek": {
+                    "1": "Bazar ertəsi",
+                    "2": "Çərşənbə axşamı",
+                    "3": "Çərşənbə",
+                    "4": "Cümə axşamı",
+                    "5": "Cümə",
+                    "6": "Şənbə",
+                    "7": "Bazar",
+                    "*": "Hər gün"
+                }
+            }
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Telefon nömrəsini emal edərkən xəta!\nYenidən cəhd edin!",
+                "accessDenied": "Giriş qadağandır. Kütləvi göndəriş xidmətindən istifadə etmək üçün '/settings' əmrinin 'Kömək' bölməsindən istifadə edin"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Mətn saxlanıldı!",
+                "error": "❌ Mətn saxlanılmadı!\nAdministratora müraciət edin",
+                "path": "[📍 Yol: {{menu}} → Menyu «{{call}}» → Mesajlar → *Mətn yaratma*]"
+            },
+            "generatingText": {
+                "result": "Yaradılmış mesaj aşağıda təqdim olunur. Mətnin taleyini həll etmək üçün mesajların altındakı düymələrdən istifadə edin.",
+                "pathChoose": "[📍 Yol: {{menu}} → Menyu «{{call}}» → Mesajlar → Mətn yaradılması → *Mətnin taleyi*]",
+                "buttons": {
+                    "save": "✔ Saxla",
+                    "cancel": "❌ Saxlama"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Mətn dəyişdirildi!",
+                "error": "❌ Mətn dəyişdirilmədi!\nAdministratora müraciət edin",
+                "path": "[📍 Yol: {{menu}} → Menyu «{{call}}» → Mesajlar → *Mətni dəyiş*]"
+            },
+            "addingMedia": {
+                "error": "💀 Media saxlanılarkən xəta!\nAdministratora müraciət edin",
+                "invalidType": "Media növü tanınmadı! Yenidən cəhd edin",
+                "bigSize": "Fayl çox böyükdür. Maksimum ölçü {{size}} MB.",
+                "documentsWTMedia": "Tərkibində: şəkil / video / gif olmayan sənədləri emal edə bilmirəm",
+                "success": "✅ Media saxlanıldı!",
+                "error2": "❌ Media saxlanılmadı!\nAdministratora müraciət edin",
+                "path": "[📍 Yol: {{menu}} → Menyu «{{call}}» → Mesajlar → *Media əlavə et*]",
+                "amount": "Mesajdakı media sayı: {{now}} / {{all}}"
+            },
+            "addingTime": {
+                "success": "✅ Vaxt saxlanıldı!",
+                "error": "❌ Vaxt dəyişdirilmədi!\nAdministratora müraciət edin",
+                "path": "[📍 Yol: Panel → Menyu «{{call}}» → Cədvəl → Bax → *Əlavə et*]"
+            },
+            "updatingTime": {
+                "success": "✅ Vaxt dəyişdirildi!",
+                "error": "❌ Vaxt dəyişdirilmədi!\nAdministratora müraciət edin",
+                "path": "[📍 Yol: Panel → Menyu «{{call}}» → Cədvəl → Bax → *Dəyiş*]"
+            },
+            "addingIdea": {
+                "success": "✅ İdeya uğurla əlavə edildi, təşəkkürlər!",
+                "error": "❌ İdeya əlavə edilmədi!\nYenidən cəhd edin və ya administratora müraciət edin!",
+                "path": "[📍 Yol: Parametrlər → İdeyalar → *Əlavə et*]"
+            },
+            "addingUser": {
+                "success": "✅ İstifadəçi uğurla yaradıldı!",
+                "error": "❌ İstifadəçi yaradılmadı!\nDaha sonra cəhd edin.",
+                "path": "[📍 Yol: Panel → Məlumatlar → İstifadəçilər → *Yarat*]"
+            },
+            "addingContract": {
+                "success": "✅ Müqavilə uğurla yaradıldı!",
+                "error": "❌ Müqavilə yaradılmadı!\nDaha sonra cəhd edin.",
+                "path": "[📍 Yol: Panel → Müqavilələr → *Yarat*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Çağırış işarəsi uğurla yeniləndi!",
+                "error": "❌ Çağırış işarəsi yenilənmədi!\nDaha sonra cəhd edin.",
+                "path": "[📍 Yol: Panel → Kütləvi göndərişlər → Menyu «{{call}}» → Adlar → Çağırış işarəsi → *Yenilə*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Ad uğurla yeniləndi!",
+                "error": "❌ Ad yenilənmədi!\nDaha sonra cəhd edin.",
+                "path": "[📍 Yol: Panel → Məlumatlar → İstifadəçilər → Bax → {{userName}} → *Adı dəyiş*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Telefon uğurla yeniləndi!",
+                "error": "❌ Telefon yenilənmədi!\nDaha sonra cəhd edin.",
+                "path": "[📍 Yol: Panel → Məlumatlar → İstifadəçilər → Bax → {{userName}} → *Nömrəni dəyiş*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "☀ Salam! Mən Telegram botu Çirkin ördək balası, kütləvi göndəriş üzrə köməkçiyəm.",
+                "commands": "Aşağıda mənimlə qarşılıqlı əlaqə üçün əmrlərin qısa təsviri verilmişdir:\n/start - botu aktivləşdirmək və əmrlər siyahısı\n/auth - icazə\n/cabinet - şəxsi kabineti idarə et\n/settings - bot parametrlərini idarə et",
+                "uAdmin": "❓ Siz administratorsunuz?\n/panel - admin paneli",
+                "link": "Məni idarəetmə mexanizmi ilə daha ətraflı təlimatı aşağıdakı düyməni istifadə edərək tanış ola bilərsiniz."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Ləğv et",
+                        "phone": "📞 Paylaş",
+                        "again": "🔄 Yenidən cəhd et"
+                    },
+                    "unknownMessage": "Hərəkət tanınmadı, '📞 Paylaş' və '❌ Ləğv et' düymələrini istifadə edərək yenidən cəhd edin",
+                    "manyAttempts": "Bir saatlıq limitdən əvvəl istifadə edilmiş icazə cəhdlərinin sayı: {{actualAttempts}} / {{maxAttempts}}",
+                    "stop": "İcazə məhdudlaşdırılıb. Məhdudiyyətlər aşağıdakı vaxtdan sonra aradan qaldırılacaq: {{dateTime}}",
+                    "canceled": "İcazə uğurla dayandırıldı!",
+                    "title": "Kütləvi göndəriş panelinə daxil olmaq üçün telefon nömrənizi mənimlə paylaşmalısınız.\n\nDüymə klaviaturanın yanında '📞 Paylaş' yazısı ilə görünməlidir",
+                    "good": "Siz sistemdə uğurla icazə aldınız!",
+                    "already": "Siz artıq sistemdə icazə almışsınız!",
+                    "bad": "İcazə zamanı xəta. Administratora müraciət edin!"
+                },
+                "logout": {
+                    "good": "Siz uğurla sistemdən çıxdınız. Sizin haqqınızdakı məlumatlar silindi!",
+                    "bad": "Sistemdən çıxarkən xəta. Administratora müraciət edin!"
+                }
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Parametrlər",
+                    "buttons": {
+                        "about": "ℹ Xidmət haqqında",
+                        "help": "❓ Kömək",
+                        "idea": "💡 İdeyalar",
+                        "language": "🌐 Dil"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Dili seçin.",
+                        "path": "[📍 Yol: Parametrlər → *Dil*]"
+                    },
+                    "change": {
+                        "good": "Dil dəyişdirildi!",
+                        "error": "Bu dil artıq seçilmişdir!"
+                    }
+                },
+                "help": {
+                    "title": "Problem yaşadınız?\nSuallarınız var?\nXidməti tərifləmək istəyirsiniz?\nTəkmilləşdirmə ilə bağlı fikirləriniz var?",
+                    "interest": "Və ya məhsul ilə maraqlanırsınız?\nAşağıdakı anketi doldurun, biz sizinlə əlaqə saxlayacağıq!",
+                    "path": "[📍 Yol: Parametrlər → *Kömək*]"
+                },
+                "about": {
+                    "title": "Xidmət öz məhsullarınızın (təkliflərinizin) reklamını (postlar, kütləvi göndərişlər) qruplar / söhbətlər / kanallar daxilində avtomatlaşdırmaq üçün hazırlanmışdır.\n\nBotdan istifadə təlimatı - aşağıdakı düymədə!",
+                    "path": "[📍 Yol: Parametrlər → *Xidmət haqqında*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "İdeyalar bölməsinin menyusu. Burada xidmətin inkişafı üçün öz ideyanızı təklif edə bilərsiniz.",
+                        "path": "[📍 Yol: Parametrlər → *İdeyalar*]",
+                        "buttons": {
+                            "add": "🗳 Təklif et",
+                            "see": "🔍 Araşdır"
+                        }
+                    },
+                    "add": {
+                        "title": "Mənə media/audio/mətn və s. göndərin. Heç bir məhdudiyyət yoxdur!",
+                        "path": "[📍 Yol: Parametrlər → İdeyalar → *Əlavə et*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {
+                        "logout": "🚪 Çıxış",
+                        "login": "🔑 Giriş"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "buttons": {
+                        "data": "🗂 Məlumatlar",
+                        "system": "⚡ Sistem"
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Məlumatların idarə edilməsi",
+                        "path": "[📍 Yol: Panel → *Məlumatlar*]",
+                        "buttons": {
+                            "user": "👥 İstifadəçilər"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Qrupların idarə edilməsi. Miqdar: {{amount}}",
+                            "path": "[📍 Yol: Panel → Məlumatlar → *Qruplar*]",
+                            "buttons": {
+                                "reupload": "🔁 Yenilə"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Qruplar yeniləndi!",
+                            "error": "❌ Qrupları yeniləyərkən xəta\nAdministratora müraciət edin",
+                            "path": "[📍 Yol: Panel → Məlumatlar → Qruplar → *Yeniləmə*]"
+                        },
+                        "clear": {
+                            "success": "✅ Qruplar təmizləndi!",
+                            "error": "❌ Qrupları təmizləyərkən xəta\nAdministratora müraciət edin",
+                            "path": "[📍 Yol: Panel → Məlumatlar → Qruplar → *Təmizləmə*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "İstifadəçilərin idarə edilməsi. Miqdar: {{amount}}",
+                            "path": "[📍 Yol: Panel → Məlumatlar → *İstifadəçilər*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "İstifadəçilərin siyahısı.",
+                                "path": "[📍 Yol: Panel → Məlumatlar → İstifadəçilər → *Bax*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "İstifadəçinin idarə edilməsi",
+                                    "path": "[📍 Yol: Panel → Məlumatlar → İstifadəçilər → Bax → *{{userName}}*]",
+                                    "telegramId": "Tg. ID: {{telegramId}}",
+                                    "name": "Ad: {{name}}",
+                                    "username": "İstifadəçi adı: @{{username}}",
+                                    "phone": "Telefon: +{{phone}}",
+                                    "language": "Dil: {{language}}",
+                                    "role": "Rol: {{role}}"
+                                },
+                                "remove": {
+                                    "success": "✅ İstifadəçi uğurla silindi!",
+                                    "error": "❌ İstifadəçi silinmədi!\nDaha sonra cəhd edin",
+                                    "path": "[📍 Yol: Panel → Məlumatlar → İstifadəçilər → Bax → {{userName}} → *Sil*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Telefonu dəyişirik!\nBuraya göndərin.",
+                                        "path": "[📍 Yol: Panel → Məlumatlar → İstifadəçilər → Bax → {{userName}} → *Nömrəni dəyiş*]"
+                                    },
+                                    "name": {
+                                        "title": "Adı dəyişirik!\nBuraya göndərin.",
+                                        "path": "[📍 Yol: Panel → Məlumatlar → İstifadəçilər → Bax → {{userName}} → *Adı dəyiş*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "İstifadəçi yaradırıq!",
+                            "path": "[📍 Yol: Panel → Məlumatlar → İstifadəçilər → *Yarat*]"
+                        }
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Sistemin idarə edilməsi",
+                        "path": "[📍 Yol: Panel → *Sistem*]",
+                        "buttons": {
+                            "server": "📟 Server",
+                            "maintenace": "🛠️ Texniki xidmət"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Proses kateqoriyaları",
+                            "path": "[📍 Yol: Panel → Sistem → *Server*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Parser"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Proses seçin",
+                                "path": "[📍 Yol: Panel → Sistem → Server → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Prosesin idarə edilməsi",
+                                    "path": "[📍 Yol: Panel → Sistem → Server → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Vəziyyət",
+                                        "log": "📋 Jurnallar"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Yol: Panel → Sistem → Server → {{processType}} → {{processName}} → *Vəziyyət*]",
+                                    "status": {
+                                        "active": "✅ Proses aktivdir.\nDayandırmaq üçün aşağıdakı düyməyə basın",
+                                        "inactive": "❌ Proses aktiv deyil.\nBaşlatmaq üçün aşağıdakı düyməyə basın",
+                                        "failed": "❌ Proses aktiv deyil.\nBaşlatmaq üçün aşağıdakı düyməyə basın",
+                                        "error": "Proseslə bağlı problem. Proqramçıya müraciət edin."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Dayandır",
+                                        "start": "▶️ Başlat",
+                                        "restart": "🔁 Yenidən başlat"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Jurnallara baxış",
+                                    "path": "[📍 Yol: Panel → Sistem → Server → {{processType}} → {{processName}} → *Jurnallar*]",
+                                    "sort": "Sıralama: {{sortType}}",
+                                    "sortType": {
+                                        "new": "yenidən köhnəyə",
+                                        "old": "köhnədən yeniyə"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Hazırda aktiv kütləvi göndərişlərin siyahısı.",
+                    "path": "[📍 Yol: {{menu}} → *Kütləvi göndərişlər*]",
+                    "empty": "Hələ kütləvi göndərişlər konfiqurasiya edilməyib! Daha sonra qayıdın."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 «{{call}}» kütləvi göndərişi menyusu",
+                        "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → *Menyu «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Cədvəl",
+                            "message": "💬 Mesajlar",
+                            "statistic": "📈 Statistik",
+                            "owner": "👑 Sahib",
+                            "name": "🏷️ Adlar",
+                            "test": "🎛️ Test etmə"
+                        }
+                    },
+                    "test": {
+                        "alert": "Kütləvi göndəriş aktiv olduğu müddətdə test rejimini işə salmaq mümkün deyil!"
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Mesajları alarkən xəta!\nAdministratora müraciət edin",
+                            "empty": "Mesaj yoxdur!\nMətn əlavə etmək üçün aşağıdakı düyməyə basın",
+                            "title": "Mesajlar bölməsinin menyusu. Miqdar: {{amount}}",
+                            "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → *Mesajlar*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Mətn əlavə etmə növünü seçin.",
+                                "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → *Əlavə etmə rejimi*]",
+                                "buttons": {
+                                    "generate": "🔮 Yaradılması",
+                                    "hand": "✍ Əllə daxil etmə"
+                                }
+                            },
+                            "generate": {
+                                "title": "Satış mətni yaradacağam! Mənbəni buraya göndərin. Mətn topası ilə göndərmək olmaz.",
+                                "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → *Yaradılma*]",
+                                "save": "✅ Mətn saxlanıldı!",
+                                "cancel": "❌ Mətn saxlanılmadı!",
+                                "pathSave": "[📍 Yol: {{menu}} → Menyu «{{call}}» → Mesajlar → Yaradılma → *Saxla*]",
+                                "pathCancel": "[📍 Yol: {{menu}} → Menyu «{{call}}» → Mesajlar → Yaradılma → *Ləğv et*]"
+                            },
+                            "hand": {
+                                "title": "Mətn əlavə edirik!\nMətni göndərin və ya buraya yönləndirin. Mətn topası ilə göndərmək olmaz.",
+                                "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → *Mətn əlavə et*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Bütün mesajlar təmizləndi!",
+                            "error": "❌ Mesajlar təmizlənmədi!\nAdministratora müraciət edin",
+                            "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → *Təmizləmə*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Mesaj №{{number}}.",
+                                "amountMedia": "Media sayı: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → *Bax*]",
+                                "buttons": {
+                                    "updateText": "✍️ Mətni dəyiş",
+                                    "addMedia": "🖼 Media əlavə et",
+                                    "clearAllMedia": "🗑 Medianı təmizlə"
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Mətni dəyişirik!\nMətni göndərin və ya buraya yönləndirin. Mətn topası ilə göndərmək olmaz.",
+                                    "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → *Mətni dəyiş*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Mesaj silindi!",
+                                    "error": "❌ Mətn silinmədi!\nAdministratora müraciət edin",
+                                    "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → *Mətni sil*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Media əlavə edirik!\nMedianı 1 ədəd olmaqla göndərin.",
+                                    "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → *Media əlavə et*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Bütün media təmizləndi!",
+                                    "error": "❌ Media təmizlənmədi!\nAdministratora müraciət edin",
+                                    "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → *Medianı təmizlə*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Nömrəyə görə mesaja sürətli keçid",
+                                "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → Bax → *Mesaj seçimi*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Mesajlar siyahısının saxlanılacağı formatı seçin",
+                                "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → *İxrac formatının seçimi*]"
+                            },
+                            "result": {
+                                "error": "❌ Mesajları ixrac edərkən xəta\nAdministratora müraciət edin",
+                                "caption": "Mesajlar siyahısı {{exportType}} formatında hazırdır!",
+                                "path": "\n[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Mesajlar → *{{exportType}} formatında ixrac*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Cədvəl hələ konfiqurasiya edilməyib!",
+                            "title": "Cədvəl bölməsinin menyusu. Cədvəldə vaxtların sayı: {{amount}}",
+                            "path": "\n[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → *Cədvəl*]"
+                        },
+                        "create": {
+                            "title": "Vaxt əlavə edirik!",
+                            "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Cədvəl → *Əlavə et*]"
+                        },
+                        "clear": {
+                            "success": "✅ Cədvəl təmizləndi!",
+                            "error": "❌ Cədvəl təmizlənmədi!\nAdministratora müraciət edin",
+                            "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Cədvəl → *Təmizləmə*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Kütləvi göndəriş cədvəli aşağıda düymələr şəklində təqdim olunur.",
+                                "path": "\n[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Cədvəl → *Bax*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Vaxtı dəyişirik!",
+                                    "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Cədvəl → Bax → *Vaxtı dəyiş*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Vaxt silindi!",
+                                    "error": "❌ Vaxt silinmədi! Administratora müraciət edin",
+                                    "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Cədvəl → Bax → *Vaxtı sil*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Seçilmiş vaxt:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Cədvəl → Bax → *Hərəkət seçimi*]"
+                                }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Kütləvi göndəriş cədvəlinin saxlanılacağı formatı seçin",
+                                "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Cədvəl → *İxrac formatının seçimi*]"
+                            },
+                            "result": {
+                                "error": "❌ Cədvəli ixrac edərkən xəta\nAdministratora müraciət edin",
+                                "caption": "Cədvəl {{exportType}} formatında hazırdır!",
+                                "path": "\n[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Cədvəl → *{{exportType}} formatında ixrac*]"
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "İstədiyiniz statistik formatı seçin.",
+                            "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → *Statistika*]",
+                            "buttons": {
+                                "selective": "📅 Seçmə",
+                                "comparative": "📊 Müqayisəli"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Hal-hazırda bu bölmə üzərində texniki işlər aparılır.",
+                                "noData": "Seçilmiş tarix üçün nəticə tapılmadı!",
+                                "noAccess": "Basılan düymə mövcud deyil!",
+                                "title": "Seçmə statistika.\nAşağıda təqvim tarixlərlə birlikdə verilmişdir. Müəyyən bir gün üçün kütləvi göndərişin nəticəsini görmək üçün sadəcə onun üzərinə klikləyin!\n\nƏgər kütləvi göndəriş:\n*baş vermədisə,\n*mövcud deyildisə,\n*planlaşdırılmamışdırsa,\n*və ya başqa bir şeydirsə\n- müvafiq kontekstlə mesaj göstəriləcək, qorxmayın.",
+                                "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Statistika → *Seçmə*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "{{date}} tarixi üçün kütləvi göndərişin nəticəsi.",
+                                    "time": "Vaxt: {{time}}",
+                                    "success": "Uğurlu göndərişlər: {{success}}",
+                                    "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Statistika → Seçmə → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Statistika → Seçmə → {{date}} → *Qruplar*]"
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Müqayisəli statistikanın növünü seçin.",
+                                "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Statistika → *Müqayisəli*]",
+                                "buttons": {
+                                    "week": "Həftə",
+                                    "month": "Ay"
+                                }
+                            },
+                            "week": {
+                                "title": "Müqayisəli statistika (Həftə)",
+                                "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Statistika → Müqayisəli → *Həftə*]"
+                            },
+                            "month": {
+                                "title": "Müqayisəli statistika (Ay)",
+                                "path": "[📍 Yol: {{menu}} → Kütləvi göndərişlər → Menyu «{{call}}» → Statistika → Müqayisəli → *Ay*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Kütləvi göndərişin sahibi.",
+                            "empty": "Kütləvi göndərişin sahibi yoxdur!",
+                            "name": "Ad: {{name}}",
+                            "phone": "Telefon: +{{phone}}",
+                            "path": "[📍 Yol: Panel → Kütləvi göndərişlər → Menyu «{{call}}» → *Sahib*]",
+                            "buttons": {
+                                "change": "🪧 Yenidən təyin et"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Bu kütləvi göndərişin sahibi təyin etmək üçün istifadəçi seçin.",
+                                "path": "[📍 Yol: Panel → Kütləvi göndərişlər → Menyu «{{call}}» → Sahib → *Seçim*]",
+                                "noOwner": "Sahibsiz"
+                            },
+                            "action": {
+                                "success": "✅ Sahib uğurla yenidən təyin edildi!",
+                                "error": "❌ Sahib yenidən təyin edilmədi! Daha sonra cəhd edin!",
+                                "path": "[📍 Yol: Panel → Kütləvi göndərişlər → Menyu «{{call}}» → Sahib → {{owner}} → *Təyin et*]"
+                            }
+                        }
+                    },
+                    "name": {
+                        "main": {
+                            "title": "Kütləvi göndərişin adları:",
+                            "about": "1 - imza (köhnə adlandırma)\n2 - varlığın adı\n3 - çağırış işarəsi (botda göstərilən ad)",
+                            "path": "[📍 Yol: Panel → Kütləvi göndərişlər → Menyu «{{call}}» → *Adlar*]"
+                        },
+                        "update": {
+                            "call": {
+                                "title": "Kütləvi göndərişin çağırış işarəsini dəyişirik!",
+                                "path": "[📍 Yol: Panel → Kütləvi göndərişlər → Menyu «{{call}}» → Adlar → Çağırış işarəsi → *Yenilə*]"
+                            },
+                            "label": {
+                                "alert": "Kütləvi göndərişin imzasını dəyişmək mümkün deyil!"
+                            },
+                            "name": {
+                                "alert": "Kütləvi göndərişin adını dəyişmək mümkün deyil!"
+                            }
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Müqavilələrin idarə edilməsi. Miqdar: {{amount}}",
+                    "path": "[📍 Yol: {{menu}} → *Müqavilələr*]",
+                    "empty": "Hələ müqavilələr konfiqurasiya edilməyib! Daha sonra qayıdın.",
+                    "contractName": "{{userName}}: {{dateStart}} -dən"
+                },
+                "view": {
+                    "main": {
+                        "title": "Müqavilələrin siyahısı.",
+                        "path": "[📍 Yol: {{menu}} → Müqavilələr → *Bax*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "{{dateStart}} -dən müqavilə.",
+                            "sendouts": "Müqaviləyə daxil edilmiş kütləvi göndərişlər: {{sendouts}}",
+                            "noSendouts": "boş.",
+                            "userName": "Müştəri: {{userName}}",
+                            "dateStart": "Başlama tarixi: {{dateStart}}",
+                            "dateEnd": "Bitmə tarixi: {{dateEnd}}",
+                            "price": "Qiymət: {{price}}",
+                            "priceText": "Qiymət (mətn): {{priceText}}",
+                            "error": "Müqaviləni alarkən xəta. Administratora müraciət edin",
+                            "path": "\n[📍 Yol: {{menu}} → Müqavilələr → Bax → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success": "✅ Müqavilə uğurla silindi!",
+                            "error": "❌ Müqavilə silinmədi!\nDaha sonra cəhd edin",
+                            "path": "[📍 Yol: Panel → Müqavilələr → Bax → {{dateStart}} → *Sil*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Müqavilənin saxlanılacağı formatı seçin",
+                                "path": "[📍 Yol: {{menu}} → Müqavilələr → Bax → {{dateStart}} → *İxrac formatının seçimi*]"
+                            },
+                            "result": {
+                                "error": "❌ Müqaviləni ixrac edərkən xəta\nAdministratora müraciət edin",
+                                "caption": "Müqavilə {{exportType}} formatında hazırdır!",
+                                "path": "\n[📍 Yol: {{menu}} → Müqavilələr → Bax → {{dateStart}} → *{{exportType}} formatında ixrac*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "step": "Addım: {{number}} / 3",
+                    "noUser": "№2 addıma keçmək üçün №1 addımı yerinə yetirməlisiniz!",
+                    "noSendouts": "№3 addıma keçmək üçün №2 addımı yerinə yetirməlisiniz!",
+                    "noFreeSendouts": "Müştərinin boş (müqaviləsiz) kütləvi göndərişləri yoxdur!",
+                    "data": {
+                        "user": "Müqavilənin tərtib ediləcəyi istifadəçini seçin",
+                        "sendout": "Müqaviləyə daxil ediləcək kütləvi göndərişləri seçin",
+                        "contract": "Müqaviləyə dair məlumatları göndərin"
+                    },
+                    "title": "Müqavilə yaradırıq!",
+                    "path": "[📍 Yol: Panel → Müqavilələr → *Yarat*]"
+                }
+            }
+        }
+    }
+}

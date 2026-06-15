@@ -1,0 +1,738 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Pinoproseso...",
+            "cabinet": "🪴 Personal na kabinet",
+            "panel": "👨‍💻 Admin panel",
+            "nameless": "Walang pangalan",
+            "buttons": {
+                "export": "📧 I-export",
+                "back": "🔙 Bumalik",
+                "remove": "🗑 Alisin",
+                "miss": "Nawawala",
+                "create": "➕ Lumikha",
+                "update": "✍ Baguhin",
+                "instruction": "📖 Tagubilin",
+                "clear": "🗑 I-clear",
+                "view": "👁 Tingnan",
+                "contract": "📜 Mga Kontrata",
+                "sendout": "📢 Mga Pagpapadala",
+                "chat": "🗯 Mga Grupo",
+                "contactAdmin": "👨 Admin"
+            },
+            "titles": {
+                "validate": "⚠ Ang input data ay may hindi wastong format. Ipadala muli",
+                "cabinet": "Kabinet",
+                "panel": "Panel → Data",
+                "amount": "Bilang: {{amount}}",
+                "sendoutActive": "Sa kasalukuyan ay aktibo ang pagpapadala, subukang pamahalaan ang data mamaya",
+                "accessDenied": {
+                    "all": "Tinanggihan ang access. Mangyaring mag- authorize muna gamit ang command na /auth",
+                    "admin": "Tinanggihan ang access. Ang seksyong ito ay para sa mga customer",
+                    "customer": "Tinanggihan ang access. Ang seksyong ito ay para sa mga administrator"
+                }
+            }
+        },
+        "maintenace": "🚧 Kasalukuyang isinasagawa ang teknikal na gawain. Limitado pansamantala ang paggamit ng serbisyo.\nKapag natapos na kami, agad kaming magbibigay-alam!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Administrator",
+            "customer": "Customer",
+            "unknown": "Hindi kilala"
+        },
+        "commands": {
+            "cabinet": "Kabinet",
+            "settings": "Mga Setting",
+            "panel": "Admin panel"
+        },
+        "chart": {
+            "labelMonth": "Estadistika ng bilang ng mga grupong nakatanggap ng pagpapadala. {{month}} {{year}}",
+            "labelWeek": "Estadistika ng bilang ng mga grupong nakatanggap ng pagpapadala. Linggo",
+            "amountSms": "Bilang ng mga mensahe",
+            "noLogs": "Walang naganap na pagpapadala sa napiling panahon!",
+            "daysOfWeek": {
+                "Mon": "Lun",
+                "Tue": "Mar",
+                "Wed": "Miy",
+                "Thu": "Hu",
+                "Fri": "Biy",
+                "Sat": "Sab",
+                "Sun": "Lin"
+            },
+            "months": {
+                "january": "Enero",
+                "february": "Pebrero",
+                "march": "Marso",
+                "april": "Abril",
+                "may": "Mayo",
+                "june": "Hunyo",
+                "july": "Hulyo",
+                "august": "Agosto",
+                "september": "Setyembre",
+                "october": "Oktubre",
+                "november": "Nobyembre",
+                "december": "Disyembre"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Enero",
+                "1": "Pebrero",
+                "2": "Marso",
+                "3": "Abril",
+                "4": "Mayo",
+                "5": "Hunyo",
+                "6": "Hulyo",
+                "7": "Agosto",
+                "8": "Setyembre",
+                "9": "Oktubre",
+                "10": "Nobyembre",
+                "11": "Disyembre"
+            },
+            "days": {
+                "0": "Lun",
+                "1": "Mar",
+                "2": "Miy",
+                "3": "Hu",
+                "4": "Biy",
+                "5": "Sab",
+                "6": "Lin"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Parser",
+            "sendout": "Mga Pagpapadala"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Iskedyul",
+                "message": "Mga Mensahe",
+                "contract": "Kontrata"
+            },
+            "text": "I-export",
+            "from": "mula"
+        },
+        "localization": {
+            "schedule": {
+                "number": "araw",
+                "everyDay": "Araw-araw",
+                "unknownDay": "Hindi kilalang araw",
+                "dayWeek": {
+                    "1": "Lunes",
+                    "2": "Martes",
+                    "3": "Miyerkules",
+                    "4": "Huwebes",
+                    "5": "Biyernes",
+                    "6": "Sabado",
+                    "7": "Linggo",
+                    "*": "Araw-araw"
+                }
+            }
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Error sa pagproseso ng numero ng telepono!\nSubukang muli!",
+                "accessDenied": "Tinanggihan ang access. Upang magamit ang serbisyo ng pagpapadala, gamitin ang command na '/settings', seksyong 'Tulong'"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Na-save ang teksto!",
+                "error": "❌ Hindi na-save ang teksto!\nMakipag-ugnayan sa administrator",
+                "path": "[📍 Daan: {{menu}} → Menu «{{call}}» → Mga Mensahe → *Lumikha ng teksto*]"
+            },
+            "generatingText": {
+                "result": "Ang nabuong mensahe ay ipinakita sa ibaba. Gamitin ang mga pindutan sa ilalim ng mga mensahe upang magpasya sa kapalaran ng teksto.",
+                "pathChoose": "[📍 Daan: {{menu}} → Menu «{{call}}» → Mga Mensahe → Pagbuo ng teksto → *Kapalaran ng teksto*]",
+                "buttons": {
+                    "save": "✔ I-save",
+                    "cancel": "❌ Huwag i-save"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Binago ang teksto!",
+                "error": "❌ Hindi binago ang teksto!\nMakipag-ugnayan sa administrator",
+                "path": "[📍 Daan: {{menu}} → Menu «{{call}}» → Mga Mensahe → *Baguhin ang teksto*]"
+            },
+            "addingMedia": {
+                "error": "💀 Error sa pag-save ng media!\nMakipag-ugnayan sa administrator",
+                "invalidType": "Hindi nakilala ang uri ng media! Subukang muli",
+                "bigSize": "Masyadong malaki ang file. Pinakamataas na laki {{size}} MB.",
+                "documentsWTMedia": "Hindi ko maproseso ang mga dokumentong hindi naglalaman ng: larawan / video / gif",
+                "success": "✅ Na-save ang media!",
+                "error2": "❌ Hindi na-save ang media!\nMakipag-ugnayan sa administrator",
+                "path": "[📍 Daan: {{menu}} → Menu «{{call}}» → Mga Mensahe → *Magdagdag ng media*]",
+                "amount": "Bilang ng media sa mensahe: {{now}} sa {{all}}"
+            },
+            "addingTime": {
+                "success": "✅ Na-save ang oras!",
+                "error": "❌ Hindi binago ang oras!\nMakipag-ugnayan sa administrator",
+                "path": "[📍 Daan: Panel → Menu «{{call}}» → Iskedyul → Tingnan → *Magdagdag*]"
+            },
+            "updatingTime": {
+                "success": "✅ Binago ang oras!",
+                "error": "❌ Hindi binago ang oras!\nMakipag-ugnayan sa administrator",
+                "path": "[📍 Daan: Panel → Menu «{{call}}» → Iskedyul → Tingnan → *Baguhin*]"
+            },
+            "addingIdea": {
+                "success": "✅ Matagumpay na naidagdag ang ideya, salamat!",
+                "error": "❌ Hindi naidagdag ang ideya!\nSubukang muli o makipag-ugnayan sa administrator!",
+                "path": "[📍 Daan: Mga Setting → Mga Ideya → *Magdagdag*]"
+            },
+            "addingUser": {
+                "success": "✅ Matagumpay na nagawa ang user!",
+                "error": "❌ Hindi nagawa ang user!\nSubukang muli mamaya.",
+                "path": "[📍 Daan: Panel → Data → Mga User → *Lumikha*]"
+            },
+            "addingContract": {
+                "success": "✅ Matagumpay na nagawa ang kontrata!",
+                "error": "❌ Hindi nagawa ang kontrata!\nSubukang muli mamaya.",
+                "path": "[📍 Daan: Panel → Mga Kontrata → *Lumikha*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Matagumpay na na-update ang callsign!",
+                "error": "❌ Hindi na-update ang callsign!\nSubukang muli mamaya.",
+                "path": "[📍 Daan: Panel → Mga Pagpapadala → Menu «{{call}}» → Mga Pangalan → Callsign → *I-update*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Matagumpay na na-update ang pangalan!",
+                "error": "❌ Hindi na-update ang pangalan!\nSubukang muli mamaya.",
+                "path": "[📍 Daan: Panel → Data → Mga User → Tingnan → {{userName}} → *Baguhin ang pangalan*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Matagumpay na na-update ang telepono!",
+                "error": "❌ Hindi na-update ang telepono!\nSubukang muli mamaya.",
+                "path": "[📍 Daan: Panel → Data → Mga User → Tingnan → {{userName}} → *Baguhin ang numero*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "☀ Maligayang pagdating! Ako ay Telegram bot na Pangit na sisiw, katulong para sa pagpapadala.",
+                "commands": "Nasa ibaba ang maikling paglalarawan ng mga command para makipag-ugnayan sa akin:\n/start - i-activate ang bot at listahan ng command\n/auth - awtorisasyon\n/cabinet - pamahalaan ang personal na kabinet\n/settings - pamahalaan ang mga setting ng bot",
+                "uAdmin": "❓ Ikaw ba ay administrator?\n/panel - admin panel",
+                "link": "Maaari mong tingnan ang mas detalyadong tagubilin sa mekanismo ng pagkontrol sa akin gamit ang pindutan sa ibaba."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Kanselahin",
+                        "phone": "📞 Ibahagi",
+                        "again": "🔄 Subukang muli"
+                    },
+                    "unknownMessage": "Hindi nakilala ang aksyon, subukang muli gamit ang mga pindutan: '📞 Ibahagi' at '❌ Kanselahin'",
+                    "manyAttempts": "Bilang ng mga ginamit na pagtatangkang awtorisasyon bago ang isang oras na limitasyon: {{actualAttempts}} sa {{maxAttempts}}",
+                    "stop": "Limitado ang awtorisasyon. Aalisin ang mga limitasyon pagkatapos ng: {{dateTime}}",
+                    "canceled": "Matagumpay na nahinto ang awtorisasyon!",
+                    "title": "Upang makapasok sa panel ng pagpapadala, kailangan mong ibahagi sa akin ang iyong numero ng telepono.\n\nDapat lumitaw ang pindutan sa tabi ng keyboard, na may nakasulat na '📞 Ibahagi'",
+                    "good": "Matagumpay kang naka-awtorisa sa system!",
+                    "already": "Awtorisado ka na sa system!",
+                    "bad": "Error sa panahon ng awtorisasyon. Makipag-ugnayan sa administrator!"
+                },
+                "logout": {
+                    "good": "Matagumpay kang naka-logout. Ang iyong data ay nabura!",
+                    "bad": "Error sa pag-logout. Makipag-ugnayan sa administrator!"
+                }
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Mga Setting",
+                    "buttons": {
+                        "about": "ℹ Tungkol sa Serbisyo",
+                        "help": "❓ Tulong",
+                        "idea": "💡 Mga Ideya",
+                        "language": "🌐 Wika"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Pumili ng wika.",
+                        "path": "[📍 Daan: Mga Setting → *Wika*]"
+                    },
+                    "change": {
+                        "good": "Naiba ang wika!",
+                        "error": "Napili na ang wikang ito!"
+                    }
+                },
+                "help": {
+                    "title": "Nakatagpo ng problema?\nMay mga tanong?\nGusto mong purihin ang serbisyo?\nMay mga ideya para sa pagpapabuti?",
+                    "interest": "O interesado ka sa produkto?\nPunan ang form sa ibaba at makikipag-ugnayan kami sa iyo!",
+                    "path": "[📍 Daan: Mga Setting → *Tulong*]"
+                },
+                "about": {
+                    "title": "Ang serbisyo ay binuo upang i-automate ang advertising (mga post, pagpapadala) ng iyong mga produkto (alok) sa loob ng mga grupo / chat / channel.\n\nAng mga tagubilin sa paggamit ng Bot - sa pindutan sa ibaba!",
+                    "path": "[📍 Daan: Mga Setting → *Tungkol sa serbisyo*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Menu ng seksyong Mga Ideya. Dito maaari mong imungkahi ang iyong ideya para sa pagpapaunlad ng serbisyo.",
+                        "path": "[📍 Daan: Mga Setting → *Mga Ideya*]",
+                        "buttons": {
+                            "add": "🗳 Iminungkahi",
+                            "see": "🔍 Pag-aralan"
+                        }
+                    },
+                    "add": {
+                        "title": "Ipadala sa akin ang media/audio/text atbp. Walang limitasyon!",
+                        "path": "[📍 Daan: Mga Setting → Mga Ideya → *Magdagdag*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {
+                        "logout": "🚪 Mag-logout",
+                        "login": "🔑 Mag-login"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "buttons": {
+                        "data": "🗂 Data",
+                        "system": "⚡ Sistema"
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Pamamahala ng data",
+                        "path": "[📍 Daan: Panel → *Data*]",
+                        "buttons": {
+                            "user": "👥 Mga User"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Pamahalaan ang mga grupo. Bilang: {{amount}}",
+                            "path": "[📍 Daan: Panel → Data → *Mga Grupo*]",
+                            "buttons": {
+                                "reupload": "🔁 I-refresh"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Na-update ang mga grupo!",
+                            "error": "❌ Error sa pag-update ng mga grupo\nMakipag-ugnayan sa administrator",
+                            "path": "[📍 Daan: Panel → Data → Mga Grupo → *I-update*]"
+                        },
+                        "clear": {
+                            "success": "✅ Na-clear ang mga grupo!",
+                            "error": "❌ Error sa pag-clear ng mga grupo\nMakipag-ugnayan sa administrator",
+                            "path": "[📍 Daan: Panel → Data → Mga Grupo → *I-clear*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Pamahalaan ang mga user. Bilang: {{amount}}",
+                            "path": "[📍 Daan: Panel → Data → *Mga User*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Listahan ng mga user.",
+                                "path": "[📍 Daan: Panel → Data → Mga User → *Tingnan*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Pamahalaan ang user",
+                                    "path": "[📍 Daan: Panel → Data → Mga User → Tingnan → *{{userName}}*]",
+                                    "telegramId": "Tg. ID: {{telegramId}}",
+                                    "name": "Pangalan: {{name}}",
+                                    "username": "Username: @{{username}}",
+                                    "phone": "Telepono: +{{phone}}",
+                                    "language": "Wika: {{language}}",
+                                    "role": "Tungkulin: {{role}}"
+                                },
+                                "remove": {
+                                    "success": "✅ Matagumpay na naalis ang user!",
+                                    "error": "❌ Hindi naalis ang user!\nSubukang muli mamaya",
+                                    "path": "[📍 Daan: Panel → Data → Mga User → Tingnan → {{userName}} → *Alisin*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Binabago ang telepono!\nIpadala dito.",
+                                        "path": "[📍 Daan: Panel → Data → Mga User → Tingnan → {{userName}} → *Baguhin ang numero*]"
+                                    },
+                                    "name": {
+                                        "title": "Binabago ang pangalan!\nIpadala dito.",
+                                        "path": "[📍 Daan: Panel → Data → Mga User → Tingnan → {{userName}} → *Baguhin ang pangalan*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Lumilikha ng user!",
+                            "path": "[📍 Daan: Panel → Data → Mga User → *Lumikha*]"
+                        }
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Pamamahala ng sistema",
+                        "path": "[📍 Daan: Panel → *Sistema*]",
+                        "buttons": {
+                            "server": "📟 Server",
+                            "maintenace": "🛠️ Pagpapanatili"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Mga kategorya ng proseso",
+                            "path": "[📍 Daan: Panel → Sistema → *Server*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Parser"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Pumili ng proseso",
+                                "path": "[📍 Daan: Panel → Sistema → Server → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Pamahalaan ang proseso",
+                                    "path": "[📍 Daan: Panel → Sistema → Server → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Kalagayan",
+                                        "log": "📋 Mga Log"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Daan: Panel → Sistema → Server → {{processType}} → {{processName}} → *Kalagayan*]",
+                                    "status": {
+                                        "active": "✅ Aktibo ang proseso.\nUpang ihinto, pindutin ang pindutan sa ibaba",
+                                        "inactive": "❌ Hindi aktibo ang proseso.\nUpang simulan, pindutin ang pindutan sa ibaba",
+                                        "failed": "❌ Hindi aktibo ang proseso.\nUpang simulan, pindutin ang pindutan sa ibaba",
+                                        "error": "Problema sa proseso. Makipag-ugnayan sa programmer."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Ihinto",
+                                        "start": "▶️ Simulan",
+                                        "restart": "🔁 I-restart"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Tingnan ang mga log",
+                                    "path": "[📍 Daan: Panel → Sistema → Server → {{processType}} → {{processName}} → *Mga Log*]",
+                                    "sort": "Pag-uuri: {{sortType}}",
+                                    "sortType": {
+                                        "new": "mula bago hanggang luma",
+                                        "old": "mula luma hanggang bago"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Listahan ng mga aktibong pagpapadala sa ngayon.",
+                    "path": "[📍 Daan: {{menu}} → *Mga Pagpapadala*]",
+                    "empty": "Wala pang naka-configure na pagpapadala! Bumalik mamaya."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Menu ng pagpapadala «{{call}}»",
+                        "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → *Menu «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Iskedyul",
+                            "message": "💬 Mga Mensahe",
+                            "statistic": "📈 Estadistika",
+                            "owner": "👑 May-ari",
+                            "name": "🏷️ Mga Pangalan",
+                            "test": "🎛️ Pagsubok"
+                        }
+                    },
+                    "test": {
+                        "alert": "Hindi maaaring i-on ang test mode habang aktibo ang pagpapadala!"
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Error sa pagkuha ng mga mensahe!\nMakipag-ugnayan sa administrator",
+                            "empty": "Walang mga mensahe!\nUpang magdagdag ng teksto, pindutin ang pindutan sa ibaba",
+                            "title": "Menu ng seksyong Mga Mensahe. Bilang: {{amount}}",
+                            "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → *Mga Mensahe*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Pumili ng uri ng pagdaragdag ng teksto.",
+                                "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → *Mode ng pagdaragdag*]",
+                                "buttons": {
+                                    "generate": "🔮 Bumuo",
+                                    "hand": "✍ Manu-manong input"
+                                }
+                            },
+                            "generate": {
+                                "title": "Bubuo ako ng tekstong pangbenta! Ipadala ang source dito. Hindi maaaring magpadala ng mga bunton ng teksto.",
+                                "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → *Pagbuo*]",
+                                "save": "✅ Na-save ang teksto!",
+                                "cancel": "❌ Hindi na-save ang teksto!",
+                                "pathSave": "[📍 Daan: {{menu}} → Menu «{{call}}» → Mga Mensahe → Pagbuo → *I-save*]",
+                                "pathCancel": "[📍 Daan: {{menu}} → Menu «{{call}}» → Mga Mensahe → Pagbuo → *Kanselahin*]"
+                            },
+                            "hand": {
+                                "title": "Nagdaragdag ng teksto!\nIpadala ang teksto o i-forward ito dito. Hindi maaaring magpadala ng mga bunton ng teksto.",
+                                "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → *Magdagdag ng teksto*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Na-clear ang lahat ng mensahe!",
+                            "error": "❌ Hindi na-clear ang mga mensahe!\nMakipag-ugnayan sa administrator",
+                            "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → *I-clear*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Mensahe №{{number}}.",
+                                "amountMedia": "Bilang ng media: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → *Tingnan*]",
+                                "buttons": {
+                                    "updateText": "✍️ Baguhin ang teksto",
+                                    "addMedia": "🖼 Magdagdag ng media",
+                                    "clearAllMedia": "🗑 I-clear ang media"
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Binabago ang teksto!\nIpadala ang teksto o i-forward ito dito. Hindi maaaring magpadala ng mga bunton ng teksto.",
+                                    "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → *Baguhin ang teksto*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Naalis ang mensahe!",
+                                    "error": "❌ Hindi naalis ang teksto!\nMakipag-ugnayan sa administrator",
+                                    "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → *Alisin ang teksto*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Nagdaragdag ng media!\nMagpadala ng media nang paisa-isa.",
+                                    "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → *Magdagdag ng media*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Na-clear ang lahat ng media!",
+                                    "error": "❌ Hindi na-clear ang media!\nMakipag-ugnayan sa administrator",
+                                    "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → *I-clear ang media*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Mabilis na pumunta sa mensahe sa pamamagitan ng numero",
+                                "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → Tingnan → *Pumili ng mensahe*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Piliin ang format kung saan ise-save ang listahan ng mensahe",
+                                "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → *Pumili ng format ng export*]"
+                            },
+                            "result": {
+                                "error": "❌ Error sa pag-export ng mga mensahe\nMakipag-ugnayan sa administrator",
+                                "caption": "Ang listahan ng mensahe sa format na {{exportType}} ay handa na!",
+                                "path": "\n[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Mga Mensahe → *I-export sa {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Wala pang naka-configure na iskedyul!",
+                            "title": "Menu ng seksyong Iskedyul. Bilang ng mga oras sa iskedyul: {{amount}}",
+                            "path": "\n[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → *Iskedyul*]"
+                        },
+                        "create": {
+                            "title": "Nagdaragdag ng oras!",
+                            "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Iskedyul → *Magdagdag*]"
+                        },
+                        "clear": {
+                            "success": "✅ Na-clear ang iskedyul!",
+                            "error": "❌ Hindi na-clear ang iskedyul!\nMakipag-ugnayan sa administrator",
+                            "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Iskedyul → *I-clear*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Ang iskedyul ng pagpapadala ay ipinakita sa ibaba bilang mga pindutan.",
+                                "path": "\n[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Iskedyul → *Tingnan*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Binabago ang oras!",
+                                    "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Iskedyul → Tingnan → *Baguhin ang oras*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Naalis ang oras!",
+                                    "error": "❌ Hindi naalis ang oras! Makipag-ugnayan sa administrator",
+                                    "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Iskedyul → Tingnan → *Alisin ang oras*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Napiling oras:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Iskedyul → Tingnan → *Pumili ng aksyon*]"
+                                }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Piliin ang format kung saan ise-save ang iskedyul ng pagpapadala",
+                                "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Iskedyul → *Pumili ng format ng export*]"
+                            },
+                            "result": {
+                                "error": "❌ Error sa pag-export ng iskedyul\nMakipag-ugnayan sa administrator",
+                                "caption": "Ang iskedyul sa format na {{exportType}} ay handa na!",
+                                "path": "\n[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Iskedyul → *I-export sa {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Piliin ang gustong format ng estadistika.",
+                            "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → *Estadistika*]",
+                            "buttons": {
+                                "selective": "📅 Pili",
+                                "comparative": "📊 Paghahambing"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Kasalukuyang isinasagawa ang teknikal na gawain sa seksyong ito.",
+                                "noData": "Walang nakitang resulta para sa napiling petsa!",
+                                "noAccess": "Ang pinindot na pindutan ay hindi magagamit!",
+                                "title": "Estadistikang pili.\nSa ibaba ay isang kalendaryo na may mga petsa. Upang tingnan ang resulta ng pagpapadala para sa isang partikular na araw, i-click lamang ito!\n\nKung ang pagpapadala:\n*hindi naganap,\n*wala,\n*hindi naka-iskedyul,\n*o iba pa\n- isang mensahe na may angkop na konteksto ay ipapakita, huwag matakot.",
+                                "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Estadistika → *Pili*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Resulta ng pagpapadala para sa {{date}}.",
+                                    "time": "Oras: {{time}}",
+                                    "success": "Matagumpay na pagpapadala: {{success}}",
+                                    "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Estadistika → Pili → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Estadistika → Pili → {{date}} → *Mga Grupo*]"
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Piliin ang uri ng estadistikang paghahambing.",
+                                "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Estadistika → *Paghahambing*]",
+                                "buttons": {
+                                    "week": "Linggo",
+                                    "month": "Buwan"
+                                }
+                            },
+                            "week": {
+                                "title": "Estadistikang paghahambing (Linggo)",
+                                "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Estadistika → Paghahambing → *Linggo*]"
+                            },
+                            "month": {
+                                "title": "Estadistikang paghahambing (Buwan)",
+                                "path": "[📍 Daan: {{menu}} → Mga Pagpapadala → Menu «{{call}}» → Estadistika → Paghahambing → *Buwan*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "May-ari ng pagpapadala.",
+                            "empty": "Walang may-ari ang pagpapadala!",
+                            "name": "Pangalan: {{name}}",
+                            "phone": "Telepono: +{{phone}}",
+                            "path": "[📍 Daan: Panel → Mga Pagpapadala → Menu «{{call}}» → *May-ari*]",
+                            "buttons": {
+                                "change": "🪧 Italaga muli"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Pumili ng user na itatalaga bilang may-ari ng pagpapadalang ito.",
+                                "path": "[📍 Daan: Panel → Mga Pagpapadala → Menu «{{call}}» → May-ari → *Pumili*]",
+                                "noOwner": "Walang may-ari"
+                            },
+                            "action": {
+                                "success": "✅ Matagumpay na nailipat ang may-ari!",
+                                "error": "❌ Hindi nailipat ang may-ari! Subukang muli mamaya!",
+                                "path": "[📍 Daan: Panel → Mga Pagpapadala → Menu «{{call}}» → May-ari → {{owner}} → *Italaga*]"
+                            }
+                        }
+                    },
+                    "name": {
+                        "main": {
+                            "title": "Mga pangalan ng pagpapadala:",
+                            "about": "1 - lagda (lumang pangalan)\n2 - pangalan ng entity\n3 - callsign (ipinapakitang pangalan sa bot)",
+                            "path": "[📍 Daan: Panel → Mga Pagpapadala → Menu «{{call}}» → *Mga Pangalan*]"
+                        },
+                        "update": {
+                            "call": {
+                                "title": "Binabago ang callsign ng pagpapadala!",
+                                "path": "[📍 Daan: Panel → Mga Pagpapadala → Menu «{{call}}» → Mga Pangalan → Callsign → *I-update*]"
+                            },
+                            "label": {
+                                "alert": "Hindi mababago ang lagda ng pagpapadala!"
+                            },
+                            "name": {
+                                "alert": "Hindi mababago ang pangalan ng pagpapadala!"
+                            }
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Pamahalaan ang mga kontrata. Bilang: {{amount}}",
+                    "path": "[📍 Daan: {{menu}} → *Mga Kontrata*]",
+                    "empty": "Wala pang naka-configure na kontrata! Bumalik mamaya.",
+                    "contractName": "{{userName}}: mula {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Listahan ng mga kontrata.",
+                        "path": "[📍 Daan: {{menu}} → Mga Kontrata → *Tingnan*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Kontrata mula {{dateStart}}.",
+                            "sendouts": "Mga pagpapadala na kasama sa kontrata: {{sendouts}}",
+                            "noSendouts": "walang laman.",
+                            "userName": "Customer: {{userName}}",
+                            "dateStart": "Petsa ng pagsisimula: {{dateStart}}",
+                            "dateEnd": "Petsa ng pagtatapos: {{dateEnd}}",
+                            "price": "Presyo: {{price}}",
+                            "priceText": "Presyo (teksto): {{priceText}}",
+                            "error": "Error sa pagkuha ng kontrata. Makipag-ugnayan sa administrator",
+                            "path": "\n[📍 Daan: {{menu}} → Mga Kontrata → Tingnan → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success": "✅ Matagumpay na naalis ang kontrata!",
+                            "error": "❌ Hindi naalis ang kontrata!\nSubukang muli mamaya",
+                            "path": "[📍 Daan: Panel → Mga Kontrata → Tingnan → {{dateStart}} → *Alisin*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Piliin ang format kung saan ise-save ang kontrata",
+                                "path": "[📍 Daan: {{menu}} → Mga Kontrata → Tingnan → {{dateStart}} → *Pumili ng format ng export*]"
+                            },
+                            "result": {
+                                "error": "❌ Error sa pag-export ng kontrata\nMakipag-ugnayan sa administrator",
+                                "caption": "Ang kontrata sa format na {{exportType}} ay handa na!",
+                                "path": "\n[📍 Daan: {{menu}} → Mga Kontrata → Tingnan → {{dateStart}} → *I-export sa {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "step": "Hakbang: {{number}} / 3",
+                    "noUser": "Upang magpatuloy sa hakbang #2, kailangan mong kumpletuhin ang hakbang #1!",
+                    "noSendouts": "Upang magpatuloy sa hakbang #3, kailangan mong kumpletuhin ang hakbang #2!",
+                    "noFreeSendouts": "Ang customer ay walang libreng pagpapadala (walang kontrata)!",
+                    "data": {
+                        "user": "Piliin ang user kung kanino gagawin ang kontrata",
+                        "sendout": "Piliin ang mga pagpapadala na isasama sa kontrata",
+                        "contract": "Ipadala ang data tungkol sa kontrata"
+                    },
+                    "title": "Lumilikha ng kontrata!",
+                    "path": "[📍 Daan: Panel → Mga Kontrata → *Lumikha*]"
+                }
+            }
+        }
+    }
+}

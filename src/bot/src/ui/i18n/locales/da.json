@@ -1,0 +1,738 @@
+{
+    "utils": {
+        "shared": {
+            "processing": "⏳ Behandler...",
+            "cabinet": "🪴 Personligt kabinet",
+            "panel": "👨‍💻 Adminpanel",
+            "nameless": "Navnløs",
+            "buttons": {
+                "export": "📧 Eksporter",
+                "back": "🔙 Tilbage",
+                "remove": "🗑 Fjern",
+                "miss": "Mangler",
+                "create": "➕ Opret",
+                "update": "✍ Rediger",
+                "instruction": "📖 Instruktion",
+                "clear": "🗑 Ryd",
+                "view": "👁 Vis",
+                "contract": "📜 Kontrakter",
+                "sendout": "📢 Masseudsendelser",
+                "chat": "🗯 Grupper",
+                "contactAdmin": "👨 Administrator"
+            },
+            "titles": {
+                "validate": "⚠ Inputdata havde et ugyldigt format. Send igen",
+                "cabinet": "Kabinet",
+                "panel": "Panel → Data",
+                "amount": "Antal: {{amount}}",
+                "sendoutActive": "Udsendelsen er i øjeblikket aktiv, prøv at administrere data senere",
+                "accessDenied": {
+                    "all": "Adgang nægtet. Først skal du autorisere dig selv med kommandoen /auth",
+                    "admin": "Adgang nægtet. Denne sektion er for kunder",
+                    "customer": "Adgang nægtet. Denne sektion er for administratorer"
+                }
+            }
+        },
+        "maintenace": "🚧 Der er i øjeblikket teknisk arbejde i gang. Brugen af tjenesten er midlertidigt begrænset.\nNår vi er færdige, giver vi besked!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "roleCodes": {
+            "admin": "Administrator",
+            "customer": "Kunde",
+            "unknown": "Ukendt"
+        },
+        "commands": {
+            "cabinet": "Kabinet",
+            "settings": "Indstillinger",
+            "panel": "Adminpanel"
+        },
+        "chart": {
+            "labelMonth": "Statistik over antallet af grupper, der modtog udsendelsen. {{month}} {{year}}",
+            "labelWeek": "Statistik over antallet af grupper, der modtog udsendelsen. Uge",
+            "amountSms": "Antal beskeder",
+            "noLogs": "Der har ikke været nogen udsendelse i den valgte periode!",
+            "daysOfWeek": {
+                "Mon": "Man",
+                "Tue": "Tir",
+                "Wed": "Ons",
+                "Thu": "Tor",
+                "Fri": "Fre",
+                "Sat": "Lør",
+                "Sun": "Søn"
+            },
+            "months": {
+                "january": "Januar",
+                "february": "Februar",
+                "march": "Marts",
+                "april": "April",
+                "may": "Maj",
+                "june": "Juni",
+                "july": "Juli",
+                "august": "August",
+                "september": "September",
+                "october": "Oktober",
+                "november": "November",
+                "december": "December"
+            }
+        },
+        "calendar": {
+            "months": {
+                "0": "Januar",
+                "1": "Februar",
+                "2": "Marts",
+                "3": "April",
+                "4": "Maj",
+                "5": "Juni",
+                "6": "Juli",
+                "7": "August",
+                "8": "September",
+                "9": "Oktober",
+                "10": "November",
+                "11": "December"
+            },
+            "days": {
+                "0": "Man",
+                "1": "Tir",
+                "2": "Ons",
+                "3": "Tor",
+                "4": "Fre",
+                "5": "Lør",
+                "6": "Søn"
+            }
+        },
+        "processType": {
+            "bot": "Bot",
+            "parser": "Parser",
+            "sendout": "Udsendelser"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Tidsplan",
+                "message": "Beskeder",
+                "contract": "Kontrakt"
+            },
+            "text": "Eksporter",
+            "from": "fra"
+        },
+        "localization": {
+            "schedule": {
+                "number": "dag",
+                "everyDay": "Hver dag",
+                "unknownDay": "Ukendt dag",
+                "dayWeek": {
+                    "1": "Mandag",
+                    "2": "Tirsdag",
+                    "3": "Onsdag",
+                    "4": "Torsdag",
+                    "5": "Fredag",
+                    "6": "Lørdag",
+                    "7": "Søndag",
+                    "*": "Hver dag"
+                }
+            }
+        }
+    },
+    "handlers": {
+        "events": {
+            "contact": {
+                "numberIsNull": "Fejl ved behandling af telefonnummer!\nPrøv igen!",
+                "accessDenied": "Adgang nægtet. For at bruge masseudsendelsestjenesten, brug kommandoen '/settings', afsnit 'Hjælp'"
+            }
+        },
+        "states": {
+            "addingText": {
+                "success": "✅ Tekst gemt!",
+                "error": "❌ Tekst ikke gemt!\nKontakt administratoren",
+                "path": "[📍 Sti: {{menu}} → Menu «{{call}}» → Beskeder → *Opret tekst*]"
+            },
+            "generatingText": {
+                "result": "Den genererede besked vises nedenfor. Brug knapperne under beskederne til at beslutte tekstens skæbne.",
+                "pathChoose": "[📍 Sti: {{menu}} → Menu «{{call}}» → Beskeder → Tekstgenerering → *Tekstens skæbne*]",
+                "buttons": {
+                    "save": "✔ Gem",
+                    "cancel": "❌ Gem ikke"
+                }
+            },
+            "updatingText": {
+                "success": "✅ Tekst ændret!",
+                "error": "❌ Tekst ikke ændret!\nKontakt administratoren",
+                "path": "[📍 Sti: {{menu}} → Menu «{{call}}» → Beskeder → *Rediger tekst*]"
+            },
+            "addingMedia": {
+                "error": "💀 Fejl ved lagring af medie!\nKontakt administratoren",
+                "invalidType": "Medietype ikke genkendt! Prøv igen",
+                "bigSize": "Filen er for stor. Maksimal størrelse {{size}} MB.",
+                "documentsWTMedia": "Jeg kan ikke behandle dokumenter, der ikke indeholder: foto / video / gif",
+                "success": "✅ Medie gemt!",
+                "error2": "❌ Medie ikke gemt!\nKontakt administratoren",
+                "path": "[📍 Sti: {{menu}} → Menu «{{call}}» → Beskeder → *Tilføj medie*]",
+                "amount": "Antal medier i beskeden: {{now}} ud af {{all}}"
+            },
+            "addingTime": {
+                "success": "✅ Tid gemt!",
+                "error": "❌ Tid ikke ændret!\nKontakt administratoren",
+                "path": "[📍 Sti: Panel → Menu «{{call}}» → Tidsplan → Vis → *Tilføj*]"
+            },
+            "updatingTime": {
+                "success": "✅ Tid ændret!",
+                "error": "❌ Tid ikke ændret!\nKontakt administratoren",
+                "path": "[📍 Sti: Panel → Menu «{{call}}» → Tidsplan → Vis → *Rediger*]"
+            },
+            "addingIdea": {
+                "success": "✅ Idé tilføjet, tak!",
+                "error": "❌ Idé ikke tilføjet!\nPrøv igen eller kontakt administratoren!",
+                "path": "[📍 Sti: Indstillinger → Idéer → *Tilføj*]"
+            },
+            "addingUser": {
+                "success": "✅ Bruger oprettet!",
+                "error": "❌ Bruger ikke oprettet!\nPrøv igen senere.",
+                "path": "[📍 Sti: Panel → Data → Brugere → *Opret*]"
+            },
+            "addingContract": {
+                "success": "✅ Kontrakt oprettet!",
+                "error": "❌ Kontrakt ikke oprettet!\nPrøv igen senere.",
+                "path": "[📍 Sti: Panel → Kontrakter → *Opret*]"
+            },
+            "updatingSendoutCall": {
+                "success": "✅ Kaldesignal opdateret!",
+                "error": "❌ Kaldesignal ikke opdateret!\nPrøv igen senere.",
+                "path": "[📍 Sti: Panel → Udsendelser → Menu «{{call}}» → Navne → Kaldesignal → *Opdater*]"
+            },
+            "updatingUserName": {
+                "success": "✅ Navn opdateret!",
+                "error": "❌ Navn ikke opdateret!\nPrøv igen senere.",
+                "path": "[📍 Sti: Panel → Data → Brugere → Vis → {{userName}} → *Rediger navn*]"
+            },
+            "updatingUserPhone": {
+                "success": "✅ Telefon opdateret!",
+                "error": "❌ Telefon ikke opdateret!\nPrøv igen senere.",
+                "path": "[📍 Sti: Panel → Data → Brugere → Vis → {{userName}} → *Rediger nummer*]"
+            }
+        }
+    },
+    "modules": {
+        "commands": {
+            "start": {
+                "title": "☀ Velkommen! Jeg er Telegram-botten Grimme ælling, assistent til masseudsendelser.",
+                "commands": "Nedenfor er en kort beskrivelse af kommandoer til at interagere med mig:\n/start - aktiver bot og kommandoliste\n/auth - autorisation\n/cabinet - administrer personligt kabinet\n/settings - administrer bot-indstillinger",
+                "uAdmin": "❓ Er du administrator?\n/panel - adminpanel",
+                "link": "Du kan læse mere detaljerede instruktioner om at kontrollere mig ved at bruge knappen nedenfor."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Annuller",
+                        "phone": "📞 Del",
+                        "again": "🔄 Prøv igen"
+                    },
+                    "unknownMessage": "Handling ikke genkendt, prøv igen med knapperne: '📞 Del' og '❌ Annuller'",
+                    "manyAttempts": "Antal autorisationsforsøg brugt før en-times grænsen: {{actualAttempts}} ud af {{maxAttempts}}",
+                    "stop": "Autorisation er begrænset. Begrænsningerne vil blive ophævet efter: {{dateTime}}",
+                    "canceled": "Autorisation stoppet!",
+                    "title": "For at gå ind i masseudsendelsespanelet skal du dele dit telefonnummer med mig.\n\nKnappen skulle vises ved siden af tastaturet med teksten '📞 Del'",
+                    "good": "Du er blevet autoriseret i systemet!",
+                    "already": "Du er allerede autoriseret i systemet!",
+                    "bad": "Fejl under autorisation. Kontakt administratoren!"
+                },
+                "logout": {
+                    "good": "Du er blevet logget ud. Dine data er slettet!",
+                    "bad": "Fejl under udlogning. Kontakt administratoren!"
+                }
+            },
+            "settings": {
+                "main": {
+                    "title": "⚙️ Indstillinger",
+                    "buttons": {
+                        "about": "ℹ Om tjenesten",
+                        "help": "❓ Hjælp",
+                        "idea": "💡 Idéer",
+                        "language": "🌐 Sprog"
+                    }
+                },
+                "language": {
+                    "main": {
+                        "title": "Vælg sprog.",
+                        "path": "[📍 Sti: Indstillinger → *Sprog*]"
+                    },
+                    "change": {
+                        "good": "Sprog ændret!",
+                        "error": "Dette sprog er allerede valgt!"
+                    }
+                },
+                "help": {
+                    "title": "Stødt på et problem?\nHar du spørgsmål?\nVil du rose tjenesten?\nHar du idéer til forbedringer?",
+                    "interest": "Eller er du interesseret i produktet?\nUdfyld formularen nedenfor, så kontakter vi dig!",
+                    "path": "[📍 Sti: Indstillinger → *Hjælp*]"
+                },
+                "about": {
+                    "title": "Tjenesten er udviklet til at automatisere annoncering (opslag, masseudsendelser) af dine produkter (tilbud) i grupper / chats / kanaler.\n\nInstruktioner til at bruge Boten - på knappen nedenfor!",
+                    "path": "[📍 Sti: Indstillinger → *Om tjenesten*]"
+                },
+                "idea": {
+                    "main": {
+                        "title": "Menu for Idéer-sektionen. Her kan du foreslå din idé til udvikling af tjenesten.",
+                        "path": "[📍 Sti: Indstillinger → *Idéer*]",
+                        "buttons": {
+                            "add": "🗳 Foreslå",
+                            "see": "🔍 Udforsk"
+                        }
+                    },
+                    "add": {
+                        "title": "Send mig medier/lyd/tekst osv. Ingen begrænsninger!",
+                        "path": "[📍 Sti: Indstillinger → Idéer → *Tilføj*]"
+                    }
+                }
+            },
+            "cabinet": {
+                "main": {
+                    "buttons": {
+                        "logout": "🚪 Log ud",
+                        "login": "🔑 Log ind"
+                    }
+                }
+            },
+            "panel": {
+                "main": {
+                    "buttons": {
+                        "data": "🗂 Data",
+                        "system": "⚡ System"
+                    }
+                },
+                "data": {
+                    "main": {
+                        "title": "Dataadministration",
+                        "path": "[📍 Sti: Panel → *Data*]",
+                        "buttons": {
+                            "user": "👥 Brugere"
+                        }
+                    },
+                    "chat": {
+                        "main": {
+                            "title": "Administrer grupper. Antal: {{amount}}",
+                            "path": "[📍 Sti: Panel → Data → *Grupper*]",
+                            "buttons": {
+                                "reupload": "🔁 Opdater"
+                            }
+                        },
+                        "reupload": {
+                            "success": "✅ Grupper opdateret!",
+                            "error": "❌ Fejl ved opdatering af grupper\nKontakt administratoren",
+                            "path": "[📍 Sti: Panel → Data → Grupper → *Opdater*]"
+                        },
+                        "clear": {
+                            "success": "✅ Grupper ryddet!",
+                            "error": "❌ Fejl ved rydning af grupper\nKontakt administratoren",
+                            "path": "[📍 Sti: Panel → Data → Grupper → *Ryd*]"
+                        }
+                    },
+                    "user": {
+                        "main": {
+                            "title": "Administrer brugere. Antal: {{amount}}",
+                            "path": "[📍 Sti: Panel → Data → *Brugere*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Liste over brugere.",
+                                "path": "[📍 Sti: Panel → Data → Brugere → *Vis*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Administrer bruger",
+                                    "path": "[📍 Sti: Panel → Data → Brugere → Vis → *{{userName}}*]",
+                                    "telegramId": "Tg-id: {{telegramId}}",
+                                    "name": "Navn: {{name}}",
+                                    "username": "Brugernavn: @{{username}}",
+                                    "phone": "Telefon: +{{phone}}",
+                                    "language": "Sprog: {{language}}",
+                                    "role": "Rolle: {{role}}"
+                                },
+                                "remove": {
+                                    "success": "✅ Bruger fjernet!",
+                                    "error": "❌ Bruger ikke fjernet!\nPrøv igen senere",
+                                    "path": "[📍 Sti: Panel → Data → Brugere → Vis → {{userName}} → *Fjern*]"
+                                },
+                                "update": {
+                                    "phone": {
+                                        "title": "Ændrer telefon!\nSend her.",
+                                        "path": "[📍 Sti: Panel → Data → Brugere → Vis → {{userName}} → *Rediger nummer*]"
+                                    },
+                                    "name": {
+                                        "title": "Ændrer navn!\nSend her.",
+                                        "path": "[📍 Sti: Panel → Data → Brugere → Vis → {{userName}} → *Rediger navn*]"
+                                    }
+                                }
+                            }
+                        },
+                        "create": {
+                            "title": "Opretter bruger!",
+                            "path": "[📍 Sti: Panel → Data → Brugere → *Opret*]"
+                        }
+                    }
+                },
+                "system": {
+                    "main": {
+                        "title": "Systemadministration",
+                        "path": "[📍 Sti: Panel → *System*]",
+                        "buttons": {
+                            "server": "📟 Server",
+                            "maintenace": "🛠️ Vedligeholdelse"
+                        }
+                    },
+                    "server": {
+                        "main": {
+                            "title": "Proceskategorier",
+                            "path": "[📍 Sti: Panel → System → *Server*]",
+                            "buttons": {
+                                "bot": "🤖 Bot",
+                                "parser": "🧲 Parser"
+                            }
+                        },
+                        "process": {
+                            "main": {
+                                "title": "Vælg en proces",
+                                "path": "[📍 Sti: Panel → System → Server → *{{processType}}*]"
+                            },
+                            "control": {
+                                "main": {
+                                    "title": "Administrer proces",
+                                    "path": "[📍 Sti: Panel → System → Server → {{processType}} → *{{processName}}*]",
+                                    "buttons": {
+                                        "condition": "🩻 Status",
+                                        "log": "📋 Logs"
+                                    }
+                                },
+                                "condition": {
+                                    "path": "[📍 Sti: Panel → System → Server → {{processType}} → {{processName}} → *Status*]",
+                                    "status": {
+                                        "active": "✅ Proces er aktiv.\nFor at stoppe, tryk på knappen nedenfor",
+                                        "inactive": "❌ Proces er inaktiv.\nFor at starte, tryk på knappen nedenfor",
+                                        "failed": "❌ Proces er inaktiv.\nFor at starte, tryk på knappen nedenfor",
+                                        "error": "Problem med processen. Kontakt programmøren."
+                                    },
+                                    "buttons": {
+                                        "stop": "🛑 Stop",
+                                        "start": "▶️ Start",
+                                        "restart": "🔁 Genstart"
+                                    }
+                                },
+                                "log": {
+                                    "title": "Vis logs",
+                                    "path": "[📍 Sti: Panel → System → Server → {{processType}} → {{processName}} → *Logs*]",
+                                    "sort": "Sortering: {{sortType}}",
+                                    "sortType": {
+                                        "new": "fra nye til gamle",
+                                        "old": "fra gamle til nye"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shared": {
+            "sendout": {
+                "main": {
+                    "title": "Liste over aktive masseudsendelser i øjeblikket.",
+                    "path": "[📍 Sti: {{menu}} → *Udsendelser*]",
+                    "empty": "Ingen udsendelser er konfigureret endnu! Kom tilbage senere."
+                },
+                "view": {
+                    "main": {
+                        "title": "📣 Menu for udsendelse «{{call}}»",
+                        "path": "[📍 Sti: {{menu}} → Udsendelser → *Menu «{{call}}»*]",
+                        "buttons": {
+                            "schedule": "🕰️ Tidsplan",
+                            "message": "💬 Beskeder",
+                            "statistic": "📈 Statistik",
+                            "owner": "👑 Ejer",
+                            "name": "🏷️ Navne",
+                            "test": "🎛️ Testning"
+                        }
+                    },
+                    "test": {
+                        "alert": "Kan ikke aktivere testtilstand, mens udsendelsen er aktiv!"
+                    },
+                    "message": {
+                        "main": {
+                            "error": "Fejl ved hentning af beskeder!\nKontakt administratoren",
+                            "empty": "Ingen beskeder!\nFor at tilføje tekst, tryk på knappen nedenfor",
+                            "title": "Menu for Beskeder-sektionen. Antal: {{amount}}",
+                            "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → *Beskeder*]"
+                        },
+                        "create": {
+                            "main": {
+                                "title": "Vælg typen af tekstitilføjelse.",
+                                "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → *Tilføjelsestilstand*]",
+                                "buttons": {
+                                    "generate": "🔮 Generer",
+                                    "hand": "✍ Manuel indtastning"
+                                }
+                            },
+                            "generate": {
+                                "title": "Jeg vil generere salgstekst! Send kilden her. Kan ikke sende bunker af tekster.",
+                                "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → *Generering*]",
+                                "save": "✅ Tekst gemt!",
+                                "cancel": "❌ Tekst ikke gemt!",
+                                "pathSave": "[📍 Sti: {{menu}} → Menu «{{call}}» → Beskeder → Generering → *Gem*]",
+                                "pathCancel": "[📍 Sti: {{menu}} → Menu «{{call}}» → Beskeder → Generering → *Annuller*]"
+                            },
+                            "hand": {
+                                "title": "Tilføjer tekst!\nSend teksten eller videresend den her. Kan ikke sende bunker af tekster.",
+                                "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → *Tilføj tekst*]"
+                            }
+                        },
+                        "clear": {
+                            "success": "✅ Alle beskeder ryddet!",
+                            "error": "❌ Beskeder ikke ryddet!\nKontakt administratoren",
+                            "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → *Ryd*]"
+                        },
+                        "view": {
+                            "main": {
+                                "messageNumber": "Besked №{{number}}.",
+                                "amountMedia": "Antal medier: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → *Vis*]",
+                                "buttons": {
+                                    "updateText": "✍️ Rediger tekst",
+                                    "addMedia": "🖼 Tilføj medie",
+                                    "clearAllMedia": "🗑 Ryd medier"
+                                }
+                            },
+                            "text": {
+                                "update": {
+                                    "title": "Redigerer tekst!\nSend teksten eller videresend den her. Kan ikke sende bunker af tekster.",
+                                    "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → *Rediger tekst*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Besked fjernet!",
+                                    "error": "❌ Tekst ikke fjernet!\nKontakt administratoren",
+                                    "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → *Fjern tekst*]"
+                                }
+                            },
+                            "media": {
+                                "add": {
+                                    "title": "Tilføjer medie!\nSend medier én ad gangen.",
+                                    "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → *Tilføj medie*]"
+                                },
+                                "clearAll": {
+                                    "success": "✅ Alle medier ryddet!",
+                                    "error": "❌ Medier ikke ryddet!\nKontakt administratoren",
+                                    "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → *Ryd medier*]"
+                                }
+                            },
+                            "pagination": {
+                                "title": "Hurtig spring til besked efter nummer",
+                                "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → Vis → *Vælg besked*]"
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Vælg det format, hvor beskedlisten skal gemmes",
+                                "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → *Vælg eksportformat*]"
+                            },
+                            "result": {
+                                "error": "❌ Fejl ved eksport af beskeder\nKontakt administratoren",
+                                "caption": "Beskedliste i formatet {{exportType}} er klar!",
+                                "path": "\n[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Beskeder → *Eksporter til {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "schedule": {
+                        "main": {
+                            "empty": "Tidsplan er ikke konfigureret endnu!",
+                            "title": "Menu for Tidsplan-sektionen. Antal tidspunkter i tidsplanen: {{amount}}",
+                            "path": "\n[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → *Tidsplan*]"
+                        },
+                        "create": {
+                            "title": "Tilføjer tid!",
+                            "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Tidsplan → *Tilføj*]"
+                        },
+                        "clear": {
+                            "success": "✅ Tidsplan ryddet!",
+                            "error": "❌ Tidsplan ikke ryddet!\nKontakt administratoren",
+                            "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Tidsplan → *Ryd*]"
+                        },
+                        "view": {
+                            "main": {
+                                "title": "Udsendelsens tidsplan vises nedenfor som knapper.",
+                                "path": "\n[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Tidsplan → *Vis*]"
+                            },
+                            "time": {
+                                "update": {
+                                    "title": "Redigerer tid!",
+                                    "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Tidsplan → Vis → *Rediger tid*]"
+                                },
+                                "remove": {
+                                    "success": "✅ Tid fjernet!",
+                                    "error": "❌ Tid ikke fjernet! Kontakt administratoren",
+                                    "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Tidsplan → Vis → *Fjern tid*]"
+                                },
+                                "updateOrRemove": {
+                                    "title": "Valgt tid:\n→ *{{targetTime}}*.\n",
+                                    "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Tidsplan → Vis → *Vælg handling*]"
+                                }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Vælg det format, hvor udsendelsens tidsplan skal gemmes",
+                                "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Tidsplan → *Vælg eksportformat*]"
+                            },
+                            "result": {
+                                "error": "❌ Fejl ved eksport af tidsplan\nKontakt administratoren",
+                                "caption": "Tidsplan i formatet {{exportType}} er klar!",
+                                "path": "\n[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Tidsplan → *Eksporter til {{exportType}}*]"
+                            }
+                        }
+                    },
+                    "statistic": {
+                        "main": {
+                            "title": "Vælg ønsket statistikformat.",
+                            "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → *Statistik*]",
+                            "buttons": {
+                                "selective": "📅 Selektiv",
+                                "comparative": "📊 Sammenlignende"
+                            }
+                        },
+                        "selective": {
+                            "main": {
+                                "notDone": "Der er i øjeblikket teknisk arbejde i gang på denne sektion.",
+                                "noData": "Ingen resultat fundet for den valgte dato!",
+                                "noAccess": "Den trykte knap er ikke tilgængelig!",
+                                "title": "Selektiv statistik.\nNedenfor er en kalender med datoer. For at se resultatet af udsendelsen for en bestemt dag skal du blot klikke på den!\n\nHvis udsendelsen:\n*ikke fandt sted,\n*ikke eksisterede,\n*ikke var planlagt,\n*eller andet\n- vil der blive vist en besked med den passende kontekst, vær ikke bange.",
+                                "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Statistik → *Selektiv*]"
+                            },
+                            "targetDate": {
+                                "main": {
+                                    "title": "Resultat af udsendelse for {{date}}.",
+                                    "time": "Tid: {{time}}",
+                                    "success": "Lykkedes afsendelser: {{success}}",
+                                    "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Statistik → Selektiv → *{{date}}*]"
+                                },
+                                "chats": {
+                                    "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Statistik → Selektiv → {{date}} → *Grupper*]"
+                                }
+                            }
+                        },
+                        "comparative": {
+                            "main": {
+                                "title": "Vælg type af sammenlignende statistik.",
+                                "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Statistik → *Sammenlignende*]",
+                                "buttons": {
+                                    "week": "Uge",
+                                    "month": "Måned"
+                                }
+                            },
+                            "week": {
+                                "title": "Sammenlignende statistik (Uge)",
+                                "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Statistik → Sammenlignende → *Uge*]"
+                            },
+                            "month": {
+                                "title": "Sammenlignende statistik (Måned)",
+                                "path": "[📍 Sti: {{menu}} → Udsendelser → Menu «{{call}}» → Statistik → Sammenlignende → *Måned*]"
+                            }
+                        }
+                    },
+                    "owner": {
+                        "main": {
+                            "title": "Ejer af udsendelsen.",
+                            "empty": "Udsendelsen har ingen ejer!",
+                            "name": "Navn: {{name}}",
+                            "phone": "Telefon: +{{phone}}",
+                            "path": "[📍 Sti: Panel → Udsendelser → Menu «{{call}}» → *Ejer*]",
+                            "buttons": {
+                                "change": "🪧 Omfordel"
+                            }
+                        },
+                        "update": {
+                            "main": {
+                                "title": "Vælg en bruger til at udnævne som ejer af denne udsendelse.",
+                                "path": "[📍 Sti: Panel → Udsendelser → Menu «{{call}}» → Ejer → *Vælg*]",
+                                "noOwner": "Uden ejer"
+                            },
+                            "action": {
+                                "success": "✅ Ejer omfordelt!",
+                                "error": "❌ Ejer ikke omfordelt! Prøv igen senere!",
+                                "path": "[📍 Sti: Panel → Udsendelser → Menu «{{call}}» → Ejer → {{owner}} → *Udnævn*]"
+                            }
+                        }
+                    },
+                    "name": {
+                        "main": {
+                            "title": "Navne på udsendelsen:",
+                            "about": "1 - signatur (gammel betegnelse)\n2 - enhedens navn\n3 - kaldesignal (vist navn i botten)",
+                            "path": "[📍 Sti: Panel → Udsendelser → Menu «{{call}}» → *Navne*]"
+                        },
+                        "update": {
+                            "call": {
+                                "title": "Ændrer udsendelsens kaldesignal!",
+                                "path": "[📍 Sti: Panel → Udsendelser → Menu «{{call}}» → Navne → Kaldesignal → *Opdater*]"
+                            },
+                            "label": {
+                                "alert": "Udsendelsens signatur kan ikke ændres!"
+                            },
+                            "name": {
+                                "alert": "Udsendelsens navn kan ikke ændres!"
+                            }
+                        }
+                    }
+                }
+            },
+            "contract": {
+                "main": {
+                    "title": "Administrer kontrakter. Antal: {{amount}}",
+                    "path": "[📍 Sti: {{menu}} → *Kontrakter*]",
+                    "empty": "Ingen kontrakter er konfigureret endnu! Kom tilbage senere.",
+                    "contractName": "{{userName}}: fra {{dateStart}}"
+                },
+                "view": {
+                    "main": {
+                        "title": "Liste over kontrakter.",
+                        "path": "[📍 Sti: {{menu}} → Kontrakter → *Vis*]"
+                    },
+                    "contract": {
+                        "main": {
+                            "title": "Kontrakt fra {{dateStart}}.",
+                            "sendouts": "Udsendelser inkluderet i kontrakten: {{sendouts}}",
+                            "noSendouts": "tom.",
+                            "userName": "Kunde: {{userName}}",
+                            "dateStart": "Startdato: {{dateStart}}",
+                            "dateEnd": "Slutdato: {{dateEnd}}",
+                            "price": "Pris: {{price}}",
+                            "priceText": "Pris (tekst): {{priceText}}",
+                            "error": "Fejl ved hentning af kontrakt. Kontakt administratoren",
+                            "path": "\n[📍 Sti: {{menu}} → Kontrakter → Vis → *{{dateStart}}*]"
+                        },
+                        "remove": {
+                            "success": "✅ Kontrakt fjernet!",
+                            "error": "❌ Kontrakt ikke fjernet!\nPrøv igen senere",
+                            "path": "[📍 Sti: Panel → Kontrakter → Vis → {{dateStart}} → *Fjern*]"
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Vælg det format, hvor kontrakten skal gemmes",
+                                "path": "[📍 Sti: {{menu}} → Kontrakter → Vis → {{dateStart}} → *Vælg eksportformat*]"
+                            },
+                            "result": {
+                                "error": "❌ Fejl ved eksport af kontrakt\nKontakt administratoren",
+                                "caption": "Kontrakt i formatet {{exportType}} er klar!",
+                                "path": "\n[📍 Sti: {{menu}} → Kontrakter → Vis → {{dateStart}} → *Eksporter til {{exportType}}*]"
+                            }
+                        }
+                    }
+                },
+                "create": {
+                    "step": "Trin: {{number}} / 3",
+                    "noUser": "For at gå videre til trin #2 skal du udføre trin #1!",
+                    "noSendouts": "For at gå videre til trin #3 skal du udføre trin #2!",
+                    "noFreeSendouts": "Kunden har ingen frie udsendelser (uden kontrakt)!",
+                    "data": {
+                        "user": "Vælg den bruger, som kontrakten skal oprettes for",
+                        "sendout": "Vælg de udsendelser, der skal inkluderes i kontrakten",
+                        "contract": "Send data vedrørende kontrakten"
+                    },
+                    "title": "Opretter kontrakt!",
+                    "path": "[📍 Sti: Panel → Kontrakter → *Opret*]"
+                }
+            }
+        }
+    }
+}
