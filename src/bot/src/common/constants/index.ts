@@ -12,8 +12,8 @@ const link = {
     profileById: "tg://user?id=",
     chatByNumber: "https://t.me/+",
     instruction: {
-        commands: "https://telegra.ph/Komandy-Rassylka-bot-11-29-2",
-        service: "",
+        main: "https://telegra.ph/Komandy-Rassylka-bot-11-29-2",
+        service: "https://telegra.ph/O-servise-Gadkij-utyonok-06-14",
         time: {
             add: "https://telegra.ph/Dobavlenie-vremeni-06-03"
         },

@@ -1,393 +1,425 @@
 {
     "utils": {
         "shared": {
-            "processing": "⏳ Procesando...",
-            "cabinet": "🪴 Panel personal",
+            "processing": "⏳ 处理中...",
+            "cabinet": "🪴 个人中心",
+            "panel": "👨‍💻 管理员面板",
+            "nameless": "无名",
             "buttons": {
-                "export": "📧 Exportar",
-                "nameless": "Sin nombre",
-                "back": "🔙 Atrás",
-                "remove": "🗑 Eliminar",
-                "miss": "Faltante",
-                "create": "➕ Crear",
-                "update": "✍ Editar",
-                "clear": "🗑 Limpiar",
-                "view": "👁 Ver",
-                "contract": "📜 Contratos",
-                "sendout": "📢 Envíos",
-                "chat": "🗯 Grupos",
-                "contactAdmin": "👨 Administrador"
+                "export": "📧 导出",
+                "back": "🔙 返回",
+                "remove": "🗑 删除",
+                "miss": "缺失",
+                "create": "➕ 创建",
+                "update": "✍ 修改",
+                "instruction": "📖 说明",
+                "clear": "🗑 清空",
+                "view": "👁 查看",
+                "contract": "📜 合同",
+                "sendout": "📢 群发",
+                "chat": "🗯 群组",
+                "contactAdmin": "👨 管理员"
             },
             "titles": {
-                "validate": "⚠ Los datos de entrada tenían un formato inválido. Envíalos de nuevo",
-                "cabinet": "Panel",
-                "panel": "Panel → Datos",
-                "amount": "Cantidad: {{amount}}",
-                "sendoutActive": "El envío está activo actualmente, intenta gestionar los datos más tarde"
+                "validate": "⚠ 输入数据格式不正确，请重新发送",
+                "cabinet": "个人中心",
+                "panel": "面板 → 数据",
+                "amount": "数量：{{amount}}",
+                "sendoutActive": "当前群发任务进行中，请稍后再管理数据",
+                "accessDenied": {
+                    "all": "访问被拒绝。请先使用 /auth 命令授权",
+                    "admin": "访问被拒绝。此部分仅限客户使用",
+                    "customer": "访问被拒绝。此部分仅限管理员使用"
+                }
             }
         },
-        "maintenace": "🚧 Actualmente se están realizando tareas de mantenimiento. El uso del servicio está temporalmente limitado.\n¡Te avisaremos en cuanto terminemos!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "maintenace": "🚧 当前正在技术维护，服务暂时受限。\n完成后会立即通知您！\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
         "roleCodes": {
-            "admin": "Administrador",
-            "customer": "Cliente",
-            "unknown": "Desconocido"
+            "admin": "管理员",
+            "customer": "客户",
+            "unknown": "未知"
         },
         "commands": {
-            "cabinet": "Panel",
-            "settings": "Ajustes",
-            "panel": "Panel de admin"
+            "cabinet": "个人中心",
+            "settings": "设置",
+            "panel": "管理面板"
         },
         "chart": {
-            "labelMonth": "Estadísticas de grupos que recibieron el envío. {{month}} {{year}}",
-            "labelWeek": "Estadísticas de grupos que recibieron el envío. Semana",
-            "amountSms": "Número de mensajes",
-            "noLogs": "¡Aún no ha ocurrido ningún envío en el período seleccionado!",
+            "labelMonth": "收到群发的群组数量统计。{{year}}年{{month}}",
+            "labelWeek": "收到群发的群组数量统计。周",
+            "amountSms": "消息数量",
+            "noLogs": "所选时间段内尚未进行群发！",
             "daysOfWeek": {
-                "Mon": "Lun",
-                "Tue": "Mar",
-                "Wed": "Mié",
-                "Thu": "Jue",
-                "Fri": "Vie",
-                "Sat": "Sáb",
-                "Sun": "Dom"
+                "Mon": "周一",
+                "Tue": "周二",
+                "Wed": "周三",
+                "Thu": "周四",
+                "Fri": "周五",
+                "Sat": "周六",
+                "Sun": "周日"
             },
             "months": {
-                "january": "Enero",
-                "february": "Febrero",
-                "march": "Marzo",
-                "april": "Abril",
-                "may": "Mayo",
-                "june": "Junio",
-                "july": "Julio",
-                "august": "Agosto",
-                "september": "Septiembre",
-                "october": "Octubre",
-                "november": "Noviembre",
-                "december": "Diciembre"
+                "january": "一月",
+                "february": "二月",
+                "march": "三月",
+                "april": "四月",
+                "may": "五月",
+                "june": "六月",
+                "july": "七月",
+                "august": "八月",
+                "september": "九月",
+                "october": "十月",
+                "november": "十一月",
+                "december": "十二月"
             }
         },
         "calendar": {
             "months": {
-                "0": "Enero",
-                "1": "Febrero",
-                "2": "Marzo",
-                "3": "Abril",
-                "4": "Mayo",
-                "5": "Junio",
-                "6": "Julio",
-                "7": "Agosto",
-                "8": "Septiembre",
-                "9": "Octubre",
-                "10": "Noviembre",
-                "11": "Diciembre"
+                "0": "一月",
+                "1": "二月",
+                "2": "三月",
+                "3": "四月",
+                "4": "五月",
+                "5": "六月",
+                "6": "七月",
+                "7": "八月",
+                "8": "九月",
+                "9": "十月",
+                "10": "十一月",
+                "11": "十二月"
             },
             "days": {
-                "0": "Lun",
-                "1": "Mar",
-                "2": "Mié",
-                "3": "Jue",
-                "4": "Vie",
-                "5": "Sáb",
-                "6": "Dom"
+                "0": "周一",
+                "1": "周二",
+                "2": "周三",
+                "3": "周四",
+                "4": "周五",
+                "5": "周六",
+                "6": "周日"
             }
         },
         "processType": {
-            "bot": "Bot",
-            "parser": "Parser",
-            "sendout": "Envíos"
+            "bot": "机器人",
+            "parser": "解析器",
+            "sendout": "群发"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "时间表",
+                "message": "消息",
+                "contract": "合同"
+            },
+            "text": "导出",
+            "from": "从"
+        },
+        "localization": {
+            "schedule": {
+                "number": "日",
+                "everyDay": "每天",
+                "unknownDay": "未知日",
+                "dayWeek": {
+                    "1": "星期一",
+                    "2": "星期二",
+                    "3": "星期三",
+                    "4": "星期四",
+                    "5": "星期五",
+                    "6": "星期六",
+                    "7": "星期日",
+                    "*": "每天"
+                }
+            }
         }
     },
     "handlers": {
         "events": {
             "contact": {
-                "numberIsNull": "¡Error al procesar el número de teléfono!\n¡Inténtalo de nuevo!",
-                "accessDenied": "Acceso denegado. Para utilizar el servicio de envío, usa el comando '/settings', sección 'Ayuda'"
+                "numberIsNull": "处理电话号码时出错！\n请重试！",
+                "accessDenied": "访问被拒绝。要使用群发服务，请使用 /settings 命令中的“帮助”部分"
             }
         },
         "states": {
             "addingText": {
-                "success": "✅ ¡Texto guardado!",
-                "error": "❌ ¡Texto no guardado!\nContacta al administrador",
-                "path": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → *Agregar texto*]"
+                "success": "✅ 文本已保存！",
+                "error": "❌ 文本未保存！请联系管理员",
+                "path": "[📍 路径：{{menu}} → 菜单“{{call}}” → 消息 → *创建文本*]"
             },
             "generatingText": {
-                "result": "El mensaje generado se muestra a continuación.\nUsa los botones debajo de los mensajes para decidir el destino del texto.",
-                "pathChoose": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → Generación de texto → *Destino del texto*]",
+                "result": "生成的消息如下。请使用消息下方的按钮决定文本的去留。",
+                "pathChoose": "[📍 路径：{{menu}} → 菜单“{{call}}” → 消息 → 生成文本 → *文本去向*]",
                 "buttons": {
-                    "save": "✔ Guardar",
-                    "cancel": "❌ No guardar"
+                    "save": "✔ 保存",
+                    "cancel": "❌ 不保存"
                 }
             },
             "updatingText": {
-                "success": "✅ ¡Texto editado!",
-                "error": "❌ ¡Texto no editado!\nContacta al administrador",
-                "path": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → *Editar texto*]"
+                "success": "✅ 文本已修改！",
+                "error": "❌ 文本未修改！请联系管理员",
+                "path": "[📍 路径：{{menu}} → 菜单“{{call}}” → 消息 → *修改文本*]"
             },
             "addingMedia": {
-                "error": "💀 ¡Error al guardar el medio!\nContacta al administrador",
-                "invalidType": "¡Tipo de medio no reconocido! Inténtalo de nuevo",
-                "bigSize": "Archivo demasiado grande. Tamaño máximo {{size}} MB.",
-                "documentsWTMedia": "No puedo procesar documentos que no contengan: foto / video / gif",
-                "success": "✅ ¡Medio guardado!",
-                "error2": "❌ ¡Medio no guardado!\nContacta al administrador",
-                "path": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → *Agregar medio*]"
+                "error": "💀 保存媒体时出错！请联系管理员",
+                "invalidType": "媒体类型无法识别，请重试",
+                "bigSize": "文件过大。最大允许 {{size}} MB。",
+                "documentsWTMedia": "无法处理不包含照片/视频/GIF 的文档",
+                "success": "✅ 媒体已保存！",
+                "error2": "❌ 媒体未保存！请联系管理员",
+                "path": "[📍 路径：{{menu}} → 菜单“{{call}}” → 消息 → *添加媒体*]",
+                "amount": "消息中的媒体数量：{{now}} / {{all}}"
             },
             "addingTime": {
-                "success": "✅ ¡Hora guardada!",
-                "error": "❌ ¡Hora no editada!\nContacta al administrador",
-                "path": "[📍 Ruta: Panel → Menú «{{call}}» → Horario → Ver → *Agregar*]"
+                "success": "✅ 时间已保存！",
+                "error": "❌ 时间未修改！请联系管理员",
+                "path": "[📍 路径：面板 → 菜单“{{call}}” → 时间表 → 查看 → *添加*]"
             },
             "updatingTime": {
-                "success": "✅ ¡Hora editada!",
-                "error": "❌ ¡Hora no editada!\nContacta al administrador",
-                "path": "[📍 Ruta: Panel → Menú «{{call}}» → Horario → Ver → *Editar*]"
+                "success": "✅ 时间已修改！",
+                "error": "❌ 时间未修改！请联系管理员",
+                "path": "[📍 路径：面板 → 菜单“{{call}}” → 时间表 → 查看 → *修改*]"
             },
             "addingIdea": {
-                "success": "✅ ¡Idea agregada con éxito, gracias!",
-                "error": "❌ ¡Idea no agregada!\n¡Inténtalo de nuevo o contacta al administrador!",
-                "path": "[📍 Ruta: Ajustes → Ideas → *Agregar*]"
+                "success": "✅ 建议已添加，谢谢！",
+                "error": "❌ 建议未添加！请重试或联系管理员！",
+                "path": "[📍 路径：设置 → 建议 → *添加*]"
             },
             "addingUser": {
-                "success": "✅ ¡Usuario creado con éxito!",
-                "error": "❌ ¡Usuario no creado!\nInténtalo más tarde.",
-                "path": "[📍 Ruta: Panel → Datos → Usuarios → *Creación*]"
+                "success": "✅ 用户创建成功！",
+                "error": "❌ 用户未创建！请稍后再试。",
+                "path": "[📍 路径：面板 → 数据 → 用户 → *创建*]"
             },
             "addingContract": {
-                "success": "✅ ¡Contrato creado con éxito!",
-                "error": "❌ ¡Contrato no creado!\nInténtalo más tarde.",
-                "path": "[📍 Ruta: Panel → Contratos → *Creación*]"
+                "success": "✅ 合同创建成功！",
+                "error": "❌ 合同未创建！请稍后再试。",
+                "path": "[📍 路径：面板 → 合同 → *创建*]"
             },
             "updatingSendoutCall": {
-                "success": "✅ ¡Señal de llamada actualizada con éxito!",
-                "error": "❌ ¡Señal de llamada no actualizada!\nInténtalo más tarde.",
-                "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → Nombre → *Actualizar*]"
+                "success": "✅ 呼号更新成功！",
+                "error": "❌ 呼号未更新！请稍后再试。",
+                "path": "[📍 路径：面板 → 群发 → 菜单“{{call}}” → 名称 → 呼号 → *更新*]"
             },
             "updatingUserName": {
-                "success": "✅ ¡Nombre actualizado con éxito!",
-                "error": "❌ ¡Nombre no actualizado!\nInténtalo más tarde.",
-                "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → {{userName}} → *Editar nombre*]"
+                "success": "✅ 名称更新成功！",
+                "error": "❌ 名称未更新！请稍后再试。",
+                "path": "[📍 路径：面板 → 数据 → 用户 → 查看 → {{userName}} → *修改名称*]"
             },
             "updatingUserPhone": {
-                "success": "✅ ¡Teléfono actualizado con éxito!",
-                "error": "❌ ¡Teléfono no actualizado!\nInténtalo más tarde.",
-                "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → {{userName}} → *Editar número de teléfono*]"
+                "success": "✅ 电话更新成功！",
+                "error": "❌ 电话未更新！请稍后再试。",
+                "path": "[📍 路径：面板 → 数据 → 用户 → 查看 → {{userName}} → *修改号码*]"
             }
         }
     },
     "modules": {
         "commands": {
             "start": {
-                "title": "¡Bienvenido! Soy un bot de Telegram, asistente para envíos.\n\nTe recomiendo que te familiarices con todo el registro de mis comandos presionando el botón ovalado 'Menú' en la esquina inferior izquierda de la pantalla.\nDespués de leer el manual de uso, que se invoca con el comando '/settings', en la sección 'Acerca del bot'."
+                "title": "☀ 你好！我是丑小鸭 Telegram 机器人，群发助手。",
+                "commands": "以下是与我交互的命令简述：\n/start - 激活机器人并查看命令列表\n/auth - 授权登录\n/cabinet - 管理个人中心\n/settings - 管理机器人设置",
+                "uAdmin": "❓ 您是管理员？\n/panel - 管理面板",
+                "link": "您可以通过下方按钮查看更详细的操作说明。"
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ 取消",
+                        "phone": "📞 分享",
+                        "again": "🔄 重试"
+                    },
+                    "unknownMessage": "操作无法识别，请重新使用按钮：“📞 分享” 或 “❌ 取消”",
+                    "manyAttempts": "达到小时限制前的授权尝试次数：{{actualAttempts}} / {{maxAttempts}}",
+                    "stop": "授权已被限制。限制解除时间：{{dateTime}}",
+                    "canceled": "授权已成功停止！",
+                    "title": "要进入群发面板，您需要与我分享您的手机号码。\n\n键盘旁应出现“📞 分享”按钮",
+                    "good": "您已成功登录系统！",
+                    "already": "您已登录系统！",
+                    "bad": "授权时出错。请联系管理员！"
+                },
+                "logout": {
+                    "good": "您已成功退出系统。您的数据已被清除！",
+                    "bad": "退出系统时出错。请联系管理员！"
+                }
             },
             "settings": {
                 "main": {
-                    "title": "⚙️ Ajustes",
+                    "title": "⚙️ 设置",
                     "buttons": {
-                        "about": "ℹ Sobre el Servicio",
-                        "help": "❓ Ayuda",
-                        "idea": "💡 Ideas",
-                        "language": "🌐 Idioma"
+                        "about": "ℹ 关于服务",
+                        "help": "❓ 帮助",
+                        "idea": "💡 建议",
+                        "language": "🌐 语言"
                     }
                 },
                 "language": {
                     "main": {
-                        "title": "Selecciona un idioma.",
-                        "path": "[📍 Ruta: Ajustes → *Idioma*]"
+                        "title": "选择语言。",
+                        "path": "[📍 路径：设置 → *语言*]"
                     },
                     "change": {
-                        "good": "¡Idioma cambiado!",
-                        "error": "¡Este idioma ya está seleccionado!"
+                        "good": "语言已更改！",
+                        "error": "已选择该语言！"
                     }
                 },
                 "help": {
-                    "title": "¿Tienes un problema?\n¿Tienes preguntas?\n¿Quieres elogiar el servicio?\n¿Tienes ideas para mejorar el servicio?",
-                    "interest": "¿O estás interesado en el producto?\n¡Completa el siguiente formulario y nos pondremos en contacto contigo!",
-                    "path": "[📍 Ruta: Ajustes → *Ayuda*]"
+                    "title": "遇到问题？\n有疑问？\n想表扬服务？\n有改进建议？",
+                    "interest": "或对产品感兴趣？\n填写下方表格，我们将与您联系！",
+                    "path": "[📍 路径：设置 → *帮助*]"
                 },
                 "about": {
-                    "title": "El servicio está desarrollado para automatizar la publicidad (publicaciones, envíos) de tus productos (ofertas) dentro de grupos / chats / canales.\n\n¡Instrucciones para usar el Bot - con el botón de abajo!",
-                    "instruction": "📖 Instrucciones",
-                    "path": "[📍 Ruta: Ajustes → *Sobre el servicio*]"
+                    "title": "本服务旨在自动化您的产品（服务）在群组/聊天/频道中的广告（帖子、群发）。\n\n机器人使用说明见下方按钮！",
+                    "path": "[📍 路径：设置 → *关于服务*]"
                 },
                 "idea": {
                     "main": {
-                        "title": "Menú de la sección Ideas. \nAquí puedes proponer tu idea para el desarrollo del servicio.",
-                        "path": "[📍 Ruta: Ajustes → *Ideas*]",
+                        "title": "建议分区菜单。您可以在这里提出服务改进建议",
+                        "path": "[📍 路径：设置 → *建议*]",
                         "buttons": {
-                            "add": "🗳 Proponer",
-                            "see": "🔍 Explorar"
+                            "add": "🗳 提出",
+                            "see": "🔍 查看"
                         }
                     },
                     "add": {
-                        "title": "¡Envíame medios/audio/texto, etc. No hay límites!",
-                        "path": "[📍 Ruta: Ajustes → Ideas → *Agregar*]"
+                        "title": "请发送媒体/音频/文本等，无限制！",
+                        "path": "[📍 路径：设置 → 建议 → *添加*]"
                     }
                 }
             },
             "cabinet": {
                 "main": {
-                    "buttons": {                        
-                        "logout": "🚪 Salir",
-                        "login": "🔑 Iniciar sesión"
-                    }
-                },
-                "auth": {
-                    "login": {
-                        "buttons": {
-                            "cancel": "❌ Cancelar",
-                            "phone": "📞 Compartir"
-                        },
-                        "unknownMessage": "Acción no reconocida, intenta usar los botones 'Compartir' y 'Cancelar' de nuevo",
-                        "manyAttempts": "Número de intentos de autenticación utilizados antes del límite de una hora: {{actualAttempts}} de {{maxAttempts}}",
-                        "stop": "Autorización limitada. Las restricciones se levantarán después de: {{dateTime}}",
-                        "canceled": "¡Autorización detenida con éxito!",
-                        "title": "Para acceder al panel de envíos, necesitas compartir tu número de teléfono conmigo.\n\nEl botón debería aparecer junto al teclado, con la etiqueta '📞 Compartir'.",
-                        "good": "¡Has iniciado sesión en el sistema con éxito!",
-                        "already": "¡Ya has iniciado sesión en el sistema!",
-                        "bad": "Error al iniciar sesión en el sistema.\n¡Contacta al administrador!",
-                        "path": "[📍 Ruta: Panel → *Autorización*"
-                    },
-                    "logout": {
-                        "good": "Has cerrado sesión correctamente. ¡Tus datos han sido borrados!",
-                        "bad": "Error al cerrar sesión.\n¡Contacta al administrador!",
-                        "path": "[📍 Ruta: Panel → *Cerrar sesión*]"
+                    "buttons": {
+                        "logout": "🚪 退出",
+                        "login": "🔑 登录"
                     }
                 }
             },
             "panel": {
                 "main": {
-                    "title": "👨‍💻 Panel de administrador",
                     "buttons": {
-                        "data": "🗂 Datos",
-                        "system": "⚡ Sistema "
+                        "data": "🗂 数据",
+                        "system": "⚡ 系统"
                     }
                 },
                 "data": {
                     "main": {
-                        "title": "Gestión de datos",
-                        "path": "[📍 Ruta: Panel → *Datos*]",
+                        "title": "数据管理",
+                        "path": "[📍 路径：面板 → *数据*]",
                         "buttons": {
-                            "user": "👥 Usuarios"
+                            "user": "👥 用户"
                         }
                     },
                     "chat": {
                         "main": {
-                            "title": "Gestión de grupos",
-                            "amount": "Cantidad: {{amount}}",
-                            "path": "[📍 Ruta: Panel → Datos → *Grupos*]",
+                            "title": "群组管理。数量：{{amount}}",
+                            "path": "[📍 路径：面板 → 数据 → *群组*]",
                             "buttons": {
-                                "reupload": "🔁 Actualizar"
+                                "reupload": "🔁 刷新"
                             }
                         },
                         "reupload": {
-                            "success": "✅ ¡Grupos actualizados!",
-                            "error": "❌ Error al actualizar grupos\nContacta al administrador",
-                            "path": "[📍 Ruta: Panel → Datos → Grupos → *Actualizar*]"
+                            "success": "✅ 群组已更新！",
+                            "error": "❌ 更新群组时出错，请联系管理员",
+                            "path": "[📍 路径：面板 → 数据 → 群组 → *更新*]"
                         },
                         "clear": {
-                            "success": "✅ ¡Grupos limpiados!",
-                            "error": "❌ Error al limpiar grupos\nContacta al administrador",
-                            "path": "[📍 Ruta: Panel → Datos → Grupos → *Limpiar*]"
+                            "success": "✅ 群组已清空！",
+                            "error": "❌ 清空群组时出错，请联系管理员",
+                            "path": "[📍 路径：面板 → 数据 → 群组 → *清空*]"
                         }
                     },
                     "user": {
                         "main": {
-                            "title": "Gestión de usuarios",
-                            "amount": "Cantidad: {{amount}}",
-                            "path": "[📍 Ruta: Panel → Datos → *Usuarios*]"
+                            "title": "用户管理。数量：{{amount}}",
+                            "path": "[📍 路径：面板 → 数据 → *用户*]"
                         },
                         "view": {
                             "main": {
-                                "title": "Lista de usuarios.",
-                                "path": "[📍 Ruta: Panel → Datos → Usuarios → *Ver*]"
+                                "title": "用户列表。",
+                                "path": "[📍 路径：面板 → 数据 → 用户 → *查看*]"
                             },
                             "control": {
                                 "main": {
-                                    "title": "Gestión de usuario",
-                                    "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → *{{userName}}*]",
-                                    "telegramId": "Tg ID: {{telegramId}}",
-                                    "name": "Nombre: {{name}}",
-                                    "username": "Nombre de usuario: @{{username}}",
-                                    "phone": "Teléfono: +{{phone}}",
-                                    "language": "Idioma: {{language}}",
-                                    "role": "Rol: {{role}}"
+                                    "title": "管理用户",
+                                    "path": "[📍 路径：面板 → 数据 → 用户 → 查看 → *{{userName}}*]",
+                                    "telegramId": "Tg ID：{{telegramId}}",
+                                    "name": "名称：{{name}}",
+                                    "username": "用户名：@{{username}}",
+                                    "phone": "电话：+{{phone}}",
+                                    "language": "语言：{{language}}",
+                                    "role": "角色：{{role}}"
                                 },
                                 "remove": {
-                                    "success":"✅ ¡Usuario eliminado con éxito!",
-                                    "error": "❌ ¡Usuario no eliminado!\nInténtalo más tarde",
-                                    "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → {{userName}} → *Eliminar*]"
+                                    "success": "✅ 用户删除成功！",
+                                    "error": "❌ 用户未删除！请稍后再试",
+                                    "path": "[📍 路径：面板 → 数据 → 用户 → 查看 → {{userName}} → *删除*]"
                                 },
                                 "update": {
                                     "phone": {
-                                        "title": "Cambiando el teléfono.\nEnvíalo aquí.",
-                                        "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → {{userName}} → *Editar número de teléfono*]"
+                                        "title": "正在修改电话！\n请发送新号码。",
+                                        "path": "[📍 路径：面板 → 数据 → 用户 → 查看 → {{userName}} → *修改号码*]"
                                     },
                                     "name": {
-                                        "title": "Cambiando el nombre.\nEnvíalo aquí.",
-                                        "path": "[📍 Ruta: Panel → Datos → Usuarios → Ver → {{userName}} → *Editar nombre*]"
+                                        "title": "正在修改名称！\n请发送新名称。",
+                                        "path": "[📍 路径：面板 → 数据 → 用户 → 查看 → {{userName}} → *修改名称*]"
                                     }
                                 }
                             }
                         },
                         "create": {
-                            "title": "Creando un usuario. Antes de comenzar, lee las instrucciones para una correcta creación.",
-                            "path": "[📍 Ruta: Panel → Datos → Usuarios → *Creación*]"
-                        }   
+                            "title": "创建用户！",
+                            "path": "[📍 路径：面板 → 数据 → 用户 → *创建*]"
+                        }
                     }
                 },
                 "system": {
                     "main": {
-                        "title": "Gestión del sistema",
-                        "path": "[📍 Ruta: Panel → *Sistema*]",
+                        "title": "系统管理",
+                        "path": "[📍 路径：面板 → *系统*]",
                         "buttons": {
-                            "server": "📟 Servidor",
-                            "maintenace": "🛠️ Mantenimiento"
+                            "server": "📟 服务器",
+                            "maintenace": "🛠️ 维护"
                         }
                     },
                     "server": {
                         "main": {
-                            "title": "Categorías de procesos",
-                            "path": "[📍 Ruta: Panel → Sistema → *Servidor*]",
+                            "title": "进程类别",
+                            "path": "[📍 路径：面板 → 系统 → *服务器*]",
                             "buttons": {
-                                "bot": "🤖 Bot",
-                                "parser": "🧲 Parser"
+                                "bot": "🤖 机器人",
+                                "parser": "🧲 解析器"
                             }
                         },
                         "process": {
                             "main": {
-                                "title": "Selecciona un proceso",
-                                "path": "[📍 Ruta: Panel → Sistema → Servidor → *{{processType}}*]"
+                                "title": "选择一个进程",
+                                "path": "[📍 路径：面板 → 系统 → 服务器 → *{{processType}}*]"
                             },
                             "control": {
                                 "main": {
-                                    "title": "Gestión del proceso",
-                                    "path": "[📍 Ruta: Panel → Sistema → Servidor → {{processType}} → *{{processName}}*]",
+                                    "title": "管理进程",
+                                    "path": "[📍 路径：面板 → 系统 → 服务器 → {{processType}} → *{{processName}}*]",
                                     "buttons": {
-                                        "condition": "🩻 Estado",
-                                        "log": "📋 Registros"
+                                        "condition": "🩻 状态",
+                                        "log": "📋 日志"
                                     }
                                 },
                                 "condition": {
-                                    "path": "[📍 Ruta: Panel → Sistema → Servidor → {{processType}} → {{processName}} → *Estado*]",
+                                    "path": "[📍 路径：面板 → 系统 → 服务器 → {{processType}} → {{processName}} → *状态*]",
                                     "status": {
-                                        "active": "✅ El proceso está activo.\nPara detenerlo, presiona el botón de abajo",
-                                        "inactive": "❌ El proceso está inactivo.\nPara iniciarlo, presiona el botón de abajo",
-                                        "failed": "💀 El proceso ha muerto.\nContacta al programador.",
-                                        "error": "Problema con el proceso. Contacta al programador."
+                                        "active": "✅ 进程活动。\n要停止，请按下方按钮",
+                                        "inactive": "❌ 进程不活动。\n要启动，请按下方按钮",
+                                        "failed": "❌ 进程不活动。\n要启动，请按下方按钮",
+                                        "error": "进程问题，请联系程序员。"
                                     },
                                     "buttons": {
-                                        "stop": "🛑 Detener",
-                                        "start": "▶️ Iniciar",
-                                        "restart": "🔁 Reiniciar"
+                                        "stop": "🛑 停止",
+                                        "start": "▶️ 启动",
+                                        "restart": "🔁 重启"
                                     }
                                 },
                                 "log": {
-                                    "title": "Ver registros",
-                                    "path": "[📍 Ruta: Panel → Sistema → Servidor → {{processType}} → {{processName}} → *Registros*]",
-                                    "sort": "Orden: {{sortType}}",
+                                    "title": "查看日志",
+                                    "path": "[📍 路径：面板 → 系统 → 服务器 → {{processType}} → {{processName}} → *日志*]",
+                                    "sort": "排序：{{sortType}}",
                                     "sortType": {
-                                        "new": "de más nuevo a más antiguo",
-                                        "old": "de más antiguo a más nuevo"
+                                        "new": "从新到旧",
+                                        "old": "从旧到新"
                                     }
                                 }
                             }
@@ -399,289 +431,306 @@
         "shared": {
             "sendout": {
                 "main": {
-                    "title": "Lista de envíos activos en este momento.",
-                    "path": "[📍 Ruta: {{menu}} → Envíos → *Ver*]",
-                    "empty": "¡Aún no se han configurado envíos! Vuelve más tarde."
+                    "title": "当前活跃的群发列表。",
+                    "path": "[📍 路径：{{menu}} → *群发*]",
+                    "empty": "尚未设置群发！请稍后返回。"
                 },
                 "view": {
                     "main": {
-                        "title": "📣 Menú de envío «{{call}}»",
-                        "path": "[📍 Ruta: {{menu}} → Envíos → Ver → *Menú «{{call}}»*]",
+                        "title": "📣 群发菜单「{{call}}」",
+                        "path": "[📍 路径：{{menu}} → 群发 → *菜单「{{call}}」*]",
                         "buttons": {
-                            "schedule": "🕰️ Horario",
-                            "message": "💬 Mensajes",
-                            "statistic": "📈 Estadísticas",
-                            "owner": "👑 Propietario",
-                            "call": "🏷️ Nombre"
+                            "schedule": "🕰️ 时间表",
+                            "message": "💬 消息",
+                            "statistic": "📈 统计",
+                            "owner": "👑 所有者",
+                            "name": "🏷️ 名称",
+                            "test": "🎛️ 测试"
                         }
+                    },
+                    "test": {
+                        "alert": "群发当前活动，无法启用测试模式！"
                     },
                     "message": {
                         "main": {
-                            "error": "¡Error al recibir los mensajes!\nContacta al administrador",
-                            "empty": "¡No hay mensajes!\nPara agregar un texto, presiona el botón de abajo",
-                            "title": "Menú de la sección Mensajes. Cantidad: {{amount}}",
-                            "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → *Mensajes*]"
+                            "error": "获取消息时出错！请联系管理员",
+                            "empty": "没有消息！\n要添加文本，请按下方按钮",
+                            "title": "消息分区菜单。数量：{{amount}}",
+                            "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → *消息*]"
                         },
                         "create": {
                             "main": {
-                                "title": "Selecciona el tipo de adición de texto.",
-                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Modo de adición*]",
+                                "title": "选择文本添加模式。",
+                                "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → *添加模式*]",
                                 "buttons": {
-                                    "generate": "🔮 Generar",
-                                    "hand": "✍ Entrada manual"
+                                    "generate": "🔮 生成",
+                                    "hand": "✍ 手动输入"
                                 }
                             },
                             "generate": {
-                                "title": "¡Generaré un texto de venta!\nEnvía el texto fuente aquí. No se permite un montón de textos.",
-                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Generación*]",
-                                "save": "✅ ¡Texto guardado!",
-                                "cancel": "❌ ¡Texto no guardado!",
-                                "pathSave": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → Generación → *Guardar*]",
-                                "pathCancel": "[📍 Ruta: {{menu}} → Menú «{{call}}» → Mensajes → Generación → *Cancelar*]"
+                                "title": "我会生成营销文案！请将原始内容发送至此。不要批量发送文本。",
+                                "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → *生成*]",
+                                "save": "✅ 文本已保存！",
+                                "cancel": "❌ 文本未保存！",
+                                "pathSave": "[📍 路径：{{menu}} → 菜单「{{call}}」 → 消息 → 生成 → *保存*]",
+                                "pathCancel": "[📍 路径：{{menu}} → 菜单「{{call}}」 → 消息 → 生成 → *取消*]"
                             },
                             "hand": {
-                                "title": "Agregando texto.\nEnvía el texto o reenvíalo aquí. No se permite un montón de textos.",
-                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Agregar texto*]"
+                                "title": "添加文本！\n请在此发送或转发文本。不要批量发送。",
+                                "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → *添加文本*]"
                             }
                         },
                         "clear": {
-                            "success": "✅ ¡Todos los mensajes limpiados!",
-                            "error": "❌ ¡Mensajes no limpiados!\nContacta al administrador",
-                            "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Limpiar*]"
+                            "success": "✅ 所有消息已清空！",
+                            "error": "❌ 消息未清空！请联系管理员",
+                            "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → *清空*]"
                         },
                         "view": {
                             "main": {
-                                "messageNumber": "Mensaje nº {{number}}.",
-                                "amountMedia": "Cantidad de medios: {{amount}} / {{maxMedia}}.",
-                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Ver*]",
+                                "messageNumber": "消息 №{{number}}。",
+                                "amountMedia": "媒体数量：{{amount}} / {{maxMedia}}。",
+                                "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → *查看*]",
                                 "buttons": {
-                                    "updateText": "✍️ Editar texto",
-                                    "addMedia": "🖼 Agregar medio",
-                                    "clearAllMedia": "🗑 Limpiar medios"    
+                                    "updateText": "✍️ 修改文本",
+                                    "addMedia": "🖼 添加媒体",
+                                    "clearAllMedia": "🗑 清空媒体"
                                 }
                             },
                             "text": {
                                 "update": {
-                                    "title": "Editando texto.\nEnvía el texto o reenvíalo aquí. No se permite un montón de textos.",
-                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Editar texto*]"
+                                    "title": "修改文本！\n请在此发送或转发文本。不要批量发送。",
+                                    "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → *修改文本*]"
                                 },
                                 "remove": {
-                                    "success": "✅ ¡Mensaje eliminado!",
-                                    "error": "❌ ¡Texto no eliminado!\nContacta al administrador",
-                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Eliminar texto*]"
+                                    "success": "✅ 消息已删除！",
+                                    "error": "❌ 文本未删除！请联系管理员",
+                                    "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → *删除文本*]"
                                 }
                             },
                             "media": {
                                 "add": {
-                                    "title": "Agregando medio.\nEnvía medio en cantidad de 1 pieza.",
-                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Agregar medio*]"
+                                    "title": "添加媒体！\n每次发送一份媒体。",
+                                    "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → *添加媒体*]"
                                 },
                                 "clearAll": {
-                                    "success": "✅ ¡Todos los medios limpiados!",
-                                    "error": "❌ ¡Medios no limpiados!\nContacta al administrador",
-                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Limpiar medios*]"
+                                    "success": "✅ 所有媒体已清空！",
+                                    "error": "❌ 媒体未清空！请联系管理员",
+                                    "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → *清空媒体*]"
                                 }
                             },
                             "pagination": {
-                                "title": "Salto rápido al mensaje por número",
-                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → Ver → *Seleccionar mensaje*]"
+                                "title": "按编号快速跳转至消息",
+                                "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → 查看 → *选择消息*]"
                             }
                         },
                         "export": {
                             "main": {
-                                "title": "Selecciona el formato en el que se guardará la lista de mensajes",
-                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Selección de formato de exportación*]"
+                                "title": "选择保存消息列表的格式",
+                                "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → *选择导出格式*]"
                             },
                             "result": {
-                                "error": "❌ Error al exportar mensajes\nContacta al administrador",
-                                "caption": "¡Lista de mensajes en formato {{exportType}} lista!",
-                                "path": "\n[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Mensajes → *Exportar a {{exportType}}*]"
+                                "error": "❌ 导出消息时出错，请联系管理员",
+                                "caption": "{{exportType}} 格式的消息列表已就绪！",
+                                "path": "\n[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 消息 → *导出为 {{exportType}}*]"
                             }
                         }
                     },
                     "schedule": {
                         "main": {
-                            "empty": "¡Horario aún no configurado!",
-                            "title": "Menú de la sección Horario. Número de horas en el horario: {{amount}}",
-                            "path": "\n[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → *Horario*]"
+                            "empty": "尚未设置时间表！",
+                            "title": "时间表分区菜单。时间表中的时间数量：{{amount}}",
+                            "path": "\n[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → *时间表*]"
                         },
                         "create": {
-                            "title": "Agregando hora.",
-                            "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → *Agregar*]"
+                            "title": "添加时间！",
+                            "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 时间表 → *添加*]"
                         },
                         "clear": {
-                            "success": "✅ ¡Horario limpiado!",
-                            "error": "❌ ¡Horario no limpiado!\nContacta al administrador",
-                            "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → *Limpiar*]"
+                            "success": "✅ 时间表已清空！",
+                            "error": "❌ 时间表未清空！请联系管理员",
+                            "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 时间表 → *清空*]"
                         },
                         "view": {
                             "main": {
-                                "title": "El horario de envío se presenta a continuación como botones.",
-                                "path": "\n[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → *Ver*]"
+                                "title": "群发时间表以按钮形式展示如下。",
+                                "path": "\n[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 时间表 → *查看*]"
                             },
                             "time": {
                                 "update": {
-                                    "title": "Editando la hora.",
-                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → Ver → *Editar hora*]"
+                                    "title": "修改时间！",
+                                    "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 时间表 → 查看 → *修改时间*]"
                                 },
                                 "remove": {
-                                    "success": "✅ ¡Hora eliminada!",
-                                    "error": "❌ ¡Hora no eliminada!\nContacta al administrador",
-                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → Ver → *Eliminar hora*]"
+                                    "success": "✅ 时间已删除！",
+                                    "error": "❌ 时间未删除！请联系管理员",
+                                    "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 时间表 → 查看 → *删除时间*]"
                                 },
                                 "updateOrRemove": {
-                                    "title": "Hora seleccionada:\n→ *{{targetTime}}*.\n",
-                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Horario → Ver → *Selección de acción*]"
+                                    "title": "已选时间：\n→ *{{targetTime}}*。\n",
+                                    "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 时间表 → 查看 → *选择操作*]"
                                 }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "选择保存群发时间表的格式",
+                                "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 时间表 → *选择导出格式*]"
+                            },
+                            "result": {
+                                "error": "❌ 导出时间表时出错，请联系管理员",
+                                "caption": "{{exportType}} 格式的时间表已就绪！",
+                                "path": "\n[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 时间表 → *导出为 {{exportType}}*]"
                             }
                         }
                     },
                     "statistic": {
                         "main": {
-                            "title": "Selecciona el formato de las estadísticas deseadas.",
-                            "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → *Estadísticas*]",
+                            "title": "选择所需的统计格式。",
+                            "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → *统计*]",
                             "buttons": {
-                                "selective": "📅 Selectiva",
-                                "comparative": "📊 Comparativa"
+                                "selective": "📅 按日期",
+                                "comparative": "📊 比较"
                             }
                         },
                         "selective": {
                             "main": {
-                                "notDone": "Actualmente se están realizando tareas de mantenimiento en esta sección.",
-                                "noData": "¡No se encontró ningún resultado para la fecha seleccionada!",
-                                "noAccess": "¡El botón presionado no está disponible!",
-                                "title": "Estadística selectiva.\nA continuación hay un calendario con fechas. Para ver el resultado del envío de un día específico, ¡solo haz clic en él!\n\nSi el envío: \n*no ocurrió, \n*no hubo, \n*no está programado, \n*u otra cosa\n- se mostrará un mensaje con el contexto correspondiente, no te alarmes.",
-                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → *Selectiva*]"
+                                "notDone": "该分区目前正在技术维护。",
+                                "noData": "所选日期未找到结果！",
+                                "noAccess": "按下的按钮不可用！",
+                                "title": "按日期统计。\n下方是日期日历。要查看某一天的群发结果，只需点击它！\n\n如果群发：\n*未发生，\n*不存在，\n*未计划，\n*或其他情况\n- 会显示相应提示，请不要惊慌。",
+                                "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 统计 → *按日期*]"
                             },
                             "targetDate": {
                                 "main": {
-                                    "title": "Resultado del envío del {{date}}.",
-                                    "time": "Hora: {{time}}",
-                                    "success": "Envíos exitosos: {{success}}",
-                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → Selectiva → *{{date}}*]"
+                                    "title": "{{date}} 的群发结果。",
+                                    "time": "时间：{{time}}",
+                                    "success": "成功发送：{{success}}",
+                                    "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 统计 → 按日期 → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "amount":"Cantidad: {{amount}}",
-                                    "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → Selectiva → {{date}} → *Grupos*]"    
+                                    "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 统计 → 按日期 → {{date}} → *群组*]"
                                 }
                             }
                         },
                         "comparative": {
                             "main": {
-                                "title": "Selecciona el tipo de estadística comparativa.",
-                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → *Comparativa*]",
+                                "title": "选择比较统计的类型。",
+                                "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 统计 → *比较*]",
                                 "buttons": {
-                                    "week": "Semana",
-                                    "month": "Mes"
+                                    "week": "周",
+                                    "month": "月"
                                 }
                             },
                             "week": {
-                                "title": "Estadística comparativa. (Semana)",
-                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → Comparativa → *Semana*]"
+                                "title": "比较统计（周）",
+                                "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 统计 → 比较 → *周*]"
                             },
                             "month": {
-                                "title": "Estadística comparativa. (Mes)",
-                                "path": "[📍 Ruta: {{menu}} → Envíos → Ver → Menú «{{call}}» → Estadísticas → Comparativa → *Mes*]"
+                                "title": "比较统计（月）",
+                                "path": "[📍 路径：{{menu}} → 群发 → 菜单「{{call}}」 → 统计 → 比较 → *月*]"
                             }
                         }
                     },
                     "owner": {
                         "main": {
-                            "title": "Propietario del envío.",
-                            "empty": "¡El envío no tiene propietario!",
-                            "name": "Nombre: {{name}}",
-                            "phone": "Teléfono: +{{phone}}",
-                            "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → *Propietario*]",
+                            "title": "群发所有者。",
+                            "empty": "该群发没有所有者！",
+                            "name": "名称：{{name}}",
+                            "phone": "电话：+{{phone}}",
+                            "path": "[📍 路径：面板 → 群发 → 菜单「{{call}}」 → *所有者*]",
                             "buttons": {
-                                "change": "🪧 Reasignar"
+                                "change": "🪧 重新分配"
                             }
                         },
                         "update": {
                             "main": {
-                                "title": "Selecciona un usuario para asignarlo como propietario de este envío.",
-                                "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → Propietario → *Selección*]",
-                                "noOwner": "Sin propietario"
+                                "title": "选择要设为此群发所有者的用户。",
+                                "path": "[📍 路径：面板 → 群发 → 菜单「{{call}}」 → 所有者 → *选择*]",
+                                "noOwner": "无所有者"
                             },
                             "action": {
-                                "success": "✅ ¡Propietario reasignado con éxito!",
-                                "error": "❌ ¡Propietario no reasignado!\n¡Inténtalo más tarde!",
-                                "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → Propietario → {{owner}} → *Asignación*]"
+                                "success": "✅ 所有者已重新分配！",
+                                "error": "❌ 所有者未重新分配！请稍后再试！",
+                                "path": "[📍 路径：面板 → 群发 → 菜单「{{call}}」 → 所有者 → {{owner}} → *分配*]"
                             }
                         }
                     },
-                    "call": {
+                    "name": {
                         "main": {
-                            "title": "Nombre (señal de llamada) del envío: {{call}}",
-                            "empty": "¡El envío no tiene nombre!",
-                            "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → *Nombre*]"
+                            "title": "群发名称：",
+                            "about": "1 - 签名（旧命名）\n2 - 实体名称\n3 - 呼号（机器人的显示名称）",
+                            "path": "[📍 路径：面板 → 群发 → 菜单「{{call}}」 → *名称*]"
                         },
                         "update": {
-                            "title": "Cambiando la señal de llamada del envío. Envía el nuevo nombre del envío.",
-                            "path": "[📍 Ruta: Panel → Envíos → Ver → Menú «{{call}}» → Nombre → *Actualizar*]"
+                            "call": {
+                                "title": "修改群发呼号！",
+                                "path": "[📍 路径：面板 → 群发 → 菜单「{{call}}」 → 名称 → 呼号 → *更新*]"
+                            },
+                            "label": {
+                                "alert": "无法修改群发签名！"
+                            },
+                            "name": {
+                                "alert": "无法修改群发实体名称！"
+                            }
                         }
                     }
                 }
             },
             "contract": {
                 "main": {
-                    "title": "Gestión de contratos",
-                    "amount": "Cantidad: {{amount}}",
-                    "path": "[📍 Ruta: {{menu}} → *Contratos*]",
-                    "empty": "¡Aún no se han configurado contratos! Vuelve más tarde.",
-                    "contractName": "{{userName}}: desde {{dateStart}}"
+                    "title": "合同管理。数量：{{amount}}",
+                    "path": "[📍 路径：{{menu}} → *合同*]",
+                    "empty": "尚未设置合同！请稍后返回。",
+                    "contractName": "{{userName}}：自 {{dateStart}}"
                 },
                 "view": {
                     "main": {
-                        "title": "Lista de contratos.",
-                        "path": "[📍 Ruta: {{menu}} → Contratos → *Ver*]"
+                        "title": "合同列表。",
+                        "path": "[📍 路径：{{menu}} → 合同 → *查看*]"
                     },
                     "contract": {
                         "main": {
-                            "title": "Contrato del {{dateStart}}.",
-                            "sendouts": "Envíos incluidos en el contrato: {{sendouts}}",
-                            "noSendouts": "vacío.",
-                            "userName": "Cliente: {{userName}}",
-                            "dateStart": "Fecha de inicio: {{dateStart}}",
-                            "dateEnd": "Fecha de finalización: {{dateEnd}}",
-                            "price": "Precio: {{price}}",
-                            "priceText": "Precio (texto): {{priceText}}",
-                            "error": "Error al recibir el contrato. Contacta al administrador",
-                            "path": "\n[📍 Ruta: {{menu}} → Contratos → Ver → *{{dateStart}}*]"
+                            "title": "自 {{dateStart}} 的合同。",
+                            "sendouts": "合同中包含的群发：{{sendouts}}",
+                            "noSendouts": "空。",
+                            "userName": "客户：{{userName}}",
+                            "dateStart": "开始日期：{{dateStart}}",
+                            "dateEnd": "结束日期：{{dateEnd}}",
+                            "price": "价格：{{price}}",
+                            "priceText": "价格（文本）：{{priceText}}",
+                            "error": "获取合同时出错，请联系管理员",
+                            "path": "\n[📍 路径：{{menu}} → 合同 → 查看 → *{{dateStart}}*]"
                         },
                         "remove": {
-                            "success":"✅ ¡Contrato eliminado con éxito!",
-                            "error": "❌ ¡Contrato no eliminado!\nInténtalo más tarde",
-                            "path": "[📍 Ruta: Panel → Contratos → Ver → {{dateStart}} → *Eliminar*]"
-                        },
-                        "create": {
-                            "step": "Paso: {{number}} / 3",
-                            "noUser": "¡Para proceder al paso nº2, debes completar el paso nº1!",
-                            "noSendouts": "¡Para proceder al paso nº3, debes completar el paso nº2!",
-                            "noFreeSendouts": "¡El cliente no tiene envíos libres (sin contrato)!",
-                            "data": {
-                                "user": "Selecciona el usuario para el cual se redactará el contrato",
-                                "sendout": "Selecciona los envíos que se incluirán en el contrato",
-                                "contract": "Envía los datos referentes al contrato"
-                            },
-                            "title": "Creando un contrato. Lee las instrucciones para una correcta creación.",
-                            "path": "[📍 Ruta: Panel → Contratos → *Creación*]"
+                            "success": "✅ 合同删除成功！",
+                            "error": "❌ 合同未删除！请稍后再试",
+                            "path": "[📍 路径：面板 → 合同 → 查看 → {{dateStart}} → *删除*]"
                         },
                         "export": {
                             "main": {
-                                "title": "Selecciona el formato en el que se guardará el contrato",
-                                "path": "[📍 Ruta: {{menu}} → Contratos → Ver → {{dateStart}} → *Selección de formato de exportación*]"
+                                "title": "选择保存合同的格式",
+                                "path": "[📍 路径：{{menu}} → 合同 → 查看 → {{dateStart}} → *选择导出格式*]"
                             },
                             "result": {
-                                "error": "❌ Error al exportar el contrato\nContacta al administrador",
-                                "caption": "¡Contrato en formato {{exportType}} listo!",
-                                "path": "\n[📍 Ruta: {{menu}} → Contratos → Ver → {{dateStart}} → *Exportar a {{exportType}}*]"
+                                "error": "❌ 导出合同时出错，请联系管理员",
+                                "caption": "{{exportType}} 格式的合同已就绪！",
+                                "path": "\n[📍 路径：{{menu}} → 合同 → 查看 → {{dateStart}} → *导出为 {{exportType}}*]"
                             }
                         }
                     }
                 },
                 "create": {
-                    "title": "Creando un contrato. Antes de comenzar, lee las instrucciones para una correcta creación.",
-                    "path": "[📍 Ruta: Panel → Contratos → *Creación*]"
+                    "step": "步骤：{{number}} / 3",
+                    "noUser": "要进行第 2 步，需要先完成第 1 步！",
+                    "noSendouts": "要进行第 3 步，需要先完成第 2 步！",
+                    "noFreeSendouts": "该客户没有空闲的群发（无合同的群发）！",
+                    "data": {
+                        "user": "选择要为其起草合同的用户",
+                        "sendout": "选择要包含在合同中的群发",
+                        "contract": "请发送合同相关数据"
+                    },
+                    "title": "创建合同！",
+                    "path": "[📍 路径：面板 → 合同 → *创建*]"
                 }
             }
         }

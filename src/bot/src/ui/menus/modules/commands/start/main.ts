@@ -15,7 +15,7 @@ export default function main(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.start.link"),
     ].join('\n\n');
 
-    const keyboard = new InlineKeyboard().url(ctx.t("utils.shared.buttons.instruction"), constants.link.instruction.commands);
+    const keyboard = new InlineKeyboard().url(ctx.t("utils.shared.buttons.instruction"), constants.link.instruction.main);
 
     return { text: utils.formatting.escapeMarkdown(text), keyboard }
 }

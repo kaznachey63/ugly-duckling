@@ -2,28 +2,35 @@
     "utils": {
         "shared": {
             "processing": "⏳ Memproses...",
-            "cabinet": "🪴 Akun pribadi",
+            "cabinet": "🪴 Kabinet pribadi",
+            "panel": "👨‍💻 Panel admin",
+            "nameless": "Tanpa nama",
             "buttons": {
                 "export": "📧 Ekspor",
-                "nameless": "Tanpa nama",
                 "back": "🔙 Kembali",
                 "remove": "🗑 Hapus",
-                "miss": "Tidak ada",
+                "miss": "Hilang",
                 "create": "➕ Buat",
                 "update": "✍ Ubah",
+                "instruction": "📖 Instruksi",
                 "clear": "🗑 Bersihkan",
                 "view": "👁 Lihat",
                 "contract": "📜 Kontrak",
-                "sendout": "📢 Pengiriman",
+                "sendout": "📢 Pengiriman massal",
                 "chat": "🗯 Grup",
-                "contactAdmin": "👨 Administrator"
+                "contactAdmin": "👨 Admin"
             },
             "titles": {
-                "validate": "⚠ Data masukan memiliki format tidak valid. Kirim ulang",
-                "cabinet": "Akun",
+                "validate": "⚠ Data input memiliki format yang tidak valid. Kirim ulang",
+                "cabinet": "Kabinet",
                 "panel": "Panel → Data",
                 "amount": "Jumlah: {{amount}}",
-                "sendoutActive": "Pengiriman sedang aktif, coba kelola data nanti"
+                "sendoutActive": "Pengiriman sedang aktif, coba kelola data nanti",
+                "accessDenied": {
+                    "all": "Akses ditolak. Silakan otorisasi terlebih dahulu menggunakan perintah /auth",
+                    "admin": "Akses ditolak. Bagian ini diperuntukkan bagi pelanggan",
+                    "customer": "Akses ditolak. Bagian ini diperuntukkan bagi administrator"
+                }
             }
         },
         "maintenace": "🚧 Saat ini sedang dilakukan pemeliharaan teknis. Penggunaan layanan dibatasi sementara.\nSetelah selesai, kami akan segera memberi tahu!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
@@ -33,7 +40,7 @@
             "unknown": "Tidak dikenal"
         },
         "commands": {
-            "cabinet": "Akun",
+            "cabinet": "Kabinet",
             "settings": "Pengaturan",
             "panel": "Panel admin"
         },
@@ -95,23 +102,49 @@
             "bot": "Bot",
             "parser": "Parser",
             "sendout": "Pengiriman"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Jadwal",
+                "message": "Pesan",
+                "contract": "Kontrak"
+            },
+            "text": "Ekspor",
+            "from": "dari"
+        },
+        "localization": {
+            "schedule": {
+                "number": "tanggal",
+                "everyDay": "Setiap hari",
+                "unknownDay": "Hari tidak dikenal",
+                "dayWeek": {
+                    "1": "Senin",
+                    "2": "Selasa",
+                    "3": "Rabu",
+                    "4": "Kamis",
+                    "5": "Jumat",
+                    "6": "Sabtu",
+                    "7": "Minggu",
+                    "*": "Setiap hari"
+                }
+            }
         }
     },
     "handlers": {
         "events": {
             "contact": {
                 "numberIsNull": "Kesalahan saat memproses nomor telepon!\nCoba lagi!",
-                "accessDenied": "Akses dilarang. Untuk menggunakan layanan pengiriman, gunakan perintah '/settings', bagian 'Bantuan'"
+                "accessDenied": "Akses ditolak. Untuk menggunakan layanan pengiriman, gunakan perintah '/settings', bagian 'Bantuan'"
             }
         },
         "states": {
             "addingText": {
                 "success": "✅ Teks disimpan!",
                 "error": "❌ Teks tidak disimpan!\nHubungi administrator",
-                "path": "[📍 Jalur: {{menu}} → Menu «{{call}}» → Pesan → *Membuat teks*]"
+                "path": "[📍 Jalur: {{menu}} → Menu «{{call}}» → Pesan → *Buat teks*]"
             },
             "generatingText": {
-                "result": "Pesan yang dihasilkan ditampilkan di bawah.\nGunakan tombol di bawah pesan untuk menentukan nasib teks.",
+                "result": "Pesan yang dihasilkan disajikan di bawah ini. Gunakan tombol di bawah pesan untuk memutuskan nasib teks.",
                 "pathChoose": "[📍 Jalur: {{menu}} → Menu «{{call}}» → Pesan → Pembuatan teks → *Nasib teks*]",
                 "buttons": {
                     "save": "✔ Simpan",
@@ -121,7 +154,7 @@
             "updatingText": {
                 "success": "✅ Teks diubah!",
                 "error": "❌ Teks tidak diubah!\nHubungi administrator",
-                "path": "[📍 Jalur: {{menu}} → Menu «{{call}}» → Pesan → *Mengedit teks*]"
+                "path": "[📍 Jalur: {{menu}} → Menu «{{call}}» → Pesan → *Ubah teks*]"
             },
             "addingMedia": {
                 "error": "💀 Kesalahan saat menyimpan media!\nHubungi administrator",
@@ -130,54 +163,79 @@
                 "documentsWTMedia": "Saya tidak dapat memproses dokumen yang tidak berisi: foto / video / gif",
                 "success": "✅ Media disimpan!",
                 "error2": "❌ Media tidak disimpan!\nHubungi administrator",
-                "path": "[📍 Jalur: {{menu}} → Menu «{{call}}» → Pesan → *Menambah media*]"
+                "path": "[📍 Jalur: {{menu}} → Menu «{{call}}» → Pesan → *Tambah media*]",
+                "amount": "Jumlah media dalam pesan: {{now}} dari {{all}}"
             },
             "addingTime": {
                 "success": "✅ Waktu disimpan!",
                 "error": "❌ Waktu tidak diubah!\nHubungi administrator",
-                "path": "[📍 Jalur: Panel → Menu «{{call}}» → Jadwal → Lihat → *Menambah*]"
+                "path": "[📍 Jalur: Panel → Menu «{{call}}» → Jadwal → Lihat → *Tambah*]"
             },
             "updatingTime": {
                 "success": "✅ Waktu diubah!",
                 "error": "❌ Waktu tidak diubah!\nHubungi administrator",
-                "path": "[📍 Jalur: Panel → Menu «{{call}}» → Jadwal → Lihat → *Mengedit*]"
+                "path": "[📍 Jalur: Panel → Menu «{{call}}» → Jadwal → Lihat → *Ubah*]"
             },
             "addingIdea": {
                 "success": "✅ Ide berhasil ditambahkan, terima kasih!",
                 "error": "❌ Ide tidak ditambahkan!\nCoba lagi atau hubungi administrator!",
-                "path": "[📍 Jalur: Pengaturan → Ide → *Menambah*]"
+                "path": "[📍 Jalur: Pengaturan → Ide → *Tambah*]"
             },
             "addingUser": {
                 "success": "✅ Pengguna berhasil dibuat!",
                 "error": "❌ Pengguna tidak dibuat!\nCoba lagi nanti.",
-                "path": "[📍 Jalur: Panel → Data → Pengguna → *Membuat*]"
+                "path": "[📍 Jalur: Panel → Data → Pengguna → *Buat*]"
             },
             "addingContract": {
                 "success": "✅ Kontrak berhasil dibuat!",
                 "error": "❌ Kontrak tidak dibuat!\nCoba lagi nanti.",
-                "path": "[📍 Jalur: Panel → Kontrak → *Membuat*]"
+                "path": "[📍 Jalur: Panel → Kontrak → *Buat*]"
             },
             "updatingSendoutCall": {
                 "success": "✅ Tanda panggil berhasil diperbarui!",
                 "error": "❌ Tanda panggil tidak diperbarui!\nCoba lagi nanti.",
-                "path": "[📍 Jalur: Panel → Pengiriman → Lihat → Menu «{{call}}» → Nama → *Memperbarui*]"
+                "path": "[📍 Jalur: Panel → Pengiriman → Menu «{{call}}» → Nama → Tanda panggil → *Perbarui*]"
             },
             "updatingUserName": {
                 "success": "✅ Nama berhasil diperbarui!",
                 "error": "❌ Nama tidak diperbarui!\nCoba lagi nanti.",
-                "path": "[📍 Jalur: Panel → Data → Pengguna → Lihat → {{userName}} → *Mengedit nama*]"
+                "path": "[📍 Jalur: Panel → Data → Pengguna → Lihat → {{userName}} → *Ubah nama*]"
             },
             "updatingUserPhone": {
                 "success": "✅ Telepon berhasil diperbarui!",
                 "error": "❌ Telepon tidak diperbarui!\nCoba lagi nanti.",
-                "path": "[📍 Jalur: Panel → Data → Pengguna → Lihat → {{userName}} → *Mengedit nomor*]"
+                "path": "[📍 Jalur: Panel → Data → Pengguna → Lihat → {{userName}} → *Ubah nomor*]"
             }
         }
     },
     "modules": {
         "commands": {
             "start": {
-                "title": "Selamat datang! Saya adalah bot Telegram, asisten untuk pengiriman.\n\nSaya sangat menyarankan Anda untuk membiasakan diri dengan semua perintah saya dengan menekan tombol oval 'Menu' di sudut kiri bawah layar.\nSetelah membaca petunjuk penggunaan, yang dipanggil dengan perintah '/settings', di bagian 'Tentang bot'."
+                "title": "☀ Halo! Saya bot Telegram Itik Buruk Rupa, asisten untuk pengiriman massal.",
+                "commands": "Berikut adalah deskripsi singkat perintah untuk berinteraksi dengan saya:\n/start - aktifkan bot dan daftar perintah\n/auth - otorisasi\n/cabinet - kelola kabinet pribadi\n/settings - kelola pengaturan bot",
+                "uAdmin": "❓ Apakah Anda administrator?\n/panel - panel admin",
+                "link": "Anda dapat melihat instruksi lebih detail tentang mekanisme kontrol saya menggunakan tombol di bawah."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Batal",
+                        "phone": "📞 Bagikan",
+                        "again": "🔄 Coba lagi"
+                    },
+                    "unknownMessage": "Tindakan tidak dikenali, coba lagi menggunakan tombol: '📞 Bagikan' dan '❌ Batal'",
+                    "manyAttempts": "Jumlah percobaan otorisasi yang digunakan sebelum batas satu jam: {{actualAttempts}} dari {{maxAttempts}}",
+                    "stop": "Otorisasi dibatasi. Pembatasan akan dicabut setelah: {{dateTime}}",
+                    "canceled": "Otorisasi berhasil dihentikan!",
+                    "title": "Untuk masuk ke panel pengiriman, Anda perlu membagikan nomor telepon Anda dengan saya.\n\nTombol akan muncul di samping keyboard, dengan tulisan '📞 Bagikan'",
+                    "good": "Anda berhasil melakukan otorisasi ke sistem!",
+                    "already": "Anda sudah melakukan otorisasi ke sistem!",
+                    "bad": "Kesalahan saat otorisasi. Hubungi administrator!"
+                },
+                "logout": {
+                    "good": "Anda berhasil keluar dari sistem. Data Anda telah dihapus!",
+                    "bad": "Kesalahan saat keluar dari sistem. Hubungi administrator!"
+                }
             },
             "settings": {
                 "main": {
@@ -200,66 +258,42 @@
                     }
                 },
                 "help": {
-                    "title": "Mengalami masalah?\nAda pertanyaan?\nIngin memuji layanan?\nAda ide untuk meningkatkan layanan?",
-                    "interest": "Atau tertarik dengan produknya?\nIsi kuesioner di bawah dan kami akan menghubungi Anda!",
+                    "title": "Mengalami masalah?\nAda pertanyaan?\nIngin memuji layanan?\nAda ide untuk perbaikan?",
+                    "interest": "Atau tertarik dengan produk?\nIsi kuesioner di bawah dan kami akan menghubungi Anda!",
                     "path": "[📍 Jalur: Pengaturan → *Bantuan*]"
                 },
                 "about": {
-                    "title": "Layanan ini dikembangkan untuk mengotomatiskan iklan (posting, pengiriman) produk Anda (penawaran) di dalam grup / obrolan / saluran.\n\nPetunjuk penggunaan Bot - melalui tombol di bawah!",
-                    "instruction": "📖 Petunjuk",
+                    "title": "Layanan ini dikembangkan untuk mengotomatisasi periklanan (posting, pengiriman) produk (penawaran) Anda di dalam grup / obrolan / saluran.\n\nInstruksi penggunaan Bot - di tombol bawah!",
                     "path": "[📍 Jalur: Pengaturan → *Tentang layanan*]"
                 },
                 "idea": {
                     "main": {
-                        "title": "Menu bagian Ide. \nDi sini Anda dapat mengusulkan ide Anda untuk pengembangan layanan.",
+                        "title": "Menu bagian Ide. Di sini Anda dapat mengusulkan ide Anda untuk pengembangan layanan.",
                         "path": "[📍 Jalur: Pengaturan → *Ide*]",
                         "buttons": {
                             "add": "🗳 Usulkan",
-                            "see": "🔍 Jelajahi"
+                            "see": "🔍 Pelajari"
                         }
                     },
                     "add": {
                         "title": "Kirimkan saya media/audio/teks dll. Tidak ada batasan!",
-                        "path": "[📍 Jalur: Pengaturan → Ide → *Menambah*]"
+                        "path": "[📍 Jalur: Pengaturan → Ide → *Tambah*]"
                     }
                 }
             },
             "cabinet": {
                 "main": {
-                    "buttons": {                        
+                    "buttons": {
                         "logout": "🚪 Keluar",
                         "login": "🔑 Masuk"
-                    }
-                },
-                "auth": {
-                    "login": {
-                        "buttons": {
-                            "cancel": "❌ Batal",
-                            "phone": "📞 Bagikan"
-                        },
-                        "unknownMessage": "Tindakan tidak dikenali, coba lagi gunakan tombol 'Bagikan' dan 'Batal'",
-                        "manyAttempts": "Jumlah percobaan otentikasi yang digunakan sebelum batas satu jam: {{actualAttempts}} dari {{maxAttempts}}",
-                        "stop": "Otorisasi dibatasi. Batasan akan dicabut setelah: {{dateTime}}",
-                        "canceled": "Otorisasi berhasil dihentikan!",
-                        "title": "Untuk masuk ke panel pengiriman, Anda harus membagikan nomor telepon kepada saya.\n\nTombol akan muncul di samping keyboard, dengan tulisan '📞 Bagikan'.",
-                        "good": "Anda berhasil melakukan otorisasi ke sistem!",
-                        "already": "Anda sudah diotorisasi di sistem!",
-                        "bad": "Kesalahan saat otorisasi ke sistem.\nHubungi administrator!",
-                        "path": "[📍 Jalur: Akun → *Otorisasi*"
-                    },
-                    "logout": {
-                        "good": "Anda berhasil keluar dari sistem. Data Anda telah dihapus!",
-                        "bad": "Kesalahan saat keluar dari sistem.\nHubungi administrator!",
-                        "path": "[📍 Jalur: Akun → *Keluar*]"
                     }
                 }
             },
             "panel": {
                 "main": {
-                    "title": "👨‍💻 Panel Administrator",
                     "buttons": {
                         "data": "🗂 Data",
-                        "system": "⚡ Sistem "
+                        "system": "⚡ Sistem"
                     }
                 },
                 "data": {
@@ -272,8 +306,7 @@
                     },
                     "chat": {
                         "main": {
-                            "title": "Manajemen grup",
-                            "amount": "Jumlah: {{amount}}",
+                            "title": "Kelola grup. Jumlah: {{amount}}",
                             "path": "[📍 Jalur: Panel → Data → *Grup*]",
                             "buttons": {
                                 "reupload": "🔁 Segarkan"
@@ -282,18 +315,17 @@
                         "reupload": {
                             "success": "✅ Grup diperbarui!",
                             "error": "❌ Kesalahan saat memperbarui grup\nHubungi administrator",
-                            "path": "[📍 Jalur: Panel → Data → Grup → *Memperbarui*]"
+                            "path": "[📍 Jalur: Panel → Data → Grup → *Perbarui*]"
                         },
                         "clear": {
                             "success": "✅ Grup dibersihkan!",
                             "error": "❌ Kesalahan saat membersihkan grup\nHubungi administrator",
-                            "path": "[📍 Jalur: Panel → Data → Grup → *Membersihkan*]"
+                            "path": "[📍 Jalur: Panel → Data → Grup → *Bersihkan*]"
                         }
                     },
                     "user": {
                         "main": {
-                            "title": "Manajemen pengguna",
-                            "amount": "Jumlah: {{amount}}",
+                            "title": "Kelola pengguna. Jumlah: {{amount}}",
                             "path": "[📍 Jalur: Panel → Data → *Pengguna*]"
                         },
                         "view": {
@@ -303,7 +335,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Manajemen pengguna",
+                                    "title": "Kelola pengguna",
                                     "path": "[📍 Jalur: Panel → Data → Pengguna → Lihat → *{{userName}}*]",
                                     "telegramId": "ID Tg: {{telegramId}}",
                                     "name": "Nama: {{name}}",
@@ -313,26 +345,26 @@
                                     "role": "Peran: {{role}}"
                                 },
                                 "remove": {
-                                    "success":"✅ Pengguna berhasil dihapus!",
+                                    "success": "✅ Pengguna berhasil dihapus!",
                                     "error": "❌ Pengguna tidak dihapus!\nCoba lagi nanti",
-                                    "path": "[📍 Jalur: Panel → Data → Pengguna → Lihat → {{userName}} → *Menghapus*]"
+                                    "path": "[📍 Jalur: Panel → Data → Pengguna → Lihat → {{userName}} → *Hapus*]"
                                 },
                                 "update": {
                                     "phone": {
-                                        "title": "Mengubah telepon!\nKirimkan ke sini.",
-                                        "path": "[📍 Jalur: Panel → Data → Pengguna → Lihat → {{userName}} → *Mengedit nomor*]"
+                                        "title": "Mengubah telepon!\nKirim ke sini.",
+                                        "path": "[📍 Jalur: Panel → Data → Pengguna → Lihat → {{userName}} → *Ubah nomor*]"
                                     },
                                     "name": {
-                                        "title": "Mengubah nama!\nKirimkan ke sini.",
-                                        "path": "[📍 Jalur: Panel → Data → Pengguna → Lihat → {{userName}} → *Mengedit nama*]"
+                                        "title": "Mengubah nama!\nKirim ke sini.",
+                                        "path": "[📍 Jalur: Panel → Data → Pengguna → Lihat → {{userName}} → *Ubah nama*]"
                                     }
                                 }
                             }
                         },
                         "create": {
-                            "title": "Membuat pengguna! Sebelum memulai, baca petunjuk untuk pembuatan yang benar.",
-                            "path": "[📍 Jalur: Panel → Data → Pengguna → *Membuat*]"
-                        }   
+                            "title": "Membuat pengguna!",
+                            "path": "[📍 Jalur: Panel → Data → Pengguna → *Buat*]"
+                        }
                     }
                 },
                 "system": {
@@ -360,7 +392,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Manajemen proses",
+                                    "title": "Kelola proses",
                                     "path": "[📍 Jalur: Panel → Sistem → Server → {{processType}} → *{{processName}}*]",
                                     "buttons": {
                                         "condition": "🩻 Status",
@@ -372,11 +404,11 @@
                                     "status": {
                                         "active": "✅ Proses aktif.\nUntuk menghentikan, tekan tombol di bawah",
                                         "inactive": "❌ Proses tidak aktif.\nUntuk memulai, tekan tombol di bawah",
-                                        "failed": "💀 Proses mati.\nHubungi programmer.",
+                                        "failed": "❌ Proses tidak aktif.\nUntuk memulai, tekan tombol di bawah",
                                         "error": "Masalah dengan proses. Hubungi programmer."
                                     },
                                     "buttons": {
-                                        "stop": "🛑 Berhenti",
+                                        "stop": "🛑 Hentikan",
                                         "start": "▶️ Mulai",
                                         "restart": "🔁 Mulai ulang"
                                     }
@@ -384,7 +416,7 @@
                                 "log": {
                                     "title": "Lihat log",
                                     "path": "[📍 Jalur: Panel → Sistem → Server → {{processType}} → {{processName}} → *Log*]",
-                                    "sort": "Urutan: {{sortType}}",
+                                    "sort": "Pengurutan: {{sortType}}",
                                     "sortType": {
                                         "new": "dari baru ke lama",
                                         "old": "dari lama ke baru"
@@ -400,149 +432,164 @@
             "sendout": {
                 "main": {
                     "title": "Daftar pengiriman yang aktif saat ini.",
-                    "path": "[📍 Jalur: {{menu}} → Pengiriman → *Lihat*]",
-                    "empty": "Belum ada pengiriman yang diatur! Kembali lagi nanti."
+                    "path": "[📍 Jalur: {{menu}} → *Pengiriman*]",
+                    "empty": "Belum ada pengiriman yang dikonfigurasi! Kembali lagi nanti."
                 },
                 "view": {
                     "main": {
                         "title": "📣 Menu pengiriman «{{call}}»",
-                        "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → *Menu «{{call}}»*]",
+                        "path": "[📍 Jalur: {{menu}} → Pengiriman → *Menu «{{call}}»*]",
                         "buttons": {
                             "schedule": "🕰️ Jadwal",
                             "message": "💬 Pesan",
                             "statistic": "📈 Statistik",
                             "owner": "👑 Pemilik",
-                            "call": "🏷️ Nama"
+                            "name": "🏷️ Nama",
+                            "test": "🎛️ Pengujian"
                         }
+                    },
+                    "test": {
+                        "alert": "Tidak dapat mengaktifkan mode pengujian saat pengiriman aktif!"
                     },
                     "message": {
                         "main": {
-                            "error": "Kesalahan saat menerima pesan!\nHubungi administrator",
-                            "empty": "Tidak ada pesan!\nUntuk menambah teks, tekan tombol di bawah",
+                            "error": "Kesalahan saat mengambil pesan!\nHubungi administrator",
+                            "empty": "Tidak ada pesan!\nUntuk menambahkan teks, tekan tombol di bawah",
                             "title": "Menu bagian Pesan. Jumlah: {{amount}}",
-                            "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → *Pesan*]"
+                            "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → *Pesan*]"
                         },
                         "create": {
                             "main": {
                                 "title": "Pilih jenis penambahan teks.",
-                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → *Mode tambah*]",
+                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → *Mode tambah*]",
                                 "buttons": {
                                     "generate": "🔮 Hasilkan",
-                                    "hand": "✍ Masukan manual"
+                                    "hand": "✍ Input manual"
                                 }
                             },
                             "generate": {
-                                "title": "Saya akan menghasilkan teks penjualan! \nKirimkan teks sumber ke sini. Tidak boleh mengirimkan setumpuk teks.",
-                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → *Menghasilkan*]",
+                                "title": "Saya akan menghasilkan teks penjualan! Kirimkan sumbernya ke sini. Tidak boleh mengirimkan setumpuk teks.",
+                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → *Pembuatan*]",
                                 "save": "✅ Teks disimpan!",
                                 "cancel": "❌ Teks tidak disimpan!",
-                                "pathSave": "[📍 Jalur: {{menu}} → Menu «{{call}}» → Pesan → Menghasilkan → *Menyimpan*]",
-                                "pathCancel": "[📍 Jalur: {{menu}} → Menu «{{call}}» → Pesan → Menghasilkan → *Membatalkan*]"
+                                "pathSave": "[📍 Jalur: {{menu}} → Menu «{{call}}» → Pesan → Pembuatan → *Simpan*]",
+                                "pathCancel": "[📍 Jalur: {{menu}} → Menu «{{call}}» → Pesan → Pembuatan → *Batal*]"
                             },
                             "hand": {
-                                "title": "Menambahkan teks!\nKirimkan teks atau teruskan ke sini. Tidak boleh mengirimkan setumpuk teks.",
-                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → *Menambah teks*]"
+                                "title": "Menambahkan teks!\nKirim teks atau teruskan ke sini. Tidak boleh mengirimkan setumpuk teks.",
+                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → *Tambah teks*]"
                             }
                         },
                         "clear": {
                             "success": "✅ Semua pesan dibersihkan!",
                             "error": "❌ Pesan tidak dibersihkan!\nHubungi administrator",
-                            "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → *Membersihkan*]"
+                            "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → *Bersihkan*]"
                         },
                         "view": {
                             "main": {
-                                "messageNumber": "Pesan No. {{number}}.",
+                                "messageNumber": "Pesan №{{number}}.",
                                 "amountMedia": "Jumlah media: {{amount}} / {{maxMedia}}.",
-                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → *Lihat*]",
+                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → *Lihat*]",
                                 "buttons": {
-                                    "updateText": "✍️ Edit teks",
+                                    "updateText": "✍️ Ubah teks",
                                     "addMedia": "🖼 Tambah media",
-                                    "clearAllMedia": "🗑 Bersihkan media"    
+                                    "clearAllMedia": "🗑 Bersihkan media"
                                 }
                             },
                             "text": {
                                 "update": {
-                                    "title": "Mengubah teks!\nKirimkan teks atau teruskan ke sini. Tidak boleh mengirimkan setumpuk teks.",
-                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → *Mengedit teks*]"
+                                    "title": "Mengubah teks!\nKirim teks atau teruskan ke sini. Tidak boleh mengirimkan setumpuk teks.",
+                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → *Ubah teks*]"
                                 },
                                 "remove": {
                                     "success": "✅ Pesan dihapus!",
                                     "error": "❌ Teks tidak dihapus!\nHubungi administrator",
-                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → *Menghapus teks*]"
+                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → *Hapus teks*]"
                                 }
                             },
                             "media": {
                                 "add": {
-                                    "title": "Menambahkan media!\nKirimkan media sebanyak 1 buah.",
-                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → *Menambah media*]"
+                                    "title": "Menambahkan media!\nKirim media satu per satu.",
+                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → *Tambah media*]"
                                 },
                                 "clearAll": {
                                     "success": "✅ Semua media dibersihkan!",
                                     "error": "❌ Media tidak dibersihkan!\nHubungi administrator",
-                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → *Membersihkan media*]"
+                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → *Bersihkan media*]"
                                 }
                             },
                             "pagination": {
                                 "title": "Lompat cepat ke pesan berdasarkan nomor",
-                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → Lihat → *Memilih pesan*]"
+                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → Lihat → *Pilih pesan*]"
                             }
                         },
                         "export": {
                             "main": {
                                 "title": "Pilih format di mana daftar pesan akan disimpan",
-                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → *Memilih format ekspor*]"
+                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → *Pilih format ekspor*]"
                             },
                             "result": {
                                 "error": "❌ Kesalahan saat mengekspor pesan\nHubungi administrator",
                                 "caption": "Daftar pesan dalam format {{exportType}} siap!",
-                                "path": "\n[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Pesan → *Ekspor ke {{exportType}}*]"
+                                "path": "\n[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Pesan → *Ekspor ke {{exportType}}*]"
                             }
                         }
                     },
                     "schedule": {
                         "main": {
-                            "empty": "Jadwal belum diatur!",
+                            "empty": "Jadwal belum dikonfigurasi!",
                             "title": "Menu bagian Jadwal. Jumlah waktu dalam jadwal: {{amount}}",
-                            "path": "\n[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → *Jadwal*]"
+                            "path": "\n[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → *Jadwal*]"
                         },
                         "create": {
                             "title": "Menambahkan waktu!",
-                            "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Jadwal → *Menambah*]"
+                            "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Jadwal → *Tambah*]"
                         },
                         "clear": {
                             "success": "✅ Jadwal dibersihkan!",
                             "error": "❌ Jadwal tidak dibersihkan!\nHubungi administrator",
-                            "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Jadwal → *Membersihkan*]"
+                            "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Jadwal → *Bersihkan*]"
                         },
                         "view": {
                             "main": {
-                                "title": "Jadwal pengiriman ditampilkan di bawah sebagai tombol.",
-                                "path": "\n[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Jadwal → *Lihat*]"
+                                "title": "Jadwal pengiriman disajikan di bawah dalam bentuk tombol.",
+                                "path": "\n[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Jadwal → *Lihat*]"
                             },
                             "time": {
                                 "update": {
                                     "title": "Mengubah waktu!",
-                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Jadwal → Lihat → *Mengedit waktu*]"
+                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Jadwal → Lihat → *Ubah waktu*]"
                                 },
                                 "remove": {
                                     "success": "✅ Waktu dihapus!",
                                     "error": "❌ Waktu tidak dihapus! Hubungi administrator",
-                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Jadwal → Lihat → *Menghapus waktu*]"
+                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Jadwal → Lihat → *Hapus waktu*]"
                                 },
                                 "updateOrRemove": {
                                     "title": "Waktu yang dipilih:\n→ *{{targetTime}}*.\n",
-                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Jadwal → Lihat → *Memilih tindakan*]"
+                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Jadwal → Lihat → *Pilih tindakan*]"
                                 }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Pilih format di mana jadwal pengiriman akan disimpan",
+                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Jadwal → *Pilih format ekspor*]"
+                            },
+                            "result": {
+                                "error": "❌ Kesalahan saat mengekspor jadwal\nHubungi administrator",
+                                "caption": "Jadwal dalam format {{exportType}} siap!",
+                                "path": "\n[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Jadwal → *Ekspor ke {{exportType}}*]"
                             }
                         }
                     },
                     "statistic": {
                         "main": {
                             "title": "Pilih format statistik yang diinginkan.",
-                            "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → *Statistik*]",
+                            "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → *Statistik*]",
                             "buttons": {
                                 "selective": "📅 Selektif",
-                                "comparative": "📊 Perbandingan"
+                                "comparative": "📊 Komparatif"
                             }
                         },
                         "selective": {
@@ -550,38 +597,37 @@
                                 "notDone": "Saat ini sedang dilakukan pemeliharaan teknis pada bagian ini.",
                                 "noData": "Tidak ditemukan hasil untuk tanggal yang dipilih!",
                                 "noAccess": "Tombol yang ditekan tidak tersedia!",
-                                "title": "Statistik selektif.\nDi bawah ini adalah kalender dengan tanggal. Untuk melihat hasil pengiriman untuk hari tertentu, cukup klik di atasnya!\n\nJika pengiriman: \n*tidak terjadi, \n*tidak ada, \n*tidak dijadwalkan, \n*atau lainnya\n- akan ditampilkan pesan dengan konteks yang sesuai, jangan khawatir.",
-                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Statistik → *Selektif*]"
+                                "title": "Statistik selektif.\nDi bawah adalah kalender dengan tanggal. Untuk melihat hasil pengiriman untuk hari tertentu, cukup klik tanggal tersebut!\n\nJika pengiriman:\n*tidak terjadi,\n*tidak ada,\n*tidak dijadwalkan,\n*atau lainnya\n- akan ditampilkan pesan dengan konteks yang sesuai, jangan khawatir.",
+                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Statistik → *Selektif*]"
                             },
                             "targetDate": {
                                 "main": {
                                     "title": "Hasil pengiriman untuk {{date}}.",
                                     "time": "Waktu: {{time}}",
                                     "success": "Pengiriman berhasil: {{success}}",
-                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Statistik → Selektif → *{{date}}*]"
+                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Statistik → Selektif → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "amount":"Jumlah: {{amount}}",
-                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Statistik → Selektif → {{date}} → *Grup*]"    
+                                    "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Statistik → Selektif → {{date}} → *Grup*]"
                                 }
                             }
                         },
                         "comparative": {
                             "main": {
-                                "title": "Pilih jenis statistik perbandingan.",
-                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Statistik → *Perbandingan*]",
+                                "title": "Pilih jenis statistik komparatif.",
+                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Statistik → *Komparatif*]",
                                 "buttons": {
                                     "week": "Minggu",
                                     "month": "Bulan"
                                 }
                             },
                             "week": {
-                                "title": "Statistik perbandingan. (Minggu)",
-                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Statistik → Perbandingan → *Minggu*]"
+                                "title": "Statistik komparatif (Minggu)",
+                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Statistik → Komparatif → *Minggu*]"
                             },
                             "month": {
-                                "title": "Statistik perbandingan. (Bulan)",
-                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Lihat → Menu «{{call}}» → Statistik → Perbandingan → *Bulan*]"
+                                "title": "Statistik komparatif (Bulan)",
+                                "path": "[📍 Jalur: {{menu}} → Pengiriman → Menu «{{call}}» → Statistik → Komparatif → *Bulan*]"
                             }
                         }
                     },
@@ -591,7 +637,7 @@
                             "empty": "Pengiriman tidak memiliki pemilik!",
                             "name": "Nama: {{name}}",
                             "phone": "Telepon: +{{phone}}",
-                            "path": "[📍 Jalur: Panel → Pengiriman → Lihat → Menu «{{call}}» → *Pemilik*]",
+                            "path": "[📍 Jalur: Panel → Pengiriman → Menu «{{call}}» → *Pemilik*]",
                             "buttons": {
                                 "change": "🪧 Tetapkan ulang"
                             }
@@ -599,35 +645,42 @@
                         "update": {
                             "main": {
                                 "title": "Pilih pengguna untuk ditetapkan sebagai pemilik pengiriman ini.",
-                                "path": "[📍 Jalur: Panel → Pengiriman → Lihat → Menu «{{call}}» → Pemilik → *Memilih*]",
+                                "path": "[📍 Jalur: Panel → Pengiriman → Menu «{{call}}» → Pemilik → *Pilih*]",
                                 "noOwner": "Tanpa pemilik"
                             },
                             "action": {
                                 "success": "✅ Pemilik berhasil ditetapkan ulang!",
-                                "error": "❌ Pemilik tidak ditetapkan ulang! \nCoba lagi nanti!",
-                                "path": "[📍 Jalur: Panel → Pengiriman → Lihat → Menu «{{call}}» → Pemilik → {{owner}} → *Penetapan*]"
+                                "error": "❌ Pemilik tidak ditetapkan ulang! Coba lagi nanti!",
+                                "path": "[📍 Jalur: Panel → Pengiriman → Menu «{{call}}» → Pemilik → {{owner}} → *Tetapkan*]"
                             }
                         }
                     },
-                    "call": {
+                    "name": {
                         "main": {
-                            "title": "Nama (tanda panggil) pengiriman: {{call}}",
-                            "empty": "Pengiriman tidak memiliki nama!",
-                            "path": "[📍 Jalur: Panel → Pengiriman → Lihat → Menu «{{call}}» → *Nama*]"
+                            "title": "Nama pengiriman:",
+                            "about": "1 - tanda tangan (penamaan lama)\n2 - nama entitas\n3 - tanda panggil (nama yang ditampilkan di bot)",
+                            "path": "[📍 Jalur: Panel → Pengiriman → Menu «{{call}}» → *Nama*]"
                         },
                         "update": {
-                            "title": "Mengubah tanda panggil pengiriman! Kirimkan nama baru pengiriman.",
-                            "path": "[📍 Jalur: Panel → Pengiriman → Lihat → Menu «{{call}}» → Nama → *Memperbarui*]"
+                            "call": {
+                                "title": "Mengubah tanda panggil pengiriman!",
+                                "path": "[📍 Jalur: Panel → Pengiriman → Menu «{{call}}» → Nama → Tanda panggil → *Perbarui*]"
+                            },
+                            "label": {
+                                "alert": "Tanda tangan pengiriman tidak dapat diubah!"
+                            },
+                            "name": {
+                                "alert": "Nama pengiriman tidak dapat diubah!"
+                            }
                         }
                     }
                 }
             },
             "contract": {
                 "main": {
-                    "title": "Manajemen kontrak",
-                    "amount": "Jumlah: {{amount}}",
+                    "title": "Kelola kontrak. Jumlah: {{amount}}",
                     "path": "[📍 Jalur: {{menu}} → *Kontrak*]",
-                    "empty": "Belum ada kontrak yang diatur! Kembali lagi nanti.",
+                    "empty": "Belum ada kontrak yang dikonfigurasi! Kembali lagi nanti.",
                     "contractName": "{{userName}}: dari {{dateStart}}"
                 },
                 "view": {
@@ -645,31 +698,18 @@
                             "dateEnd": "Tanggal berakhir: {{dateEnd}}",
                             "price": "Harga: {{price}}",
                             "priceText": "Harga (teks): {{priceText}}",
-                            "error": "Kesalahan saat menerima kontrak. Hubungi administrator",
+                            "error": "Kesalahan saat mengambil kontrak. Hubungi administrator",
                             "path": "\n[📍 Jalur: {{menu}} → Kontrak → Lihat → *{{dateStart}}*]"
                         },
                         "remove": {
-                            "success":"✅ Kontrak berhasil dihapus!",
+                            "success": "✅ Kontrak berhasil dihapus!",
                             "error": "❌ Kontrak tidak dihapus!\nCoba lagi nanti",
-                            "path": "[📍 Jalur: Panel → Kontrak → Lihat → {{dateStart}} → *Menghapus*]"
-                        },
-                        "create": {
-                            "step": "Langkah: {{number}} / 3",
-                            "noUser": "Untuk melanjutkan ke langkah #2, Anda harus menyelesaikan langkah #1!",
-                            "noSendouts": "Untuk melanjutkan ke langkah #3, Anda harus menyelesaikan langkah #2!",
-                            "noFreeSendouts": "Pelanggan tidak memiliki pengiriman gratis (tanpa kontrak)!",
-                            "data": {
-                                "user": "Pilih pengguna yang akan dibuatkan kontrak",
-                                "sendout": "Pilih pengiriman yang akan dimasukkan ke dalam kontrak",
-                                "contract": "Kirimkan data terkait kontrak"
-                            },
-                            "title": "Membuat kontrak! Bacalah petunjuk untuk pembuatan yang benar.",
-                            "path": "[📍 Jalur: Panel → Kontrak → *Membuat*]"
+                            "path": "[📍 Jalur: Panel → Kontrak → Lihat → {{dateStart}} → *Hapus*]"
                         },
                         "export": {
                             "main": {
                                 "title": "Pilih format di mana kontrak akan disimpan",
-                                "path": "[📍 Jalur: {{menu}} → Kontrak → Lihat → {{dateStart}} → *Memilih format ekspor*]"
+                                "path": "[📍 Jalur: {{menu}} → Kontrak → Lihat → {{dateStart}} → *Pilih format ekspor*]"
                             },
                             "result": {
                                 "error": "❌ Kesalahan saat mengekspor kontrak\nHubungi administrator",
@@ -680,8 +720,17 @@
                     }
                 },
                 "create": {
-                    "title": "Membuat kontrak! Sebelum memulai, baca petunjuk untuk pembuatan yang benar.",
-                    "path": "[📍 Jalur: Panel → Kontrak → *Membuat*]"
+                    "step": "Langkah: {{number}} / 3",
+                    "noUser": "Untuk melanjutkan ke langkah #2, Anda harus menyelesaikan langkah #1!",
+                    "noSendouts": "Untuk melanjutkan ke langkah #3, Anda harus menyelesaikan langkah #2!",
+                    "noFreeSendouts": "Pelanggan tidak memiliki pengiriman gratis (tanpa kontrak)!",
+                    "data": {
+                        "user": "Pilih pengguna yang akan dibuatkan kontrak",
+                        "sendout": "Pilih pengiriman yang akan dimasukkan ke dalam kontrak",
+                        "contract": "Kirimkan data terkait kontrak"
+                    },
+                    "title": "Membuat kontrak!",
+                    "path": "[📍 Jalur: Panel → Kontrak → *Buat*]"
                 }
             }
         }

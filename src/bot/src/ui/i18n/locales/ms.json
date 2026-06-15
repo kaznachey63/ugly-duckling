@@ -2,56 +2,53 @@
     "utils": {
         "shared": {
             "processing": "⏳ Memproses...",
-            "cabinet": "🪴 Akaun peribadi",
+            "cabinet": "🪴 Kabinet peribadi",
+            "panel": "👨‍💻 Panel pentadbir",
+            "nameless": "Tanpa nama",
             "buttons": {
                 "export": "📧 Eksport",
-                "nameless": "Tanpa nama",
                 "back": "🔙 Kembali",
-                "remove": "🗑 Padam",
+                "remove": "🗑 Buang",
                 "miss": "Tiada",
                 "create": "➕ Cipta",
-                "update": "✍ Edit",
+                "update": "✍ Ubah",
+                "instruction": "📖 Arahan",
                 "clear": "🗑 Kosongkan",
                 "view": "👁 Lihat",
                 "contract": "📜 Kontrak",
-                "sendout": "📢 Hantaran",
+                "sendout": "📢 Penghantaran beramai-ramai",
                 "chat": "🗯 Kumpulan",
                 "contactAdmin": "👨 Pentadbir"
             },
             "titles": {
                 "validate": "⚠ Data input mempunyai format yang tidak sah. Hantar semula",
-                "cabinet": "Akaun",
+                "cabinet": "Kabinet",
                 "panel": "Panel → Data",
                 "amount": "Kuantiti: {{amount}}",
-                "sendoutActive": "Hantaran sedang aktif, cuba urus data kemudian"
+                "sendoutActive": "Penghantaran sedang aktif, cuba uruskan data kemudian",
+                "accessDenied": {
+                    "all": "Akses ditolak. Sila sahkan terlebih dahulu menggunakan arahan /auth",
+                    "admin": "Akses ditolak. Bahagian ini untuk pelanggan",
+                    "customer": "Akses ditolak. Bahagian ini untuk pentadbir"
+                }
             }
         },
-        "maintenace": "🚧 Kerja-kerja teknikal sedang dijalankan. Penggunaan perkhidmatan dihadkan buat sementara waktu.\nSebaik sahaja selesai, kami akan maklumkan dengan segera!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "maintenace": "🚧 Kerja teknikal sedang dijalankan. Penggunaan perkhidmatan dihadkan buat sementara.\nSelepas selesai kami akan maklumkan!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
         "roleCodes": {
             "admin": "Pentadbir",
             "customer": "Pelanggan",
             "unknown": "Tidak diketahui"
         },
-        "languages": {
-            "ru": "Rusia",
-            "zh": "Cina",
-            "en": "Inggeris",
-            "sr": "Serbia",
-            "ur": "Urdu",
-            "ms": "Melayu",
-            "kk": "Kazakh",
-            "sv": "Sweden"
-        },
         "commands": {
-            "cabinet": "Akaun",
+            "cabinet": "Kabinet",
             "settings": "Tetapan",
-            "panel": "Panel admin"
+            "panel": "Panel pentadbir"
         },
         "chart": {
-            "labelMonth": "Statistik bilangan kumpulan yang menerima hantaran. {{month}} {{year}}",
-            "labelWeek": "Statistik bilangan kumpulan yang menerima hantaran. Minggu",
+            "labelMonth": "Statistik bilangan kumpulan yang menerima penghantaran. {{month}} {{year}}",
+            "labelWeek": "Statistik bilangan kumpulan yang menerima penghantaran. Minggu",
             "amountSms": "Bilangan mesej",
-            "noLogs": "Tiada hantaran berlaku dalam tempoh yang dipilih!",
+            "noLogs": "Belum ada penghantaran dalam tempoh yang dipilih!",
             "daysOfWeek": {
                 "Mon": "Isn",
                 "Tue": "Sel",
@@ -59,7 +56,7 @@
                 "Thu": "Kha",
                 "Fri": "Jum",
                 "Sat": "Sab",
-                "Sun": "Ahd"
+                "Sun": "Aha"
             },
             "months": {
                 "january": "Januari",
@@ -98,30 +95,56 @@
                 "3": "Kha",
                 "4": "Jum",
                 "5": "Sab",
-                "6": "Ahd"
+                "6": "Aha"
             }
         },
         "processType": {
             "bot": "Bot",
-            "parser": "Penyahhuruf",
-            "sendout": "Hantaran"
+            "parser": "Penghurai",
+            "sendout": "Penghantaran"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Jadual",
+                "message": "Mesej",
+                "contract": "Kontrak"
+            },
+            "text": "Eksport",
+            "from": "dari"
+        },
+        "localization": {
+            "schedule": {
+                "number": "hari",
+                "everyDay": "Setiap hari",
+                "unknownDay": "Hari tidak diketahui",
+                "dayWeek": {
+                    "1": "Isnin",
+                    "2": "Selasa",
+                    "3": "Rabu",
+                    "4": "Khamis",
+                    "5": "Jumaat",
+                    "6": "Sabtu",
+                    "7": "Ahad",
+                    "*": "Setiap hari"
+                }
+            }
         }
     },
     "handlers": {
         "events": {
             "contact": {
                 "numberIsNull": "Ralat semasa memproses nombor telefon!\nCuba lagi!",
-                "accessDenied": "Akses dilarang. Untuk menggunakan perkhidmatan hantaran, gunakan arahan '/settings', bahagian 'Bantuan'"
+                "accessDenied": "Akses ditolak. Untuk menggunakan perkhidmatan penghantaran, gunakan arahan '/settings', bahagian 'Bantuan'"
             }
         },
         "states": {
             "addingText": {
                 "success": "✅ Teks disimpan!",
                 "error": "❌ Teks tidak disimpan!\nHubungi pentadbir",
-                "path": "[📍 Laluan: {{menu}} → Menu «{{call}}» → Mesej → *Penciptaan teks*]"
+                "path": "[📍 Laluan: {{menu}} → Menu «{{call}}» → Mesej → *Cipta teks*]"
             },
             "generatingText": {
-                "result": "Mesej yang dijana ditunjukkan di bawah.\nGunakan butang di bawah mesej untuk menentukan nasib teks.",
+                "result": "Mesej yang dihasilkan adalah di bawah. Gunakan butang di bawah mesej untuk menentukan nasib teks.",
                 "pathChoose": "[📍 Laluan: {{menu}} → Menu «{{call}}» → Mesej → Penjanaan teks → *Nasib teks*]",
                 "buttons": {
                     "save": "✔ Simpan",
@@ -131,7 +154,7 @@
             "updatingText": {
                 "success": "✅ Teks diubah!",
                 "error": "❌ Teks tidak diubah!\nHubungi pentadbir",
-                "path": "[📍 Laluan: {{menu}} → Menu «{{call}}» → Mesej → *Suntingan teks*]"
+                "path": "[📍 Laluan: {{menu}} → Menu «{{call}}» → Mesej → *Ubah teks*]"
             },
             "addingMedia": {
                 "error": "💀 Ralat semasa menyimpan media!\nHubungi pentadbir",
@@ -140,54 +163,79 @@
                 "documentsWTMedia": "Saya tidak boleh memproses dokumen yang tidak mengandungi: foto / video / gif",
                 "success": "✅ Media disimpan!",
                 "error2": "❌ Media tidak disimpan!\nHubungi pentadbir",
-                "path": "[📍 Laluan: {{menu}} → Menu «{{call}}» → Mesej → *Penambahan media*]"
+                "path": "[📍 Laluan: {{menu}} → Menu «{{call}}» → Mesej → *Tambah media*]",
+                "amount": "Bilangan media dalam mesej: {{now}} daripada {{all}}"
             },
             "addingTime": {
                 "success": "✅ Masa disimpan!",
                 "error": "❌ Masa tidak diubah!\nHubungi pentadbir",
-                "path": "[📍 Laluan: Panel → Menu «{{call}}» → Jadual → Lihat → *Penambahan*]"
+                "path": "[📍 Laluan: Panel → Menu «{{call}}» → Jadual → Lihat → *Tambah*]"
             },
             "updatingTime": {
                 "success": "✅ Masa diubah!",
                 "error": "❌ Masa tidak diubah!\nHubungi pentadbir",
-                "path": "[📍 Laluan: Panel → Menu «{{call}}» → Jadual → Lihat → *Suntingan*]"
+                "path": "[📍 Laluan: Panel → Menu «{{call}}» → Jadual → Lihat → *Ubah*]"
             },
             "addingIdea": {
                 "success": "✅ Idea berjaya ditambah, terima kasih!",
                 "error": "❌ Idea tidak ditambah!\nCuba lagi atau hubungi pentadbir!",
-                "path": "[📍 Laluan: Tetapan → Idea → *Penambahan*]"
+                "path": "[📍 Laluan: Tetapan → Idea → *Tambah*]"
             },
             "addingUser": {
                 "success": "✅ Pengguna berjaya dicipta!",
                 "error": "❌ Pengguna tidak dicipta!\nCuba lagi kemudian.",
-                "path": "[📍 Laluan: Panel → Data → Pengguna → *Penciptaan*]"
+                "path": "[📍 Laluan: Panel → Data → Pengguna → *Cipta*]"
             },
             "addingContract": {
                 "success": "✅ Kontrak berjaya dicipta!",
                 "error": "❌ Kontrak tidak dicipta!\nCuba lagi kemudian.",
-                "path": "[📍 Laluan: Panel → Kontrak → *Penciptaan*]"
+                "path": "[📍 Laluan: Panel → Kontrak → *Cipta*]"
             },
             "updatingSendoutCall": {
                 "success": "✅ Isyarat panggilan berjaya dikemas kini!",
                 "error": "❌ Isyarat panggilan tidak dikemas kini!\nCuba lagi kemudian.",
-                "path": "[📍 Laluan: Panel → Hantaran → Lihat → Menu «{{call}}» → Nama → *Kemas kini*]"
+                "path": "[📍 Laluan: Panel → Penghantaran → Menu «{{call}}» → Nama → Isyarat panggilan → *Kemas kini*]"
             },
             "updatingUserName": {
                 "success": "✅ Nama berjaya dikemas kini!",
                 "error": "❌ Nama tidak dikemas kini!\nCuba lagi kemudian.",
-                "path": "[📍 Laluan: Panel → Data → Pengguna → Lihat → {{userName}} → *Suntingan nama*]"
+                "path": "[📍 Laluan: Panel → Data → Pengguna → Lihat → {{userName}} → *Ubah nama*]"
             },
             "updatingUserPhone": {
                 "success": "✅ Telefon berjaya dikemas kini!",
                 "error": "❌ Telefon tidak dikemas kini!\nCuba lagi kemudian.",
-                "path": "[📍 Laluan: Panel → Data → Pengguna → Lihat → {{userName}} → *Suntingan nombor*]"
+                "path": "[📍 Laluan: Panel → Data → Pengguna → Lihat → {{userName}} → *Ubah nombor*]"
             }
         }
     },
     "modules": {
         "commands": {
             "start": {
-                "title": "Selamat datang! Saya adalah bot Telegram, pembantu untuk hantaran.\n\nSaya amat mengesyorkan anda membiasakan diri dengan semua arahan saya dengan menekan butang bujur 'Menu' di sudut kiri bawah skrin.\nSetelah membaca manual penggunaan, yang dipanggil dengan arahan '/settings', di bahagian 'Tentang bot'."
+                "title": "☀ Hai! Saya bot Telegram Itik Buruk, pembantu untuk penghantaran beramai-ramai.",
+                "commands": "Di bawah adalah penerangan ringkas arahan untuk berinteraksi dengan saya:\n/start - aktifkan bot dan senarai arahan\n/auth - kebenaran\n/cabinet - urus kabinet peribadi\n/settings - urus tetapan bot",
+                "uAdmin": "❓ Adakah anda pentadbir?\n/panel - panel pentadbir",
+                "link": "Anda boleh melihat arahan yang lebih terperinci tentang mekanisme mengawal saya menggunakan butang di bawah."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Batal",
+                        "phone": "📞 Kongsi",
+                        "again": "🔄 Cuba lagi"
+                    },
+                    "unknownMessage": "Tindakan tidak dikenali, cuba lagi menggunakan butang: '📞 Kongsi' dan '❌ Batal'",
+                    "manyAttempts": "Bilangan percubaan kebenaran yang digunakan sebelum had sejam: {{actualAttempts}} daripada {{maxAttempts}}",
+                    "stop": "Kebenaran dihadkan. Had akan ditarik balik selepas: {{dateTime}}",
+                    "canceled": "Kebenaran berjaya dihentikan!",
+                    "title": "Untuk memasuki panel penghantaran, anda perlu berkongsi nombor telefon anda dengan saya.\n\nButang akan muncul di sebelah papan kekunci, dengan tulisan '📞 Kongsi'",
+                    "good": "Anda berjaya diberi kuasa dalam sistem!",
+                    "already": "Anda sudah diberi kuasa dalam sistem!",
+                    "bad": "Ralat semasa kebenaran. Hubungi pentadbir!"
+                },
+                "logout": {
+                    "good": "Anda berjaya log keluar. Data anda telah dipadam!",
+                    "bad": "Ralat semasa log keluar. Hubungi pentadbir!"
+                }
             },
             "settings": {
                 "main": {
@@ -205,23 +253,22 @@
                         "path": "[📍 Laluan: Tetapan → *Bahasa*]"
                     },
                     "change": {
-                        "good": "Bahasa diubah!",
+                        "good": "Bahasa ditukar!",
                         "error": "Bahasa ini sudah dipilih!"
                     }
                 },
                 "help": {
-                    "title": "Menghadapi masalah?\nAda soalan?\nIngin memuji perkhidmatan?\nAda idea untuk menambah baik perkhidmatan?",
+                    "title": "Menghadapi masalah?\nAda soalan?\nIngin memuji perkhidmatan?\nAda idea untuk penambahbaikan?",
                     "interest": "Atau berminat dengan produk?\nIsi borang di bawah dan kami akan menghubungi anda!",
                     "path": "[📍 Laluan: Tetapan → *Bantuan*]"
                 },
                 "about": {
-                    "title": "Perkhidmatan ini dibangunkan untuk mengautomasikan pengiklanan (post, hantaran) produk (tawaran) anda dalam kumpulan / sembang / saluran.\n\nArahan penggunaan Bot - melalui butang di bawah!",
-                    "instruction": "📖 Arahan",
+                    "title": "Perkhidmatan ini dibangunkan untuk mengautomasikan pengiklanan (siaran, penghantaran) produk (tawaran) anda dalam kumpulan / sembang / saluran.\n\nArahan penggunaan Bot - pada butang di bawah!",
                     "path": "[📍 Laluan: Tetapan → *Tentang perkhidmatan*]"
                 },
                 "idea": {
                     "main": {
-                        "title": "Menu bahagian Idea. \nDi sini anda boleh mencadangkan idea anda untuk pembangunan perkhidmatan.",
+                        "title": "Menu bahagian Idea. Di sini anda boleh mencadangkan idea anda untuk pembangunan perkhidmatan.",
                         "path": "[📍 Laluan: Tetapan → *Idea*]",
                         "buttons": {
                             "add": "🗳 Cadangkan",
@@ -229,47 +276,24 @@
                         }
                     },
                     "add": {
-                        "title": "Hantar saya media/audio/teks dll. Tiada had!",
-                        "path": "[📍 Laluan: Tetapan → Idea → *Penambahan*]"
+                        "title": "Hantarkan saya media/audio/teks dll. Tiada had!",
+                        "path": "[📍 Laluan: Tetapan → Idea → *Tambah*]"
                     }
                 }
             },
             "cabinet": {
                 "main": {
-                    "buttons": {                        
+                    "buttons": {
                         "logout": "🚪 Log keluar",
                         "login": "🔑 Log masuk"
-                    }
-                },
-                "auth": {
-                    "login": {
-                        "buttons": {
-                            "cancel": "❌ Batal",
-                            "phone": "📞 Kongsi"
-                        },
-                        "unknownMessage": "Tindakan tidak dikenali, cuba lagi gunakan butang 'Kongsi' dan 'Batal'",
-                        "manyAttempts": "Bilangan percubaan pengesahan yang digunakan sebelum had sejam: {{actualAttempts}} daripada {{maxAttempts}}",
-                        "stop": "Pengesahan dihadkan. Sekatan akan ditarik balik selepas: {{dateTime}}",
-                        "canceled": "Pengesahan berjaya dihentikan!",
-                        "title": "Untuk masuk ke panel hantaran, anda perlu berkongsi nombor telefon dengan saya.\n\nButang akan muncul di sebelah papan kekunci, dengan label '📞 Kongsi'.",
-                        "good": "Anda berjaya disahkan dalam sistem!",
-                        "already": "Anda sudah disahkan dalam sistem!",
-                        "bad": "Ralat semasa pengesahan dalam sistem. \nHubungi pentadbir!",
-                        "path": "[📍 Laluan: Akaun → *Pengesahan*"
-                    },
-                    "logout": {
-                        "good": "Anda berjaya log keluar dari sistem. Data tentang anda telah dipadam!",
-                        "bad": "Ralat semasa log keluar dari sistem. \nHubungi pentadbir!",
-                        "path": "[📍 Laluan: Akaun → *Log keluar*]"
                     }
                 }
             },
             "panel": {
                 "main": {
-                    "title": "👨‍💻 Panel Pentadbir",
                     "buttons": {
                         "data": "🗂 Data",
-                        "system": "⚡ Sistem "
+                        "system": "⚡ Sistem"
                     }
                 },
                 "data": {
@@ -282,11 +306,10 @@
                     },
                     "chat": {
                         "main": {
-                            "title": "Pengurusan kumpulan",
-                            "amount": "Kuantiti: {{amount}}",
+                            "title": "Urus kumpulan. Kuantiti: {{amount}}",
                             "path": "[📍 Laluan: Panel → Data → *Kumpulan*]",
                             "buttons": {
-                                "reupload": "🔁 Segarkan"
+                                "reupload": "🔁 Muat semula"
                             }
                         },
                         "reupload": {
@@ -297,13 +320,12 @@
                         "clear": {
                             "success": "✅ Kumpulan dikosongkan!",
                             "error": "❌ Ralat semasa mengosongkan kumpulan\nHubungi pentadbir",
-                            "path": "[📍 Laluan: Panel → Data → Kumpulan → *Pengosongan*]"
+                            "path": "[📍 Laluan: Panel → Data → Kumpulan → *Kosongkan*]"
                         }
                     },
                     "user": {
                         "main": {
-                            "title": "Pengurusan pengguna",
-                            "amount": "Kuantiti: {{amount}}",
+                            "title": "Urus pengguna. Kuantiti: {{amount}}",
                             "path": "[📍 Laluan: Panel → Data → *Pengguna*]"
                         },
                         "view": {
@@ -313,7 +335,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Pengurusan pengguna",
+                                    "title": "Urus pengguna",
                                     "path": "[📍 Laluan: Panel → Data → Pengguna → Lihat → *{{userName}}*]",
                                     "telegramId": "ID Tg: {{telegramId}}",
                                     "name": "Nama: {{name}}",
@@ -323,26 +345,26 @@
                                     "role": "Peranan: {{role}}"
                                 },
                                 "remove": {
-                                    "success":"✅ Pengguna berjaya dipadam!",
-                                    "error": "❌ Pengguna tidak dipadam!\nCuba lagi kemudian",
-                                    "path": "[📍 Laluan: Panel → Data → Pengguna → Lihat → {{userName}} → *Padam*]"
+                                    "success": "✅ Pengguna berjaya dibuang!",
+                                    "error": "❌ Pengguna tidak dibuang!\nCuba lagi kemudian",
+                                    "path": "[📍 Laluan: Panel → Data → Pengguna → Lihat → {{userName}} → *Buang*]"
                                 },
                                 "update": {
                                     "phone": {
                                         "title": "Menukar telefon!\nHantar ke sini.",
-                                        "path": "[📍 Laluan: Panel → Data → Pengguna → Lihat → {{userName}} → *Suntingan nombor*]"
+                                        "path": "[📍 Laluan: Panel → Data → Pengguna → Lihat → {{userName}} → *Ubah nombor*]"
                                     },
                                     "name": {
                                         "title": "Menukar nama!\nHantar ke sini.",
-                                        "path": "[📍 Laluan: Panel → Data → Pengguna → Lihat → {{userName}} → *Suntingan nama*]"
+                                        "path": "[📍 Laluan: Panel → Data → Pengguna → Lihat → {{userName}} → *Ubah nama*]"
                                     }
                                 }
                             }
                         },
                         "create": {
-                            "title": "Mencipta pengguna! Sebelum memulakan, baca arahan untuk penciptaan yang betul.",
-                            "path": "[📍 Laluan: Panel → Data → Pengguna → *Penciptaan*]"
-                        }   
+                            "title": "Mencipta pengguna!",
+                            "path": "[📍 Laluan: Panel → Data → Pengguna → *Cipta*]"
+                        }
                     }
                 },
                 "system": {
@@ -360,7 +382,7 @@
                             "path": "[📍 Laluan: Panel → Sistem → *Pelayan*]",
                             "buttons": {
                                 "bot": "🤖 Bot",
-                                "parser": "🧲 Penyahhuruf"
+                                "parser": "🧲 Penghurai"
                             }
                         },
                         "process": {
@@ -370,7 +392,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Pengurusan proses",
+                                    "title": "Urus proses",
                                     "path": "[📍 Laluan: Panel → Sistem → Pelayan → {{processType}} → *{{processName}}*]",
                                     "buttons": {
                                         "condition": "🩻 Status",
@@ -380,9 +402,9 @@
                                 "condition": {
                                     "path": "[📍 Laluan: Panel → Sistem → Pelayan → {{processType}} → {{processName}} → *Status*]",
                                     "status": {
-                                        "active": "✅ Proses aktif.\nUntuk menghentikan, tekan butang di bawah",
+                                        "active": "✅ Proses aktif.\nUntuk memberhentikan, tekan butang di bawah",
                                         "inactive": "❌ Proses tidak aktif.\nUntuk memulakan, tekan butang di bawah",
-                                        "failed": "💀 Proses mati.\nHubungi pengaturcara.",
+                                        "failed": "❌ Proses tidak aktif.\nUntuk memulakan, tekan butang di bawah",
                                         "error": "Masalah dengan proses. Hubungi pengaturcara."
                                     },
                                     "buttons": {
@@ -394,10 +416,10 @@
                                 "log": {
                                     "title": "Lihat log",
                                     "path": "[📍 Laluan: Panel → Sistem → Pelayan → {{processType}} → {{processName}} → *Log*]",
-                                    "sort": "Isihan: {{sortType}}",
+                                    "sort": "Isih: {{sortType}}",
                                     "sortType": {
-                                        "new": "dari baharu ke lama",
-                                        "old": "dari lama ke baharu"
+                                        "new": "dari baru ke lama",
+                                        "old": "dari lama ke baru"
                                     }
                                 }
                             }
@@ -409,147 +431,162 @@
         "shared": {
             "sendout": {
                 "main": {
-                    "title": "Senarai hantaran aktif pada masa ini.",
-                    "path": "[📍 Laluan: {{menu}} → Hantaran → *Lihat*]",
-                    "empty": "Belum ada hantaran yang disediakan! Kembali kemudian."
+                    "title": "Senarai penghantaran aktif pada masa ini.",
+                    "path": "[📍 Laluan: {{menu}} → *Penghantaran*]",
+                    "empty": "Tiada penghantaran yang dikonfigurasikan lagi! Kembali kemudian."
                 },
                 "view": {
                     "main": {
-                        "title": "📣 Menu hantaran «{{call}}»",
-                        "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → *Menu «{{call}}»*]",
+                        "title": "📣 Menu penghantaran «{{call}}»",
+                        "path": "[📍 Laluan: {{menu}} → Penghantaran → *Menu «{{call}}»*]",
                         "buttons": {
                             "schedule": "🕰️ Jadual",
                             "message": "💬 Mesej",
                             "statistic": "📈 Statistik",
                             "owner": "👑 Pemilik",
-                            "call": "🏷️ Nama"
+                            "name": "🏷️ Nama",
+                            "test": "🎛️ Pengujian"
                         }
+                    },
+                    "test": {
+                        "alert": "Tidak boleh menghidupkan mod ujian semasa penghantaran aktif!"
                     },
                     "message": {
                         "main": {
-                            "error": "Ralat semasa menerima mesej!\nHubungi pentadbir",
+                            "error": "Ralat semasa mendapatkan mesej!\nHubungi pentadbir",
                             "empty": "Tiada mesej!\nUntuk menambah teks, tekan butang di bawah",
                             "title": "Menu bahagian Mesej. Kuantiti: {{amount}}",
-                            "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → *Mesej*]"
+                            "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → *Mesej*]"
                         },
                         "create": {
                             "main": {
                                 "title": "Pilih jenis penambahan teks.",
-                                "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → *Mod penambahan*]",
+                                "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → *Mod tambah*]",
                                 "buttons": {
-                                    "generate": "🔮 Jana",
+                                    "generate": "🔮 Hasilkan",
                                     "hand": "✍ Input manual"
                                 }
                             },
                             "generate": {
-                                "title": "Saya akan menjana teks jualan! \nHantar teks sumber ke sini. Tidak boleh menghantar timbunan teks.",
-                                "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → *Penjanaan*]",
+                                "title": "Saya akan menjana teks jualan! Hantar sumber ke sini. Tidak boleh menghantar timbunan teks.",
+                                "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → *Penjanaan*]",
                                 "save": "✅ Teks disimpan!",
                                 "cancel": "❌ Teks tidak disimpan!",
-                                "pathSave": "[📍 Laluan: {{menu}} → Menu «{{call}}» → Mesej → Penjanaan → *Penyimpanan*]",
+                                "pathSave": "[📍 Laluan: {{menu}} → Menu «{{call}}» → Mesej → Penjanaan → *Simpan*]",
                                 "pathCancel": "[📍 Laluan: {{menu}} → Menu «{{call}}» → Mesej → Penjanaan → *Batal*]"
                             },
                             "hand": {
                                 "title": "Menambah teks!\nHantar teks atau teruskan ke sini. Tidak boleh menghantar timbunan teks.",
-                                "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → *Penambahan teks*]"
+                                "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → *Tambah teks*]"
                             }
                         },
                         "clear": {
                             "success": "✅ Semua mesej dikosongkan!",
                             "error": "❌ Mesej tidak dikosongkan!\nHubungi pentadbir",
-                            "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → *Pengosongan*]"
+                            "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → *Kosongkan*]"
                         },
                         "view": {
                             "main": {
-                                "messageNumber": "Mesej No. {{number}}.",
+                                "messageNumber": "Mesej №{{number}}.",
                                 "amountMedia": "Bilangan media: {{amount}} / {{maxMedia}}.",
-                                "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → *Lihat*]",
+                                "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → *Lihat*]",
                                 "buttons": {
-                                    "updateText": "✍️ Edit teks",
+                                    "updateText": "✍️ Ubah teks",
                                     "addMedia": "🖼 Tambah media",
-                                    "clearAllMedia": "🗑 Kosongkan media"    
+                                    "clearAllMedia": "🗑 Kosongkan media"
                                 }
                             },
                             "text": {
                                 "update": {
-                                    "title": "Menukar teks!\nHantar teks atau teruskan ke sini. Tidak boleh menghantar timbunan teks.",
-                                    "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → *Suntingan teks*]"
+                                    "title": "Mengubah teks!\nHantar teks atau teruskan ke sini. Tidak boleh menghantar timbunan teks.",
+                                    "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → *Ubah teks*]"
                                 },
                                 "remove": {
-                                    "success": "✅ Mesej dipadam!",
-                                    "error": "❌ Teks tidak dipadam!\nHubungi pentadbir",
-                                    "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → *Padam teks*]"
+                                    "success": "✅ Mesej dibuang!",
+                                    "error": "❌ Teks tidak dibuang!\nHubungi pentadbir",
+                                    "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → *Buang teks*]"
                                 }
                             },
                             "media": {
                                 "add": {
-                                    "title": "Menambah media!\nHantar media dalam kuantiti 1 keping.",
-                                    "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → *Penambahan media*]"
+                                    "title": "Menambah media!\nHantar media satu persatu.",
+                                    "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → *Tambah media*]"
                                 },
                                 "clearAll": {
                                     "success": "✅ Semua media dikosongkan!",
                                     "error": "❌ Media tidak dikosongkan!\nHubungi pentadbir",
-                                    "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → *Pengosongan media*]"
+                                    "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → *Kosongkan media*]"
                                 }
                             },
                             "pagination": {
-                                "title": "Lompat pantas ke mesej mengikut nombor",
-                                "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → Lihat → *Pilih mesej*]"
+                                "title": "Pergi cepat ke mesej mengikut nombor",
+                                "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → Lihat → *Pilih mesej*]"
                             }
                         },
                         "export": {
                             "main": {
                                 "title": "Pilih format di mana senarai mesej akan disimpan",
-                                "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → *Pilihan format eksport*]"
+                                "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → *Pilih format eksport*]"
                             },
                             "result": {
                                 "error": "❌ Ralat semasa mengeksport mesej\nHubungi pentadbir",
                                 "caption": "Senarai mesej dalam format {{exportType}} sedia!",
-                                "path": "\n[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Mesej → *Eksport ke {{exportType}}*]"
+                                "path": "\n[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Mesej → *Eksport ke {{exportType}}*]"
                             }
                         }
                     },
                     "schedule": {
                         "main": {
-                            "empty": "Jadual belum disediakan!",
+                            "empty": "Jadual belum dikonfigurasikan!",
                             "title": "Menu bahagian Jadual. Bilangan masa dalam jadual: {{amount}}",
-                            "path": "\n[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → *Jadual*]"
+                            "path": "\n[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → *Jadual*]"
                         },
                         "create": {
                             "title": "Menambah masa!",
-                            "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Jadual → *Penambahan*]"
+                            "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Jadual → *Tambah*]"
                         },
                         "clear": {
                             "success": "✅ Jadual dikosongkan!",
                             "error": "❌ Jadual tidak dikosongkan!\nHubungi pentadbir",
-                            "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Jadual → *Pengosongan*]"
+                            "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Jadual → *Kosongkan*]"
                         },
                         "view": {
                             "main": {
-                                "title": "Jadual hantaran dipaparkan di bawah sebagai butang.",
-                                "path": "\n[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Jadual → *Lihat*]"
+                                "title": "Jadual penghantaran dipersembahkan di bawah sebagai butang.",
+                                "path": "\n[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Jadual → *Lihat*]"
                             },
                             "time": {
                                 "update": {
-                                    "title": "Menukar masa!",
-                                    "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Jadual → Lihat → *Suntingan masa*]"
+                                    "title": "Mengubah masa!",
+                                    "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Jadual → Lihat → *Ubah masa*]"
                                 },
                                 "remove": {
-                                    "success": "✅ Masa dipadam!",
-                                    "error": "❌ Masa tidak dipadam! Hubungi pentadbir",
-                                    "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Jadual → Lihat → *Padam masa*]"
+                                    "success": "✅ Masa dibuang!",
+                                    "error": "❌ Masa tidak dibuang! Hubungi pentadbir",
+                                    "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Jadual → Lihat → *Buang masa*]"
                                 },
                                 "updateOrRemove": {
                                     "title": "Masa yang dipilih:\n→ *{{targetTime}}*.\n",
-                                    "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Jadual → Lihat → *Pilihan tindakan*]"
+                                    "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Jadual → Lihat → *Pilih tindakan*]"
                                 }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Pilih format di mana jadual penghantaran akan disimpan",
+                                "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Jadual → *Pilih format eksport*]"
+                            },
+                            "result": {
+                                "error": "❌ Ralat semasa mengeksport jadual\nHubungi pentadbir",
+                                "caption": "Jadual dalam format {{exportType}} sedia!",
+                                "path": "\n[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Jadual → *Eksport ke {{exportType}}*]"
                             }
                         }
                     },
                     "statistic": {
                         "main": {
                             "title": "Pilih format statistik yang diingini.",
-                            "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → *Statistik*]",
+                            "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → *Statistik*]",
                             "buttons": {
                                 "selective": "📅 Selektif",
                                 "comparative": "📊 Perbandingan"
@@ -557,87 +594,93 @@
                         },
                         "selective": {
                             "main": {
-                                "notDone": "Kerja-kerja teknikal sedang dijalankan di bahagian ini.",
-                                "noData": "Tiada keputusan ditemui untuk tarikh yang dipilih!",
+                                "notDone": "Kerja teknikal sedang dijalankan di bahagian ini.",
+                                "noData": "Tiada hasil ditemui untuk tarikh yang dipilih!",
                                 "noAccess": "Butang yang ditekan tidak tersedia!",
-                                "title": "Statistik selektif.\nDi bawah adalah kalendar dengan tarikh. Untuk melihat hasil hantaran untuk hari tertentu – hanya klik padanya!\n\nJika hantaran:\n*tidak berlaku,\n*tidak ada,\n*tidak dijadualkan,\n*atau lain-lain\n- mesej dengan konteks yang sepadan akan dipaparkan, jangan risau.",
-                                "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Statistik → *Selektif*]"
+                                "title": "Statistik selektif.\nDi bawah adalah kalendar dengan tarikh. Untuk melihat hasil penghantaran untuk hari tertentu, hanya klik padanya!\n\nJika penghantaran:\n*tidak berlaku,\n*tidak wujud,\n*tidak dijadualkan,\n*atau lain-lain\n- mesej dengan konteks yang sesuai akan dipaparkan, jangan takut.",
+                                "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Statistik → *Selektif*]"
                             },
                             "targetDate": {
                                 "main": {
-                                    "title": "Hasil hantaran untuk {{date}}.",
+                                    "title": "Hasil penghantaran untuk {{date}}.",
                                     "time": "Masa: {{time}}",
                                     "success": "Penghantaran berjaya: {{success}}",
-                                    "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Statistik → Selektif → *{{date}}*]"
+                                    "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Statistik → Selektif → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "amount":"Kuantiti: {{amount}}",
-                                    "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Statistik → Selektif → {{date}} → *Kumpulan*]"    
+                                    "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Statistik → Selektif → {{date}} → *Kumpulan*]"
                                 }
                             }
                         },
                         "comparative": {
                             "main": {
                                 "title": "Pilih jenis statistik perbandingan.",
-                                "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Statistik → *Perbandingan*]",
+                                "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Statistik → *Perbandingan*]",
                                 "buttons": {
                                     "week": "Minggu",
                                     "month": "Bulan"
                                 }
                             },
                             "week": {
-                                "title": "Statistik perbandingan. (Minggu)",
-                                "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Statistik → Perbandingan → *Minggu*]"
+                                "title": "Statistik perbandingan (Minggu)",
+                                "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Statistik → Perbandingan → *Minggu*]"
                             },
                             "month": {
-                                "title": "Statistik perbandingan. (Bulan)",
-                                "path": "[📍 Laluan: {{menu}} → Hantaran → Lihat → Menu «{{call}}» → Statistik → Perbandingan → *Bulan*]"
+                                "title": "Statistik perbandingan (Bulan)",
+                                "path": "[📍 Laluan: {{menu}} → Penghantaran → Menu «{{call}}» → Statistik → Perbandingan → *Bulan*]"
                             }
                         }
                     },
                     "owner": {
                         "main": {
-                            "title": "Pemilik hantaran.",
-                            "empty": "Hantaran tidak mempunyai pemilik!",
+                            "title": "Pemilik penghantaran.",
+                            "empty": "Penghantaran tiada pemilik!",
                             "name": "Nama: {{name}}",
                             "phone": "Telefon: +{{phone}}",
-                            "path": "[📍 Laluan: Panel → Hantaran → Lihat → Menu «{{call}}» → *Pemilik*]",
+                            "path": "[📍 Laluan: Panel → Penghantaran → Menu «{{call}}» → *Pemilik*]",
                             "buttons": {
-                                "change": "🪧 Tugaskan semula"
+                                "change": "🪧 Tugas semula"
                             }
                         },
                         "update": {
                             "main": {
-                                "title": "Pilih pengguna untuk dilantik sebagai pemilik hantaran ini.",
-                                "path": "[📍 Laluan: Panel → Hantaran → Lihat → Menu «{{call}}» → Pemilik → *Pilihan*]",
-                                "noOwner": "Tanpa pemilik"
+                                "title": "Pilih pengguna untuk dilantik sebagai pemilik penghantaran ini.",
+                                "path": "[📍 Laluan: Panel → Penghantaran → Menu «{{call}}» → Pemilik → *Pilih*]",
+                                "noOwner": "Tiada pemilik"
                             },
                             "action": {
                                 "success": "✅ Pemilik berjaya ditugaskan semula!",
-                                "error": "❌ Pemilik tidak ditugaskan semula! \nCuba lagi kemudian!",
-                                "path": "[📍 Laluan: Panel → Hantaran → Lihat → Menu «{{call}}» → Pemilik → {{owner}} → *Penugasan*]"
+                                "error": "❌ Pemilik tidak ditugaskan semula! Cuba lagi kemudian!",
+                                "path": "[📍 Laluan: Panel → Penghantaran → Menu «{{call}}» → Pemilik → {{owner}} → *Lantik*]"
                             }
                         }
                     },
-                    "call": {
+                    "name": {
                         "main": {
-                            "title": "Nama (isyarat panggilan) hantaran: {{call}}",
-                            "empty": "Hantaran tidak mempunyai nama!",
-                            "path": "[📍 Laluan: Panel → Hantaran → Lihat → Menu «{{call}}» → *Nama*]"
+                            "title": "Nama penghantaran:",
+                            "about": "1 - tandatangan (penamaan lama)\n2 - nama entiti\n3 - isyarat panggilan (nama yang dipaparkan dalam bot)",
+                            "path": "[📍 Laluan: Panel → Penghantaran → Menu «{{call}}» → *Nama*]"
                         },
                         "update": {
-                            "title": "Menukar isyarat panggilan hantaran! Hantar nama baharu hantaran.",
-                            "path": "[📍 Laluan: Panel → Hantaran → Lihat → Menu «{{call}}» → Nama → *Kemas kini*]"
+                            "call": {
+                                "title": "Menukar isyarat panggilan penghantaran!",
+                                "path": "[📍 Laluan: Panel → Penghantaran → Menu «{{call}}» → Nama → Isyarat panggilan → *Kemas kini*]"
+                            },
+                            "label": {
+                                "alert": "Tandatangan penghantaran tidak boleh diubah!"
+                            },
+                            "name": {
+                                "alert": "Nama penghantaran tidak boleh diubah!"
+                            }
                         }
                     }
                 }
             },
             "contract": {
                 "main": {
-                    "title": "Pengurusan kontrak",
-                    "amount": "Kuantiti: {{amount}}",
+                    "title": "Urus kontrak. Kuantiti: {{amount}}",
                     "path": "[📍 Laluan: {{menu}} → *Kontrak*]",
-                    "empty": "Belum ada kontrak yang disediakan! Kembali kemudian.",
+                    "empty": "Tiada kontrak yang dikonfigurasikan lagi! Kembali kemudian.",
                     "contractName": "{{userName}}: dari {{dateStart}}"
                 },
                 "view": {
@@ -648,38 +691,25 @@
                     "contract": {
                         "main": {
                             "title": "Kontrak dari {{dateStart}}.",
-                            "sendouts": "Hantaran yang termasuk dalam kontrak: {{sendouts}}",
+                            "sendouts": "Penghantaran yang termasuk dalam kontrak: {{sendouts}}",
                             "noSendouts": "kosong.",
                             "userName": "Pelanggan: {{userName}}",
                             "dateStart": "Tarikh mula: {{dateStart}}",
                             "dateEnd": "Tarikh tamat: {{dateEnd}}",
                             "price": "Harga: {{price}}",
                             "priceText": "Harga (teks): {{priceText}}",
-                            "error": "Ralat semasa menerima kontrak. Hubungi pentadbir",
+                            "error": "Ralat semasa mendapatkan kontrak. Hubungi pentadbir",
                             "path": "\n[📍 Laluan: {{menu}} → Kontrak → Lihat → *{{dateStart}}*]"
                         },
                         "remove": {
-                            "success":"✅ Kontrak berjaya dipadam!",
-                            "error": "❌ Kontrak tidak dipadam!\nCuba lagi kemudian",
-                            "path": "[📍 Laluan: Panel → Kontrak → Lihat → {{dateStart}} → *Padam*]"
-                        },
-                        "create": {
-                            "step": "Langkah: {{number}} / 3",
-                            "noUser": "Untuk meneruskan ke langkah #2, anda perlu melaksanakan langkah #1!",
-                            "noSendouts": "Untuk meneruskan ke langkah #3, anda perlu melaksanakan langkah #2!",
-                            "noFreeSendouts": "Pelanggan tidak mempunyai hantaran percuma (tanpa kontrak)!",
-                            "data": {
-                                "user": "Pilih pengguna yang kontraknya akan disediakan",
-                                "sendout": "Pilih hantaran yang akan dimasukkan ke dalam kontrak",
-                                "contract": "Hantar data berkaitan kontrak"
-                            },
-                            "title": "Mencipta kontrak! Baca arahan untuk penciptaan yang betul.",
-                            "path": "[📍 Laluan: Panel → Kontrak → *Penciptaan*]"
+                            "success": "✅ Kontrak berjaya dibuang!",
+                            "error": "❌ Kontrak tidak dibuang!\nCuba lagi kemudian",
+                            "path": "[📍 Laluan: Panel → Kontrak → Lihat → {{dateStart}} → *Buang*]"
                         },
                         "export": {
                             "main": {
                                 "title": "Pilih format di mana kontrak akan disimpan",
-                                "path": "[📍 Laluan: {{menu}} → Kontrak → Lihat → {{dateStart}} → *Pilihan format eksport*]"
+                                "path": "[📍 Laluan: {{menu}} → Kontrak → Lihat → {{dateStart}} → *Pilih format eksport*]"
                             },
                             "result": {
                                 "error": "❌ Ralat semasa mengeksport kontrak\nHubungi pentadbir",
@@ -690,8 +720,17 @@
                     }
                 },
                 "create": {
-                    "title": "Mencipta kontrak! Sebelum memulakan, baca arahan untuk penciptaan yang betul.",
-                    "path": "[📍 Laluan: Panel → Kontrak → *Penciptaan*]"
+                    "step": "Langkah: {{number}} / 3",
+                    "noUser": "Untuk meneruskan ke langkah #2, anda perlu menyelesaikan langkah #1!",
+                    "noSendouts": "Untuk meneruskan ke langkah #3, anda perlu menyelesaikan langkah #2!",
+                    "noFreeSendouts": "Pelanggan tidak mempunyai penghantaran percuma (tanpa kontrak)!",
+                    "data": {
+                        "user": "Pilih pengguna yang akan dibuatkan kontrak",
+                        "sendout": "Pilih penghantaran yang akan dimasukkan dalam kontrak",
+                        "contract": "Hantar data berkaitan kontrak"
+                    },
+                    "title": "Mencipta kontrak!",
+                    "path": "[📍 Laluan: Panel → Kontrak → *Cipta*]"
                 }
             }
         }

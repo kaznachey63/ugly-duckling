@@ -2,46 +2,53 @@
     "utils": {
         "shared": {
             "processing": "⏳ Obdelava...",
-            "cabinet": "🪴 Osebni račun",
+            "cabinet": "🪴 Osebna omarica",
+            "panel": "👨‍💻 Administratorska plošča",
+            "nameless": "Brezimni",
             "buttons": {
                 "export": "📧 Izvozi",
-                "nameless": "Brez imena",
                 "back": "🔙 Nazaj",
-                "remove": "🗑 Izbriši",
+                "remove": "🗑 Odstrani",
                 "miss": "Manjka",
                 "create": "➕ Ustvari",
-                "update": "✍ Uredi",
+                "update": "✍ Spremeni",
+                "instruction": "📖 Navodilo",
                 "clear": "🗑 Počisti",
                 "view": "👁 Poglej",
                 "contract": "📜 Pogodbe",
-                "sendout": "📢 Pošiljanja",
+                "sendout": "📢 Množična pošiljanja",
                 "chat": "🗯 Skupine",
                 "contactAdmin": "👨 Administrator"
             },
             "titles": {
                 "validate": "⚠ Vhodni podatki so imeli neveljaven format. Pošljite znova",
-                "cabinet": "Račun",
+                "cabinet": "Omara",
                 "panel": "Plošča → Podatki",
                 "amount": "Količina: {{amount}}",
-                "sendoutActive": "Pošiljanje je trenutno aktivno, poskusite upravljati s podatki pozneje"
+                "sendoutActive": "Množično pošiljanje je trenutno aktivno, poskusite upravljati s podatki pozneje",
+                "accessDenied": {
+                    "all": "Dostop zavrnjen. Najprej se avtorizirajte z ukazom /auth",
+                    "admin": "Dostop zavrnjen. Ta razdelek je namenjen strankam",
+                    "customer": "Dostop zavrnjen. Ta razdelek je namenjen administratorjem"
+                }
             }
         },
-        "maintenace": "🚧 Trenutno potekajo tehnična dela. Uporaba storitve je začasno omejena.\nTakoj ko končamo, vas bomo obvestili!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "maintenace": "🚧 Trenutno potekajo tehnična dela. Uporaba storitve je začasno omejena.\nKo končamo, takoj sporočimo!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
         "roleCodes": {
             "admin": "Administrator",
             "customer": "Stranka",
             "unknown": "Neznan"
         },
         "commands": {
-            "cabinet": "Račun",
+            "cabinet": "Omara",
             "settings": "Nastavitve",
             "panel": "Admin plošča"
         },
         "chart": {
-            "labelMonth": "Statistika števila skupin, ki so prejele pošiljanje. {{month}} {{year}}",
-            "labelWeek": "Statistika števila skupin, ki so prejele pošiljanje. Teden",
+            "labelMonth": "Statistika števila skupin, ki so prejele množično pošiljanje. {{month}} {{year}}",
+            "labelWeek": "Statistika števila skupin, ki so prejele množično pošiljanje. Teden",
             "amountSms": "Število sporočil",
-            "noLogs": "V izbranem obdobju še ni bilo pošiljanja!",
+            "noLogs": "V izbranem obdobju še ni bilo množičnega pošiljanja!",
             "daysOfWeek": {
                 "Mon": "Pon",
                 "Tue": "Tor",
@@ -94,24 +101,50 @@
         "processType": {
             "bot": "Bot",
             "parser": "Razčlenjevalnik",
-            "sendout": "Pošiljanja"
+            "sendout": "Množična pošiljanja"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Urnik",
+                "message": "Sporočila",
+                "contract": "Pogodba"
+            },
+            "text": "Izvozi",
+            "from": "od"
+        },
+        "localization": {
+            "schedule": {
+                "number": "dne",
+                "everyDay": "Vsak dan",
+                "unknownDay": "Neznan dan",
+                "dayWeek": {
+                    "1": "Ponedeljek",
+                    "2": "Torek",
+                    "3": "Sreda",
+                    "4": "Četrtek",
+                    "5": "Petek",
+                    "6": "Sobota",
+                    "7": "Nedelja",
+                    "*": "Vsak dan"
+                }
+            }
         }
     },
     "handlers": {
         "events": {
             "contact": {
                 "numberIsNull": "Napaka pri obdelavi telefonske številke!\nPoskusite znova!",
-                "accessDenied": "Dostop prepovedan. Za uporabo storitve pošiljanja uporabite ukaz '/settings', razdelek 'Pomoč'"
+                "accessDenied": "Dostop zavrnjen. Če želite uporabiti storitev množičnega pošiljanja, uporabite ukaz '/settings', razdelek 'Pomoč'"
             }
         },
         "states": {
             "addingText": {
                 "success": "✅ Besedilo shranjeno!",
                 "error": "❌ Besedilo ni shranjeno!\nObrnite se na administratorja",
-                "path": "[📍 Pot: {{menu}} → Meni «{{call}}» → Sporočila → *Ustvarjanje besedila*]"
+                "path": "[📍 Pot: {{menu}} → Meni «{{call}}» → Sporočila → *Ustvari besedilo*]"
             },
             "generatingText": {
-                "result": "Ustvarjeno sporočilo je prikazano spodaj.\nUporabite gumbe pod sporočili, da se odločite o usodi besedila.",
+                "result": "Generirano sporočilo je prikazano spodaj. Z gumbi pod sporočili se odločite o usodi besedila.",
                 "pathChoose": "[📍 Pot: {{menu}} → Meni «{{call}}» → Sporočila → Generiranje besedila → *Usoda besedila*]",
                 "buttons": {
                     "save": "✔ Shrani",
@@ -121,63 +154,88 @@
             "updatingText": {
                 "success": "✅ Besedilo spremenjeno!",
                 "error": "❌ Besedilo ni spremenjeno!\nObrnite se na administratorja",
-                "path": "[📍 Pot: {{menu}} → Meni «{{call}}» → Sporočila → *Urejanje besedila*]"
+                "path": "[📍 Pot: {{menu}} → Meni «{{call}}» → Sporočila → *Spremeni besedilo*]"
             },
             "addingMedia": {
-                "error": "💀 Napaka pri shranjevanju medijev!\nObrnite se na administratorja",
+                "error": "💀 Napaka pri shranjevanju medija!\nObrnite se na administratorja",
                 "invalidType": "Vrsta medija ni prepoznana! Poskusite znova",
                 "bigSize": "Datoteka je prevelika. Največja velikost {{size}} MB.",
-                "documentsWTMedia": "Ne morem obdelati dokumentov, ki ne vsebujejo: fotografije / videa / gifa",
+                "documentsWTMedia": "Ne morem obdelati dokumentov, ki ne vsebujejo: fotografije / videa / gif",
                 "success": "✅ Medij shranjen!",
                 "error2": "❌ Medij ni shranjen!\nObrnite se na administratorja",
-                "path": "[📍 Pot: {{menu}} → Meni «{{call}}» → Sporočila → *Dodajanje medijev*]"
+                "path": "[📍 Pot: {{menu}} → Meni «{{call}}» → Sporočila → *Dodaj medij*]",
+                "amount": "Število medijev v sporočilu: {{now}} od {{all}}"
             },
             "addingTime": {
                 "success": "✅ Čas shranjen!",
                 "error": "❌ Čas ni spremenjen!\nObrnite se na administratorja",
-                "path": "[📍 Pot: Plošča → Meni «{{call}}» → Urnik → Pregled → *Dodajanje*]"
+                "path": "[📍 Pot: Plošča → Meni «{{call}}» → Urnik → Pregled → *Dodaj*]"
             },
             "updatingTime": {
                 "success": "✅ Čas spremenjen!",
                 "error": "❌ Čas ni spremenjen!\nObrnite se na administratorja",
-                "path": "[📍 Pot: Plošča → Meni «{{call}}» → Urnik → Pregled → *Urejanje*]"
+                "path": "[📍 Pot: Plošča → Meni «{{call}}» → Urnik → Pregled → *Spremeni*]"
             },
             "addingIdea": {
                 "success": "✅ Ideja uspešno dodana, hvala!",
                 "error": "❌ Ideja ni dodana!\nPoskusite znova ali se obrnite na administratorja!",
-                "path": "[📍 Pot: Nastavitve → Ideje → *Dodajanje*]"
+                "path": "[📍 Pot: Nastavitve → Ideje → *Dodaj*]"
             },
             "addingUser": {
                 "success": "✅ Uporabnik uspešno ustvarjen!",
                 "error": "❌ Uporabnik ni ustvarjen!\nPoskusite pozneje.",
-                "path": "[📍 Pot: Plošča → Podatki → Uporabniki → *Ustvarjanje*]"
+                "path": "[📍 Pot: Plošča → Podatki → Uporabniki → *Ustvari*]"
             },
             "addingContract": {
                 "success": "✅ Pogodba uspešno ustvarjena!",
                 "error": "❌ Pogodba ni ustvarjena!\nPoskusite pozneje.",
-                "path": "[📍 Pot: Plošča → Pogodbe → *Ustvarjanje*]"
+                "path": "[📍 Pot: Plošča → Pogodbe → *Ustvari*]"
             },
             "updatingSendoutCall": {
                 "success": "✅ Klicni znak uspešno posodobljen!",
                 "error": "❌ Klicni znak ni posodobljen!\nPoskusite pozneje.",
-                "path": "[📍 Pot: Plošča → Pošiljanja → Pregled → Meni «{{call}}» → Ime → *Posodobitev*]"
+                "path": "[📍 Pot: Plošča → Množična pošiljanja → Meni «{{call}}» → Imena → Klicni znak → *Posodobi*]"
             },
             "updatingUserName": {
                 "success": "✅ Ime uspešno posodobljeno!",
                 "error": "❌ Ime ni posodobljeno!\nPoskusite pozneje.",
-                "path": "[📍 Pot: Plošča → Podatki → Uporabniki → Pregled → {{userName}} → *Urejanje imena*]"
+                "path": "[📍 Pot: Plošča → Podatki → Uporabniki → Pregled → {{userName}} → *Spremeni ime*]"
             },
             "updatingUserPhone": {
                 "success": "✅ Telefon uspešno posodobljen!",
                 "error": "❌ Telefon ni posodobljen!\nPoskusite pozneje.",
-                "path": "[📍 Pot: Plošča → Podatki → Uporabniki → Pregled → {{userName}} → *Urejanje številke*]"
+                "path": "[📍 Pot: Plošča → Podatki → Uporabniki → Pregled → {{userName}} → *Spremeni številko*]"
             }
         }
     },
     "modules": {
         "commands": {
             "start": {
-                "title": "Pozdravljeni! Sem Telegram bot, pomočnik za pošiljanje.\n\nToplo priporočam, da se seznanite z vsemi mojimi ukazi s pritiskom na ovalni gumb 'Meni' v spodnjem levem kotu zaslona.\nPo branju navodil za uporabo, ki jih prikličete z ukazom '/settings', v razdelku 'O botu'."
+                "title": "☀ Pozdravljeni! Jaz sem Telegram bot Grdo rače, pomočnik za množična pošiljanja.",
+                "commands": "Spodaj je kratek opis ukazov za interakcijo z menoj:\n/start - aktivacija bota in seznam ukazov\n/auth - avtorizacija\n/cabinet - upravljanje osebne omare\n/settings - upravljanje nastavitev bota",
+                "uAdmin": "❓ Ste administrator?\n/panel - administratorska plošča",
+                "link": "Podrobnejša navodila o mehanizmu upravljanja z menoj si lahko ogledate s spodnjim gumbom."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Prekliči",
+                        "phone": "📞 Deli",
+                        "again": "🔄 Poskusi znova"
+                    },
+                    "unknownMessage": "Dejanje ni prepoznano, poskusite znova z gumboma: '📞 Deli' in '❌ Prekliči'",
+                    "manyAttempts": "Število uporabljenih poskusov avtorizacije pred urno omejitvijo: {{actualAttempts}} od {{maxAttempts}}",
+                    "stop": "Avtorizacija je omejena. Omejitve bodo odpravljene po: {{dateTime}}",
+                    "canceled": "Avtorizacija uspešno ustavljena!",
+                    "title": "Za vstop v ploščo množičnih pošiljanj morate z menoj deliti svojo telefonsko številko.\n\nGumb bi se moral pojaviti ob tipkovnici z napisom '📞 Deli'",
+                    "good": "Uspešno ste se avtorizirali v sistemu!",
+                    "already": "Ste že avtorizirani v sistemu!",
+                    "bad": "Napaka pri avtorizaciji. Obrnite se na administratorja!"
+                },
+                "logout": {
+                    "good": "Uspešno ste se odjavili. Vaši podatki so izbrisani!",
+                    "bad": "Napaka pri odjavi. Obrnite se na administratorja!"
+                }
             },
             "settings": {
                 "main": {
@@ -200,18 +258,17 @@
                     }
                 },
                 "help": {
-                    "title": "Ste naleteli na težavo?\nImate vprašanja?\nŽelite pohvaliti storitev?\nImate ideje za izboljšanje storitve?",
-                    "interest": "Ali vas zanima izdelek?\nIzpolnite spodnji vprašalnik in vas bomo kontaktirali!",
+                    "title": "Imate težavo?\nImate vprašanja?\nŽelite pohvaliti storitev?\nImate ideje za izboljšave?",
+                    "interest": "Ali vas zanima izdelek?\nIzpolnite spodnji obrazec in vas bomo kontaktirali!",
                     "path": "[📍 Pot: Nastavitve → *Pomoč*]"
                 },
                 "about": {
-                    "title": "Storitev je razvita za avtomatizacijo oglaševanja (objav, pošiljanj) vaših izdelkov (ponudb) znotraj skupin / klepetov / kanalov.\n\nNavodila za uporabo Bota - s spodnjim gumbom!",
-                    "instruction": "📖 Navodila",
+                    "title": "Storitev je razvita za avtomatizacijo oglaševanja (objav, množičnih pošiljanj) vaših izdelkov (ponudb) znotraj skupin / klepetov / kanalov.\n\nNavodila za uporabo Bota - spodaj!",
                     "path": "[📍 Pot: Nastavitve → *O storitvi*]"
                 },
                 "idea": {
                     "main": {
-                        "title": "Meni razdelka Ideje. \nTukaj lahko predlagate svojo idejo za razvoj storitve.",
+                        "title": "Meni razdelka Ideje. Tukaj lahko predlagate svojo idejo za razvoj storitve.",
                         "path": "[📍 Pot: Nastavitve → *Ideje*]",
                         "buttons": {
                             "add": "🗳 Predlagaj",
@@ -219,47 +276,24 @@
                         }
                     },
                     "add": {
-                        "title": "Pošljite mi medije / avdio / besedilo itd. Brez omejitev!",
-                        "path": "[📍 Pot: Nastavitve → Ideje → *Dodajanje*]"
+                        "title": "Pošljite mi medije/avdio/besedilo itd. Brez omejitev!",
+                        "path": "[📍 Pot: Nastavitve → Ideje → *Dodaj*]"
                     }
                 }
             },
             "cabinet": {
                 "main": {
-                    "buttons": {                        
+                    "buttons": {
                         "logout": "🚪 Odjava",
                         "login": "🔑 Prijava"
-                    }
-                },
-                "auth": {
-                    "login": {
-                        "buttons": {
-                            "cancel": "❌ Prekliči",
-                            "phone": "📞 Deli"
-                        },
-                        "unknownMessage": "Dejanje ni prepoznano, poskusite znati uporabiti gumba 'Deli' in 'Prekliči'",
-                        "manyAttempts": "Število uporabljenih poskusov avtentikacije pred enourno omejitvijo: {{actualAttempts}} od {{maxAttempts}}",
-                        "stop": "Avtorizacija je omejena. Omejitve bodo odpravljene po: {{dateTime}}",
-                        "canceled": "Avtorizacija uspešno zaustavljena!",
-                        "title": "Za vstop v ploščo za pošiljanje morate z menoj deliti svojo telefonsko številko.\n\nGumb bi se moral pojaviti ob tipkovnici z napisom '📞 Deli'.",
-                        "good": "Uspešno ste se avtorizirali v sistemu!",
-                        "already": "Ste že avtorizirani v sistemu!",
-                        "bad": "Napaka pri avtorizaciji v sistemu.\nObrnite se na administratorja!",
-                        "path": "[📍 Pot: Račun → *Avtorizacija*"
-                    },
-                    "logout": {
-                        "good": "Uspešno ste se odjavili iz sistema. Vaši podatki so izbrisani!",
-                        "bad": "Napaka pri odjavi iz sistema.\nObrnite se na administratorja!",
-                        "path": "[📍 Pot: Račun → *Odjava*]"
                     }
                 }
             },
             "panel": {
                 "main": {
-                    "title": "👨‍💻 Administratorska plošča",
                     "buttons": {
                         "data": "🗂 Podatki",
-                        "system": "⚡ Sistem "
+                        "system": "⚡ Sistem"
                     }
                 },
                 "data": {
@@ -272,8 +306,7 @@
                     },
                     "chat": {
                         "main": {
-                            "title": "Upravljanje skupin",
-                            "amount": "Količina: {{amount}}",
+                            "title": "Upravljanje skupin. Količina: {{amount}}",
                             "path": "[📍 Pot: Plošča → Podatki → *Skupine*]",
                             "buttons": {
                                 "reupload": "🔁 Osveži"
@@ -282,18 +315,17 @@
                         "reupload": {
                             "success": "✅ Skupine posodobljene!",
                             "error": "❌ Napaka pri posodabljanju skupin\nObrnite se na administratorja",
-                            "path": "[📍 Pot: Plošča → Podatki → Skupine → *Posodobitev*]"
+                            "path": "[📍 Pot: Plošča → Podatki → Skupine → *Posodobi*]"
                         },
                         "clear": {
                             "success": "✅ Skupine počiščene!",
                             "error": "❌ Napaka pri čiščenju skupin\nObrnite se na administratorja",
-                            "path": "[📍 Pot: Plošča → Podatki → Skupine → *Čiščenje*]"
+                            "path": "[📍 Pot: Plošča → Podatki → Skupine → *Počisti*]"
                         }
                     },
                     "user": {
                         "main": {
-                            "title": "Upravljanje uporabnikov",
-                            "amount": "Količina: {{amount}}",
+                            "title": "Upravljanje uporabnikov. Količina: {{amount}}",
                             "path": "[📍 Pot: Plošča → Podatki → *Uporabniki*]"
                         },
                         "view": {
@@ -313,26 +345,26 @@
                                     "role": "Vloga: {{role}}"
                                 },
                                 "remove": {
-                                    "success":"✅ Uporabnik uspešno izbrisan!",
-                                    "error": "❌ Uporabnik ni izbrisan!\nPoskusite pozneje",
-                                    "path": "[📍 Pot: Plošča → Podatki → Uporabniki → Pregled → {{userName}} → *Brisanje*]"
+                                    "success": "✅ Uporabnik uspešno odstranjen!",
+                                    "error": "❌ Uporabnik ni odstranjen!\nPoskusite pozneje",
+                                    "path": "[📍 Pot: Plošča → Podatki → Uporabniki → Pregled → {{userName}} → *Odstrani*]"
                                 },
                                 "update": {
                                     "phone": {
                                         "title": "Spreminjamo telefon!\nPošljite sem.",
-                                        "path": "[📍 Pot: Plošča → Podatki → Uporabniki → Pregled → {{userName}} → *Urejanje številke*]"
+                                        "path": "[📍 Pot: Plošča → Podatki → Uporabniki → Pregled → {{userName}} → *Spremeni številko*]"
                                     },
                                     "name": {
                                         "title": "Spreminjamo ime!\nPošljite sem.",
-                                        "path": "[📍 Pot: Plošča → Podatki → Uporabniki → Pregled → {{userName}} → *Urejanje imena*]"
+                                        "path": "[📍 Pot: Plošča → Podatki → Uporabniki → Pregled → {{userName}} → *Spremeni ime*]"
                                     }
                                 }
                             }
                         },
                         "create": {
-                            "title": "Ustvarjamo uporabnika! Pred začetkom preberite navodila za pravilno ustvarjanje.",
-                            "path": "[📍 Pot: Plošča → Podatki → Uporabniki → *Ustvarjanje*]"
-                        }   
+                            "title": "Ustvarjamo uporabnika!",
+                            "path": "[📍 Pot: Plošča → Podatki → Uporabniki → *Ustvari*]"
+                        }
                     }
                 },
                 "system": {
@@ -370,13 +402,13 @@
                                 "condition": {
                                     "path": "[📍 Pot: Plošča → Sistem → Strežnik → {{processType}} → {{processName}} → *Stanje*]",
                                     "status": {
-                                        "active": "✅ Proces je aktiven.\nČe ga želite ustaviti, pritisnite spodnji gumb",
-                                        "inactive": "❌ Proces je neaktiven.\nČe ga želite zagnati, pritisnite spodnji gumb",
-                                        "failed": "💀 Proces je umrl.\nObrnite se na programerja.",
+                                        "active": "✅ Proces je aktiven.\nZa zaustavitev pritisnite spodnji gumb",
+                                        "inactive": "❌ Proces ni aktiven.\nZa zagon pritisnite spodnji gumb",
+                                        "failed": "❌ Proces ni aktiven.\nZa zagon pritisnite spodnji gumb",
                                         "error": "Težava s procesom. Obrnite se na programerja."
                                     },
                                     "buttons": {
-                                        "stop": "🛑 Ustavi",
+                                        "stop": "🛑 Zaustavi",
                                         "start": "▶️ Zaženi",
                                         "restart": "🔁 Ponovno zaženi"
                                     }
@@ -386,8 +418,8 @@
                                     "path": "[📍 Pot: Plošča → Sistem → Strežnik → {{processType}} → {{processName}} → *Dnevniki*]",
                                     "sort": "Razvrščanje: {{sortType}}",
                                     "sortType": {
-                                        "new": "od novejših proti starejšim",
-                                        "old": "od starejših proti novejšim"
+                                        "new": "od novejših k starejšim",
+                                        "old": "od starejših k novejšim"
                                     }
                                 }
                             }
@@ -399,103 +431,107 @@
         "shared": {
             "sendout": {
                 "main": {
-                    "title": "Seznam trenutno aktivnih pošiljanj.",
-                    "path": "[📍 Pot: {{menu}} → Pošiljanja → *Pregled*]",
-                    "empty": "Pošiljanja še niso nastavljena! Vrnite se pozneje."
+                    "title": "Seznam trenutno aktivnih množičnih pošiljanj.",
+                    "path": "[📍 Pot: {{menu}} → *Množična pošiljanja*]",
+                    "empty": "Množična pošiljanja še niso nastavljena! Vrnite se pozneje."
                 },
                 "view": {
                     "main": {
-                        "title": "📣 Meni pošiljanja «{{call}}»",
-                        "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → *Meni «{{call}}»*]",
+                        "title": "📣 Meni množičnega pošiljanja «{{call}}»",
+                        "path": "[📍 Pot: {{menu}} → Množična pošiljanja → *Meni «{{call}}»*]",
                         "buttons": {
                             "schedule": "🕰️ Urnik",
                             "message": "💬 Sporočila",
                             "statistic": "📈 Statistika",
                             "owner": "👑 Lastnik",
-                            "call": "🏷️ Ime"
+                            "name": "🏷️ Imena",
+                            "test": "🎛️ Testiranje"
                         }
+                    },
+                    "test": {
+                        "alert": "Testnega načina ni mogoče vklopiti, medtem ko je množično pošiljanje aktivno!"
                     },
                     "message": {
                         "main": {
-                            "error": "Napaka pri prejemanju sporočil!\nObrnite se na administratorja",
+                            "error": "Napaka pri pridobivanju sporočil!\nObrnite se na administratorja",
                             "empty": "Ni sporočil!\nČe želite dodati besedilo, pritisnite spodnji gumb",
                             "title": "Meni razdelka Sporočila. Količina: {{amount}}",
-                            "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → *Sporočila*]"
+                            "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → *Sporočila*]"
                         },
                         "create": {
                             "main": {
                                 "title": "Izberite vrsto dodajanja besedila.",
-                                "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → *Način dodajanja*]",
+                                "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → *Način dodajanja*]",
                                 "buttons": {
-                                    "generate": "🔮 Ustvari",
+                                    "generate": "🔮 Generiraj",
                                     "hand": "✍ Ročni vnos"
                                 }
                             },
                             "generate": {
-                                "title": "Ustvaril bom prodajno besedilo! \nPošljite izvorno besedilo sem. Ne morete poslati kopice besedil.",
-                                "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → *Ustvarjanje*]",
+                                "title": "Generiral bom prodajno besedilo! Pošljite izvirnik sem. Ne morete poslati kupov besedil.",
+                                "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → *Generiranje*]",
                                 "save": "✅ Besedilo shranjeno!",
                                 "cancel": "❌ Besedilo ni shranjeno!",
-                                "pathSave": "[📍 Pot: {{menu}} → Meni «{{call}}» → Sporočila → Ustvarjanje → *Shranjevanje*]",
-                                "pathCancel": "[📍 Pot: {{menu}} → Meni «{{call}}» → Sporočila → Ustvarjanje → *Prekliči*]"
+                                "pathSave": "[📍 Pot: {{menu}} → Meni «{{call}}» → Sporočila → Generiranje → *Shrani*]",
+                                "pathCancel": "[📍 Pot: {{menu}} → Meni «{{call}}» → Sporočila → Generiranje → *Prekliči*]"
                             },
                             "hand": {
-                                "title": "Dodajamo besedilo!\nPošljite besedilo ali ga preusmerite sem. Ne morete poslati kopice besedil.",
-                                "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → *Dodajanje besedila*]"
+                                "title": "Dodajamo besedilo!\nPošljite besedilo ali ga preusmerite sem. Ne morete poslati kupov besedil.",
+                                "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → *Dodaj besedilo*]"
                             }
                         },
                         "clear": {
                             "success": "✅ Vsa sporočila počiščena!",
                             "error": "❌ Sporočila niso počiščena!\nObrnite se na administratorja",
-                            "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → *Čiščenje*]"
+                            "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → *Počisti*]"
                         },
                         "view": {
                             "main": {
-                                "messageNumber": "Sporočilo št. {{number}}.",
+                                "messageNumber": "Sporočilo št.{{number}}.",
                                 "amountMedia": "Število medijev: {{amount}} / {{maxMedia}}.",
-                                "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → *Pregled*]",
+                                "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → *Pregled*]",
                                 "buttons": {
-                                    "updateText": "✍️ Uredi besedilo",
+                                    "updateText": "✍️ Spremeni besedilo",
                                     "addMedia": "🖼 Dodaj medij",
-                                    "clearAllMedia": "🗑 Počisti medije"    
+                                    "clearAllMedia": "🗑 Počisti medije"
                                 }
                             },
                             "text": {
                                 "update": {
-                                    "title": "Spreminjamo besedilo!\nPošljite besedilo ali ga preusmerite sem. Ne morete poslati kopice besedil.",
-                                    "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → *Urejanje besedila*]"
+                                    "title": "Spreminjamo besedilo!\nPošljite besedilo ali ga preusmerite sem. Ne morete poslati kupov besedil.",
+                                    "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → *Spremeni besedilo*]"
                                 },
                                 "remove": {
-                                    "success": "✅ Sporočilo izbrisano!",
-                                    "error": "❌ Besedilo ni izbrisano!\nObrnite se na administratorja",
-                                    "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → *Brisanje besedila*]"
+                                    "success": "✅ Sporočilo odstranjeno!",
+                                    "error": "❌ Besedilo ni odstranjeno!\nObrnite se na administratorja",
+                                    "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → *Odstrani besedilo*]"
                                 }
                             },
                             "media": {
                                 "add": {
-                                    "title": "Dodajamo medij!\nPošljite medij v količini 1 kosa.",
-                                    "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → *Dodajanje medijev*]"
+                                    "title": "Dodajamo medij!\nPošiljajte medije po 1 kos.",
+                                    "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → *Dodaj medij*]"
                                 },
                                 "clearAll": {
                                     "success": "✅ Vsi mediji počiščeni!",
                                     "error": "❌ Mediji niso počiščeni!\nObrnite se na administratorja",
-                                    "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → *Čiščenje medijev*]"
+                                    "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → *Počisti medije*]"
                                 }
                             },
                             "pagination": {
-                                "title": "Hiter prehod na sporočilo po številki",
-                                "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → Pregled → *Izbira sporočila*]"
+                                "title": "Hiter skok na sporočilo po številki",
+                                "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → Pregled → *Izberi sporočilo*]"
                             }
                         },
                         "export": {
                             "main": {
                                 "title": "Izberite obliko, v kateri bo shranjen seznam sporočil",
-                                "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → *Izbira formata izvoza*]"
+                                "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → *Izbira oblike izvoza*]"
                             },
                             "result": {
                                 "error": "❌ Napaka pri izvozu sporočil\nObrnite se na administratorja",
                                 "caption": "Seznam sporočil v obliki {{exportType}} je pripravljen!",
-                                "path": "\n[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Sporočila → *Izvozi v {{exportType}}*]"
+                                "path": "\n[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Sporočila → *Izvozi v {{exportType}}*]"
                             }
                         }
                     },
@@ -503,129 +539,146 @@
                         "main": {
                             "empty": "Urnik še ni nastavljen!",
                             "title": "Meni razdelka Urnik. Število časov v urniku: {{amount}}",
-                            "path": "\n[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → *Urnik*]"
+                            "path": "\n[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → *Urnik*]"
                         },
                         "create": {
                             "title": "Dodajamo čas!",
-                            "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Urnik → *Dodajanje*]"
+                            "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Urnik → *Dodaj*]"
                         },
                         "clear": {
                             "success": "✅ Urnik počiščen!",
                             "error": "❌ Urnik ni počiščen!\nObrnite se na administratorja",
-                            "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Urnik → *Čiščenje*]"
+                            "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Urnik → *Počisti*]"
                         },
                         "view": {
                             "main": {
-                                "title": "Urnik pošiljanja je prikazan spodaj v obliki gumbov.",
-                                "path": "\n[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Urnik → *Pregled*]"
+                                "title": "Urnik množičnega pošiljanja je spodaj predstavljen kot gumbi.",
+                                "path": "\n[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Urnik → *Pregled*]"
                             },
                             "time": {
                                 "update": {
                                     "title": "Spreminjamo čas!",
-                                    "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Urnik → Pregled → *Urejanje časa*]"
+                                    "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Urnik → Pregled → *Spremeni čas*]"
                                 },
                                 "remove": {
-                                    "success": "✅ Čas izbrisan!",
-                                    "error": "❌ Čas ni izbrisan! Obrnite se na administratorja",
-                                    "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Urnik → Pregled → *Brisanje časa*]"
+                                    "success": "✅ Čas odstranjen!",
+                                    "error": "❌ Čas ni odstranjen! Obrnite se na administratorja",
+                                    "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Urnik → Pregled → *Odstrani čas*]"
                                 },
                                 "updateOrRemove": {
                                     "title": "Izbrani čas:\n→ *{{targetTime}}*.\n",
-                                    "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Urnik → Pregled → *Izbira dejanja*]"
+                                    "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Urnik → Pregled → *Izberi dejanje*]"
                                 }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Izberite obliko, v kateri bo shranjen urnik množičnega pošiljanja",
+                                "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Urnik → *Izbira oblike izvoza*]"
+                            },
+                            "result": {
+                                "error": "❌ Napaka pri izvozu urnika\nObrnite se na administratorja",
+                                "caption": "Urnik v obliki {{exportType}} je pripravljen!",
+                                "path": "\n[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Urnik → *Izvozi v {{exportType}}*]"
                             }
                         }
                     },
                     "statistic": {
                         "main": {
-                            "title": "Izberite obliko želene statistike.",
-                            "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → *Statistika*]",
+                            "title": "Izberite želeno obliko statistike.",
+                            "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → *Statistika*]",
                             "buttons": {
-                                "selective": "📅 Selektivna",
+                                "selective": "📅 Izbirna",
                                 "comparative": "📊 Primerjalna"
                             }
                         },
                         "selective": {
                             "main": {
-                                "notDone": "Trenutno potekajo tehnična dela na tem razdelku.",
-                                "noData": "Za izbrani datum ni bilo najdenega rezultata!",
-                                "noAccess": "Pritisnjeni gumb ni na voljo!",
-                                "title": "Selektivna statistika.\nSpodaj je koledar z datumi. Če si želite ogledati rezultat pošiljanja za določen dan, preprosto kliknite nanj!\n\nČe pošiljanje: \n*se ni zgodilo, \n*ga ni bilo, \n*ni načrtovano, \n*ali kaj drugega\n- prikazano bo sporočilo z ustreznim kontekstom, ne bojte se.",
-                                "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Statistika → *Selektivna*]"
+                                "notDone": "Na tem razdelku trenutno potekajo tehnična dela.",
+                                "noData": "Za izbrani datum ni bil najden rezultat!",
+                                "noAccess": "Pritisnjen gumb ni na voljo!",
+                                "title": "Izbirna statistika.\nSpodaj je koledar z datumi. Če želite videti rezultat množičnega pošiljanja za določen dan, preprosto kliknite nanj!\n\nČe množično pošiljanje:\n*se ni zgodilo,\n*ni obstajalo,\n*ni bilo načrtovano,\n*ali kaj drugega\n- prikazano bo sporočilo z ustreznim kontekstom, ne prestrašite se.",
+                                "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Statistika → *Izbirna*]"
                             },
                             "targetDate": {
                                 "main": {
-                                    "title": "Rezultat pošiljanja za {{date}}.",
+                                    "title": "Rezultat množičnega pošiljanja za {{date}}.",
                                     "time": "Čas: {{time}}",
                                     "success": "Uspešnih pošiljanj: {{success}}",
-                                    "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Statistika → Selektivna → *{{date}}*]"
+                                    "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Statistika → Izbirna → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "amount":"Količina: {{amount}}",
-                                    "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Statistika → Selektivna → {{date}} → *Skupine*]"    
+                                    "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Statistika → Izbirna → {{date}} → *Skupine*]"
                                 }
                             }
                         },
                         "comparative": {
                             "main": {
                                 "title": "Izberite vrsto primerjalne statistike.",
-                                "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Statistika → *Primerjalna*]",
+                                "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Statistika → *Primerjalna*]",
                                 "buttons": {
                                     "week": "Teden",
                                     "month": "Mesec"
                                 }
                             },
                             "week": {
-                                "title": "Primerjalna statistika. (Teden)",
-                                "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Statistika → Primerjalna → *Teden*]"
+                                "title": "Primerjalna statistika (Teden)",
+                                "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Statistika → Primerjalna → *Teden*]"
                             },
                             "month": {
-                                "title": "Primerjalna statistika. (Mesec)",
-                                "path": "[📍 Pot: {{menu}} → Pošiljanja → Pregled → Meni «{{call}}» → Statistika → Primerjalna → *Mesec*]"
+                                "title": "Primerjalna statistika (Mesec)",
+                                "path": "[📍 Pot: {{menu}} → Množična pošiljanja → Meni «{{call}}» → Statistika → Primerjalna → *Mesec*]"
                             }
                         }
                     },
                     "owner": {
                         "main": {
-                            "title": "Lastnik pošiljanja.",
-                            "empty": "Pošiljanje nima lastnika!",
+                            "title": "Lastnik množičnega pošiljanja.",
+                            "empty": "Množično pošiljanje nima lastnika!",
                             "name": "Ime: {{name}}",
                             "phone": "Telefon: +{{phone}}",
-                            "path": "[📍 Pot: Plošča → Pošiljanja → Pregled → Meni «{{call}}» → *Lastnik*]",
+                            "path": "[📍 Pot: Plošča → Množična pošiljanja → Meni «{{call}}» → *Lastnik*]",
                             "buttons": {
                                 "change": "🪧 Prerazporedi"
                             }
                         },
                         "update": {
                             "main": {
-                                "title": "Izberite uporabnika, ki ga želite imenovati za lastnika tega pošiljanja.",
-                                "path": "[📍 Pot: Plošča → Pošiljanja → Pregled → Meni «{{call}}» → Lastnik → *Izbira*]",
+                                "title": "Izberite uporabnika, ki ga želite določiti za lastnika tega množičnega pošiljanja.",
+                                "path": "[📍 Pot: Plošča → Množična pošiljanja → Meni «{{call}}» → Lastnik → *Izbor*]",
                                 "noOwner": "Brez lastnika"
                             },
                             "action": {
                                 "success": "✅ Lastnik uspešno prerazporejen!",
-                                "error": "❌ Lastnik ni bil prerazporejen! \nPoskusite pozneje!",
-                                "path": "[📍 Pot: Plošča → Pošiljanja → Pregled → Meni «{{call}}» → Lastnik → {{owner}} → *Imenovanje*]"
+                                "error": "❌ Lastnik ni prerazporejen! Poskusite pozneje!",
+                                "path": "[📍 Pot: Plošča → Množična pošiljanja → Meni «{{call}}» → Lastnik → {{owner}} → *Določi*]"
                             }
                         }
                     },
-                    "call": {
+                    "name": {
                         "main": {
-                            "title": "Ime (klicni znak) pošiljanja: {{call}}",
-                            "empty": "Pošiljanje nima imena!",
-                            "path": "[📍 Pot: Plošča → Pošiljanja → Pregled → Meni «{{call}}» → *Ime*]"
+                            "title": "Imena množičnega pošiljanja:",
+                            "about": "1 - podpis (staro poimenovanje)\n2 - ime entitete\n3 - klicni znak (prikazano ime v botu)",
+                            "path": "[📍 Pot: Plošča → Množična pošiljanja → Meni «{{call}}» → *Imena*]"
                         },
                         "update": {
-                            "title": "Spreminjamo klicni znak pošiljanja! Pošljite novo ime pošiljanja.",
-                            "path": "[📍 Pot: Plošča → Pošiljanja → Pregled → Meni «{{call}}» → Ime → *Posodobitev*]"
+                            "call": {
+                                "title": "Spreminjamo klicni znak množičnega pošiljanja!",
+                                "path": "[📍 Pot: Plošča → Množična pošiljanja → Meni «{{call}}» → Imena → Klicni znak → *Posodobi*]"
+                            },
+                            "label": {
+                                "alert": "Podpisa množičnega pošiljanja ni mogoče spremeniti!"
+                            },
+                            "name": {
+                                "alert": "Imena množičnega pošiljanja ni mogoče spremeniti!"
+                            }
                         }
                     }
                 }
             },
             "contract": {
                 "main": {
-                    "title": "Upravljanje pogodb",
-                    "amount": "Količina: {{amount}}",
+                    "title": "Upravljanje pogodb. Količina: {{amount}}",
                     "path": "[📍 Pot: {{menu}} → *Pogodbe*]",
                     "empty": "Pogodbe še niso nastavljene! Vrnite se pozneje.",
                     "contractName": "{{userName}}: od {{dateStart}}"
@@ -637,39 +690,26 @@
                     },
                     "contract": {
                         "main": {
-                            "title": "Pogodba z dne {{dateStart}}.",
-                            "sendouts": "Pošiljanja, vključena v pogodbo: {{sendouts}}",
+                            "title": "Pogodba od {{dateStart}}.",
+                            "sendouts": "Množična pošiljanja, vključena v pogodbo: {{sendouts}}",
                             "noSendouts": "prazno.",
                             "userName": "Stranka: {{userName}}",
                             "dateStart": "Datum začetka: {{dateStart}}",
                             "dateEnd": "Datum konca: {{dateEnd}}",
                             "price": "Cena: {{price}}",
                             "priceText": "Cena (besedilo): {{priceText}}",
-                            "error": "Napaka pri prejemanju pogodbe. Obrnite se na administratorja",
+                            "error": "Napaka pri pridobivanju pogodbe. Obrnite se na administratorja",
                             "path": "\n[📍 Pot: {{menu}} → Pogodbe → Pregled → *{{dateStart}}*]"
                         },
                         "remove": {
-                            "success":"✅ Pogodba uspešno izbrisana!",
-                            "error": "❌ Pogodba ni izbrisana!\nPoskusite pozneje",
-                            "path": "[📍 Pot: Plošča → Pogodbe → Pregled → {{dateStart}} → *Brisanje*]"
-                        },
-                        "create": {
-                            "step": "Korak: {{number}} / 3",
-                            "noUser": "Če želite nadaljevati na korak št. 2, morate izvesti korak št. 1!",
-                            "noSendouts": "Če želite nadaljevati na korak št. 3, morate izvesti korak št. 2!",
-                            "noFreeSendouts": "Stranka nima prostih pošiljanj (brez pogodbe)!",
-                            "data": {
-                                "user": "Izberite uporabnika, za katerega bo sestavljena pogodba",
-                                "sendout": "Izberite pošiljanja, ki bodo vključena v pogodbo",
-                                "contract": "Pošljite podatke v zvezi s pogodbo"
-                            },
-                            "title": "Ustvarjamo pogodbo! Seznanite se z navodili za pravilno ustvarjanje.",
-                            "path": "[📍 Pot: Plošča → Pogodbe → *Ustvarjanje*]"
+                            "success": "✅ Pogodba uspešno odstranjena!",
+                            "error": "❌ Pogodba ni odstranjena!\nPoskusite pozneje",
+                            "path": "[📍 Pot: Plošča → Pogodbe → Pregled → {{dateStart}} → *Odstrani*]"
                         },
                         "export": {
                             "main": {
                                 "title": "Izberite obliko, v kateri bo pogodba shranjena",
-                                "path": "[📍 Pot: {{menu}} → Pogodbe → Pregled → {{dateStart}} → *Izbira formata izvoza*]"
+                                "path": "[📍 Pot: {{menu}} → Pogodbe → Pregled → {{dateStart}} → *Izbira oblike izvoza*]"
                             },
                             "result": {
                                 "error": "❌ Napaka pri izvozu pogodbe\nObrnite se na administratorja",
@@ -680,8 +720,17 @@
                     }
                 },
                 "create": {
-                    "title": "Ustvarjamo pogodbo! Pred začetkom preberite navodila za pravilno ustvarjanje.",
-                    "path": "[📍 Pot: Plošča → Pogodbe → *Ustvarjanje*]"
+                    "step": "Korak: {{number}} / 3",
+                    "noUser": "Za prehod na 2. korak morate opraviti 1. korak!",
+                    "noSendouts": "Za prehod na 3. korak morate opraviti 2. korak!",
+                    "noFreeSendouts": "Stranka nima prostih množičnih pošiljanj (brez pogodbe)!",
+                    "data": {
+                        "user": "Izberite uporabnika, za katerega bo pogodba sestavljena",
+                        "sendout": "Izberite množična pošiljanja, ki bodo vključena v pogodbo",
+                        "contract": "Pošljite podatke v zvezi s pogodbo"
+                    },
+                    "title": "Ustvarjamo pogodbo!",
+                    "path": "[📍 Pot: Plošča → Pogodbe → *Ustvari*]"
                 }
             }
         }

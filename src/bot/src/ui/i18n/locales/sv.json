@@ -3,18 +3,20 @@
         "shared": {
             "processing": "⏳ Bearbetar...",
             "cabinet": "🪴 Personligt konto",
+            "panel": "👨‍💻 Adminpanel",
+            "nameless": "Namnlös",
             "buttons": {
                 "export": "📧 Exportera",
-                "nameless": "Namnlös",
                 "back": "🔙 Tillbaka",
                 "remove": "🗑 Ta bort",
                 "miss": "Saknas",
                 "create": "➕ Skapa",
-                "update": "✍ Redigera",
+                "update": "✍ Ändra",
+                "instruction": "📖 Instruktion",
                 "clear": "🗑 Rensa",
                 "view": "👁 Visa",
                 "contract": "📜 Kontrakt",
-                "sendout": "📢 Utskick",
+                "sendout": "📢 Massutskick",
                 "chat": "🗯 Grupper",
                 "contactAdmin": "👨 Administratör"
             },
@@ -23,7 +25,12 @@
                 "cabinet": "Konto",
                 "panel": "Panel → Data",
                 "amount": "Antal: {{amount}}",
-                "sendoutActive": "Utskicket är för närvarande aktivt, försök hantera data senare"
+                "sendoutActive": "Massutskicket är för närvarande aktivt, försök hantera data senare",
+                "accessDenied": {
+                    "all": "Åtkomst nekad. Vänligen auktorisera först med kommandot /auth",
+                    "admin": "Åtkomst nekad. Denna sektion är för kunder",
+                    "customer": "Åtkomst nekad. Denna sektion är för administratörer"
+                }
             }
         },
         "maintenace": "🚧 Tekniskt arbete pågår för närvarande. Användningen av tjänsten är tillfälligt begränsad.\nSå snart vi är klara meddelar vi dig!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
@@ -32,26 +39,16 @@
             "customer": "Kund",
             "unknown": "Okänd"
         },
-        "languages": {
-            "ru": "Ryska",
-            "zh": "Kinesiska",
-            "en": "Engelska",
-            "sr": "Serbiska",
-            "ur": "Urdu",
-            "ms": "Malajiska",
-            "kk": "Kazakiska",
-            "sv": "Svenska"
-        },
         "commands": {
             "cabinet": "Konto",
             "settings": "Inställningar",
             "panel": "Adminpanel"
         },
         "chart": {
-            "labelMonth": "Statistik över antalet grupper som fick utskicket. {{month}} {{year}}",
-            "labelWeek": "Statistik över antalet grupper som fick utskicket. Vecka",
+            "labelMonth": "Statistik över antalet grupper som fick massutskicket. {{month}} {{year}}",
+            "labelWeek": "Statistik över antalet grupper som fick massutskicket. Vecka",
             "amountSms": "Antal meddelanden",
-            "noLogs": "Inget utskick har skett under den valda perioden än!",
+            "noLogs": "Inget massutskick har ägt rum under den valda perioden!",
             "daysOfWeek": {
                 "Mon": "Mån",
                 "Tue": "Tis",
@@ -104,24 +101,50 @@
         "processType": {
             "bot": "Bot",
             "parser": "Parser",
-            "sendout": "Utskick"
+            "sendout": "Massutskick"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Schema",
+                "message": "Meddelanden",
+                "contract": "Kontrakt"
+            },
+            "text": "Exportera",
+            "from": "från"
+        },
+        "localization": {
+            "schedule": {
+                "number": "dagen",
+                "everyDay": "Varje dag",
+                "unknownDay": "Okänd dag",
+                "dayWeek": {
+                    "1": "Måndag",
+                    "2": "Tisdag",
+                    "3": "Onsdag",
+                    "4": "Torsdag",
+                    "5": "Fredag",
+                    "6": "Lördag",
+                    "7": "Söndag",
+                    "*": "Varje dag"
+                }
+            }
         }
     },
     "handlers": {
         "events": {
             "contact": {
-                "numberIsNull": "Fel vid bearbetning av telefonnumret!\nFörsök igen!",
-                "accessDenied": "Åtkomst nekad. För att använda utskickstjänsten, använd kommandot '/settings', avsnitt 'Hjälp'"
+                "numberIsNull": "Fel vid behandling av telefonnumret!\nFörsök igen!",
+                "accessDenied": "Åtkomst nekad. För att använda massutskickstjänsten, använd kommandot '/settings', avsnitt 'Hjälp'"
             }
         },
         "states": {
             "addingText": {
-                "success": "✅ Text sparad!",
-                "error": "❌ Text inte sparad!\nKontakta administratören",
+                "success": "✅ Texten sparad!",
+                "error": "❌ Texten sparades inte!\nKontakta administratören",
                 "path": "[📍 Sökväg: {{menu}} → Meny «{{call}}» → Meddelanden → *Skapa text*]"
             },
             "generatingText": {
-                "result": "Det genererade meddelandet visas nedan.\nAnvänd knapparna under meddelandena för att bestämma textens öde.",
+                "result": "Det genererade meddelandet visas nedan. Använd knapparna under meddelandena för att bestämma textens öde.",
                 "pathChoose": "[📍 Sökväg: {{menu}} → Meny «{{call}}» → Meddelanden → Textgenerering → *Textens öde*]",
                 "buttons": {
                     "save": "✔ Spara",
@@ -129,65 +152,90 @@
                 }
             },
             "updatingText": {
-                "success": "✅ Text ändrad!",
-                "error": "❌ Text inte ändrad!\nKontakta administratören",
-                "path": "[📍 Sökväg: {{menu}} → Meny «{{call}}» → Meddelanden → *Redigera text*]"
+                "success": "✅ Texten ändrad!",
+                "error": "❌ Texten ändrades inte!\nKontakta administratören",
+                "path": "[📍 Sökväg: {{menu}} → Meny «{{call}}» → Meddelanden → *Ändra text*]"
             },
             "addingMedia": {
                 "error": "💀 Fel vid sparande av media!\nKontakta administratören",
-                "invalidType": "Mediatypen känns inte igen! Försök igen",
+                "invalidType": "Mediatypen kändes inte igen! Försök igen",
                 "bigSize": "Filen är för stor. Maximal storlek {{size}} MB.",
                 "documentsWTMedia": "Jag kan inte bearbeta dokument som inte innehåller: foto / video / gif",
                 "success": "✅ Media sparad!",
-                "error2": "❌ Media inte sparad!\nKontakta administratören",
-                "path": "[📍 Sökväg: {{menu}} → Meny «{{call}}» → Meddelanden → *Lägg till media*]"
+                "error2": "❌ Media sparades inte!\nKontakta administratören",
+                "path": "[📍 Sökväg: {{menu}} → Meny «{{call}}» → Meddelanden → *Lägg till media*]",
+                "amount": "Antal media i meddelandet: {{now}} av {{all}}"
             },
             "addingTime": {
                 "success": "✅ Tid sparad!",
-                "error": "❌ Tid inte ändrad!\nKontakta administratören",
+                "error": "❌ Tiden ändrades inte!\nKontakta administratören",
                 "path": "[📍 Sökväg: Panel → Meny «{{call}}» → Schema → Visa → *Lägg till*]"
             },
             "updatingTime": {
                 "success": "✅ Tid ändrad!",
-                "error": "❌ Tid inte ändrad!\nKontakta administratören",
-                "path": "[📍 Sökväg: Panel → Meny «{{call}}» → Schema → Visa → *Redigera*]"
+                "error": "❌ Tiden ändrades inte!\nKontakta administratören",
+                "path": "[📍 Sökväg: Panel → Meny «{{call}}» → Schema → Visa → *Ändra*]"
             },
             "addingIdea": {
-                "success": "✅ Idé tillagd, tack!",
-                "error": "❌ Idé inte tillagd!\nFörsök igen eller kontakta administratören!",
+                "success": "✅ Idén har lagts till, tack!",
+                "error": "❌ Idén lades inte till!\nFörsök igen eller kontakta administratören!",
                 "path": "[📍 Sökväg: Inställningar → Idéer → *Lägg till*]"
             },
             "addingUser": {
-                "success": "✅ Användare skapad!",
-                "error": "❌ Användare inte skapad!\nFörsök igen senare.",
+                "success": "✅ Användaren skapades!",
+                "error": "❌ Användaren skapades inte!\nFörsök igen senare.",
                 "path": "[📍 Sökväg: Panel → Data → Användare → *Skapa*]"
             },
             "addingContract": {
-                "success": "✅ Kontrakt skapat!",
-                "error": "❌ Kontrakt inte skapat!\nFörsök igen senare.",
+                "success": "✅ Kontraktet skapades!",
+                "error": "❌ Kontraktet skapades inte!\nFörsök igen senare.",
                 "path": "[📍 Sökväg: Panel → Kontrakt → *Skapa*]"
             },
             "updatingSendoutCall": {
-                "success": "✅ Anropssignal uppdaterad!",
-                "error": "❌ Anropssignal inte uppdaterad!\nFörsök igen senare.",
-                "path": "[📍 Sökväg: Panel → Utskick → Visa → Meny «{{call}}» → Namn → *Uppdatera*]"
+                "success": "✅ Anropssignalen uppdaterades!",
+                "error": "❌ Anropssignalen uppdaterades inte!\nFörsök igen senare.",
+                "path": "[📍 Sökväg: Panel → Massutskick → Meny «{{call}}» → Namn → Anropssignal → *Uppdatera*]"
             },
             "updatingUserName": {
-                "success": "✅ Namn uppdaterat!",
-                "error": "❌ Namn inte uppdaterat!\nFörsök igen senare.",
-                "path": "[📍 Sökväg: Panel → Data → Användare → Visa → {{userName}} → *Redigera namn*]"
+                "success": "✅ Namnet uppdaterades!",
+                "error": "❌ Namnet uppdaterades inte!\nFörsök igen senare.",
+                "path": "[📍 Sökväg: Panel → Data → Användare → Visa → {{userName}} → *Ändra namn*]"
             },
             "updatingUserPhone": {
-                "success": "✅ Telefon uppdaterad!",
-                "error": "❌ Telefon inte uppdaterad!\nFörsök igen senare.",
-                "path": "[📍 Sökväg: Panel → Data → Användare → Visa → {{userName}} → *Redigera nummer*]"
+                "success": "✅ Telefonnumret uppdaterades!",
+                "error": "❌ Telefonnumret uppdaterades inte!\nFörsök igen senare.",
+                "path": "[📍 Sökväg: Panel → Data → Användare → Visa → {{userName}} → *Ändra nummer*]"
             }
         }
     },
     "modules": {
         "commands": {
             "start": {
-                "title": "Välkommen! Jag är en Telegram-bot, assistent för utskick.\n\nJag rekommenderar starkt att du bekantar dig med alla mina kommandon genom att trycka på den ovala knappen 'Meny' i det nedre vänstra hörnet av skärmen.\nEfter att ha läst bruksanvisningen, som anropas med kommandot '/settings', i avsnittet 'Om boten'."
+                "title": "☀ Hej! Jag är Telegram-boten Fula ankungen, assistent för massutskick.",
+                "commands": "Nedan är en kort beskrivning av kommandon för att interagera med mig:\n/start - aktivera boten och kommandolista\n/auth - auktorisering\n/cabinet - hantera personligt konto\n/settings - hantera botens inställningar",
+                "uAdmin": "❓ Är du administratör?\n/panel - adminpanel",
+                "link": "Du kan läsa mer detaljerade instruktioner om hur du kontrollerar mig med knappen nedan."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Avbryt",
+                        "phone": "📞 Dela",
+                        "again": "🔄 Försök igen"
+                    },
+                    "unknownMessage": "Åtgärden kändes inte igen, försök igen med knapparna: '📞 Dela' och '❌ Avbryt'",
+                    "manyAttempts": "Antal auktoriseringsförsök som använts före en timmes gräns: {{actualAttempts}} av {{maxAttempts}}",
+                    "stop": "Auktorisering är begränsad. Begränsningarna kommer att hävas efter: {{dateTime}}",
+                    "canceled": "Auktoriseringen stoppades!",
+                    "title": "För att gå in i massutskickspanelen måste du dela ditt telefonnummer med mig.\n\nKnappen bör visas bredvid tangentbordet med texten '📞 Dela'",
+                    "good": "Du har auktoriserats i systemet!",
+                    "already": "Du är redan auktoriserad i systemet!",
+                    "bad": "Fel vid auktorisering. Kontakta administratören!"
+                },
+                "logout": {
+                    "good": "Du har loggats ut. Dina uppgifter har raderats!",
+                    "bad": "Fel vid utloggning. Kontakta administratören!"
+                }
             },
             "settings": {
                 "main": {
@@ -205,23 +253,22 @@
                         "path": "[📍 Sökväg: Inställningar → *Språk*]"
                     },
                     "change": {
-                        "good": "Språk ändrat!",
+                        "good": "Språket ändrat!",
                         "error": "Detta språk är redan valt!"
                     }
                 },
                 "help": {
-                    "title": "Stött på ett problem?\nHar du frågor?\nVill du berömma tjänsten?\nHar du idéer för att förbättra tjänsten?",
+                    "title": "Har du problem?\nHar du frågor?\nVill du berömma tjänsten?\nHar du idéer för förbättringar?",
                     "interest": "Eller är du intresserad av produkten?\nFyll i formuläret nedan så kontaktar vi dig!",
                     "path": "[📍 Sökväg: Inställningar → *Hjälp*]"
                 },
                 "about": {
-                    "title": "Tjänsten är utvecklad för att automatisera annonsering (inlägg, utskick) av dina produkter (erbjudanden) inom grupper / chattar / kanaler.\n\nInstruktioner för att använda Boten - via knappen nedan!",
-                    "instruction": "📖 Instruktion",
+                    "title": "Tjänsten har utvecklats för att automatisera reklam (inlägg, massutskick) för dina produkter (erbjudanden) inom grupper / chattar / kanaler.\n\nInstruktioner för att använda Boten - nedan!",
                     "path": "[📍 Sökväg: Inställningar → *Om tjänsten*]"
                 },
                 "idea": {
                     "main": {
-                        "title": "Meny för avsnittet Idéer.\nHär kan du föreslå din idé för utveckling av tjänsten.",
+                        "title": "Meny för avsnittet Idéer. Här kan du föreslå din idé för utveckling av tjänsten.",
                         "path": "[📍 Sökväg: Inställningar → *Idéer*]",
                         "buttons": {
                             "add": "🗳 Föreslå",
@@ -236,40 +283,17 @@
             },
             "cabinet": {
                 "main": {
-                    "buttons": {                        
+                    "buttons": {
                         "logout": "🚪 Logga ut",
                         "login": "🔑 Logga in"
-                    }
-                },
-                "auth": {
-                    "login": {
-                        "buttons": {
-                            "cancel": "❌ Avbryt",
-                            "phone": "📞 Dela"
-                        },
-                        "unknownMessage": "Åtgärd känns inte igen, försök använda knapparna 'Dela' och 'Avbryt' igen",
-                        "manyAttempts": "Antal använda autentiseringsförsök före timgränsen: {{actualAttempts}} av {{maxAttempts}}",
-                        "stop": "Auktorisering begränsad. Begränsningarna kommer att hävas efter: {{dateTime}}",
-                        "canceled": "Auktorisering stoppad!",
-                        "title": "För att logga in i utskickspanelen måste du dela ditt telefonnummer med mig.\n\nKnappen bör visas bredvid tangentbordet med texten '📞 Dela'.",
-                        "good": "Du har auktoriserats i systemet!",
-                        "already": "Du är redan auktoriserad i systemet!",
-                        "bad": "Fel vid auktorisering i systemet.\nKontakta administratören!",
-                        "path": "[📍 Sökväg: Konto → *Auktorisering*"
-                    },
-                    "logout": {
-                        "good": "Du har loggat ut från systemet. Dina uppgifter har raderats!",
-                        "bad": "Fel vid utloggning.\nKontakta administratören!",
-                        "path": "[📍 Sökväg: Konto → *Logga ut*]"
                     }
                 }
             },
             "panel": {
                 "main": {
-                    "title": "👨‍💻 Administratörspanel",
                     "buttons": {
                         "data": "🗂 Data",
-                        "system": "⚡ System "
+                        "system": "⚡ System"
                     }
                 },
                 "data": {
@@ -282,8 +306,7 @@
                     },
                     "chat": {
                         "main": {
-                            "title": "Grupphantering",
-                            "amount": "Antal: {{amount}}",
+                            "title": "Hantera grupper. Antal: {{amount}}",
                             "path": "[📍 Sökväg: Panel → Data → *Grupper*]",
                             "buttons": {
                                 "reupload": "🔁 Uppdatera"
@@ -302,8 +325,7 @@
                     },
                     "user": {
                         "main": {
-                            "title": "Användarhantering",
-                            "amount": "Antal: {{amount}}",
+                            "title": "Hantera användare. Antal: {{amount}}",
                             "path": "[📍 Sökväg: Panel → Data → *Användare*]"
                         },
                         "view": {
@@ -313,9 +335,9 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Användarhantering",
+                                    "title": "Hantera användare",
                                     "path": "[📍 Sökväg: Panel → Data → Användare → Visa → *{{userName}}*]",
-                                    "telegramId": "Tg ID: {{telegramId}}",
+                                    "telegramId": "Tg-ID: {{telegramId}}",
                                     "name": "Namn: {{name}}",
                                     "username": "Användarnamn: @{{username}}",
                                     "phone": "Telefon: +{{phone}}",
@@ -323,26 +345,26 @@
                                     "role": "Roll: {{role}}"
                                 },
                                 "remove": {
-                                    "success":"✅ Användare borttagen!",
-                                    "error": "❌ Användare inte borttagen!\nFörsök igen senare",
+                                    "success": "✅ Användaren togs bort!",
+                                    "error": "❌ Användaren togs inte bort!\nFörsök igen senare",
                                     "path": "[📍 Sökväg: Panel → Data → Användare → Visa → {{userName}} → *Ta bort*]"
                                 },
                                 "update": {
                                     "phone": {
-                                        "title": "Ändrar telefon!\nSkicka hit.",
-                                        "path": "[📍 Sökväg: Panel → Data → Användare → Visa → {{userName}} → *Redigera nummer*]"
+                                        "title": "Ändrar telefonnummer!\nSkicka hit.",
+                                        "path": "[📍 Sökväg: Panel → Data → Användare → Visa → {{userName}} → *Ändra nummer*]"
                                     },
                                     "name": {
                                         "title": "Ändrar namn!\nSkicka hit.",
-                                        "path": "[📍 Sökväg: Panel → Data → Användare → Visa → {{userName}} → *Redigera namn*]"
+                                        "path": "[📍 Sökväg: Panel → Data → Användare → Visa → {{userName}} → *Ändra namn*]"
                                     }
                                 }
                             }
                         },
                         "create": {
-                            "title": "Skapar användare! Läs instruktionerna för korrekt skapande innan du börjar.",
+                            "title": "Skapar användare!",
                             "path": "[📍 Sökväg: Panel → Data → Användare → *Skapa*]"
-                        }   
+                        }
                     }
                 },
                 "system": {
@@ -370,7 +392,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Processhantering",
+                                    "title": "Hantera process",
                                     "path": "[📍 Sökväg: Panel → System → Server → {{processType}} → *{{processName}}*]",
                                     "buttons": {
                                         "condition": "🩻 Status",
@@ -382,12 +404,12 @@
                                     "status": {
                                         "active": "✅ Processen är aktiv.\nFör att stoppa, tryck på knappen nedan",
                                         "inactive": "❌ Processen är inaktiv.\nFör att starta, tryck på knappen nedan",
-                                        "failed": "💀 Processen har dött.\nKontakta programmeraren.",
+                                        "failed": "❌ Processen är inaktiv.\nFör att starta, tryck på knappen nedan",
                                         "error": "Problem med processen. Kontakta programmeraren."
                                     },
                                     "buttons": {
-                                        "stop": "🛑 Stoppa",
-                                        "start": "▶️ Starta",
+                                        "stop": "🛑 Stopp",
+                                        "start": "▶️ Start",
                                         "restart": "🔁 Starta om"
                                     }
                                 },
@@ -409,103 +431,107 @@
         "shared": {
             "sendout": {
                 "main": {
-                    "title": "Lista över aktiva utskick för närvarande.",
-                    "path": "[📍 Sökväg: {{menu}} → Utskick → *Visa*]",
-                    "empty": "Inga utskick har konfigurerats än! Kom tillbaka senare."
+                    "title": "Lista över aktiva massutskick för närvarande.",
+                    "path": "[📍 Sökväg: {{menu}} → *Massutskick*]",
+                    "empty": "Inga massutskick har konfigurerats än! Kom tillbaka senare."
                 },
                 "view": {
                     "main": {
-                        "title": "📣 Utskicksmeny «{{call}}»",
-                        "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → *Meny «{{call}}»*]",
+                        "title": "📣 Meny för massutskick «{{call}}»",
+                        "path": "[📍 Sökväg: {{menu}} → Massutskick → *Meny «{{call}}»*]",
                         "buttons": {
                             "schedule": "🕰️ Schema",
                             "message": "💬 Meddelanden",
                             "statistic": "📈 Statistik",
                             "owner": "👑 Ägare",
-                            "call": "🏷️ Namn"
+                            "name": "🏷️ Namn",
+                            "test": "🎛️ Testning"
                         }
+                    },
+                    "test": {
+                        "alert": "Det går inte att aktivera testläget medan massutskicket är aktivt!"
                     },
                     "message": {
                         "main": {
-                            "error": "Fel vid mottagning av meddelanden!\nKontakta administratören",
+                            "error": "Fel vid hämtning av meddelanden!\nKontakta administratören",
                             "empty": "Inga meddelanden!\nFör att lägga till text, tryck på knappen nedan",
                             "title": "Meny för avsnittet Meddelanden. Antal: {{amount}}",
-                            "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → *Meddelanden*]"
+                            "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → *Meddelanden*]"
                         },
                         "create": {
                             "main": {
                                 "title": "Välj typ av texttillägg.",
-                                "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → *Lägg till läge*]",
+                                "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → *Lägg till läge*]",
                                 "buttons": {
                                     "generate": "🔮 Generera",
                                     "hand": "✍ Manuell inmatning"
                                 }
                             },
                             "generate": {
-                                "title": "Jag kommer att generera en säljande text! \nSkicka källtexten hit. Du kan inte skicka en hög med texter.",
-                                "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → *Generering*]",
-                                "save": "✅ Text sparad!",
-                                "cancel": "❌ Text inte sparad!",
+                                "title": "Jag kommer att generera säljtext! Skicka originaltexten hit. Man kan inte skicka högar med texter.",
+                                "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → *Generering*]",
+                                "save": "✅ Texten sparad!",
+                                "cancel": "❌ Texten sparades inte!",
                                 "pathSave": "[📍 Sökväg: {{menu}} → Meny «{{call}}» → Meddelanden → Generering → *Spara*]",
                                 "pathCancel": "[📍 Sökväg: {{menu}} → Meny «{{call}}» → Meddelanden → Generering → *Avbryt*]"
                             },
                             "hand": {
-                                "title": "Lägger till text!\nSkicka texten eller vidarebefordra den hit. Du kan inte skicka en hög med texter.",
-                                "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → *Lägg till text*]"
+                                "title": "Lägger till text!\nSkicka texten eller vidarebefordra den hit. Man kan inte skicka högar med texter.",
+                                "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → *Lägg till text*]"
                             }
                         },
                         "clear": {
                             "success": "✅ Alla meddelanden rensade!",
-                            "error": "❌ Meddelanden rensades inte!\nKontakta administratören",
-                            "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → *Rensa*]"
+                            "error": "❌ Meddelandena rensades inte!\nKontakta administratören",
+                            "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → *Rensa*]"
                         },
                         "view": {
                             "main": {
-                                "messageNumber": "Meddelande nr {{number}}.",
+                                "messageNumber": "Meddelande №{{number}}.",
                                 "amountMedia": "Antal media: {{amount}} / {{maxMedia}}.",
-                                "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → *Visa*]",
+                                "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → *Visa*]",
                                 "buttons": {
-                                    "updateText": "✍️ Redigera text",
+                                    "updateText": "✍️ Ändra text",
                                     "addMedia": "🖼 Lägg till media",
-                                    "clearAllMedia": "🗑 Rensa media"    
+                                    "clearAllMedia": "🗑 Rensa media"
                                 }
                             },
                             "text": {
                                 "update": {
-                                    "title": "Ändrar text!\nSkicka texten eller vidarebefordra den hit. Du kan inte skicka en hög med texter.",
-                                    "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → *Redigera text*]"
+                                    "title": "Ändrar text!\nSkicka texten eller vidarebefordra den hit. Man kan inte skicka högar med texter.",
+                                    "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → *Ändra text*]"
                                 },
                                 "remove": {
-                                    "success": "✅ Meddelande borttaget!",
-                                    "error": "❌ Text inte borttagen!\nKontakta administratören",
-                                    "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → *Ta bort text*]"
+                                    "success": "✅ Meddelandet borttaget!",
+                                    "error": "❌ Texten togs inte bort!\nKontakta administratören",
+                                    "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → *Ta bort text*]"
                                 }
                             },
                             "media": {
                                 "add": {
-                                    "title": "Lägger till media!\nSkicka media i mängden 1 styck.",
-                                    "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → *Lägg till media*]"
+                                    "title": "Lägger till media!\nSkicka media en i taget.",
+                                    "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → *Lägg till media*]"
                                 },
                                 "clearAll": {
                                     "success": "✅ All media rensad!",
                                     "error": "❌ Media rensades inte!\nKontakta administratören",
-                                    "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → *Rensa media*]"
+                                    "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → *Rensa media*]"
                                 }
                             },
                             "pagination": {
-                                "title": "Snabbt hopp till meddelande efter nummer",
-                                "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → Visa → *Välj meddelande*]"
+                                "title": "Gå snabbt till meddelandet efter nummer",
+                                "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → Visa → *Välj meddelande*]"
                             }
                         },
                         "export": {
                             "main": {
-                                "title": "Välj det format i vilket meddelandelistan ska sparas",
-                                "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → *Val av exportformat*]"
+                                "title": "Välj i vilket format meddelandelistan ska sparas",
+                                "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → *Välj exportformat*]"
                             },
                             "result": {
                                 "error": "❌ Fel vid export av meddelanden\nKontakta administratören",
                                 "caption": "Meddelandelista i formatet {{exportType}} är klar!",
-                                "path": "\n[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Meddelanden → *Exportera till {{exportType}}*]"
+                                "path": "\n[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Meddelanden → *Exportera till {{exportType}}*]"
                             }
                         }
                     },
@@ -513,43 +539,54 @@
                         "main": {
                             "empty": "Schema är inte konfigurerat än!",
                             "title": "Meny för avsnittet Schema. Antal tider i schemat: {{amount}}",
-                            "path": "\n[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → *Schema*]"
+                            "path": "\n[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → *Schema*]"
                         },
                         "create": {
                             "title": "Lägger till tid!",
-                            "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Schema → *Lägg till*]"
+                            "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Schema → *Lägg till*]"
                         },
                         "clear": {
                             "success": "✅ Schema rensat!",
                             "error": "❌ Schema rensades inte!\nKontakta administratören",
-                            "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Schema → *Rensa*]"
+                            "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Schema → *Rensa*]"
                         },
                         "view": {
                             "main": {
-                                "title": "Utskicksschemat visas nedan som knappar.",
-                                "path": "\n[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Schema → *Visa*]"
+                                "title": "Massutskickets schema visas nedan som knappar.",
+                                "path": "\n[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Schema → *Visa*]"
                             },
                             "time": {
                                 "update": {
                                     "title": "Ändrar tid!",
-                                    "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Schema → Visa → *Redigera tid*]"
+                                    "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Schema → Visa → *Ändra tid*]"
                                 },
                                 "remove": {
-                                    "success": "✅ Tid borttagen!",
-                                    "error": "❌ Tid inte borttagen! Kontakta administratören",
-                                    "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Schema → Visa → *Ta bort tid*]"
+                                    "success": "✅ Tiden borttagen!",
+                                    "error": "❌ Tiden togs inte bort! Kontakta administratören",
+                                    "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Schema → Visa → *Ta bort tid*]"
                                 },
                                 "updateOrRemove": {
                                     "title": "Vald tid:\n→ *{{targetTime}}*.\n",
-                                    "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Schema → Visa → *Val av åtgärd*]"
+                                    "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Schema → Visa → *Välj åtgärd*]"
                                 }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Välj i vilket format massutskickets schema ska sparas",
+                                "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Schema → *Välj exportformat*]"
+                            },
+                            "result": {
+                                "error": "❌ Fel vid export av schema\nKontakta administratören",
+                                "caption": "Schema i formatet {{exportType}} är klart!",
+                                "path": "\n[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Schema → *Exportera till {{exportType}}*]"
                             }
                         }
                     },
                     "statistic": {
                         "main": {
-                            "title": "Välj format för önskad statistik.",
-                            "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → *Statistik*]",
+                            "title": "Välj önskat statistikformat.",
+                            "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → *Statistik*]",
                             "buttons": {
                                 "selective": "📅 Selektiv",
                                 "comparative": "📊 Jämförande"
@@ -557,85 +594,91 @@
                         },
                         "selective": {
                             "main": {
-                                "notDone": "Tekniskt arbete pågår för närvarande på detta avsnitt.",
+                                "notDone": "Tekniska arbeten pågår för närvarande på denna sektion.",
                                 "noData": "Inget resultat hittades för det valda datumet!",
                                 "noAccess": "Den tryckta knappen är inte tillgänglig!",
-                                "title": "Selektiv statistik.\nNedan finns en kalender med datum. För att se resultatet av utskicket för en viss dag - klicka bara på den!\n\nOm utskicket: \n*inte inträffade, \n*inte fanns, \n*inte är planerat, \n*eller något annat\n- ett meddelande med lämpligt sammanhang kommer att visas, bli inte orolig.",
-                                "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Statistik → *Selektiv*]"
+                                "title": "Selektiv statistik.\nNedan är en kalender med datum. För att se resultatet av massutskicket för en viss dag, klicka bara på den!\n\nOm massutskicket:\n*inte inträffade,\n*fanns inte,\n*inte var planerat,\n*eller något annat\n- ett meddelande med lämpligt sammanhang kommer att visas, bli inte orolig.",
+                                "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Statistik → *Selektiv*]"
                             },
                             "targetDate": {
                                 "main": {
-                                    "title": "Resultat av utskick för {{date}}.",
+                                    "title": "Resultat av massutskicket för {{date}}.",
                                     "time": "Tid: {{time}}",
                                     "success": "Lyckade utskick: {{success}}",
-                                    "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Statistik → Selektiv → *{{date}}*]"
+                                    "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Statistik → Selektiv → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "amount":"Antal: {{amount}}",
-                                    "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Statistik → Selektiv → {{date}} → *Grupper*]"    
+                                    "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Statistik → Selektiv → {{date}} → *Grupper*]"
                                 }
                             }
                         },
                         "comparative": {
                             "main": {
                                 "title": "Välj typ av jämförande statistik.",
-                                "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Statistik → *Jämförande*]",
+                                "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Statistik → *Jämförande*]",
                                 "buttons": {
                                     "week": "Vecka",
                                     "month": "Månad"
                                 }
                             },
                             "week": {
-                                "title": "Jämförande statistik. (Vecka)",
-                                "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Statistik → Jämförande → *Vecka*]"
+                                "title": "Jämförande statistik (Vecka)",
+                                "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Statistik → Jämförande → *Vecka*]"
                             },
                             "month": {
-                                "title": "Jämförande statistik. (Månad)",
-                                "path": "[📍 Sökväg: {{menu}} → Utskick → Visa → Meny «{{call}}» → Statistik → Jämförande → *Månad*]"
+                                "title": "Jämförande statistik (Månad)",
+                                "path": "[📍 Sökväg: {{menu}} → Massutskick → Meny «{{call}}» → Statistik → Jämförande → *Månad*]"
                             }
                         }
                     },
                     "owner": {
                         "main": {
-                            "title": "Ägare av utskicket.",
-                            "empty": "Utskicket har ingen ägare!",
+                            "title": "Ägare av massutskicket.",
+                            "empty": "Massutskicket har ingen ägare!",
                             "name": "Namn: {{name}}",
                             "phone": "Telefon: +{{phone}}",
-                            "path": "[📍 Sökväg: Panel → Utskick → Visa → Meny «{{call}}» → *Ägare*]",
+                            "path": "[📍 Sökväg: Panel → Massutskick → Meny «{{call}}» → *Ägare*]",
                             "buttons": {
-                                "change": "🪧 Omfördelning"
+                                "change": "🪧 Omfördela"
                             }
                         },
                         "update": {
                             "main": {
-                                "title": "Välj en användare för att utse denne till ägare av detta utskick.",
-                                "path": "[📍 Sökväg: Panel → Utskick → Visa → Meny «{{call}}» → Ägare → *Val*]",
+                                "title": "Välj en användare som ska utses till ägare av detta massutskick.",
+                                "path": "[📍 Sökväg: Panel → Massutskick → Meny «{{call}}» → Ägare → *Välj*]",
                                 "noOwner": "Utan ägare"
                             },
                             "action": {
-                                "success": "✅ Ägare omfördelad!",
-                                "error": "❌ Ägare inte omfördelad! \nFörsök igen senare!",
-                                "path": "[📍 Sökväg: Panel → Utskick → Visa → Meny «{{call}}» → Ägare → {{owner}} → *Omfördelning*]"
+                                "success": "✅ Ägaren har omfördelats!",
+                                "error": "❌ Ägaren omfördelades inte! Försök igen senare!",
+                                "path": "[📍 Sökväg: Panel → Massutskick → Meny «{{call}}» → Ägare → {{owner}} → *Tilldela*]"
                             }
                         }
                     },
-                    "call": {
+                    "name": {
                         "main": {
-                            "title": "Namn (anropssignal) på utskicket: {{call}}",
-                            "empty": "Utskicket har inget namn!",
-                            "path": "[📍 Sökväg: Panel → Utskick → Visa → Meny «{{call}}» → *Namn*]"
+                            "title": "Namn på massutskicket:",
+                            "about": "1 - signatur (gammal benämning)\n2 - enhetens namn\n3 - anropssignal (visat namn i boten)",
+                            "path": "[📍 Sökväg: Panel → Massutskick → Meny «{{call}}» → *Namn*]"
                         },
                         "update": {
-                            "title": "Ändrar utskickets anropssignal! Skicka det nya namnet på utskicket.",
-                            "path": "[📍 Sökväg: Panel → Utskick → Visa → Meny «{{call}}» → Namn → *Uppdatera*]"
+                            "call": {
+                                "title": "Ändrar anropssignal för massutskicket!",
+                                "path": "[📍 Sökväg: Panel → Massutskick → Meny «{{call}}» → Namn → Anropssignal → *Uppdatera*]"
+                            },
+                            "label": {
+                                "alert": "Massutskickets signatur kan inte ändras!"
+                            },
+                            "name": {
+                                "alert": "Massutskickets namn kan inte ändras!"
+                            }
                         }
                     }
                 }
             },
             "contract": {
                 "main": {
-                    "title": "Kontraktshantering",
-                    "amount": "Antal: {{amount}}",
+                    "title": "Hantera kontrakt. Antal: {{amount}}",
                     "path": "[📍 Sökväg: {{menu}} → *Kontrakt*]",
                     "empty": "Inga kontrakt har konfigurerats än! Kom tillbaka senare.",
                     "contractName": "{{userName}}: från {{dateStart}}"
@@ -648,49 +691,45 @@
                     "contract": {
                         "main": {
                             "title": "Kontrakt från {{dateStart}}.",
-                            "sendouts": "Utskick som ingår i kontraktet: {{sendouts}}",
+                            "sendouts": "Massutskick som ingår i kontraktet: {{sendouts}}",
                             "noSendouts": "tomt.",
                             "userName": "Kund: {{userName}}",
                             "dateStart": "Startdatum: {{dateStart}}",
                             "dateEnd": "Slutdatum: {{dateEnd}}",
                             "price": "Pris: {{price}}",
                             "priceText": "Pris (text): {{priceText}}",
-                            "error": "Fel vid mottagning av kontrakt. Kontakta administratören",
+                            "error": "Fel vid hämtning av kontrakt. Kontakta administratören",
                             "path": "\n[📍 Sökväg: {{menu}} → Kontrakt → Visa → *{{dateStart}}*]"
                         },
                         "remove": {
-                            "success":"✅ Kontrakt borttaget!",
-                            "error": "❌ Kontrakt inte borttaget!\nFörsök igen senare",
+                            "success": "✅ Kontraktet togs bort!",
+                            "error": "❌ Kontraktet togs inte bort!\nFörsök igen senare",
                             "path": "[📍 Sökväg: Panel → Kontrakt → Visa → {{dateStart}} → *Ta bort*]"
-                        },
-                        "create": {
-                            "step": "Steg: {{number}} / 3",
-                            "noUser": "För att gå vidare till steg nr 2 måste du utföra steg nr 1!",
-                            "noSendouts": "För att gå vidare till steg nr 3 måste du utföra steg nr 2!",
-                            "noFreeSendouts": "Kunden har inga fria utskick (utan kontrakt)!",
-                            "data": {
-                                "user": "Välj den användare för vilken kontraktet ska upprättas",
-                                "sendout": "Välj de utskick som ska ingå i kontraktet",
-                                "contract": "Skicka data angående kontraktet"
-                            },
-                            "title": "Skapar kontrakt! Läs instruktionerna för korrekt skapande.",
-                            "path": "[📍 Sökväg: Panel → Kontrakt → *Skapa*]"
                         },
                         "export": {
                             "main": {
-                                "title": "Välj det format i vilket kontraktet ska sparas",
-                                "path": "[📍 Sökväg: {{menu}} → Kontrakt → Visa → {{dateStart}} → *Val av exportformat*]"
+                                "title": "Välj i vilket format kontraktet ska sparas",
+                                "path": "[📍 Sökväg: {{menu}} → Kontrakt → Visa → {{dateStart}} → *Välj exportformat*]"
                             },
                             "result": {
                                 "error": "❌ Fel vid export av kontrakt\nKontakta administratören",
-                                "caption": "Kontrakt i formatet {{exportType}} är klar!",
+                                "caption": "Kontrakt i formatet {{exportType}} är klart!",
                                 "path": "\n[📍 Sökväg: {{menu}} → Kontrakt → Visa → {{dateStart}} → *Exportera till {{exportType}}*]"
                             }
                         }
                     }
                 },
                 "create": {
-                    "title": "Skapar kontrakt! Läs instruktionerna för korrekt skapande innan du börjar.",
+                    "step": "Steg: {{number}} / 3",
+                    "noUser": "För att gå vidare till steg #2 måste du slutföra steg #1!",
+                    "noSendouts": "För att gå vidare till steg #3 måste du slutföra steg #2!",
+                    "noFreeSendouts": "Kunden har inga fria massutskick (utan kontrakt)!",
+                    "data": {
+                        "user": "Välj den användare för vilken kontraktet ska upprättas",
+                        "sendout": "Välj de massutskick som ska ingå i kontraktet",
+                        "contract": "Skicka uppgifterna om kontraktet"
+                    },
+                    "title": "Skapar kontrakt!",
                     "path": "[📍 Sökväg: Panel → Kontrakt → *Skapa*]"
                 }
             }

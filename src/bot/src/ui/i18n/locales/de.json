@@ -3,18 +3,20 @@
         "shared": {
             "processing": "⏳ Verarbeitung...",
             "cabinet": "🪴 Persönlicher Bereich",
+            "panel": "👨‍💻 Admin-Panel",
+            "nameless": "Namenlos",
             "buttons": {
                 "export": "📧 Exportieren",
-                "nameless": "Namenlos",
                 "back": "🔙 Zurück",
-                "remove": "🗑 Löschen",
+                "remove": "🗑 Entfernen",
                 "miss": "Fehlt",
                 "create": "➕ Erstellen",
-                "update": "✍ Bearbeiten",
+                "update": "✍ Ändern",
+                "instruction": "📖 Anleitung",
                 "clear": "🗑 Leeren",
                 "view": "👁 Ansehen",
                 "contract": "📜 Verträge",
-                "sendout": "📢 Sendungen",
+                "sendout": "📢 Mailings",
                 "chat": "🗯 Gruppen",
                 "contactAdmin": "👨 Administrator"
             },
@@ -23,20 +25,19 @@
                 "cabinet": "Bereich",
                 "panel": "Panel → Daten",
                 "amount": "Anzahl: {{amount}}",
-                "sendoutActive": "Die Sendung ist derzeit aktiv, versuchen Sie später, die Daten zu verwalten"
+                "sendoutActive": "Das Mailing ist derzeit aktiv, versuchen Sie später erneut, Daten zu verwalten",
+                "accessDenied": {
+                    "all": "Zugriff verweigert. Bitte autorisieren Sie sich zuerst mit dem Befehl /auth",
+                    "admin": "Zugriff verweigert. Dieser Bereich ist für Kunden bestimmt",
+                    "customer": "Zugriff verweigert. Dieser Bereich ist für Administratoren bestimmt"
+                }
             }
         },
-        "maintenace": "🚧 Derzeit werden Wartungsarbeiten durchgeführt. Die Nutzung des Dienstes ist vorübergehend eingeschränkt.\nSobald wir fertig sind, geben wir sofort Bescheid!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "maintenace": "🚧 Derzeit werden Wartungsarbeiten durchgeführt. Die Nutzung des Dienstes ist vorübergehend eingeschränkt.\nSobald wir fertig sind, geben wir Bescheid!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
         "roleCodes": {
             "admin": "Administrator",
             "customer": "Kunde",
             "unknown": "Unbekannt"
-        },
-        "languages": {
-            "ru": "Russisch",
-            "zh": "Chinesisch",
-            "en": "Englisch",
-            "sr": "Serbisch"
         },
         "commands": {
             "cabinet": "Bereich",
@@ -44,10 +45,10 @@
             "panel": "Admin-Panel"
         },
         "chart": {
-            "labelMonth": "Statistik der Gruppen, die die Sendung erhalten haben. {{month}} {{year}}",
-            "labelWeek": "Statistik der Gruppen, die die Sendung erhalten haben. Woche",
-            "amountSms": "Anzahl der Nachrichten",
-            "noLogs": "Im ausgewählten Zeitraum fand noch keine Sendung statt!",
+            "labelMonth": "Statistik der Gruppen, die das Mailing erhalten haben. {{month}} {{year}}",
+            "labelWeek": "Statistik der Gruppen, die das Mailing erhalten haben. Woche",
+            "amountSms": "Anzahl Nachrichten",
+            "noLogs": "Im ausgewählten Zeitraum fand kein Mailing statt!",
             "daysOfWeek": {
                 "Mon": "Mo",
                 "Tue": "Di",
@@ -100,14 +101,40 @@
         "processType": {
             "bot": "Bot",
             "parser": "Parser",
-            "sendout": "Sendungen"
+            "sendout": "Mailings"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Zeitplan",
+                "message": "Nachrichten",
+                "contract": "Vertrag"
+            },
+            "text": "Exportieren",
+            "from": "vom"
+        },
+        "localization": {
+            "schedule": {
+                "number": "Tag",
+                "everyDay": "Jeden Tag",
+                "unknownDay": "Unbekannter Tag",
+                "dayWeek": {
+                    "1": "Montag",
+                    "2": "Dienstag",
+                    "3": "Mittwoch",
+                    "4": "Donnerstag",
+                    "5": "Freitag",
+                    "6": "Samstag",
+                    "7": "Sonntag",
+                    "*": "Jeden Tag"
+                }
+            }
         }
     },
     "handlers": {
         "events": {
             "contact": {
                 "numberIsNull": "Fehler bei der Verarbeitung der Telefonnummer!\nVersuchen Sie es erneut!",
-                "accessDenied": "Zugriff verweigert. Um den Sendungsdienst zu nutzen, verwenden Sie den Befehl '/settings', Bereich 'Hilfe'"
+                "accessDenied": "Zugriff verweigert. Um den Mailing-Dienst zu nutzen, verwenden Sie den Befehl '/settings', Bereich 'Hilfe'"
             }
         },
         "states": {
@@ -117,7 +144,7 @@
                 "path": "[📍 Pfad: {{menu}} → Menü «{{call}}» → Nachrichten → *Text erstellen*]"
             },
             "generatingText": {
-                "result": "Die generierte Nachricht wird unten angezeigt.\nVerwenden Sie die Tasten unter den Nachrichten, um über das Schicksal des Textes zu entscheiden.",
+                "result": "Die generierte Nachricht wird unten angezeigt. Verwenden Sie die Schaltflächen unter den Nachrichten, um über das Schicksal des Textes zu entscheiden.",
                 "pathChoose": "[📍 Pfad: {{menu}} → Menü «{{call}}» → Nachrichten → Textgenerierung → *Schicksal des Textes*]",
                 "buttons": {
                     "save": "✔ Speichern",
@@ -133,10 +160,11 @@
                 "error": "💀 Fehler beim Speichern der Medien!\nKontaktieren Sie den Administrator",
                 "invalidType": "Medientyp nicht erkannt! Versuchen Sie es erneut",
                 "bigSize": "Datei zu groß. Maximale Größe {{size}} MB.",
-                "documentsWTMedia": "Ich kann keine Dokumente verarbeiten, die kein Foto / Video / GIF enthalten",
+                "documentsWTMedia": "Ich kann keine Dokumente verarbeiten, die keine Fotos / Videos / Gifs enthalten",
                 "success": "✅ Medien gespeichert!",
                 "error2": "❌ Medien nicht gespeichert!\nKontaktieren Sie den Administrator",
-                "path": "[📍 Pfad: {{menu}} → Menü «{{call}}» → Nachrichten → *Medien hinzufügen*]"
+                "path": "[📍 Pfad: {{menu}} → Menü «{{call}}» → Nachrichten → *Medien hinzufügen*]",
+                "amount": "Anzahl der Medien in der Nachricht: {{now}} von {{all}}"
             },
             "addingTime": {
                 "success": "✅ Zeit gespeichert!",
@@ -156,34 +184,58 @@
             "addingUser": {
                 "success": "✅ Benutzer erfolgreich erstellt!",
                 "error": "❌ Benutzer nicht erstellt!\nVersuchen Sie es später erneut.",
-                "path": "[📍 Pfad: Panel → Daten → Benutzer → *Erstellung*]"
+                "path": "[📍 Pfad: Panel → Daten → Benutzer → *Erstellen*]"
             },
             "addingContract": {
                 "success": "✅ Vertrag erfolgreich erstellt!",
                 "error": "❌ Vertrag nicht erstellt!\nVersuchen Sie es später erneut.",
-                "path": "[📍 Pfad: Panel → Verträge → *Erstellung*]"
+                "path": "[📍 Pfad: Panel → Verträge → *Erstellen*]"
             },
             "updatingSendoutCall": {
                 "success": "✅ Rufzeichen erfolgreich aktualisiert!",
                 "error": "❌ Rufzeichen nicht aktualisiert!\nVersuchen Sie es später erneut.",
-                "path": "[📍 Pfad: Panel → Sendungen → Anzeigen → Menü «{{call}}» → Name → *Aktualisieren*]"
+                "path": "[📍 Pfad: Panel → Mailings → Menü «{{call}}» → Namen → Rufzeichen → *Aktualisieren*]"
             },
             "updatingUserName": {
                 "success": "✅ Name erfolgreich aktualisiert!",
                 "error": "❌ Name nicht aktualisiert!\nVersuchen Sie es später erneut.",
-                "path": "[📍 Pfad: Panel → Daten → Benutzer → Anzeigen → {{userName}} → *Namen ändern*]"
+                "path": "[📍 Pfad: Panel → Daten → Benutzer → Anzeigen → {{userName}} → *Name ändern*]"
             },
             "updatingUserPhone": {
                 "success": "✅ Telefon erfolgreich aktualisiert!",
                 "error": "❌ Telefon nicht aktualisiert!\nVersuchen Sie es später erneut.",
-                "path": "[📍 Pfad: Panel → Daten → Benutzer → Anzeigen → {{userName}} → *Telefonnummer ändern*]"
+                "path": "[📍 Pfad: Panel → Daten → Benutzer → Anzeigen → {{userName}} → *Telefon ändern*]"
             }
         }
     },
     "modules": {
         "commands": {
             "start": {
-                "title": "Willkommen! Ich bin ein Telegram-Bot, ein Assistent für Sendungen.\n\nIch empfehle dringend, sich mit dem gesamten Verzeichnis meiner Befehle vertraut zu machen, indem Sie auf die ovale Schaltfläche 'Menü' in der unteren linken Ecke des Bildschirms drücken.\nNachdem Sie die Bedienungsanleitung gelesen haben, die mit dem Befehl '/settings' im Abschnitt 'Über den Bot' aufgerufen wird."
+                "title": "☀ Hallo! Ich bin der Telegram-Bot Hässliches Entlein, ein Assistent für Mailings.",
+                "commands": "Nachfolgend eine kurze Beschreibung der Befehle für die Interaktion mit mir:\n/start - Bot aktivieren und Befehlsliste\n/auth - Autorisierung\n/cabinet - Persönlichen Bereich verwalten\n/settings - Bot-Einstellungen verwalten",
+                "uAdmin": "❓ Sind Sie Administrator?\n/panel - Admin-Panel",
+                "link": "Detailliertere Anweisungen zur Steuerung von mir finden Sie über die Schaltfläche unten."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Abbrechen",
+                        "phone": "📞 Teilen",
+                        "again": "🔄 Erneut versuchen"
+                    },
+                    "unknownMessage": "Aktion nicht erkannt, versuchen Sie es erneut mit den Schaltflächen: '📞 Teilen' und '❌ Abbrechen'",
+                    "manyAttempts": "Anzahl der Autorisierungsversuche vor dem Ein-Stunden-Limit: {{actualAttempts}} von {{maxAttempts}}",
+                    "stop": "Autorisierung eingeschränkt. Die Einschränkungen werden aufgehoben nach: {{dateTime}}",
+                    "canceled": "Autorisierung erfolgreich gestoppt!",
+                    "title": "Um auf das Mailing-Panel zuzugreifen, müssen Sie mir Ihre Telefonnummer mitteilen.\n\nDie Schaltfläche sollte neben der Tastatur mit der Aufschrift '📞 Teilen' erscheinen",
+                    "good": "Sie haben sich erfolgreich im System autorisiert!",
+                    "already": "Sie sind bereits im System autorisiert!",
+                    "bad": "Fehler bei der Autorisierung. Kontaktieren Sie den Administrator!"
+                },
+                "logout": {
+                    "good": "Sie haben sich erfolgreich ausgeloggt. Ihre Daten wurden gelöscht!",
+                    "bad": "Fehler beim Ausloggen. Kontaktieren Sie den Administrator!"
+                }
             },
             "settings": {
                 "main": {
@@ -197,7 +249,7 @@
                 },
                 "language": {
                     "main": {
-                        "title": "Wählen Sie eine Sprache.",
+                        "title": "Wählen Sie die Sprache.",
                         "path": "[📍 Pfad: Einstellungen → *Sprache*]"
                     },
                     "change": {
@@ -206,66 +258,42 @@
                     }
                 },
                 "help": {
-                    "title": "Haben Sie ein Problem?\nHaben Sie Fragen?\nMöchten Sie den Dienst loben?\nHaben Sie Verbesserungsvorschläge?",
-                    "interest": "Oder sind Sie am Produkt interessiert?\nFüllen Sie das folgende Formular aus und wir werden uns mit Ihnen in Verbindung setzen!",
+                    "title": "Problem aufgetreten?\nHaben Sie Fragen?\nMöchten Sie den Dienst loben?\nHaben Sie Verbesserungsvorschläge?",
+                    "interest": "Oder sind Sie am Produkt interessiert?\nFüllen Sie das folgende Formular aus und wir werden Sie kontaktieren!",
                     "path": "[📍 Pfad: Einstellungen → *Hilfe*]"
                 },
                 "about": {
-                    "title": "Der Dienst wurde entwickelt, um Werbung (Beiträge, Sendungen) für Ihre Produkte (Angebote) innerhalb von Gruppen / Chats / Kanälen zu automatisieren.\n\nAnleitung zur Verwendung des Bots - über die Schaltfläche unten!",
-                    "instruction": "📖 Anleitung",
+                    "title": "Der Dienst wurde entwickelt, um Werbung (Beiträge, Mailings) für Ihre Produkte (Angebote) in Gruppen / Chats / Kanälen zu automatisieren.\n\nAnleitung zur Verwendung des Bots finden Sie unten!",
                     "path": "[📍 Pfad: Einstellungen → *Über den Dienst*]"
                 },
                 "idea": {
                     "main": {
-                        "title": "Menü des Bereichs Ideen. \nHier können Sie Ihre Idee zur Weiterentwicklung des Dienstes vorschlagen.",
+                        "title": "Menü des Bereichs Ideen. Hier können Sie Ihre Idee zur Weiterentwicklung des Dienstes vorschlagen.",
                         "path": "[📍 Pfad: Einstellungen → *Ideen*]",
                         "buttons": {
                             "add": "🗳 Vorschlagen",
-                            "see": "🔍 Erkunden"
+                            "see": "🔍 Ansehen"
                         }
                     },
                     "add": {
-                        "title": "Senden Sie mir Medien/Audio/Text usw. Es gibt keine Einschränkungen!",
+                        "title": "Senden Sie mir Medien/Audio/Text usw. Keine Einschränkungen!",
                         "path": "[📍 Pfad: Einstellungen → Ideen → *Hinzufügen*]"
                     }
                 }
             },
             "cabinet": {
                 "main": {
-                    "buttons": {                        
+                    "buttons": {
                         "logout": "🚪 Abmelden",
                         "login": "🔑 Anmelden"
-                    }
-                },
-                "auth": {
-                    "login": {
-                        "buttons": {
-                            "cancel": "❌ Abbrechen",
-                            "phone": "📞 Teilen"
-                        },
-                        "unknownMessage": "Aktion nicht erkannt, versuchen Sie es erneut mit den Tasten 'Teilen' und 'Abbrechen'",
-                        "manyAttempts": "Anzahl der verwendeten Authentifizierungsversuche vor dem Ein-Stunden-Limit: {{actualAttempts}} von {{maxAttempts}}",
-                        "stop": "Autorisierung eingeschränkt. Die Einschränkungen werden aufgehoben nach: {{dateTime}}",
-                        "canceled": "Autorisierung erfolgreich gestoppt!",
-                        "title": "Um sich am Sendungspanel anzumelden, müssen Sie mir Ihre Telefonnummer mitteilen.\n\nDie Schaltfläche sollte neben der Tastatur mit der Aufschrift '📞 Teilen' erscheinen.",
-                        "good": "Sie haben sich erfolgreich im System angemeldet!",
-                        "already": "Sie sind bereits im System angemeldet!",
-                        "bad": "Fehler bei der Anmeldung am System.\nKontaktieren Sie den Administrator!",
-                        "path": "[📍 Pfad: Bereich → *Autorisierung*"
-                    },
-                    "logout": {
-                        "good": "Sie haben sich erfolgreich vom System abgemeldet. Ihre Daten wurden gelöscht!",
-                        "bad": "Fehler bei der Abmeldung vom System.\nKontaktieren Sie den Administrator!",
-                        "path": "[📍 Pfad: Bereich → *Abmeldung*]"
                     }
                 }
             },
             "panel": {
                 "main": {
-                    "title": "👨‍💻 Admin-Panel",
                     "buttons": {
                         "data": "🗂 Daten",
-                        "system": "⚡ System "
+                        "system": "⚡ System"
                     }
                 },
                 "data": {
@@ -278,8 +306,7 @@
                     },
                     "chat": {
                         "main": {
-                            "title": "Gruppenverwaltung",
-                            "amount": "Anzahl: {{amount}}",
+                            "title": "Gruppen verwalten. Anzahl: {{amount}}",
                             "path": "[📍 Pfad: Panel → Daten → *Gruppen*]",
                             "buttons": {
                                 "reupload": "🔁 Aktualisieren"
@@ -298,8 +325,7 @@
                     },
                     "user": {
                         "main": {
-                            "title": "Benutzerverwaltung",
-                            "amount": "Anzahl: {{amount}}",
+                            "title": "Benutzer verwalten. Anzahl: {{amount}}",
                             "path": "[📍 Pfad: Panel → Daten → *Benutzer*]"
                         },
                         "view": {
@@ -309,7 +335,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Benutzerverwaltung",
+                                    "title": "Benutzer verwalten",
                                     "path": "[📍 Pfad: Panel → Daten → Benutzer → Anzeigen → *{{userName}}*]",
                                     "telegramId": "Tg-ID: {{telegramId}}",
                                     "name": "Name: {{name}}",
@@ -319,26 +345,26 @@
                                     "role": "Rolle: {{role}}"
                                 },
                                 "remove": {
-                                    "success":"✅ Benutzer erfolgreich gelöscht!",
+                                    "success": "✅ Benutzer erfolgreich gelöscht!",
                                     "error": "❌ Benutzer nicht gelöscht!\nVersuchen Sie es später erneut",
                                     "path": "[📍 Pfad: Panel → Daten → Benutzer → Anzeigen → {{userName}} → *Löschen*]"
                                 },
                                 "update": {
                                     "phone": {
                                         "title": "Telefon wird geändert!\nSenden Sie es hierher.",
-                                        "path": "[📍 Pfad: Panel → Daten → Benutzer → Anzeigen → {{userName}} → *Telefonnummer ändern*]"
+                                        "path": "[📍 Pfad: Panel → Daten → Benutzer → Anzeigen → {{userName}} → *Telefon ändern*]"
                                     },
                                     "name": {
                                         "title": "Name wird geändert!\nSenden Sie ihn hierher.",
-                                        "path": "[📍 Pfad: Panel → Daten → Benutzer → Anzeigen → {{userName}} → *Namen ändern*]"
+                                        "path": "[📍 Pfad: Panel → Daten → Benutzer → Anzeigen → {{userName}} → *Name ändern*]"
                                     }
                                 }
                             }
                         },
                         "create": {
-                            "title": "Benutzer wird erstellt! Lesen Sie vor dem Beginn die Anleitung zur korrekten Erstellung.",
-                            "path": "[📍 Pfad: Panel → Daten → Benutzer → *Erstellung*]"
-                        }   
+                            "title": "Benutzer wird erstellt!",
+                            "path": "[📍 Pfad: Panel → Daten → Benutzer → *Erstellen*]"
+                        }
                     }
                 },
                 "system": {
@@ -366,19 +392,19 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Prozessverwaltung",
+                                    "title": "Prozess verwalten",
                                     "path": "[📍 Pfad: Panel → System → Server → {{processType}} → *{{processName}}*]",
                                     "buttons": {
                                         "condition": "🩻 Zustand",
-                                        "log": "📋 Logs"
+                                        "log": "📋 Protokolle"
                                     }
                                 },
                                 "condition": {
                                     "path": "[📍 Pfad: Panel → System → Server → {{processType}} → {{processName}} → *Zustand*]",
                                     "status": {
-                                        "active": "✅ Prozess ist aktiv.\nZum Stoppen drücken Sie die Taste unten",
-                                        "inactive": "❌ Prozess ist inaktiv.\nZum Starten drücken Sie die Taste unten",
-                                        "failed": "💀 Prozess ist gestorben.\nKontaktieren Sie den Programmierer.",
+                                        "active": "✅ Prozess aktiv.\nZum Stoppen drücken Sie die Schaltfläche unten",
+                                        "inactive": "❌ Prozess inaktiv.\nZum Starten drücken Sie die Schaltfläche unten",
+                                        "failed": "❌ Prozess inaktiv.\nZum Starten drücken Sie die Schaltfläche unten",
                                         "error": "Problem mit dem Prozess. Kontaktieren Sie den Programmierer."
                                     },
                                     "buttons": {
@@ -388,12 +414,12 @@
                                     }
                                 },
                                 "log": {
-                                    "title": "Logs anzeigen",
-                                    "path": "[📍 Pfad: Panel → System → Server → {{processType}} → {{processName}} → *Logs*]",
+                                    "title": "Protokolle anzeigen",
+                                    "path": "[📍 Pfad: Panel → System → Server → {{processType}} → {{processName}} → *Protokolle*]",
                                     "sort": "Sortierung: {{sortType}}",
                                     "sortType": {
-                                        "new": "von neu nach alt",
-                                        "old": "von alt nach neu"
+                                        "new": "neueste zuerst",
+                                        "old": "älteste zuerst"
                                     }
                                 }
                             }
@@ -405,236 +431,257 @@
         "shared": {
             "sendout": {
                 "main": {
-                    "title": "Liste der derzeit aktiven Sendungen.",
-                    "path": "[📍 Pfad: {{menu}} → Sendungen → *Anzeigen*]",
-                    "empty": "Es wurden noch keine Sendungen eingerichtet! Kommen Sie später wieder."
+                    "title": "Liste der derzeit aktiven Mailings.",
+                    "path": "[📍 Pfad: {{menu}} → *Mailings*]",
+                    "empty": "Noch keine Mailings konfiguriert! Kommen Sie später wieder."
                 },
                 "view": {
                     "main": {
-                        "title": "📣 Sendungsmenü «{{call}}»",
-                        "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → *Menü «{{call}}»*]",
+                        "title": "📣 Menü des Mailings «{{call}}»",
+                        "path": "[📍 Pfad: {{menu}} → Mailings → *Menü «{{call}}»*]",
                         "buttons": {
                             "schedule": "🕰️ Zeitplan",
                             "message": "💬 Nachrichten",
                             "statistic": "📈 Statistik",
                             "owner": "👑 Eigentümer",
-                            "call": "🏷️ Name"
+                            "name": "🏷️ Namen",
+                            "test": "🎛️ Test"
                         }
+                    },
+                    "test": {
+                        "alert": "Testmodus kann nicht aktiviert werden, während das Mailing aktiv ist!"
                     },
                     "message": {
                         "main": {
-                            "error": "Fehler beim Empfangen der Nachrichten!\nKontaktieren Sie den Administrator",
-                            "empty": "Keine Nachrichten!\nUm einen Text hinzuzufügen, drücken Sie die Taste unten",
+                            "error": "Fehler beim Abrufen der Nachrichten!\nKontaktieren Sie den Administrator",
+                            "empty": "Keine Nachrichten!\nUm Text hinzuzufügen, drücken Sie die Schaltfläche unten",
                             "title": "Menü des Bereichs Nachrichten. Anzahl: {{amount}}",
-                            "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → *Nachrichten*]"
+                            "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → *Nachrichten*]"
                         },
                         "create": {
                             "main": {
                                 "title": "Wählen Sie die Art der Texthinzufügung.",
-                                "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → *Hinzufügungsmodus*]",
+                                "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → *Hinzufügemodus*]",
                                 "buttons": {
                                     "generate": "🔮 Generieren",
                                     "hand": "✍ Manuelle Eingabe"
                                 }
                             },
                             "generate": {
-                                "title": "Ich generiere einen Verkaufstext! \nSenden Sie den Quelltext hierher. Keine Textpakete.",
-                                "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → *Generierung*]",
+                                "title": "Ich werde Verkaufstext generieren! Senden Sie die Quelle hierher. Keine Textpakete.",
+                                "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → *Generierung*]",
                                 "save": "✅ Text gespeichert!",
                                 "cancel": "❌ Text nicht gespeichert!",
                                 "pathSave": "[📍 Pfad: {{menu}} → Menü «{{call}}» → Nachrichten → Generierung → *Speichern*]",
                                 "pathCancel": "[📍 Pfad: {{menu}} → Menü «{{call}}» → Nachrichten → Generierung → *Abbrechen*]"
                             },
                             "hand": {
-                                "title": "Text wird hinzugefügt!\nSenden Sie den Text oder leiten Sie ihn hierher weiter. Keine Textpakete.",
-                                "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → *Text hinzufügen*]"
+                                "title": "Text hinzufügen!\nSenden Sie Text oder leiten Sie ihn hierher weiter. Keine Textpakete.",
+                                "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → *Text hinzufügen*]"
                             }
                         },
                         "clear": {
                             "success": "✅ Alle Nachrichten geleert!",
                             "error": "❌ Nachrichten nicht geleert!\nKontaktieren Sie den Administrator",
-                            "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → *Leeren*]"
+                            "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → *Leeren*]"
                         },
                         "view": {
                             "main": {
-                                "messageNumber": "Nachricht Nr. {{number}}.",
+                                "messageNumber": "Nachricht №{{number}}.",
                                 "amountMedia": "Medienanzahl: {{amount}} / {{maxMedia}}.",
-                                "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → *Anzeigen*]",
+                                "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → *Anzeigen*]",
                                 "buttons": {
-                                    "updateText": "✍️ Text bearbeiten",
+                                    "updateText": "✍️ Text ändern",
                                     "addMedia": "🖼 Medien hinzufügen",
-                                    "clearAllMedia": "🗑 Medien leeren"    
+                                    "clearAllMedia": "🗑 Medien leeren"
                                 }
                             },
                             "text": {
                                 "update": {
-                                    "title": "Text wird geändert!\nSende den Text oder leite ihn hierher weiter. Keine Textpakete.",
-                                    "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → *Text ändern*]"
+                                    "title": "Text ändern!\nSenden Sie Text oder leiten Sie ihn hierher weiter. Keine Textpakete.",
+                                    "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → *Text ändern*]"
                                 },
                                 "remove": {
                                     "success": "✅ Nachricht gelöscht!",
                                     "error": "❌ Text nicht gelöscht!\nKontaktieren Sie den Administrator",
-                                    "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → *Text löschen*]"
+                                    "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → *Text löschen*]"
                                 }
                             },
                             "media": {
                                 "add": {
-                                    "title": "Medien werden hinzugefügt!\nSenden Sie Medien in einer Menge von 1 Stück.",
-                                    "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → *Medien hinzufügen*]"
+                                    "title": "Medien hinzufügen!\nSenden Sie Medien einzeln.",
+                                    "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → *Medien hinzufügen*]"
                                 },
                                 "clearAll": {
                                     "success": "✅ Alle Medien geleert!",
                                     "error": "❌ Medien nicht geleert!\nKontaktieren Sie den Administrator",
-                                    "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → *Medien leeren*]"
+                                    "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → *Medien leeren*]"
                                 }
                             },
                             "pagination": {
-                                "title": "Schneller Sprung zu einer Nachricht nach Nummer",
-                                "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → Anzeigen → *Nachricht auswählen*]"
+                                "title": "Schneller Sprung zur Nachricht nach Nummer",
+                                "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → Anzeigen → *Nachricht auswählen*]"
                             }
                         },
                         "export": {
                             "main": {
                                 "title": "Wählen Sie das Format, in dem die Nachrichtenliste gespeichert werden soll",
-                                "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → *Exportformat auswählen*]"
+                                "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → *Exportformat wählen*]"
                             },
                             "result": {
                                 "error": "❌ Fehler beim Exportieren der Nachrichten\nKontaktieren Sie den Administrator",
                                 "caption": "Nachrichtenliste im Format {{exportType}} ist bereit!",
-                                "path": "\n[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Nachrichten → *Export nach {{exportType}}*]"
+                                "path": "\n[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Nachrichten → *Exportieren als {{exportType}}*]"
                             }
                         }
                     },
                     "schedule": {
                         "main": {
-                            "empty": "Zeitplan noch nicht eingerichtet!",
+                            "empty": "Zeitplan noch nicht konfiguriert!",
                             "title": "Menü des Bereichs Zeitplan. Anzahl der Zeiten im Zeitplan: {{amount}}",
-                            "path": "\n[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → *Zeitplan*]"
+                            "path": "\n[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → *Zeitplan*]"
                         },
                         "create": {
-                            "title": "Zeit wird hinzugefügt!",
-                            "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Zeitplan → *Hinzufügen*]"
+                            "title": "Zeit hinzufügen!",
+                            "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Zeitplan → *Hinzufügen*]"
                         },
                         "clear": {
                             "success": "✅ Zeitplan geleert!",
                             "error": "❌ Zeitplan nicht geleert!\nKontaktieren Sie den Administrator",
-                            "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Zeitplan → *Leeren*]"
+                            "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Zeitplan → *Leeren*]"
                         },
                         "view": {
                             "main": {
-                                "title": "Der Sendungszeitplan wird unten als Tasten dargestellt.",
-                                "path": "\n[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Zeitplan → *Anzeigen*]"
+                                "title": "Der Mailing-Zeitplan wird unten als Schaltflächen dargestellt.",
+                                "path": "\n[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Zeitplan → *Anzeigen*]"
                             },
                             "time": {
                                 "update": {
-                                    "title": "Zeit wird geändert!",
-                                    "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Zeitplan → Anzeigen → *Zeit ändern*]"
+                                    "title": "Zeit ändern!",
+                                    "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Zeitplan → Anzeigen → *Zeit ändern*]"
                                 },
                                 "remove": {
                                     "success": "✅ Zeit gelöscht!",
                                     "error": "❌ Zeit nicht gelöscht! Kontaktieren Sie den Administrator",
-                                    "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Zeitplan → Anzeigen → *Zeit löschen*]"
+                                    "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Zeitplan → Anzeigen → *Zeit löschen*]"
                                 },
                                 "updateOrRemove": {
                                     "title": "Ausgewählte Zeit:\n→ *{{targetTime}}*.\n",
-                                    "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Zeitplan → Anzeigen → *Aktion auswählen*]"
+                                    "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Zeitplan → Anzeigen → *Aktion auswählen*]"
                                 }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Wählen Sie das Format, in dem der Mailing-Zeitplan gespeichert werden soll",
+                                "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Zeitplan → *Exportformat wählen*]"
+                            },
+                            "result": {
+                                "error": "❌ Fehler beim Exportieren des Zeitplans\nKontaktieren Sie den Administrator",
+                                "caption": "Zeitplan im Format {{exportType}} ist bereit!",
+                                "path": "\n[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Zeitplan → *Exportieren als {{exportType}}*]"
                             }
                         }
                     },
                     "statistic": {
                         "main": {
-                            "title": "Wählen Sie das Format der gewünschten Statistik.",
-                            "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → *Statistik*]",
+                            "title": "Wählen Sie das gewünschte Statistikformat.",
+                            "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → *Statistik*]",
                             "buttons": {
                                 "selective": "📅 Selektiv",
-                                "comparative": "📊 Vergleichend"
+                                "comparative": "📊 Vergleich"
                             }
                         },
                         "selective": {
                             "main": {
-                                "notDone": "Derzeit werden an diesem Bereich Wartungsarbeiten durchgeführt.",
+                                "notDone": "An diesem Bereich werden derzeit Wartungsarbeiten durchgeführt.",
                                 "noData": "Für das ausgewählte Datum wurde kein Ergebnis gefunden!",
-                                "noAccess": "Die gedrückte Taste ist nicht verfügbar!",
-                                "title": "Selektive Statistik.\nUnten ist ein Kalender mit Daten. Um das Ergebnis der Sendung für einen bestimmten Tag anzuzeigen, klicken Sie einfach darauf!\n\nWenn die Sendung: \n*nicht stattgefunden hat, \n*es keine gab, \n*nicht geplant ist, \n*oder etwas anderes\n- wird eine Nachricht mit dem entsprechenden Kontext angezeigt, keine Panik.",
-                                "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Statistik → *Selektiv*]"
+                                "noAccess": "Die gedrückte Schaltfläche ist nicht verfügbar!",
+                                "title": "Selektive Statistik.\nUnten ein Kalender mit Daten. Um das Ergebnis des Mailings für einen bestimmten Tag anzuzeigen, klicken Sie einfach darauf!\n\nWenn das Mailing:\n*nicht stattfand,\n*nicht existierte,\n*nicht geplant war,\n*oder etwas anderes\n- wird eine Nachricht mit dem entsprechenden Kontext angezeigt, keine Panik.",
+                                "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Statistik → *Selektiv*]"
                             },
                             "targetDate": {
                                 "main": {
-                                    "title": "Sendungsergebnis vom {{date}}.",
+                                    "title": "Ergebnis des Mailings vom {{date}}.",
                                     "time": "Zeit: {{time}}",
                                     "success": "Erfolgreiche Sendungen: {{success}}",
-                                    "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Statistik → Selektiv → *{{date}}*]"
+                                    "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Statistik → Selektiv → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "amount":"Anzahl: {{amount}}",
-                                    "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Statistik → Selektiv → {{date}} → *Gruppen*]"    
+                                    "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Statistik → Selektiv → {{date}} → *Gruppen*]"
                                 }
                             }
                         },
                         "comparative": {
                             "main": {
-                                "title": "Wählen Sie die Art der vergleichenden Statistik.",
-                                "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Statistik → *Vergleichend*]",
+                                "title": "Wählen Sie die Art der Vergleichsstatistik.",
+                                "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Statistik → *Vergleich*]",
                                 "buttons": {
                                     "week": "Woche",
                                     "month": "Monat"
                                 }
                             },
                             "week": {
-                                "title": "Vergleichende Statistik. (Woche)",
-                                "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Statistik → Vergleichend → *Woche*]"
+                                "title": "Vergleichsstatistik (Woche)",
+                                "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Statistik → Vergleich → *Woche*]"
                             },
                             "month": {
-                                "title": "Vergleichende Statistik. (Monat)",
-                                "path": "[📍 Pfad: {{menu}} → Sendungen → Anzeigen → Menü «{{call}}» → Statistik → Vergleichend → *Monat*]"
+                                "title": "Vergleichsstatistik (Monat)",
+                                "path": "[📍 Pfad: {{menu}} → Mailings → Menü «{{call}}» → Statistik → Vergleich → *Monat*]"
                             }
                         }
                     },
                     "owner": {
                         "main": {
-                            "title": "Eigentümer der Sendung.",
-                            "empty": "Die Sendung hat keinen Eigentümer!",
+                            "title": "Eigentümer des Mailings.",
+                            "empty": "Das Mailing hat keinen Eigentümer!",
                             "name": "Name: {{name}}",
                             "phone": "Telefon: +{{phone}}",
-                            "path": "[📍 Pfad: Panel → Sendungen → Anzeigen → Menü «{{call}}» → *Eigentümer*]",
+                            "path": "[📍 Pfad: Panel → Mailings → Menü «{{call}}» → *Eigentümer*]",
                             "buttons": {
                                 "change": "🪧 Neu zuweisen"
                             }
                         },
                         "update": {
                             "main": {
-                                "title": "Wählen Sie einen Benutzer, um ihn als Eigentümer dieser Sendung zuzuweisen.",
-                                "path": "[📍 Pfad: Panel → Sendungen → Anzeigen → Menü «{{call}}» → Eigentümer → *Auswahl*]",
-                                "noOwner": "Ohne Eigentümer"
+                                "title": "Wählen Sie einen Benutzer, der als Eigentümer dieses Mailings zugewiesen werden soll.",
+                                "path": "[📍 Pfad: Panel → Mailings → Menü «{{call}}» → Eigentümer → *Auswählen*]",
+                                "noOwner": "Kein Eigentümer"
                             },
                             "action": {
                                 "success": "✅ Eigentümer erfolgreich neu zugewiesen!",
-                                "error": "❌ Eigentümer nicht neu zugewiesen! \nVersuchen Sie es später erneut!",
-                                "path": "[📍 Pfad: Panel → Sendungen → Anzeigen → Menü «{{call}}» → Eigentümer → {{owner}} → *Zuweisung*]"
+                                "error": "❌ Eigentümer nicht neu zugewiesen! Versuchen Sie es später erneut!",
+                                "path": "[📍 Pfad: Panel → Mailings → Menü «{{call}}» → Eigentümer → {{owner}} → *Zuweisen*]"
                             }
                         }
                     },
-                    "call": {
+                    "name": {
                         "main": {
-                            "title": "Name (Rufzeichen) der Sendung: {{call}}",
-                            "empty": "Die Sendung hat keinen Namen!",
-                            "path": "[📍 Pfad: Panel → Sendungen → Anzeigen → Menü «{{call}}» → *Name*]"
+                            "title": "Namen des Mailings:",
+                            "about": "1 - Signatur (alte Bezeichnung)\n2 - Name der Entität\n3 - Rufzeichen (angezeigter Name im Bot)",
+                            "path": "[📍 Pfad: Panel → Mailings → Menü «{{call}}» → *Namen*]"
                         },
                         "update": {
-                            "title": "Das Rufzeichen der Sendung wird geändert! Senden Sie den neuen Namen der Sendung.",
-                            "path": "[📍 Pfad: Panel → Sendungen → Anzeigen → Menü «{{call}}» → Name → *Aktualisieren*]"
+                            "call": {
+                                "title": "Rufzeichen des Mailings ändern!",
+                                "path": "[📍 Pfad: Panel → Mailings → Menü «{{call}}» → Namen → Rufzeichen → *Aktualisieren*]"
+                            },
+                            "label": {
+                                "alert": "Die Signatur des Mailings kann nicht geändert werden!"
+                            },
+                            "name": {
+                                "alert": "Der Name des Mailings kann nicht geändert werden!"
+                            }
                         }
                     }
                 }
             },
             "contract": {
                 "main": {
-                    "title": "Vertragsverwaltung",
-                    "amount": "Anzahl: {{amount}}",
+                    "title": "Verträge verwalten. Anzahl: {{amount}}",
                     "path": "[📍 Pfad: {{menu}} → *Verträge*]",
-                    "empty": "Es wurden noch keine Verträge eingerichtet! Kommen Sie später wieder.",
-                    "contractName": "{{userName}}: ab {{dateStart}}"
+                    "empty": "Noch keine Verträge konfiguriert! Kommen Sie später wieder.",
+                    "contractName": "{{userName}}: vom {{dateStart}}"
                 },
                 "view": {
                     "main": {
@@ -644,50 +691,46 @@
                     "contract": {
                         "main": {
                             "title": "Vertrag vom {{dateStart}}.",
-                            "sendouts": "Im Vertrag enthaltene Sendungen: {{sendouts}}",
+                            "sendouts": "Im Vertrag enthaltene Mailings: {{sendouts}}",
                             "noSendouts": "leer.",
                             "userName": "Kunde: {{userName}}",
                             "dateStart": "Startdatum: {{dateStart}}",
                             "dateEnd": "Enddatum: {{dateEnd}}",
                             "price": "Preis: {{price}}",
                             "priceText": "Preis (Text): {{priceText}}",
-                            "error": "Fehler beim Empfangen des Vertrags. Kontaktieren Sie den Administrator",
+                            "error": "Fehler beim Abrufen des Vertrags. Kontaktieren Sie den Administrator",
                             "path": "\n[📍 Pfad: {{menu}} → Verträge → Anzeigen → *{{dateStart}}*]"
                         },
                         "remove": {
-                            "success":"✅ Vertrag erfolgreich gelöscht!",
+                            "success": "✅ Vertrag erfolgreich gelöscht!",
                             "error": "❌ Vertrag nicht gelöscht!\nVersuchen Sie es später erneut",
                             "path": "[📍 Pfad: Panel → Verträge → Anzeigen → {{dateStart}} → *Löschen*]"
-                        },
-                        "create": {
-                            "step": "Schritt: {{number}} / 3",
-                            "noUser": "Um mit Schritt Nr. 2 zu beginnen, müssen Sie Schritt Nr. 1 ausführen!",
-                            "noSendouts": "Um mit Schritt Nr. 3 zu beginnen, müssen Sie Schritt Nr. 2 ausführen!",
-                            "noFreeSendouts": "Der Kunde hat keine freien Sendungen (die nicht unter einem Vertrag stehen)!",
-                            "data": {
-                                "user": "Wählen Sie den Benutzer, für den der Vertrag erstellt werden soll",
-                                "sendout": "Wählen Sie die Sendungen aus, die in den Vertrag aufgenommen werden sollen",
-                                "contract": "Senden Sie die Daten bezüglich des Vertrags"
-                            },
-                            "title": "Vertrag wird erstellt! Machen Sie sich mit der Anleitung zur korrekten Erstellung vertraut.",
-                            "path": "[📍 Pfad: Panel → Verträge → *Erstellung*]"
                         },
                         "export": {
                             "main": {
                                 "title": "Wählen Sie das Format, in dem der Vertrag gespeichert werden soll",
-                                "path": "[📍 Pfad: {{menu}} → Verträge → Anzeigen → {{dateStart}} → *Exportformat auswählen*]"
+                                "path": "[📍 Pfad: {{menu}} → Verträge → Anzeigen → {{dateStart}} → *Exportformat wählen*]"
                             },
                             "result": {
                                 "error": "❌ Fehler beim Exportieren des Vertrags\nKontaktieren Sie den Administrator",
                                 "caption": "Vertrag im Format {{exportType}} ist bereit!",
-                                "path": "\n[📍 Pfad: {{menu}} → Verträge → Anzeigen → {{dateStart}} → *Export nach {{exportType}}*]"
+                                "path": "\n[📍 Pfad: {{menu}} → Verträge → Anzeigen → {{dateStart}} → *Exportieren als {{exportType}}*]"
                             }
                         }
                     }
                 },
                 "create": {
-                    "title": "Vertrag wird erstellt! Lesen Sie vor dem Beginn die Anleitung zur korrekten Erstellung.",
-                    "path": "[📍 Pfad: Panel → Verträge → *Erstellung*]"
+                    "step": "Schritt: {{number}} / 3",
+                    "noUser": "Um mit Schritt Nr. 2 fortzufahren, müssen Sie Schritt Nr. 1 ausführen!",
+                    "noSendouts": "Um mit Schritt Nr. 3 fortzufahren, müssen Sie Schritt Nr. 2 ausführen!",
+                    "noFreeSendouts": "Der Kunde hat keine freien Mailings (ohne Vertrag)!",
+                    "data": {
+                        "user": "Wählen Sie den Benutzer aus, für den der Vertrag erstellt werden soll",
+                        "sendout": "Wählen Sie die Mailings aus, die in den Vertrag aufgenommen werden sollen",
+                        "contract": "Senden Sie die Vertragsdaten"
+                    },
+                    "title": "Vertrag wird erstellt!",
+                    "path": "[📍 Pfad: Panel → Verträge → *Erstellen*]"
                 }
             }
         }

@@ -2,46 +2,53 @@
     "utils": {
         "shared": {
             "processing": "⏳ Przetwarzanie...",
-            "cabinet": "🪴 Panel osobisty",
+            "cabinet": "🪴 Panel użytkownika",
+            "panel": "👨‍💻 Panel administratora",
+            "nameless": "Bez nazwy",
             "buttons": {
-                "export": "📧 Eksportuj",
-                "nameless": "Bezimienny",
-                "back": "🔙 Wróć",
+                "export": "📧 Eksport",
+                "back": "🔙 Wstecz",
                 "remove": "🗑 Usuń",
                 "miss": "Brak",
                 "create": "➕ Utwórz",
-                "update": "✍ Edytuj",
+                "update": "✍ Zmień",
+                "instruction": "📖 Instrukcja",
                 "clear": "🗑 Wyczyść",
-                "view": "👁 Zobacz",
+                "view": "👁 Wyświetl",
                 "contract": "📜 Umowy",
-                "sendout": "📢 Wysyłki",
+                "sendout": "📢 Rozsyłki",
                 "chat": "🗯 Grupy",
                 "contactAdmin": "👨 Administrator"
             },
             "titles": {
                 "validate": "⚠ Dane wejściowe miały nieprawidłowy format. Wyślij ponownie",
-                "cabinet": "Panel",
+                "cabinet": "Gabinet",
                 "panel": "Panel → Dane",
                 "amount": "Ilość: {{amount}}",
-                "sendoutActive": "W tej chwili wysyłka jest aktywna, spróbuj zarządzać danymi później"
+                "sendoutActive": "Obecnie rozsyłka jest aktywna, spróbuj zarządzać danymi później",
+                "accessDenied": {
+                    "all": "Dostęp zabroniony. Aby rozpocząć, autoryzuj się za pomocą komendy /auth",
+                    "admin": "Dostęp zabroniony. Ta sekcja jest przeznaczona dla klientów",
+                    "customer": "Dostęp zabroniony. Ta sekcja jest przeznaczona dla administratorów"
+                }
             }
         },
-        "maintenace": "🚧 Obecnie prowadzone są prace techniczne. Korzystanie z usługi jest czasowo ograniczone.\nGdy tylko skończymy - natychmiast poinformujemy!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "maintenace": "🚧 Obecnie trwają prace techniczne. Korzystanie z usługi jest tymczasowo ograniczone.\nJak tylko skończymy - natychmiast damy znać!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
         "roleCodes": {
             "admin": "Administrator",
             "customer": "Klient",
             "unknown": "Nieznany"
         },
         "commands": {
-            "cabinet": "Panel",
+            "cabinet": "Gabinet",
             "settings": "Ustawienia",
-            "panel": "Panel admina"
+            "panel": "Panel administracyjny"
         },
         "chart": {
-            "labelMonth": "Statystyka liczby grup, które otrzymały wysyłkę. {{month}} {{year}}",
-            "labelWeek": "Statystyka liczby grup, które otrzymały wysyłkę. Tydzień",
+            "labelMonth": "Statystyka liczby grup, które otrzymały rozsyłkę. {{month}}. {{year}}",
+            "labelWeek": "Statystyka liczby grup, które otrzymały rozsyłkę. Tydzień",
             "amountSms": "Liczba wiadomości",
-            "noLogs": "W wybranym okresie nie nastąpiła jeszcze żadna wysyłka!",
+            "noLogs": "W wybranym okresie nie doszło jeszcze do rozsyłki!",
             "daysOfWeek": {
                 "Mon": "Pon",
                 "Tue": "Wt",
@@ -49,7 +56,7 @@
                 "Thu": "Czw",
                 "Fri": "Pt",
                 "Sat": "Sob",
-                "Sun": "Niedz"
+                "Sun": "Ndz"
             },
             "months": {
                 "january": "Styczeń",
@@ -82,36 +89,62 @@
                 "11": "Grudzień"
             },
             "days": {
-                "0": "Pon",
+                "0": "Pn",
                 "1": "Wt",
                 "2": "Śr",
-                "3": "Czw",
+                "3": "Cz",
                 "4": "Pt",
-                "5": "Sob",
-                "6": "Niedz"
+                "5": "Sb",
+                "6": "Nd"
             }
         },
         "processType": {
             "bot": "Bot",
             "parser": "Parser",
-            "sendout": "Wysyłki"
+            "sendout": "Rozsyłki"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Harmonogram",
+                "message": "Wiadomości",
+                "contract": "Umowa"
+            },
+            "text": "Eksport",
+            "from": "z"
+        },
+        "localization": {
+            "schedule": {
+                "number": "liczby",
+                "everyDay": "Każdego dnia",
+                "unknownDay": "Nieznany dzień",
+                "dayWeek": {
+                    "1": "Poniedziałek",
+                    "2": "Wtorek",
+                    "3": "Środa",
+                    "4": "Czwartek",
+                    "5": "Piątek",
+                    "6": "Sobota",
+                    "7": "Niedziela",
+                    "*": "Każdego dnia"
+                }
+            }
         }
     },
     "handlers": {
         "events": {
             "contact": {
                 "numberIsNull": "Błąd podczas przetwarzania numeru telefonu!\nSpróbuj ponownie!",
-                "accessDenied": "Dostęp wzbroniony. Aby skorzystać z usługi wysyłki, użyj komendy '/settings', sekcja 'Pomoc'"
+                "accessDenied": "Dostęp zabroniony. Aby skorzystać z usługi rozsyłki, użyj komendy '/settings', sekcja 'Pomoc'"
             }
         },
         "states": {
             "addingText": {
                 "success": "✅ Tekst zapisany!",
-                "error": "❌ Tekst niezapisany!\nSkontaktuj się z administratorem",
+                "error": "❌ Tekst nie zapisany!\nSkontaktuj się z administratorem",
                 "path": "[📍 Ścieżka: {{menu}} → Menu «{{call}}» → Wiadomości → *Tworzenie tekstu*]"
             },
             "generatingText": {
-                "result": "Wygenerowana wiadomość została przedstawiona poniżej.\nUżyj przycisków pod wiadomościami, aby zdecydować o losie tekstu.",
+                "result": "Wygenerowana wiadomość jest przedstawiona poniżej. \nUżyj przycisków pod wiadomościami, aby zdecydować o losie tekstu.",
                 "pathChoose": "[📍 Ścieżka: {{menu}} → Menu «{{call}}» → Wiadomości → Generowanie tekstu → *Los tekstu*]",
                 "buttons": {
                     "save": "✔ Zapisz",
@@ -120,64 +153,89 @@
             },
             "updatingText": {
                 "success": "✅ Tekst zmieniony!",
-                "error": "❌ Tekst niezmieniony!\nSkontaktuj się z administratorem",
-                "path": "[📍 Ścieżka: {{menu}} → Menu «{{call}}» → Wiadomości → *Edycja tekstu*]"
+                "error": "❌ Tekst nie zmieniony!\nSkontaktuj się z administratorem",
+                "path": "[📍 Ścieżka: {{menu}} → Menu «{{call}}» → Wiadomości → *Zmiana tekstu*]"
             },
             "addingMedia": {
-                "error": "💀 Błąd podczas zapisywania mediów!\nSkontaktuj się z administratorem",
-                "invalidType": "Typ mediów nie rozpoznany! Spróbuj ponownie",
-                "bigSize": "Plik jest zbyt duży. Maksymalny rozmiar {{size}} MB.",
+                "error": "💀 Błąd podczas zapisywania multimediów!\nSkontaktuj się z administratorem",
+                "invalidType": "Typ multimediów nie rozpoznany! Spróbuj ponownie",
+                "bigSize": "Plik jest za duży. Maksymalny rozmiar to {{size}} MB.",
                 "documentsWTMedia": "Nie umiem przetwarzać dokumentów, które nie zawierają: zdjęcia / wideo / gif",
-                "success": "✅ Media zapisane!",
-                "error2": "❌ Media niezapisane!\nSkontaktuj się z administratorem",
-                "path": "[📍 Ścieżka: {{menu}} → Menu «{{call}}» → Wiadomości → *Dodawanie mediów*]"
+                "success": "✅ Multimedia zapisane!",
+                "error2": "❌ Multimedia nie zapisane!\nSkontaktuj się z administratorem",
+                "path": "[📍 Ścieżka: {{menu}} → Menu «{{call}}» → Wiadomości → *Dodawanie multimediów*]",
+                "amount": "Liczba multimediów w wiadomości: {{now}} z {{all}}"
             },
             "addingTime": {
                 "success": "✅ Czas zapisany!",
-                "error": "❌ Czas niezmieniony!\nSkontaktuj się z administratorem",
-                "path": "[📍 Ścieżka: Panel → Menu «{{call}}» → Harmonogram → Podgląd → *Dodawanie*]"
+                "error": "❌ Czas nie zmieniony!\nSkontaktuj się z administratorem",
+                "path": "[📍 Ścieżka: Panel → Menu «{{call}}» → Harmonogram → Widok → *Dodawanie*]"
             },
             "updatingTime": {
                 "success": "✅ Czas zmieniony!",
-                "error": "❌ Czas niezmieniony!\nSkontaktuj się z administratorem",
-                "path": "[📍 Ścieżka: Panel → Menu «{{call}}» → Harmonogram → Podgląd → *Edycja*]"
+                "error": "❌ Czas nie zmieniony!\nSkontaktuj się z administratorem",
+                "path": "[📍 Ścieżka: Panel → Menu «{{call}}» → Harmonogram → Widok → *Zmiana*]"
             },
             "addingIdea": {
-                "success": "✅ Pomysł dodany pomyślnie, dziękujemy!",
-                "error": "❌ Pomysł nie został dodany!\nSpróbuj ponownie lub skontaktuj się z administratorem!",
+                "success": "✅ Pomysł pomyślnie dodany, dziękuję!",
+                "error": "❌ Pomysł nie dodany!\nSpróbuj ponownie lub skontaktuj się z administratorem!",
                 "path": "[📍 Ścieżka: Ustawienia → Pomysły → *Dodawanie*]"
             },
             "addingUser": {
-                "success": "✅ Użytkownik utworzony pomyślnie!",
-                "error": "❌ Użytkownik nie został utworzony!\nSpróbuj później.",
+                "success": "✅ Użytkownik pomyślnie utworzony!",
+                "error": "❌ Użytkownik nie utworzony!\nSpróbuj później.",
                 "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → *Tworzenie*]"
             },
             "addingContract": {
-                "success": "✅ Umowa utworzona pomyślnie!",
-                "error": "❌ Umowa nie została utworzona!\nSpróbuj później.",
+                "success": "✅ Umowa pomyślnie utworzona!",
+                "error": "❌ Umowa nie utworzona!\nSpróbuj później.",
                 "path": "[📍 Ścieżka: Panel → Umowy → *Tworzenie*]"
             },
             "updatingSendoutCall": {
-                "success": "✅ Znak wywoławczy zaktualizowany pomyślnie!",
-                "error": "❌ Znak wywoławczy nie został zaktualizowany!\nSpróbuj później.",
-                "path": "[📍 Ścieżka: Panel → Wysyłki → Podgląd → Menu «{{call}}» → Nazwa → *Aktualizacja*]"
+                "success": "✅ Kryptonim pomyślnie zaktualizowany!",
+                "error": "❌ Kryptonim nie zaktualizowany!\nSpróbuj później.",
+                "path": "[📍 Ścieżka: Panel → Rozsyłki → Menu «{{call}}» → Nazwy → Kryptonim → *Aktualizacja*]"
             },
             "updatingUserName": {
-                "success": "✅ Imię zaktualizowane pomyślnie!",
-                "error": "❌ Imię nie zostało zaktualizowane!\nSpróbuj później.",
-                "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Podgląd → {{userName}} → *Edycja imienia*]"
+                "success": "✅ Imię pomyślnie zaktualizowane!",
+                "error": "❌ Imię nie zaktualizowane!\nSpróbuj później.",
+                "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Widok → {{userName}} → *Zmiana imienia*]"
             },
             "updatingUserPhone": {
-                "success": "✅ Telefon zaktualizowany pomyślnie!",
-                "error": "❌ Telefon nie został zaktualizowany!\nSpróbuj później.",
-                "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Podgląd → {{userName}} → *Edycja numeru*]"
+                "success": "✅ Telefon pomyślnie zaktualizowany!",
+                "error": "❌ Telefon nie zaktualizowany!\nSpróbuj później.",
+                "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Widok → {{userName}} → *Zmiana numeru*]"
             }
         }
     },
     "modules": {
         "commands": {
             "start": {
-                "title": "Witam! Jestem botem Telegram, asystentem do wysyłek.\n\nZdecydowanie zalecam zapoznanie się z całym rejestrem moich poleceń poprzez naciśnięcie owalnego przycisku 'Menu' w lewym dolnym rogu ekranu.\nPo uprzednim przeczytaniu instrukcji obsługi, wywoływanej komendą '/settings', w sekcji 'O bocie'."
+                "title": "☀ Witaj! Jestem botem Telegram Brzydkie Kaczątko, asystentem do rozsyłek.",
+                "commands": "Poniżej znajduje się krótki opis komend do interakcji ze mną:\n/start - aktywacja bota i rejestr komend\n/auth - proces autoryzacji\n/cabinet - zarządzanie panelem użytkownika\n/settings - zarządzanie ustawieniami bota",
+                "uAdmin": "❓ Jesteś administratorem?\n/panel - panel administratora",
+                "link": "Możesz zapoznać się z bardziej szczegółową instrukcją dotyczącą mechanizmu zarządzania mną, korzystając z przycisku poniżej."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Anuluj",
+                        "phone": "📞 Udostępnij",
+                        "again": "🔄 Spróbuj ponownie"
+                    },
+                    "unknownMessage": "Akcja nie została rozpoznana, spróbuj ponownie użyć przycisków: '📞 Udostępnij' i '❌ Anuluj'",
+                    "manyAttempts": "Liczba wykorzystanych prób autoryzacji przed godzinowym ograniczeniem: {{actualAttempts}} z {{maxAttempts}}",
+                    "stop": "Autoryzacja ograniczona. Ograniczenia zostaną zniesione po: {{dateTime}}",
+                    "canceled": "Autoryzacja pomyślnie zatrzymana!",
+                    "title": "Aby wejść do panelu rozsyłek, musisz udostępnić mi swój numer telefonu\n\nPrzycisk powinien pojawić się obok klawiatury z napisem '📞 Udostępnij'",
+                    "good": "Pomyślnie zalogowano się do systemu!",
+                    "already": "Jesteś już zalogowany w systemie!",
+                    "bad": "Błąd podczas autoryzacji w systemie. \nSkontaktuj się z administratorem!"
+                },
+                "logout": {
+                    "good": "Pomyślnie wylogowano się z systemu. Twoje dane zostały usunięte!",
+                    "bad": "Błąd podczas wylogowywania z systemu. \nSkontaktuj się z administratorem!"
+                }
             },
             "settings": {
                 "main": {
@@ -200,18 +258,17 @@
                     }
                 },
                 "help": {
-                    "title": "Masz problem?\nPojawiły się pytania?\nChcesz pochwalić działanie usługi?\nMasz pomysły na ulepszenie usługi?",
-                    "interest": "A może jesteś zainteresowany produktem?\nWypełnij poniższą ankietę, a my skontaktujemy się z Tobą!",
+                    "title": "Napotkałeś problem?\nPojawiły się pytania?\nChcesz pochwalić pracę usługi?\nMasz pomysły na ulepszenie usługi?",
+                    "interest": "A może jesteś zainteresowany produktem?\nWypełnij poniższy formularz, a my się z Tobą skontaktujemy!",
                     "path": "[📍 Ścieżka: Ustawienia → *Pomoc*]"
                 },
                 "about": {
-                    "title": "Usługa została opracowana w celu automatyzacji reklamy (postów, wysyłek) Twoich produktów (ofert) wewnątrz grup / czatów / kanałów.\n\nInstrukcja korzystania z Bota - poniższym przyciskiem!",
-                    "instruction": "📖 Instrukcja",
+                    "title": "Usługa została opracowana w celu automatyzacji reklamy (postów, rozsyłek) własnych produktów (ofert) w grupach / czatach / kanałach\n\nInstrukcja korzystania z Bota - pod przyciskiem poniżej!",
                     "path": "[📍 Ścieżka: Ustawienia → *O usłudze*]"
                 },
                 "idea": {
                     "main": {
-                        "title": "Menu sekcji Pomysły. \nTutaj możesz zaproponować swój pomysł na rozwój usługi.",
+                        "title": "Menu sekcji Pomysły. \nTutaj możesz zaproponować swój pomysł na rozwój usługi",
                         "path": "[📍 Ścieżka: Ustawienia → *Pomysły*]",
                         "buttons": {
                             "add": "🗳 Zaproponuj",
@@ -219,7 +276,7 @@
                         }
                     },
                     "add": {
-                        "title": "Przesyłaj mi media/audio/tekst itp. Żadnych ograniczeń!",
+                        "title": "Prześlij mi multimedia/audio/tekst itp. Brak ograniczeń!",
                         "path": "[📍 Ścieżka: Ustawienia → Pomysły → *Dodawanie*]"
                     }
                 }
@@ -227,39 +284,16 @@
             "cabinet": {
                 "main": {
                     "buttons": {                        
-                        "logout": "🚪 Wyloguj się",
-                        "login": "🔑 Zaloguj się"
-                    }
-                },
-                "auth": {
-                    "login": {
-                        "buttons": {
-                            "cancel": "❌ Anuluj",
-                            "phone": "📞 Udostępnij"
-                        },
-                        "unknownMessage": "Działanie nie rozpoznane, spróbuj ponownie użyć przycisków 'Udostępnij' i 'Anuluj'",
-                        "manyAttempts": "Liczba wykorzystanych prób uwierzytelnienia przed limitem na godzinę: {{actualAttempts}} z {{maxAttempts}}",
-                        "stop": "Autoryzacja ograniczona. Ograniczenia zostaną zniesione po: {{dateTime}}",
-                        "canceled": "Autoryzacja zatrzymana pomyślnie!",
-                        "title": "Aby wejść do panelu wysyłki, musisz udostępnić mi numer telefonu.\n\nPrzycisk powinien pojawić się obok klawiatury z napisem '📞 Udostępnij'.",
-                        "good": "Pomyślnie autoryzowano w systemie!",
-                        "already": "Jesteś już autoryzowany w systemie!",
-                        "bad": "Błąd autoryzacji w systemie.\nSkontaktuj się z administratorem!",
-                        "path": "[📍 Ścieżka: Panel → *Autoryzacja*"
-                    },
-                    "logout": {
-                        "good": "Pomyślnie wylogowałeś się z systemu. Twoje dane zostały wymazane!",
-                        "bad": "Błąd podczas wylogowywania.\nSkontaktuj się z administratorem!",
-                        "path": "[📍 Ścieżka: Panel → *Wylogowanie*]"
+                        "logout": "🚪 Wyloguj",
+                        "login": "🔑 Zaloguj"
                     }
                 }
             },
             "panel": {
                 "main": {
-                    "title": "👨‍💻 Panel administratora",
                     "buttons": {
                         "data": "🗂 Dane",
-                        "system": "⚡ System "
+                        "system": "⚡ System"
                     }
                 },
                 "data": {
@@ -272,11 +306,10 @@
                     },
                     "chat": {
                         "main": {
-                            "title": "Zarządzanie grupami",
-                            "amount": "Ilość: {{amount}}",
+                            "title": "Zarządzanie grupami. Ilość: {{amount}}",
                             "path": "[📍 Ścieżka: Panel → Dane → *Grupy*]",
                             "buttons": {
-                                "reupload": "🔁 Odśwież"
+                                "reupload": "🔁 Aktualizuj"
                             }
                         },
                         "reupload": {
@@ -292,20 +325,19 @@
                     },
                     "user": {
                         "main": {
-                            "title": "Zarządzanie użytkownikami",
-                            "amount": "Ilość: {{amount}}",
+                            "title": "Zarządzanie użytkownikami. Ilość: {{amount}}",
                             "path": "[📍 Ścieżka: Panel → Dane → *Użytkownicy*]"
                         },
                         "view": {
                             "main": {
                                 "title": "Lista użytkowników.",
-                                "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → *Podgląd*]"
+                                "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → *Widok*]"
                             },
                             "control": {
                                 "main": {
                                     "title": "Zarządzanie użytkownikiem",
-                                    "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Podgląd → *{{userName}}*]",
-                                    "telegramId": "ID Tg: {{telegramId}}",
+                                    "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Widok → *{{userName}}*]",
+                                    "telegramId": "Tg. ID: {{telegramId}}",
                                     "name": "Imię: {{name}}",
                                     "username": "Nazwa użytkownika: @{{username}}",
                                     "phone": "Telefon: +{{phone}}",
@@ -313,24 +345,24 @@
                                     "role": "Rola: {{role}}"
                                 },
                                 "remove": {
-                                    "success":"✅ Użytkownik pomyślnie usunięty!",
-                                    "error": "❌ Użytkownik nie został usunięty!\nSpróbuj później",
-                                    "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Podgląd → {{userName}} → *Usunięcie*]"
+                                    "success": "✅ Użytkownik pomyślnie usunięty!",
+                                    "error": "❌ Użytkownik nie usunięty!\nSpróbuj później",
+                                    "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Widok → {{userName}} → *Usuwanie*]"
                                 },
                                 "update": {
                                     "phone": {
-                                        "title": "Zmieniamy telefon!\nPrześlij tutaj.",
-                                        "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Podgląd → {{userName}} → *Edycja numeru*]"
+                                        "title": "Zmieniamy telefon!\nPrześlij go tutaj.",
+                                        "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Widok → {{userName}} → *Zmiana numeru*]"
                                     },
                                     "name": {
-                                        "title": "Zmieniamy imię!\nPrześlij tutaj.",
-                                        "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Podgląd → {{userName}} → *Edycja imienia*]"
+                                        "title": "Zmieniamy imię!\nPrześlij je tutaj.",
+                                        "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → Widok → {{userName}} → *Zmiana imienia*]"
                                     }
                                 }
                             }
                         },
                         "create": {
-                            "title": "Tworzymy użytkownika! Przed rozpoczęciem zapoznaj się z instrukcją poprawnego tworzenia.",
+                            "title": "Tworzymy użytkownika!",
                             "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → *Tworzenie*]"
                         }   
                     }
@@ -341,7 +373,7 @@
                         "path": "[📍 Ścieżka: Panel → *System*]",
                         "buttons": {
                             "server": "📟 Serwer",
-                            "maintenace": "🛠️ Obsługa techniczna"
+                            "maintenace": "🛠️ Konserwacja"
                         }
                     },
                     "server": {
@@ -370,24 +402,24 @@
                                 "condition": {
                                     "path": "[📍 Ścieżka: Panel → System → Serwer → {{processType}} → {{processName}} → *Stan*]",
                                     "status": {
-                                        "active": "✅ Proces aktywny.\nAby zatrzymać, naciśnij poniższy przycisk",
-                                        "inactive": "❌ Proces nieaktywny.\nAby uruchomić, naciśnij poniższy przycisk",
-                                        "failed": "💀 Proces umarł.\nSkontaktuj się z programistą.",
+                                        "active": "✅ Proces aktywny.\nAby zatrzymać, kliknij przycisk poniżej",
+                                        "inactive": "❌ Proces nieaktywny.\nAby uruchomić, kliknij przycisk poniżej",
+                                        "failed": "❌ Proces nieaktywny.\nAby uruchomić, kliknij przycisk poniżej",
                                         "error": "Problem z procesem. Skontaktuj się z programistą."
                                     },
                                     "buttons": {
-                                        "stop": "🛑 Zatrzymaj",
-                                        "start": "▶️ Uruchom",
-                                        "restart": "🔁 Uruchom ponownie"
+                                        "stop": "🛑 Stop",
+                                        "start": "▶️ Start",
+                                        "restart": "🔁 Restart"
                                     }
                                 },
                                 "log": {
-                                    "title": "Podgląd logów",
+                                    "title": "Przegląd logów",
                                     "path": "[📍 Ścieżka: Panel → System → Serwer → {{processType}} → {{processName}} → *Logi*]",
                                     "sort": "Sortowanie: {{sortType}}",
                                     "sortType": {
-                                        "new": "od nowych do starych",
-                                        "old": "od starych do nowych"
+                                        "new": "od najnowszych do najstarszych",
+                                        "old": "od najstarszych do najnowszych"
                                     }
                                 }
                             }
@@ -399,177 +431,191 @@
         "shared": {
             "sendout": {
                 "main": {
-                    "title": "Lista aktualnie działających wysyłek.",
-                    "path": "[📍 Ścieżka: {{menu}} → Wysyłki → *Podgląd*]",
-                    "empty": "Wysyłki nie zostały jeszcze skonfigurowane! Wróć później."
+                    "title": "Lista aktualnie aktywnych rozsyłek.",
+                    "path": "[📍 Ścieżka: {{menu}} → *Rozsyłki*]",
+                    "empty": "Rozsyłki nie są jeszcze skonfigurowane! Wróć później."
                 },
                 "view": {
                     "main": {
-                        "title": "📣 Menu wysyłki «{{call}}»",
-                        "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → *Menu «{{call}}»*]",
+                        "title": "📣 Menu rozsyłki «{{call}}»",
+                        "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → *Menu «{{call}}»*]",
                         "buttons": {
                             "schedule": "🕰️ Harmonogram",
                             "message": "💬 Wiadomości",
                             "statistic": "📈 Statystyki",
                             "owner": "👑 Właściciel",
-                            "call": "🏷️ Nazwa"
+                            "name": "🏷️ Nazwy",
+                            "test": "🎛️ Testowanie"
                         }
+                    },
+                    "test": {
+                        "alert": "Nie można włączyć trybu testowego, w tej chwili rozsyłka jest aktywna!"
                     },
                     "message": {
                         "main": {
                             "error": "Błąd podczas pobierania wiadomości!\nSkontaktuj się z administratorem",
-                            "empty": "Brak wiadomości!\nAby dodać tekst, naciśnij poniższy przycisk",
+                            "empty": "Brak wiadomości!\nAby dodać tekst, kliknij przycisk poniżej",
                             "title": "Menu sekcji Wiadomości. Ilość: {{amount}}",
-                            "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → *Wiadomości*]"
+                            "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → *Wiadomości*]"
                         },
                         "create": {
                             "main": {
                                 "title": "Wybierz typ dodawania tekstu.",
-                                "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → *Tryb dodawania*]",
+                                "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → *Tryb dodawania*]",
                                 "buttons": {
-                                    "generate": "🔮 Generuj",
-                                    "hand": "✍ Ręczny wpis"
+                                    "generate": "🔮 Wygeneruj",
+                                    "hand": "✍ Ręczne wprowadzanie"
                                 }
                             },
                             "generate": {
                                 "title": "Wygeneruję tekst sprzedażowy! \nPrześlij tutaj źródło. Nie można przesyłać paczek tekstów.",
-                                "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → *Generowanie*]",
+                                "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → *Generowanie*]",
                                 "save": "✅ Tekst zapisany!",
-                                "cancel": "❌ Tekst niezapisany!",
+                                "cancel": "❌ Tekst nie zapisany!",
                                 "pathSave": "[📍 Ścieżka: {{menu}} → Menu «{{call}}» → Wiadomości → Generowanie → *Zapisywanie*]",
                                 "pathCancel": "[📍 Ścieżka: {{menu}} → Menu «{{call}}» → Wiadomości → Generowanie → *Anulowanie*]"
                             },
                             "hand": {
                                 "title": "Dodajemy tekst!\nPrześlij tekst lub przekaż go tutaj. Nie można przesyłać paczek tekstów.",
-                                "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → *Dodawanie tekstu*]"
+                                "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → *Dodawanie tekstu*]"
                             }
                         },
                         "clear": {
                             "success": "✅ Wszystkie wiadomości wyczyszczone!",
-                            "error": "❌ Wiadomości nie zostały wyczyszczone!\nSkontaktuj się z administratorem",
-                            "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → *Czyszczenie*]"
+                            "error": "❌ Wiadomości nie wyczyszczone!\nSkontaktuj się z administratorem",
+                            "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → *Czyszczenie*]"
                         },
                         "view": {
                             "main": {
                                 "messageNumber": "Wiadomość nr {{number}}.",
-                                "amountMedia": "Ilość mediów: {{amount}} / {{maxMedia}}.",
-                                "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → *Podgląd*]",
+                                "amountMedia": "Ilość multimediów: {{amount}} / {{maxMedia}}.",
+                                "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → *Widok*]",
                                 "buttons": {
-                                    "updateText": "✍️ Edytuj tekst",
-                                    "addMedia": "🖼 Dodaj media",
-                                    "clearAllMedia": "🗑 Wyczyść media"    
+                                    "updateText": "✍️ Zmień tekst",
+                                    "addMedia": "🖼 Dodaj multimedia",
+                                    "clearAllMedia": "🗑 Wyczyść multimedia"    
                                 }
                             },
                             "text": {
                                 "update": {
                                     "title": "Zmieniamy tekst!\nPrześlij tekst lub przekaż go tutaj. Nie można przesyłać paczek tekstów.",
-                                    "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → *Edycja tekstu*]"
+                                    "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → *Zmiana tekstu*]"
                                 },
                                 "remove": {
                                     "success": "✅ Wiadomość usunięta!",
-                                    "error": "❌ Tekst nie został usunięty!\nSkontaktuj się z administratorem",
-                                    "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → *Usuwanie tekstu*]"
+                                    "error": "❌ Tekst nie usunięty!\nSkontaktuj się z administratorem",
+                                    "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → *Usuwanie tekstu*]"
                                 }
                             },
                             "media": {
                                 "add": {
-                                    "title": "Dodajemy media!\nPrześlij media w ilości 1 sztuki.",
-                                    "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → *Dodawanie mediów*]"
+                                    "title": "Dodajemy multimedia!\nPrześlij multimedia w ilości 1 szt.",
+                                    "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → *Dodawanie multimediów*]"
                                 },
                                 "clearAll": {
-                                    "success": "✅ Wszystkie media wyczyszczone!",
-                                    "error": "❌ Media nie zostały wyczyszczone!\nSkontaktuj się z administratorem",
-                                    "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → *Czyszczenie mediów*]"
+                                    "success": "✅ Wszystkie multimedia wyczyszczone!",
+                                    "error": "❌ Multimedia nie wyczyszczone!\nSkontaktuj się z administratorem",
+                                    "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → *Czyszczenie multimediów*]"
                                 }
                             },
                             "pagination": {
-                                "title": "Szybkie przejście do wiadomości według numeru",
-                                "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → Podgląd → *Wybór wiadomości*]"
+                                "title": "Szybki переход do wiadomości po numerze",
+                                "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → Widok → *Wybór wiadomości*]"
                             }
                         },
                         "export": {
                             "main": {
                                 "title": "Wybierz format, w którym zostanie zapisana lista wiadomości",
-                                "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → *Wybór formatu eksportu*]"
+                                "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → *Wybór formatu eksportu*]"
                             },
                             "result": {
                                 "error": "❌ Błąd podczas eksportu wiadomości\nSkontaktuj się z administratorem",
-                                "caption": "Lista wiadomości w formacie {{exportType}} gotowa!",
-                                "path": "\n[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Wiadomości → *Eksport do {{exportType}}*]"
+                                "caption": "Lista wiadomości w formacie {{exportType}} jest gotowa!",
+                                "path": "\n[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Wiadomości → *Eksport do {{exportType}}*]"
                             }
                         }
                     },
                     "schedule": {
                         "main": {
-                            "empty": "Harmonogram nie został jeszcze skonfigurowany!",
+                            "empty": "Harmonogram nie jest jeszcze skonfigurowany!",
                             "title": "Menu sekcji Harmonogram. Ilość czasów w harmonogramie: {{amount}}",
-                            "path": "\n[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → *Harmonogram*]"
+                            "path": "\n[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → *Harmonogram*]"
                         },
                         "create": {
                             "title": "Dodajemy czas!",
-                            "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Harmonogram → *Dodawanie*]"
+                            "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Harmonogram → *Dodawanie*]"
                         },
                         "clear": {
                             "success": "✅ Harmonogram wyczyszczony!",
-                            "error": "❌ Harmonogram nie został wyczyszczony!\nSkontaktuj się z administratorem",
-                            "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Harmonogram → *Czyszczenie*]"
+                            "error": "❌ Harmonogram nie wyczyszczony!\nSkontaktuj się z administratorem",
+                            "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Harmonogram → *Czyszczenie*]"
                         },
                         "view": {
                             "main": {
-                                "title": "Harmonogram wysyłki przedstawiono poniżej w postaci przycisków.",
-                                "path": "\n[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Harmonogram → *Podgląd*]"
+                                "title": "Harmonogram rozsyłki jest przedstawiony poniżej w postaci przycisków.",
+                                "path": "\n[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Harmonogram → *Widok*]"
                             },
                             "time": {
                                 "update": {
                                     "title": "Zmieniamy czas!",
-                                    "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Harmonogram → Podgląd → *Edycja czasu*]"
+                                    "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Harmonogram → Widok → *Zmiana czasu*]"
                                 },
                                 "remove": {
                                     "success": "✅ Czas usunięty!",
-                                    "error": "❌ Czas nie został usunięty! Skontaktuj się z administratorem",
-                                    "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Harmonogram → Podgląd → *Usuwanie czasu*]"
+                                    "error": "❌ Czas nie usunięty! Skontaktuj się z administratorem",
+                                    "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Harmonogram → Widok → *Usuwanie czasu*]"
                                 },
                                 "updateOrRemove": {
                                     "title": "Wybrany czas:\n→ *{{targetTime}}*.\n",
-                                    "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Harmonogram → Podgląd → *Wybór działania*]"
+                                    "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Harmonogram → Widok → *Wybór akcji*]"
                                 }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Wybierz format, w którym zostanie zapisany harmonogram rozsyłki",
+                                "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Harmonogram → *Wybór formatu eksportu*]"
+                            },
+                            "result": {
+                                "error": "❌ Błąd podczas eksportu harmonogramu\nSkontaktuj się z administratorem",
+                                "caption": "Harmonogram w formacie {{exportType}} jest gotowy!",
+                                "path": "\n[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Harmonogram → *Eksport do {{exportType}}*]"
                             }
                         }
                     },
                     "statistic": {
                         "main": {
                             "title": "Wybierz format żądanych statystyk.",
-                            "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → *Statystyki*]",
+                            "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → *Statystyki*]",
                             "buttons": {
-                                "selective": "📅 Selektywna",
+                                "selective": "📅 Wybiórcza",
                                 "comparative": "📊 Porównawcza"
                             }
                         },
                         "selective": {
                             "main": {
-                                "notDone": "Obecnie nad tą sekcją prowadzone są prace techniczne.",
+                                "notDone": "Obecnie nad tą sekcją trwają prace techniczne.",
                                 "noData": "Nie znaleziono wyniku dla wybranej daty!",
                                 "noAccess": "Naciśnięty przycisk jest niedostępny!",
-                                "title": "Statystyka selektywna.\nPoniżej kalendarz z datami. Aby wyświetlić wynik wysyłki za dany dzień - wystarczy na niego kliknąć!\n\nJeśli wysyłka: \n*nie nastąpiła, \n*nie było, \n*nie zaplanowano, \n*lub coś innego\n- wyświetlona zostanie wiadomość z odpowiednim kontekstem, nie przejmuj się.",
-                                "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Statystyki → *Selektywna*]"
+                                "title": "Statystyka wybiórcza.\nPoniżej znajduje się kalendarz z datami. Aby wyświetlić wynik rozsyłki za dany dzień - po prostu kliknij na niego!\n\nJeśli rozsyłki: \n*nie nastąpiły, \n*nie było, \n*nie zaplanowano, \n*lub inne \n- zostanie wyświetlona wiadomość z odpowiednim kontekstem, nie bój się.",
+                                "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Statystyki → *Wybiórcza*]"
                             },
                             "targetDate": {
                                 "main": {
-                                    "title": "Wynik wysyłki za {{date}}.",
+                                    "title": "Wynik rozsyłki za {{date}}.",
                                     "time": "Czas: {{time}}",
-                                    "success": "Udaných wysyłek: {{success}}",
-                                    "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Statystyki → Selektywna → *{{date}}*]"
+                                    "success": "Udane wysyłki: {{success}}",
+                                    "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Statystyki → Wybiórcza → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "amount":"Ilość: {{amount}}",
-                                    "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Statystyki → Selektywna → {{date}} → *Grupy*]"    
+                                    "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Statystyki → Wybiórcza → {{date}} → *Grupy*]"    
                                 }
                             }
                         },
                         "comparative": {
                             "main": {
                                 "title": "Wybierz typ statystyki porównawczej.",
-                                "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Statystyki → *Porównawcza*]",
+                                "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Statystyki → *Porównawcza*]",
                                 "buttons": {
                                     "week": "Tydzień",
                                     "month": "Miesiąc"
@@ -577,68 +623,75 @@
                             },
                             "week": {
                                 "title": "Statystyka porównawcza. (Tydzień)",
-                                "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Statystyki → Porównawcza → *Tydzień*]"
+                                "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Statystyki → Porównawcza → *Tydzień*]"
                             },
                             "month": {
                                 "title": "Statystyka porównawcza. (Miesiąc)",
-                                "path": "[📍 Ścieżka: {{menu}} → Wysyłki → Podgląd → Menu «{{call}}» → Statystyki → Porównawcza → *Miesiąc*]"
+                                "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Statystyki → Porównawcza → *Miesiąc*]"
                             }
                         }
                     },
                     "owner": {
                         "main": {
-                            "title": "Właściciel wysyłki.",
-                            "empty": "Wysyłka nie ma właściciela!",
+                            "title": "Właściciel rozsyłki.",
+                            "empty": "Rozsyłka nie ma właściciela!",
                             "name": "Imię: {{name}}",
                             "phone": "Telefon: +{{phone}}",
-                            "path": "[📍 Ścieżka: Panel → Wysyłki → Podgląd → Menu «{{call}}» → *Właściciel*]",
+                            "path": "[📍 Ścieżka: Panel → Rozsyłki → Menu «{{call}}» → *Właściciel*]",
                             "buttons": {
-                                "change": "🪧 Przenieś"
+                                "change": "🪧 Przypisz ponownie"
                             }
                         },
                         "update": {
                             "main": {
-                                "title": "Wybierz użytkownika, aby mianować go właścicielem tej wysyłki.",
-                                "path": "[📍 Ścieżka: Panel → Wysyłki → Podgląd → Menu «{{call}}» → Właściciel → *Wybór*]",
+                                "title": "Wybierz użytkownika, aby przypisać go jako właściciela tej rozsyłki.",
+                                "path": "[📍 Ścieżka: Panel → Rozsyłki → Menu «{{call}}» → Właściciel → *Wybór*]",
                                 "noOwner": "Bez właściciela"
                             },
                             "action": {
-                                "success": "✅ Właściciel pomyślnie przeniesiony!",
-                                "error": "❌ Właściciel nie został przeniesiony! \nSpróbuj później!",
-                                "path": "[📍 Ścieżka: Panel → Wysyłki → Podgląd → Menu «{{call}}» → Właściciel → {{owner}} → *Nadanie*]"
+                                "success": "✅ Właściciel pomyślnie przypisany ponownie!",
+                                "error": "❌ Właściciel nie przypisany ponownie! \nSpróbuj później!",
+                                "path": "[📍 Ścieżka: Panel → Rozsyłki → Menu «{{call}}» → Właściciel → {{owner}} → *Przypisanie*]"
                             }
                         }
                     },
-                    "call": {
+                    "name": {
                         "main": {
-                            "title": "Nazwa (znak wywoławczy) wysyłki: {{call}}",
-                            "empty": "Wysyłka nie ma nazwy!",
-                            "path": "[📍 Ścieżka: Panel → Wysyłki → Podgląd → Menu «{{call}}» → *Nazwa*]"
+                            "title": "Nazwy rozsyłki:",
+                            "about": "1 - podpis (stara nazwa)\n2 - nazwa jednostki\n3 - kryptonim (wyświetlana nazwa w bocie)",
+                            "path": "[📍 Ścieżka: Panel → Rozsyłki → Menu «{{call}}» → *Nazwy*]"
                         },
                         "update": {
-                            "title": "Zmieniamy znak wywoławczy wysyłki! Prześlij nową nazwę wysyłki.",
-                            "path": "[📍 Ścieżka: Panel → Wysyłki → Podgląd → Menu «{{call}}» → Nazwa → *Aktualizacja*]"
+                            "call": {
+                                "title": "Zmieniamy kryptonim rozsyłki!",
+                                "path": "[📍 Ścieżka: Panel → Rozsyłki → Menu «{{call}}» → Nazwy → Kryptonim → *Aktualizacja*]"
+                            },
+                            "label": {
+                                "alert": "Nie można zmienić podpisu rozsyłki!"
+                            },
+                            "name": {
+                                "alert": "Nie można zmienić nazwy rozsyłki!"
+                            }
                         }
                     }
                 }
             },
             "contract": {
                 "main": {
-                    "title": "Zarządzanie umowami",
-                    "amount": "Ilość: {{amount}}",
+                    "title": "Zarządzanie umowami. Ilość: {{amount}}",
                     "path": "[📍 Ścieżka: {{menu}} → *Umowy*]",
-                    "empty": "Umowy nie zostały jeszcze skonfigurowane! Wróć później.",
+                    "empty": "Umowy nie są jeszcze skonfigurowane! Wróć później.",
                     "contractName": "{{userName}}: od {{dateStart}}"
                 },
                 "view": {
                     "main": {
                         "title": "Lista umów.",
-                        "path": "[📍 Ścieżka: {{menu}} → Umowy → *Podgląd*]"
+                        "path": "[📍 Ścieżka: {{menu}} → Umowy → *Widok*]"
                     },
                     "contract": {
                         "main": {
-                            "title": "Umowa z {{dateStart}}.",
-                            "sendouts": "Wysyłki objęte umową: {{sendouts}}",
+                            "title": "Umowa od {{dateStart}}.",
+                            "sendouts": "Rozsyłki objęte umową: {{sendouts}}",
                             "noSendouts": "pusto.",
                             "userName": "Klient: {{userName}}",
                             "dateStart": "Data rozpoczęcia: {{dateStart}}",
@@ -646,41 +699,37 @@
                             "price": "Koszt: {{price}}",
                             "priceText": "Koszt (tekst): {{priceText}}",
                             "error": "Błąd podczas pobierania umowy. Skontaktuj się z administratorem",
-                            "path": "\n[📍 Ścieżka: {{menu}} → Umowy → Podgląd → *{{dateStart}}*]"
+                            "path": "\n[📍 Ścieżka: {{menu}} → Umowy → Widok → *{{dateStart}}*]"
                         },
                         "remove": {
-                            "success":"✅ Umowa pomyślnie usunięta!",
-                            "error": "❌ Umowa nie została usunięta!\nSpróbuj później",
-                            "path": "[📍 Ścieżka: Panel → Umowy → Podgląd → {{dateStart}} → *Usunięcie*]"
-                        },
-                        "create": {
-                            "step": "Krok: {{number}} / 3",
-                            "noUser": "Aby przejść do kroku nr 2, należy wykonać krok nr 1!",
-                            "noSendouts": "Aby przejść do kroku nr 3, należy wykonać krok nr 2!",
-                            "noFreeSendouts": "Klient nie ma wolnych wysyłek (nieobjętych umową)!",
-                            "data": {
-                                "user": "Wybierz użytkownika, na którego zostanie sporządzona umowa",
-                                "sendout": "Wybierz wysyłki, które zostaną objęte umową",
-                                "contract": "Prześlij dane dotyczące umowy"
-                            },
-                            "title": "Tworzymy umowę! Zapoznaj się z instrukcją poprawnego tworzenia.",
-                            "path": "[📍 Ścieżka: Panel → Umowy → *Tworzenie*]"
+                            "success": "✅ Umowa pomyślnie usunięta!",
+                            "error": "❌ Umowa nie usunięta!\nSpróbuj później",
+                            "path": "[📍 Ścieżka: Panel → Umowy → Widok → {{dateStart}} → *Usuwanie*]"
                         },
                         "export": {
                             "main": {
                                 "title": "Wybierz format, w którym zostanie zapisana umowa",
-                                "path": "[📍 Ścieżka: {{menu}} → Umowy → Podgląd → {{dateStart}} → *Wybór formatu eksportu*]"
+                                "path": "[📍 Ścieżka: {{menu}} → Umowy → Widok → {{dateStart}} → *Wybór formatu eksportu*]"
                             },
                             "result": {
                                 "error": "❌ Błąd podczas eksportu umowy\nSkontaktuj się z administratorem",
-                                "caption": "Umowa w formacie {{exportType}} gotowa!",
-                                "path": "\n[📍 Ścieżka: {{menu}} → Umowy → Podgląd → {{dateStart}} → *Eksport do {{exportType}}*]"
+                                "caption": "Umowa w formacie {{exportType}} jest gotowa!",
+                                "path": "\n[📍 Ścieżka: {{menu}} → Umowy → Widok → {{dateStart}} → *Eksport do {{exportType}}*]"
                             }
                         }
                     }
                 },
                 "create": {
-                    "title": "Tworzymy umowę! Przed rozpoczęciem zapoznaj się z instrukcją poprawnego tworzenia.",
+                    "step": "Krok: {{number}} / 3",
+                    "noUser": "Aby przejść do kroku nr 2, należy wykonać krok nr 1!",
+                    "noSendouts": "Aby przejść do kroku nr 3, należy wykonać krok nr 2!",
+                    "noFreeSendouts": "Klient nie ma wolnych rozsyłek (leżących bez umowy)!",
+                    "data": {
+                        "user": "Wybierz użytkownika, na którego zostanie sporządzona umowa",
+                        "sendout": "Wybierz rozsyłki, które zostaną objęte umową",
+                        "contract": "Prześlij dane dotyczące umowy"
+                    },
+                    "title": "Tworzymy umowę!",
                     "path": "[📍 Ścieżka: Panel → Umowy → *Tworzenie*]"
                 }
             }

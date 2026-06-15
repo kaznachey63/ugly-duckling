@@ -2,15 +2,17 @@
     "utils": {
         "shared": {
             "processing": "⏳ Processing...",
-            "cabinet": "🪴 Personal Cabinet",
+            "cabinet": "🪴 Personal cabinet",
+            "panel": "👨‍💻 Admin panel",
+            "nameless": "Nameless",
             "buttons": {
                 "export": "📧 Export",
-                "nameless": "Nameless",
                 "back": "🔙 Back",
-                "remove": "🗑 Delete",
+                "remove": "🗑 Remove",
                 "miss": "Missing",
                 "create": "➕ Create",
-                "update": "✍ Edit",
+                "update": "✍ Update",
+                "instruction": "📖 Instruction",
                 "clear": "🗑 Clear",
                 "view": "👁 View",
                 "contract": "📜 Contracts",
@@ -23,7 +25,12 @@
                 "cabinet": "Cabinet",
                 "panel": "Panel → Data",
                 "amount": "Count: {{amount}}",
-                "sendoutActive": "The mailing is currently active, please try to manage data later"
+                "sendoutActive": "The mailing is currently active, please try to manage data later",
+                "accessDenied": {
+                    "all": "Access denied. Please authorize first using /auth command",
+                    "admin": "Access denied. This section is for customers",
+                    "customer": "Access denied. This section is for administrators"
+                }
             }
         },
         "maintenace": "🚧 Maintenance is currently underway. Service usage is temporarily limited.\nWe'll let you know as soon as we're done!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
@@ -31,12 +38,6 @@
             "admin": "Administrator",
             "customer": "Customer",
             "unknown": "Unknown"
-        },
-        "languages": {
-            "ru": "Russian",
-            "zh": "Chinese",
-            "en": "English",
-            "sr": "Serbian"
         },
         "commands": {
             "cabinet": "Cabinet",
@@ -47,7 +48,7 @@
             "labelMonth": "Statistics of groups that received the mailing. {{month}} {{year}}",
             "labelWeek": "Statistics of groups that received the mailing. Week",
             "amountSms": "Number of messages",
-            "noLogs": "No mailing has occurred in the selected period yet!",
+            "noLogs": "No mailing has occurred in the selected period!",
             "daysOfWeek": {
                 "Mon": "Mon",
                 "Tue": "Tue",
@@ -101,23 +102,49 @@
             "bot": "Bot",
             "parser": "Parser",
             "sendout": "Mailings"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Schedule",
+                "message": "Messages",
+                "contract": "Contract"
+            },
+            "text": "Export",
+            "from": "from"
+        },
+        "localization": {
+            "schedule": {
+                "number": "day",
+                "everyDay": "Every day",
+                "unknownDay": "Unknown day",
+                "dayWeek": {
+                    "1": "Monday",
+                    "2": "Tuesday",
+                    "3": "Wednesday",
+                    "4": "Thursday",
+                    "5": "Friday",
+                    "6": "Saturday",
+                    "7": "Sunday",
+                    "*": "Every day"
+                }
+            }
         }
     },
     "handlers": {
         "events": {
             "contact": {
-                "numberIsNull": "Error processing the phone number!\nTry again!",
-                "accessDenied": "Access denied. To use the mailing service, use the command '/settings', section 'Help'"
+                "numberIsNull": "Error processing phone number!\nTry again!",
+                "accessDenied": "Access denied. To use the mailing service, use the '/settings' command, 'Help' section"
             }
         },
         "states": {
             "addingText": {
                 "success": "✅ Text saved!",
                 "error": "❌ Text not saved!\nContact the administrator",
-                "path": "[📍 Path: {{menu}} → Menu «{{call}}» → Messages → *Adding text*]"
+                "path": "[📍 Path: {{menu}} → Menu «{{call}}» → Messages → *Create text*]"
             },
             "generatingText": {
-                "result": "The generated message is shown below.\nUse the buttons under the messages to decide the fate of the text.",
+                "result": "The generated message is below. Use the buttons under the messages to decide the fate of the text.",
                 "pathChoose": "[📍 Path: {{menu}} → Menu «{{call}}» → Messages → Text generation → *Text fate*]",
                 "buttons": {
                     "save": "✔ Save",
@@ -125,71 +152,96 @@
                 }
             },
             "updatingText": {
-                "success": "✅ Text edited!",
-                "error": "❌ Text not edited!\nContact the administrator",
-                "path": "[📍 Path: {{menu}} → Menu «{{call}}» → Messages → *Editing text*]"
+                "success": "✅ Text updated!",
+                "error": "❌ Text not updated!\nContact the administrator",
+                "path": "[📍 Path: {{menu}} → Menu «{{call}}» → Messages → *Update text*]"
             },
             "addingMedia": {
                 "error": "💀 Error saving media!\nContact the administrator",
                 "invalidType": "Media type not recognized! Try again",
-                "bigSize": "File is too large. Maximum size {{size}} MB.",
+                "bigSize": "File too large. Maximum size {{size}} MB.",
                 "documentsWTMedia": "I cannot process documents that do not contain: photo / video / gif",
                 "success": "✅ Media saved!",
                 "error2": "❌ Media not saved!\nContact the administrator",
-                "path": "[📍 Path: {{menu}} → Menu «{{call}}» → Messages → *Adding media*]"
+                "path": "[📍 Path: {{menu}} → Menu «{{call}}» → Messages → *Add media*]",
+                "amount": "Number of media in message: {{now}} of {{all}}"
             },
             "addingTime": {
                 "success": "✅ Time saved!",
-                "error": "❌ Time not edited!\nContact the administrator",
-                "path": "[📍 Path: Panel → Menu «{{call}}» → Schedule → View → *Adding*]"
+                "error": "❌ Time not updated!\nContact the administrator",
+                "path": "[📍 Path: Panel → Menu «{{call}}» → Schedule → View → *Add*]"
             },
             "updatingTime": {
-                "success": "✅ Time edited!",
-                "error": "❌ Time not edited!\nContact the administrator",
-                "path": "[📍 Path: Panel → Menu «{{call}}» → Schedule → View → *Editing*]"
+                "success": "✅ Time updated!",
+                "error": "❌ Time not updated!\nContact the administrator",
+                "path": "[📍 Path: Panel → Menu «{{call}}» → Schedule → View → *Update*]"
             },
             "addingIdea": {
                 "success": "✅ Idea successfully added, thanks!",
                 "error": "❌ Idea not added!\nTry again or contact the administrator!",
-                "path": "[📍 Path: Settings → Ideas → *Adding*]"
+                "path": "[📍 Path: Settings → Ideas → *Add*]"
             },
             "addingUser": {
                 "success": "✅ User successfully created!",
                 "error": "❌ User not created!\nTry again later.",
-                "path": "[📍 Path: Panel → Data → Users → *Creation*]"
+                "path": "[📍 Path: Panel → Data → Users → *Create*]"
             },
             "addingContract": {
                 "success": "✅ Contract successfully created!",
                 "error": "❌ Contract not created!\nTry again later.",
-                "path": "[📍 Path: Panel → Contracts → *Creation*]"
+                "path": "[📍 Path: Panel → Contracts → *Create*]"
             },
             "updatingSendoutCall": {
                 "success": "✅ Callsign successfully updated!",
                 "error": "❌ Callsign not updated!\nTry again later.",
-                "path": "[📍 Path: Panel → Mailings → View → Menu «{{call}}» → Name → *Update*]"
+                "path": "[📍 Path: Panel → Mailings → Menu «{{call}}» → Names → Callsign → *Update*]"
             },
             "updatingUserName": {
                 "success": "✅ Name successfully updated!",
                 "error": "❌ Name not updated!\nTry again later.",
-                "path": "[📍 Path: Panel → Data → Users → View → {{userName}} → *Editing name*]"
+                "path": "[📍 Path: Panel → Data → Users → View → {{userName}} → *Update name*]"
             },
             "updatingUserPhone": {
                 "success": "✅ Phone successfully updated!",
                 "error": "❌ Phone not updated!\nTry again later.",
-                "path": "[📍 Path: Panel → Data → Users → View → {{userName}} → *Editing phone number*]"
+                "path": "[📍 Path: Panel → Data → Users → View → {{userName}} → *Update phone*]"
             }
         }
     },
     "modules": {
         "commands": {
             "start": {
-                "title": "Welcome! I am a Telegram bot, an assistant for mailings.\n\nI strongly recommend that you familiarize yourself with the entire list of my commands by pressing the oval 'Menu' button in the lower left corner of the screen.\nAfter reading the instructions, which are invoked by the command '/settings', in the 'About the bot' section."
+                "title": "☀ Hello! I am the Telegram bot Ugly Duckling, an assistant for mailings.",
+                "commands": "Below is a brief description of commands to interact with me:\n/start - activate bot and command list\n/auth - authorization\n/cabinet - manage personal cabinet\n/settings - manage bot settings",
+                "uAdmin": "❓ Are you an administrator?\n/panel - admin panel",
+                "link": "You can read more detailed instructions on how to control me using the button below."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Cancel",
+                        "phone": "📞 Share",
+                        "again": "🔄 Try again"
+                    },
+                    "unknownMessage": "Action not recognized, please try again using the buttons: '📞 Share' and '❌ Cancel'",
+                    "manyAttempts": "Number of authorization attempts used before the one-hour limit: {{actualAttempts}} of {{maxAttempts}}",
+                    "stop": "Authorization is restricted. Restrictions will be lifted after: {{dateTime}}",
+                    "canceled": "Authorization successfully stopped!",
+                    "title": "To enter the mailing panel, you need to share your phone number with me.\n\nThe button should appear next to the keyboard with the text '📞 Share'",
+                    "good": "You have successfully logged into the system!",
+                    "already": "You are already logged into the system!",
+                    "bad": "Error during authorization. Contact the administrator!"
+                },
+                "logout": {
+                    "good": "You have successfully logged out. Your data has been erased!",
+                    "bad": "Error while logging out. Contact the administrator!"
+                }
             },
             "settings": {
                 "main": {
                     "title": "⚙️ Settings",
                     "buttons": {
-                        "about": "ℹ About the Service",
+                        "about": "ℹ About Service",
                         "help": "❓ Help",
                         "idea": "💡 Ideas",
                         "language": "🌐 Language"
@@ -197,7 +249,7 @@
                 },
                 "language": {
                     "main": {
-                        "title": "Select a language.",
+                        "title": "Select language.",
                         "path": "[📍 Path: Settings → *Language*]"
                     },
                     "change": {
@@ -206,66 +258,42 @@
                     }
                 },
                 "help": {
-                    "title": "Facing a problem?\nHave questions?\nWant to praise the service?\nHave ideas for improving the service?",
-                    "interest": "Or interested in the product?\nFill out the form below and we will contact you!",
+                    "title": "Encountered a problem?\nHave questions?\nWant to praise the service?\nHave ideas for improvement?",
+                    "interest": "Or are you interested in the product?\nFill out the form below and we will contact you!",
                     "path": "[📍 Path: Settings → *Help*]"
                 },
                 "about": {
-                    "title": "The service is designed to automate advertising (posts, mailings) of your products (offers) within groups / chats / channels.\n\nInstructions for using the bot - via the button below!",
-                    "instruction": "📖 Instructions",
-                    "path": "[📍 Path: Settings → *About the service*]"
+                    "title": "The service is designed to automate advertising (posts, mailings) of your products (offers) within groups / chats / channels.\n\nInstructions for using the Bot are below!",
+                    "path": "[📍 Path: Settings → *About service*]"
                 },
                 "idea": {
                     "main": {
-                        "title": "Ideas section menu. \nHere you can propose your idea for the development of the service.",
+                        "title": "Ideas section menu. Here you can suggest your idea for the development of the service",
                         "path": "[📍 Path: Settings → *Ideas*]",
                         "buttons": {
-                            "add": "🗳 Propose",
+                            "add": "🗳 Suggest",
                             "see": "🔍 Explore"
                         }
                     },
                     "add": {
                         "title": "Send me media/audio/text, etc. No limits!",
-                        "path": "[📍 Path: Settings → Ideas → *Adding*]"
+                        "path": "[📍 Path: Settings → Ideas → *Add*]"
                     }
                 }
             },
             "cabinet": {
                 "main": {
-                    "buttons": {                        
+                    "buttons": {
                         "logout": "🚪 Logout",
                         "login": "🔑 Login"
-                    }
-                },
-                "auth": {
-                    "login": {
-                        "buttons": {
-                            "cancel": "❌ Cancel",
-                            "phone": "📞 Share"
-                        },
-                        "unknownMessage": "Action not recognized, please try using the buttons: 'Share' and 'Cancel' again",
-                        "manyAttempts": "Number of authentication attempts used before the one-hour limit: {{actualAttempts}} out of {{maxAttempts}}",
-                        "stop": "Authorization is limited. Restrictions will be lifted after: {{dateTime}}",
-                        "canceled": "Authorization successfully stopped!",
-                        "title": "To log in to the mailing panel, you need to share your phone number with me.\n\nThe button should appear next to the keyboard, labeled '📞 Share'.",
-                        "good": "You have successfully logged into the system!",
-                        "already": "You are already logged into the system!",
-                        "bad": "Error logging into the system.\nContact the administrator!",
-                        "path": "[📍 Path: Cabinet → *Authorization*"
-                    },
-                    "logout": {
-                        "good": "You have successfully logged out of the system. Your data has been erased!",
-                        "bad": "Error logging out of the system.\nContact the administrator!",
-                        "path": "[📍 Path: Cabinet → *Logout*]"
                     }
                 }
             },
             "panel": {
                 "main": {
-                    "title": "👨‍💻 Admin Panel",
                     "buttons": {
                         "data": "🗂 Data",
-                        "system": "⚡ System "
+                        "system": "⚡ System"
                     }
                 },
                 "data": {
@@ -278,8 +306,7 @@
                     },
                     "chat": {
                         "main": {
-                            "title": "Group management",
-                            "amount": "Count: {{amount}}",
+                            "title": "Manage groups. Count: {{amount}}",
                             "path": "[📍 Path: Panel → Data → *Groups*]",
                             "buttons": {
                                 "reupload": "🔁 Refresh"
@@ -287,19 +314,18 @@
                         },
                         "reupload": {
                             "success": "✅ Groups updated!",
-                            "error": "❌ Error updating groups.\nContact the administrator",
-                            "path": "[📍 Path: Panel → Data → Groups → *Update*]"
+                            "error": "❌ Error updating groups\nContact the administrator",
+                            "path": "[📍 Path: Panel → Data → Groups → *Refresh*]"
                         },
                         "clear": {
                             "success": "✅ Groups cleared!",
-                            "error": "❌ Error clearing groups.\nContact the administrator",
+                            "error": "❌ Error clearing groups\nContact the administrator",
                             "path": "[📍 Path: Panel → Data → Groups → *Clear*]"
                         }
                     },
                     "user": {
                         "main": {
-                            "title": "User management",
-                            "amount": "Count: {{amount}}",
+                            "title": "Manage users. Count: {{amount}}",
                             "path": "[📍 Path: Panel → Data → *Users*]"
                         },
                         "view": {
@@ -309,7 +335,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "User management",
+                                    "title": "Manage user",
                                     "path": "[📍 Path: Panel → Data → Users → View → *{{userName}}*]",
                                     "telegramId": "Tg ID: {{telegramId}}",
                                     "name": "Name: {{name}}",
@@ -319,26 +345,26 @@
                                     "role": "Role: {{role}}"
                                 },
                                 "remove": {
-                                    "success":"✅ User successfully deleted!",
+                                    "success": "✅ User successfully deleted!",
                                     "error": "❌ User not deleted!\nTry again later",
                                     "path": "[📍 Path: Panel → Data → Users → View → {{userName}} → *Delete*]"
                                 },
                                 "update": {
                                     "phone": {
-                                        "title": "Changing phone number!\nSend it here.",
-                                        "path": "[📍 Path: Panel → Data → Users → View → {{userName}} → *Editing phone number*]"
+                                        "title": "Changing phone!\nSend it here.",
+                                        "path": "[📍 Path: Panel → Data → Users → View → {{userName}} → *Update phone*]"
                                     },
                                     "name": {
                                         "title": "Changing name!\nSend it here.",
-                                        "path": "[📍 Path: Panel → Data → Users → View → {{userName}} → *Editing name*]"
+                                        "path": "[📍 Path: Panel → Data → Users → View → {{userName}} → *Update name*]"
                                     }
                                 }
                             }
                         },
                         "create": {
-                            "title": "Creating a user! Before starting, read the instructions for proper creation.",
-                            "path": "[📍 Path: Panel → Data → Users → *Creation*]"
-                        }   
+                            "title": "Creating a user!",
+                            "path": "[📍 Path: Panel → Data → Users → *Create*]"
+                        }
                     }
                 },
                 "system": {
@@ -366,7 +392,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Process management",
+                                    "title": "Manage process",
                                     "path": "[📍 Path: Panel → System → Server → {{processType}} → *{{processName}}*]",
                                     "buttons": {
                                         "condition": "🩻 Status",
@@ -378,8 +404,8 @@
                                     "status": {
                                         "active": "✅ Process is active.\nTo stop, press the button below",
                                         "inactive": "❌ Process is inactive.\nTo start, press the button below",
-                                        "failed": "💀 Process has died.\nContact the programmer.",
-                                        "error": "Problem with the process. Contact the programmer."
+                                        "failed": "❌ Process is inactive.\nTo start, press the button below",
+                                        "error": "Process issue. Contact the programmer."
                                     },
                                     "buttons": {
                                         "stop": "🛑 Stop",
@@ -406,146 +432,161 @@
             "sendout": {
                 "main": {
                     "title": "List of active mailings at the moment.",
-                    "path": "[📍 Path: {{menu}} → Mailings → *View*]",
-                    "empty": "No mailings have been set up yet! Come back later."
+                    "path": "[📍 Path: {{menu}} → *Mailings*]",
+                    "empty": "No mailings configured yet! Come back later."
                 },
                 "view": {
                     "main": {
                         "title": "📣 Mailing menu «{{call}}»",
-                        "path": "[📍 Path: {{menu}} → Mailings → View → *Menu «{{call}}»*]",
+                        "path": "[📍 Path: {{menu}} → Mailings → *Menu «{{call}}»*]",
                         "buttons": {
                             "schedule": "🕰️ Schedule",
                             "message": "💬 Messages",
                             "statistic": "📈 Statistics",
                             "owner": "👑 Owner",
-                            "call": "🏷️ Name"
+                            "name": "🏷️ Names",
+                            "test": "🎛️ Testing"
                         }
+                    },
+                    "test": {
+                        "alert": "Cannot enable testing mode while the mailing is active!"
                     },
                     "message": {
                         "main": {
-                            "error": "Error receiving messages!\nContact the administrator",
-                            "empty": "No messages!\nTo add a text, press the button below",
+                            "error": "Error retrieving messages!\nContact the administrator",
+                            "empty": "No messages!\nTo add text, press the button below",
                             "title": "Messages section menu. Count: {{amount}}",
-                            "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → *Messages*]"
+                            "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → *Messages*]"
                         },
                         "create": {
                             "main": {
-                                "title": "Select the type of text addition.",
-                                "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → *Addition mode*]",
+                                "title": "Select the text addition mode.",
+                                "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → *Add mode*]",
                                 "buttons": {
                                     "generate": "🔮 Generate",
                                     "hand": "✍ Manual input"
                                 }
                             },
                             "generate": {
-                                "title": "I will generate a sales text! \nSend the source here. No batch of texts.",
-                                "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → *Generation*]",
+                                "title": "I will generate selling text! Send the source here. No batches of texts.",
+                                "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → *Generation*]",
                                 "save": "✅ Text saved!",
                                 "cancel": "❌ Text not saved!",
-                                "pathSave": "[📍 Path: {{menu}} → Menu «{{call}}» → Messages → Generation → *Saving*]",
+                                "pathSave": "[📍 Path: {{menu}} → Menu «{{call}}» → Messages → Generation → *Save*]",
                                 "pathCancel": "[📍 Path: {{menu}} → Menu «{{call}}» → Messages → Generation → *Cancel*]"
                             },
                             "hand": {
-                                "title": "Adding text!\nSend the text or forward it here. No batch of texts.",
-                                "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → *Adding text*]"
+                                "title": "Adding text!\nSend text or forward it here. No batches of texts.",
+                                "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → *Add text*]"
                             }
                         },
                         "clear": {
                             "success": "✅ All messages cleared!",
                             "error": "❌ Messages not cleared!\nContact the administrator",
-                            "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → *Clear*]"
+                            "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → *Clear*]"
                         },
                         "view": {
                             "main": {
-                                "messageNumber": "Message No. {{number}}.",
+                                "messageNumber": "Message №{{number}}.",
                                 "amountMedia": "Media count: {{amount}} / {{maxMedia}}.",
-                                "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → *View*]",
+                                "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → *View*]",
                                 "buttons": {
-                                    "updateText": "✍️ Edit text",
+                                    "updateText": "✍️ Update text",
                                     "addMedia": "🖼 Add media",
-                                    "clearAllMedia": "🗑 Clear media"    
+                                    "clearAllMedia": "🗑 Clear media"
                                 }
                             },
                             "text": {
                                 "update": {
-                                    "title": "Editing text!\nSend the text or forward it here. No batch of texts.",
-                                    "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → *Editing text*]"
+                                    "title": "Updating text!\nSend text or forward it here. No batches of texts.",
+                                    "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → *Update text*]"
                                 },
                                 "remove": {
                                     "success": "✅ Message deleted!",
                                     "error": "❌ Text not deleted!\nContact the administrator",
-                                    "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → *Deleting text*]"
+                                    "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → *Delete text*]"
                                 }
                             },
                             "media": {
                                 "add": {
-                                    "title": "Adding media!\nSend media in a quantity of 1 piece.",
-                                    "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → *Adding media*]"
+                                    "title": "Adding media!\nSend media one piece at a time.",
+                                    "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → *Add media*]"
                                 },
                                 "clearAll": {
                                     "success": "✅ All media cleared!",
                                     "error": "❌ Media not cleared!\nContact the administrator",
-                                    "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → *Clearing media*]"
+                                    "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → *Clear media*]"
                                 }
                             },
                             "pagination": {
-                                "title": "Quick jump to a message by number",
-                                "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → View → *Select message*]"
+                                "title": "Quick jump to message by number",
+                                "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → View → *Select message*]"
                             }
                         },
                         "export": {
                             "main": {
                                 "title": "Select the format in which the message list will be saved",
-                                "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → *Export format selection*]"
+                                "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → *Export format selection*]"
                             },
                             "result": {
                                 "error": "❌ Error exporting messages\nContact the administrator",
                                 "caption": "Message list in {{exportType}} format is ready!",
-                                "path": "\n[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Messages → *Export to {{exportType}}*]"
+                                "path": "\n[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Messages → *Export to {{exportType}}*]"
                             }
                         }
                     },
                     "schedule": {
                         "main": {
-                            "empty": "Schedule not set yet!",
+                            "empty": "Schedule not configured yet!",
                             "title": "Schedule section menu. Number of times in schedule: {{amount}}",
-                            "path": "\n[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → *Schedule*]"
+                            "path": "\n[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → *Schedule*]"
                         },
                         "create": {
                             "title": "Adding time!",
-                            "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Schedule → *Adding*]"
+                            "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Schedule → *Add*]"
                         },
                         "clear": {
                             "success": "✅ Schedule cleared!",
                             "error": "❌ Schedule not cleared!\nContact the administrator",
-                            "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Schedule → *Clear*]"
+                            "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Schedule → *Clear*]"
                         },
                         "view": {
                             "main": {
                                 "title": "The mailing schedule is presented below as buttons.",
-                                "path": "\n[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Schedule → *View*]"
+                                "path": "\n[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Schedule → *View*]"
                             },
                             "time": {
                                 "update": {
-                                    "title": "Editing time!",
-                                    "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Schedule → View → *Editing time*]"
+                                    "title": "Updating time!",
+                                    "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Schedule → View → *Update time*]"
                                 },
                                 "remove": {
                                     "success": "✅ Time deleted!",
-                                    "error": "❌ Time not deleted!\nContact the administrator",
-                                    "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Schedule → View → *Deleting time*]"
+                                    "error": "❌ Time not deleted! Contact the administrator",
+                                    "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Schedule → View → *Delete time*]"
                                 },
                                 "updateOrRemove": {
                                     "title": "Selected time:\n→ *{{targetTime}}*.\n",
-                                    "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Schedule → View → *Action selection*]"
+                                    "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Schedule → View → *Select action*]"
                                 }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Select the format in which the mailing schedule will be saved",
+                                "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Schedule → *Export format selection*]"
+                            },
+                            "result": {
+                                "error": "❌ Error exporting schedule\nContact the administrator",
+                                "caption": "Schedule in {{exportType}} format is ready!",
+                                "path": "\n[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Schedule → *Export to {{exportType}}*]"
                             }
                         }
                     },
                     "statistic": {
                         "main": {
-                            "title": "Select the format of the desired statistics.",
-                            "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → *Statistics*]",
+                            "title": "Select the desired statistics format.",
+                            "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → *Statistics*]",
                             "buttons": {
                                 "selective": "📅 Selective",
                                 "comparative": "📊 Comparative"
@@ -556,26 +597,25 @@
                                 "notDone": "Maintenance is currently underway on this section.",
                                 "noData": "No result found for the selected date!",
                                 "noAccess": "The pressed button is unavailable!",
-                                "title": "Selective statistics.\nBelow is a calendar with dates. To view the result of the mailing for a particular day, just click on it!\n\nIf the mailing: \n*did not happen, \n*was not, \n*is not scheduled, \n*or something else \n- a message with the corresponding context will be displayed, don't be alarmed.",
-                                "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Statistics → *Selective*]"
+                                "title": "Selective statistics.\nBelow is a calendar with dates. To view the result of the mailing for a particular day, just click on it!\n\nIf the mailing:\n*did not happen,\n*was not,\n*was not scheduled,\n*or something else\n- a message with the appropriate context will be displayed, don't be alarmed.",
+                                "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Statistics → *Selective*]"
                             },
                             "targetDate": {
                                 "main": {
                                     "title": "Mailing result for {{date}}.",
                                     "time": "Time: {{time}}",
                                     "success": "Successful sends: {{success}}",
-                                    "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Statistics → Selective → *{{date}}*]"
+                                    "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Statistics → Selective → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "amount":"Count: {{amount}}",
-                                    "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Statistics → Selective → {{date}} → *Groups*]"    
+                                    "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Statistics → Selective → {{date}} → *Groups*]"
                                 }
                             }
                         },
                         "comparative": {
                             "main": {
                                 "title": "Select the type of comparative statistics.",
-                                "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Statistics → *Comparative*]",
+                                "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Statistics → *Comparative*]",
                                 "buttons": {
                                     "week": "Week",
                                     "month": "Month"
@@ -583,11 +623,11 @@
                             },
                             "week": {
                                 "title": "Comparative statistics. (Week)",
-                                "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Statistics → Comparative → *Week*]"
+                                "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Statistics → Comparative → *Week*]"
                             },
                             "month": {
                                 "title": "Comparative statistics. (Month)",
-                                "path": "[📍 Path: {{menu}} → Mailings → View → Menu «{{call}}» → Statistics → Comparative → *Month*]"
+                                "path": "[📍 Path: {{menu}} → Mailings → Menu «{{call}}» → Statistics → Comparative → *Month*]"
                             }
                         }
                     },
@@ -597,7 +637,7 @@
                             "empty": "The mailing has no owner!",
                             "name": "Name: {{name}}",
                             "phone": "Phone: +{{phone}}",
-                            "path": "[📍 Path: Panel → Mailings → View → Menu «{{call}}» → *Owner*]",
+                            "path": "[📍 Path: Panel → Mailings → Menu «{{call}}» → *Owner*]",
                             "buttons": {
                                 "change": "🪧 Reassign"
                             }
@@ -605,35 +645,42 @@
                         "update": {
                             "main": {
                                 "title": "Select a user to assign as the owner of this mailing.",
-                                "path": "[📍 Path: Panel → Mailings → View → Menu «{{call}}» → Owner → *Selection*]",
-                                "noOwner": "Without owner"
+                                "path": "[📍 Path: Panel → Mailings → Menu «{{call}}» → Owner → *Select*]",
+                                "noOwner": "No owner"
                             },
                             "action": {
                                 "success": "✅ Owner successfully reassigned!",
-                                "error": "❌ Owner not reassigned!\nTry again later!",
-                                "path": "[📍 Path: Panel → Mailings → View → Menu «{{call}}» → Owner → {{owner}} → *Assignment*]"
+                                "error": "❌ Owner not reassigned! \nTry again later!",
+                                "path": "[📍 Path: Panel → Mailings → Menu «{{call}}» → Owner → {{owner}} → *Assign*]"
                             }
                         }
                     },
-                    "call": {
+                    "name": {
                         "main": {
-                            "title": "Mailing name (callsign): {{call}}",
-                            "empty": "The mailing has no name!",
-                            "path": "[📍 Path: Panel → Mailings → View → Menu «{{call}}» → *Name*]"
+                            "title": "Mailing names:",
+                            "about": "1 - signature (old naming)\n2 - entity name\n3 - callsign (display name in bot)",
+                            "path": "[📍 Path: Panel → Mailings → Menu «{{call}}» → *Names*]"
                         },
                         "update": {
-                            "title": "Changing the mailing callsign! Send the new mailing name.",
-                            "path": "[📍 Path: Panel → Mailings → View → Menu «{{call}}» → Name → *Update*]"
+                            "call": {
+                                "title": "Changing mailing callsign!",
+                                "path": "[📍 Path: Panel → Mailings → Menu «{{call}}» → Names → Callsign → *Update*]"
+                            },
+                            "label": {
+                                "alert": "Mailing signature cannot be changed!"
+                            },
+                            "name": {
+                                "alert": "Mailing name cannot be changed!"
+                            }
                         }
                     }
                 }
             },
             "contract": {
                 "main": {
-                    "title": "Contract management",
-                    "amount": "Count: {{amount}}",
+                    "title": "Manage contracts. Count: {{amount}}",
                     "path": "[📍 Path: {{menu}} → *Contracts*]",
-                    "empty": "No contracts have been set up yet! Come back later.",
+                    "empty": "No contracts configured yet! Come back later.",
                     "contractName": "{{userName}}: from {{dateStart}}"
                 },
                 "view": {
@@ -651,26 +698,13 @@
                             "dateEnd": "End date: {{dateEnd}}",
                             "price": "Price: {{price}}",
                             "priceText": "Price (text): {{priceText}}",
-                            "error": "Error receiving the contract. Contact the administrator",
+                            "error": "Error retrieving contract. Contact the administrator",
                             "path": "\n[📍 Path: {{menu}} → Contracts → View → *{{dateStart}}*]"
                         },
                         "remove": {
-                            "success":"✅ Contract successfully deleted!",
+                            "success": "✅ Contract successfully deleted!",
                             "error": "❌ Contract not deleted!\nTry again later",
                             "path": "[📍 Path: Panel → Contracts → View → {{dateStart}} → *Delete*]"
-                        },
-                        "create": {
-                            "step": "Step: {{number}} / 3",
-                            "noUser": "To proceed to step #2, you need to complete step #1!",
-                            "noSendouts": "To proceed to step #3, you need to complete step #2!",
-                            "noFreeSendouts": "The customer has no free mailings (not under any contract)!",
-                            "data": {
-                                "user": "Select the user for whom the contract will be drawn up",
-                                "sendout": "Select the mailings to be included in the contract",
-                                "contract": "Send the data regarding the contract"
-                            },
-                            "title": "Creating a contract! Read the instructions for proper creation.",
-                            "path": "[📍 Path: Panel → Contracts → *Creation*]"
                         },
                         "export": {
                             "main": {
@@ -686,8 +720,17 @@
                     }
                 },
                 "create": {
-                    "title": "Creating a contract! Before starting, read the instructions for proper creation.",
-                    "path": "[📍 Path: Panel → Contracts → *Creation*]"
+                    "step": "Step: {{number}} / 3",
+                    "noUser": "To proceed to step #2, you must complete step #1!",
+                    "noSendouts": "To proceed to step #3, you must complete step #2!",
+                    "noFreeSendouts": "The customer has no free mailings (without a contract)!",
+                    "data": {
+                        "user": "Select the user for whom the contract will be made",
+                        "sendout": "Select the mailings to be included in the contract",
+                        "contract": "Send the contract data"
+                    },
+                    "title": "Creating a contract!",
+                    "path": "[📍 Path: Panel → Contracts → *Create*]"
                 }
             }
         }

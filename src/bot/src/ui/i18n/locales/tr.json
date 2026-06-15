@@ -2,46 +2,53 @@
     "utils": {
         "shared": {
             "processing": "⏳ İşleniyor...",
-            "cabinet": "🪴 Kişisel Hesap",
+            "cabinet": "🪴 Kişisel kabin",
+            "panel": "👨‍💻 Admin paneli",
+            "nameless": "İsimsiz",
             "buttons": {
-                "export": "📧 Dışa Aktar",
-                "nameless": "İsimsiz",
+                "export": "📧 Dışa aktar",
                 "back": "🔙 Geri",
-                "remove": "🗑 Sil",
+                "remove": "🗑 Kaldır",
                 "miss": "Eksik",
                 "create": "➕ Oluştur",
-                "update": "✍ Düzenle",
+                "update": "✍ Değiştir",
+                "instruction": "📖 Talimat",
                 "clear": "🗑 Temizle",
                 "view": "👁 Görüntüle",
                 "contract": "📜 Sözleşmeler",
-                "sendout": "📢 Gönderiler",
+                "sendout": "📢 Toplu mesajlar",
                 "chat": "🗯 Gruplar",
                 "contactAdmin": "👨 Yönetici"
             },
             "titles": {
                 "validate": "⚠ Giriş verileri geçersiz formattaydı. Tekrar gönderin",
-                "cabinet": "Hesap",
+                "cabinet": "Kabin",
                 "panel": "Panel → Veriler",
                 "amount": "Miktar: {{amount}}",
-                "sendoutActive": "Şu anda gönderi aktif, verileri daha sonra yönetmeyi deneyin"
+                "sendoutActive": "Toplu mesaj şu anda aktif, verileri daha sonra yönetmeyi deneyin",
+                "accessDenied": {
+                    "all": "Erişim engellendi. Önce /auth komutunu kullanarak yetkilendirin",
+                    "admin": "Erişim engellendi. Bu bölüm müşteriler içindir",
+                    "customer": "Erişim engellendi. Bu bölüm yöneticiler içindir"
+                }
             }
         },
-        "maintenace": "🚧 Şu anda teknik çalışmalar devam ediyor. Hizmet kullanımı geçici olarak sınırlandırılmıştır.\nTamamlar tamamlamaz hemen haber vereceğiz!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "maintenace": "🚧 Şu anda teknik çalışmalar devam etmektedir. Hizmet kullanımı geçici olarak sınırlandırılmıştır.\nBitirir bitirmez haber vereceğiz!\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
         "roleCodes": {
             "admin": "Yönetici",
             "customer": "Müşteri",
             "unknown": "Bilinmiyor"
         },
         "commands": {
-            "cabinet": "Hesap",
+            "cabinet": "Kabin",
             "settings": "Ayarlar",
             "panel": "Admin paneli"
         },
         "chart": {
-            "labelMonth": "Gönderiyi alan grup sayısı istatistiği. {{month}} {{year}}",
-            "labelWeek": "Gönderiyi alan grup sayısı istatistiği. Hafta",
+            "labelMonth": "Toplu mesaj alan grup sayısı istatistiği. {{month}} {{year}}",
+            "labelWeek": "Toplu mesaj alan grup sayısı istatistiği. Hafta",
             "amountSms": "Mesaj sayısı",
-            "noLogs": "Seçilen aralıkta henüz gönderi yapılmadı!",
+            "noLogs": "Seçilen dönemde henüz toplu mesaj gönderilmedi!",
             "daysOfWeek": {
                 "Mon": "Pzt",
                 "Tue": "Sal",
@@ -94,24 +101,50 @@
         "processType": {
             "bot": "Bot",
             "parser": "Ayrıştırıcı",
-            "sendout": "Gönderiler"
+            "sendout": "Toplu mesajlar"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Zamanlama",
+                "message": "Mesajlar",
+                "contract": "Sözleşme"
+            },
+            "text": "Dışa aktar",
+            "from": "itibaren"
+        },
+        "localization": {
+            "schedule": {
+                "number": "gün",
+                "everyDay": "Her gün",
+                "unknownDay": "Bilinmeyen gün",
+                "dayWeek": {
+                    "1": "Pazartesi",
+                    "2": "Salı",
+                    "3": "Çarşamba",
+                    "4": "Perşembe",
+                    "5": "Cuma",
+                    "6": "Cumartesi",
+                    "7": "Pazar",
+                    "*": "Her gün"
+                }
+            }
         }
     },
     "handlers": {
         "events": {
             "contact": {
                 "numberIsNull": "Telefon numarası işlenirken hata!\nTekrar deneyin!",
-                "accessDenied": "Erişim engellendi. Gönderi hizmetini kullanmak için '/settings' komutunun 'Yardım' bölümünü kullanın"
+                "accessDenied": "Erişim engellendi. Toplu mesaj hizmetini kullanmak için '/settings' komutunun 'Yardım' bölümünü kullanın"
             }
         },
         "states": {
             "addingText": {
                 "success": "✅ Metin kaydedildi!",
                 "error": "❌ Metin kaydedilmedi!\nYöneticiye başvurun",
-                "path": "[📍 Yol: {{menu}} → Menü «{{call}}» → Mesajlar → *Metin oluşturma*]"
+                "path": "[📍 Yol: {{menu}} → Menü «{{call}}» → Mesajlar → *Metin oluştur*]"
             },
             "generatingText": {
-                "result": "Oluşturulan mesaj aşağıda sunulmuştur.\nMetnin kaderine karar vermek için mesajların altındaki düğmeleri kullanın.",
+                "result": "Oluşturulan mesaj aşağıdadır. Metnin kaderine karar vermek için mesajların altındaki butonları kullanın.",
                 "pathChoose": "[📍 Yol: {{menu}} → Menü «{{call}}» → Mesajlar → Metin oluşturma → *Metnin kaderi*]",
                 "buttons": {
                     "save": "✔ Kaydet",
@@ -119,9 +152,9 @@
                 }
             },
             "updatingText": {
-                "success": "✅ Metin düzenlendi!",
-                "error": "❌ Metin düzenlenmedi!\nYöneticiye başvurun",
-                "path": "[📍 Yol: {{menu}} → Menü «{{call}}» → Mesajlar → *Metin düzenleme*]"
+                "success": "✅ Metin değiştirildi!",
+                "error": "❌ Metin değiştirilmedi!\nYöneticiye başvurun",
+                "path": "[📍 Yol: {{menu}} → Menü «{{call}}» → Mesajlar → *Metni değiştir*]"
             },
             "addingMedia": {
                 "error": "💀 Medya kaydedilirken hata!\nYöneticiye başvurun",
@@ -130,60 +163,85 @@
                 "documentsWTMedia": "Fotoğraf / video / gif içermeyen belgeleri işleyemiyorum",
                 "success": "✅ Medya kaydedildi!",
                 "error2": "❌ Medya kaydedilmedi!\nYöneticiye başvurun",
-                "path": "[📍 Yol: {{menu}} → Menü «{{call}}» → Mesajlar → *Medya ekleme*]"
+                "path": "[📍 Yol: {{menu}} → Menü «{{call}}» → Mesajlar → *Medya ekle*]",
+                "amount": "Mesajdaki medya sayısı: {{now}} / {{all}}"
             },
             "addingTime": {
                 "success": "✅ Zaman kaydedildi!",
-                "error": "❌ Zaman düzenlenmedi!\nYöneticiye başvurun",
-                "path": "[📍 Yol: Panel → Menü «{{call}}» → Takvim → Görüntüle → *Ekleme*]"
+                "error": "❌ Zaman değiştirilmedi!\nYöneticiye başvurun",
+                "path": "[📍 Yol: Panel → Menü «{{call}}» → Zamanlama → Görüntüle → *Ekle*]"
             },
             "updatingTime": {
-                "success": "✅ Zaman düzenlendi!",
-                "error": "❌ Zaman düzenlenmedi!\nYöneticiye başvurun",
-                "path": "[📍 Yol: Panel → Menü «{{call}}» → Takvim → Görüntüle → *Düzenleme*]"
+                "success": "✅ Zaman değiştirildi!",
+                "error": "❌ Zaman değiştirilmedi!\nYöneticiye başvurun",
+                "path": "[📍 Yol: Panel → Menü «{{call}}» → Zamanlama → Görüntüle → *Değiştir*]"
             },
             "addingIdea": {
                 "success": "✅ Fikir başarıyla eklendi, teşekkürler!",
                 "error": "❌ Fikir eklenmedi!\nTekrar deneyin veya yöneticiye başvurun!",
-                "path": "[📍 Yol: Ayarlar → Fikirler → *Ekleme*]"
+                "path": "[📍 Yol: Ayarlar → Fikirler → *Ekle*]"
             },
             "addingUser": {
                 "success": "✅ Kullanıcı başarıyla oluşturuldu!",
-                "error": "❌ Kullanıcı oluşturulamadı!\nDaha sonra tekrar deneyin.",
-                "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → *Oluşturma*]"
+                "error": "❌ Kullanıcı oluşturulmadı!\nDaha sonra tekrar deneyin.",
+                "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → *Oluştur*]"
             },
             "addingContract": {
                 "success": "✅ Sözleşme başarıyla oluşturuldu!",
-                "error": "❌ Sözleşme oluşturulamadı!\nDaha sonra tekrar deneyin.",
-                "path": "[📍 Yol: Panel → Sözleşmeler → *Oluşturma*]"
+                "error": "❌ Sözleşme oluşturulmadı!\nDaha sonra tekrar deneyin.",
+                "path": "[📍 Yol: Panel → Sözleşmeler → *Oluştur*]"
             },
             "updatingSendoutCall": {
                 "success": "✅ Çağrı işareti başarıyla güncellendi!",
-                "error": "❌ Çağrı işareti güncellenemedi!\nDaha sonra tekrar deneyin.",
-                "path": "[📍 Yol: Panel → Gönderiler → Görüntüle → Menü «{{call}}» → İsim → *Güncelleme*]"
+                "error": "❌ Çağrı işareti güncellenmedi!\nDaha sonra tekrar deneyin.",
+                "path": "[📍 Yol: Panel → Toplu mesajlar → Menü «{{call}}» → İsimler → Çağrı işareti → *Güncelle*]"
             },
             "updatingUserName": {
                 "success": "✅ İsim başarıyla güncellendi!",
-                "error": "❌ İsim güncellenemedi!\nDaha sonra tekrar deneyin.",
-                "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → Görüntüle → {{userName}} → *İsim düzenleme*]"
+                "error": "❌ İsim güncellenmedi!\nDaha sonra tekrar deneyin.",
+                "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → Görüntüle → {{userName}} → *İsim değiştir*]"
             },
             "updatingUserPhone": {
                 "success": "✅ Telefon başarıyla güncellendi!",
-                "error": "❌ Telefon güncellenemedi!\nDaha sonra tekrar deneyin.",
-                "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → Görüntüle → {{userName}} → *Numara düzenleme*]"
+                "error": "❌ Telefon güncellenmedi!\nDaha sonra tekrar deneyin.",
+                "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → Görüntüle → {{userName}} → *Numara değiştir*]"
             }
         }
     },
     "modules": {
         "commands": {
             "start": {
-                "title": "Hoş geldiniz! Ben bir Telegram botuyum, gönderi asistanı.\n\nEkranın sol alt köşesindeki oval 'Menü' düğmesine basarak tüm komutlarımı tanımanızı şiddetle tavsiye ederim.\nKullanım kılavuzunu okuduktan sonra, '/settings' komutuyla çağrılan 'Bot hakkında' bölümünde."
+                "title": "☀ Merhaba! Ben Çirkin Ördek Yavrusu Telegram botu, toplu mesaj asistanıyım.",
+                "commands": "Benimle etkileşim için komutların kısa açıklaması aşağıdadır:\n/start - botu etkinleştir ve komut listesi\n/auth - yetkilendirme\n/cabinet - kişisel kabini yönet\n/settings - bot ayarlarını yönet",
+                "uAdmin": "❓ Yönetici misiniz?\n/panel - admin paneli",
+                "link": "Beni kontrol etme mekanizması hakkında daha detaylı talimatları aşağıdaki butonu kullanarak inceleyebilirsiniz."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ İptal",
+                        "phone": "📞 Paylaş",
+                        "again": "🔄 Tekrar dene"
+                    },
+                    "unknownMessage": "Eylem tanınmadı, lütfen '📞 Paylaş' ve '❌ İptal' butonlarını kullanarak tekrar deneyin",
+                    "manyAttempts": "Bir saatlik sınırdan önce kullanılan yetkilendirme denemesi sayısı: {{actualAttempts}} / {{maxAttempts}}",
+                    "stop": "Yetkilendirme kısıtlandı. Kısıtlamalar şu tarihten sonra kaldırılacak: {{dateTime}}",
+                    "canceled": "Yetkilendirme başarıyla durduruldu!",
+                    "title": "Toplu mesaj paneline girmek için telefon numaranızı benimle paylaşmanız gerekiyor.\n\nKlavyenin yanında '📞 Paylaş' yazılı bir buton görünmelidir",
+                    "good": "Sisteme başarıyla yetkilendiniz!",
+                    "already": "Zaten sisteme yetkilendiniz!",
+                    "bad": "Yetkilendirme sırasında hata. Yöneticiye başvurun!"
+                },
+                "logout": {
+                    "good": "Başarıyla çıkış yaptınız. Verileriniz silindi!",
+                    "bad": "Çıkış yaparken hata. Yöneticiye başvurun!"
+                }
             },
             "settings": {
                 "main": {
                     "title": "⚙️ Ayarlar",
                     "buttons": {
-                        "about": "ℹ Hizmet Hakkında",
+                        "about": "ℹ Hizmet hakkında",
                         "help": "❓ Yardım",
                         "idea": "💡 Fikirler",
                         "language": "🌐 Dil"
@@ -191,7 +249,7 @@
                 },
                 "language": {
                     "main": {
-                        "title": "Bir dil seçin.",
+                        "title": "Dil seçin.",
                         "path": "[📍 Yol: Ayarlar → *Dil*]"
                     },
                     "change": {
@@ -200,18 +258,17 @@
                     }
                 },
                 "help": {
-                    "title": "Bir sorunla mı karşılaştınız?\nSorularınız mı var?\nHizmeti övmek mi istiyorsunuz?\nHizmeti iyileştirmek için fikirleriniz mi var?",
+                    "title": "Sorun mu yaşadınız?\nSorularınız mı var?\nHizmeti övmek mi istiyorsunuz?\nGeliştirme fikirleriniz mi var?",
                     "interest": "Yoksa ürünle ilgileniyor musunuz?\nAşağıdaki anketi doldurun, size ulaşalım!",
                     "path": "[📍 Yol: Ayarlar → *Yardım*]"
                 },
                 "about": {
-                    "title": "Hizmet, ürünlerinizin (tekliflerinizin) grup / sohbet / kanallar içinde reklamını (gönderi, duyuru) otomatikleştirmek için geliştirilmiştir.\n\nBot kullanım kılavuzu - aşağıdaki düğme ile!",
-                    "instruction": "📖 Kılavuz",
+                    "title": "Hizmet, ürünlerinizin (tekliflerinizin) gruplar / sohbetler / kanallar içinde reklamını (gönderiler, toplu mesajlar) otomatikleştirmek için geliştirilmiştir.\n\nBot'u kullanma talimatı aşağıdaki butondadır!",
                     "path": "[📍 Yol: Ayarlar → *Hizmet hakkında*]"
                 },
                 "idea": {
                     "main": {
-                        "title": "Fikirler bölümü menüsü.\nBurada hizmetin geliştirilmesi için fikrinizi önerebilirsiniz.",
+                        "title": "Fikirler bölümü menüsü. Burada hizmetin geliştirilmesi için fikrinizi önerebilirsiniz.",
                         "path": "[📍 Yol: Ayarlar → *Fikirler*]",
                         "buttons": {
                             "add": "🗳 Öner",
@@ -219,47 +276,24 @@
                         }
                     },
                     "add": {
-                        "title": "Bana medya/ses/metin vb. gönderin. Hiçbir sınırlama yok!",
-                        "path": "[📍 Yol: Ayarlar → Fikirler → *Ekleme*]"
+                        "title": "Bana medya/ses/metin vb. gönderin. Sınır yok!",
+                        "path": "[📍 Yol: Ayarlar → Fikirler → *Ekle*]"
                     }
                 }
             },
             "cabinet": {
                 "main": {
-                    "buttons": {                        
-                        "logout": "🚪 Çıkış Yap",
-                        "login": "🔑 Giriş Yap"
-                    }
-                },
-                "auth": {
-                    "login": {
-                        "buttons": {
-                            "cancel": "❌ İptal",
-                            "phone": "📞 Paylaş"
-                        },
-                        "unknownMessage": "İşlem tanınmadı, lütfen 'Paylaş' ve 'İptal' düğmelerini tekrar kullanmayı deneyin",
-                        "manyAttempts": "Bir saatlik sınırdan önce kullanılan kimlik doğrulama denemesi sayısı: {{maxAttempts}} üzerinden {{actualAttempts}}",
-                        "stop": "Yetkilendirme sınırlandırıldı. Kısıtlamalar {{dateTime}} sonrasında kaldırılacaktır",
-                        "canceled": "Yetkilendirme başarıyla durduruldu!",
-                        "title": "Gönderi paneline girmek için telefon numaranızı benimle paylaşmanız gerekiyor.\n\nDüğme, klavyenin yanında '📞 Paylaş' yazısıyla görünmelidir.",
-                        "good": "Sisteme başarıyla yetkilendiniz!",
-                        "already": "Zaten sisteme yetkilendiniz!",
-                        "bad": "Sisteme yetkilendirme hatası.\nYöneticiye başvurun!",
-                        "path": "[📍 Yol: Hesap → *Yetkilendirme*"
-                    },
-                    "logout": {
-                        "good": "Sistemden başarıyla çıkış yaptınız. Verileriniz silindi!",
-                        "bad": "Sistemden çıkış yaparken hata.\nYöneticiye başvurun!",
-                        "path": "[📍 Yol: Hesap → *Sistemden çıkış*]"
+                    "buttons": {
+                        "logout": "🚪 Çıkış",
+                        "login": "🔑 Giriş"
                     }
                 }
             },
             "panel": {
                 "main": {
-                    "title": "👨‍💻 Yönetici Paneli",
                     "buttons": {
                         "data": "🗂 Veriler",
-                        "system": "⚡ Sistem "
+                        "system": "⚡ Sistem"
                     }
                 },
                 "data": {
@@ -272,8 +306,7 @@
                     },
                     "chat": {
                         "main": {
-                            "title": "Grup yönetimi",
-                            "amount": "Miktar: {{amount}}",
+                            "title": "Grupları yönet. Miktar: {{amount}}",
                             "path": "[📍 Yol: Panel → Veriler → *Gruplar*]",
                             "buttons": {
                                 "reupload": "🔁 Yenile"
@@ -282,18 +315,17 @@
                         "reupload": {
                             "success": "✅ Gruplar güncellendi!",
                             "error": "❌ Gruplar güncellenirken hata\nYöneticiye başvurun",
-                            "path": "[📍 Yol: Panel → Veriler → Gruplar → *Güncelleme*]"
+                            "path": "[📍 Yol: Panel → Veriler → Gruplar → *Güncelle*]"
                         },
                         "clear": {
                             "success": "✅ Gruplar temizlendi!",
                             "error": "❌ Gruplar temizlenirken hata\nYöneticiye başvurun",
-                            "path": "[📍 Yol: Panel → Veriler → Gruplar → *Temizleme*]"
+                            "path": "[📍 Yol: Panel → Veriler → Gruplar → *Temizle*]"
                         }
                     },
                     "user": {
                         "main": {
-                            "title": "Kullanıcı yönetimi",
-                            "amount": "Miktar: {{amount}}",
+                            "title": "Kullanıcıları yönet. Miktar: {{amount}}",
                             "path": "[📍 Yol: Panel → Veriler → *Kullanıcılar*]"
                         },
                         "view": {
@@ -303,7 +335,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Kullanıcı yönetimi",
+                                    "title": "Kullanıcıyı yönet",
                                     "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → Görüntüle → *{{userName}}*]",
                                     "telegramId": "Tg ID: {{telegramId}}",
                                     "name": "İsim: {{name}}",
@@ -313,26 +345,26 @@
                                     "role": "Rol: {{role}}"
                                 },
                                 "remove": {
-                                    "success":"✅ Kullanıcı başarıyla silindi!",
-                                    "error": "❌ Kullanıcı silinemedi!\nDaha sonra tekrar deneyin",
-                                    "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → Görüntüle → {{userName}} → *Silme*]"
+                                    "success": "✅ Kullanıcı başarıyla silindi!",
+                                    "error": "❌ Kullanıcı silinmedi!\nDaha sonra tekrar deneyin",
+                                    "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → Görüntüle → {{userName}} → *Sil*]"
                                 },
                                 "update": {
                                     "phone": {
                                         "title": "Telefon değiştiriliyor!\nBuraya gönderin.",
-                                        "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → Görüntüle → {{userName}} → *Numara düzenleme*]"
+                                        "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → Görüntüle → {{userName}} → *Numara değiştir*]"
                                     },
                                     "name": {
                                         "title": "İsim değiştiriliyor!\nBuraya gönderin.",
-                                        "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → Görüntüle → {{userName}} → *İsim düzenleme*]"
+                                        "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → Görüntüle → {{userName}} → *İsim değiştir*]"
                                     }
                                 }
                             }
                         },
                         "create": {
-                            "title": "Kullanıcı oluşturuluyor! Başlamadan önce doğru oluşturma talimatlarını okuyun.",
-                            "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → *Oluşturma*]"
-                        }   
+                            "title": "Kullanıcı oluşturuluyor!",
+                            "path": "[📍 Yol: Panel → Veriler → Kullanıcılar → *Oluştur*]"
+                        }
                     }
                 },
                 "system": {
@@ -360,7 +392,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "İşlem yönetimi",
+                                    "title": "İşlemi yönet",
                                     "path": "[📍 Yol: Panel → Sistem → Sunucu → {{processType}} → *{{processName}}*]",
                                     "buttons": {
                                         "condition": "🩻 Durum",
@@ -370,15 +402,15 @@
                                 "condition": {
                                     "path": "[📍 Yol: Panel → Sistem → Sunucu → {{processType}} → {{processName}} → *Durum*]",
                                     "status": {
-                                        "active": "✅ İşlem aktif.\nDurdurmak için aşağıdaki düğmeye basın",
-                                        "inactive": "❌ İşlem pasif.\nBaşlatmak için aşağıdaki düğmeye basın",
-                                        "failed": "💀 İşlem öldü.\nProgramcıya başvurun.",
+                                        "active": "✅ İşlem aktif.\nDurdurmak için aşağıdaki butona basın",
+                                        "inactive": "❌ İşlem aktif değil.\nBaşlatmak için aşağıdaki butona basın",
+                                        "failed": "❌ İşlem aktif değil.\nBaşlatmak için aşağıdaki butona basın",
                                         "error": "İşlemle ilgili sorun. Programcıya başvurun."
                                     },
                                     "buttons": {
                                         "stop": "🛑 Durdur",
                                         "start": "▶️ Başlat",
-                                        "restart": "🔁 Yeniden Başlat"
+                                        "restart": "🔁 Yeniden başlat"
                                     }
                                 },
                                 "log": {
@@ -399,147 +431,162 @@
         "shared": {
             "sendout": {
                 "main": {
-                    "title": "Şu anda aktif gönderilerin listesi.",
-                    "path": "[📍 Yol: {{menu}} → Gönderiler → *Görüntüle*]",
-                    "empty": "Henüz hiçbir gönderi ayarlanmamış! Daha sonra geri dönün."
+                    "title": "Şu anda aktif olan toplu mesajların listesi.",
+                    "path": "[📍 Yol: {{menu}} → *Toplu mesajlar*]",
+                    "empty": "Henüz toplu mesaj ayarlanmamış! Daha sonra geri dönün."
                 },
                 "view": {
                     "main": {
-                        "title": "📣 Gönderi menüsü «{{call}}»",
-                        "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → *Menü «{{call}}»*]",
+                        "title": "📣 Toplu mesaj menüsü «{{call}}»",
+                        "path": "[📍 Yol: {{menu}} → Toplu mesajlar → *Menü «{{call}}»*]",
                         "buttons": {
-                            "schedule": "🕰️ Takvim",
+                            "schedule": "🕰️ Zamanlama",
                             "message": "💬 Mesajlar",
                             "statistic": "📈 İstatistikler",
                             "owner": "👑 Sahip",
-                            "call": "🏷️ İsim"
+                            "name": "🏷️ İsimler",
+                            "test": "🎛️ Test"
                         }
+                    },
+                    "test": {
+                        "alert": "Toplu mesaj aktifken test modu açılamaz!"
                     },
                     "message": {
                         "main": {
                             "error": "Mesajlar alınırken hata!\nYöneticiye başvurun",
-                            "empty": "Hiç mesaj yok!\nMetin eklemek için aşağıdaki düğmeye basın",
+                            "empty": "Mesaj yok!\nMetin eklemek için aşağıdaki butona basın",
                             "title": "Mesajlar bölümü menüsü. Miktar: {{amount}}",
-                            "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → *Mesajlar*]"
+                            "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → *Mesajlar*]"
                         },
                         "create": {
                             "main": {
                                 "title": "Metin ekleme türünü seçin.",
-                                "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → *Ekleme modu*]",
+                                "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → *Ekleme modu*]",
                                 "buttons": {
                                     "generate": "🔮 Oluştur",
                                     "hand": "✍ Manuel giriş"
                                 }
                             },
                             "generate": {
-                                "title": "Satış metni oluşturacağım!\nKaynak metni buraya gönderin. Metin yığını gönderilemez.",
-                                "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → *Oluşturma*]",
+                                "title": "Satış metni oluşturacağım! Kaynağı buraya gönderin. Metin yığınları gönderilemez.",
+                                "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → *Oluşturma*]",
                                 "save": "✅ Metin kaydedildi!",
                                 "cancel": "❌ Metin kaydedilmedi!",
-                                "pathSave": "[📍 Yol: {{menu}} → Menü «{{call}}» → Mesajlar → Oluşturma → *Kaydetme*]",
+                                "pathSave": "[📍 Yol: {{menu}} → Menü «{{call}}» → Mesajlar → Oluşturma → *Kaydet*]",
                                 "pathCancel": "[📍 Yol: {{menu}} → Menü «{{call}}» → Mesajlar → Oluşturma → *İptal*]"
                             },
                             "hand": {
-                                "title": "Metin ekleniyor!\nMetni gönderin veya buraya yönlendirin. Metin yığını gönderilemez.",
-                                "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → *Metin ekleme*]"
+                                "title": "Metin ekleniyor!\nMetni gönderin veya buraya yönlendirin. Metin yığınları gönderilemez.",
+                                "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → *Metin ekle*]"
                             }
                         },
                         "clear": {
                             "success": "✅ Tüm mesajlar temizlendi!",
-                            "error": "❌ Mesajlar temizlenemedi!\nYöneticiye başvurun",
-                            "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → *Temizleme*]"
+                            "error": "❌ Mesajlar temizlenmedi!\nYöneticiye başvurun",
+                            "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → *Temizle*]"
                         },
                         "view": {
                             "main": {
-                                "messageNumber": "Mesaj No: {{number}}.",
+                                "messageNumber": "Mesaj №{{number}}.",
                                 "amountMedia": "Medya sayısı: {{amount}} / {{maxMedia}}.",
-                                "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → *Görüntüle*]",
+                                "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → *Görüntüle*]",
                                 "buttons": {
-                                    "updateText": "✍️ Metni düzenle",
+                                    "updateText": "✍️ Metni değiştir",
                                     "addMedia": "🖼 Medya ekle",
-                                    "clearAllMedia": "🗑 Medyayı temizle"    
+                                    "clearAllMedia": "🗑 Medyayı temizle"
                                 }
                             },
                             "text": {
                                 "update": {
-                                    "title": "Metin düzenleniyor!\nMetni gönderin veya buraya yönlendirin. Metin yığını gönderilemez.",
-                                    "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → *Metin düzenleme*]"
+                                    "title": "Metin değiştiriliyor!\nMetni gönderin veya buraya yönlendirin. Metin yığınları gönderilemez.",
+                                    "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → *Metni değiştir*]"
                                 },
                                 "remove": {
                                     "success": "✅ Mesaj silindi!",
-                                    "error": "❌ Metin silinemedi!\nYöneticiye başvurun",
-                                    "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → *Metin silme*]"
+                                    "error": "❌ Metin silinmedi!\nYöneticiye başvurun",
+                                    "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → *Metni sil*]"
                                 }
                             },
                             "media": {
                                 "add": {
-                                    "title": "Medya ekleniyor!\nMedyayı 1 adet olarak gönderin.",
-                                    "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → *Medya ekleme*]"
+                                    "title": "Medya ekleniyor!\nMedyayı tek tek gönderin.",
+                                    "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → *Medya ekle*]"
                                 },
                                 "clearAll": {
                                     "success": "✅ Tüm medyalar temizlendi!",
-                                    "error": "❌ Medya temizlenemedi!\nYöneticiye başvurun",
-                                    "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → *Medya temizleme*]"
+                                    "error": "❌ Medyalar temizlenmedi!\nYöneticiye başvurun",
+                                    "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → *Medyayı temizle*]"
                                 }
                             },
                             "pagination": {
-                                "title": "Numaraya göre mesaja hızlı git",
-                                "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → Görüntüle → *Mesaj seçimi*]"
+                                "title": "Numaraya göre mesaja hızlı atlama",
+                                "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → Görüntüle → *Mesaj seç*]"
                             }
                         },
                         "export": {
                             "main": {
                                 "title": "Mesaj listesinin kaydedileceği formatı seçin",
-                                "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → *Dışa aktarma formatı seçimi*]"
+                                "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → *Dışa aktarma formatı seç*]"
                             },
                             "result": {
                                 "error": "❌ Mesajlar dışa aktarılırken hata\nYöneticiye başvurun",
-                                "caption": "{{exportType}} formatındaki mesaj listesi hazır!",
-                                "path": "\n[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Mesajlar → *{{exportType}} olarak dışa aktar*]"
+                                "caption": "{{exportType}} formatında mesaj listesi hazır!",
+                                "path": "\n[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Mesajlar → *{{exportType}} olarak dışa aktar*]"
                             }
                         }
                     },
                     "schedule": {
                         "main": {
-                            "empty": "Takvim henüz ayarlanmadı!",
-                            "title": "Takvim bölümü menüsü. Takvimdeki zaman sayısı: {{amount}}",
-                            "path": "\n[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → *Takvim*]"
+                            "empty": "Zamanlama henüz ayarlanmamış!",
+                            "title": "Zamanlama bölümü menüsü. Zamanlamadaki zaman sayısı: {{amount}}",
+                            "path": "\n[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → *Zamanlama*]"
                         },
                         "create": {
                             "title": "Zaman ekleniyor!",
-                            "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Takvim → *Ekleme*]"
+                            "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Zamanlama → *Ekle*]"
                         },
                         "clear": {
-                            "success": "✅ Takvim temizlendi!",
-                            "error": "❌ Takvim temizlenemedi!\nYöneticiye başvurun",
-                            "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Takvim → *Temizleme*]"
+                            "success": "✅ Zamanlama temizlendi!",
+                            "error": "❌ Zamanlama temizlenmedi!\nYöneticiye başvurun",
+                            "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Zamanlama → *Temizle*]"
                         },
                         "view": {
                             "main": {
-                                "title": "Gönderi takvimi aşağıda düğmeler halinde sunulmuştur.",
-                                "path": "\n[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Takvim → *Görüntüle*]"
+                                "title": "Toplu mesaj zamanlaması aşağıda butonlar halinde sunulmuştur.",
+                                "path": "\n[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Zamanlama → *Görüntüle*]"
                             },
                             "time": {
                                 "update": {
-                                    "title": "Zaman düzenleniyor!",
-                                    "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Takvim → Görüntüle → *Zaman düzenleme*]"
+                                    "title": "Zaman değiştiriliyor!",
+                                    "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Zamanlama → Görüntüle → *Zamanı değiştir*]"
                                 },
                                 "remove": {
                                     "success": "✅ Zaman silindi!",
-                                    "error": "❌ Zaman silinemedi! Yöneticiye başvurun",
-                                    "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Takvim → Görüntüle → *Zaman silme*]"
+                                    "error": "❌ Zaman silinmedi! Yöneticiye başvurun",
+                                    "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Zamanlama → Görüntüle → *Zamanı sil*]"
                                 },
                                 "updateOrRemove": {
                                     "title": "Seçilen zaman:\n→ *{{targetTime}}*.\n",
-                                    "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → Takvim → Görüntüle → *Eylem seçimi*]"
+                                    "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Zamanlama → Görüntüle → *Eylem seç*]"
                                 }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Toplu mesaj zamanlamasının kaydedileceği formatı seçin",
+                                "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Zamanlama → *Dışa aktarma formatı seç*]"
+                            },
+                            "result": {
+                                "error": "❌ Zamanlama dışa aktarılırken hata\nYöneticiye başvurun",
+                                "caption": "{{exportType}} formatında zamanlama hazır!",
+                                "path": "\n[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → Zamanlama → *{{exportType}} olarak dışa aktar*]"
                             }
                         }
                     },
                     "statistic": {
                         "main": {
-                            "title": "İstenen istatistik formatını seçin.",
-                            "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → *İstatistikler*]",
+                            "title": "İstenilen istatistik formatını seçin.",
+                            "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → *İstatistikler*]",
                             "buttons": {
                                 "selective": "📅 Seçmeli",
                                 "comparative": "📊 Karşılaştırmalı"
@@ -547,87 +594,93 @@
                         },
                         "selective": {
                             "main": {
-                                "notDone": "Şu anda bu bölümde teknik çalışmalar devam etmektedir.",
+                                "notDone": "Şu anda bu bölümde teknik çalışmalar yapılmaktadır.",
                                 "noData": "Seçilen tarih için sonuç bulunamadı!",
-                                "noAccess": "Basılan düğme kullanılamıyor!",
-                                "title": "Seçmeli istatistik.\nAşağıda tarihleri içeren bir takvim bulunmaktadır. Belirli bir gün için gönderi sonucunu görüntülemek için üzerine tıklayın!\n\nEğer gönderi:\n*gerçekleşmediyse,\n*yoksa,\n*planlanmadıysa,\n*veya başka bir şey\n- ilgili bağlamla birlikte bir mesaj görüntülenecektir, panik yapmayın.",
-                                "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → İstatistikler → *Seçmeli*]"
+                                "noAccess": "Basılan buton kullanılamıyor!",
+                                "title": "Seçmeli istatistik.\nAşağıda tarihleri içeren bir takvim bulunmaktadır. Belirli bir gün için toplu mesaj sonucunu görüntülemek için üzerine tıklamanız yeterlidir!\n\nToplu mesaj:\n*gerçekleşmediyse,\n*yoksa,\n*planlanmadıysa,\n*veya başka bir durum varsa\n- uygun bağlamda bir mesaj görüntülenecektir, panik yapmayın.",
+                                "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → İstatistikler → *Seçmeli*]"
                             },
                             "targetDate": {
                                 "main": {
-                                    "title": "{{date}} tarihi için gönderi sonucu.",
+                                    "title": "{{date}} tarihi için toplu mesaj sonucu.",
                                     "time": "Zaman: {{time}}",
-                                    "success": "Başarılı gönderim: {{success}}",
-                                    "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → İstatistikler → Seçmeli → *{{date}}*]"
+                                    "success": "Başarılı gönderimler: {{success}}",
+                                    "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → İstatistikler → Seçmeli → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "amount":"Miktar: {{amount}}",
-                                    "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → İstatistikler → Seçmeli → {{date}} → *Gruplar*]"    
+                                    "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → İstatistikler → Seçmeli → {{date}} → *Gruplar*]"
                                 }
                             }
                         },
                         "comparative": {
                             "main": {
                                 "title": "Karşılaştırmalı istatistik türünü seçin.",
-                                "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → İstatistikler → *Karşılaştırmalı*]",
+                                "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → İstatistikler → *Karşılaştırmalı*]",
                                 "buttons": {
                                     "week": "Hafta",
                                     "month": "Ay"
                                 }
                             },
                             "week": {
-                                "title": "Karşılaştırmalı istatistik. (Hafta)",
-                                "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → İstatistikler → Karşılaştırmalı → *Hafta*]"
+                                "title": "Karşılaştırmalı istatistik (Hafta)",
+                                "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → İstatistikler → Karşılaştırmalı → *Hafta*]"
                             },
                             "month": {
-                                "title": "Karşılaştırmalı istatistik. (Ay)",
-                                "path": "[📍 Yol: {{menu}} → Gönderiler → Görüntüle → Menü «{{call}}» → İstatistikler → Karşılaştırmalı → *Ay*]"
+                                "title": "Karşılaştırmalı istatistik (Ay)",
+                                "path": "[📍 Yol: {{menu}} → Toplu mesajlar → Menü «{{call}}» → İstatistikler → Karşılaştırmalı → *Ay*]"
                             }
                         }
                     },
                     "owner": {
                         "main": {
-                            "title": "Gönderi sahibi.",
-                            "empty": "Gönderinin sahibi yok!",
+                            "title": "Toplu mesajın sahibi.",
+                            "empty": "Toplu mesajın sahibi yok!",
                             "name": "İsim: {{name}}",
                             "phone": "Telefon: +{{phone}}",
-                            "path": "[📍 Yol: Panel → Gönderiler → Görüntüle → Menü «{{call}}» → *Sahip*]",
+                            "path": "[📍 Yol: Panel → Toplu mesajlar → Menü «{{call}}» → *Sahip*]",
                             "buttons": {
                                 "change": "🪧 Yeniden ata"
                             }
                         },
                         "update": {
                             "main": {
-                                "title": "Bu gönderinin sahibi olarak atamak için bir kullanıcı seçin.",
-                                "path": "[📍 Yol: Panel → Gönderiler → Görüntüle → Menü «{{call}}» → Sahip → *Seçim*]",
+                                "title": "Bu toplu mesajın sahibi olarak atanacak kullanıcıyı seçin.",
+                                "path": "[📍 Yol: Panel → Toplu mesajlar → Menü «{{call}}» → Sahip → *Seç*]",
                                 "noOwner": "Sahipsiz"
                             },
                             "action": {
                                 "success": "✅ Sahip başarıyla yeniden atandı!",
-                                "error": "❌ Sahip yeniden atanamadı!\nDaha sonra tekrar deneyin!",
-                                "path": "[📍 Yol: Panel → Gönderiler → Görüntüle → Menü «{{call}}» → Sahip → {{owner}} → *Atama*]"
+                                "error": "❌ Sahip yeniden atanmadı! Daha sonra tekrar deneyin!",
+                                "path": "[📍 Yol: Panel → Toplu mesajlar → Menü «{{call}}» → Sahip → {{owner}} → *Ata*]"
                             }
                         }
                     },
-                    "call": {
+                    "name": {
                         "main": {
-                            "title": "Gönderi adı (çağrı işareti): {{call}}",
-                            "empty": "Gönderinin adı yok!",
-                            "path": "[📍 Yol: Panel → Gönderiler → Görüntüle → Menü «{{call}}» → *İsim*]"
+                            "title": "Toplu mesajın isimleri:",
+                            "about": "1 - imza (eski adlandırma)\n2 - varlık adı\n3 - çağrı işareti (botta görünen ad)",
+                            "path": "[📍 Yol: Panel → Toplu mesajlar → Menü «{{call}}» → *İsimler*]"
                         },
                         "update": {
-                            "title": "Gönderi çağrı işareti değiştiriliyor! Yeni gönderi adını gönderin.",
-                            "path": "[📍 Yol: Panel → Gönderiler → Görüntüle → Menü «{{call}}» → İsim → *Güncelleme*]"
+                            "call": {
+                                "title": "Toplu mesajın çağrı işareti değiştiriliyor!",
+                                "path": "[📍 Yol: Panel → Toplu mesajlar → Menü «{{call}}» → İsimler → Çağrı işareti → *Güncelle*]"
+                            },
+                            "label": {
+                                "alert": "Toplu mesajın imzası değiştirilemez!"
+                            },
+                            "name": {
+                                "alert": "Toplu mesajın adı değiştirilemez!"
+                            }
                         }
                     }
                 }
             },
             "contract": {
                 "main": {
-                    "title": "Sözleşme yönetimi",
-                    "amount": "Miktar: {{amount}}",
+                    "title": "Sözleşmeleri yönet. Miktar: {{amount}}",
                     "path": "[📍 Yol: {{menu}} → *Sözleşmeler*]",
-                    "empty": "Henüz hiçbir sözleşme ayarlanmamış! Daha sonra geri dönün.",
+                    "empty": "Henüz sözleşme ayarlanmamış! Daha sonra geri dönün.",
                     "contractName": "{{userName}}: {{dateStart}} tarihinden itibaren"
                 },
                 "view": {
@@ -637,51 +690,47 @@
                     },
                     "contract": {
                         "main": {
-                            "title": "{{dateStart}} tarihli sözleşme.",
-                            "sendouts": "Sözleşmeye dahil edilen gönderiler: {{sendouts}}",
+                            "title": "{{dateStart}} tarihinden itibaren sözleşme.",
+                            "sendouts": "Sözleşmeye dahil edilen toplu mesajlar: {{sendouts}}",
                             "noSendouts": "boş.",
                             "userName": "Müşteri: {{userName}}",
                             "dateStart": "Başlangıç tarihi: {{dateStart}}",
                             "dateEnd": "Bitiş tarihi: {{dateEnd}}",
-                            "price": "Ücret: {{price}}",
-                            "priceText": "Ücret (metin): {{priceText}}",
+                            "price": "Fiyat: {{price}}",
+                            "priceText": "Fiyat (metin): {{priceText}}",
                             "error": "Sözleşme alınırken hata. Yöneticiye başvurun",
                             "path": "\n[📍 Yol: {{menu}} → Sözleşmeler → Görüntüle → *{{dateStart}}*]"
                         },
                         "remove": {
-                            "success":"✅ Sözleşme başarıyla silindi!",
-                            "error": "❌ Sözleşme silinemedi!\nDaha sonra tekrar deneyin",
-                            "path": "[📍 Yol: Panel → Sözleşmeler → Görüntüle → {{dateStart}} → *Silme*]"
-                        },
-                        "create": {
-                            "step": "Adım: {{number}} / 3",
-                            "noUser": "2. adıma geçmek için 1. adımı yapmalısınız!",
-                            "noSendouts": "3. adıma geçmek için 2. adımı yapmalısınız!",
-                            "noFreeSendouts": "Müşterinin boşta (sözleşmesiz) gönderisi yok!",
-                            "data": {
-                                "user": "Sözleşmenin düzenleneceği kullanıcıyı seçin",
-                                "sendout": "Sözleşmeye dahil edilecek gönderileri seçin",
-                                "contract": "Sözleşmeye ilişkin verileri gönderin"
-                            },
-                            "title": "Sözleşme oluşturuluyor! Doğru oluşturma talimatlarını okuyun.",
-                            "path": "[📍 Yol: Panel → Sözleşmeler → *Oluşturma*]"
+                            "success": "✅ Sözleşme başarıyla silindi!",
+                            "error": "❌ Sözleşme silinmedi!\nDaha sonra tekrar deneyin",
+                            "path": "[📍 Yol: Panel → Sözleşmeler → Görüntüle → {{dateStart}} → *Sil*]"
                         },
                         "export": {
                             "main": {
                                 "title": "Sözleşmenin kaydedileceği formatı seçin",
-                                "path": "[📍 Yol: {{menu}} → Sözleşmeler → Görüntüle → {{dateStart}} → *Dışa aktarma formatı seçimi*]"
+                                "path": "[📍 Yol: {{menu}} → Sözleşmeler → Görüntüle → {{dateStart}} → *Dışa aktarma formatı seç*]"
                             },
                             "result": {
                                 "error": "❌ Sözleşme dışa aktarılırken hata\nYöneticiye başvurun",
-                                "caption": "{{exportType}} formatındaki sözleşme hazır!",
+                                "caption": "{{exportType}} formatında sözleşme hazır!",
                                 "path": "\n[📍 Yol: {{menu}} → Sözleşmeler → Görüntüle → {{dateStart}} → *{{exportType}} olarak dışa aktar*]"
                             }
                         }
                     }
                 },
                 "create": {
-                    "title": "Sözleşme oluşturuluyor! Başlamadan önce doğru oluşturma talimatlarını okuyun.",
-                    "path": "[📍 Yol: Panel → Sözleşmeler → *Oluşturma*]"
+                    "step": "Adım: {{number}} / 3",
+                    "noUser": "2. adıma geçmek için 1. adımı tamamlamalısınız!",
+                    "noSendouts": "3. adıma geçmek için 2. adımı tamamlamalısınız!",
+                    "noFreeSendouts": "Müşterinin boş (sözleşmesiz) toplu mesajı yok!",
+                    "data": {
+                        "user": "Sözleşmenin düzenleneceği kullanıcıyı seçin",
+                        "sendout": "Sözleşmeye dahil edilecek toplu mesajları seçin",
+                        "contract": "Sözleşmeye ilişkin verileri gönderin"
+                    },
+                    "title": "Sözleşme oluşturuluyor!",
+                    "path": "[📍 Yol: Panel → Sözleşmeler → *Oluştur*]"
                 }
             }
         }

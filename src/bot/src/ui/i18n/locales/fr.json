@@ -3,14 +3,16 @@
         "shared": {
             "processing": "⏳ Traitement...",
             "cabinet": "🪴 Espace personnel",
+            "panel": "👨‍💻 Panneau d'administration",
+            "nameless": "Sans nom",
             "buttons": {
                 "export": "📧 Exporter",
-                "nameless": "Sans nom",
                 "back": "🔙 Retour",
                 "remove": "🗑 Supprimer",
                 "miss": "Manquant",
                 "create": "➕ Créer",
                 "update": "✍ Modifier",
+                "instruction": "📖 Instruction",
                 "clear": "🗑 Effacer",
                 "view": "👁 Voir",
                 "contract": "📜 Contrats",
@@ -19,29 +21,34 @@
                 "contactAdmin": "👨 Administrateur"
             },
             "titles": {
-                "validate": "⚠ Les données d'entrée avaient un format invalide. Veuillez renvoyer",
-                "cabinet": "Espace",
+                "validate": "⚠ Les données d'entrée avaient un format incorrect. Veuillez renvoyer",
+                "cabinet": "Espace personnel",
                 "panel": "Panneau → Données",
                 "amount": "Quantité : {{amount}}",
-                "sendoutActive": "L'envoi est actuellement actif, essayez de gérer les données plus tard"
+                "sendoutActive": "L'envoi est actuellement actif, essayez de gérer les données plus tard",
+                "accessDenied": {
+                    "all": "Accès refusé. Veuillez d'abord vous authentifier avec la commande /auth",
+                    "admin": "Accès refusé. Cette section est destinée aux clients",
+                    "customer": "Accès refusé. Cette section est destinée aux administrateurs"
+                }
             }
         },
-        "maintenace": "🚧 Des travaux de maintenance sont actuellement en cours. L'utilisation du service est temporairement limitée.\nDès que nous aurons terminé, nous vous informerons immédiatement !\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
+        "maintenace": "🚧 Des travaux de maintenance sont en cours. L'utilisation du service est temporairement limitée.\nNous vous informerons dès que possible !\n🦆 🦆 🦆 🦆 🦆 🦆 🦆",
         "roleCodes": {
             "admin": "Administrateur",
             "customer": "Client",
             "unknown": "Inconnu"
         },
         "commands": {
-            "cabinet": "Espace",
+            "cabinet": "Espace perso",
             "settings": "Paramètres",
-            "panel": "Panneau d'admin"
+            "panel": "Admin panel"
         },
         "chart": {
-            "labelMonth": "Statistiques du nombre de groupes ayant reçu l'envoi. {{month}} {{year}}",
-            "labelWeek": "Statistiques du nombre de groupes ayant reçu l'envoi. Semaine",
+            "labelMonth": "Statistiques des groupes ayant reçu l'envoi. {{month}} {{year}}",
+            "labelWeek": "Statistiques des groupes ayant reçu l'envoi. Semaine",
             "amountSms": "Nombre de messages",
-            "noLogs": "Aucun envoi n'a encore eu lieu pendant la période sélectionnée !",
+            "noLogs": "Aucun envoi n'a eu lieu pendant la période sélectionnée !",
             "daysOfWeek": {
                 "Mon": "Lun",
                 "Tue": "Mar",
@@ -95,23 +102,49 @@
             "bot": "Bot",
             "parser": "Parser",
             "sendout": "Envois"
+        },
+        "export": {
+            "fileName": {
+                "schedule": "Planning",
+                "message": "Messages",
+                "contract": "Contrat"
+            },
+            "text": "Exporter",
+            "from": "de"
+        },
+        "localization": {
+            "schedule": {
+                "number": "jour",
+                "everyDay": "Chaque jour",
+                "unknownDay": "Jour inconnu",
+                "dayWeek": {
+                    "1": "Lundi",
+                    "2": "Mardi",
+                    "3": "Mercredi",
+                    "4": "Jeudi",
+                    "5": "Vendredi",
+                    "6": "Samedi",
+                    "7": "Dimanche",
+                    "*": "Chaque jour"
+                }
+            }
         }
     },
     "handlers": {
         "events": {
             "contact": {
                 "numberIsNull": "Erreur lors du traitement du numéro de téléphone !\nRéessayez !",
-                "accessDenied": "Accès interdit. Pour utiliser le service d'envoi, utilisez la commande '/settings', section 'Aide'"
+                "accessDenied": "Accès refusé. Pour utiliser le service d'envoi, utilisez la commande '/settings', section 'Aide'"
             }
         },
         "states": {
             "addingText": {
                 "success": "✅ Texte enregistré !",
                 "error": "❌ Texte non enregistré !\nContactez l'administrateur",
-                "path": "[📍 Chemin : {{menu}} → Menu «{{call}}» → Messages → *Création de texte*]"
+                "path": "[📍 Chemin : {{menu}} → Menu «{{call}}» → Messages → *Créer texte*]"
             },
             "generatingText": {
-                "result": "Le message généré est présenté ci-dessous. \nUtilisez les boutons sous les messages pour décider du sort du texte.",
+                "result": "Le message généré est ci-dessous. Utilisez les boutons sous les messages pour décider du sort du texte.",
                 "pathChoose": "[📍 Chemin : {{menu}} → Menu «{{call}}» → Messages → Génération de texte → *Sort du texte*]",
                 "buttons": {
                     "save": "✔ Enregistrer",
@@ -121,69 +154,94 @@
             "updatingText": {
                 "success": "✅ Texte modifié !",
                 "error": "❌ Texte non modifié !\nContactez l'administrateur",
-                "path": "[📍 Chemin : {{menu}} → Menu «{{call}}» → Messages → *Modification du texte*]"
+                "path": "[📍 Chemin : {{menu}} → Menu «{{call}}» → Messages → *Modifier texte*]"
             },
             "addingMedia": {
                 "error": "💀 Erreur lors de l'enregistrement du média !\nContactez l'administrateur",
                 "invalidType": "Type de média non reconnu ! Réessayez",
                 "bigSize": "Fichier trop volumineux. Taille maximale {{size}} Mo.",
-                "documentsWTMedia": "Je ne peux pas traiter les documents qui ne contiennent pas : photo / vidéo / gif",
+                "documentsWTMedia": "Je ne peux pas traiter les documents ne contenant pas : photo / vidéo / gif",
                 "success": "✅ Média enregistré !",
                 "error2": "❌ Média non enregistré !\nContactez l'administrateur",
-                "path": "[📍 Chemin : {{menu}} → Menu «{{call}}» → Messages → *Ajout de média*]"
+                "path": "[📍 Chemin : {{menu}} → Menu «{{call}}» → Messages → *Ajouter média*]",
+                "amount": "Nombre de médias dans le message : {{now}} sur {{all}}"
             },
             "addingTime": {
                 "success": "✅ Heure enregistrée !",
                 "error": "❌ Heure non modifiée !\nContactez l'administrateur",
-                "path": "[📍 Chemin : Panneau → Menu «{{call}}» → Planning → Voir → *Ajout*]"
+                "path": "[📍 Chemin : Panneau → Menu «{{call}}» → Planning → Voir → *Ajouter*]"
             },
             "updatingTime": {
                 "success": "✅ Heure modifiée !",
                 "error": "❌ Heure non modifiée !\nContactez l'administrateur",
-                "path": "[📍 Chemin : Panneau → Menu «{{call}}» → Planning → Voir → *Modification*]"
+                "path": "[📍 Chemin : Panneau → Menu «{{call}}» → Planning → Voir → *Modifier*]"
             },
             "addingIdea": {
                 "success": "✅ Idée ajoutée avec succès, merci !",
                 "error": "❌ Idée non ajoutée !\nRéessayez ou contactez l'administrateur !",
-                "path": "[📍 Chemin : Paramètres → Idées → *Ajout*]"
+                "path": "[📍 Chemin : Paramètres → Idées → *Ajouter*]"
             },
             "addingUser": {
                 "success": "✅ Utilisateur créé avec succès !",
                 "error": "❌ Utilisateur non créé !\nRéessayez plus tard.",
-                "path": "[📍 Chemin : Panneau → Données → Utilisateurs → *Création*]"
+                "path": "[📍 Chemin : Panneau → Données → Utilisateurs → *Créer*]"
             },
             "addingContract": {
                 "success": "✅ Contrat créé avec succès !",
                 "error": "❌ Contrat non créé !\nRéessayez plus tard.",
-                "path": "[📍 Chemin : Panneau → Contrats → *Création*]"
+                "path": "[📍 Chemin : Panneau → Contrats → *Créer*]"
             },
             "updatingSendoutCall": {
                 "success": "✅ Indicatif mis à jour avec succès !",
                 "error": "❌ Indicatif non mis à jour !\nRéessayez plus tard.",
-                "path": "[📍 Chemin : Panneau → Envois → Voir → Menu «{{call}}» → Nom → *Mise à jour*]"
+                "path": "[📍 Chemin : Panneau → Envois → Menu «{{call}}» → Noms → Indicatif → *Mettre à jour*]"
             },
             "updatingUserName": {
                 "success": "✅ Nom mis à jour avec succès !",
                 "error": "❌ Nom non mis à jour !\nRéessayez plus tard.",
-                "path": "[📍 Chemin : Panneau → Données → Utilisateurs → Voir → {{userName}} → *Modification du nom*]"
+                "path": "[📍 Chemin : Panneau → Données → Utilisateurs → Voir → {{userName}} → *Modifier nom*]"
             },
             "updatingUserPhone": {
                 "success": "✅ Téléphone mis à jour avec succès !",
                 "error": "❌ Téléphone non mis à jour !\nRéessayez plus tard.",
-                "path": "[📍 Chemin : Panneau → Données → Utilisateurs → Voir → {{userName}} → *Modification du numéro*]"
+                "path": "[📍 Chemin : Panneau → Données → Utilisateurs → Voir → {{userName}} → *Modifier numéro*]"
             }
         }
     },
     "modules": {
         "commands": {
             "start": {
-                "title": "Bienvenue ! Je suis un bot Telegram, assistant pour les envois.\n\nJe vous recommande vivement de vous familiariser avec l'ensemble de mes commandes en appuyant sur le bouton ovale 'Menu' dans le coin inférieur gauche de l'écran.\nAprès avoir lu le manuel d'utilisation, appelé par la commande '/settings', dans la section 'À propos du bot'."
+                "title": "☀ Bonjour ! Je suis le bot Telegram Vilain Petit Canard, assistant pour les envois groupés.",
+                "commands": "Voici une brève description des commandes pour interagir avec moi :\n/start - activer le bot et liste des commandes\n/auth - authentification\n/cabinet - gérer l'espace personnel\n/settings - gérer les paramètres du bot",
+                "uAdmin": "❓ Êtes-vous administrateur ?\n/panel - panneau d'administration",
+                "link": "Vous pouvez consulter des instructions plus détaillées sur le mécanisme de contrôle en utilisant le bouton ci-dessous."
+            },
+            "auth": {
+                "login": {
+                    "buttons": {
+                        "cancel": "❌ Annuler",
+                        "phone": "📞 Partager",
+                        "again": "🔄 Réessayer"
+                    },
+                    "unknownMessage": "Action non reconnue, réessayez avec les boutons : '📞 Partager' et '❌ Annuler'",
+                    "manyAttempts": "Nombre de tentatives d'authentification utilisées avant la limite d'une heure : {{actualAttempts}} sur {{maxAttempts}}",
+                    "stop": "Authentification restreinte. Les restrictions seront levées après : {{dateTime}}",
+                    "canceled": "Authentification arrêtée avec succès !",
+                    "title": "Pour accéder au panneau d'envoi, vous devez partager votre numéro de téléphone avec moi.\n\nLe bouton devrait apparaître à côté du clavier, avec le texte '📞 Partager'",
+                    "good": "Vous vous êtes authentifié avec succès !",
+                    "already": "Vous êtes déjà authentifié !",
+                    "bad": "Erreur lors de l'authentification. Contactez l'administrateur !"
+                },
+                "logout": {
+                    "good": "Vous vous êtes déconnecté avec succès. Vos données ont été effacées !",
+                    "bad": "Erreur lors de la déconnexion. Contactez l'administrateur !"
+                }
             },
             "settings": {
                 "main": {
                     "title": "⚙️ Paramètres",
                     "buttons": {
-                        "about": "ℹ À propos du service",
+                        "about": "ℹ À propos",
                         "help": "❓ Aide",
                         "idea": "💡 Idées",
                         "language": "🌐 Langue"
@@ -191,7 +249,7 @@
                 },
                 "language": {
                     "main": {
-                        "title": "Choisissez une langue.",
+                        "title": "Choisissez la langue.",
                         "path": "[📍 Chemin : Paramètres → *Langue*]"
                     },
                     "change": {
@@ -200,18 +258,17 @@
                     }
                 },
                 "help": {
-                    "title": "Vous rencontrez un problème ?\nVous avez des questions ?\nVous souhaitez féliciter le service ?\nVous avez des idées pour améliorer le service ?",
+                    "title": "Un problème ?\nDes questions ?\nVous souhaitez féliciter le service ?\nDes idées d'amélioration ?",
                     "interest": "Ou vous êtes intéressé par le produit ?\nRemplissez le formulaire ci-dessous et nous vous contacterons !",
                     "path": "[📍 Chemin : Paramètres → *Aide*]"
                 },
                 "about": {
-                    "title": "Le service est développé pour automatiser la publicité (posts, envois) de vos produits (offres) au sein de groupes / chats / canaux.\n\nInstructions d'utilisation du Bot - via le bouton ci-dessous !",
-                    "instruction": "📖 Instructions",
-                    "path": "[📍 Chemin : Paramètres → *À propos du service*]"
+                    "title": "Le service est conçu pour automatiser la publicité (publications, envois) de vos produits (offres) au sein de groupes / chats / canaux.\n\nInstructions d'utilisation du Bot ci-dessous !",
+                    "path": "[📍 Chemin : Paramètres → *À propos*]"
                 },
                 "idea": {
                     "main": {
-                        "title": "Menu de la section Idées. \nVous pouvez ici proposer votre idée pour le développement du service.",
+                        "title": "Menu de la section Idées. Vous pouvez y suggérer votre idée pour le développement du service.",
                         "path": "[📍 Chemin : Paramètres → *Idées*]",
                         "buttons": {
                             "add": "🗳 Proposer",
@@ -220,46 +277,23 @@
                     },
                     "add": {
                         "title": "Envoyez-moi des médias/audio/texte, etc. Pas de limites !",
-                        "path": "[📍 Chemin : Paramètres → Idées → *Ajout*]"
+                        "path": "[📍 Chemin : Paramètres → Idées → *Ajouter*]"
                     }
                 }
             },
             "cabinet": {
                 "main": {
-                    "buttons": {                        
-                        "logout": "🚪 Se déconnecter",
-                        "login": "🔑 Se connecter"
-                    }
-                },
-                "auth": {
-                    "login": {
-                        "buttons": {
-                            "cancel": "❌ Annuler",
-                            "phone": "📞 Partager"
-                        },
-                        "unknownMessage": "Action non reconnue, réessayez d'utiliser les boutons 'Partager' et 'Annuler'",
-                        "manyAttempts": "Nombre de tentatives d'authentification utilisées avant la limite d'une heure : {{actualAttempts}} sur {{maxAttempts}}",
-                        "stop": "Autorisation limitée. Les restrictions seront levées après : {{dateTime}}",
-                        "canceled": "Autorisation arrêtée avec succès !",
-                        "title": "Pour accéder au panneau d'envoi, vous devez me communiquer votre numéro de téléphone.\n\nLe bouton devrait apparaître à côté du clavier, avec l'étiquette '📞 Partager'.",
-                        "good": "Vous vous êtes authentifié avec succès dans le système !",
-                        "already": "Vous êtes déjà authentifié dans le système !",
-                        "bad": "Erreur lors de l'authentification dans le système.\nContactez l'administrateur !",
-                        "path": "[📍 Chemin : Espace → *Autorisation*"
-                    },
-                    "logout": {
-                        "good": "Vous vous êtes déconnecté avec succès. Vos données ont été effacées !",
-                        "bad": "Erreur lors de la déconnexion.\nContactez l'administrateur !",
-                        "path": "[📍 Chemin : Espace → *Déconnexion*]"
+                    "buttons": {
+                        "logout": "🚪 Déconnexion",
+                        "login": "🔑 Connexion"
                     }
                 }
             },
             "panel": {
                 "main": {
-                    "title": "👨‍💻 Panneau d'administration",
                     "buttons": {
                         "data": "🗂 Données",
-                        "system": "⚡ Système "
+                        "system": "⚡ Système"
                     }
                 },
                 "data": {
@@ -272,8 +306,7 @@
                     },
                     "chat": {
                         "main": {
-                            "title": "Gestion des groupes",
-                            "amount": "Quantité : {{amount}}",
+                            "title": "Gestion des groupes. Quantité : {{amount}}",
                             "path": "[📍 Chemin : Panneau → Données → *Groupes*]",
                             "buttons": {
                                 "reupload": "🔁 Actualiser"
@@ -282,18 +315,17 @@
                         "reupload": {
                             "success": "✅ Groupes mis à jour !",
                             "error": "❌ Erreur lors de la mise à jour des groupes\nContactez l'administrateur",
-                            "path": "[📍 Chemin : Panneau → Données → Groupes → *Mise à jour*]"
+                            "path": "[📍 Chemin : Panneau → Données → Groupes → *Actualiser*]"
                         },
                         "clear": {
                             "success": "✅ Groupes effacés !",
                             "error": "❌ Erreur lors de l'effacement des groupes\nContactez l'administrateur",
-                            "path": "[📍 Chemin : Panneau → Données → Groupes → *Effacement*]"
+                            "path": "[📍 Chemin : Panneau → Données → Groupes → *Effacer*]"
                         }
                     },
                     "user": {
                         "main": {
-                            "title": "Gestion des utilisateurs",
-                            "amount": "Quantité : {{amount}}",
+                            "title": "Gestion des utilisateurs. Quantité : {{amount}}",
                             "path": "[📍 Chemin : Panneau → Données → *Utilisateurs*]"
                         },
                         "view": {
@@ -303,7 +335,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Gestion de l'utilisateur",
+                                    "title": "Gérer l'utilisateur",
                                     "path": "[📍 Chemin : Panneau → Données → Utilisateurs → Voir → *{{userName}}*]",
                                     "telegramId": "ID Tg : {{telegramId}}",
                                     "name": "Nom : {{name}}",
@@ -313,26 +345,26 @@
                                     "role": "Rôle : {{role}}"
                                 },
                                 "remove": {
-                                    "success":"✅ Utilisateur supprimé avec succès !",
+                                    "success": "✅ Utilisateur supprimé avec succès !",
                                     "error": "❌ Utilisateur non supprimé !\nRéessayez plus tard",
-                                    "path": "[📍 Chemin : Panneau → Données → Utilisateurs → Voir → {{userName}} → *Suppression*]"
+                                    "path": "[📍 Chemin : Panneau → Données → Utilisateurs → Voir → {{userName}} → *Supprimer*]"
                                 },
                                 "update": {
                                     "phone": {
                                         "title": "Modification du téléphone !\nEnvoyez-le ici.",
-                                        "path": "[📍 Chemin : Panneau → Données → Utilisateurs → Voir → {{userName}} → *Modification du numéro*]"
+                                        "path": "[📍 Chemin : Panneau → Données → Utilisateurs → Voir → {{userName}} → *Modifier numéro*]"
                                     },
                                     "name": {
                                         "title": "Modification du nom !\nEnvoyez-le ici.",
-                                        "path": "[📍 Chemin : Panneau → Données → Utilisateurs → Voir → {{userName}} → *Modification du nom*]"
+                                        "path": "[📍 Chemin : Panneau → Données → Utilisateurs → Voir → {{userName}} → *Modifier nom*]"
                                     }
                                 }
                             }
                         },
                         "create": {
-                            "title": "Création d'un utilisateur ! Avant de commencer, lisez les instructions pour une création correcte.",
-                            "path": "[📍 Chemin : Panneau → Données → Utilisateurs → *Création*]"
-                        }   
+                            "title": "Création d'un utilisateur !",
+                            "path": "[📍 Chemin : Panneau → Données → Utilisateurs → *Créer*]"
+                        }
                     }
                 },
                 "system": {
@@ -360,7 +392,7 @@
                             },
                             "control": {
                                 "main": {
-                                    "title": "Gestion du processus",
+                                    "title": "Gérer le processus",
                                     "path": "[📍 Chemin : Panneau → Système → Serveur → {{processType}} → *{{processName}}*]",
                                     "buttons": {
                                         "condition": "🩻 État",
@@ -370,9 +402,9 @@
                                 "condition": {
                                     "path": "[📍 Chemin : Panneau → Système → Serveur → {{processType}} → {{processName}} → *État*]",
                                     "status": {
-                                        "active": "✅ Le processus est actif.\nPour l'arrêter, appuyez sur le bouton ci-dessous",
-                                        "inactive": "❌ Le processus est inactif.\nPour le démarrer, appuyez sur le bouton ci-dessous",
-                                        "failed": "💀 Le processus est mort.\nContactez le programmeur.",
+                                        "active": "✅ Processus actif.\nPour arrêter, appuyez sur le bouton ci-dessous",
+                                        "inactive": "❌ Processus inactif.\nPour démarrer, appuyez sur le bouton ci-dessous",
+                                        "failed": "❌ Processus inactif.\nPour démarrer, appuyez sur le bouton ci-dessous",
                                         "error": "Problème avec le processus. Contactez le programmeur."
                                     },
                                     "buttons": {
@@ -382,7 +414,7 @@
                                     }
                                 },
                                 "log": {
-                                    "title": "Consultation des journaux",
+                                    "title": "Voir les journaux",
                                     "path": "[📍 Chemin : Panneau → Système → Serveur → {{processType}} → {{processName}} → *Journaux*]",
                                     "sort": "Tri : {{sortType}}",
                                     "sortType": {
@@ -400,102 +432,106 @@
             "sendout": {
                 "main": {
                     "title": "Liste des envois actuellement actifs.",
-                    "path": "[📍 Chemin : {{menu}} → Envois → *Voir*]",
-                    "empty": "Aucun envoi n'a encore été configuré ! Revenez plus tard."
+                    "path": "[📍 Chemin : {{menu}} → *Envois*]",
+                    "empty": "Aucun envoi configuré pour l'instant ! Revenez plus tard."
                 },
                 "view": {
                     "main": {
                         "title": "📣 Menu de l'envoi «{{call}}»",
-                        "path": "[📍 Chemin : {{menu}} → Envois → Voir → *Menu «{{call}}»*]",
+                        "path": "[📍 Chemin : {{menu}} → Envois → *Menu «{{call}}»*]",
                         "buttons": {
                             "schedule": "🕰️ Planning",
                             "message": "💬 Messages",
                             "statistic": "📈 Statistiques",
                             "owner": "👑 Propriétaire",
-                            "call": "🏷️ Nom"
+                            "name": "🏷️ Noms",
+                            "test": "🎛️ Test"
                         }
+                    },
+                    "test": {
+                        "alert": "Impossible d'activer le mode test pendant que l'envoi est actif !"
                     },
                     "message": {
                         "main": {
-                            "error": "Erreur lors de la réception des messages !\nContactez l'administrateur",
-                            "empty": "Aucun message !\nPour ajouter un texte, appuyez sur le bouton ci-dessous",
+                            "error": "Erreur lors de la récupération des messages !\nContactez l'administrateur",
+                            "empty": "Aucun message !\nPour ajouter du texte, appuyez sur le bouton ci-dessous",
                             "title": "Menu de la section Messages. Quantité : {{amount}}",
-                            "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → *Messages*]"
+                            "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → *Messages*]"
                         },
                         "create": {
                             "main": {
-                                "title": "Sélectionnez le type d'ajout de texte.",
-                                "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → *Mode d'ajout*]",
+                                "title": "Choisissez le mode d'ajout de texte.",
+                                "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → *Mode d'ajout*]",
                                 "buttons": {
                                     "generate": "🔮 Générer",
                                     "hand": "✍ Saisie manuelle"
                                 }
                             },
                             "generate": {
-                                "title": "Je vais générer un texte de vente ! \nEnvoyez le texte source ici. Pas de lots de textes.",
-                                "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → *Génération*]",
+                                "title": "Je vais générer un texte de vente ! Envoyez le texte source ici. Pas de lots de textes.",
+                                "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → *Génération*]",
                                 "save": "✅ Texte enregistré !",
                                 "cancel": "❌ Texte non enregistré !",
-                                "pathSave": "[📍 Chemin : {{menu}} → Menu «{{call}}» → Messages → Génération → *Enregistrement*]",
-                                "pathCancel": "[📍 Chemin : {{menu}} → Menu «{{call}}» → Messages → Génération → *Annulation*]"
+                                "pathSave": "[📍 Chemin : {{menu}} → Menu «{{call}}» → Messages → Génération → *Enregistrer*]",
+                                "pathCancel": "[📍 Chemin : {{menu}} → Menu «{{call}}» → Messages → Génération → *Annuler*]"
                             },
                             "hand": {
-                                "title": "Ajout du texte !\nEnvoyez le texte ou transférez-le ici. Pas de lots de textes.",
-                                "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → *Ajout de texte*]"
+                                "title": "Ajout de texte !\nEnvoyez le texte ou transférez-le ici. Pas de lots de textes.",
+                                "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → *Ajouter texte*]"
                             }
                         },
                         "clear": {
-                            "success": "✅ Tous les messages effacés !",
+                            "success": "✅ Tous les messages ont été effacés !",
                             "error": "❌ Messages non effacés !\nContactez l'administrateur",
-                            "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → *Effacement*]"
+                            "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → *Effacer*]"
                         },
                         "view": {
                             "main": {
-                                "messageNumber": "Message n°{{number}}.",
+                                "messageNumber": "Message №{{number}}.",
                                 "amountMedia": "Nombre de médias : {{amount}} / {{maxMedia}}.",
-                                "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → *Voir*]",
+                                "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → *Voir*]",
                                 "buttons": {
                                     "updateText": "✍️ Modifier le texte",
                                     "addMedia": "🖼 Ajouter un média",
-                                    "clearAllMedia": "🗑 Effacer les médias"    
+                                    "clearAllMedia": "🗑 Effacer les médias"
                                 }
                             },
                             "text": {
                                 "update": {
                                     "title": "Modification du texte !\nEnvoyez le texte ou transférez-le ici. Pas de lots de textes.",
-                                    "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → *Modification du texte*]"
+                                    "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → *Modifier texte*]"
                                 },
                                 "remove": {
                                     "success": "✅ Message supprimé !",
                                     "error": "❌ Texte non supprimé !\nContactez l'administrateur",
-                                    "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → *Suppression du texte*]"
+                                    "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → *Supprimer texte*]"
                                 }
                             },
                             "media": {
                                 "add": {
-                                    "title": "Ajout du média !\nEnvoyez le média en quantité de 1 pièce.",
-                                    "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → *Ajout de média*]"
+                                    "title": "Ajout de média !\nEnvoyez un média à la fois.",
+                                    "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → *Ajouter média*]"
                                 },
                                 "clearAll": {
                                     "success": "✅ Tous les médias effacés !",
                                     "error": "❌ Médias non effacés !\nContactez l'administrateur",
-                                    "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → *Effacement des médias*]"
+                                    "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → *Effacer médias*]"
                                 }
                             },
                             "pagination": {
-                                "title": "Accès rapide à un message par son numéro",
-                                "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → Voir → *Sélection du message*]"
+                                "title": "Accès rapide au message par numéro",
+                                "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → Voir → *Choisir message*]"
                             }
                         },
                         "export": {
                             "main": {
                                 "title": "Choisissez le format dans lequel la liste des messages sera enregistrée",
-                                "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → *Choix du format d'export*]"
+                                "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → *Choix du format d'export*]"
                             },
                             "result": {
-                                "error": "❌ Erreur lors de l'exportation des messages\nContactez l'administrateur",
+                                "error": "❌ Erreur lors de l'export des messages\nContactez l'administrateur",
                                 "caption": "Liste des messages au format {{exportType}} prête !",
-                                "path": "\n[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Messages → *Export en {{exportType}}*]"
+                                "path": "\n[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Messages → *Exporter en {{exportType}}*]"
                             }
                         }
                     },
@@ -503,43 +539,54 @@
                         "main": {
                             "empty": "Planning pas encore configuré !",
                             "title": "Menu de la section Planning. Nombre d'heures dans le planning : {{amount}}",
-                            "path": "\n[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → *Planning*]"
+                            "path": "\n[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → *Planning*]"
                         },
                         "create": {
-                            "title": "Ajout de l'heure !",
-                            "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Planning → *Ajout*]"
+                            "title": "Ajout d'une heure !",
+                            "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Planning → *Ajouter*]"
                         },
                         "clear": {
                             "success": "✅ Planning effacé !",
                             "error": "❌ Planning non effacé !\nContactez l'administrateur",
-                            "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Planning → *Effacement*]"
+                            "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Planning → *Effacer*]"
                         },
                         "view": {
                             "main": {
                                 "title": "Le planning d'envoi est présenté ci-dessous sous forme de boutons.",
-                                "path": "\n[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Planning → *Voir*]"
+                                "path": "\n[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Planning → *Voir*]"
                             },
                             "time": {
                                 "update": {
                                     "title": "Modification de l'heure !",
-                                    "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Planning → Voir → *Modification de l'heure*]"
+                                    "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Planning → Voir → *Modifier heure*]"
                                 },
                                 "remove": {
                                     "success": "✅ Heure supprimée !",
                                     "error": "❌ Heure non supprimée ! Contactez l'administrateur",
-                                    "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Planning → Voir → *Suppression de l'heure*]"
+                                    "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Planning → Voir → *Supprimer heure*]"
                                 },
                                 "updateOrRemove": {
                                     "title": "Heure sélectionnée :\n→ *{{targetTime}}*.\n",
-                                    "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Planning → Voir → *Choix de l'action*]"
+                                    "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Planning → Voir → *Choisir action*]"
                                 }
+                            }
+                        },
+                        "export": {
+                            "main": {
+                                "title": "Choisissez le format dans lequel le planning d'envoi sera enregistré",
+                                "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Planning → *Choix du format d'export*]"
+                            },
+                            "result": {
+                                "error": "❌ Erreur lors de l'export du planning\nContactez l'administrateur",
+                                "caption": "Planning au format {{exportType}} prêt !",
+                                "path": "\n[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Planning → *Exporter en {{exportType}}*]"
                             }
                         }
                     },
                     "statistic": {
                         "main": {
-                            "title": "Choisissez le format des statistiques souhaitées.",
-                            "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → *Statistiques*]",
+                            "title": "Choisissez le format de statistiques souhaité.",
+                            "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → *Statistiques*]",
                             "buttons": {
                                 "selective": "📅 Sélective",
                                 "comparative": "📊 Comparative"
@@ -547,41 +594,40 @@
                         },
                         "selective": {
                             "main": {
-                                "notDone": "Actuellement, des travaux de maintenance sont en cours sur cette section.",
+                                "notDone": "Des travaux de maintenance sont actuellement en cours sur cette section.",
                                 "noData": "Aucun résultat trouvé pour la date sélectionnée !",
                                 "noAccess": "Le bouton enfoncé n'est pas disponible !",
-                                "title": "Statistique sélective.\nVous trouverez ci-dessous un calendrier avec les dates. Pour voir le résultat de l'envoi pour un jour donné, cliquez simplement dessus !\n\nSi l'envoi : \n*n'a pas eu lieu, \n*n'était pas, \n*n'est pas planifié, \n*ou autre chose\n- un message avec le contexte correspondant s'affichera, ne paniquez pas.",
-                                "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Statistiques → *Sélective*]"
+                                "title": "Statistiques sélectives.\nCi-dessous, un calendrier avec les dates. Pour voir le résultat de l'envoi pour un jour donné, cliquez simplement dessus !\n\nSi l'envoi :\n*n'a pas eu lieu,\n*n'existait pas,\n*n'était pas planifié,\n*ou autre chose\n- un message avec le contexte approprié sera affiché, ne vous inquiétez pas.",
+                                "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Statistiques → *Sélective*]"
                             },
                             "targetDate": {
                                 "main": {
                                     "title": "Résultat de l'envoi du {{date}}.",
                                     "time": "Heure : {{time}}",
                                     "success": "Envois réussis : {{success}}",
-                                    "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Statistiques → Sélective → *{{date}}*]"
+                                    "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Statistiques → Sélective → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "amount":"Quantité : {{amount}}",
-                                    "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Statistiques → Sélective → {{date}} → *Groupes*]"    
+                                    "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Statistiques → Sélective → {{date}} → *Groupes*]"
                                 }
                             }
                         },
                         "comparative": {
                             "main": {
-                                "title": "Sélectionnez le type de statistique comparative.",
-                                "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Statistiques → *Comparative*]",
+                                "title": "Choisissez le type de statistique comparative.",
+                                "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Statistiques → *Comparative*]",
                                 "buttons": {
                                     "week": "Semaine",
                                     "month": "Mois"
                                 }
                             },
                             "week": {
-                                "title": "Statistique comparative. (Semaine)",
-                                "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Statistiques → Comparative → *Semaine*]"
+                                "title": "Statistiques comparatives (Semaine)",
+                                "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Statistiques → Comparative → *Semaine*]"
                             },
                             "month": {
-                                "title": "Statistique comparative. (Mois)",
-                                "path": "[📍 Chemin : {{menu}} → Envois → Voir → Menu «{{call}}» → Statistiques → Comparative → *Mois*]"
+                                "title": "Statistiques comparatives (Mois)",
+                                "path": "[📍 Chemin : {{menu}} → Envois → Menu «{{call}}» → Statistiques → Comparative → *Mois*]"
                             }
                         }
                     },
@@ -591,7 +637,7 @@
                             "empty": "L'envoi n'a pas de propriétaire !",
                             "name": "Nom : {{name}}",
                             "phone": "Téléphone : +{{phone}}",
-                            "path": "[📍 Chemin : Panneau → Envois → Voir → Menu «{{call}}» → *Propriétaire*]",
+                            "path": "[📍 Chemin : Panneau → Envois → Menu «{{call}}» → *Propriétaire*]",
                             "buttons": {
                                 "change": "🪧 Réattribuer"
                             }
@@ -599,35 +645,42 @@
                         "update": {
                             "main": {
                                 "title": "Sélectionnez un utilisateur pour le désigner comme propriétaire de cet envoi.",
-                                "path": "[📍 Chemin : Panneau → Envois → Voir → Menu «{{call}}» → Propriétaire → *Sélection*]",
+                                "path": "[📍 Chemin : Panneau → Envois → Menu «{{call}}» → Propriétaire → *Sélectionner*]",
                                 "noOwner": "Sans propriétaire"
                             },
                             "action": {
                                 "success": "✅ Propriétaire réattribué avec succès !",
-                                "error": "❌ Propriétaire non réattribué ! \nRéessayez plus tard !",
-                                "path": "[📍 Chemin : Panneau → Envois → Voir → Menu «{{call}}» → Propriétaire → {{owner}} → *Attribution*]"
+                                "error": "❌ Propriétaire non réattribué ! Réessayez plus tard !",
+                                "path": "[📍 Chemin : Panneau → Envois → Menu «{{call}}» → Propriétaire → {{owner}} → *Attribuer*]"
                             }
                         }
                     },
-                    "call": {
+                    "name": {
                         "main": {
-                            "title": "Nom (indicatif) de l'envoi : {{call}}",
-                            "empty": "L'envoi n'a pas de nom !",
-                            "path": "[📍 Chemin : Panneau → Envois → Voir → Menu «{{call}}» → *Nom*]"
+                            "title": "Noms de l'envoi :",
+                            "about": "1 - signature (ancien nom)\n2 - nom de l'entité\n3 - indicatif (nom affiché dans le bot)",
+                            "path": "[📍 Chemin : Panneau → Envois → Menu «{{call}}» → *Noms*]"
                         },
                         "update": {
-                            "title": "Modification de l'indicatif de l'envoi ! Envoyez le nouveau nom de l'envoi.",
-                            "path": "[📍 Chemin : Panneau → Envois → Voir → Menu «{{call}}» → Nom → *Mise à jour*]"
+                            "call": {
+                                "title": "Modification de l'indicatif d'envoi !",
+                                "path": "[📍 Chemin : Panneau → Envois → Menu «{{call}}» → Noms → Indicatif → *Mettre à jour*]"
+                            },
+                            "label": {
+                                "alert": "La signature de l'envoi ne peut pas être modifiée !"
+                            },
+                            "name": {
+                                "alert": "Le nom de l'envoi ne peut pas être modifié !"
+                            }
                         }
                     }
                 }
             },
             "contract": {
                 "main": {
-                    "title": "Gestion des contrats",
-                    "amount": "Quantité : {{amount}}",
+                    "title": "Gestion des contrats. Quantité : {{amount}}",
                     "path": "[📍 Chemin : {{menu}} → *Contrats*]",
-                    "empty": "Aucun contrat n'a encore été configuré ! Revenez plus tard.",
+                    "empty": "Aucun contrat configuré pour l'instant ! Revenez plus tard.",
                     "contractName": "{{userName}} : à partir du {{dateStart}}"
                 },
                 "view": {
@@ -637,7 +690,7 @@
                     },
                     "contract": {
                         "main": {
-                            "title": "Contrat du {{dateStart}}.",
+                            "title": "Contrat à partir du {{dateStart}}.",
                             "sendouts": "Envois inclus dans le contrat : {{sendouts}}",
                             "noSendouts": "vide.",
                             "userName": "Client : {{userName}}",
@@ -645,26 +698,13 @@
                             "dateEnd": "Date de fin : {{dateEnd}}",
                             "price": "Prix : {{price}}",
                             "priceText": "Prix (texte) : {{priceText}}",
-                            "error": "Erreur lors de la réception du contrat. Contactez l'administrateur",
+                            "error": "Erreur lors de la récupération du contrat. Contactez l'administrateur",
                             "path": "\n[📍 Chemin : {{menu}} → Contrats → Voir → *{{dateStart}}*]"
                         },
                         "remove": {
-                            "success":"✅ Contrat supprimé avec succès !",
+                            "success": "✅ Contrat supprimé avec succès !",
                             "error": "❌ Contrat non supprimé !\nRéessayez plus tard",
-                            "path": "[📍 Chemin : Panneau → Contrats → Voir → {{dateStart}} → *Suppression*]"
-                        },
-                        "create": {
-                            "step": "Étape : {{number}} / 3",
-                            "noUser": "Pour passer à l'étape n°2, vous devez effectuer l'étape n°1 !",
-                            "noSendouts": "Pour passer à l'étape n°3, vous devez effectuer l'étape n°2 !",
-                            "noFreeSendouts": "Le client n'a pas d'envois libres (sans contrat) !",
-                            "data": {
-                                "user": "Sélectionnez l'utilisateur pour lequel le contrat sera rédigé",
-                                "sendout": "Sélectionnez les envois à inclure dans le contrat",
-                                "contract": "Envoyez les données concernant le contrat"
-                            },
-                            "title": "Création du contrat ! Familiarisez-vous avec les instructions pour une création correcte.",
-                            "path": "[📍 Chemin : Panneau → Contrats → *Création*]"
+                            "path": "[📍 Chemin : Panneau → Contrats → Voir → {{dateStart}} → *Supprimer*]"
                         },
                         "export": {
                             "main": {
@@ -672,16 +712,25 @@
                                 "path": "[📍 Chemin : {{menu}} → Contrats → Voir → {{dateStart}} → *Choix du format d'export*]"
                             },
                             "result": {
-                                "error": "❌ Erreur lors de l'exportation du contrat\nContactez l'administrateur",
+                                "error": "❌ Erreur lors de l'export du contrat\nContactez l'administrateur",
                                 "caption": "Contrat au format {{exportType}} prêt !",
-                                "path": "\n[📍 Chemin : {{menu}} → Contrats → Voir → {{dateStart}} → *Export en {{exportType}}*]"
+                                "path": "\n[📍 Chemin : {{menu}} → Contrats → Voir → {{dateStart}} → *Exporter en {{exportType}}*]"
                             }
                         }
                     }
                 },
                 "create": {
-                    "title": "Création du contrat ! Avant de commencer, lisez les instructions pour une création correcte.",
-                    "path": "[📍 Chemin : Panneau → Contrats → *Création*]"
+                    "step": "Étape : {{number}} / 3",
+                    "noUser": "Pour passer à l'étape n°2, vous devez effectuer l'étape n°1 !",
+                    "noSendouts": "Pour passer à l'étape n°3, vous devez effectuer l'étape n°2 !",
+                    "noFreeSendouts": "Le client n'a pas d'envois libres (sans contrat) !",
+                    "data": {
+                        "user": "Sélectionnez l'utilisateur pour lequel le contrat sera établi",
+                        "sendout": "Sélectionnez les envois à inclure dans le contrat",
+                        "contract": "Envoyez les données relatives au contrat"
+                    },
+                    "title": "Création d'un contrat !",
+                    "path": "[📍 Chemin : Panneau → Contrats → *Créer*]"
                 }
             }
         }
