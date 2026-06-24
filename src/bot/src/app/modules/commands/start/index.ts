@@ -7,140 +7,138 @@ const startComposer = new Composer<MyContext>();
 startComposer.command('start', async (ctx: MyContext) => {
     try {
         const menu = menuStart(ctx);
-        // await ctx.reply(menu.text, {
-        //     reply_markup: menu.keyboard,
-        //     parse_mode: "MarkdownV2"
-        // });
-await ctx.replyWithRichMessage(
-    {
-        markdown: 
-`**bold text**
-__bold text__
-*italic text*
-_italic text_
-~~strikethrough text~~
-\`inline fixed-width code\`
-==marked text==
-||spoiler||
+        await ctx.reply(menu.text, {
+            reply_markup: menu.keyboard,
+            parse_mode: "MarkdownV2"
+        });
 
-[inline URL](https://t.me/)
-[inline e-mail](mailto:user@example.com)
-[inline phone number](tel:+123456789)
-[inline mention of a user](tg://user?id=123456789)
-![👍](tg://emoji?id=5368324170671202286)
-![22:45 tomorrow](tg://time?unix=1647531900&format=wDT)
-$x^2 + y^2$
-\\#hashtag $USD +12345678901, card: 4242 4242 4242 4242, https://t.me t.me a@t.me /command @username
-all the text above was on the same line
+    // await ctx.replyWithRichMessage(
+    //     {
+    //         markdown: 
+    // `**bold text**
+    // __bold text__
+    // *italic text*
+    // _italic text_
+    // ~~strikethrough text~~
+    // \`inline fixed-width code\`
+    // ==marked text==
+    // ||spoiler||
 
-# Heading 1
-## Heading 2
-### Heading 3
-#### Heading 4
-##### Heading 5
-###### Heading 6
+    // [inline URL](https://t.me/)
+    // [inline e-mail](mailto:user@example.com)
+    // [inline phone number](tel:+123456789)
+    // [inline mention of a user](tg://user?id=123456789)
+    // ![👍](tg://emoji?id=5368324170671202286)
+    // ![22:45 tomorrow](tg://time?unix=1647531900&format=wDT)
+    // $x^2 + y^2$
+    // \\#hashtag $USD +12345678901, card: 4242 4242 4242 4242, https://t.me t.me a@t.me /command @username
+    // all the text above was on the same line
 
-Paragraph text
+    // # Heading 1
+    // ## Heading 2
+    // ### Heading 3
+    // #### Heading 4
+    // ##### Heading 5
+    // ###### Heading 6
 
-\`\`\`python
-  print('pre-formatted fixed-width code block written in the Python programming language')
-\`\`\`
+    // Paragraph text
 
----
+    // \`\`\`python
+    //   print('pre-formatted fixed-width code block written in the Python programming language')
+    // \`\`\`
 
-- unordered list item
-* unordered list item
-+ unordered list item
+    // ---
 
-1. ordered list item
-2. ordered list item
+    // - unordered list item
+    // * unordered list item
+    // + unordered list item
 
-- [ ] task list item
-- [x] completed task list item
+    // 1. ordered list item
+    // 2. ordered list item
 
->Block quotation started
->
->Block quotation continued on the next line
->Block quotation continued on the same line
->
->The last line of the block quotation
+    // - [ ] task list item
+    // - [x] completed task list item
 
-![](https://telegram.org/example/photo.jpg)
-![](https://telegram.org/example/video.mp4)
-![](https://telegram.org/example/audio.mp3)
-![](https://telegram.org/example/audio.ogg)
-![](https://telegram.org/example/animation.gif)
+    // >Block quotation started
+    // >
+    // >Block quotation continued on the next line
+    // >Block quotation continued on the same line
+    // >
+    // >The last line of the block quotation
 
-![](https://telegram.org/example/photo.jpg "Photo caption")
-![](https://telegram.org/example/video.mp4 "Video caption")
-![](https://telegram.org/example/audio.mp3 "Audio caption")
-![](https://telegram.org/example/audio.ogg "Voice note caption")
-![](https://telegram.org/example/animation.gif "Animation caption")
+    // ![](https://telegram.org/example/photo.jpg)
+    // ![](https://telegram.org/example/video.mp4)
+    // ![](https://telegram.org/example/audio.mp3)
+    // ![](https://telegram.org/example/audio.ogg)
+    // ![](https://telegram.org/example/animation.gif)
 
-| Header 1 | Header 2 |
-|:---------|:--------:|
-| left     | center   |
+    // ![](https://telegram.org/example/photo.jpg "Photo caption")
+    // ![](https://telegram.org/example/video.mp4 "Video caption")
+    // ![](https://telegram.org/example/audio.mp3 "Audio caption")
+    // ![](https://telegram.org/example/audio.ogg "Voice note caption")
+    // ![](https://telegram.org/example/animation.gif "Animation caption")
 
-Text with a reference[^id1] and another one[^id2].
+    // | Header 1 | Header 2 |
+    // |:---------|:--------:|
+    // | left     | center   |
 
-[^id1]: Definition of the first footnote.
-[^id2]: Definition of the second footnote.
+    // Text with a reference[^id1] and another one[^id2].
 
-$$E = mc^2$$
+    // [^id1]: Definition of the first footnote.
+    // [^id2]: Definition of the second footnote.
 
-\`\`\`math
-E = mc^2
-\`\`\`
+    // $$E = mc^2$$
 
-## Example Nested Syntax Report for _Q1_
-Intro with <u>underlined text</u>, ==marked text==, and $x^2 + y^2$.
-**Bold _italic <u>underlined italic bold</u> italic_ bold**
-<u>In inline tags, nested **markdown** is parsed</u>
->Quote with **bold text, ~~strikethrough, and <tg-spoiler>spoiler</tg-spoiler>~~**, plus [a link](https://t.me/).
+    // \`\`\`math
+    // E = mc^2
+    // \`\`\`
 
-- List item with \`code\`, <sup>superscript</sup>, <sub>subscript</sub>, and a footnote[^note]
-- Another item with **bold <tg-spoiler><code>spoiler code</code></tg-spoiler>**
-- Another item with ~~strikethrough and <ins>inserted text</ins>~~
+    // ## Example Nested Syntax Report for _Q1_
+    // Intro with <u>underlined text</u>, ==marked text==, and $x^2 + y^2$.
+    // **Bold _italic <u>underlined italic bold</u> italic_ bold**
+    // <u>In inline tags, nested **markdown** is parsed</u>
+    // >Quote with **bold text, ~~strikethrough, and <tg-spoiler>spoiler</tg-spoiler>~~**, plus [a link](https://t.me/).
 
-| Metric | Value |
-|:-------|------:|
-| Speed  | **42** <sup>ms</sup> |
-| Status | <tg-spoiler>ready</tg-spoiler> |
+    // - List item with \`code\`, <sup>superscript</sup>, <sub>subscript</sub>, and a footnote[^note]
+    // - Another item with **bold <tg-spoiler><code>spoiler code</code></tg-spoiler>**
+    // - Another item with ~~strikethrough and <ins>inserted text</ins>~~
 
-[^note]: Footnote with _italic text_ and <u>HTML underline</u>.
+    // | Metric | Value |
+    // |:-------|------:|
+    // | Speed  | **42** <sup>ms</sup> |
+    // | Status | <tg-spoiler>ready</tg-spoiler> |
 
----
+    // [^note]: Footnote with _italic text_ and <u>HTML underline</u>.
 
-# Details blocks can contain Markdown content:
+    // ---
 
-<details open><summary>Summary with **bold text**</summary>
+    // # Details blocks can contain Markdown content:
 
-### Details heading
-- List item with _italic text_
-- List item with <tg-spoiler>spoiler</tg-spoiler>
+    // <details open><summary>Summary with **bold text**</summary>
 
-</details>
+    // ### Details heading
+    // - List item with _italic text_
+    // - List item with <tg-spoiler>spoiler</tg-spoiler>
 
-# Collages and slideshows can contain Markdown media blocks:
+    // </details>
 
-<tg-collage>
+    // # Collages and slideshows can contain Markdown media blocks:
 
-![](https://telegram.org/example/photo.jpg)
-![](https://telegram.org/example/video.mp4)
+    // <tg-collage>
 
-</tg-collage>
+    // ![](https://telegram.org/example/photo.jpg)
+    // ![](https://telegram.org/example/video.mp4)
 
-<tg-slideshow>
+    // </tg-collage>
 
-![](https://telegram.org/example/photo.jpg)
-![](https://telegram.org/example/video.mp4)
+    // <tg-slideshow>
 
-</tg-slideshow>`
-    }
-);
+    // ![](https://telegram.org/example/photo.jpg)
+    // ![](https://telegram.org/example/video.mp4)
 
-
-
+    // </tg-slideshow>`
+    //     }
+    // );
     } catch (error) {
         console.error("Ошибка в команде start:", error);
     }
