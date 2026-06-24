@@ -11,15 +11,13 @@ startComposer.command('start', async (ctx: MyContext) => {
         //     reply_markup: menu.keyboard,
         //     parse_mode: "MarkdownV2"
         // });
-        await ctx.reply(
-        `# Heading 1
-        ## Heading 2
-        ### Heading 3
-        #### Heading 4
-        ##### Heading 5
-        ###### Heading 6`,
-            { parse_mode: "MarkdownV2" }
-        );
+await ctx.reply(
+`# Heading 1
+## Heading 2
+### Heading 3`,
+    { parse_mode: "MarkdownV2" }
+);
+
 
     } catch (error) {
         console.error("Ошибка в команде start:", error);
