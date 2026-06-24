@@ -11,11 +11,17 @@ startComposer.command('start', async (ctx: MyContext) => {
         //     reply_markup: menu.keyboard,
         //     parse_mode: "MarkdownV2"
         // });
-await ctx.reply(
-`# Heading 1
-## Heading 2
-### Heading 3`,
-    { parse_mode: "MarkdownV2" }
+await ctx.replyWithRichMessage(
+    {
+        markdown: 
+        `# Heading 1
+        ## Heading 2
+        ### Heading 3
+        #### Heading 4
+        ##### Heading 5
+        ###### Heading 6
+        `,
+    }
 );
 
 
