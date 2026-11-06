@@ -1,5 +1,6 @@
 /.env.keys     
 /node_modules
 /package-lock.json
-/src/shared/db/prisma
+/src/shared/db/prisma/*
+!/src/shared/db/prisma/schema.prisma
 /src/sendout/resources
