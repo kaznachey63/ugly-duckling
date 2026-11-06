@@ -1,7 +1,6 @@
 import type { MyContext, SessionData } from '@shared/types/SessionData';
 import db from '@shared/db';
 import constants from '@constants';
-import { CryptoService } from '@common/services/CryptoService';
 
 /**
  * Сброс сессии

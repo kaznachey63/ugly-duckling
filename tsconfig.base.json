@@ -13,14 +13,9 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
-
-    "baseUrl": ".",
     "paths": {
       "@shared/*": ["./src/shared/*"]
     }

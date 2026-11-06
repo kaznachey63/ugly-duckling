@@ -4,7 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:bot": "dotenvx run -- tsx --tsconfig src/bot/tsconfig.json src/bot/src/app/core/index.ts",
+    "start:parser": "dotenvx run -- tsx --tsconfig src/parser/tsconfig.json src/parser/src/core/index.ts",
+    "start:sendout": "dotenvx run -- tsx --tsconfig src/sendout/tsconfig.json src/sendout/src/core/index.ts",
+    "dotenv:encrypt": "dotenvx encrypt",
+    "dotenv:decrypt": "dotenvx decrypt",
+    "dotenv:set": "dotenvx set",
+    "reload:packages": "pnpm install",
+    "remove:packages": "node -e \"require('fs').rmSync('node_modules', { recursive: true, force: true })\"",
+    "prisma:generate": "dotenvx run -- prisma generate",
+    "prisma:pull": "dotenvx run -- prisma db pull",
+    "prisma:pull:generate": "dotenvx run -- prisma db pull && dotenvx run -- prisma generate"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +40,12 @@
     "telegram": "^2.26.22"
   },
   "devDependencies": {
-    "prisma": "7.8.0"
+    "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
+    "@types/prompts": "^2.4.9",
+    "esbuild": "^0.28.2",
+    "prisma": "7.10.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   }
 }

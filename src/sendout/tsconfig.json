@@ -2,9 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "target": "ES2022",
-    "ignoreDeprecations": "6.0",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "types": ["node"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -12,14 +11,9 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
-    "rootDir": "..",
-    "outDir": "dist"
   },
   "include": ["**/*.ts", "**/*.tsx"]
 }

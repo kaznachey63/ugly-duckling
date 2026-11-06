@@ -7,6 +7,7 @@ allowBuilds:
   bufferutil: true
   cpu-features: true
   es5-ext: true
+  esbuild: true
   prisma: true
   ssh2: false
   utf-8-validate: true
