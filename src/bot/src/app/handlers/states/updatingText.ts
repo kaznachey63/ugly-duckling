@@ -1,7 +1,7 @@
 import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
 import menuUpdatingText from '@menus/handlers/states/updatingText';
-import { ServerManager } from "src/common/services/ServerManager";
+import { ServerManager } from "@common/services/ServerManager";
 import common from '@utils/common';
 import type { Message } from '@shared/types/DB';
 import type { Prisma } from '@shared/db/prisma/client';

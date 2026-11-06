@@ -1,7 +1,7 @@
 import db from '@shared/db';
 import { Composer, GrammyError } from 'grammy';
 import menuView from '@menus/modules/shared/sendout/message/view';
-import { ServerManager } from "src/common/services/ServerManager";
+import { ServerManager } from "@common/services/ServerManager";
 import type { MyContext } from '@shared/types/SessionData';
 import { FileService } from '@common/services/FileService';
 import common from '@utils/common';

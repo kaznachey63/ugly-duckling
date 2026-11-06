@@ -5,7 +5,7 @@ import type { StatisticType } from '@shared/types/StatisticType';
 import db from '@shared/db';
 import utils from '@utils';
 import menuStatistic from '@menus/modules/shared/sendout/statistic';
-import { QuickChartService } from "src/common/services/QuickChartService";
+import { QuickChartService } from "@common/services/QuickChartService";
 
 const comparativeStatisticsComposer = new Composer<MyContext>();
 

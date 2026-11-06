@@ -1,7 +1,7 @@
 import db from '@shared/db';
 import type { MyContext } from '@shared/types/SessionData';
 import menuUpdatingTime from '@menus/handlers/states/updatingTime';
-import { ServerManager } from "src/common/services/ServerManager";
+import { ServerManager } from "@common/services/ServerManager";
 import common from '@utils/common';
 import utils from "@utils";
 import type { Schedule } from '@shared/types/DB';
