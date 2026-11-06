@@ -1,14 +1,6 @@
 {
-  "name": "bot_rass",
+  "name": "bot",
   "version": "1.0.0",
-  "main": "src/core/index.ts",
-  "scripts": {
-    "dev": "tsx --watch src/app/core/index.ts",
-    "update:dependencies": "npm update && npm audit fix"
-  },
-  "type": "module",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "private": true,
+  "type": "module"
 }

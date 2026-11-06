@@ -1,0 +1,12 @@
+packages:
+  - src/bot
+  - src/parser
+  - src/sendout
+allowBuilds:
+  '@prisma/engines': true
+  bufferutil: true
+  cpu-features: true
+  es5-ext: true
+  prisma: true
+  ssh2: false
+  utf-8-validate: true
