@@ -4,14 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dotenv:set": "dotenvx set",
-    "reload:packages": "pnpm install",
-    "remove:packages": "node -e \"require('fs').rmSync('node_modules', { recursive: true, force: true })\"",
-    "prisma:generate": "dotenvx run -- prisma generate",
-    "prisma:pull": "dotenvx run -- prisma db pull",
-    "prisma:pull:generate": "dotenvx run -- prisma db pull && dotenvx run -- prisma generate",
-
-
     "dotenv:encrypt": "dotenvx encrypt",
     "dotenv:decrypt": "dotenvx decrypt",
     "dev:bot": "dotenvx run -- tsx --tsconfig src/bot/tsconfig.json src/bot/src/app/core/index.ts",
