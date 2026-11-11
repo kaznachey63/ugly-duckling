@@ -4,8 +4,7 @@ import utils from '../utils';
 import fs from 'fs/promises';
 import path from 'path';
 import { TelegramClient } from 'telegram';
-import type { JsonArray } from '@shared/db/generated/internal/prismaNamespace';
-
+import type { Prisma } from '@shared/db/generated/client';
 /**
  * Отправка сообщения
  */
@@ -18,7 +17,7 @@ export class Sender {
             // Получаем правильный объект сущности (InputPeer)
             const entity = await this.client.getInputEntity(chatId!);
 
-            const htmlCaption = this.entitiesToHtml(message.caption!, message.entities as unknown as JsonArray || []);
+            const htmlCaption = this.entitiesToHtml(message.caption!, message.entities as unknown as Prisma.JsonArray || []);
             let result;
             if (message.media?.length) {
                 // Передаём entity, а не строку

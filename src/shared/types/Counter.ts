@@ -1,4 +1,4 @@
-import type { Chat } from "./DB";
+import type { Chat } from "./DataBase";
 
 export interface Counter {
     good: number;
