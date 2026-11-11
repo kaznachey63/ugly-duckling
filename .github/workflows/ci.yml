@@ -45,6 +45,7 @@ jobs:
       - name: Package release
         run: |
           tar -czf release.tar.gz \
+            .env \
             dist/ \
             src/shared/db/generated/ \
             package.json \
