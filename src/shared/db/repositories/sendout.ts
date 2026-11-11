@@ -1,5 +1,5 @@
 import prisma from '@shared/db/config';
-import type { Sendout, User } from '@shared/types/DB';
+import type { Sendout, User } from '@shared/types/DataBase';
 
 /**
  * Задание режима активности рассылки

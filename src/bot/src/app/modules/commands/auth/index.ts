@@ -2,7 +2,7 @@ import { Composer } from 'grammy';
 import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import menuAuth from '@menus/modules/commands/auth/main';
-import type { AuthLimit } from '@shared/types/DB';
+import type { AuthLimit } from '@shared/types/DataBase';
 import common from '@utils/common';
 import initialize from '@utils/initialize';
 

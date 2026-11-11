@@ -1,4 +1,4 @@
-import type { Message } from '@shared/types/DB';
+import type { Message } from '@shared/types/DataBase';
 import prisma from '@shared/db/config';
 import type { PaginationType } from '@shared/types/PaginationType';
 import shared from './shared';

@@ -1,7 +1,7 @@
 import { TelegramClient } from 'telegram';
 import prompts from 'prompts';
 import logMessage from './log';
-import type { Sendout } from '@shared/types/DB';
+import type { Sendout } from '@shared/types/DataBase';
 
 /**
  * Метод-запуск программы и авторизация пользователя

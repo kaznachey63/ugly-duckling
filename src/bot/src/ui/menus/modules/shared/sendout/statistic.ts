@@ -5,7 +5,7 @@ import type { StatisticType } from '@shared/types/StatisticType';
 import utils from '@utils';
 import { CalendarKeyboard } from '@src/ui/calendar';
 import constants from '@constants';
-import type { Chat, Result } from '@shared/types/DB';
+import type { Chat, Result } from '@shared/types/DataBase';
 
 /**
  * Меню раздела Статистика

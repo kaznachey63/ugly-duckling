@@ -3,7 +3,7 @@ import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 import utils from '@utils';
-import type { Schedule } from '@shared/types/DB';
+import type { Schedule } from '@shared/types/DataBase';
 
 function main(ctx: MyContext, times: Schedule[]): Menu<InlineKeyboard> {
     const sendoutId = ctx.session.sendout.id;

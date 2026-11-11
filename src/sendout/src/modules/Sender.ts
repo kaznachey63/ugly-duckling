@@ -1,5 +1,5 @@
 import type { Counter } from '@shared/types/Counter';
-import type { Chat, Media, Message, Sendout } from '@shared/types/DB';
+import type { Chat, Media, Message, Sendout } from '@shared/types/DataBase';
 import utils from '../utils';
 import fs from 'fs/promises';
 import path from 'path';

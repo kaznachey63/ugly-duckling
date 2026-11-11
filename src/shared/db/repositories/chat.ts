@@ -1,5 +1,5 @@
 import prisma from '@shared/db/config';
-import type { Chat } from '@shared/types/DB';
+import type { Chat } from '@shared/types/DataBase';
 
 /**
  * Вставка чатов

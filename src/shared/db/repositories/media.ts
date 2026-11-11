@@ -1,4 +1,4 @@
-import type { Media } from '@shared/types/DB';
+import type { Media } from '@shared/types/DataBase';
 import prisma from '@shared/db/config';
 import shared from './shared';
 

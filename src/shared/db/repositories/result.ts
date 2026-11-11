@@ -1,4 +1,4 @@
-import type { Result } from '@shared/types/DB';
+import type { Result } from '@shared/types/DataBase';
 import prisma from '@shared/db/config';
 
 /**

@@ -1,4 +1,4 @@
-import type { Result, Sendout } from '@shared/types/DB';
+import type { Result, Sendout } from '@shared/types/DataBase';
 import db from '@shared/db';
 import { TelegramClient } from 'telegram';
 type logType = "telegram" | "db";
