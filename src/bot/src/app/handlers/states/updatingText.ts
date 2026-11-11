@@ -4,7 +4,7 @@ import menuUpdatingText from '@menus/handlers/states/updatingText';
 import { ServerManager } from "@common/services/ServerManager";
 import common from '@utils/common';
 import type { Message } from '@shared/types/DB';
-import type { Prisma } from '@shared/db/prisma/client';
+import type { Prisma } from '@shared/db/generated/client';
 import shared from './shared';
 
 export default async function updatingText(ctx: MyContext) {
