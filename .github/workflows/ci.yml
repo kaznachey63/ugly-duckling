@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Clean Prisma generated files
+        run: find src/shared/db/prisma -mindepth 1 -not -name 'schema.prisma' -delete
+        
       - name: Generate Prisma client
         run: pnpm exec prisma generate
 
