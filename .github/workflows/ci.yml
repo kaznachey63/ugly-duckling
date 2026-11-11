@@ -37,7 +37,10 @@ jobs:
           pnpm exec tsc --noEmit -p src/sendout/tsconfig.json
           
       - name: Build
-        run: pnpm run build
+        run: |
+          pnpm run build:bot
+          pnpm run build:parser
+          pnpm run build:sendout
 
       - name: Package release
         run: |
