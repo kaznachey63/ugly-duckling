@@ -8,7 +8,7 @@ import utils from '@utils';
 import type { Message } from 'grammy/types';
 import menuAddingMedia from '@menus/handlers/states/addingMedia';
 import { ServerManager } from '@common/services/ServerManager';
-import { sleep } from 'telegram/Helpers';
+import { sleep } from "telegram/Helpers.js";
 import { FileService } from '@common/services/FileService';
 import type { Media } from "@shared/types/DataBase";
 

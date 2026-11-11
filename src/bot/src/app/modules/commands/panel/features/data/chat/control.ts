@@ -3,7 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuControl from "@menus/modules/commands/panel/data/chat/control";
 import { ServerManager } from "@common/services/ServerManager"
 import { Composer } from "grammy";
-import { sleep } from "telegram/Helpers";
+import { sleep } from "telegram/Helpers.js";
 
 const controlComposer = new Composer<MyContext>();
 

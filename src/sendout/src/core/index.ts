@@ -1,7 +1,7 @@
 import { Sendout} from '../modules/Sendout';
 import utils from '../utils';
 import { TelegramClient } from "telegram";
-import { StringSession } from 'telegram/sessions';
+import { StringSession } from "telegram/sessions";
 import db from '@shared/db';
 
 let client: TelegramClient | null = null;

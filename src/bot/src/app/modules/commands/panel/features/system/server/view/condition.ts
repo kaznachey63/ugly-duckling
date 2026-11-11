@@ -3,7 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import type { ProcessStatus } from '@shared/types/ProcessStatus';
 import { ServerManager } from '@common/services/ServerManager';
 import menuCondition from '@menus/modules/commands/panel/system/server/condition';
-import { sleep } from 'telegram/Helpers';
+import { sleep } from "telegram/Helpers.js";
 
 const conditionComposer = new Composer<MyContext>();
 
