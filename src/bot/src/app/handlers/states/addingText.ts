@@ -4,7 +4,7 @@ import menuAddingText from '@menus/handlers/states/addingText';
 import { ServerManager } from "@common/services/ServerManager";
 import common from '@utils/common';
 import type { Message } from "@shared/types/DataBase";
-import type { JsonArray } from '@shared/db/generated/internal/prismaNamespace';
+import type { Prisma } from '@shared/db/generated/client';
 import shared from './shared';
 
 export default async function addingText(ctx: MyContext) {
@@ -15,7 +15,7 @@ export default async function addingText(ctx: MyContext) {
     else {
         const message: Message = {
             caption: ctx.message?.text!.trim()!,
-            entities: ctx.message?.entities! as unknown as JsonArray,
+            entities: ctx.message?.entities! as unknown as Prisma.JsonArray,
             sendout_id: ctx.session.sendout.id!
         };
         
