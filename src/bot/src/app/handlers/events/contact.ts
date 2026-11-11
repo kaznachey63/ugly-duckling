@@ -3,11 +3,11 @@ import type { MyContext } from '@shared/types/SessionData';
 import db from '@shared/db';
 import menuContact from "@menus/handlers/events/contact";
 import menuAuth from '@menus/modules/commands/auth/main';
-import type { User } from '@shared/types/DataBase';
+import type { User } from "@shared/types/DataBase";
 import localization from '@utils/localization';
 import common from '@utils/common';
 import { CryptoService } from '@common/services/CryptoService';
-import type { AuthLimit } from '@shared/types/DataBase';
+import type { AuthLimit } from "@shared/types/DataBase";
 import utils from '@utils';
 
 const contactComposer = new Composer<MyContext>();

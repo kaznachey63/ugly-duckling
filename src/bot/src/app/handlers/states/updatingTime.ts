@@ -4,7 +4,7 @@ import menuUpdatingTime from '@menus/handlers/states/updatingTime';
 import { ServerManager } from "@common/services/ServerManager";
 import common from '@utils/common';
 import utils from "@utils";
-import type { Schedule } from '@shared/types/DataBase';
+import type { Schedule } from "@shared/types/DataBase";
 import shared from './shared';
 
 export default async function updatingTime(ctx: MyContext) {

@@ -1,6 +1,6 @@
 import { TelegramClient } from "telegram";
 import maps from "./maps";
-import type { Chat, Sendout } from '@shared/types/DataBase'
+import type { Chat, Sendout } from "@shared/types/DataBase"
 import prompts from 'prompts';
 import { StringSession } from 'telegram/sessions';
 

@@ -1,5 +1,5 @@
 import prisma from '@shared/db/config';
-import type { AuthLimit } from '@shared/types/DataBase';
+import type { AuthLimit } from "@shared/types/DataBase";
 
 /**
  * Обновление полей лимита по авторизации

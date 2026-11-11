@@ -3,7 +3,7 @@ import type { MyContext } from '@shared/types/SessionData';
 import menuAddingText from '@menus/handlers/states/addingText';
 import { ServerManager } from "@common/services/ServerManager";
 import common from '@utils/common';
-import type { Message } from '@shared/types/DataBase';
+import type { Message } from "@shared/types/DataBase";
 import type { JsonArray } from '@shared/db/generated/internal/prismaNamespace';
 import shared from './shared';
 

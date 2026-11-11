@@ -1,6 +1,6 @@
 import type { Counter } from "@shared/types/Counter";
 import type { ChatWithPermission } from "@shared/types/ChatWithPermission";
-import type { Chat, Message, Sendout } from '@shared/types/DataBase';
+import type { Chat, Message, Sendout } from "@shared/types/DataBase";
 
 import utils from '../utils';
 import db from '@shared/db';

@@ -3,7 +3,7 @@ import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
 import format from '@utils/formatting';
 import constants from '@constants';
-import type { Message } from '@shared/types/DataBase';
+import type { Message } from "@shared/types/DataBase";
 
 // Отображение сообщения
 function main(

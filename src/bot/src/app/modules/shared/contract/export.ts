@@ -4,7 +4,7 @@ import { Composer, InputFile } from "grammy";
 import type { ExportType } from "@shared/types/ExportType";
 import { PdfService } from "@common/services/exports/PdfService";
 import { WordService } from "@common/services/exports/WordService";
-import type { Contract } from "@shared/types/DB";
+import type { Contract } from "@shared/types/DataBase";
 import type { ContractExport } from "@shared/types/ContractExport";
 import constants from '@common/constants';
 import common from '@utils/common';

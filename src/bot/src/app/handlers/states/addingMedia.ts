@@ -10,7 +10,7 @@ import menuAddingMedia from '@menus/handlers/states/addingMedia';
 import { ServerManager } from '@common/services/ServerManager';
 import { sleep } from 'telegram/Helpers';
 import { FileService } from '@common/services/FileService';
-import type { Media } from '@shared/types/DataBase';
+import type { Media } from "@shared/types/DataBase";
 
 interface MediaValidationData {
     fileSize?: number | undefined;

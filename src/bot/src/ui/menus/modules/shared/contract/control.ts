@@ -1,4 +1,4 @@
-import type { Sendout, User } from '@shared/types/DataBase';
+import type { Sendout, User } from "@shared/types/DataBase";
 import type { Menu } from '@shared/types/Menu';
 import type { MyContext } from '@shared/types/SessionData';
 import format from '@utils/formatting';

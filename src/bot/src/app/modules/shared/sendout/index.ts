@@ -5,7 +5,7 @@ import scheduleComposer from './schedule';
 import statisticsComposer from './statistic';
 import messageComposer from './message';
 import db from '@shared/db';
-import type { Sendout } from '@shared/types/DataBase';
+import type { Sendout } from "@shared/types/DataBase";
 import ownerComposer from './owner';
 import callComposer from './name';
 import viewComposer from './view';

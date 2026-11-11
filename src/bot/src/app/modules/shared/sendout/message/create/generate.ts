@@ -4,7 +4,7 @@ import { Composer } from 'grammy';
 import { ServerManager } from "@common/services/ServerManager";
 import db from '@shared/db';
 import common from '@utils/common';
-import type { Message } from '@shared/types/DataBase';
+import type { Message } from "@shared/types/DataBase";
 
 const genereteComposer = new Composer<MyContext>();
 

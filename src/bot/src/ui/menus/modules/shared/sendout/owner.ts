@@ -1,7 +1,7 @@
 import type { MyContext } from "@shared/types/SessionData";
 import { InlineKeyboard } from "grammy";
 import type { Menu } from "@shared/types/Menu";
-import type { User } from "@shared/types/DB";
+import type { User } from "@shared/types/DataBase";
 import formatting from "@utils/formatting";
 import { CryptoService } from "@common/services/CryptoService";
 import constants from "@common/constants";

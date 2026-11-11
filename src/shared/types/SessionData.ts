@@ -1,5 +1,5 @@
 import { Context, type SessionFlavor } from "grammy";
-import type { User, Sendout, Schedule, Message, Result, Contract, AuthLimit } from "@shared/types/DB";
+import type { User, Sendout, Schedule, Message, Result, Contract, AuthLimit } from "@shared/types/DataBase";
 import type { ProcessType } from "./ProcessType";
 import type { LogSortType } from "./LogSortType";
 
