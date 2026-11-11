@@ -4,7 +4,7 @@ import utils from '../utils';
 import fs from 'fs/promises';
 import path from 'path';
 import { TelegramClient } from 'telegram';
-import type { JsonArray } from '@shared/db/prisma/internal/prismaNamespace';
+import type { JsonArray } from '@shared/db/generated/internal/prismaNamespace';
 
 /**
  * Отправка сообщения

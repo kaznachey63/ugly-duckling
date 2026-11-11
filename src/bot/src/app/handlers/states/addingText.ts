@@ -4,7 +4,7 @@ import menuAddingText from '@menus/handlers/states/addingText';
 import { ServerManager } from "@common/services/ServerManager";
 import common from '@utils/common';
 import type { Message } from '@shared/types/DB';
-import type { JsonArray } from '@shared/db/prisma/internal/prismaNamespace';
+import type { JsonArray } from '@shared/db/generated/internal/prismaNamespace';
 import shared from './shared';
 
 export default async function addingText(ctx: MyContext) {

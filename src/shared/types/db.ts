@@ -1,4 +1,4 @@
-import type { Prisma } from '@shared/db/prisma/client';
+import type { Prisma } from '@shared/db/generated/client';
 
 const includeSendout = {
     credential: true,

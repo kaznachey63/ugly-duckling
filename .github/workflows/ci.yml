@@ -27,14 +27,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Clean Prisma generated files
-        run: find src/shared/db/prisma -mindepth 1 -not -name 'schema.prisma' -delete
-        
       - name: Generate Prisma client
         run: pnpm exec prisma generate
 
       - name: Type check
-        run: pnpm exec tsc --noEmit
+        run: pnpm exec tsc --noEmit -p tsconfig.json
 
       - name: Build
         run: pnpm run build
@@ -43,7 +40,7 @@ jobs:
         run: |
           tar -czf release.tar.gz \
             dist/ \
-            src/shared/db/prisma/ \
+            src/shared/db/generated/ \
             package.json \
             pnpm-lock.yaml \
             pnpm-workspace.yaml

@@ -1,7 +1,7 @@
 import { defineConfig } from "prisma/config";
 
 export default defineConfig({
-  schema: "./src/shared/db/prisma/schema.prisma",
+  schema: 'prisma/schema.prisma',
   migrations: {
     path: "prisma/migrations",
   },
