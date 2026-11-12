@@ -11,12 +11,12 @@
     "dev:bot:watch": "dotenvx run -- tsx watch --tsconfig src/bot/tsconfig.json src/bot/src/app/core/index.ts",
     "dev:parser:watch": "dotenvx run -- tsx watch --tsconfig src/parser/tsconfig.json src/parser/src/core/index.ts",
     "dev:sendout:watch": "dotenvx run -- tsx watch --tsconfig src/sendout/tsconfig.json src/sendout/src/core/index.ts",
-    "build:bot": "esbuild src/bot/src/app/core/index.ts --bundle --platform=node --format=cjs --packages=external --tsconfig=src/bot/tsconfig.json --outfile=dist/bot.cjs",
-    "build:parser": "esbuild src/parser/src/core/index.ts --bundle --platform=node --format=cjs --packages=external --tsconfig=src/parser/tsconfig.json --outfile=dist/parser.cjs",
-    "build:sendout": "esbuild src/sendout/src/core/index.ts --bundle --platform=node --format=cjs --packages=external --tsconfig=src/sendout/tsconfig.json --outfile=dist/sendout.cjs",
-    "start:bot": "dotenvx run -- node dist/bot.cjs",
-    "start:parser": "dotenvx run -- node dist/parser.cjs",
-    "start:sendout": "dotenvx run -- node dist/sendout.cjs"
+    "build:bot": "esbuild src/bot/src/app/core/index.ts --bundle --platform=node --format=esm --packages=external --tsconfig=src/bot/tsconfig.json --outfile=dist/bot.js",
+    "build:parser": "esbuild src/parser/src/core/index.ts --bundle --platform=node --format=esm --packages=external --tsconfig=src/parser/tsconfig.json --outfile=dist/parser.js",
+    "build:sendout": "esbuild src/sendout/src/core/index.ts --bundle --platform=node --format=esm --packages=external --tsconfig=src/sendout/tsconfig.json --outfile=dist/sendout.js",
+    "start:bot": "dotenvx run -- node dist/bot.js",
+    "start:parser": "dotenvx run -- node dist/parser.js",
+    "start:sendout": "dotenvx run -- node dist/sendout.js"
   },
   "type": "module",
   "keywords": [],
