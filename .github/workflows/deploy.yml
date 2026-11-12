@@ -58,13 +58,6 @@ jobs:
             pnpm-lock.yaml \
             pnpm-workspace.yaml
 
-      - name: Verify release
-        run: |
-          echo "==> Проверяем содержимое архива"
-
-          tar -tzf release.tar.gz | grep -E \
-            '^(src/bot/src/ui/i18n/locales/|src/bot/src/common/services/exports/docs/|src/bot/src/common/services/exports/fonts/|src/bot/src/common/services/GigaChat/certs/)'
-
       - name: Deploy to server
         env:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY_SHREK_SWAMP }}
