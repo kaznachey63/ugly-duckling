@@ -2,7 +2,7 @@ import { TelegramClient } from "telegram";
 import maps from "./maps";
 import type { Chat, Sendout } from "@shared/types/DataBase"
 import prompts from 'prompts';
-import { StringSession } from "telegram/sessions";
+import { StringSession } from "telegram/sessions/index.js"
 
 function getChatLink(id: any, username: any): string {
     if (username) {
