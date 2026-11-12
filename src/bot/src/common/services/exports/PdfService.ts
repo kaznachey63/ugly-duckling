@@ -9,10 +9,10 @@ export class PdfService {
     private customFont!: PDFFont;
     private data!: ContractExport;
 
-    async execRender(data: ContractExport): Promise<Uint8Array<ArrayBufferLike>> {
+    async execRender(data: ContractExport): Promise<Uint8Array>  {
         try {
             // const dataName = this.determineData(data);
-            const pdfDoc = await PDFDocument.load(await fs.readFile(path.resolve('src', 'bot', 'src', 'common', 'services', 'exports', 'docs', 'contract.pdf')));
+            const pdfDoc = await PDFDocument.load(await fs.readFile(path.resolve(process.cwd(), 'assets', 'bot', 'exports', 'docs', 'contract.pdf')));
 
             if (!pdfDoc) {
                 throw new Error('Невалидный тип данных');
@@ -215,6 +215,6 @@ export class PdfService {
     
     private async loadFonts(pdfDoc: PDFDocument) {
         pdfDoc!.registerFontkit(fontkit);
-        this.customFont = await pdfDoc!.embedFont(await fs.readFile(path.resolve('src', 'bot', 'src', 'common', 'services', 'exports', 'fonts', 'Roboto-Regular.ttf')));
+        this.customFont = await pdfDoc!.embedFont(await fs.readFile(path.resolve(process.cwd(), 'assets', 'bot', 'exports', 'fonts', 'Roboto-Regular.ttf')));
     }
 }

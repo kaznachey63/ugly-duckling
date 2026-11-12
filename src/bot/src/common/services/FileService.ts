@@ -5,7 +5,7 @@ export class FileService {
     private readonly resourcesDir: string;
 
     constructor() {
-        this.resourcesDir = path.join(process.cwd(), 'src', 'sendout', 'resources');        
+        this.resourcesDir = process.env.RESOURCES_DIR ?? path.resolve(process.cwd(), 'resources');    
     }
 
     async saveFile(data: string, fileName: string): Promise<void> {
@@ -30,7 +30,11 @@ export class FileService {
         await fs.writeFile(filePath, buffer);
     }
 
-    getBuffer(data: string): Buffer<ArrayBuffer> {
+    getBuffer(data: string): Buffer {
         return Buffer.from(data, 'utf-8');
+    }
+
+    getResourcesDir(): string {
+        return this.resourcesDir;
     }
 }

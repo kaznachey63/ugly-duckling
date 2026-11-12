@@ -50,10 +50,7 @@ jobs:
             .env \
             dist/ \
             src/shared/db/generated/ \
-            src/bot/src/ui/i18n/locales/ \
-            src/bot/src/common/services/exports/docs/ \
-            src/bot/src/common/services/exports/fonts/ \
-            src/bot/src/common/services/GigaChat/certs/ \
+            assets/bot/ \
             package.json \
             pnpm-lock.yaml \
             pnpm-workspace.yaml

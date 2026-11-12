@@ -5,6 +5,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { TelegramClient } from 'telegram';
 import type { Prisma } from '@shared/db/generated/client';
+
 /**
  * Отправка сообщения
  */
@@ -104,11 +105,16 @@ export class Sender {
      */
     private async prepareMedia(mediaItems: Media[]): Promise<string[]> {
         const files: string[] = [];
+        const resourcesDir = process.env.RESOURCES_DIR
+            ?? path.resolve(process.cwd(), 'resources');
+
         for (const item of mediaItems) {
-            const filePath = path.resolve('src', 'sendout', 'resources', item.name!);
+            const filePath = path.join(resourcesDir, item.name!);
+
             await fs.access(filePath);
             files.push(filePath);
         }
+
         return files;
     }
 

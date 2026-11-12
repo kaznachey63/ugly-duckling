@@ -55,7 +55,8 @@ export default async function addingMedia(ctx: MyContext) {
     const { file_id, fileName } = mediaData;
     if (!fileName || !file_id) return;
 
-    const pathMedia = path.resolve('src', "sendout", "resources");
+    const fileService = new FileService();
+    const pathMedia = fileService.getResourcesDir();
     
     const nameFile = generateFileName(fileName!, mediaType);
 
@@ -66,7 +67,6 @@ export default async function addingMedia(ctx: MyContext) {
         const response = await fetch(url);
         const buffer = Buffer.from(await response.arrayBuffer());
         
-        const fileService = new FileService();
         await fileService.createDir(pathMedia);
         await fileService.writeBuffer(path.join(pathMedia, nameFile), buffer);
         
