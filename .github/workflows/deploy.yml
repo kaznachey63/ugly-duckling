@@ -50,7 +50,7 @@ jobs:
             .env \
             dist/ \
             src/shared/db/generated/ \
-            assets/bot/ \
+            assets/ \
             package.json \
             pnpm-lock.yaml \
             pnpm-workspace.yaml
