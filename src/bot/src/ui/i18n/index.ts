@@ -20,6 +20,20 @@ i18next.use(Backend).init({
     interpolation: { escapeValue: true },
 });
 
+i18next.on('failedLoading', (lng, ns, msg) => {
+    console.error('[i18n] failedLoading:', { lng, ns, msg });
+});
+
+i18next.on('loaded', (loaded) => {
+    console.log('[i18n] loaded:', loaded);
+});
+
+console.log('[i18n] state:', {
+    isInitialized: i18next.isInitialized,
+    languages: i18next.languages,
+    namespaces: i18next.options.ns,
+});
+
 export const i18nMiddleware = async (ctx: MyContext, next: NextFunction) => {
     const telegramId = ctx.from?.id;
     if (!telegramId) return await next();
