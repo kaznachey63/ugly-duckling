@@ -112,4 +112,15 @@ export class ServerManager {
         const { stdout } = await this.execute(`sudo journalctl -u ${unit} --no-pager`, 10000);      
         return stdout;
     }
+
+    /**
+     * Запускает процесс через systemd и ждёт его завершения.
+     * Возвращает код выхода процесса: 0 — успех, иначе — ошибка.
+     * Если код не удалось получить, возвращает 1.
+     */
+    static async startProcessAndWait(name: string): Promise<number> {
+        const { stdout, stderr } = await this.execute(`sudo systemctl start --wait ${name}; echo "EXIT:$?"`, 10 * 60 * 1000);
+        const m = stdout.match(/EXIT:(\d+)/);
+        return m ? parseInt(m[1]!, 10) : 1;
+    }
 }

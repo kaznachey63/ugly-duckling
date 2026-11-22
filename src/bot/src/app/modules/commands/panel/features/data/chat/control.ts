@@ -27,22 +27,14 @@ controlComposer.callbackQuery("clearChats", async (ctx: MyContext) => {
 controlComposer.callbackQuery("reuploadChats", async (ctx: MyContext) => {
     await ctx.editMessageText(ctx.t("utils.shared.processing"));
 
-    const processName = "uglyduckling-parser.service";
-
-    await ServerManager.startProcess(processName);
-
-    const maxWait = 1000 * 60 * 2;
-    const interval = 10000;
-    const start = Date.now();
-    let success = false; 
-
-    while (Date.now() - start < maxWait) {
-        sleep(interval);
-        if (!await ServerManager.isProcessActive(processName)) {
-            const exitCode = await ServerManager.getProcessExitCode(processName);
-            success = exitCode === 0; // true только если код 0
-            break;
-        }
+    const processName = "ugly-duckling-parser.service";
+    let success = false;
+    try {
+        const code = await ServerManager.startProcessAndWait(processName);
+        const chats = await db.chat.get();
+        success = code === 0 && chats!.length > 0;
+    } catch (e) {
+        console.error("reuploadChats:", e);
     }
 
     const menu = menuControl.reupload(ctx, success);
