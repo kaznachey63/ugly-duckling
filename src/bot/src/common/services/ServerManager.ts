@@ -8,22 +8,19 @@ export class ServerManager {
      * Выполнение запроса на сервере с укзанаием команды и задержки
      */
     private static async execute(cmd: string, timeoutMs = 30000): Promise<{ stdout: string; stderr: string }> {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             exec(cmd, {
                 timeout: timeoutMs,
                 shell: '/bin/bash',
                 env: { ...process.env, PATH: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' },
                 encoding: 'utf8'
             }, (error, stdout, stderr) => {
-                if (error && (error as any).signal === 'SIGTERM') {
-                    console.error(`[SYSTEMCTL] Command timed out: ${cmd}`);
-                    reject(new Error(`Timeout: ${cmd}`));
-                    return;
+                const out = (stdout || '').toString().trim();
+                const err = (stderr || '').toString().trim();
+                if (error) {
+                    console.error(`[SYSTEMCTL] Ошибка команды: ${cmd}\n  код: ${(error as any).code ?? '?'}\n  stderr: ${err || '(пусто)'}`);
                 }
-                resolve({
-                    stdout: (stdout || '').toString().trim(),
-                    stderr: (stderr || '').toString().trim()
-                });
+                resolve({ stdout: out, stderr: err });
             });
         });
     }
