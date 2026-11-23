@@ -38,13 +38,22 @@ controlComposer.callbackQuery("chooseUsers", async (ctx: MyContext) => {
  */
 controlComposer.callbackQuery(/^pickUser#/, async (ctx: MyContext) => {
     const userId = Number(ctx.callbackQuery?.data?.split('#')[1])!;
-    if (userId == ctx.session.contract.user_id) return;
-    
-    if (!(await db.sendout.getSendoutsOfUserIdAndNotInContract(userId)).length) {
-        return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.contract.create.noFreeSendouts"), show_alert: true });
+    // Повторное нажатие по уже выбранному заказчику снимает выбор (галка слетает)
+    const isDeselect = userId == ctx.session.contract.user_id;
+
+    if (!isDeselect) {
+        if (!(await db.user.get(userId))?.telegram_id) { // заказчик существует, но не атворизован
+            return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.contract.create.customerNotAuthorized"), show_alert: true });
+        }
+        else if (!(await db.sendout.getSendoutsOfUserIdAndNotInContract(userId)).length) { // заказчик существует (по идее авторизован), но нет (свободных) рассылок привязанных к нему
+            return ctx.answerCallbackQuery({ text: ctx.t("modules.shared.contract.create.noFreeSendouts"), show_alert: true });
+        }
     }
 
-    ctx.session.contract.user_id = userId;      
+    // При смене заказчика ранее выбранные рассылки принадлежат другому заказчику — сбрасываем
+    ctx.session.contract.sendout = [];
+    ctx.session.contract.user_id = isDeselect ? 0 : userId;
+
     const users = (await db.user.gets()).filter(u => u.role_id != 1);
     const menu = menuControl.chooseUsers(ctx, users);
 

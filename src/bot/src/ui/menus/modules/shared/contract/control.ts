@@ -37,13 +37,14 @@ function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
         const userName = user.name ?? ctx.t("utils.shared.nameless");
         const callbackText = user.id == ctx.session.contract.user_id 
             ? userName + ' ☑️' 
-            : userName;
+            : userName
+        ;
 
         keyboard.text(callbackText, `pickUser#${user.id}`);
 
-        if (user.telegram_id) {
-            keyboard.url(constants.emoji.profile, constants.link.profileById + user.telegram_id);
-        }
+        if (user.telegram_id) keyboard.url(constants.emoji.profile, constants.link.profileById + user.telegram_id);
+        else keyboard.url(constants.emoji.profile, constants.link.chatByNumber + user.phone);
+        
         keyboard.row();
     });
 
