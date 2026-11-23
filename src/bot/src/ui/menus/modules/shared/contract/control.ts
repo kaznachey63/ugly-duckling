@@ -5,6 +5,7 @@ import format from '@utils/formatting';
 import { InlineKeyboard } from 'grammy';
 import constants from '@common/constants';
 import common from '@utils/common';
+import { CryptoService } from "@common/services/CryptoService";
 
 function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
@@ -43,7 +44,7 @@ function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
         keyboard.text(callbackText, `pickUser#${user.id}`);
 
         if (user.telegram_id) keyboard.url(constants.emoji.profile, constants.link.profileById + user.telegram_id);
-        else keyboard.url(constants.emoji.profile, constants.link.chatByNumber + user.phone);
+        else keyboard.url(constants.emoji.profile, constants.link.chatByNumber + CryptoService.decrypt(user.phone!));
         
         keyboard.row();
     });
