@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Danh sách các đợt gửi hàng loạt đang hoạt động.",
                     "path": "[📍 Đường dẫn: {{menu}} → *Gửi hàng loạt*]",
-                    "empty": "Chưa có đợt gửi nào được cấu hình! Quay lại sau."
+                    "empty": "Chưa có đợt gửi nào được cấu hình!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Quản lý hợp đồng. Số lượng: {{amount}}",
                     "path": "[📍 Đường dẫn: {{menu}} → *Hợp đồng*]",
-                    "empty": "Chưa có hợp đồng nào được cấu hình! Quay lại sau.",
+                    "empty": "Chưa có hợp đồng nào được cấu hình!",
                     "contractName": "{{userName}}: từ {{dateStart}}"
                 },
                 "view": {

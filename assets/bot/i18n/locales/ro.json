@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Lista trimiterilor în masă active în acest moment.",
                     "path": "[📍 Cale: {{menu}} → *Trimitere în masă*]",
-                    "empty": "Nu există încă trimiteri în masă configurate! Reveniți mai târziu."
+                    "empty": "Nu există încă trimiteri în masă configurate!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Gestionarea contractelor. Cantitate: {{amount}}",
                     "path": "[📍 Cale: {{menu}} → *Contracte*]",
-                    "empty": "Nu există încă contracte configurate! Reveniți mai târziu.",
+                    "empty": "Nu există încă contracte configurate!",
                     "contractName": "{{userName}}: de la {{dateStart}}"
                 },
                 "view": {

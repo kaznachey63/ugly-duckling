@@ -105,7 +105,9 @@ function chats(ctx: MyContext): Menu<InlineKeyboard> {
 
     const keyboard = new InlineKeyboard();
     (ctx.session.result.chats as Chat[]).forEach((chat: Chat) => {
-        keyboard.url(chat.title!, chat.link!).row();
+        const title = chat.title ?? 'Без названия';
+        const link = chat.link ?? '#';
+        keyboard.url(title, link).row();
     });
 
     keyboard.text(ctx.t("utils.shared.buttons.back"), `calendar:date:${dateBase}`);

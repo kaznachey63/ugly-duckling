@@ -433,7 +433,7 @@
                 "main": {
                     "title": "List of active mailings at the moment.",
                     "path": "[📍 Path: {{menu}} → *Mailings*]",
-                    "empty": "No mailings configured yet! Come back later."
+                    "empty": "No mailings configured yet!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Manage contracts. Count: {{amount}}",
                     "path": "[📍 Path: {{menu}} → *Contracts*]",
-                    "empty": "No contracts configured yet! Come back later.",
+                    "empty": "No contracts configured yet!",
                     "contractName": "{{userName}}: from {{dateStart}}"
                 },
                 "view": {

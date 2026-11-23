@@ -32,18 +32,22 @@ function viewUser(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.commands.panel.data.user.view.control.main.path", { userName: user.name ?? ctx.t("utils.shared.nameless") }),
     ].join('\n\n');
 
+    const phoneDisplay = user.phone ? CryptoService.decrypt(user.phone) : ctx.t("utils.shared.buttons.miss");
     const keyboard = new InlineKeyboard()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.telegramId", { telegramId: user.telegram_id ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.name", { name: user.name ?? ctx.t("utils.shared.nameless") }), `updateUserName#${user.id}`).row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.username", { username: user.username ?? ctx.t("utils.shared.buttons.miss") }), '#').row()
-        .text(ctx.t("modules.commands.panel.data.user.view.control.main.phone", { phone: CryptoService.decrypt(user.phone!) }), `updateUserPhone#${user.id}`).row()
+        .text(ctx.t("modules.commands.panel.data.user.view.control.main.phone", { phone: phoneDisplay }), `updateUserPhone#${user.id}`).row()
         // @ts-ignore
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.language", { language: localization.getContryFlagOfCode(user.language) }), '#').row()
         .text(ctx.t("modules.commands.panel.data.user.view.control.main.role", { role:  ctx.t(`utils.roleCodes.${user.role?.code}`) }), `updateUserRole#${user.id}`).row()    
     ; 
     
-    if (user.telegram_id) keyboard.url(constants.emoji.profile, constants.link.profileById + user.telegram_id);
-    else keyboard.url(constants.emoji.profile, constants.link.chatByNumber + CryptoService.decrypt(user.phone!));
+    if (user.telegram_id) {
+        keyboard.url(constants.emoji.profile, constants.link.profileById + user.telegram_id);
+    } else if (user.phone) {
+        keyboard.url(constants.emoji.profile, constants.link.chatByNumber + CryptoService.decrypt(user.phone));
+    }
 
     keyboard
         .text(ctx.t("utils.shared.buttons.remove"), `removeUser#${user.id}`).style("danger")

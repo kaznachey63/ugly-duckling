@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Popis aktivnih slanja trenutno.",
                     "path": "[📍 Put: {{menu}} → *Slanja*]",
-                    "empty": "Slanja još nisu postavljena! Vratite se kasnije."
+                    "empty": "Slanja još nisu postavljena!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Upravljanje ugovorima. Količina: {{amount}}",
                     "path": "[📍 Put: {{menu}} → *Ugovori*]",
-                    "empty": "Ugovori još nisu postavljeni! Vratite se kasnije.",
+                    "empty": "Ugovori još nisu postavljeni!",
                     "contractName": "{{userName}}: od {{dateStart}}"
                 },
                 "view": {

@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Elenco degli invii attualmente attivi.",
                     "path": "[📍 Percorso: {{menu}} → *Invii*]",
-                    "empty": "Nessun invio configurato ancora! Torna più tardi."
+                    "empty": "Nessun invio configurato ancora!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Gestisci contratti. Quantità: {{amount}}",
                     "path": "[📍 Percorso: {{menu}} → *Contratti*]",
-                    "empty": "Nessun contratto configurato ancora! Torna più tardi.",
+                    "empty": "Nessun contratto configurato ancora!",
                     "contractName": "{{userName}}: dal {{dateStart}}"
                 },
                 "view": {

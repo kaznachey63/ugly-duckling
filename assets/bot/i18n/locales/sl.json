@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Seznam trenutno aktivnih množičnih pošiljanj.",
                     "path": "[📍 Pot: {{menu}} → *Množična pošiljanja*]",
-                    "empty": "Množična pošiljanja še niso nastavljena! Vrnite se pozneje."
+                    "empty": "Množična pošiljanja še niso nastavljena!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Upravljanje pogodb. Količina: {{amount}}",
                     "path": "[📍 Pot: {{menu}} → *Pogodbe*]",
-                    "empty": "Pogodbe še niso nastavljene! Vrnite se pozneje.",
+                    "empty": "Pogodbe še niso nastavljene!",
                     "contractName": "{{userName}}: od {{dateStart}}"
                 },
                 "view": {

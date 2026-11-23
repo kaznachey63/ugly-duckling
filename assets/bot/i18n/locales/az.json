@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Hazırda aktiv kütləvi göndərişlərin siyahısı.",
                     "path": "[📍 Yol: {{menu}} → *Kütləvi göndərişlər*]",
-                    "empty": "Hələ kütləvi göndərişlər konfiqurasiya edilməyib! Daha sonra qayıdın."
+                    "empty": "Hələ kütləvi göndərişlər konfiqurasiya edilməyib!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Müqavilələrin idarə edilməsi. Miqdar: {{amount}}",
                     "path": "[📍 Yol: {{menu}} → *Müqavilələr*]",
-                    "empty": "Hələ müqavilələr konfiqurasiya edilməyib! Daha sonra qayıdın.",
+                    "empty": "Hələ müqavilələr konfiqurasiya edilməyib!",
                     "contractName": "{{userName}}: {{dateStart}} -dən"
                 },
                 "view": {

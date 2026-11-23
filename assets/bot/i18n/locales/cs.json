@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Seznam právě aktivních hromadných zpráv.",
                     "path": "[📍 Cesta: {{menu}} → *Hromadné zprávy*]",
-                    "empty": "Zatím nejsou nastaveny žádné hromadné zprávy! Vraťte se později."
+                    "empty": "Zatím nejsou nastaveny žádné hromadné zprávy!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Správa smluv. Množství: {{amount}}",
                     "path": "[📍 Cesta: {{menu}} → *Smlouvy*]",
-                    "empty": "Zatím nejsou nastaveny žádné smlouvy! Vraťte se později.",
+                    "empty": "Zatím nejsou nastaveny žádné smlouvy!",
                     "contractName": "{{userName}}: od {{dateStart}}"
                 },
                 "view": {

@@ -283,7 +283,7 @@
             },
             "cabinet": {
                 "main": {
-                    "buttons": {                        
+                    "buttons": {
                         "logout": "🚪 Uitloggen",
                         "login": "🔑 Inloggen"
                     }
@@ -364,7 +364,7 @@
                         "create": {
                             "title": "Gebruiker aanmaken!",
                             "path": "[📍 Pad: Paneel → Gegevens → Gebruikers → *Aanmaken*]"
-                        }   
+                        }
                     }
                 },
                 "system": {
@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Lijst van momenteel actieve massaverzendingen.",
                     "path": "[📍 Pad: {{menu}} → *Massaverzendingen*]",
-                    "empty": "Massaverzendingen zijn nog niet geconfigureerd! Kom later terug."
+                    "empty": "Massaverzendingen zijn nog niet geconfigureerd!"
                 },
                 "view": {
                     "main": {
@@ -493,7 +493,7 @@
                                 "buttons": {
                                     "updateText": "✍️ Tekst wijzigen",
                                     "addMedia": "🖼 Media toevoegen",
-                                    "clearAllMedia": "🗑 Media wissen"    
+                                    "clearAllMedia": "🗑 Media wissen"
                                 }
                             },
                             "text": {
@@ -608,7 +608,7 @@
                                     "path": "[📍 Pad: {{menu}} → Massaverzendingen → Menu «{{call}}» → Statistieken → Selectief → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "path": "[📍 Pad: {{menu}} → Massaverzendingen → Menu «{{call}}» → Statistieken → Selectief → {{date}} → *Groepen*]"    
+                                    "path": "[📍 Pad: {{menu}} → Massaverzendingen → Menu «{{call}}» → Statistieken → Selectief → {{date}} → *Groepen*]"
                                 }
                             }
                         },
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Contractbeheer. Aantal: {{amount}}",
                     "path": "[📍 Pad: {{menu}} → *Contracten*]",
-                    "empty": "Contracten zijn nog niet geconfigureerd! Kom later terug.",
+                    "empty": "Contracten zijn nog niet geconfigureerd!",
                     "contractName": "{{userName}}: van {{dateStart}}"
                 },
                 "view": {

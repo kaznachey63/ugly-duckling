@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Daftar pengiriman yang aktif saat ini.",
                     "path": "[📍 Jalur: {{menu}} → *Pengiriman*]",
-                    "empty": "Belum ada pengiriman yang dikonfigurasi! Kembali lagi nanti."
+                    "empty": "Belum ada pengiriman yang dikonfigurasi!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Kelola kontrak. Jumlah: {{amount}}",
                     "path": "[📍 Jalur: {{menu}} → *Kontrak*]",
-                    "empty": "Belum ada kontrak yang dikonfigurasi! Kembali lagi nanti.",
+                    "empty": "Belum ada kontrak yang dikonfigurasi!",
                     "contractName": "{{userName}}: dari {{dateStart}}"
                 },
                 "view": {

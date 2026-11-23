@@ -283,7 +283,7 @@
             },
             "cabinet": {
                 "main": {
-                    "buttons": {                        
+                    "buttons": {
                         "logout": "🚪 Wyloguj",
                         "login": "🔑 Zaloguj"
                     }
@@ -364,7 +364,7 @@
                         "create": {
                             "title": "Tworzymy użytkownika!",
                             "path": "[📍 Ścieżka: Panel → Dane → Użytkownicy → *Tworzenie*]"
-                        }   
+                        }
                     }
                 },
                 "system": {
@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Lista aktualnie aktywnych rozsyłek.",
                     "path": "[📍 Ścieżka: {{menu}} → *Rozsyłki*]",
-                    "empty": "Rozsyłki nie są jeszcze skonfigurowane! Wróć później."
+                    "empty": "Rozsyłki nie są jeszcze skonfigurowane!"
                 },
                 "view": {
                     "main": {
@@ -493,7 +493,7 @@
                                 "buttons": {
                                     "updateText": "✍️ Zmień tekst",
                                     "addMedia": "🖼 Dodaj multimedia",
-                                    "clearAllMedia": "🗑 Wyczyść multimedia"    
+                                    "clearAllMedia": "🗑 Wyczyść multimedia"
                                 }
                             },
                             "text": {
@@ -608,7 +608,7 @@
                                     "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Statystyki → Wybiórcza → *{{date}}*]"
                                 },
                                 "chats": {
-                                    "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Statystyki → Wybiórcza → {{date}} → *Grupy*]"    
+                                    "path": "[📍 Ścieżka: {{menu}} → Rozsyłki → Menu «{{call}}» → Statystyki → Wybiórcza → {{date}} → *Grupy*]"
                                 }
                             }
                         },
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Zarządzanie umowami. Ilość: {{amount}}",
                     "path": "[📍 Ścieżka: {{menu}} → *Umowy*]",
-                    "empty": "Umowy nie są jeszcze skonfigurowane! Wróć później.",
+                    "empty": "Umowy nie są jeszcze skonfigurowane!",
                     "contractName": "{{userName}}: od {{dateStart}}"
                 },
                 "view": {

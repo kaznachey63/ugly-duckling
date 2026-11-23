@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Llista dels enviaments actius actualment.",
                     "path": "[📍 Ruta: {{menu}} → *Enviaments*]",
-                    "empty": "No hi ha enviaments configurats encara! Torneu més tard."
+                    "empty": "No hi ha enviaments configurats encara!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Gestionar contractes. Quantitat: {{amount}}",
                     "path": "[📍 Ruta: {{menu}} → *Contractes*]",
-                    "empty": "No hi ha contractes configurats encara! Torneu més tard.",
+                    "empty": "No hi ha contractes configurats encara!",
                     "contractName": "{{userName}}: de {{dateStart}}"
                 },
                 "view": {

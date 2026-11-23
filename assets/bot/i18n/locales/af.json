@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Lys van huidige aktiewe massa-uitsendings.",
                     "path": "[📍 Roete: {{menu}} → *Uitsendings*]",
-                    "empty": "Geen uitsendings is nog ingestel nie! Kom later terug."
+                    "empty": "Geen uitsendings is nog ingestel nie!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Bestuur kontrakte. Aantal: {{amount}}",
                     "path": "[📍 Roete: {{menu}} → *Kontrakte*]",
-                    "empty": "Geen kontrakte is nog ingestel nie! Kom later terug.",
+                    "empty": "Geen kontrakte is nog ingestel nie!",
                     "contractName": "{{userName}}: van {{dateStart}}"
                 },
                 "view": {

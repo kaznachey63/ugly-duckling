@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Pašlaik aktīvo sūtījumu saraksts.",
                     "path": "[📍 Ceļš: {{menu}} → *Sūtījumi*]",
-                    "empty": "Sūtījumi vēl nav konfigurēti! Atgriezieties vēlāk."
+                    "empty": "Sūtījumi vēl nav konfigurēti!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Līgumu pārvaldība. Daudzums: {{amount}}",
                     "path": "[📍 Ceļš: {{menu}} → *Līgumi*]",
-                    "empty": "Līgumi vēl nav konfigurēti! Atgriezieties vēlāk.",
+                    "empty": "Līgumi vēl nav konfigurēti!",
                     "contractName": "{{userName}}: no {{dateStart}}"
                 },
                 "view": {

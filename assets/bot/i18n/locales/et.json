@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Praegu aktiivsete masssaadetiste nimekiri.",
                     "path": "[📍 Tee: {{menu}} → *Masssaadetised*]",
-                    "empty": "Masssaadetised pole veel seadistatud! Tulge hiljem tagasi."
+                    "empty": "Masssaadetised pole veel seadistatud!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Lepingute haldamine. Kogus: {{amount}}",
                     "path": "[📍 Tee: {{menu}} → *Lepingud*]",
-                    "empty": "Lepingud pole veel seadistatud! Tulge hiljem tagasi.",
+                    "empty": "Lepingud pole veel seadistatud!",
                     "contractName": "{{userName}}: alates {{dateStart}}"
                 },
                 "view": {

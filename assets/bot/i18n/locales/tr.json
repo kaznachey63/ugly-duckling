@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Şu anda aktif olan toplu mesajların listesi.",
                     "path": "[📍 Yol: {{menu}} → *Toplu mesajlar*]",
-                    "empty": "Henüz toplu mesaj ayarlanmamış! Daha sonra geri dönün."
+                    "empty": "Henüz toplu mesaj ayarlanmamış!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Sözleşmeleri yönet. Miktar: {{amount}}",
                     "path": "[📍 Yol: {{menu}} → *Sözleşmeler*]",
-                    "empty": "Henüz sözleşme ayarlanmamış! Daha sonra geri dönün.",
+                    "empty": "Henüz sözleşme ayarlanmamış!",
                     "contractName": "{{userName}}: {{dateStart}} tarihinden itibaren"
                 },
                 "view": {

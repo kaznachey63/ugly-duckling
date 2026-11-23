@@ -18,7 +18,7 @@ function contracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboard> 
         keyboard.text(
             ctx.t("modules.shared.contract.main.contractName", { 
                 userName: contract.user?.name ?? ctx.t("utils.shared.nameless"),
-                dateStart: common.getCurrentDate(contract.date_start!)
+                dateStart: common.getCurrentDate(contract.date_start)
             }),
             `viewContract#${contract.id}`
         ).row();
@@ -30,18 +30,18 @@ function contracts(ctx: MyContext, contracts: Contract[]): Menu<InlineKeyboard> 
 function contract(ctx: MyContext, sendoutsCall: string): Menu<InlineKeyboard> {
     const userIsAdmin = ctx.session.isAdmin;
     const text = [
-        ctx.t("modules.shared.contract.view.contract.main.title", { dateStart: common.getCurrentDate(ctx.session.contract.date_start!) }),
+        ctx.t("modules.shared.contract.view.contract.main.title", { dateStart: common.getCurrentDate(ctx.session.contract.date_start) }),
         ctx.t("modules.shared.contract.view.contract.main.sendouts", { sendouts: sendoutsCall.length > 0 ? sendoutsCall : ctx.t("modules.shared.contract.view.contract.main.noSendouts") }),
         ctx.t("modules.shared.contract.view.contract.main.path", { 
-            dateStart: common.getCurrentDate(ctx.session.contract.date_start!), 
+            dateStart: common.getCurrentDate(ctx.session.contract.date_start), 
             menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet") 
         }),
     ].join('\n');
 
     const keyboard = new InlineKeyboard()
         .text(ctx.t("modules.shared.contract.view.contract.main.userName", { userName: ctx.session.contract.user?.name ?? ctx.t("utils.shared.nameless") }), '#').row()
-        .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: new Date(ctx.session.contract.date_start!).toLocaleDateString('ru-RU') }), '#').row()
-        .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: new Date(ctx.session.contract.date_end!).toLocaleDateString('ru-RU') }), '#').row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.dateStart", { dateStart: common.getCurrentDate(ctx.session.contract.date_start) }), '#').row()
+        .text(ctx.t("modules.shared.contract.view.contract.main.dateEnd", { dateEnd: common.getCurrentDate(ctx.session.contract.date_end) }), '#').row()
         .text(ctx.t("modules.shared.contract.view.contract.main.price", { price: ctx.session.contract.price }), '#').row()
         .text(ctx.t("modules.shared.contract.view.contract.main.priceText", { priceText: ctx.session.contract.price_text }), '#').row()
         .text(ctx.t("utils.shared.buttons.export"), `mainExportContract#${ctx.session.contract.id}`)

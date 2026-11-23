@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Lista de envios ativos no momento.",
                     "path": "[📍 Caminho: {{menu}} → *Envios*]",
-                    "empty": "Nenhum envio configurado ainda! Volte mais tarde."
+                    "empty": "Nenhum envio configurado ainda!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Gerenciar contratos. Quantidade: {{amount}}",
                     "path": "[📍 Caminho: {{menu}} → *Contratos*]",
-                    "empty": "Nenhum contrato configurado ainda! Volte mais tarde.",
+                    "empty": "Nenhum contrato configurado ainda!",
                     "contractName": "{{userName}}: a partir de {{dateStart}}"
                 },
                 "view": {

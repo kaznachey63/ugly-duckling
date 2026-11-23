@@ -15,7 +15,8 @@ function main(ctx: MyContext, times: Schedule[]): Menu<InlineKeyboard> {
     let keyboard = new InlineKeyboard();
 
     for (const time of times) {
-        keyboard.text(time.label!, `updateOrRemoveTime:${sendoutId}#${time.id}`).row();
+        const label = time.label ?? ctx.t("utils.shared.nameless");
+        keyboard.text(label, `updateOrRemoveTime:${sendoutId}#${time.id}`).row();
     }
 
     keyboard.row().text(ctx.t("utils.shared.buttons.back"), `mainSchedule:${sendoutId}`);

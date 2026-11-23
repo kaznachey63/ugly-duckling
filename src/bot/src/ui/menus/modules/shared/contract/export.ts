@@ -11,7 +11,7 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.shared.contract.view.contract.export.main.title"),
         ctx.t("modules.shared.contract.view.contract.export.main.path",  { 
             menu: ctx.session.isAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), 
-            dateStart: common.getCurrentDate(ctx.session.contract.date_start!) 
+            dateStart: common.getCurrentDate(ctx.session.contract.date_start) 
         }),
     ].join('\n\n');
     
@@ -35,7 +35,7 @@ function action(ctx: MyContext, exportType: ExportType, result: boolean): Menu<I
             call: ctx.session.sendout.call, 
             exportType: exportType, 
             menu: userIsAdmin ? ctx.t("utils.shared.titles.panel") : ctx.t("utils.shared.titles.cabinet"), 
-            dateStart: common.getCurrentDate(ctx.session.contract.date_start!)
+            dateStart: common.getCurrentDate(ctx.session.contract.date_start)
         }),
     ].join('\n');
 

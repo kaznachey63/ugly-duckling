@@ -21,8 +21,8 @@ function main(ctx: MyContext, user: User | undefined): Menu<InlineKeyboard> {
     if (user) {
         text.unshift(
             ctx.t("modules.shared.sendout.view.owner.main.title"),
-            ctx.t("modules.shared.sendout.view.owner.main.name", { name: user.name }),
-            ctx.t("modules.shared.sendout.view.owner.main.phone", { phone: CryptoService.decrypt(user.phone!) }),
+            ctx.t("modules.shared.sendout.view.owner.main.name", { name: user.name ?? ctx.t("utils.shared.nameless") }),
+            ctx.t("modules.shared.sendout.view.owner.main.phone", { phone: user.phone ? CryptoService.decrypt(user.phone) : ctx.t("utils.shared.buttons.miss") }),
         );
 
         if (!ctx.session.sendout.contract_id) keyboard.text(ctx.t("modules.shared.sendout.view.owner.main.buttons.change"), `mainChangeOwner:${sendoutId}`);
@@ -47,18 +47,15 @@ function update(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard().text(ctx.t("modules.shared.sendout.view.owner.update.main.noOwner"), `mainAppointOwner:${ctx.session.sendout.id}=0`).row();
         
     users.forEach(user => {
-        keyboard
-            .text(
-                user.name!, 
-                `mainAppointOwner:${ctx.session.sendout.id}=${user.id}`
-            )
-            .url(
-                constants.emoji.profile,
-                user.telegram_id ? 
-                    constants.link.profileById + user.telegram_id
-                    : constants.link.chatByNumber + CryptoService.decrypt(user.phone!)
-            )
-        .row();
+        const userName = user.name ?? ctx.t("utils.shared.nameless");
+        keyboard.text(userName, `mainAppointOwner:${ctx.session.sendout.id}=${user.id}`);
+
+        if (user.telegram_id) {
+            keyboard.url(constants.emoji.profile, constants.link.profileById + user.telegram_id);
+        } else if (user.phone) {
+            keyboard.url(constants.emoji.profile, constants.link.chatByNumber + CryptoService.decrypt(user.phone));
+        }
+        keyboard.row();
     });
     keyboard.text(ctx.t("utils.shared.buttons.back"), `mainOwner:${ctx.session.sendout.id}`)
     return { text: formatting.escapeMarkdown(text.join('\n\n')), keyboard }

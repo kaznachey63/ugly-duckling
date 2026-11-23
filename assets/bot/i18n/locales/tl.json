@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Listahan ng mga aktibong pagpapadala sa ngayon.",
                     "path": "[📍 Daan: {{menu}} → *Mga Pagpapadala*]",
-                    "empty": "Wala pang naka-configure na pagpapadala! Bumalik mamaya."
+                    "empty": "Wala pang naka-configure na pagpapadala!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Pamahalaan ang mga kontrata. Bilang: {{amount}}",
                     "path": "[📍 Daan: {{menu}} → *Mga Kontrata*]",
-                    "empty": "Wala pang naka-configure na kontrata! Bumalik mamaya.",
+                    "empty": "Wala pang naka-configure na kontrata!",
                     "contractName": "{{userName}}: mula {{dateStart}}"
                 },
                 "view": {

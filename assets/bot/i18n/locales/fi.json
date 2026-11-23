@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Luettelo tällä hetkellä aktiivisista joukkolähetyksistä.",
                     "path": "[📍 Polku: {{menu}} → *Joukkolähetykset*]",
-                    "empty": "Joukkolähetyksiä ei ole vielä määritetty! Palaa myöhemmin."
+                    "empty": "Joukkolähetyksiä ei ole vielä määritetty!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Hallitse sopimuksia. Määrä: {{amount}}",
                     "path": "[📍 Polku: {{menu}} → *Sopimukset*]",
-                    "empty": "Sopimuksia ei ole vielä määritetty! Palaa myöhemmin.",
+                    "empty": "Sopimuksia ei ole vielä määritetty!",
                     "contractName": "{{userName}}: alkaen {{dateStart}}"
                 },
                 "view": {

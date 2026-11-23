@@ -176,11 +176,7 @@ export class Scheduler {
         const sortedMessages = [...messages].sort((a, b) => a!.position! - b.position!);
         const day = new Date().getDay();
 
-        if ((day === 0 || day === 7) && !this.sendout.mode_test) {
-            console.log("не будет");
-            
-            return null; // Воскресенье — выходной
-        } 
+        if ((day === 0 || day === 7) && !this.sendout.mode_test) return null; // Воскресенье — выходной
 
         if (sortedMessages.length === 2) {
             return [1, 3, 5].includes(day) ? sortedMessages[0] : sortedMessages[1];

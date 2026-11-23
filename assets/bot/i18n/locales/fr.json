@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Liste des envois actuellement actifs.",
                     "path": "[📍 Chemin : {{menu}} → *Envois*]",
-                    "empty": "Aucun envoi configuré pour l'instant ! Revenez plus tard."
+                    "empty": "Aucun envoi configuré pour l'instant!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Gestion des contrats. Quantité : {{amount}}",
                     "path": "[📍 Chemin : {{menu}} → *Contrats*]",
-                    "empty": "Aucun contrat configuré pour l'instant ! Revenez plus tard.",
+                    "empty": "Aucun contrat configuré pour l'instant!",
                     "contractName": "{{userName}} : à partir du {{dateStart}}"
                 },
                 "view": {

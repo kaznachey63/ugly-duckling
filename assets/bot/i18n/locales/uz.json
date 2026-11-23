@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Hozirda faol ommaviy yuborishlar ro'yxati.",
                     "path": "[📍 Yo'l: {{menu}} → *Ommaviy yuborishlar*]",
-                    "empty": "Hali ommaviy yuborishlar sozlanmagan! Keyinroq qaytib keling."
+                    "empty": "Hali ommaviy yuborishlar sozlanmagan!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Shartnomalarni boshqarish. Miqdori: {{amount}}",
                     "path": "[📍 Yo'l: {{menu}} → *Shartnomalar*]",
-                    "empty": "Hali shartnomalar sozlanmagan! Keyinroq qaytib keling.",
+                    "empty": "Hali shartnomalar sozlanmagan!",
                     "contractName": "{{userName}}: {{dateStart}} dan"
                 },
                 "view": {

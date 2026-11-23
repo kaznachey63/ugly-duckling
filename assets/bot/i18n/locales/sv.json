@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Lista över aktiva massutskick för närvarande.",
                     "path": "[📍 Sökväg: {{menu}} → *Massutskick*]",
-                    "empty": "Inga massutskick har konfigurerats än! Kom tillbaka senare."
+                    "empty": "Inga massutskick har konfigurerats än!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Hantera kontrakt. Antal: {{amount}}",
                     "path": "[📍 Sökväg: {{menu}} → *Kontrakt*]",
-                    "empty": "Inga kontrakt har konfigurerats än! Kom tillbaka senare.",
+                    "empty": "Inga kontrakt har konfigurerats än!",
                     "contractName": "{{userName}}: från {{dateStart}}"
                 },
                 "view": {

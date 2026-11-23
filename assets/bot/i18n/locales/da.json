@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Liste over aktive masseudsendelser i øjeblikket.",
                     "path": "[📍 Sti: {{menu}} → *Udsendelser*]",
-                    "empty": "Ingen udsendelser er konfigureret endnu! Kom tilbage senere."
+                    "empty": "Ingen udsendelser er konfigureret endnu!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Administrer kontrakter. Antal: {{amount}}",
                     "path": "[📍 Sti: {{menu}} → *Kontrakter*]",
-                    "empty": "Ingen kontrakter er konfigureret endnu! Kom tilbage senere.",
+                    "empty": "Ingen kontrakter er konfigureret endnu!",
                     "contractName": "{{userName}}: fra {{dateStart}}"
                 },
                 "view": {

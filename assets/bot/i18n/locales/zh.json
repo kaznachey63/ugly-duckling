@@ -433,7 +433,7 @@
                 "main": {
                     "title": "当前活跃的群发列表。",
                     "path": "[📍 路径：{{menu}} → *群发*]",
-                    "empty": "尚未设置群发！请稍后返回。"
+                    "empty": "尚未设置群发!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "合同管理。数量：{{amount}}",
                     "path": "[📍 路径：{{menu}} → *合同*]",
-                    "empty": "尚未设置合同！请稍后返回。",
+                    "empty": "尚未设置合同!",
                     "contractName": "{{userName}}：自 {{dateStart}}"
                 },
                 "view": {

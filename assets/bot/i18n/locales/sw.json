@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Orodha ya ujumbe wa wingi unaofanya kazi kwa sasa.",
                     "path": "[📍 Njia: {{menu}} → *Ujumbe kwa wingi*]",
-                    "empty": "Hakuna ujumbe wa wingi uliosanidiwa bado! Rudi baadaye."
+                    "empty": "Hakuna ujumbe wa wingi uliosanidiwa bado!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Simamia mikataba. Idadi: {{amount}}",
                     "path": "[📍 Njia: {{menu}} → *Mikataba*]",
-                    "empty": "Hakuna mikataba iliyosanidiwa bado! Rudi baadaye.",
+                    "empty": "Hakuna mikataba iliyosanidiwa bado!",
                     "contractName": "{{userName}}: kutoka {{dateStart}}"
                 },
                 "view": {

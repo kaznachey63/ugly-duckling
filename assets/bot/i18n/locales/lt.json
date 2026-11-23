@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Šiuo metu aktyvių siuntimų sąrašas.",
                     "path": "[📍 Kelias: {{menu}} → *Siuntimai*]",
-                    "empty": "Siuntimai dar nesukonfigūruoti! Grįžkite vėliau."
+                    "empty": "Siuntimai dar nesukonfigūruoti!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Sutarčių valdymas. Kiekis: {{amount}}",
                     "path": "[📍 Kelias: {{menu}} → *Sutartys*]",
-                    "empty": "Sutartys dar nesukonfigūruotos! Grįžkite vėliau.",
+                    "empty": "Sutartys dar nesukonfigūruotos!",
                     "contractName": "{{userName}}: nuo {{dateStart}}"
                 },
                 "view": {

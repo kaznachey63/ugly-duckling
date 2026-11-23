@@ -15,9 +15,11 @@ function main(ctx: MyContext): Menu<InlineKeyboard> {
         ctx.t("modules.shared.sendout.view.name.main.path", { call: ctx.session.sendout.call }),
     ];
 
+    const label = ctx.session.sendout.label ?? ctx.t("utils.shared.nameless");
+    const name = ctx.session.sendout.name ?? ctx.t("utils.shared.nameless");
     const keyboard = new InlineKeyboard()
-        .text(ctx.session.sendout.label!, `mainUpdateSendoutLabel:${sendoutId}`)
-        .text(ctx.session.sendout.name!, `mainUpdateSendoutName:${sendoutId}`)
+        .text(label, `mainUpdateSendoutLabel:${sendoutId}`)
+        .text(name, `mainUpdateSendoutName:${sendoutId}`)
         .row().text(ctx.session.sendout.call ?? ctx.t("utils.shared.nameless"), `mainUpdateSendoutCall:${sendoutId}`)
         .row().text(ctx.t("utils.shared.buttons.back"), `viewSendout:${sendoutId}`)
     ;

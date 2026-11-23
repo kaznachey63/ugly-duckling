@@ -433,7 +433,7 @@
                 "main": {
                     "title": "A jelenleg aktív tömeges küldések listája.",
                     "path": "[📍 Útvonal: {{menu}} → *Tömeges küldés*]",
-                    "empty": "Még nincsenek beállítva tömeges küldések! Jöjjön később."
+                    "empty": "Még nincsenek beállítva tömeges küldések!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Szerződések kezelése. Mennyiség: {{amount}}",
                     "path": "[📍 Útvonal: {{menu}} → *Szerződések*]",
-                    "empty": "Még nincsenek beállítva szerződések! Jöjjön később.",
+                    "empty": "Még nincsenek beállítva szerződések!",
                     "contractName": "{{userName}}: {{dateStart}}-tól"
                 },
                 "view": {

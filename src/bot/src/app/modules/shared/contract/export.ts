@@ -39,13 +39,13 @@ exportComposer.callbackQuery(/^exportContract#/, async (ctx: MyContext) => {
             case 'pdf': {
                 const pdf = new PdfService();
                 buffer = await pdf.execRender(contractData);
-                fileName = `${ctx.t("utils.export.fileName.contract")} ${ctx.t("utils.export.from")} ${common.getCurrentDate(ctx.session.contract.date_start!)}${constants.exportt.extension.pdf}`;
+                fileName = `${ctx.t("utils.export.fileName.contract")} ${ctx.t("utils.export.from")} ${common.getCurrentDate(ctx.session.contract.date_start)}${constants.exportt.extension.pdf}`;
                 break;
             }
             case 'word': {
                 const word = new WordService();
                 buffer = await word.execRender(contractData);
-                fileName = `${ctx.t("utils.export.fileName.contract")} ${ctx.t("utils.export.from")} ${common.getCurrentDate(ctx.session.contract.date_start!)}${constants.exportt.extension.docx}`;
+                fileName = `${ctx.t("utils.export.fileName.contract")} ${ctx.t("utils.export.from")} ${common.getCurrentDate(ctx.session.contract.date_start)}${constants.exportt.extension.docx}`;
                 break;
             }
         }
@@ -75,19 +75,19 @@ exportComposer.callbackQuery(/^exportContract#/, async (ctx: MyContext) => {
  * Формирование данных для экспорта договора
  */
 function dataForExport(contract: Contract): ContractExport {
-    const start = new Date(contract.date_start!);
-    const end = new Date(contract.date_end!);
+    const start = contract.date_start ? new Date(contract.date_start) : new Date();
+    const end = contract.date_end ? new Date(contract.date_end) : new Date();
 
     return {
         startDay: String(start.getDate()).padStart(2, '0'),
         startMonth: String(start.getMonth() + 1).padStart(2, '0'),
         startYear: String(start.getFullYear()).slice(-2),
-        customerName: contract.user!.name!,
+        customerName: contract.user?.name ?? 'Без имени',
         endDay: String(end.getDate()).padStart(2, '0'),
         endMonth: String(end.getMonth() + 1).padStart(2, '0'),
         endYear: String(end.getFullYear()).slice(-2),
-        priceNumber: String(contract.price),
-        priceString: contract.price_text!
+        priceNumber: String(contract.price ?? 0),
+        priceString: contract.price_text ?? ''
     };
 }
 

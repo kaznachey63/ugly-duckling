@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Liste der derzeit aktiven Mailings.",
                     "path": "[📍 Pfad: {{menu}} → *Mailings*]",
-                    "empty": "Noch keine Mailings konfiguriert! Kommen Sie später wieder."
+                    "empty": "Noch keine Mailings konfiguriert!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Verträge verwalten. Anzahl: {{amount}}",
                     "path": "[📍 Pfad: {{menu}} → *Verträge*]",
-                    "empty": "Noch keine Verträge konfiguriert! Kommen Sie später wieder.",
+                    "empty": "Noch keine Verträge konfiguriert!",
                     "contractName": "{{userName}}: vom {{dateStart}}"
                 },
                 "view": {

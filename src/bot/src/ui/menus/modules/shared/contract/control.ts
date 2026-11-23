@@ -9,7 +9,7 @@ import common from '@utils/common';
 function remove(ctx: MyContext, result: boolean): Menu<InlineKeyboard> {
     const keyboard = new InlineKeyboard();
     let text = [
-        ctx.t("modules.shared.contract.view.contract.remove.path", { dateStart: common.getCurrentDate(ctx.session.contract.date_start!) })
+        ctx.t("modules.shared.contract.view.contract.remove.path", { dateStart: common.getCurrentDate(ctx.session.contract.date_start) })
     ];
 
     if (result) {
@@ -32,29 +32,19 @@ function chooseUsers(ctx: MyContext, users: User[]): Menu<InlineKeyboard> {
     ];
 
     const keyboard = new InlineKeyboard();
-    users =  users.filter(u => u.role_id != 3);
+    users = users.filter(u => u.role_id != 3);
     users.forEach(user => {
-        if (user.id == ctx.session.contract.user_id)
-            keyboard
-            .text(
-                user.name! + ' ☑️', 
-                `pickUser#${user.id}`
-            )
-            .url(
-                constants.emoji.profile, 
-                constants.link.profileById + user.telegram_id
-            )
-            .row();
-        else
-            keyboard.text(
-                user.name!, 
-                `pickUser#${user.id}`
-            )
-            .url(
-                constants.emoji.profile, 
-                constants.link.profileById + user.telegram_id
-            )
-            .row();
+        const userName = user.name ?? ctx.t("utils.shared.nameless");
+        const callbackText = user.id == ctx.session.contract.user_id 
+            ? userName + ' ☑️' 
+            : userName;
+
+        keyboard.text(callbackText, `pickUser#${user.id}`);
+
+        if (user.telegram_id) {
+            keyboard.url(constants.emoji.profile, constants.link.profileById + user.telegram_id);
+        }
+        keyboard.row();
     });
 
     keyboard
@@ -76,16 +66,12 @@ function chooseSendouts(ctx: MyContext, sendouts: Sendout[]) {
     const keyboard = new InlineKeyboard();
         
     sendouts.forEach(sendout => {
-        if (ctx.session.contract.sendout?.some(s => s.id === sendout.id))            
-            keyboard.text(
-                sendout.call! + ' ☑️', 
-                `pickSendout#${sendout.id}`
-            ).row();
-        else
-            keyboard.text(
-                sendout.call!, 
-                `pickSendout#${sendout.id}`
-            ).row();
+        const sendoutName = sendout.call ?? ctx.t("utils.shared.nameless");
+        const callbackText = ctx.session.contract.sendout?.some(s => s.id === sendout.id)
+            ? sendoutName + ' ☑️'
+            : sendoutName;
+
+        keyboard.text(callbackText, `pickSendout#${sendout.id}`).row();
     });
 
     keyboard

@@ -433,7 +433,7 @@
                 "main": {
                     "title": "Senarai penghantaran aktif pada masa ini.",
                     "path": "[📍 Laluan: {{menu}} → *Penghantaran*]",
-                    "empty": "Tiada penghantaran yang dikonfigurasikan lagi! Kembali kemudian."
+                    "empty": "Tiada penghantaran yang dikonfigurasikan lagi!"
                 },
                 "view": {
                     "main": {
@@ -680,7 +680,7 @@
                 "main": {
                     "title": "Urus kontrak. Kuantiti: {{amount}}",
                     "path": "[📍 Laluan: {{menu}} → *Kontrak*]",
-                    "empty": "Tiada kontrak yang dikonfigurasikan lagi! Kembali kemudian.",
+                    "empty": "Tiada kontrak yang dikonfigurasikan lagi!",
                     "contractName": "{{userName}}: dari {{dateStart}}"
                 },
                 "view": {
