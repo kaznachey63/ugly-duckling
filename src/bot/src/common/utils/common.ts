@@ -89,7 +89,7 @@ async function alertSendoutIsActive(ctx: MyContext) {
     return await ctx.answerCallbackQuery({ text: ctx.t("utils.shared.titles.sendoutActive"), show_alert: true })
 }
 
-function getCurrentDate(date: Date | null | undefined): string {
+function getCurrentDate(date?: Date | null): string {
     return new Date(date ?? Date.now()).toLocaleDateString('ru-RU');
 }
 
